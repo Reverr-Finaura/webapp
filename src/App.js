@@ -128,7 +128,7 @@ import Fourth from "./pages/OnboardingNew/Fourth/Fourth";
 import Fifth from "./pages/OnboardingNew/Fifth/Fifth";
 import SignupAuthUpdated from "./pages/Auth/SignupAuthUpdated";
 import EnterOtpUpdated from "./pages/EnterOtpUpdated/EnterOtpUpdated";
-
+import User from "./pages/User/User";
 
 function App() {
   const user = useSelector(selectUser);
@@ -154,7 +154,7 @@ function App() {
 
   console.log(user);
 
-  return(
+  return (
     <>
       <Toaster />
       <Routes>
@@ -167,12 +167,11 @@ function App() {
             {/* <Route path="/login" element={<LoginNew />} /> */}
             <Route path="/gallery" element={<HomeNotLoggedIn />}></Route>
             <Route path="/onboarding-first" element={<First />}></Route>
-        <Route path="/onboarding-second" element={<Second />}></Route>
-        <Route path="/onboarding-third" element={<Third />}></Route>
-        <Route path="/onboarding-fourth" element={<Fourth />}></Route>
-        <Route path="/onboarding-fifth" element={<Fifth />}></Route>
-              <Route path=":postId" element={<SharedCommunityPost />}></Route>
-            
+            <Route path="/onboarding-second" element={<Second />}></Route>
+            <Route path="/onboarding-third" element={<Third />}></Route>
+            <Route path="/onboarding-fourth" element={<Fourth />}></Route>
+            <Route path="/onboarding-fifth" element={<Fifth />}></Route>
+            <Route path=":postId" element={<SharedCommunityPost />}></Route>
           </>
         )}
         {/* <Route path="/login-test" element={<LoginTesting />}/> */}
@@ -181,10 +180,10 @@ function App() {
         <Route path="/password-reset" element={<PasswordReset />} />
         {newUser ? (
           <>
-          <Route path="enterotp" element={<EnterOtpUpdated />}></Route>
+            <Route path="enterotp" element={<EnterOtpUpdated />}></Route>
           </>
         ) : null}
-         <Route path="/onboarding-first" element={<First />}></Route>
+        <Route path="/onboarding-first" element={<First />}></Route>
         <Route path="/onboarding-second" element={<Second />}></Route>
         <Route path="/onboarding-third" element={<Third />}></Route>
         <Route path="/onboarding-fourth" element={<Fourth />}></Route>
@@ -200,13 +199,19 @@ function App() {
         <Route path="/startup-review" element={<Review />} />
         <Route path="/startup-verification" element={<Verification />} />
         <Route path="/schedule" element={<Schedule />}></Route>
-        <Route path="/schedule/:id/:userEmail" element={<ScheduleTesting/>}></Route>
+        <Route
+          path="/schedule/:id/:userEmail"
+          element={<ScheduleTesting />}
+        ></Route>
         <Route path="/" element={<Dashboard />} />
         {/* <Route path="/knowledge" element={<Knowledge />}></Route> */}
         <Route path="/knowledge" element={<KnowledgeTesting />}></Route>
         {/* <Route path="/com" element={<BusinessPlanningSlides />}></Route> */}
-        <Route path="/mentors" element={<MentorTesting/>}></Route>
-        <Route path="/mentors-search/:category" element={<MentorSearch/>}></Route>
+        <Route path="/mentors" element={<MentorTesting />}></Route>
+        <Route
+          path="/mentors-search/:category"
+          element={<MentorSearch />}
+        ></Route>
         <Route path="/mentor" element={<Mentor />}></Route>
         <Route path="/mentorform" element={<MentorForm />}></Route>
         <Route path="/mentordetails" element={<MentorMoreDetails />}></Route>
@@ -218,7 +223,10 @@ function App() {
           {/* <Route path="/community" element={<CommunityFinal />}> */}
           <Route path=":postId" element={<SharedCommunityPost />}></Route>
         </Route>
-        <Route path="/schedule/:id/:userEmail" element={<ScheduleTesting />}></Route>
+        <Route
+          path="/schedule/:id/:userEmail"
+          element={<ScheduleTesting />}
+        ></Route>
         <Route path="/betaslide" element={<BetaSlide />}></Route>
         <Route path="/eeslides" element={<EESlides />}></Route>
         <Route
@@ -284,7 +292,7 @@ function App() {
         <Route path="/esop" element={<ESOP />}></Route>
         <Route path="/esop-slides" element={<ESOP_Slides />}></Route>
         {/* <Route path="/idea-validation" element={<IdeaValidation />}></Route> */}
-        <Route path="/idea-validation" element={<CourcePageTesting/>}></Route>
+        <Route path="/idea-validation" element={<CourcePageTesting />}></Route>
         <Route path="/idea-validation-slides" element={<IV_Slides />}></Route>
         <Route
           path="/fundraising-and-means"
@@ -310,6 +318,8 @@ function App() {
         {/* <Route path="/userprofile" element={<UserProfile />}></Route> */}
         <Route path="/userprofile" element={<UserProfileTesting />}></Route>
         <Route path="/editProfile" element={<UserEditProfileTesting />}></Route>
+        <Route path="/user/:id" element={<User />}></Route>
+
         {/* <Route path="/user-edit-profile" element={<UserEditProfile />}></Route> */}
         <Route
           path="/change-user-password"
@@ -366,15 +376,18 @@ function App() {
         <Route path="/messages" element={<Chat />}></Route>
         <Route path="/dummy_test" element={<DummyTest />}></Route>
         <Route path="/discover" element={<Discover />}></Route>
-        <Route path="/discover/featured" element={<Featured/>}></Route>
-        <Route path="/discover/accounting" element={<Accounting/>}></Route>
-        <Route path="/discover/business" element={<Business/>}></Route>
-        <Route path="/discover/consulting" element={<Consulting/>}></Route>
-        <Route path="/discover/gaming" element={<Gaming/>}></Route>
-        <Route path="/discover/design" element={<Design/>}></Route>
-        <Route path="/discover/enterpreneurship" element={<Enterpreneurship/>}></Route>
-        <Route path="/discover/finance" element={<Finance/>}></Route>
-        <Route path="/discover/healthcare" element={<Healthcare/>}></Route>
+        <Route path="/discover/featured" element={<Featured />}></Route>
+        <Route path="/discover/accounting" element={<Accounting />}></Route>
+        <Route path="/discover/business" element={<Business />}></Route>
+        <Route path="/discover/consulting" element={<Consulting />}></Route>
+        <Route path="/discover/gaming" element={<Gaming />}></Route>
+        <Route path="/discover/design" element={<Design />}></Route>
+        <Route
+          path="/discover/enterpreneurship"
+          element={<Enterpreneurship />}
+        ></Route>
+        <Route path="/discover/finance" element={<Finance />}></Route>
+        <Route path="/discover/healthcare" element={<Healthcare />}></Route>
       </Routes>
     </>
   );
