@@ -47,7 +47,8 @@ const bodyData={
     // amount:"1",
     currency:"INR",
     customer_id:uuid(),
-    customer_phone:userDocc?.phone,
+    // customer_phone:userDocc?.phone,
+    customer_phone:"+911234567895",
     
 }
 const requestOptions = {
@@ -88,13 +89,14 @@ console.log("DATA👀")
 //         toast.error(error.message)
 // 		console.error(error);
 // 	  });
-fetch('https://server.reverrapp.com/webcftoken', requestOptions)
-    .then(response => {
-        response.json()
-        .then(data=>setSessionIdTokken(data.token))
-        .catch((err)=>{toast.error(err.message)})
-    }).catch((err)=>{toast.error(err.message)});
+// fetch('https://server.reverrapp.com/webcftoken', requestOptions)
+//     .then(response => {
+//         response.json()
+//         .then(data=>setSessionIdTokken(data.token))
+//         .catch((err)=>{toast.error(err.message)})
+//     }).catch((err)=>{toast.error(err.message)});
 axios.post("https://server.reverrapp.com/webcftoken",bodyData)
+// axios.post("http://localhost:4000/webcftoken",bodyData)
 .then((res)=>{setSessionIdTokken(res.data.token)})
 .catch((err)=>{toast.error(err.message)})
 }
