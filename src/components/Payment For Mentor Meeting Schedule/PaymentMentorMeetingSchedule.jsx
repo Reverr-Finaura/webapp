@@ -57,7 +57,7 @@ const requestOptions = {
     body: JSON.stringify(bodyData)
 };
 console.log(bodyData)
-console.log("DATA👀")
+// console.log("DATA👀")
 // const { id, amount, currency, customer_id, customer_phone } = bodyData;
 // 	const options = {
 // 	  method: "POST",
@@ -95,8 +95,8 @@ console.log("DATA👀")
 //         .then(data=>setSessionIdTokken(data.token))
 //         .catch((err)=>{toast.error(err.message)})
 //     }).catch((err)=>{toast.error(err.message)});
-axios.post("https://server.reverrapp.com/webcftoken",bodyData)
 // axios.post("http://localhost:4000/webcftoken",bodyData)
+axios.post("https://server.reverrapp.com/webcftoken",bodyData)
 .then((res)=>{setSessionIdTokken(res.data.token)})
 .catch((err)=>{toast.error(err.message)})
 }
