@@ -57,7 +57,7 @@ const requestOptions = {
     body: JSON.stringify(bodyData)
 };
 console.log(bodyData)
-console.log("DATA👀")
+// console.log("DATA👀")
 // const { id, amount, currency, customer_id, customer_phone } = bodyData;
 // 	const options = {
 // 	  method: "POST",
