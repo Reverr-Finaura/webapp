@@ -95,8 +95,8 @@ console.log("DATA👀")
 //         .then(data=>setSessionIdTokken(data.token))
 //         .catch((err)=>{toast.error(err.message)})
 //     }).catch((err)=>{toast.error(err.message)});
-axios.post("https://server.reverrapp.com/webcftoken",bodyData)
 // axios.post("http://localhost:4000/webcftoken",bodyData)
+axios.post("https://server.reverrapp.com/webcftoken",bodyData)
 .then((res)=>{setSessionIdTokken(res.data.token)})
 .catch((err)=>{toast.error(err.message)})
 }
