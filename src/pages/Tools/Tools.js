@@ -260,7 +260,7 @@ if(dataFilter.toLowerCase()==="business validation"){setPptToShow([]);setDocTagT
 if(dataFilter.toLowerCase()==="business plan"){setPptToShow([]);setDocTagToShow(["business plan"]);return}
 if(dataFilter.toLowerCase()==="financial models"){setPptToShow([]);setDocTagToShow(["financial models"]);return}
 if(dataFilter.toLowerCase()==="fundraising"){setPptToShow([]);setDocTagToShow(["fundraising"]);return}
-if(dataFilter.toLowerCase()==="hr"){setPptToShow([]);setDocTagToShow(["hr"]);return}
+if(dataFilter.toLowerCase()==="hr"){setPptToShow([]);setDocTagToShow(["HR"]);return}
 if(dataFilter.toLowerCase()==="legal"){setPptToShow([]);setDocTagToShow(["legal"]);return}
 if(dataFilter.toLowerCase()==="startup basics"){setPptToShow([]);setDocTagToShow(["startup basics"]);return}
 },[dataFilter,pptList,docList,width])

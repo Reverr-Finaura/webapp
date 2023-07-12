@@ -231,7 +231,8 @@ console.log(newsData)
     </div>
 
     <div className='align'>
-  <div className='row' style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
+    {/* style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}} */}
+  <div className='row' >
     
     { newsData && newsData.slice(0,6).map( (news) => {
         return(

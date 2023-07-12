@@ -46,7 +46,7 @@ const SidebarFinal = () => {
     <>
       <section id="sidebar-final">
         {/* <img className='sidebar-final-brand-logo' src="./images/Frame 6266720.png" alt="brand-logo" /> */}
-        <NavLink
+        {/* <NavLink
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
@@ -56,7 +56,26 @@ const SidebarFinal = () => {
             <img className="sidebar-final-icon" src={dashL} alt="icon" />
             <p className="sidebar-final-icon-name">Dashboard</p>
           </div>
-        </NavLink>
+        </NavLink> */}
+
+{pptPath ? (
+          <button
+            onClick={() => navigate(-1)}
+            className="sidebar-final-logout-btn"
+          >
+            {" "}
+            <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}} /> Back
+          </button>
+        ) : docPath ? (
+          <button
+            onClick={() => navigate(-1)}
+            className="sidebar-final-logout-btn"
+          >
+            {" "}
+            <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}}/> Back
+          </button>
+        ) : null}
+        
         <NavLink
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
@@ -164,7 +183,7 @@ const SidebarFinal = () => {
             <p className="sidebar-final-icon-name">Messages</p>
           </div>
         </NavLink>
-        {pptPath ? (
+        {/* {pptPath ? (
           <button
             onClick={() => navigate(-1)}
             className="sidebar-final-logout-btn"
@@ -180,7 +199,7 @@ const SidebarFinal = () => {
             {" "}
             <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}}/> Back
           </button>
-        ) : null}
+        ) : null} */}
       </section>
       {chat && <Chat />}
     </>

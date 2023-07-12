@@ -9,7 +9,7 @@ const ToolsSkeleton = ({ cards }) => {
     .map((item, index) => {
       return (
         <>
-          <SkeletonTheme baseColor="#e6e4e4dc" highlightColor="grey">
+          <SkeletonTheme baseColor="rgb(0, 12, 31)" highlightColor="grey">
             <div className={styles.card} key={index}>
               <div className={styles.cardTop}>
                 <Skeleton

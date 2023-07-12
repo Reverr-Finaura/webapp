@@ -41,7 +41,7 @@ const NewsCard = (props) => {
             <p className='newsdate'>{props.time}</p>
             <h4 style={{color:'white'}}>{props.title}</h4>
             <div className='newslink'>
-            <a href={props.url}>Read More</a>
+            <a className='newsCardanchor' href={props.url}>Read More</a>
             </div>
           </div>
 

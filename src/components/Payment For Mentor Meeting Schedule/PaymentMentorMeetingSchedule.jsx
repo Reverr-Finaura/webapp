@@ -33,6 +33,7 @@ function addMinutes(date, minutes) {
 
 const handlePaymentClick=async()=>{
 
+    // console.log("userdoc",userDocc);
 if(userDocc?.phone===""||userDocc?.phone===undefined||userDocc?.phone===null){
     toast.error("Kindly Fill your Mobile Number Info in your Profile");return
 }
@@ -47,8 +48,9 @@ const bodyData={
     // amount:"1",
     currency:"INR",
     customer_id:uuid(),
-    // customer_phone:userDocc?.phone,
-    customer_phone:"+911234567895",
+    customer_phone:`+${userDocc?.countryCode}${userDocc?.phone}`,
+    
+    // customer_phone:"+911234567895",
     
 }
 const requestOptions = {

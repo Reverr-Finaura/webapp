@@ -10,12 +10,15 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import { BsArrowRightSquareFill ,BsArrowLeftSquareFill} from "react-icons/bs";
 import { DocumentViewer } from "react-documents";
 import load from "../../../images/Pulse-1s-200px.svg";
+import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const PPTTemplatesViewer = () => {
   const pptId = useParams().id;
   const [pptLink, setPPtLink] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
   const [isSideBarCalled, setIsSideBarCalled] = useState(true);
+
+
   //UPDATE WIDTH
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -54,14 +57,17 @@ const PPTTemplatesViewer = () => {
             
             {isSideBarCalled? <BsArrowLeftSquareFill
             onClick={() => setIsSideBarCalled((e) => !e)}
+            style={{color:"#276acf"}}
             className={styles.arroww}
           /> :<BsArrowRightSquareFill
           onClick={() => setIsSideBarCalled((e) => !e)}
+          style={{color:"#276acf",backgroundColor:"white",borderRadius:"4px"}}
           className={styles.arroww}
         />}
             <SidebarFinal />
           </div>
-          <NavBarFinal />
+          {/* <NavBarFinal /> */}
+          <NavBarFinalDarkMode />
         </>
       ) : (
         <>
