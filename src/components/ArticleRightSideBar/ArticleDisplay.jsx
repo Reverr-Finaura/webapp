@@ -74,7 +74,7 @@ const ArticleDisplay = (props) => {
           <p className='article-desc'>{limitedDescription}</p>
         </div>
         <div>
-          <a className='article-link' href="">Read More</a>
+          {/* <a className='article-link' href="">Read More</a> */}
         </div>
       </div>
     </>

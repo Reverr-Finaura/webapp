@@ -129,6 +129,7 @@ import Fifth from "./pages/OnboardingNew/Fifth/Fifth";
 import SignupAuthUpdated from "./pages/Auth/SignupAuthUpdated";
 import EnterOtpUpdated from "./pages/EnterOtpUpdated/EnterOtpUpdated";
 import User from "./pages/User/User";
+import NUDiscover from "./pages/NUDiscover/NUDiscover";
 
 function App() {
   const user = useSelector(selectUser);
@@ -165,6 +166,7 @@ function App() {
             <Route path="/signup" element={<SignupAuthUpdated />}></Route>
             <Route path="/login" element={<LoginTesting />} />
             {/* <Route path="/login" element={<LoginNew />} /> */}
+            <Route path="/discover/nu" element={< NUDiscover/>}></Route>
             <Route path="/gallery" element={<HomeNotLoggedIn />}></Route>
             <Route path="/onboarding-first" element={<First />}></Route>
             <Route path="/onboarding-second" element={<Second />}></Route>

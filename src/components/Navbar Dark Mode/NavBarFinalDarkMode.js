@@ -648,6 +648,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               <BiHomeAlt className={style.navbarIconsImg} />
               <p className={style.navbarIconsName}>Home</p>
             </div>
+            {!isLoggedIn ? (
             <div
               className={style.navbarIconsImgName}
               onClick={() => {
@@ -664,7 +665,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
             </div>
-
+            ) : <div
+            className={style.navbarIconsImgName}
+            onClick={() => {
+              if (!isLoggedIn) {
+                return openModal();
+              } else {
+                navigate("/discover/nu");
+              }
+            }}
+          >
+            <AiOutlineGlobal className={style.navbarIconsImg} />
+            <p className={style.navbarIconsName}>Discover</p>
+            {/* <NavLink className="navlinks" to="/discover">
+              <p className={style.navbarIconsName}>Discover</p>
+            </NavLink> */}
+          </div>}
             {!isLoggedIn ? (
               <div
                 className={style.navbarIconsImgName}

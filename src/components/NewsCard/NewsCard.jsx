@@ -29,7 +29,7 @@ const NewsCard = (props) => {
   // let {title, url} = this.props;
 
 
-    
+    console.log("props",props)
 
   return (
     <>
@@ -41,8 +41,7 @@ const NewsCard = (props) => {
             <p className='newsdate'>{props.time}</p>
             <h4 style={{color:'white'}}>{props.title}</h4>
             <div className='newslink'>
-            <a href={props.url}>Read More</a>
-            </div>
+            <a href={props.url} style={{color:"white", textDecoration:"none"}} target="_blank" >Read More</a>        </div>
           </div>
 
       </div>
