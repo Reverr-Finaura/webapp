@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
+import toast, { Toaster } from "react-hot-toast";
 
 const UserProfileTesting = () => {
   const navigate = useNavigate();
@@ -77,10 +78,15 @@ const UserProfileTesting = () => {
 
   return (
     <>
+      <Toaster position="bottom-left" reverseOrder={false} />
       <NavBarFinalDarkMode />
       <div className={styles.profileWrapper}>
         <div className={styles.profileContainer}>
-          <div className={styles.profileHeader} style={{cursor:"pointer"}} onClick={() => navigate("/")}>
+          <div
+            className={styles.profileHeader}
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          >
             <img src="/images/profileArrowLeft.svg" alt="back" />
             <p>My Profile</p>
           </div>
@@ -99,42 +105,82 @@ const UserProfileTesting = () => {
             </div>
             <div className={styles.profileInfo}>
               <div className={styles.profileUserIcon}>
-                <img src="/images/fluent_call-24-regular.svg" alt="Linkedin" onClick={()=>navigator.clipboard.writeText(userDoc.phone)}/>
-                <img src="/images/logos_google-gmail.svg" alt="Linkedin" onClick={()=>navigator.clipboard.writeText(userDoc.email)} />
-                <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
+                <img
+                  src="/images/fluent_call-24-regular.svg"
+                  alt="Linkedin"
+                  onClick={() => {
+                    navigator.clipboard.writeText(userDoc.phone);
+                    toast.success("Phone number copied to clipboard");
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+                <img
+                  src="/images/logos_google-gmail.svg"
+                  alt="Linkedin"
+                  onClick={() => {
+                    navigator.clipboard.writeText(userDoc.email);
+                    toast.success("Email copied to clipboard");
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+                <img
+                  src="/images/skill-icons_linkedin.svg"
+                  alt="Linkedin"
+                  onClick={() => {
+                    navigator.clipboard.writeText(userDoc.linkedin);
+                    toast.success("Linkedin profile copied to clipboard");
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
               </div>
               <div className={styles.profileInfoName}>
-                <p style={{textTransform:"capitalize"}}>{userDoc?.name}</p>
+                <p style={{ textTransform: "capitalize" }}>{userDoc?.name}</p>
               </div>
               <div className={styles.profileDesignation}>
-              <p>{userDoc?.designation?userDoc.designation:"Add your Designation"}</p>
+                <p>
+                  {userDoc?.designation
+                    ? userDoc.designation
+                    : "Add your Designation"}
+                </p>
               </div>
               <div className={styles.profileLocation}>
                 <img
                   src="/images/basil_location-outline.svg"
                   alt="ProfileImage"
                 />
-                <p>{userDoc?.state?userDoc.country?userDoc.state+ ", " + userDoc.country:"Add your country" :"Add your location"}</p>
+                <p>
+                  {userDoc?.state
+                    ? userDoc.country
+                      ? userDoc.state + ", " + userDoc.country
+                      : "Add your country"
+                    : "Add your location"}
+                </p>
               </div>
               <div className={styles.profilePost}>
-                <p>{userDoc?.network ? userDoc.network.length : 0} Connections</p>
+                <p>
+                  {userDoc?.network ? userDoc.network.length : 0} Connections
+                </p>
               </div>
-              <button onClick={() => navigate("/editprofile")} >Edit Profile</button>
+              <button onClick={() => navigate("/editprofile")}>
+                Edit Profile
+              </button>
             </div>
           </div>
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
-              <p>
-              {userDoc?.about?userDoc.about:"Add your Bio"}
-              </p>
+              <p>{userDoc?.about ? userDoc.about : "Add your Bio"}</p>
             </div>
             <div className={styles.connect}>
               <p>How can we connect?</p>
-              <div style={{flexDirection:"column"}}>
-              {userDoc?.Vibe_Data?.How_To_Meet? userDoc.Vibe_Data.How_To_Meet.map((item)=>{
-               return <button style={{marginRight:"25px"}}>{item}</button>
-              }):"Update your How to connect"}
+              <div style={{ flexDirection: "column" }}>
+                {userDoc?.Vibe_Data?.How_To_Meet
+                  ? userDoc.Vibe_Data.How_To_Meet.map((item) => {
+                      return (
+                        <button style={{ marginRight: "25px" }}>{item}</button>
+                      );
+                    })
+                  : "Update your How to connect"}
               </div>
             </div>
           </div>
@@ -143,15 +189,19 @@ const UserProfileTesting = () => {
               <p>Education</p>
               <div className={styles.educationInfo}>
                 <ul>
-                  {userDoc?.education? 
-                  userDoc.education.map((item)=>{
-                    return <li>{item.degree? item.degree : null}, {item.institute?item.institute:null} {item.year? item.year: null}</li>
-                  })
-                  :
-                  <li>Add your Education</li>
-                  }
-                  
-                  
+                  {userDoc?.education ? (
+                    userDoc.education.map((item) => {
+                      return (
+                        <li>
+                          {item.degree ? item.degree : null},{" "}
+                          {item.institute ? item.institute : null}{" "}
+                          {item.year ? item.year : null}
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li>Add your Education</li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -159,23 +209,34 @@ const UserProfileTesting = () => {
               <p>My Work Experience</p>
               <div className={styles.educationInfo}>
                 <ul>
-                {userDoc?.experience? 
-                  userDoc.experience.map((item)=>{
-                    return <li>{item.designation? item.designation : null} at {item.company?item.company:null} <span style={{fontSize:"14px", color:"gray"}}>{item.tenure? item.tenure: null}</span></li>
-                  })
-                  :
-                  <li>Add your Experience</li>
-                  }
+                  {userDoc?.experience ? (
+                    userDoc.experience.map((item) => {
+                      return (
+                        <li>
+                          {item.designation ? item.designation : null} at{" "}
+                          {item.company ? item.company : null}{" "}
+                          <span style={{ fontSize: "14px", color: "gray" }}>
+                            {item.tenure ? item.tenure : null}
+                          </span>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li>Add your Experience</li>
+                  )}
                 </ul>
               </div>
             </div>
             <div className={styles.experienceConnect}>
               <p>I am here </p>
               <div className={styles.experienceBtn}>
-              {userDoc?.Vibe_Data?.Here_for? userDoc.Vibe_Data.Here_for.map((item)=>{
-               return <button style={{marginRight:"25px"}}>{item}</button>
-              }):"Update your How for"}
-
+                {userDoc?.Vibe_Data?.Here_for
+                  ? userDoc.Vibe_Data.Here_for.map((item) => {
+                      return (
+                        <button style={{ marginRight: "25px" }}>{item}</button>
+                      );
+                    })
+                  : "Update your How for"}
               </div>
             </div>
           </div>
@@ -184,7 +245,9 @@ const UserProfileTesting = () => {
               <p>Social Handles</p>
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
-                <p>{userDoc?.linkedin?userDoc.linkedin:"Add your linkedin"}</p>
+                <p>
+                  {userDoc?.linkedin ? userDoc.linkedin : "Add your linkedin"}
+                </p>
               </div>
             </div>
           </div>

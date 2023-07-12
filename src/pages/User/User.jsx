@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
+import toast, { Toaster } from "react-hot-toast";
 
 const User = () => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ const User = () => {
 
   return (
     <>
+      <Toaster position="bottom-left" />
       <NavBarFinalDarkMode />
       <div className={styles.profileWrapper}>
         <div className={styles.profileContainer}>
@@ -108,15 +110,28 @@ const User = () => {
               <div className={styles.profileUserIcon}>
                 <img
                   src="/images/fluent_call-24-regular.svg"
-                  alt="Linkedin"
-                  onClick={() => navigator.clipboard.writeText(userDoc.phone)}
+                  alt="Call"
+                  onClick={() => {
+                    navigator.clipboard.writeText(userDoc.phone);
+                    toast.success("Phone Number Copied");
+                  }}
                 />
                 <img
                   src="/images/logos_google-gmail.svg"
-                  alt="Linkedin"
-                  onClick={() => navigator.clipboard.writeText(userDoc.email)}
+                  alt="Gmail"
+                  onClick={() => {
+                    navigator.clipboard.writeText(userDoc.email);
+                    toast.success("Email Copied");
+                  }}
                 />
-                <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
+                <img
+                  src="/images/skill-icons_linkedin.svg"
+                  alt="Linkedin"
+                  onClick={() => {
+                    navigator.clipboard.writeText(userDoc.linkedin);
+                    toast.success("Linkedin Copied");
+                  }}
+                />
               </div>
               <div className={styles.profileInfoName}>
                 <p style={{ textTransform: "capitalize" }}>{userDoc?.name}</p>
@@ -146,7 +161,7 @@ const User = () => {
                   {userDoc?.network ? userDoc.network.length : 0} Connections
                 </p>
               </div>
-              <button>Add Friend</button>
+              <button>Add Connection</button>
             </div>
           </div>
           <div className={styles.profileContent}>

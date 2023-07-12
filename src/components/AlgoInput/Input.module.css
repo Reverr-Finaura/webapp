@@ -20,7 +20,8 @@
   outline: none;
   width: 100%;
   color: var(--main-text);
-  background: rgba(140, 139, 139, 0.2);
+  /* background: rgba(140, 139, 139, 0.2); */
+  background-color: #fff;
   border-radius: 5px;
 }
 

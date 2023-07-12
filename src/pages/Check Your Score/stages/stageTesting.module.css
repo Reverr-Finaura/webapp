@@ -19,7 +19,7 @@
 }
 
 .stage_form {
-  padding: 1rem 2rem 0 0;
+  /* padding: 1rem 1rem 0 0; */
 }
 
 .stage_form > h3 {
@@ -42,8 +42,8 @@
 .input_flex {
   display: flex;
   align-items: center;
-  gap: 9%;
-  margin-right: 1rem;
+  /* width: 30rem; */
+  gap: 10%;
 }
 
 .input_flex_radio {

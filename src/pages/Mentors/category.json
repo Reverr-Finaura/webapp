@@ -62,9 +62,5 @@
   {
     "categoryName": "Fashion",
     "image": "/images/categoryImages/Fashion.png"
-  },
-  {
-    "categoryName": "Other Categories",
-    "image": "/images/categoryImages/Other.png"
   }
 ]

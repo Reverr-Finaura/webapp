@@ -516,8 +516,8 @@ const UserEditProfileTesting = () => {
                       className={
                         formData?.Vibe_Data?.How_To_Meet &&
                         formData?.Vibe_Data?.How_To_Meet?.includes(item)
-                          ? styles.connectButtonActive
-                          : styles.connectButton
+                          ? styles.connectButton
+                          : styles.connectButtonActive
                       }
                       onClick={() => handleConnectVia(item)}
                     >

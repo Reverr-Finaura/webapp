@@ -3,7 +3,7 @@
   height: 100vh;
   overflow-y: scroll;
   color: #fff;
-  padding: 4rem 4rem;
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   margin-top: 5rem;
@@ -11,7 +11,7 @@
 .title {
   color: #4cc9ff;
   font-size: 3rem;
-  font-family: 'Reem Kufi';
+  font-family: "Reem Kufi";
   font-weight: 500;
   display: inline;
 }
@@ -21,27 +21,33 @@
 }
 
 .title {
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
   margin-bottom: 2rem;
 }
 
 .title p {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .title p img {
-  margin-right: 25px; 
+  margin-right: 25px;
   cursor: pointer;
 }
 .searchResultContainer {
-    display:  flex;
-    flex-wrap: wrap;
-    gap: 4rem;
-    margin-left: 4rem;
-    margin-right: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* margin-left: 2rem; */
+  /* margin-right: 3rem; */
+  padding: 0rem 5%;
+}
+@media screen and (max-width: 1350px) {
+  .searchResultContainer {
+    padding: 0rem 1%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -79,4 +85,3 @@
     align-items: center;
   }
 }
-

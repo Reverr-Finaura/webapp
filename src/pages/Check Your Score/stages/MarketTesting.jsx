@@ -208,7 +208,7 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
             onChange={handleChange}
             title={"URL of Website with Market Size Information:"}
             placeholder={"Enter here"}
-            type={"url"}
+            type={"text"}
           />
         </div>
         <DropDown

@@ -19,12 +19,7 @@ const MentorSearch = () => {
       const q = query(mentorsRef);
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        if (
-          doc.data().userType === "Mentor" &&
-          doc.data().domain &&
-          // doc.data().industry !== ""&&
-          doc.data().mentorUniqueID
-        ) {
+        if (doc.data().userType === "Mentor" && doc.data().domain) {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
           });
@@ -39,7 +34,7 @@ const MentorSearch = () => {
     fetchMentorExpertise();
   }, []);
 
-
+  console.log(mentorArray);
 
   useEffect(() => {
     mentorArray.map((item) => {
@@ -61,7 +56,11 @@ const MentorSearch = () => {
         let string = data.domain[i].toLowerCase();
         let isMatch = false;
         for (let j = 0; j < searchWords.length; j++) {
-          if (string.includes(searchWords[j]) && searchWords[j] !== "and" && searchWords[j] !== "or") {
+          if (
+            string.includes(searchWords[j]) &&
+            searchWords[j] !== "and" &&
+            searchWords[j] !== "or"
+          ) {
             isMatch = true;
             break;
           }
@@ -92,7 +91,7 @@ const MentorSearch = () => {
 
   return (
     <>
-    <NavBarFinalDarkMode/>
+      <NavBarFinalDarkMode />
       <div className={styles.searchPageWrapper}>
         <div className={styles.title}>
           <p>

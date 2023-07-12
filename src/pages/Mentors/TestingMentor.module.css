@@ -83,6 +83,10 @@
   font-family: Reem Kufi;
   font-weight: 700;
 }
+.skeletonLoadingCont {
+  display: flex;
+  gap: 1rem;
+}
 /*   Card */
 .card {
   border-radius: 16.468px;

@@ -146,7 +146,7 @@ const GetFundedPage = () => {
         CompanyName: getFundedInput.StartUpName,
         FounderName: getFundedInput.Name,
         website: getFundedInput.WebsiteLink,
-      }
+      };
       var templateParams = {
         from_name: "Reverr",
         Startup_name: startupObject.CompanyName,
@@ -155,14 +155,13 @@ const GetFundedPage = () => {
         startupObject,
       };
 
-      const result=await emailjs
-        .send(
-          "service_lfmmz8k",
-          "template_2vvgsan",
-          templateParams,
-          "dVExxiI8hYMCyc0sY"
-        )
-       
+      const result = await emailjs.send(
+        "service_lfmmz8k",
+        "template_2vvgsan",
+        templateParams,
+        "dVExxiI8hYMCyc0sY"
+      );
+
       console.log("SUCCESS!", result.status, result.text);
       toast("Sucessfully Applied");
       setTimeout(() => {
@@ -264,7 +263,7 @@ const GetFundedPage = () => {
                 placeholder="Enter here"
                 value={getFundedInput.StartUpName}
               />
-              <div className="input_flex">
+              {/* <div className="input_flex"> */}
                 <Input
                   onChange={handleGetFundedInputChange}
                   type="text"
@@ -273,15 +272,15 @@ const GetFundedPage = () => {
                   placeholder="xyz@gmail.com"
                   value={getFundedInput.Email}
                 />
-                <Input
-                  onChange={handleGetFundedInputChange}
-                  type="text"
-                  name="Phone"
-                  label="Phone No*"
-                  placeholder="+91 -"
-                  value={getFundedInput.Phone}
-                />
-              </div>
+              {/* </div> */}
+              <Input
+                onChange={handleGetFundedInputChange}
+                type="text"
+                name="Phone"
+                label="Phone No*"
+                placeholder="+91 -"
+                value={getFundedInput.Phone}
+              />
 
               <Input
                 onChange={handleGetFundedInputChange}

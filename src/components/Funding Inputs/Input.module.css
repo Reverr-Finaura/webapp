@@ -9,16 +9,27 @@
   font-weight: 500;
   font-size: 15px;
   line-height: 16px;
+  margin-left: 0rem;
 }
-
-.funding_input_div > input {
-  background: #fff;
+.input > input,
+.textarea > textarea,
+.dropdown > select {
+  border: none;
   outline: none;
-  border: 0.819921px solid #eff0f7;
-  box-shadow: 0px 1.63984px 4.91953px rgba(19, 18, 66, 0.07);
-  height: 30px;
-  width: 80%;
-  margin-top: 0.6rem;
-  font-size: 15px;
-  border-radius: 37.7164px;
+  /* width: 100%; */
+  background: #f2f2f2;
+  color: #000;
+  border-radius: 5px;
+}
+.funding_input_div > input {
+  border: none;
+  outline: none;
+  /* width: 100%; */
+  background: #f2f2f2;
+  color: #000;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
 }

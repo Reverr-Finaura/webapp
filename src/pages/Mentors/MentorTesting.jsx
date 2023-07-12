@@ -3,13 +3,15 @@ import styles from "./TestingMentor.module.css";
 import ProfileCardTesting from "./ProfileCardTesting";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
-import industry from "./Industry.json";
 import categories from "./category.json";
 import IndustryCard from "../../components/IndustryCard/IndustryCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import SearchIcon from "../../images/Search.svg";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import ToolsSkeleton from "../../components/Post Skeleton/Tools Skeleton/ToolsSkeleton";
+import PostSkeleton from "../../components/Post Skeleton/PostSkeleton";
+import MentorCardSkeleton from "./MentorCardSkeleton";
 
 const MentorTesting = () => {
   const responsive = {
@@ -42,12 +44,8 @@ const MentorTesting = () => {
       const q = query(mentorsRef);
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        if (
-          doc.data().userType === "Mentor" &&
-          doc.data().domain &&
-          // doc.data().industry !== ""&&
-          doc.data().mentorUniqueID
-        ) {
+        console.log(doc.data());
+        if (doc.data().userType === "Mentor" && doc.data().domain) {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
           });
@@ -61,7 +59,6 @@ const MentorTesting = () => {
     }
     fetchMentorExpertise();
   }, []);
-
   useEffect(() => {
     mentorArray.map((item) => {
       setIndustryArray((prev) => {
@@ -148,9 +145,21 @@ const MentorTesting = () => {
               keyBoardControl={true}
               customTransition="transform 300ms ease-in-out"
             >
-              {featuredMentors.map((item, idx) => {
+              {featuredMentors.length > 0 ? (
+                featuredMentors.map((item, idx) => {
+                  return <ProfileCardTesting key={idx} mentor={item} />;
+                })
+              ) : (
+                <div className={styles.skeletonLoadingCont}>
+                  <MentorCardSkeleton cards={3} />
+                </div>
+              )}
+              {/* {featuredMentors.map((item, idx) => {
                 return <ProfileCardTesting key={idx} mentor={item} />;
-              })}
+              })} */}
+              {/* <div className={styles.skeletonLoadingCont}>
+                {featuredMentors.length == 0 && <ToolsSkeleton cards={2} />}
+              </div> */}
             </Carousel>
           </div>
         </div>

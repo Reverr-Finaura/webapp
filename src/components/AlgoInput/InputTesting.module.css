@@ -20,15 +20,28 @@
 .dropdown > select {
   border: none;
   outline: none;
-  width: 100%;
-  /* color: var(--main-text); */
+  /* width: 100%; */
   background: #f2f2f2;
   color: #000;
   border-radius: 5px;
 }
+.input input[type="text"],
+.input input[type="email"],
+.input input[type="password"],
+.input input[type="date"],
+.input input[type="number"] {
+  /* background-color: var(--bg-secondary-gray, #1a1e28); */
+  /* color: var(--text-primary-color, #ffffff); */
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  flex: 4;
+  box-sizing: border-box;
+}
 .dropdown > select {
   padding: 0.5rem;
-  width: 103%;
+  width: 100%;
 }
 
 /* -------------Radio---------- */

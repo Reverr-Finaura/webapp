@@ -19,10 +19,6 @@ const ProfileCardTesting = ({ mentor }) => {
     }
     return id;
   };
-  console.log(mentor);
-  console.log(
-    mentor?.image && mentor?.image !== "" ? mentor.image : { DefaultDP }
-  );
   return (
     <div className={styles.card}>
       <div className={styles.cardLeftContent}>

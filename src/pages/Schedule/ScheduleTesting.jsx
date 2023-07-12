@@ -107,14 +107,13 @@ function ScheduleTesting() {
     },
   });
 
-  
   const prefill = {
     email: currentUser?.email,
     name: currentUser?.name,
     guests: [currentMentor?.email],
     date: new Date(Date.now() + 86400000),
   };
-  
+
   return (
     <>
       {paymentModeOn ? (
@@ -131,6 +130,14 @@ function ScheduleTesting() {
         {/* <KnowledgeNavbar /> */}
         <div className={styles.body}>
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
+          <div
+            className={styles.backBtn}
+            onClick={() => {
+              window.history.back();
+            }}
+          >
+            {"< Back"}
+          </div>
           <div
             className={`animate__animated animate__fadeInUp ${styles.content}`}
           >

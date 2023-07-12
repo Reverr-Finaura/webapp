@@ -158,6 +158,7 @@ const FinanceTesting = ({ setStage, data, setData, score, setScore }) => {
             onChange={handleChange}
             title={"What is you're revenue Growth Rate?"}
             placeholder={"Enter here"}
+            type={"text"}
           />
           <Input
             name={"avg_pricing"}

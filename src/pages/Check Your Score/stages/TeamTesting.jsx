@@ -367,7 +367,7 @@ const TeamTesting = ({ setStage, data, setData, score, setScore }) => {
           value={data?.Team?.cto?.has}
           name={"has"}
           onChange={(e) => handleTeamLeads(e, "cto")}
-          title={"Do you have a cto?"}
+          title={"Do you have a CTO?"}
         />
         {data?.Team?.cto?.has === "Yes" && (
           <>
@@ -483,7 +483,7 @@ const TeamTesting = ({ setStage, data, setData, score, setScore }) => {
           value={data?.Team?.cmo?.has}
           name={"has"}
           onChange={(e) => handleTeamLeads(e, "cmo")}
-          title={"Do you have a cmo?"}
+          title={"Do you have a CMO?"}
         />
         {data?.Team?.cmo?.has === "Yes" && (
           <>
@@ -599,7 +599,7 @@ const TeamTesting = ({ setStage, data, setData, score, setScore }) => {
           value={data?.Team?.coo?.has}
           name={"has"}
           onChange={(e) => handleTeamLeads(e, "coo")}
-          title={"Do you have a coo?"}
+          title={"Do you have a COO?"}
         />
         {data?.Team?.coo?.has === "Yes" && (
           <>
