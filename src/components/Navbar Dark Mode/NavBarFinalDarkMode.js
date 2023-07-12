@@ -648,7 +648,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               <BiHomeAlt className={style.navbarIconsImg} />
               <p className={style.navbarIconsName}>Home</p>
             </div>
-            {!isLoggedIn ? (
+            {isLoggedIn ? (
             <div
               className={style.navbarIconsImgName}
               onClick={() => {
