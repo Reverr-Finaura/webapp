@@ -104,16 +104,21 @@ const ProfileSummary = () => {
             alt="img"
           />
           <div className={styles.userDetails}>
-            <text style={{textTransform: "capitalize"}} className={styles.nameText}>{userDoc?.name}</text>
+            <text
+              style={{ textTransform: "capitalize" }}
+              className={styles.nameText}
+            >
+              {userDoc?.name}
+            </text>
             <text className={styles.positionText}>{userDoc?.designation}</text>
           </div>
         </div>
-        <button
+        {/* <button
           className={styles.settingsButton}
           onClick={() => console.log("settings clicked")}
         >
           <img src={setting} alt="setting" />
-        </button>
+        </button> */}
       </div>
 
       <div className={styles.viewConnectionRow}>
@@ -131,45 +136,50 @@ const ProfileSummary = () => {
 
       <div className={styles.space}>
         <text className={styles.spaceText}>SPACES</text>
-        <img className={styles.spaceImage} src={edit} alt="eye" />
+        <img
+          className={styles.spaceImage}
+          onClick={() => navigate("/editprofile")}
+          src={edit}
+          alt="img"
+        />
       </div>
 
       {userDoc?.userSpace?.length ? (
         <>
-        <div className={styles.spacesRow}>
-          {userDoc.userSpace.slice(0,2).map((item, index) => (
-            <div key={index} className={styles.spacesRowDiv}>
-              <text className={styles.spacesRowText}>{item}</text>
+          <div className={styles.spacesRow}>
+            {userDoc.userSpace.slice(0, 2).map((item, index) => (
+              <div key={index} className={styles.spacesRowDiv}>
+                <text className={styles.spacesRowText}>{item}</text>
+              </div>
+            ))}
+          </div>
+          {userDoc.userSpace.length > 3 ? (
+            <div className={styles.spacesRow}>
+              {userDoc.userSpace.slice(2, 4).map((item, index) => (
+                <div key={index} className={styles.spacesRowDiv}>
+                  <text className={styles.spacesRowText}>{item}</text>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        {userDoc.userSpace.length>3?
-        <div className={styles.spacesRow}>
-          {userDoc.userSpace.slice(2,4).map((item, index) => (
-            <div key={index} className={styles.spacesRowDiv}>
-              <text className={styles.spacesRowText}>{item}</text>
+          ) : null}
+          {userDoc.userSpace.length > 5 ? (
+            <div className={styles.spacesRow}>
+              {userDoc.userSpace.slice(4, 6).map((item, index) => (
+                <div key={index} className={styles.spacesRowDiv}>
+                  <text className={styles.spacesRowText}>{item}</text>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        :null}
-        {userDoc.userSpace.length>5?
-        <div className={styles.spacesRow}>
-          {userDoc.userSpace.slice(4,6).map((item, index) => (
-            <div key={index} className={styles.spacesRowDiv}>
-              <text className={styles.spacesRowText}>{item}</text>
+          ) : null}
+          {userDoc.userSpace.length > 7 ? (
+            <div className={styles.spacesRow}>
+              {userDoc.userSpace.slice(6, 8).map((item, index) => (
+                <div key={index} className={styles.spacesRowDiv}>
+                  <text className={styles.spacesRowText}>{item}</text>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        :null}
-        {userDoc.userSpace.length>7?
-        <div className={styles.spacesRow}>
-          {userDoc.userSpace.slice(6,8).map((item, index) => (
-            <div key={index} className={styles.spacesRowDiv}>
-              <text className={styles.spacesRowText}>{item}</text>
-            </div>
-          ))}
-        </div>
-        :null}
+          ) : null}
         </>
       ) : (
         <button
@@ -186,7 +196,7 @@ const ProfileSummary = () => {
       </div>
 
       <div className={styles.complete_profile}>
-        <button onClick={() => navigate("/user-edit-profile")}>
+        <button onClick={() => navigate("/editprofile")}>
           Complete your profile
         </button>
       </div>

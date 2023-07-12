@@ -17,7 +17,7 @@ function DiscoverPerfectTools({ isLoggedIn, openModal }) {
       route: "/tools",
     },
     {
-      title: "Idea Validator",
+      title: "Document Templates",
       image: require("../../../images/explore.png"),
       route: "/tools",
     },

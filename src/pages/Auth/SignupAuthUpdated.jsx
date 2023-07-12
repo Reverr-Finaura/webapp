@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { create } from "../../features/newUserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-import { toast } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
 import {
   setPhone,
   setPassword,

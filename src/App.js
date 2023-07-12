@@ -128,8 +128,7 @@ import Fourth from "./pages/OnboardingNew/Fourth/Fourth";
 import Fifth from "./pages/OnboardingNew/Fifth/Fifth";
 import SignupAuthUpdated from "./pages/Auth/SignupAuthUpdated";
 import EnterOtpUpdated from "./pages/EnterOtpUpdated/EnterOtpUpdated";
-import User from "./pages/User/User";
-import NUDiscover from "./pages/NUDiscover/NUDiscover";
+import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordUpdated";
 
 function App() {
   const user = useSelector(selectUser);
@@ -162,11 +161,8 @@ function App() {
         {!user && (
           <>
             <Route path="/" element={<LoginTesting />} />
-            {/* <Route path="/signup" element={<Auth />} /> */}
             <Route path="/signup" element={<SignupAuthUpdated />}></Route>
             <Route path="/login" element={<LoginTesting />} />
-            {/* <Route path="/login" element={<LoginNew />} /> */}
-            <Route path="/discover/nu" element={< NUDiscover/>}></Route>
             <Route path="/gallery" element={<HomeNotLoggedIn />}></Route>
             <Route path="/onboarding-first" element={<First />}></Route>
             <Route path="/onboarding-second" element={<Second />}></Route>
@@ -177,7 +173,7 @@ function App() {
           </>
         )}
         {/* <Route path="/login-test" element={<LoginTesting />}/> */}
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotpasswordUpdated />} />
         <Route path="/forgotemail" element={<ForgotEmail />} />
         <Route path="/password-reset" element={<PasswordReset />} />
         {newUser ? (
@@ -320,8 +316,6 @@ function App() {
         {/* <Route path="/userprofile" element={<UserProfile />}></Route> */}
         <Route path="/userprofile" element={<UserProfileTesting />}></Route>
         <Route path="/editProfile" element={<UserEditProfileTesting />}></Route>
-        <Route path="/user/:id" element={<User />}></Route>
-
         {/* <Route path="/user-edit-profile" element={<UserEditProfile />}></Route> */}
         <Route
           path="/change-user-password"

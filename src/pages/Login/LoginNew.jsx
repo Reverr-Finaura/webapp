@@ -397,7 +397,7 @@ const LoginNew = () => {
               Continue with Google{" "}
             </button> */}
             <div className={styles.newUser}>
-              <span>New to Reverr?</span>
+              <span>New to Reverr?&nbsp;&nbsp;&nbsp;</span>
               <Link to="/signup">Sign Up</Link>
             </div>
           </div>
