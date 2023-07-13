@@ -84,13 +84,7 @@ const UserProfileTesting = () => {
     }
   }, [userDoc]);
 
-<<<<<<< HEAD
-  //   console.log("hasUserProfile", hasUserProfile);
-  console.log("userDoc", userDoc);
-  console.log("user", user);
-=======
   // console.log("userDoc", userDoc);
->>>>>>> 7c1ba427fcf05df6e54d4ebc1a00b5b01a02a48d
 
   return (
     <>
