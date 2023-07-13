@@ -82,14 +82,14 @@ function ForgotpasswordUpdated() {
     querySnapshot.forEach((doc) => {
       
       if (doc.id === email) {
-        console.log("id11: ", doc.data())
+        // console.log("id11: ", doc.data())
         tempDocData = { name: doc.data().name, password: doc.data().password };
         setTempUserData({
           name: doc.data().name,
           password: doc.data().password,
           email: doc.data().email,
         });
-        console.log("id11: ", tempDocData)
+        // console.log("id11: ", tempDocData)
       }
     });
     if (JSON.stringify(tempDocData) === "{}") {
@@ -266,7 +266,7 @@ function ForgotpasswordUpdated() {
   return (
     <div>
       {tempOtp !== null ? (
-        <EnterOtpToChangePassword otp={tempOtp} email={email} />
+        <EnterOtpToChangePassword propOtp={tempOtp} tempUserData={tempUserData} />
       ) : (
         <>
           <NavBarFinalDarkMode isLoggedIn={false} />

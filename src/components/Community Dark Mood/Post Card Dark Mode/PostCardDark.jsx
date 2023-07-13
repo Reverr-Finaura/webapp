@@ -1,4 +1,4 @@
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { db } from "../../../firebase";
@@ -33,6 +33,7 @@ export default function PostCardDark({
   setPostsAuthorInfo,
   isLoggedIn,
   openModal,
+  postId,
 }) {
   const userDoc = useSelector((state) => state.userDoc);
   const [isThreeDotsClicked, setIsThreeDotsClicked] = useState(false);
@@ -53,46 +54,68 @@ export default function PostCardDark({
   const [showMorePostTextClick, setShowMorePostTextClick] = useState(false);
   const [newCommentTextAreaClick, setNewCommentTextAreaClick] = useState(false);
   const [postTime, setPostTime] = useState("");
+  const [postComments, setPostComments] = useState([]);
+  const [postDetail, setPostDetail] = useState();
+
+  // get the posts comments
+  async function fetchPostData() {
+    const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
+    const docSnapshot = await getDoc(postRef);
+
+    if (docSnapshot.exists()) {
+      // Document exists, you can access its data using docSnapshot.data()
+      const data = docSnapshot.data();
+      setPostComments(data.comments);
+      setPostDetail(data);
+      console.log("the post data is here -- above", data);
+    } else {
+      // Document doesn't exist
+      console.log("Document not found.");
+    }
+  }
+
+  useEffect(() => {
+    fetchPostData();
+  }, []);
 
   //CHECK IF POST LIKES CONTAIN USER OR NOT
   const getLikedPostIdFromFirebase = async (id, items) => {
+    const isLiked = postDetail.likes.includes(user?.user?.email);
     let newLikeArray;
 
-    if (items.likes.includes(user?.user?.email)) {
-      newLikeArray = items.likes.filter((item) => {
-        return item !== user?.user?.email;
-      });
-      setPostsData(
-        postsData.map((item) => {
-          if (item.id === id) {
-            return { ...item, likes: newLikeArray };
-          } else return item;
-        })
-      );
-      updateLikedPostInFirebase(newLikeArray, id);
-
-      return;
+    if (isLiked) {
+      console.log("this is already liked")
+      newLikeArray = postDetail.likes.filter((item) => item !== user?.user?.email);
+    } else {
+      console.log("this is not already like")
+      newLikeArray = [...postDetail.likes, user?.user?.email];
     }
-    newLikeArray = items.likes.concat([user?.user?.email]);
+    postDetail.likes = newLikeArray;
 
-    setPostsData(
-      postsData.map((item) => {
+    setPostsData((prevPostsData) => {
+      return prevPostsData.map((item) => {
         if (item.id === id) {
           return { ...item, likes: newLikeArray };
-        } else return item;
-      })
-    );
-    updateLikedPostInFirebase(newLikeArray, id);
+        } else {
+          return item;
+        }
+      });
+    });
 
-    return;
+    await updateLikedPostInFirebase(newLikeArray, id);
+  
   };
 
   //UPDATE POST LIKE PART DATABASE
   const updateLikedPostInFirebase = async (data, id) => {
-    const userDocumentRef = doc(db, "Posts", id);
+    const userDocumentRef = doc(db, "Posts", postId);
 
     try {
       await updateDoc(userDocumentRef, { likes: data });
+
+      await fetchPostData()
+
+      return;
     } catch (error) {
       console.log(error.message);
     }
@@ -107,13 +130,16 @@ export default function PostCardDark({
       toast("Nothing to Comment");
       return;
     }
-    newCommentArray = item.comments.concat([
+    newCommentArray = postDetail.comments.concat([
       {
         comment: newComment,
         commentedby: userRef,
         commentid: new Date().getTime(),
       },
     ]);
+
+    postDetail.comments = newCommentArray
+    // console.log("this is the list of updated comment ",newCommentArray)
     setPostsData(
       postsData.map((item) => {
         if (item.id === id) {
@@ -122,9 +148,11 @@ export default function PostCardDark({
       })
     );
     updateCommentInFirebase(newCommentArray, id);
+    // fetchPostData()
     setNewComment("");
     setNewCommentTextAreaClick(false);
   };
+
   //UPDATE NEWCOMMENT IN FIREBASE
   const updateCommentInFirebase = async (data, id) => {
     const userDocumentRef = doc(db, "Posts", id);
@@ -132,6 +160,7 @@ export default function PostCardDark({
     try {
       await updateDoc(userDocumentRef, { comments: data });
       toast("Sucessfully Commented");
+      fetchPostData();
       setNewComment("");
     } catch (error) {
       console.log(error.message);
@@ -154,7 +183,7 @@ export default function PostCardDark({
       return;
     }
 
-    newEditCommentArray = item.comments.map((event) => {
+    newEditCommentArray = postDetail.comments.map((event) => {
       if (event.commentid === editCommentId) {
         return { ...event, comment: newEdittedComment };
       } else return event;
@@ -177,6 +206,7 @@ export default function PostCardDark({
     try {
       await updateDoc(userDocumentRef, { comments: data });
       toast("Sucessfully Editted");
+      fetchPostData();
       setEditCommentButtonIsClick(false);
       setNewEdittedComment("");
       setNewComment("");
@@ -220,9 +250,10 @@ export default function PostCardDark({
   //DELETE COMMENT ON POST CLICK
 
   const handleDeleteCommentClick = (commentId, item, itemId) => {
-    const newCommentArray = item.comments.filter((event) => {
+    const newCommentArray = postDetail.comments.filter((event) => {
       return event.commentid !== commentId;
     });
+    postDetail.comments = newCommentArray
 
     setPostsData(
       postsData.map((item) => {
@@ -241,6 +272,7 @@ export default function PostCardDark({
     try {
       await updateDoc(userDocumentRef, { comments: data });
       toast("Sucessfully Deleted");
+      fetchPostData();
     } catch (error) {
       console.log(error.message);
     }
@@ -435,14 +467,14 @@ export default function PostCardDark({
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
           <div style={{ display: "flex", alignItems: "center", width: "95%" }}>
-            <div className={style.postLikesContainer}>
-              <div
-                onClick={() => {
-                  getLikedPostIdFromFirebase(item.id, item);
-                }}
-                className={style.postLikesContainerLikeIcon}
-              >
-                {item?.likes.includes(user?.user?.email) ? (
+            <div
+              onClick={() => {
+                getLikedPostIdFromFirebase(item.id, item);
+              }}
+              className={style.postLikesContainer}
+            >
+              <div className={style.postLikesContainerLikeIcon}>
+                {postDetail?.likes.includes(user?.user?.email) ? (
                   <AiFillHeart className={style.postLikesContainerLikedIconn} />
                 ) : (
                   <AiOutlineHeart
@@ -451,21 +483,12 @@ export default function PostCardDark({
                 )}
               </div>
 
-              {/* <i onClick={()=>{getLikedPostIdFromFirebase(item.id,item)}} className={"fa fa-heart "+ (item?.likes.includes(user?.user?.email)?"heartPostLiked":"heartPostNotLiked")}></i> */}
-
-              {/* <p className='postLikeCount postLikeCountText'>{item?.likes.length<=1?"Like":"Likes"}</p> */}
               <h3
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    return openModal();
-                  } else {
-                    getLikedPostIdFromFirebase(item.id, item);
-                  }
-                }}
+            
                 style={{ cursor: "pointer" }}
                 className={style.postLikeCount}
               >
-                {item?.likes.length} Like
+                {postDetail?.likes.length} Like
               </h3>
             </div>
 
@@ -488,7 +511,7 @@ export default function PostCardDark({
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
-                {item?.comments.length} Comment
+                {postDetail?.comments.length} Comment
               </h3>
             </div>
 
@@ -664,7 +687,7 @@ export default function PostCardDark({
                 : style.oldCommentSectionNothing
             }
           >
-            {item?.comments.map((list) => {
+            {postDetail?.comments?.map((list) => {
               return (
                 <>
                   <div className="commentedByAndComment" key={list.commentid}>

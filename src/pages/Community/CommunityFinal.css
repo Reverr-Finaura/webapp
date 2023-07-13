@@ -987,3 +987,17 @@ cursor: pointer;
     height: 40px;
   }
 }
+@media screen and (max-width: 500px) {
+  .communityFinalPage{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+  }
+  #postTextContainer {
+    width: 60%;
+    height: 38px;
+  }
+  
+  
+} 

@@ -46,7 +46,7 @@ function ConnectSuggestion({ isLoggedIn,  openModal }) {
           <text style={{ color: "#00B3FF" }}>Suggested </text>
           <text style={{ color: "#FFFFFF" }}>For You</text>
         </div>
-        <span onClick={() => console.log("see all clicked")}>See All</span>
+        {/* <span onClick={() => console.log("see all clicked")}>See All</span> */}
       </div>
       <div>
         {randomUsers.map((user, index) => (

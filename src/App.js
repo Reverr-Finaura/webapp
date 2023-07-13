@@ -130,6 +130,7 @@ import SignupAuthUpdated from "./pages/Auth/SignupAuthUpdated";
 import EnterOtpUpdated from "./pages/EnterOtpUpdated/EnterOtpUpdated";
 import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordUpdated";
 import User from "./pages/User/User";
+import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 
 function App() {
   const user = useSelector(selectUser);
@@ -211,6 +212,7 @@ function App() {
           path="/mentors-search/:category"
           element={<MentorSearch />}
         ></Route>
+        <Route path="/mentor-edit-profile" element={<MentorEditProfile />} />
         <Route path="/mentor" element={<Mentor />}></Route>
         <Route path="/mentorform" element={<MentorForm />}></Route>
         <Route path="/mentordetails" element={<MentorMoreDetails />}></Route>
