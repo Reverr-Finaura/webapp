@@ -38,6 +38,7 @@ import {
   AiOutlineGlobal,
   AiOutlineSearch,
 } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserAlt } from "react-icons/fa";
 import {
   MdOutlineKeyboardArrowDown,
@@ -45,7 +46,7 @@ import {
 } from "react-icons/md";
 // import { IoMdLogOut } from "react-icons/io";
 import { GiArchiveRegister } from "react-icons/gi";
-import { BiHomeAlt, BiLogIn } from "react-icons/bi";
+import { BiHomeAlt, BiLock, BiLogIn } from "react-icons/bi";
 import { HiOutlineTemplate } from "react-icons/hi";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
@@ -71,6 +72,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [loading, setLoading] = useState(false);
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
+  const [openHam, setOpenham] = useState(false);
   const userType = useSelector((state) => state.onboarding.userType);
   window.onscroll = () => {
     setScroll(window.scrollY);
@@ -85,6 +87,21 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   // console.log("filtered array" +filteredArray);
   const modalRef = useRef(null);
   const buttonRef = useRef(null);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const setWindowDimensions = () => {
+    setWindowWidth(window.innerWidth)
+  }
+  useEffect(() => {
+    window.addEventListener('resize', setWindowDimensions);
+    if (window.innerWidth >= 1250) {
+      setOpenham(false)
+    }
+
+    return () => {
+      window.removeEventListener('resize', setWindowDimensions)
+    }
+  }, [window.innerWidth])
 
   const toggleProductModal = () => {
     setIsProductModalOpen((prevIsOpen) => !prevIsOpen);
@@ -636,130 +653,131 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </div>
           )}
         </div>
-
-        <div className={style.navbarIconsCont}>
-          <div className={style.allNavbarIconsImgName}>
-            <div
-              className={style.navbarIconsImgName}
-              onClick={() =>
-                isLoggedIn ? navigate("/") : navigate("/gallery")
-              }
-            >
-              <BiHomeAlt className={style.navbarIconsImg} />
-              <p className={style.navbarIconsName}>Home</p>
-            </div>
-            {isLoggedIn ? (
-            <div
-              className={style.navbarIconsImgName}
-              onClick={() => {
-                if (!isLoggedIn) {
-                  return openModal();
-                } else {
-                  navigate("/discover");
+        <div className={openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2}>
+          <div className={style.navbarIconsCont}>
+            <div className={style.allNavbarIconsImgName}>
+              <div
+                className={style.navbarIconsImgName}
+                onClick={() =>
+                  isLoggedIn ? navigate("/") : navigate("/gallery")
                 }
-              }}
-            >
-              <AiOutlineGlobal className={style.navbarIconsImg} />
-              <p className={style.navbarIconsName}>Discover</p>
-              {/* <NavLink className="navlinks" to="/discover">
-                <p className={style.navbarIconsName}>Discover</p>
-              </NavLink> */}
-            </div>
-            ) : <div
-            className={style.navbarIconsImgName}
-            onClick={() => {
-              if (!isLoggedIn) {
-                return openModal();
-              } else {
-                navigate("/discover/nu");
-              }
-            }}
-          >
-            <AiOutlineGlobal className={style.navbarIconsImg} />
-            <p className={style.navbarIconsName}>Discover</p>
-            {/* <NavLink className="navlinks" to="/discover">
-              <p className={style.navbarIconsName}>Discover</p>
-            </NavLink> */}
-          </div>}
-            {!isLoggedIn ? (
-              <div
-                className={style.navbarIconsImgName}
-                onClick={() => navigate("/signup")}
               >
-                <GiArchiveRegister className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Signup</p>
-                {/* <NavLink className="navlinks" to="/discover">
-                <p className={style.navbarIconsName}>Discover</p>
-              </NavLink> */}
+                <BiHomeAlt className={style.navbarIconsImg} />
+                <p className={style.navbarIconsName}>Home</p>
               </div>
-            ) : null}
-            {!isLoggedIn ? (
-              <div
-                className={style.navbarIconsImgName}
-                onClick={() => navigate("/login")}
-              >
-                <BiLogIn className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Login</p>
-                {/* <NavLink className="navlinks" to="/discover">
-                <p className={style.navbarIconsName}>Discover</p>
-              </NavLink> */}
-              </div>
-            ) : null}
-            {isLoggedIn ? (
-              filteredArray.length >= 1 ? (
+
+              {!isLoggedIn ? (
                 <div
                   className={style.navbarIconsImgName}
-                  onClick={toggleProductModal}
-                  ref={buttonRef}
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      return openModal();
+                    } else {
+                      navigate("/discover");
+                    }
+                  }}
                 >
-                  <HiOutlineTemplate className={style.navbarIconsImg} />
-                  <p className={style.navbarIconsName}>Products</p>
+                  <AiOutlineGlobal className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Discover</p>
+                  {/* <NavLink className="navlinks" to="/discover">
+                <p className={style.navbarIconsName}>Discover</p>
+              </NavLink> */}
                 </div>
-              ) : null
-            ) : null}
-            {isLoggedIn ? (
-              <div
+              ) : <div
                 className={style.navbarIconsImgName}
-                onClick={() => navigate("/messages")}
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    return openModal();
+                  } else {
+                    navigate("/discover/nu");
+                  }
+                }}
               >
-                <AiOutlineMessage className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Messages</p>
-              </div>
-            ) : null}
-            {isLoggedIn ? (
-              <div
-                onClick={() => setNotificationOpen(!notificationOpen)}
-                className={style.navbarIconsImgName}
-              >
-                <MdOutlineNotifications className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Notifications</p>
-                {notificationOpen && (
-                  <>
-                    <div className={style.notificationBar}>
-                      {notificationList.length >= 1 ? (
-                        <>
-                          {" "}
-                          <div className={style.notificationHeadings}>
-                            <h1 className={style.notificationHeading}>
-                              Notifications
-                            </h1>
-                            {/* <h3 className={style.notificationSubHeading}>Today</h3> */}
-                          </div>
-                          <NotificationCard />
-                          <NotificationCard />
-                          <NotificationCard />
-                        </>
-                      ) : (
-                        <h4>No notification till Now !</h4>
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-            ) : null}
-          </div>
+                <AiOutlineGlobal className={style.navbarIconsImg} />
+                <p className={style.navbarIconsName}>Discover</p>
+                {/* <NavLink className="navlinks" to="/discover">
+              <p className={style.navbarIconsName}>Discover</p>
+            </NavLink> */}
+              </div>}
+              {!isLoggedIn ? (
+                <div
+                  className={style.navbarIconsImgName}
+                  onClick={() => navigate("/signup")}
+                >
+                  <GiArchiveRegister className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Signup</p>
+                  {/* <NavLink className="navlinks" to="/discover">
+                <p className={style.navbarIconsName}>Discover</p>
+              </NavLink> */}
+                </div>
+              ) : null}
+              {!isLoggedIn ? (
+                <div
+                  className={style.navbarIconsImgName}
+                  onClick={() => navigate("/login")}
+                >
+                  <BiLogIn className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Login</p>
+                  {/* <NavLink className="navlinks" to="/discover">
+                <p className={style.navbarIconsName}>Discover</p>
+              </NavLink> */}
+                </div>
+              ) : null}
+              {isLoggedIn ? (
+                filteredArray.length >= 1 ? (
+                  <div
+                    className={style.navbarIconsImgName}
+                    onClick={toggleProductModal}
+                    ref={buttonRef}
+                  >
+                    <HiOutlineTemplate className={style.navbarIconsImg} />
+                    <p className={style.navbarIconsName}>Products</p>
+                  </div>
+                ) : null
+              ) : null}
+              {isLoggedIn ? (
+                <div
+                  className={style.navbarIconsImgName}
+                  onClick={() => navigate("/messages")}
+                >
+                  <AiOutlineMessage className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Messages</p>
+                </div>
+              ) : null}
+              {isLoggedIn ? (
+                <div
+                  onClick={() => setNotificationOpen(!notificationOpen)}
+                  className={style.navbarIconsImgName}
+                >
+                  <MdOutlineNotifications className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Notifications</p>
+                  {notificationOpen && (
+                    <>
+                      <div className={style.notificationBar}>
+                        {notificationList.length >= 1 ? (
+                          <>
+                            {" "}
+                            <div className={style.notificationHeadings}>
+                              <h1 className={style.notificationHeading}>
+                                Notifications
+                              </h1>
+                              {/* <h3 className={style.notificationSubHeading}>Today</h3> */}
+                            </div>
+                            <NotificationCard />
+                            <NotificationCard />
+                            <NotificationCard />
+                          </>
+                        ) : (
+                          <h4>No notification till Now !</h4>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : null}
+            </div>
 
-          {/* {!userDoc.hasUpgrade && (
+            {/* {!userDoc.hasUpgrade && (
             <button
               className={style.navbarFinalUpgradeBtn}
               onClick={() => navigate("/upgrade")}
@@ -768,11 +786,13 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </button>
           )} */}
 
-          <div
-            onClick={() => setRequestsbuttonClick((current) => !current)}
-            className="navbar-topp-social-icon navbar_noOuterContCSS"
-          >
-            {/* <AiFillBell
+
+
+            <div
+              onClick={() => setRequestsbuttonClick((current) => !current)}
+              className="navbar-topp-social-icon navbar_noOuterContCSS"
+            >
+              {/* <AiFillBell
               className={
                 userDoc?.receivedRequests?.length === 0 &&
                 userDoc?.notification?.length === 0
@@ -781,154 +801,161 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               }
             /> */}
 
-            {isRequestsButtonClick ? (
-              <div className="notifiction-dropdown-cont">
-                {userDoc?.receivedRequests?.length === 0 &&
-                userDoc?.notification?.length === 0 ? (
-                  <p className="notifiction-dropdown-Request-Cont">
-                    No New Notification
-                  </p>
-                ) : null}
-                {userDoc?.notification?.map((item) => {
-                  return (
-                    <>
-                      <p
-                        className="notifiction-dropdown-Request-Cont"
-                        key={item}
-                      >
-                        <span style={{ height: "fit-content" }}>
-                          <img
-                            className="notifiction-dropdown-Request-image"
-                            src={
+              {isRequestsButtonClick ? (
+                <div className="notifiction-dropdown-cont">
+                  {userDoc?.receivedRequests?.length === 0 &&
+                    userDoc?.notification?.length === 0 ? (
+                    <p className="notifiction-dropdown-Request-Cont">
+                      No New Notification
+                    </p>
+                  ) : null}
+                  {userDoc?.notification?.map((item) => {
+                    return (
+                      <>
+                        <p
+                          className="notifiction-dropdown-Request-Cont"
+                          key={item}
+                        >
+                          <span style={{ height: "fit-content" }}>
+                            <img
+                              className="notifiction-dropdown-Request-image"
+                              src={
+                                notificationList?.filter((e) => {
+                                  return e.id === item;
+                                })[0]?.image
+                              }
+                              alt="requestUsrImg"
+                            />
+                          </span>
+                          <span className="notifiction-dropdown-Request-name">
+                            {
                               notificationList?.filter((e) => {
                                 return e.id === item;
-                              })[0]?.image
+                              })[0]?.name
                             }
-                            alt="requestUsrImg"
-                          />
-                        </span>
-                        <span className="notifiction-dropdown-Request-name">
-                          {
-                            notificationList?.filter((e) => {
-                              return e.id === item;
-                            })[0]?.name
-                          }
-                        </span>{" "}
-                        has accepted your follow request
-                        <span
-                          onClick={() => handleDeleteNotification(item)}
-                          className="notifiction-dropdown-Request-reject"
+                          </span>{" "}
+                          has accepted your follow request
+                          <span
+                            onClick={() => handleDeleteNotification(item)}
+                            className="notifiction-dropdown-Request-reject"
+                          >
+                            ❌
+                          </span>
+                        </p>
+                      </>
+                    );
+                  })}
+                  {userDoc?.receivedRequests?.map((item) => {
+                    return (
+                      <>
+                        <p
+                          className="notifiction-dropdown-Request-Cont"
+                          key={item}
                         >
-                          ❌
-                        </span>
-                      </p>
-                    </>
-                  );
-                })}
-                {userDoc?.receivedRequests?.map((item) => {
-                  return (
-                    <>
-                      <p
-                        className="notifiction-dropdown-Request-Cont"
-                        key={item}
-                      >
-                        <span style={{ height: "fit-content" }}>
-                          <img
-                            className="notifiction-dropdown-Request-image"
-                            src={
+                          <span style={{ height: "fit-content" }}>
+                            <img
+                              className="notifiction-dropdown-Request-image"
+                              src={
+                                userDocList?.filter((e) => {
+                                  return e.id === item;
+                                })[0]?.image
+                              }
+                              alt="requestUsrImg"
+                            />
+                          </span>
+                          <span className="notifiction-dropdown-Request-name">
+                            {
                               userDocList?.filter((e) => {
                                 return e.id === item;
-                              })[0]?.image
+                              })[0]?.name
                             }
-                            alt="requestUsrImg"
-                          />
-                        </span>
-                        <span className="notifiction-dropdown-Request-name">
-                          {
-                            userDocList?.filter((e) => {
-                              return e.id === item;
-                            })[0]?.name
-                          }
-                        </span>{" "}
-                        wants to follow you{" "}
-                        <span
-                          onClick={() => handleAcceptFollowRequest(item)}
-                          className="notifiction-dropdown-Request-accept"
-                        >
-                          ✅
-                        </span>
-                        <span
-                          onClick={() => handleRejectFollowRequest(item)}
-                          className="notifiction-dropdown-Request-reject"
-                        >
-                          ❌
-                        </span>
-                      </p>
-                    </>
-                  );
-                })}
-              </div>
-            ) : null}
-          </div>
-          {isLoggedIn ? (
-            <>
-              <img
-                onClick={() => navigate("/userprofile")}
-                className="navbar_final_user_Image"
-                src={
-                  userImage
-                    ? userImage
-                    : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
-                }
-                alt="userimg"
-              />
-              {/* <div className="navbar-topp-social-icon">
+                          </span>{" "}
+                          wants to follow you{" "}
+                          <span
+                            onClick={() => handleAcceptFollowRequest(item)}
+                            className="notifiction-dropdown-Request-accept"
+                          >
+                            ✅
+                          </span>
+                          <span
+                            onClick={() => handleRejectFollowRequest(item)}
+                            className="notifiction-dropdown-Request-reject"
+                          >
+                            ❌
+                          </span>
+                        </p>
+                      </>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
+            {isLoggedIn ? (
+              <div className={style.wrapperBoth}>
+                <img
+                  onClick={() => navigate("/userprofile")}
+                  className="navbar_final_user_Image"
+                  src={
+                    userImage
+                      ? userImage
+                      : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                  }
+                  alt="userimg"
+                />
+                {/* <div className="navbar-topp-social-icon">
           <FaUserAlt className="nabar-final-userProfile-Icon" onClick={() => navigate("/userprofile")}/>
           </div> */}
 
-              <div
-                onClick={() => setIsSettingbuttonClick((current) => !current)}
-                className="navbar-topp-social-icon setting-social-icon-cont navbar_noOuterContCSS"
-              >
-                {/* <AiFillSetting className="nabar-final-setting-Icon"/> */}
-                <MdOutlineKeyboardArrowDown className="nabar-final-setting-Icon" />
+                <div
+                  onClick={() => setIsSettingbuttonClick((current) => !current)}
+                  className="navbar-topp-social-icon setting-social-icon-cont navbar_noOuterContCSS"
+                >
+                  {/* <AiFillSetting className="nabar-final-setting-Icon"/> */}
+                  <MdOutlineKeyboardArrowDown className="nabar-final-setting-Icon" />
 
-                {isSettingButtonClick ? (
-                  <div className={style.settingDropdownCont}>
-                    <button
-                      onClick={() => navigate("/userprofile")}
-                      className="setting-dropdown-button"
-                    >
-                      My Profile
-                    </button>
+                  {isSettingButtonClick ? (
+                    <div className={style.settingDropdownCont}>
+                      <button
 
-                    {/* <button
-                      style={{
-                        cursor: loading ? "default" : "",
-                        height: "50px",
-                      }}
-                      disabled={loading}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        changePassBtnClick();
-                      }}
-                      className="setting-dropdown-button"
-                    >
-                      {loading ? (
-                        <img
-                          className="navbar_dropdown_changePassword_btn_img"
-                          src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                          alt="loader"
-                        />
-                      ) : (
-                        "Change Password"
-                      )}
-                    </button>
-                   */}
-                    <button
-                      onClick={
-                        user
-                          ? () =>
+                        onClick={() => navigate("/userprofile")}
+                        className="setting-dropdown-button"
+                      >
+                        My Profile
+                      </button>
+
+                      <button
+                        style={{
+                          cursor: loading ? "default" : "",
+                          height: "50px",
+                        }}
+                        disabled={loading}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          changePassBtnClick();
+                        }}
+                        className="setting-dropdown-button"
+                      >
+                        {loading ? (
+                          <img
+                            className="navbar_dropdown_changePassword_btn_img"
+                            src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
+                            alt="loader"
+                          />
+                        ) : (
+                          "Change Password"
+                        )}
+                      </button>
+
+                      {/* <button
+                  onClick={() => navigate("/user-edit-profile")}
+                  className="setting-dropdown-button"
+                >
+                  Edit Profile
+                </button> */}
+                      <button
+                        onClick={
+                          user
+                            ? () =>
                               signOut(auth)
                                 .then(() => {
                                   dispatch(logout());
@@ -940,26 +967,36 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                                   toast.success("Sucessfully logged out");
                                   navigate("/");
                                 })
-                          : () => navigate("/login")
-                      }
-                      className="setting-dropdown-button"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                ) : null}
+                            : () => navigate("/login")
+                        }
+                        className="setting-dropdown-button"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
               </div>
-            </>
-          ) : null}
+            ) : null}
+          </div>
         </div>
-      </section>
-      {chat && <Chat />}
+        <div className={style.hamburgermenu}>
+          <GiHamburgerMenu className={style.hamburgermenuicon} onClick={() => {
+            setOpenham(!openHam)
+          }} />
+        </div>
+
+      </section >
+
+      {chat && <Chat />
+      }
+
     </>
   );
 };
 NavBarFinalDarkMode.defaultProps = {
   isLoggedIn: true,
-  openModal: () => {},
+  openModal: () => { },
 };
 
 export default NavBarFinalDarkMode;
