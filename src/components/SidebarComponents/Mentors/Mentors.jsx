@@ -52,7 +52,7 @@ function Mentors({ isLoggedIn, openModal }) {
           <span style={{ color: "#00B3FF" }}>Featured</span>
           <span style={{ color: "#ffffff" }}>&nbsp;Mentors</span>
         </p>
-        <span
+        {/* <span
           onClick={() => {
             if (!isLoggedIn) {
               return openModal();
@@ -63,7 +63,7 @@ function Mentors({ isLoggedIn, openModal }) {
           }}
         >
           See All
-        </span>
+        </span> */}
       </div>
       {mentorArray
         .filter((item) => {

@@ -1364,3 +1364,67 @@ body::-webkit-scrollbar {
     height: 40px;
   }
 }
+
+@media screen and (max-width: 500px) {
+   .communityNavbarBlock{
+      padding:9px;
+   }
+   .activeNavHeading{
+    font-size:20px;
+   }
+   .communityNavHeading{
+    font-size: 20px;
+   }
+   .uploadPostContainerrrrSection{
+    padding: 5px;
+   }
+   
+}
+@media screen and (max-width: 500px) {
+  #communityFinalPage{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+  }
+  #postTextContainer {
+    width: 75%;
+    height: 38px;
+  }
+  .icon_text{
+    font-size:10px;
+  }  
+  .assest_icon{
+    font-size: 13px;
+  }
+  .postAssetsIconMaindiv{
+    padding: 1px 7px 1px 7px;
+    margin: 0px 4px;
+
+  }
+  .postAssetsIconMain{
+    margin-top: 1rem;
+    display: flex;
+    gap: unset;
+    justify-content: unset;
+   position: relative;
+    left: -70px;
+    margin: 9px 0px;
+  }
+  .userSpaceOption{
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #fff;
+    border-radius: 19px;
+    width: 115px;
+   
+    margin: 0px 5px;
+
+  }
+  .textAreaUploadContainer{
+    width: 80%;
+
+  }
+  
+  
+} 
