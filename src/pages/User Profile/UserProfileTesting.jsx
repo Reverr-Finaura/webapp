@@ -34,7 +34,10 @@ const UserProfileTesting = () => {
         setUserDocId((prev) => {
           return [...prev, doc.id];
         });
-        if (doc.id === user?.user?.email) {
+        if (
+          doc.id === user?.user?.email ||
+          doc.id.toLowerCase() === user?.user?.email.toLowerCase()
+        ) {
           dispatch(setUserDoc(doc.data()));
         }
       });
@@ -54,7 +57,10 @@ const UserProfileTesting = () => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        if (doc.id === user?.user?.email) {
+        if (
+          doc.id === user?.user?.email ||
+          doc.id.toLowerCase() === user?.user?.email.toLowerCase()
+        ) {
           dispatch(setUserFundingDoc(doc.data()));
         }
       });
@@ -73,8 +79,7 @@ const UserProfileTesting = () => {
     }
   }, [userDoc]);
 
-  //   console.log("hasUserProfile", hasUserProfile);
-  console.log("userDoc", userDoc);
+  // console.log("userDoc", userDoc);
 
   return (
     <>
