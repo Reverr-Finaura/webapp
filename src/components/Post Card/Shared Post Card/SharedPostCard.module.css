@@ -285,3 +285,29 @@ cursor: pointer;
         display: none;
     }
 }
+@media screen and (max-width: 500px) {
+    .postAuthorName{
+        font-size: 15px
+    }
+    .postAuthorDesignation{
+        font-size: 12px
+    }
+    .postUploadDateContainer{
+        font-size:12px
+    }
+    .postLikesContainerLikeIcon{
+        font-size: 22px
+    }
+
+    .commentPostIconn{
+        font-size: 22px !important
+    }
+
+    .postText{
+        font-size: 1rem !important
+    }
+    .middleSection {
+        margin-top: 120px
+
+    }
+} 

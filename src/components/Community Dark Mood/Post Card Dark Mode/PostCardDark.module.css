@@ -195,8 +195,7 @@ letter-spacing: 0.42px;
 
 .postText {
   font-weight: lighter;
-  font-size: 1.2rem !important;
-  /*--main-text   */
+  font-size: 18px !important;
   color: #ffffff;
 }
 
@@ -529,3 +528,40 @@ letter-spacing: 0.42px;
     display: none;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .postAuthorName{
+      font-size: 15px
+  }
+  .postAuthorDesignation{
+      font-size: 12px
+  }
+  .postUploadDateContainer{
+      font-size:12px
+  }
+  .postLikesContainerLikeIcon{
+      font-size: 22px
+  }
+
+  .commentPostIconn{
+      font-size: 22px !important
+  }
+
+  .postText{
+      font-size: 1rem !important
+  }
+  .middleSection {
+      margin-top: 120px
+
+  }
+  .postLikesAndCommentContainer h3{
+    font-size: 10px;
+  } 
+  .postLikesContainer{
+    margin: 0px 4px 0px 4px
+
+  }
+
+.postCommentContainer{ margin: 0px 4px 0px 4px}
+.postSednLinkContainer{ margin: 0px 4px 0px 4px}
+} 
