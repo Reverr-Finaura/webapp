@@ -158,7 +158,7 @@ const CheckYourScoreTesting = () => {
             {/* <div className={styles.progress_bar}>
               <div style={{ width: `calc(${(stage + 1) / 4} * 100%)` }}></div>
             </div> */}
-            <div className={styles.stage}>{stages[3]}</div>
+            <div className={styles.stage}>{stages[stage]}</div>
           </div>
         </div>
       </section>

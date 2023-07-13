@@ -91,7 +91,7 @@ const User = () => {
             onClick={() => navigate("/")}
           >
             <img src="/images/profileArrowLeft.svg" alt="back" />
-            <p>My Profile</p>
+            <p>User Profile</p>
           </div>
           <div className={styles.profileUser}>
             <div className={styles.profileBackground}></div>

@@ -129,6 +129,7 @@ import Fifth from "./pages/OnboardingNew/Fifth/Fifth";
 import SignupAuthUpdated from "./pages/Auth/SignupAuthUpdated";
 import EnterOtpUpdated from "./pages/EnterOtpUpdated/EnterOtpUpdated";
 import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordUpdated";
+import User from "./pages/User/User";
 
 function App() {
   const user = useSelector(selectUser);
@@ -316,6 +317,7 @@ function App() {
         {/* <Route path="/userprofile" element={<UserProfile />}></Route> */}
         <Route path="/userprofile" element={<UserProfileTesting />}></Route>
         <Route path="/editProfile" element={<UserEditProfileTesting />}></Route>
+        <Route path="/userprofile/:id" element={<User />}></Route>
         {/* <Route path="/user-edit-profile" element={<UserEditProfile />}></Route> */}
         <Route
           path="/change-user-password"
