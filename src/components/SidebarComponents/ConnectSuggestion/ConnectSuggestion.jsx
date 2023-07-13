@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 import styles from "./ConnectSuggestion.module.css";
+import { useNavigate } from "react-router-dom";
 
 function ConnectSuggestion({ isLoggedIn,  openModal }) {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate()
 
   //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
@@ -95,7 +97,7 @@ function ConnectSuggestion({ isLoggedIn,  openModal }) {
                     return openModal();
                   }else{
                     //normal code
-                    console.log("user logged!")
+                   navigate(`/userprofile/${user.email}`)
                   }
                 }}
               >

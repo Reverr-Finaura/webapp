@@ -165,7 +165,7 @@ import styles from "./Suggestion.css";
 const DiscoverSuggestions = () => {
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
-
+  // console.log(randomUsers);
   // FETCH USER DATA FROM FIREBASE
   useEffect(() => {
     async function fetchUsers() {
@@ -217,8 +217,9 @@ const DiscoverSuggestions = () => {
       
       <div className='people-card'>
         {randomUsers.length === 4 && randomUsers.map(user => (
+         
           <div key={user.id}>
-            <ProfileCard name={user.name} post={user.designation} imgUrl={user.image} />
+            <ProfileCard email={user.email} name={user.name} post={user.designation} imgUrl={user.image} />
           </div>
         ))}
       </div>

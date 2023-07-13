@@ -591,7 +591,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 Search Results
               </text>
               {searchResult.map((item, index) => (
-                <div key={index}>
+                <div onClick={()=>navigate(`/userprofile/${item.email}`)} key={index}>
                   <div>
                     <img
                       src={

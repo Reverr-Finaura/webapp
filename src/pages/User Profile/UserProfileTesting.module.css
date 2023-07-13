@@ -130,6 +130,69 @@
   margin-top: 1rem;
   background-color: #0c1631;
 }
+
+
+.apointment{
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  color: #fff;
+  padding: 2rem;
+  padding-bottom: 0;
+}
+.apointment p:nth-child(1){
+  font-family: Poppins;
+  font-size: 1.33331rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.04rem;
+  color: #109cdc;
+  padding-bottom: 4px;
+}
+.apointment p:nth-child(2){
+  padding-top: 4px;
+  font-family: Poppins;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+}
+.apointment p:nth-child(3){
+  
+  color: var(--white-gray, #d4d4d4);
+  font-family: Poppins;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.appointmentcategory{
+  padding: 2rem;
+  display: flex;
+  gap: 16px;
+  max-width: 50%;
+  flex-wrap: wrap;
+ 
+}
+.appointmentcapsules{
+padding: 6px;
+  border: 1px solid #abaeb8;
+ border-radius: 50px;
+}
+.appointmentcapsules p{
+  color: #abaeb8;
+  font-family: Poppins;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 445px) {
+  .appointmentcategory{
+    padding-top: 6.5rem;
+  }
+}
+
 .aboutMe {
   display: flex;
   flex-direction: column;
@@ -298,4 +361,7 @@
 .contactItem {
   display: flex;
   gap: 1rem;
+}
+.contactItem img{
+  width: 20px;
 }

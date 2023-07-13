@@ -10,6 +10,11 @@ import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import toast, { Toaster } from "react-hot-toast";
 
+const apointmentdata =[
+  "Software","Self Advisory","Product Management","Career Advice",
+  "IT Consulting"
+]
+
 const UserProfileTesting = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -75,6 +80,7 @@ const UserProfileTesting = () => {
 
   //   console.log("hasUserProfile", hasUserProfile);
   console.log("userDoc", userDoc);
+  console.log("user", user);
 
   return (
     <>
@@ -167,9 +173,31 @@ const UserProfileTesting = () => {
             </div>
           </div>
           <div className={styles.profileContent}>
+            <div className={styles.apointment}>
+              <p>Appointment</p>
+              <p>{userDoc?.apointmentRate ? userDoc.apointmentRate : "Set your Hourly Cost"}</p>
+              <p>{userDoc?.apointmentRateinfo ? userDoc.apointmentRateinfo : "Half-Hourly sessions + Free Introductory sessions"}</p>
+            </div>
+            <div className={styles.appointmentcategory}>
+             {
+              apointmentdata.map((item,idx)=>(
+                <div className={styles.appointmentcapsules}>
+                  <p>{item}</p>
+                </div>
+              ))
+             }
+             
+            </div>
+          </div>
+
+          <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
               <p>{userDoc?.about ? userDoc.about : "Add your Bio"}</p>
+            </div>
+            <div className={styles.aboutMe}>
+              <p>Current Designation</p>
+              <p>{userDoc?.designation ? userDoc.designation : "Add your designation"}</p>
             </div>
             <div className={styles.connect}>
               <p>How can we connect?</p>
@@ -247,6 +275,18 @@ const UserProfileTesting = () => {
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
                 <p>
                   {userDoc?.linkedin ? userDoc.linkedin : "Add your linkedin"}
+                </p>
+              </div>
+              <div className={styles.contactItem}>
+                <img src="/images/fbIcon.png" alt="Linkedin" />
+                <p>
+                  {userDoc?.linkedin ? userDoc.linkedin : "Add your facebook"}
+                </p>
+              </div>
+              <div className={styles.contactItem}>
+                <img src="/images/twitter.svg" alt="Linkedin" />
+                <p>
+                  {userDoc?.linkedin ? userDoc.linkedin : "Add your twitter"}
                 </p>
               </div>
             </div>
