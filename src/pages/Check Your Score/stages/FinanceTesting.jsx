@@ -156,7 +156,7 @@ const FinanceTesting = ({ setStage, data, setData, score, setScore }) => {
             value={data?.Market?.revenue_growth?.revenue_growth}
             // onChange={handleRevenue}
             onChange={handleChange}
-            title={"What is you're revenue Growth Rate?"}
+            title={"What is your revenue Growth Rate?"}
             placeholder={"Enter here"}
             type={"text"}
           />
@@ -191,7 +191,7 @@ const FinanceTesting = ({ setStage, data, setData, score, setScore }) => {
           name={"to_acquire"}
           value={data?.Market?.to_acquire}
           onChange={handleChange}
-          title={"What is to aquire a customer?"}
+          title={"What is the cost to aquire a customer?"}
           placeholder={"Type here.."}
         />
         <DropDown
