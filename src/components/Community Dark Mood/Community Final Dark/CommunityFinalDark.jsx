@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./CommunityFinalDark.module.css";
+import styles from "../Post Card Dark Mode/PostCardDark.module.css"
 import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
 import CommunityNavbar from "../../../components/Community Navbar/CommunityNavbar";
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
@@ -681,7 +682,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       }
                       alt="userImage"
                     />
-                    <div className="textAreaUploadContainer">
+                    <div className={style.textAreaUploadContainer}>
                       <div className={style.navbarUploadPostOuterBoxContainer}>
                         <textarea
                           className="navbarUploadPostContainerTextArea"
@@ -1227,33 +1228,80 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       />
                     </>
                   ) : null}
-                  {spaceFilteredPost.map((item, index) => {
-                    // if (index === 3) {
-                    //   return (
-                    //     <>
-                    //       <PostCardDark
-                    //         postsData={postsData}
-                    //         setPostsData={setPostsData}
-                    //         item={item}
-                    //         key={index}
-                    //         handleEditPostButtonClick={
-                    //           handleEditPostButtonClick
-                    //         }
-                    //         setPostsAuthorIsClick={setPostsAuthorIsClick}
-                    //         setPostsAuthorInfo={setPostsAuthorInfo}
-                    //         isLoggedIn = { isLoggedIn };
-                    //         openModal = { openModal };
-                    //       />
-                    //       <DiscoverEvents 
-                    //         isLoggedIn={isLoggedIn}
-                    //         openModal={openModal}
-                    //       />
-                    //     </>
-                    //   );
-                    // } else
-                    if (index === 3) {
-                      return (
-                        <>
+                  {spaceFilteredPost.length >= 1 ? (
+                    spaceFilteredPost?.map((item, index) => {
+                      // } else
+                      if (index === 3) {
+                        return (
+                          <>
+                            <PostCardDark
+                              postsData={postsData}
+                              setPostsData={setPostsData}
+                              item={item}
+                              key={index}
+                              handleEditPostButtonClick={
+                                handleEditPostButtonClick
+                              }
+                              setPostsAuthorIsClick={setPostsAuthorIsClick}
+                              setPostsAuthorInfo={setPostsAuthorInfo}
+                              isLoggedIn={isLoggedIn}
+                              openModal={openModal}
+                              postId={item.id}
+                            />
+                            <DiscoverPerfectTools
+                              isLoggedIn={isLoggedIn}
+                              openModal={openModal}
+                            />
+                          </>
+                        );
+                      } else if (index === 7) {
+                        return (
+                          <>
+                            <PostCardDark
+                              postsData={postsData}
+                              setPostsData={setPostsData}
+                              item={item}
+                              key={index}
+                              handleEditPostButtonClick={
+                                handleEditPostButtonClick
+                              }
+                              setPostsAuthorIsClick={setPostsAuthorIsClick}
+                              setPostsAuthorInfo={setPostsAuthorInfo}
+                              isLoggedIn={isLoggedIn}
+                              openModal={openModal}
+                              postId={item.id}
+                            />
+                            <FeaturedSuggestions
+                              isLoggedIn={isLoggedIn}
+                              openModal={openModal}
+                            />
+                          </>
+                        );
+                      } else if (index === 11) {
+                        return (
+                          <>
+                            <PostCardDark
+                              postsData={postsData}
+                              setPostsData={setPostsData}
+                              item={item}
+                              key={index}
+                              handleEditPostButtonClick={
+                                handleEditPostButtonClick
+                              }
+                              setPostsAuthorIsClick={setPostsAuthorIsClick}
+                              setPostsAuthorInfo={setPostsAuthorInfo}
+                              isLoggedIn={isLoggedIn}
+                              openModal={openModal}
+                              postId={item.id}
+                            />
+                            <FeaturedMentors
+                              isLoggedIn={isLoggedIn}
+                              openModal={openModal}
+                            />
+                          </>
+                        );
+                      } else {
+                        return (
                           <PostCardDark
                             postsData={postsData}
                             setPostsData={setPostsData}
@@ -1266,73 +1314,23 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
+                            postId={item.id}
                           />
-                          <DiscoverPerfectTools
-                            isLoggedIn={isLoggedIn}
-                            openModal={openModal}
-                          />
-                        </>
-                      );
-                    } else if (index === 7) {
-                      return (
-                        <>
-                          <PostCardDark
-                            postsData={postsData}
-                            setPostsData={setPostsData}
-                            item={item}
-                            key={index}
-                            handleEditPostButtonClick={
-                              handleEditPostButtonClick
-                            }
-                            setPostsAuthorIsClick={setPostsAuthorIsClick}
-                            setPostsAuthorInfo={setPostsAuthorInfo}
-                            isLoggedIn={isLoggedIn}
-                            openModal={openModal}
-                          />
-                          <FeaturedSuggestions
-                            isLoggedIn={isLoggedIn}
-                            openModal={openModal}
-                          />
-                        </>
-                      );
-                    } else if (index === 11) {
-                      return (
-                        <>
-                          <PostCardDark
-                            postsData={postsData}
-                            setPostsData={setPostsData}
-                            item={item}
-                            key={index}
-                            handleEditPostButtonClick={
-                              handleEditPostButtonClick
-                            }
-                            setPostsAuthorIsClick={setPostsAuthorIsClick}
-                            setPostsAuthorInfo={setPostsAuthorInfo}
-                            isLoggedIn={isLoggedIn}
-                            openModal={openModal}
-                          />
-                          <FeaturedMentors
-                            isLoggedIn={isLoggedIn}
-                            openModal={openModal}
-                          />
-                        </>
-                      );
-                    } else {
-                      return (
-                        <PostCardDark
-                          postsData={postsData}
-                          setPostsData={setPostsData}
-                          item={item}
-                          key={index}
-                          handleEditPostButtonClick={handleEditPostButtonClick}
-                          setPostsAuthorIsClick={setPostsAuthorIsClick}
-                          setPostsAuthorInfo={setPostsAuthorInfo}
-                          isLoggedIn={isLoggedIn}
-                          openModal={openModal}
-                        />
-                      );
-                    }
-                  })}
+                        );
+                      }
+                    })
+                  ) : (
+                    <section className={styles.PostCardContainer}>
+                      <div
+                        style={{ alignItems: "center" }}
+                        className={styles.postAuthorDetails}
+                      ></div>
+                      <div className={styles.postDivideLine_community}></div>
+                      <div className={styles.postTextContainer} style={{color:"#ffffff"}}>I regret to inform you that the selected space posts have not been published to date.</div>
+
+                      <div className={styles.postDivideLine_community}></div>
+                    </section>
+                  )}
                 </section>
               ) : (
                 // what's hot posts-container

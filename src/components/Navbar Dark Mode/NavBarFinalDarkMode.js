@@ -902,7 +902,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       My Profile
                     </button>
 
-                    <button
+                    {/* <button
                       style={{
                         cursor: loading ? "default" : "",
                         height: "50px",
@@ -924,13 +924,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         "Change Password"
                       )}
                     </button>
-
-                    {/* <button
-                  onClick={() => navigate("/user-edit-profile")}
-                  className="setting-dropdown-button"
-                >
-                  Edit Profile
-                </button> */}
+                   */}
                     <button
                       onClick={
                         user
