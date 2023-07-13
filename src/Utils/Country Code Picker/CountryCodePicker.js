@@ -58,13 +58,13 @@ if(searchCountryText===""){setCountryListToShow(countryCodeArr);return}
 
   return (
  <>
-    <div onClick={(e)=>{e.stopPropagation();setIsCountryCodePickerClick((p)=>!p)}} className={styles.signup_form_onboarding_countryCode_selector_inputCont}>
+    <div onClick={(e)=>{e.stopPropagation();setIsCountryCodePickerClick((p)=>!p)}} style={{color:"white"}} className={styles.signup_form_onboarding_countryCode_selector_inputCont}>
     <img style={{width:"30px"}} src={selectedCountry.flag} alt='map'></img>
     <p>{selectedCountry?.dialCode}</p>
-    <RiArrowDownSLine style={{marginLeft:".25rem",fontSize:"1.1rem"}}/>
+    <RiArrowDownSLine style={{marginLeft:".25rem",fontSize:"1.1rem", color:"white"}}/>
     </div>
     {isCountryCodePickerClick&&<div className={styles.signup_form_onboarding_countryCode_selector_inputCont_selector}>
-    <input name="country" autoComplete='off' autoFocus className={styles.signup_form_onboarding_countryCode_selector_country_search_input} onChange={(e)=>setSearchCountryText(e.target.value)} onClick={(e)=>{e.preventDefault();e.stopPropagation()}} type="text" placeholder='Search country' value={searchCountryText} />
+    <input style={{color:"white"}} name="country" autoComplete='off' autoFocus className={styles.signup_form_onboarding_countryCode_selector_country_search_input} onChange={(e)=>setSearchCountryText(e.target.value)} onClick={(e)=>{e.preventDefault();e.stopPropagation()}} type="text" placeholder='Search country' value={searchCountryText} />
     {countryListToShow.map((cc)=>{
     return <>
     <div style={{background:selectedCountry.isoCode===cc.isoCode?"#898989":""}} onClick={()=>{setIsCountryCodePickerClick(false);dispatch(setCountrySelected(cc))}} key={cc.isoCode}  className={styles.signup_form_onboarding_countryCode_selector_inputCont_selector_option}>

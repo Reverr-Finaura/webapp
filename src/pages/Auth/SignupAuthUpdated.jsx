@@ -231,17 +231,18 @@ function SignupAuthUpdated() {
           // "user_FR6AulWQMZry87FBzhKNu"
           "dVExxiI8hYMCyc0sY"
         );
-        const data = await axios.post("https://server.reverr.io/sendSmsCode", {
-          to: mobile,
-          code: selectedCountry.dialCode.slice(1),
-          message: `Your Reverr Signup OTP is ${otp}`,
-        });
-        console.log("SUCCESS!", response.status, response.text);
-        console.log("otpMobile SUCCESS!", data);
+        // console.log(mobile, selectedCountry.dialCode.slice(1), otp)
+        // const data = await axios.post("https://server.reverr.io/sendSmsCode", {
+        //   to: mobile,
+        //   code: selectedCountry.dialCode.slice(1),
+        //   message: `Your Reverr Signup OTP is ${otp}`,
+        // });
+        // console.log("SUCCESS!", response.status, response.text);
+        // console.log("otpMobile SUCCESS!", data);
         navigate("/enterotp");
         setLoading(false);
         toast.success(
-          "An OTP has been sent to your e-mail and registered mobile number"
+          "An OTP has been sent to your e-mail "
         );
       } catch (error) {
         console.log(error);
