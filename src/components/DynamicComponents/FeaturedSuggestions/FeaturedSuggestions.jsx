@@ -117,7 +117,12 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
                 if (!isLoggedIn) {
                   return openModal();
                 } else {
-                  navigate(`/userprofile/${user.email}`)
+                  {
+                    user?.userType === "Mentor" ? navigate(`/mentorprofile/${user?.email}`) 
+                    :
+                    navigate(`/userprofile/${user?.email}`)
+
+                  }
                 }
               }}
             >

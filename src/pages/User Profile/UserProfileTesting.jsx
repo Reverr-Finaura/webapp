@@ -176,7 +176,7 @@ const UserProfileTesting = () => {
               </button>
             </div>
           </div>
-          <div className={styles.profileContent}>
+          {/* <div className={styles.profileContent}>
             <div className={styles.apointment}>
               <p>Appointment</p>
               <p>{userDoc?.apointmentRate ? userDoc.apointmentRate : "Set your Hourly Cost"}</p>
@@ -192,7 +192,7 @@ const UserProfileTesting = () => {
              }
              
             </div>
-          </div>
+          </div> */}
 
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>

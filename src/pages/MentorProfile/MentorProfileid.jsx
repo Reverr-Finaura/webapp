@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styles from "./User.module.css";
+import styles from "./MentorProfileid.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import toast, { Toaster } from "react-hot-toast";
 
-const User = () => {
+const MentorProfileid = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -25,72 +24,50 @@ const User = () => {
 
   const [hasUserProfile, setHasUserProfile] = useState(true);
   const [userDocId, setUserDocId] = useState([]);
-
+  let mentor
   // CHECK FOR USER DOC DATA
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
       const userDataRef = collection(db, "Users");
       const q = query(userDataRef);
       const querySnapshot = await getDocs(q);
-
       querySnapshot.forEach((doc) => {
         setUserDocId((prev) => {
           return [...prev, doc.id];
         });
+        
         if (doc.id === id) {
+          // console.log("tt",doc?.data());
+          
+        
           //   dispatch(setUserDoc(doc.data()));
           setUserDoc(doc.data());
-        
+          mentor = doc?.data()?.userType
+          
+          
+       
         }
       });
     }
     fetchUserDocFromFirebase();
+    setTimeout(()=>{
+      ll()
+    },2000)
     
   }, [id]);
 
-  // CHECK IF USER HAS FUNDING PROFILE
-// console.log("userdoc",userDoc);
-  useEffect(() => {
-    if (userDoc?.hasFundingProfile === "No") {
-      return;
-    }
-    async function fetchUserFundingDocFromFirebase() {
-      const userFundingDataRef = collection(db, "Funding");
-      const q = query(userFundingDataRef);
-      const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        if (doc.id === id) {
-          dispatch(setUserFundingDoc(doc.data()));
-        }
-      });
+  const ll =()=>{
+    if(userDoc === undefined && !mentor ){
+      // console.log("run");
+      return navigate(`/userprofile/${id}`)
     }
-    fetchUserFundingDocFromFirebase();
-  }, [userDoc]);
+  }
 
-  useEffect(() => {
-    if (id && userDoc) {
-      if (userDoc?.hasGeneralProfile === true) {
-        setHasUserProfile(true);
-        return;
-      } else if (userDoc?.hasGeneralProfile === false) {
-        setHasUserProfile(false);
-      }
-    }
-    if(userDoc?.userType === "Mentor"){
-      console.log(",emtor");
-      return navigate(`/mentorprofile/${id}`)
-    }
-  }, [userDoc]);
-// console.log(userDoc);
-  // const ll =()=>{
-  //   if(userDoc  && mentor ){
-  //     // console.log("run");
-      
-  //   }
-  // }
 
-  //   console.log("hasUserProfile", hasUserProfile);
+
+
+    console.log("userdoc", userDoc);
 
 
   return (
@@ -105,7 +82,7 @@ const User = () => {
             onClick={() => navigate("/")}
           >
             <img src="/images/profileArrowLeft.svg" alt="back" />
-            <p>User Profile</p>
+            <p>Mentor Profile</p>
           </div>
           <div className={styles.profileUser}>
             <div className={styles.profileBackground}></div>
@@ -178,7 +155,7 @@ const User = () => {
               <button>Add Connection</button>
             </div>
           </div>
-          {/* <div className={styles.profileContent}>
+          <div className={styles.profileContent}>
             <div className={styles.apointment}>
               <p>Appointment</p>
               <p>{userDoc?.plans ? `₹${userDoc.plans[0]}/Hour` : "Set your Hourly Cost"}</p>
@@ -194,7 +171,7 @@ const User = () => {
              }
              
             </div>
-          </div> */}
+          </div>
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
@@ -302,4 +279,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default MentorProfileid;

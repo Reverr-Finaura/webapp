@@ -39,6 +39,8 @@ function ConnectSuggestion({ isLoggedIn,  openModal }) {
     randomUsers.push(randomElement);
   }
 
+  // console.log("randomUsers",randomUsers[0].userType);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -97,7 +99,13 @@ function ConnectSuggestion({ isLoggedIn,  openModal }) {
                     return openModal();
                   }else{
                     //normal code
-                   navigate(`/userprofile/${user.email}`)
+                    {
+                      user?.userType === "Mentor" ? navigate(`/mentorprofile/${user?.email}`) 
+                      :
+                      navigate(`/userprofile/${user?.email}`)
+
+                    }
+                   
                   }
                 }}
               >
