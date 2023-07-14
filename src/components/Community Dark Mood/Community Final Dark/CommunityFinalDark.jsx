@@ -9,6 +9,7 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -110,7 +111,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [spaceFilteredPost, setSpaceFilteredPost] = useState([]);
   const [whatsHotCommunityPost, setWhatsHotCommunityPost] = useState([]);
   const [postSpaceData, setPostSpaceData] = useState();
-
+  const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
   //FETCH LATEST NEWS
   const options = {
     method: "GET",
@@ -226,7 +227,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       );
       setWhatsHotCommunityPost(
         postsData.filter((post) => {
-          console.log("here is the post ", post);
+        
           return post.likes.length >= likesAverage;
         })
       );
@@ -287,7 +288,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const postsPerPage = 6;
   const pagesVisited = pageNumber * postsPerPage;
   const displayPosts = postsData.slice(0, pagesVisited + postsPerPage);
-  console.log("postData are here: ", postsData);
+  
   // const pageCount=Math.ceil(postsData.length/notesPerPage)
   const fetchMorePosts = () => {
     setTimeout(() => {
@@ -462,13 +463,35 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // below code is for the userspace
   const [activeIndex, setActiveIndex] = useState([]);
+ 
+
+  async function fechingActiveIndexFirebase(){
+    const docRef = doc(db,"Users",user?.user?.email)
+ 
+    try {
+      const docSnap = await getDoc(docRef)
+      // console.log("firebase fechted queries ",docSnap.data().activeIndex)
+      setActiveIndex(docSnap.data().activeIndex)
+    } catch (error) {
+       console.log(error)
+    } 
+
+  }
+  
+  // fetching the activeIndex from the firebase
+  useEffect(()=>{
+    fechingActiveIndexFirebase()
+  },[])
 
   const handleSpaceMenuDataClick = (index, event, value) => {
+    
     // console.log(index, event, value)
     if (activeIndex.includes(index)) {
       setActiveIndex(activeIndex.filter((i) => i !== index)); // Remove the index if it's already active
+     
     } else {
       setActiveIndex([...activeIndex, index]); // Add the index if it's not active
+      
     }
     // setIsSpaceMenuDataActive(!isSpaceMenuDataActive)
     setUserSpaceArr((prevOptions) => {
@@ -478,24 +501,41 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         return [...prevOptions, value];
       }
     });
+   
   };
+  
 
-  const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
+  // updating the activeIndex in the firebase
+  async function updateActiveUserSpaceDatabase(){
+    console.log(user?.user?.email)
+    const userdocRef = doc(db,"Users",user?.user?.email)
+
+    try {
+      await updateDoc(userdocRef, { activeIndex:activeIndex  });
+      fechingActiveIndexFirebase()
+    
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+ 
 
   function handleModalSubmit() {
-    if (userSpaceArr.length >= 1) {
+    updateActiveUserSpaceDatabase()
+   
       dispatch(setUserSpace(userSpaceArr));
       setSelectedCommunitySpace(userSpaceArr);
       setIsOpen(false);
-    } else {
-      window.alert("Please choose atleast one!");
-    }
+    // else {
+    //   window.alert("Please choose atleast one!");
+    // }
   }
 
   console.log("userSpaceArr ", userSpaceArr);
   console.log("userSpace: ", userSpace);
 
   function openTheSpaceModal() {
+    fechingActiveIndexFirebase()
     if (isOpen) {
       setIsOpen(false);
     } else {
@@ -503,6 +543,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     }
   }
   function handleModalClose() {
+    fechingActiveIndexFirebase()
     setIsOpen(false);
   }
 
