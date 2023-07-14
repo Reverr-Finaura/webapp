@@ -266,7 +266,7 @@ const User = () => {
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
                 <p>
-                  {userDoc?.linlkedin ? userDoc?.linlkedin?.substr(28) : "Add your linkedin"}
+                  {userDoc?.linlkedin ? userDoc?.linlkedin : "Add your linkedin"}
                 </p>
               </div>
               <div className={styles.contactItem}>

@@ -183,12 +183,12 @@ const UserProfileTesting = () => {
               <p>{userDoc?.apointmentRateinfo ? userDoc.apointmentRateinfo : "Half-Hourly sessions + Free Introductory sessions"}</p>
             </div>
             <div className={styles.appointmentcategory}>
-             {
-              apointmentdata.map((item,idx)=>(
-                <div className={styles.appointmentcapsules}>
+            {userDoc?.domain ?
+              userDoc?.domain?.map((item,idx)=>(
+                <div key={idx} className={styles.appointmentcapsules}>
                   <p>{item}</p>
                 </div>
-              ))
+              )) : <></>
              }
              
             </div>
