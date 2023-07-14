@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 import styles from "./FeaturedSuggestions.module.css";
+import { useNavigate } from "react-router-dom";
 
 function FeaturedSuggestions({ isLoggedIn, openModal }) {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate()
 
   //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
@@ -115,11 +117,11 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
                 if (!isLoggedIn) {
                   return openModal();
                 } else {
-                  console.log("user logged!");
+                  navigate(`/userprofile/${user.email}`)
                 }
               }}
             >
-              Message
+             Connect
             </button>
           </div>
         ))}

@@ -925,9 +925,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 />
                 <div className="textAreaUploadContainer">
                   <div
-                    className={`textAreaIsClick
-                        ? ${style.navbarUploadPostOuterBoxContainer}
-                        : ${style.UploadPostOuterBoxContainerNotExpanded}`}
+                    className={textAreaIsClick
+                        ? style.navbarUploadPostOuterBoxContainer
+                        : style.UploadPostOuterBoxContainerNotExpanded}
                   >
                     <textarea
                       style={{ borderRadius: "30px" }}
@@ -951,14 +951,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     ></textarea>
                     {!textAreaIsClick ? (
                       <img
-                        style={{
-                          display: "inline-flex",
-                          position: "absolute",
-                          right: " 23px",
-                          top: "15px",
-                          cursor: "pointer",
-                          height: "40px",
-                        }}
+                        className={style.ArrowImgAfterTextArea}
                         src="./images/right-arraow-bg-blue.png"
                         alt="img"
                         onClick={() => {

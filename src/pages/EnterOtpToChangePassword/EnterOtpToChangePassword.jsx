@@ -14,7 +14,7 @@ import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDa
 import otpPhoto from "../../images/otp-picture.png";
 import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdated";
 
-function EnterOtpToChangePassword({otp, email}) {
+function EnterOtpToChangePassword({ propOtp, tempUserData }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ function EnterOtpToChangePassword({otp, email}) {
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
   const [otpMatched, setOtpMatched] = useState(false);
+  const [newOTP, setNewOTP] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,22 +73,15 @@ function EnterOtpToChangePassword({otp, email}) {
   const checkOtp = (e) => {
     e.preventDefault();
 
-    console.log(enteredOtp);
+    console.log("otp1", propOtp, enteredOtp);
+    console.log("otp1", newOTP, enteredOtp);
 
-    if (otp === enteredOtp && (seconds > 0 || minutes > 0)) {
-        setOtpMatched(true);
-    //   createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-    //     .then(() => {
-    //       dispatch(create({ newUser }));
-    //     })
-    //     .then(() => {
-    //       // navigate("/startup-list");
-    //       navigate("/onboarding-first");
-    //     })
-    //     .catch((error) => {
-    //       const errorMessage = error.message;
-    //       toast.error(errorMessage);
-    //     });
+    if (
+      ((newOTP === "" && propOtp === enteredOtp) ||
+        (newOTP !== "" && newOTP === enteredOtp)) &&
+      (seconds > 0 || minutes > 0)
+    ) {
+      setOtpMatched(true);
     } else if (seconds <= 0 && minutes <= 0) {
       toast.error("OTP expired");
     } else {
@@ -109,31 +103,38 @@ function EnterOtpToChangePassword({otp, email}) {
       return ("" + number).substring(add);
     }
     const otp = generate(6);
+    setNewOTP(otp);
 
     var templateParams = {
       from_name: "Reverr",
-      to_name: newUser.name,
-      to_email: newUser.email,
+      to_name: tempUserData.name,
+      to_email: tempUserData.email,
       otp,
     };
-    dispatch(modify({ otp }));
+    console.log("otp1", templateParams);
+    console.log("otp1", otp);
+    // dispatch(modify({ rand }));
     emailjs
       .send(
         "service_lfmmz8k",
         "template_n3pcht5",
         templateParams,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        "dVExxiI8hYMCyc0sY"
       )
       .then(
         function (response) {
-          console.log("SUCCESS!", response.status, response.text);
+          //   console.log("SUCCESS!", response.status, response.text);
         },
         function (error) {
-          console.log("FAILED...", error);
+          //   console.log("FAILED...", error);
         }
       )
-      .catch((err) => {
-        console.log(err);
+      .then(() => {
+        toast.success("New OTP has been sent to your e-mail");
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.message);
       });
     setMinutes(3);
     setSeconds(0);
@@ -141,89 +142,93 @@ function EnterOtpToChangePassword({otp, email}) {
 
   return (
     <div>
-    {otpMatched === true ? (
-      <ChangePasswordUpdated email={email} />
-    ) : (
-    <>
-      <NavBarFinalDarkMode isLoggedIn={false} />
-      <div className={styles.otp}>
-        <div className={styles.leftPart}>
-          <div className={styles.getStarted}>
-            <h1>Enter Verification Code</h1>
-          </div>
-          <div className={styles.para}>
-            <p>Enter the OTP sent to your given Email Id.</p>
-          </div>
-          <form className={styles.otpForm} onSubmit={checkOtp}>
-            <div className={styles.otpInputs}>
-              <input
-                maxLength={1}
-                type="text"
-                value={firstDigit}
-                onChange={(e) => setFirstDigit(e.target.value)}
-              />
-              <input
-                maxLength={1}
-                type="text"
-                value={secondDigit}
-                onChange={(e) => setSecondDigit(e.target.value)}
-              />
-              <input
-                maxLength={1}
-                type="text"
-                value={thirdDigit}
-                onChange={(e) => setThirdDigit(e.target.value)}
-              />
-              <input
-                maxLength={1}
-                type="text"
-                value={fourthDigit}
-                onChange={(e) => setFourthDigit(e.target.value)}
-              />
-              <input
-                maxLength={1}
-                type="text"
-                value={fifthDigit}
-                onChange={(e) => setFifthDigit(e.target.value)}
-              />
-              <input
-                maxLength={1}
-                type="text"
-                value={sixthDigit}
-                onChange={(e) => setSixthDigit(e.target.value)}
-              />
-            </div>
-            {seconds > 0 || minutes > 0 ? (
-              <p className={styles.otp_timer}>
-                Otp valid till: {minutes < 10 ? `0${minutes}` : minutes}:
-                {seconds < 10 ? `0${seconds}` : seconds}
-              </p>
-            ) : (
-              <p className={styles.otp_timer}>Didn't recieve code?</p>
-            )}
+      {otpMatched === true ? (
+        <ChangePasswordUpdated email={tempUserData.email} />
+      ) : (
+        <>
+          <NavBarFinalDarkMode isLoggedIn={false} />
+          <div className={styles.otp}>
+            <div className={styles.leftPart}>
+              <div className={styles.getStarted}>
+                <h1>Enter Verification Code</h1>
+              </div>
+              <div className={styles.para}>
+                <p>Enter the OTP sent to your given Email Id.</p>
+              </div>
+              <form className={styles.otpForm} onSubmit={checkOtp}>
+                <div className={styles.otpInputs}>
+                  <input
+                    maxLength={1}
+                    type="text"
+                    value={firstDigit}
+                    onChange={(e) => setFirstDigit(e.target.value)}
+                  />
+                  <input
+                    maxLength={1}
+                    type="text"
+                    value={secondDigit}
+                    onChange={(e) => setSecondDigit(e.target.value)}
+                  />
+                  <input
+                    maxLength={1}
+                    type="text"
+                    value={thirdDigit}
+                    onChange={(e) => setThirdDigit(e.target.value)}
+                  />
+                  <input
+                    maxLength={1}
+                    type="text"
+                    value={fourthDigit}
+                    onChange={(e) => setFourthDigit(e.target.value)}
+                  />
+                  <input
+                    maxLength={1}
+                    type="text"
+                    value={fifthDigit}
+                    onChange={(e) => setFifthDigit(e.target.value)}
+                  />
+                  <input
+                    maxLength={1}
+                    type="text"
+                    value={sixthDigit}
+                    onChange={(e) => setSixthDigit(e.target.value)}
+                  />
+                </div>
+                {seconds > 0 || minutes > 0 ? (
+                  <p className={styles.otp_timer}>
+                    Otp valid till: {minutes < 10 ? `0${minutes}` : minutes}:
+                    {seconds < 10 ? `0${seconds}` : seconds}
+                  </p>
+                ) : (
+                  <p className={styles.otp_timer}>Didn't recieve code?</p>
+                )}
 
-            <div className={styles.buttonWrap}>
-              <Button className={styles.verifyBtn} type="submit">
-                Verify
-              </Button>
-              <h3
-                onClick={resendOtp}
-                disabled={seconds > 0 || minutes > 0}
-                className={styles.resend}
-              >
-                Resend OTP
-              </h3>
+                <div className={styles.buttonWrap}>
+                  <Button className={styles.verifyBtn} type="submit">
+                    Verify
+                  </Button>
+                  <h3
+                    onClick={resendOtp}
+                    disabled={seconds > 0 || minutes > 0}
+                    style={{
+                      cursor: seconds > 0 || minutes > 0 ? "default" : "",
+                      color: seconds > 0 || minutes > 0 ? "gray" : "#10b7ff",
+                    }}
+                    className={styles.resend}
+                  >
+                    Resend OTP
+                  </h3>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
 
-        <div className="rightPart">
-          <img className={styles.otpRightImg} src={otpPhoto} />
-        </div>
-      </div>
-      {/* <Footer /> */}
-    </>
-    )}
+            <div className="rightPart">
+              <img className={styles.otpRightImg} src={otpPhoto} />
+            </div>
+          </div>
+          {/* <Footer /> */}
+        </>
+      )}
     </div>
   );
 }

@@ -10,6 +10,11 @@ import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import toast, { Toaster } from "react-hot-toast";
 
+const apointmentdata =[
+  "Software","Self Advisory","Product Management","Career Advice",
+  "IT Consulting"
+]
+
 const UserProfileTesting = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,7 +39,10 @@ const UserProfileTesting = () => {
         setUserDocId((prev) => {
           return [...prev, doc.id];
         });
-        if (doc.id === user?.user?.email) {
+        if (
+          doc.id === user?.user?.email ||
+          doc.id.toLowerCase() === user?.user?.email.toLowerCase()
+        ) {
           dispatch(setUserDoc(doc.data()));
         }
       });
@@ -54,7 +62,10 @@ const UserProfileTesting = () => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        if (doc.id === user?.user?.email) {
+        if (
+          doc.id === user?.user?.email ||
+          doc.id.toLowerCase() === user?.user?.email.toLowerCase()
+        ) {
           dispatch(setUserFundingDoc(doc.data()));
         }
       });
@@ -73,8 +84,7 @@ const UserProfileTesting = () => {
     }
   }, [userDoc]);
 
-  //   console.log("hasUserProfile", hasUserProfile);
-  console.log("userDoc", userDoc);
+  // console.log("userDoc", userDoc);
 
   return (
     <>
@@ -161,15 +171,39 @@ const UserProfileTesting = () => {
                   {userDoc?.network ? userDoc.network.length : 0} Connections
                 </p>
               </div>
-              <button onClick={() => navigate("/editprofile")}>
+              <button onClick={() => {
+                userDoc?.userType === "Mentor" ? navigate("/mentor-edit-profile") : navigate("/editprofile")
+              }}>
                 Edit Profile
               </button>
             </div>
           </div>
           <div className={styles.profileContent}>
+            <div className={styles.apointment}>
+              <p>Appointment</p>
+              <p>{userDoc?.apointmentRate ? userDoc.apointmentRate : "Set your Hourly Cost"}</p>
+              <p>{userDoc?.apointmentRateinfo ? userDoc.apointmentRateinfo : "Half-Hourly sessions + Free Introductory sessions"}</p>
+            </div>
+            <div className={styles.appointmentcategory}>
+            {userDoc?.domain ?
+              userDoc?.domain?.map((item,idx)=>(
+                <div key={idx} className={styles.appointmentcapsules}>
+                  <p>{item}</p>
+                </div>
+              )) : <></>
+             }
+             
+            </div>
+          </div>
+
+          <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
               <p>{userDoc?.about ? userDoc.about : "Add your Bio"}</p>
+            </div>
+            <div className={styles.aboutMe}>
+              <p>Current Designation</p>
+              <p>{userDoc?.designation ? userDoc.designation : "Add your designation"}</p>
             </div>
             <div className={styles.connect}>
               <p>How can we connect?</p>
@@ -247,6 +281,18 @@ const UserProfileTesting = () => {
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
                 <p>
                   {userDoc?.linkedin ? userDoc.linkedin : "Add your linkedin"}
+                </p>
+              </div>
+              <div className={styles.contactItem}>
+                <img src="/images/fbIcon.png" alt="Linkedin" />
+                <p>
+                  {userDoc?.linkedin ? userDoc.linkedin : "Add your facebook"}
+                </p>
+              </div>
+              <div className={styles.contactItem}>
+                <img src="/images/twitter.svg" alt="Linkedin" />
+                <p>
+                  {userDoc?.linkedin ? userDoc.linkedin : "Add your twitter"}
                 </p>
               </div>
             </div>

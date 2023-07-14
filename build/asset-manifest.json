@@ -1,9 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.2408e4f5.css",
-    "main.js": "/static/js/main.f02d1706.js",
+    "main.css": "/static/css/main.0df185a6.css",
+    "main.js": "/static/js/main.9b0350b4.js",
     "static/media/illustration.svg": "/static/media/illustration.19635081d007bb47015e1ef6f9599be3.svg",
     "static/media/community mockup.svg": "/static/media/community mockup.39e6b22b0621801842e4a5857e9af195.svg",
+    "static/media/changepassword.png": "/static/media/changepassword.fa4bd960a454ba3db563.png",
+    "static/media/forgotpassword.png": "/static/media/forgotpassword.78bf843c8223adddd275.png",
     "static/media/otp-picture.png": "/static/media/otp-picture.5cb0ee7255ecdd929577.png",
     "static/media/signup-img.png": "/static/media/signup-img.74787731d726efbbde7a.png",
     "static/media/onboardingfirst.png": "/static/media/onboardingfirst.b8dd38d23f30360350ba.png",
@@ -85,11 +87,11 @@
     "static/media/clock.svg": "/static/media/clock.b00de8004e0a399a2210cf56a282b9f0.svg",
     "static/media/Search.svg": "/static/media/Search.fd51a352ec285f944c331e5f4cb85d42.svg",
     "static/media/PPT iconVector.svg": "/static/media/PPT iconVector.a0131fb78e7655bdc221733113bede5a.svg",
-    "main.2408e4f5.css.map": "/static/css/main.2408e4f5.css.map",
-    "main.f02d1706.js.map": "/static/js/main.f02d1706.js.map"
+    "main.0df185a6.css.map": "/static/css/main.0df185a6.css.map",
+    "main.9b0350b4.js.map": "/static/js/main.9b0350b4.js.map"
   },
   "entrypoints": [
-    "static/css/main.2408e4f5.css",
-    "static/js/main.f02d1706.js"
+    "static/css/main.0df185a6.css",
+    "static/js/main.9b0350b4.js"
   ]
 }

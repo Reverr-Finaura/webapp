@@ -47,7 +47,7 @@ const User = () => {
   }, [id]);
 
   // CHECK IF USER HAS FUNDING PROFILE
-
+// console.log("userdoc",userDoc);
   useEffect(() => {
     if (userDoc?.hasFundingProfile === "No") {
       return;
@@ -78,6 +78,7 @@ const User = () => {
   }, [userDoc]);
 
   //   console.log("hasUserProfile", hasUserProfile);
+
 
   return (
     <>
@@ -165,9 +166,30 @@ const User = () => {
             </div>
           </div>
           <div className={styles.profileContent}>
+            <div className={styles.apointment}>
+              <p>Appointment</p>
+              <p>{userDoc?.plans ? `₹${userDoc.plans[0]}/Hour` : "Set your Hourly Cost"}</p>
+              <p>{userDoc?.apointmentRateinfo ? userDoc.apointmentRateinfo : "Half-Hourly sessions + Free Introductory sessions"}</p>
+            </div>
+            <div className={styles.appointmentcategory}>
+             {userDoc?.domain ?
+              userDoc?.domain?.map((item,idx)=>(
+                <div key={idx} className={styles.appointmentcapsules}>
+                  <p>{item}</p>
+                </div>
+              )) : <></>
+             }
+             
+            </div>
+          </div>
+          <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
               <p>{userDoc?.about ? userDoc.about : "Add your Bio"}</p>
+            </div>
+            <div className={styles.aboutMe}>
+              <p>Current Designation</p>
+              <p>{userDoc?.designation ? userDoc.designation : "Add your designation"}</p>
             </div>
             <div className={styles.connect}>
               <p>How can we connect?</p>
@@ -244,7 +266,19 @@ const User = () => {
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
                 <p>
-                  {userDoc?.linkedin ? userDoc.linkedin : "Add your linkedin"}
+                  {userDoc?.linlkedin ? userDoc?.linlkedin : "Add your linkedin"}
+                </p>
+              </div>
+              <div className={styles.contactItem}>
+                <img src="/images/fbIcon.png" alt="Linkedin" />
+                <p>
+                  {userDoc?.linkedin ? userDoc.linkedin : "Add your facebook"}
+                </p>
+              </div>
+              <div className={styles.contactItem}>
+                <img src="/images/twitter.svg" alt="Linkedin" />
+                <p>
+                  {userDoc?.twitter ? userDoc.twitter : "Add your twitter"}
                 </p>
               </div>
             </div>

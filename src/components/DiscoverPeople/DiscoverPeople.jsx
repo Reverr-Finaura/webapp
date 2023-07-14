@@ -127,7 +127,7 @@ const DiscoverPeople = () => {
                 <div className='people-card'>
                   {randomUsers.length === 8 && randomUsers.map(user => (
                     <div key={user.id}>
-                      <ProfileCard name={user.name} post={user.designation} imgUrl={user.image} />
+                      <ProfileCard email={user.email} name={user.name} post={user.designation} imgUrl={user.image} />
                      </div>
                       )
                     )
