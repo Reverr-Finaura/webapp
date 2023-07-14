@@ -17,14 +17,14 @@
   flex: 1;
 }
 .rightCont {
-  flex: 1;
+  flex: 7;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 2rem;
 }
 .rightCont img {
-  width: 70%;
+  width: 35rem;
 }
 
 .brandLogoCont {
@@ -91,7 +91,7 @@
   font-family: "Exo";
   font-style: normal;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 169.15%;
   letter-spacing: 0.14em;
   text-transform: capitalize;
@@ -119,7 +119,7 @@
   color: #ffffff;
   color: #fff;
   font-family: Reem Kufi;
-  font-size: 34px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -176,7 +176,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin-top: 1.7rem;
   /* width: -webkit-fill-available; */
   margin-bottom: 2rem;
   justify-content: center;
@@ -189,14 +189,13 @@
   font-family: "Exo";
   font-style: normal;
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 12px;
   letter-spacing: 0.05em;
-
   margin-bottom: 2rem;
   display: flex;
-  width: 70%;
-  height: 3.2rem;
+  width: 17rem;
+  height: 2.5rem;
   justify-content: center;
   align-items: flex-start;
   border-radius: 2rem;
@@ -207,27 +206,24 @@
   position: relative;
   width: 100%;
   display: flex;
-  height: fit-content;
   margin-bottom: 2rem;
-  width: 57%;
 }
 
 .inputPhoneNumber {
   border: none;
   border-bottom: 0.6px solid #cccbcb;
-  padding: 1rem;
   font-family: "Exo";
   font-style: normal;
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 12px;
   letter-spacing: 0.05em;
-
   color: white;
-  background-color: transparent;
-  width: 100%;
+  background: var(--white, #fff);
+  width: 13.2rem;
+  padding-left: 120px;
   margin-left: auto;
-  padding-left: 8rem;
+  height: 2.7rem;
 }
 
 .input:focus {
@@ -250,7 +246,7 @@
   letter-spacing: 0.09em;
   color: #ffffff;
   padding: 1rem;
-  width: 48%;
+  width: 15rem;
   margin: 3em 0em 1em 0em;
   height: 50px;
   border-radius: 87.273px;
