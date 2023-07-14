@@ -241,9 +241,7 @@ function SignupAuthUpdated() {
         // console.log("otpMobile SUCCESS!", data);
         navigate("/enterotp");
         setLoading(false);
-        toast.success(
-          "An OTP has been sent to your e-mail "
-        );
+        toast.success("An OTP has been sent to your e-mail ");
       } catch (error) {
         console.log(error);
         toast.error(error.text);
@@ -616,7 +614,7 @@ function SignupAuthUpdated() {
 
           <form onSubmit={signUpEmail} className={styles.form}>
             <input
-              style={{height:"60px"}}
+              // style={{height:"60px"}}
               className={styles.input}
               onChange={(e) => setFirstName(e.target.value)}
               value={firstName}
@@ -632,19 +630,19 @@ function SignupAuthUpdated() {
               placeholder="Last Name"
               required
             /> */}
-              <input
-                style={{marginLeft:"50px",    width:"468px", height:"50px"}}
-                className={styles.input}
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                type="email"
-                placeholder="Your E-Mail"
-                required
-              />
+            <input
+              // style={{marginLeft:"50px",    width:"468px", height:"50px"}}
+              className={styles.input}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type="email"
+              placeholder="Your E-Mail"
+              required
+            />
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
-                  style={{paddingLeft:"120px", width :"468px", height:"50px"}}
+                  style={{ paddingLeft: "120px", width: "468px" }}
                   className={styles.inputPhoneNumber}
                   onChange={(e) => setMobile(e.target.value)}
                   value={mobile}
@@ -654,8 +652,6 @@ function SignupAuthUpdated() {
                 />
                 <CountryCodePicker />
               </div>
-
-            
             </div>
 
             <div className={styles.passwordBlock}>
@@ -668,7 +664,7 @@ function SignupAuthUpdated() {
                 required
               />
               <input
-                style={{marginLeft:"50px"}}
+                style={{ marginLeft: "50px" }}
                 className={styles.input}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
@@ -694,9 +690,8 @@ function SignupAuthUpdated() {
                 "Sign Up"
               )}
             </button>
-          {/* <p className={styles.orText}>-OR-</p> */}
+            {/* <p className={styles.orText}>-OR-</p> */}
           </form>
-
 
           {/* <div className={styles.optionButtonCont}>
             <button onClick={signInWithGoogle} className={styles.googleBtn}>
@@ -732,8 +727,8 @@ function SignupAuthUpdated() {
             </button>
           </div> */}
         </div>
-        <div className="rightCont">
-          <img style={{ width: "36em" }} src={rightPic} />
+        <div className={styles.rightCont}>
+          <img src={rightPic} />
         </div>
       </section>
     </>
