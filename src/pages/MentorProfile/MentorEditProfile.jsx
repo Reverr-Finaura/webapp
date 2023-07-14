@@ -364,6 +364,18 @@ const MentorEditProfile = () => {
     });
     navigate("/userProfile");
   }
+
+  const handleCharges = async (e) => {
+    let { name, value } = e.target;
+    value = parseInt(value);
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: [value, value*4 , value*12, value*24]
+      };
+    });
+  }
+
   // ---------------------------------------------
 //   console.log("userDoc", userDoc);
 //   console.log("formData", formData);
@@ -838,20 +850,19 @@ const MentorEditProfile = () => {
               <p>Mentor Details</p>
               <div className="form-container">
                 <form>
-                  {/* <div className="form-row">
+                  <div className="form-row">
                     <label htmlFor="charges">Charges/hour (₹)</label>
                     <input
                       type="number"
                       id="charges"
                       name="plans"
-                      value={formData?.plans[0] / 2 || ""}
-                      onChange={(e) => {
-                        // formData.plans[0] = e.target.value;
-                      }}
+                      value={formData?.plans[0]}
+                      onChange={(e)=>{handleCharges(e)}}
                       placeholder="Enter your charges per hour"
                       required
+                      min={0}
                     />
-                  </div> */}
+                  </div>
                   <div className="form-row">
                     <label htmlFor="accountHolderName">
                       Account Holder Name

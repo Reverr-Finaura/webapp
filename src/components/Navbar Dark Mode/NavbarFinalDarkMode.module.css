@@ -8,7 +8,7 @@
   align-items: center;
   z-index: 10000;
   /* border-bottom: 0.3px solid #b4b4b4; */
-  background-color: #0c1631;
+  background-color:   #0c1631;
 }
 .reverrHeadingSpan{
  display: block;
@@ -132,6 +132,8 @@
 
 .navbarIconsCont {
   display: flex;
+  /* margin-left: auto;
+  margin-right: 1rem; */
   align-items: center;
   margin-left: auto;
 
@@ -157,7 +159,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 3rem;
+  margin-right: 2rem;
   cursor: pointer;
 
 }
@@ -347,7 +349,7 @@
   padding: 0 !important;
   width: fit-content !important;
   height: fit-content !important;
-  margin: auto;
+  margin: 0.5em !important;
   box-shadow: none !important;
   border: none !important;
 }
@@ -501,6 +503,9 @@
   flex-direction: column;
   padding-left: 12px;
 }
+
+
+
 .hamburgermenu{
   display: none;
 }

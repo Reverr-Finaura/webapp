@@ -2,14 +2,25 @@ import React, { useState } from "react";
 import styles from "./Second.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setRole } from "../../../features/onboardingSlice";
 
 function Second() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userType, setUserType] = useState("");
 
   const handleDivClick = (type) => {
     setUserType(type);
   };
+
+   // this function will handle two function when the Next button is clicked
+  const handleFunctions = () => {
+    navigate("/onboarding-third")
+    dispatch(setRole(userType))
+  }
+
+
 
   const roleItems = [
     {
@@ -87,7 +98,7 @@ function Second() {
             </button>
             <button
               className={styles.rightButton}
-              onClick={() => navigate("/onboarding-third")}
+              onClick={handleFunctions}
             >
               Next
             </button>

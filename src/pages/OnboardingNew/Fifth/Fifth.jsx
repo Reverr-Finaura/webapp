@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import styles from "./Fifth.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setHereFor } from "../../../features/onboardingSlice";
+import { db } from "../../../firebase";
+import { setDoc, doc } from "firebase/firestore";
 
 function Fifth() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const onboardingData = useSelector((state) => state.onboarding);
+  // const {userSpace, role, profileImg, designation, about, livingState, livingCountry, education, experience, linkedinLink, twitterLink } = onboardingData;
   const [Here_for, setHere_for] = useState([]);
 
   const handleHereForClick = (spaceText) => {
@@ -16,6 +24,31 @@ function Fifth() {
       setHere_for([...Here_for, spaceText]);
     }
   };
+
+  const finalOnboardingData = {
+    ...onboardingData,
+    here_for: Here_for
+  }
+
+  const handleFunctions = () => {
+    dispatch(setHereFor(Here_for));
+    uploadOnboardingData(docRef,finalOnboardingData);
+    navigate("/");
+  };
+
+
+   // uploading onboardingData 
+
+   const docRef = doc(db, "Users", user?.user?.email);
+
+   const uploadOnboardingData = async (docRef,finalOnboardingData) => {
+     try{
+       await setDoc(docRef,finalOnboardingData);
+     }catch(err){
+       console.error(err);
+     }
+   }
+ 
 
   const objectives = [
     {
@@ -56,6 +89,7 @@ function Fifth() {
     },
   ];
 
+ 
   return (
     <div className={styles.container}>
       <div
@@ -101,7 +135,7 @@ function Fifth() {
             >
               Back
             </button>
-            <button className={styles.rightButton} onClick={() => navigate("/")} >Next</button>
+            <button className={styles.rightButton} onClick={handleFunctions} >Next</button>
             <button className={styles.skipButton} onClick={() => navigate("/")} >Skip</button>
           </div>
         </div>

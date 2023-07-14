@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import styles from "./First.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserSpaces } from "../../../features/onboardingSlice";
 
 function First() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userSpace, setUserSpace] = useState([]);
 
   const handleSpaceClick = (spaceText) => {
@@ -15,7 +18,18 @@ function First() {
       // If the space text is not selected, add it to the array
       setUserSpace([...userSpace, spaceText]);
     }
+    // console.log("userSpace",userSpace);
   };
+
+  // this function will handle two function when the Next button is clicked
+
+  const handleFunctions = () => {
+    navigate("/onboarding-second");
+    dispatch(setUserSpaces(userSpace));
+  }
+
+
+
 
   const spaceItems = [
     { image: require("../../../images/onboarding11.png"), text: "FinTech" },
@@ -107,7 +121,7 @@ function First() {
           <div style={{ width: "100%" }}>
             <button
               className={styles.nextButton}
-              onClick={() => navigate("/onboarding-second")}
+              onClick={handleFunctions}
             >
               Next
             </button>
@@ -120,3 +134,4 @@ function First() {
 }
 
 export default First;
+

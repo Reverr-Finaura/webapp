@@ -171,7 +171,9 @@ const UserProfileTesting = () => {
                   {userDoc?.network ? userDoc.network.length : 0} Connections
                 </p>
               </div>
-              <button onClick={() => navigate("/editprofile")}>
+              <button onClick={() => {
+                userDoc?.userType === "Mentor" ? navigate("/mentor-edit-profile") : navigate("/editprofile")
+              }}>
                 Edit Profile
               </button>
             </div>

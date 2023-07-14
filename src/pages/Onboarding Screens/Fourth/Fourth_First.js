@@ -7,7 +7,7 @@ import linkedin from "../../../images/Linkedin.svg"
 import insta from "../../../images/instagram.svg"
 import twiiter from "../../../images/Twitter.svg"
 import { useDispatch } from 'react-redux'
-import {setLinkedinLink,setTwitterLink,setInstagramLink} from "../../../features/onboardingSlice"
+import {setLinkedin,setTwitter,setInstagram} from "../../../features/onboardingSlice"
 
 const Fourth_First = () => {
   const[isClick,setIsClick]=useState(false)
@@ -24,9 +24,9 @@ const handleChange=(e)=>{
 
 
 const handleNext=()=>{
-dispatch(setLinkedinLink(data.linkedin))
-dispatch(setTwitterLink(data.twitter))
-dispatch(setInstagramLink(data.insta))
+dispatch(setLinkedin(data.linkedin))
+dispatch(setTwitter(data.twitter))
+dispatch(setInstagram(data.insta))
   setIsClick(true)
 }
 return (

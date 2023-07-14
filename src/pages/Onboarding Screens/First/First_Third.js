@@ -7,7 +7,7 @@ import Second_First from '../Second/Second_First'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux'
-import {setEducation,setDesignation, setCurrentPosition,setCurrentCompany} from "../../../features/onboardingSlice"
+import {setEducation,setDesignationToStore, setCurrentPosition,setCurrentCompany} from "../../../features/onboardingSlice"
 
 const First_Third = () => {
     const[isClick,setIsClick]=useState(false)
@@ -31,7 +31,7 @@ const handleNext=()=>{
     if(educationInfo.degree===""||educationInfo.schoolOrCollege===""||educationInfo.startingDate===""||educationInfo.lastDate===""||data.currentPos===""||data.compName===""){toast.error("Fill Mandatory Fields");return}
     // console.log("educationInfo",educationInfo)
     dispatch(setEducation(educationInfo))
-    dispatch(setDesignation(data.currentPos))
+    dispatch(setDesignationToStore(data.currentPos))
     dispatch(setCurrentPosition(data.currentPos))
     dispatch(setCurrentCompany(data.compName))
     setIsClick(true)

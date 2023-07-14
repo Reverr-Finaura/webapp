@@ -10,7 +10,7 @@ import First_Third from './First_Third'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux'
-import {setProfileImg,setAbout} from "../../../features/onboardingSlice"
+import {setImage,setAboutToStore} from "../../../features/onboardingSlice"
 import { uploadMedia } from '../../../firebase'
 
 const First_Second = () => {
@@ -43,8 +43,8 @@ const handleNext=async()=>{
   setLoading(true)
   const res=await uploadMedia(imageUpload,"Images/onboarding")
   setLoading(false)
-  dispatch(setProfileImg(res))
-  dispatch(setAbout(about))
+  dispatch(setImage(res))
+  dispatch(setAboutToStore(about))
   setIsClick(true)
 }
 
