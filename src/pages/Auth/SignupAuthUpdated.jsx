@@ -646,7 +646,6 @@ function SignupAuthUpdated() {
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
-                  style={{ paddingLeft: "120px", width: "468px" }}
                   className={styles.inputPhoneNumber}
                   onChange={(e) => setMobile(e.target.value)}
                   value={mobile}

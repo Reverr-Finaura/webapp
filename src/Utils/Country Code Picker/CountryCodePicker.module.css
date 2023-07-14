@@ -2,15 +2,14 @@
     /* width: 75px; */
     height: 29px;
     /* background-color: red; */
+    color: "black";
     position: absolute;
     top: 4px;
     left: 5px;
-    border-radius: 5px;
     display: flex;
     align-items: center;
     cursor: pointer;
     padding: .5rem;
-    border: 1px solid #898989;
 }
 .signup_form_onboarding_countryCode_selector_inputCont>p{
     margin-left: .25rem;
@@ -50,10 +49,11 @@
 .signup_form_onboarding_countryCode_selector_country_search_input{
     padding: .5rem;
     outline: none;
-    border: 1px solid rgb(156 163 175);
+    /* border: 1px solid rgb(156 163 175); */
     position: sticky;
     top: 0;
     border-top-left-radius: 12px;
-    
+    color: black;
     border-top-right-radius: 12px;
+    color: #000;
 }
