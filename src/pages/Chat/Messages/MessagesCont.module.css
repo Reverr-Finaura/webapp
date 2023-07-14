@@ -100,3 +100,10 @@
     padding: .5rem !important;
     color: white;
 }
+
+
+@media screen and (min-width: 720px) and (max-width: 1440px){
+    .outerCont {
+      height: calc(100vh - 130px)
+    }
+  }

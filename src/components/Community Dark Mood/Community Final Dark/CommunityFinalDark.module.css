@@ -396,7 +396,7 @@ font-weight: 700;
 
 #postTextContainer {
   height: 23px;
-  width: 90%;
+  width: 80%;
   /* padding-left: 3rem; */
   /* color: var(--main-text); */
   font-size: 20px;
@@ -408,6 +408,17 @@ font-weight: 700;
   font-family: Poppins;
   font-weight: 500;
   letter-spacing: 0.42px;
+}
+
+.ArrowImgAfterTextArea{
+  
+    display: flex;
+    position: absolute;
+    right: 11px;
+    top: 15px;
+    cursor: pointer;
+    height: 40px;
+  
 }
 
 #postTextContainer::placeholder {
@@ -950,7 +961,7 @@ body::-webkit-scrollbar {
 .spaceModalContent {
   padding: 40px;
   border-radius: 4px;
-  width: 40%;
+  width: 100%;
   border-radius: 16px;
   background: var(--bg-secondary-gray, #1A1E28);
   box-shadow: 0px 6.817999839782715px 34.09000015258789px 0px rgba(0, 0, 0, 0.25);
@@ -1080,7 +1091,275 @@ body::-webkit-scrollbar {
 }
 
 
-@media (max-width: 1420px) {
+@media (max-width: 1470px) {
+  /* For Icons , Images,video */
+  .reverrCommunityUploadContainerrr{
+    position: relative;
+    right:3px;
+
+  }
+  .icon_text{
+  }
+
+  /* ****** */
+  /* Next two components are the parent of text area and img*/
+  .navbarUploadPostOuterBoxContainer{
+    
+   
+
+  }
+  .UploadPostOuterBoxContainerNotExpanded{
+   
+   
+
+  }
+
+  /* ***************** */
+  .postAssetsIconMain{
+    position: relative;
+    right: 54px;
+  }
+
+  .ArrowImgAfterTextArea{
+    right: 65px;
+
+  }
+
+
+  #postTextContainer {
+    height: 23px;
+    width: 70%;
+   
+  }
+  #postTextContainerExpanded {
+    height: fit-content;
+  
+    width: 92.5%;
+    padding-left: 0.5rem;
+    font-size: 18px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+  
+    background-color: #1a1e28;
+    color: #fff;
+    margin-bottom: 30px;
+  }
+  .uploadPostIconButton {
+    /* margin-left: auto; */
+    position: absolute;
+    
+    
+  }
+}
+  @media (max-width: 1335px) {
+    /* For Icons , Images,video */
+    .reverrCommunityUploadContainerrr{
+      position: relative;
+      right:0px;
+      
+
+  
+    }
+    .icon_text{
+    }
+  
+    /* ****** */
+    /* Next two components are the parent of text area and img*/
+    .navbarUploadPostOuterBoxContainer{
+      
+     
+  
+    }
+    .UploadPostOuterBoxContainerNotExpanded{
+     
+    }
+  
+    /* ***************** */
+    .postAssetsIconMain{
+      position: relative;
+      right: 54px;
+      display: flex;
+      flex-wrap: wrap;
+
+    }
+  
+     .ArrowImgAfterTextArea{
+      right: 10px;
+  
+    }
+  
+  
+    #postTextContainer {
+      height: 23px;
+      width: 70%;
+     
+    }
+    #postTextContainer::placeholder {
+      color: var(--main-text);
+      white-space: pre-wrap;
+    }
+    
+    #postTextContainerExpanded::placeholder {
+      color: var(--main-text);
+      white-space: pre-wrap;
+    }
+    #postTextContainerExpanded {
+      height: fit-content;
+    
+      width: 92.5%;
+      padding-left: 0.5rem;
+      font-size: 18px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border: none;
+    
+      background-color: #1a1e28;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+    .uploadPostIconButton {
+    /*position: relative;
+    right: 50px;
+    top: -5px;*/
+    margin-left: 0%;
+    background: #2a72de;
+    border-radius: 10px;
+    padding: 2px 16px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 99999;
+   }
+  }
+  @media (max-width: 1090px) {
+    /* For Icons , Images,video */
+    .reverrCommunityUploadContainerrr{
+      position: relative;
+      right:-3px;
+      
+
+  
+    }
+    .icon_text{
+    }
+  
+    /* ****** */
+    /* Next two components are the parent of text area and img*/
+    .navbarUploadPostOuterBoxContainer{
+      
+     
+  
+    }
+    .UploadPostOuterBoxContainerNotExpanded{
+     
+    }
+  
+    /* ***************** */
+    .postAssetsIconMain{
+      position: relative;
+      right: 54px;
+      display: flex;
+      flex-wrap: wrap;
+
+    }
+  
+     .ArrowImgAfterTextArea{
+      right: 10px;
+  
+    }
+  
+  
+    #postTextContainer {
+      height: 23px;
+      width: 60%;
+     
+    }
+    #postTextContainer::placeholder {
+      color: var(--main-text);
+      white-space: pre-wrap;
+    }
+    
+    #postTextContainerExpanded::placeholder {
+      color: var(--main-text);
+      white-space: pre-wrap;
+    }
+    #postTextContainerExpanded {
+      height: fit-content;
+    
+      width: 92.5%;
+      padding-left: 0.5rem;
+      font-size: 18px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border: none;
+    
+      background-color: #1a1e28;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+    .uploadPostIconButton {
+    /*position: relative;
+    right: 50px;
+    top: -5px;*/
+    margin-left: 0%;
+    background: #2a72de;
+    border-radius: 10px;
+    padding: 2px 16px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 99999;
+   }
+  }
+@media (max-width:1120px) {
+  .userRow{
+    flex-wrap: wrap;
+
+  }
+  
+}
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /* #communityNewsSection {
     width: 34.5%;
@@ -1114,7 +1393,7 @@ body::-webkit-scrollbar {
   .postSendText {
     font-size: 0.9rem !important;
   }
-}
+
 
 @media (max-width: 1240px) {
   .sortOptionBigContainer {
@@ -1124,9 +1403,9 @@ body::-webkit-scrollbar {
     width: 88%;
   }
 
-  #communityFinalPageOuterSection {
+  /*#communityFinalPageOuterSection {
     margin-left: 13rem;
-  }
+  }*/
 }
 
 @media (max-width: 1220px) {
@@ -1139,10 +1418,10 @@ body::-webkit-scrollbar {
   }
 }
 
-@media (max-width: 1180px) {
-  #communityFinalPageOuterSection {
+@media (max-width: 0px) {
+  /*#communityFinalPageOuterSection {
     margin-left: 15rem;
-  }
+  }*/
 
   #communityFinalPage {
     width: 82%;
@@ -1364,67 +1643,3 @@ body::-webkit-scrollbar {
     height: 40px;
   }
 }
-
-@media screen and (max-width: 500px) {
-   .communityNavbarBlock{
-      padding:9px;
-   }
-   .activeNavHeading{
-    font-size:20px;
-   }
-   .communityNavHeading{
-    font-size: 20px;
-   }
-   .uploadPostContainerrrrSection{
-    padding: 5px;
-   }
-   
-}
-@media screen and (max-width: 500px) {
-  #communityFinalPage{
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-
-  }
-  #postTextContainer {
-    width: 75%;
-    height: 38px;
-  }
-  .icon_text{
-    font-size:10px;
-  }  
-  .assest_icon{
-    font-size: 13px;
-  }
-  .postAssetsIconMaindiv{
-    padding: 1px 7px 1px 7px;
-    margin: 0px 4px;
-
-  }
-  .postAssetsIconMain{
-    margin-top: 1rem;
-    display: flex;
-    gap: unset;
-    justify-content: unset;
-   position: relative;
-    left: -70px;
-    margin: 9px 0px;
-  }
-  .userSpaceOption{
-    padding: 8px;
-    font-size: 12px;
-    border: 1px solid #fff;
-    border-radius: 19px;
-    width: 115px;
-   
-    margin: 0px 5px;
-
-  }
-  .textAreaUploadContainer{
-    width: 80%;
-
-  }
-  
-  
-} 

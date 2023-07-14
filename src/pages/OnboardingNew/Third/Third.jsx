@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Third.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
+import { setImage,setAboutToStore,setDesignationToStore } from "../../../features/onboardingSlice";
+import { useDispatch } from "react-redux";
+import { storage } from "../../../firebase";
+import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 function Third() {
   const navigate = useNavigate();
-  const [image, setImage] = useState("");
+  const dispatch = useDispatch();
+  const [ProfileImage, setProfileImage] = useState(null);
+  const [imgUrl , setImgUrl] = useState("");
+  const [uploadedProfileImage, setUploadedProfileImage] = useState(null)
   const [designation, setDesignation] = useState("");
   const [about, setAbout] = useState("");
 
   const handleImageUpload = (event) => {
     const uploadedImage = event.target.files[0];
-    setImage(URL.createObjectURL(uploadedImage));
+    setUploadedProfileImage(uploadedImage)
+    setProfileImage(URL.createObjectURL(uploadedImage));
   };
 
   const handleDesignationChange = (event) => {
@@ -21,6 +29,32 @@ function Third() {
   const handleAboutChange = (event) => {
     setAbout(event.target.value);
   };
+
+  // this function will handle two function when the Next button is clicked
+
+  const handleFunctions = () => {
+    navigate("/onboarding-fourth");
+    dispatch(setImage(imgUrl));
+    dispatch(setDesignationToStore(designation));
+    dispatch(setAboutToStore(about));
+  }
+
+useEffect(() => {
+  const uplaodImage =async () => {
+    if(!uploadedProfileImage == null){
+      return;
+    } 
+    try{
+      const imageRef = ref(storage, `onboardingImages/${uploadedProfileImage.name}`)
+      await uploadBytes(imageRef,uploadedProfileImage)
+      const getImageUrl = await getDownloadURL(imageRef);
+      setImgUrl(getImageUrl)
+    }catch(err){
+      console.error(err)
+    }
+  }
+  uplaodImage()
+}, [uploadedProfileImage])
 
   return (
     <div className={styles.container}>
@@ -46,8 +80,8 @@ function Third() {
             Upload your photo
           </text>
           <label htmlFor="upload" className={styles.uploadPhoto}>
-            {image ? (
-              <img src={image} alt="img" />
+            {ProfileImage ? (
+              <img src={ProfileImage} alt="img" />
             ) : (
               <>
                 <img
@@ -100,7 +134,7 @@ function Third() {
             </button>
             <button
               className={styles.rightButton}
-              onClick={() => navigate("/onboarding-fourth")}
+              onClick={handleFunctions}
             >
               Next
             </button>

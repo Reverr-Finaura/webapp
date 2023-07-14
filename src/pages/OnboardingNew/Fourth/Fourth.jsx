@@ -2,23 +2,47 @@ import React, { useState } from "react";
 import styles from "./Fourth.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCountry, 
+  setState, 
+  setDegree, 
+  setInstitute, 
+  setExpDesignation, 
+  setExpCompany, 
+  setLinkedin, 
+  setTwitter } from "../../../features/onboardingSlice";
 
 function Fourth() {
   const navigate = useNavigate();
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
+  const dispatch = useDispatch();
+  const [countryLocation, setCountryLocation] = useState("");
+  const [StateLocation, setStateLocation] = useState("");
   const [education, setEducation] = useState([{ degree: "", institute: "" }]);
-  const [designation, setDesignation] = useState("");
-  const [company, setCompany] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [twitter, setTwitter] = useState("");
+  const [experience, setexperience] = useState([{ designation: "", company: "" }]);
+
+  const [linkedinLink, setLinkedinLink] = useState("");
+  const [twitterLink, setTwitterLink] = useState("");
+
+
+
+  const handleFunctions = () => {
+    navigate("/onboarding-fifth");
+    dispatch(setCountry(countryLocation));
+    dispatch(setState(StateLocation));
+    dispatch(setDegree(education[0].degree));
+    dispatch(setInstitute(education[0].institute));
+    dispatch(setExpDesignation(experience[0].designation));
+    dispatch(setExpCompany(experience[0].company));
+    dispatch(setLinkedin(linkedinLink));
+    dispatch(setTwitter(twitterLink));
+  }
 
   const handleCountryChange = (event) => {
-    setCountry(event.target.value);
+    setCountryLocation(event.target.value);
   };
 
   const handleStateChange = (event) => {
-    setState(event.target.value);
+    setStateLocation(event.target.value);
   };
 
   const handleDegreeChange = (event, index) => {
@@ -43,26 +67,54 @@ function Fourth() {
     setEducation([...education, { degree: "", institute: "" }]);
   };
 
+
+  const handleDesignationChange = (event, index) => {
+    const updatedExperience = [...experience];
+    updatedExperience[index] = {
+      ...updatedExperience[index],
+      designation: event.target.value,
+    };
+    setexperience(updatedExperience);
+  };
+
+  const handleCompanyChange = (event, index) => {
+    const updatedExperience = [...experience];
+    updatedExperience[index] = {
+      ...updatedExperience[index],
+      company: event.target.value,
+    };
+    setexperience(updatedExperience);
+    
+  };
+
+  const addExperience = () => {
+    setexperience([...experience, { designation: "", company: "" }]);
+  };
+
+
+
+
+
   const removeEducation = (index) => {
     const updatedEducation = [...education];
     updatedEducation.splice(index, 1);
     setEducation(updatedEducation);
   };
 
-  const handleDesignationChange = (event) => {
-    setDesignation(event.target.value);
-  };
+  // const handleDesignationChange = (event) => {
+  //   setDesignation(event.target.value);
+  // };
 
-  const handleCompanyChange = (event) => {
-    setCompany(event.target.value);
-  };
+  // const handleCompanyChange = (event) => {
+  //   setCompany(event.target.value);
+  // };
 
   const handleLinkedinChange = (event) => {
-    setLinkedin(event.target.value);
+    setLinkedinLink(event.target.value);
   };
 
   const handleTwitterChange = (event) => {
-    setTwitter(event.target.value);
+    setTwitterLink(event.target.value);
   };
 
   return (
@@ -91,23 +143,23 @@ function Fourth() {
               <input
                 type="text"
                 placeholder="State"
-                value={state}
+                value={StateLocation}
                 onChange={handleStateChange}
               />
             </div>
             <div className={styles.textInput}>
+            <text style={{ fontSize: 10, color: "#ffffff" }}>Country</text>
               <input
-                style={{ marginTop: 22 }}
                 type="text"
                 placeholder="Country"
-                value={country}
+                value={countryLocation}
                 onChange={handleCountryChange}
               />
             </div>
             {/* <div> */}
             {education.map((edu, index) => (
-              <React.Fragment key={index}>
-                <div className={styles.textInput} key={index}>
+              <React.Fragment key={`edu0-${index}`}>
+                <div className={styles.textInput} key={`edu0-${index}`}>
                   <text style={{ fontSize: 10, color: "#ffffff" }}>
                     Highest educational degree?
                   </text>
@@ -117,12 +169,13 @@ function Fourth() {
                     value={edu.degree}
                     onChange={(event) => handleDegreeChange(event, index)}
                   />
+                  
                   {/* <select>
                     <option value="option1">BTech</option>
                     <option value="option2">MTech</option>
                   </select> */}
                 </div>
-                <div className={styles.textInput} key={index}>
+                <div className={styles.textInput} key={`edu1-${index}`}>
                   <text style={{ fontSize: 10, color: "#ffffff" }}>
                     Name of Institution
                   </text>
@@ -140,30 +193,37 @@ function Fourth() {
                 {/* <button onClick={() => removeEducation(index)}>Remove</button> */}
               </React.Fragment>
             ))}
-            {/* <button onClick={addEducation}>Add Education</button> */}
 
-            <div className={styles.textInput}>
-              <text style={{ fontSize: 10, color: "#ffffff" }}>
-                What’s your designation?
-              </text>
-              <input
-                type="text"
-                placeholder="Enter your designation"
-                value={designation}
-                onChange={handleDesignationChange}
-              />
-            </div>
-            <div className={styles.textInput}>
-              <text style={{ fontSize: 10, color: "#ffffff" }}>
-                Name of the company
-              </text>
-              <input
-                type="text"
-                placeholder="Company name"
-                value={company}
-                onChange={handleCompanyChange}
-              />
-            </div>
+
+            {experience.map((exp, index) => (
+                          <React.Fragment key={`exp0-${index}`}>
+                            <div className={styles.textInput} key={`exp0-${index}`}>
+                              <text style={{ fontSize: 10, color: "#ffffff" }}>
+                              What’s your designation?
+                              </text>
+                              <input
+                                type="text"
+                                placeholder="Enter your designation"
+                                value={exp.designation}
+                                onChange={(event) => handleDesignationChange(event, index)}
+                              />
+                            </div>
+
+                            <div className={styles.textInput} key={`exp1-${index}`}>
+                              <text style={{ fontSize: 10, color: "#ffffff" }}>
+                                Name of the company
+                              </text>
+                              <input
+                                type="text"
+                                placeholder="Company name"
+                                value={exp.company}
+                                onChange={(event) => handleCompanyChange(event, index)}
+                              />
+                            </div>
+                          </React.Fragment>
+                        ))}
+
+
             <div className={styles.textInput}>
               <text style={{ fontSize: 10, color: "#ffffff" }}>
                 LinkedIn Id
@@ -171,7 +231,7 @@ function Fourth() {
               <input
                 type="text"
                 placeholder="Id"
-                value={linkedin}
+                value={linkedinLink}
                 onChange={handleLinkedinChange}
               />
             </div>
@@ -182,7 +242,7 @@ function Fourth() {
               <input
                 type="text"
                 placeholder="username"
-                value={twitter}
+                value={twitterLink}
                 onChange={handleTwitterChange}
               />
             </div>
@@ -196,7 +256,7 @@ function Fourth() {
             </button>
             <button
               className={styles.rightButton}
-              onClick={() => navigate("/onboarding-fifth")}
+              onClick={handleFunctions}
             >
               Next
             </button>

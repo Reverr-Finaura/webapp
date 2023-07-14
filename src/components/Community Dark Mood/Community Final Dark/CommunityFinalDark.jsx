@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./CommunityFinalDark.module.css";
-import styles from "../Post Card Dark Mode/PostCardDark.module.css"
 import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
 import CommunityNavbar from "../../../components/Community Navbar/CommunityNavbar";
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
@@ -9,6 +8,7 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -110,7 +110,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [spaceFilteredPost, setSpaceFilteredPost] = useState([]);
   const [whatsHotCommunityPost, setWhatsHotCommunityPost] = useState([]);
   const [postSpaceData, setPostSpaceData] = useState();
-
+  const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
   //FETCH LATEST NEWS
   const options = {
     method: "GET",
@@ -226,7 +226,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       );
       setWhatsHotCommunityPost(
         postsData.filter((post) => {
-          console.log("here is the post ", post);
+        
           return post.likes.length >= likesAverage;
         })
       );
@@ -287,7 +287,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const postsPerPage = 6;
   const pagesVisited = pageNumber * postsPerPage;
   const displayPosts = postsData.slice(0, pagesVisited + postsPerPage);
-  console.log("postData are here: ", postsData);
+  
   // const pageCount=Math.ceil(postsData.length/notesPerPage)
   const fetchMorePosts = () => {
     setTimeout(() => {
@@ -462,13 +462,35 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // below code is for the userspace
   const [activeIndex, setActiveIndex] = useState([]);
+ 
+
+  async function fechingActiveIndexFirebase(){
+    const docRef = doc(db,"Users",user?.user?.email)
+ 
+    try {
+      const docSnap = await getDoc(docRef)
+      // console.log("firebase fechted queries ",docSnap.data().activeIndex)
+      setActiveIndex(docSnap.data().activeIndex)
+    } catch (error) {
+       console.log(error)
+    } 
+
+  }
+  
+  // fetching the activeIndex from the firebase
+  useEffect(()=>{
+    fechingActiveIndexFirebase()
+  },[])
 
   const handleSpaceMenuDataClick = (index, event, value) => {
+    
     // console.log(index, event, value)
     if (activeIndex.includes(index)) {
       setActiveIndex(activeIndex.filter((i) => i !== index)); // Remove the index if it's already active
+     
     } else {
       setActiveIndex([...activeIndex, index]); // Add the index if it's not active
+      
     }
     // setIsSpaceMenuDataActive(!isSpaceMenuDataActive)
     setUserSpaceArr((prevOptions) => {
@@ -478,24 +500,41 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         return [...prevOptions, value];
       }
     });
+   
   };
+  
 
-  const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
+  // updating the activeIndex in the firebase
+  async function updateActiveUserSpaceDatabase(){
+    console.log(user?.user?.email)
+    const userdocRef = doc(db,"Users",user?.user?.email)
+
+    try {
+      await updateDoc(userdocRef, { activeIndex:activeIndex  });
+      fechingActiveIndexFirebase()
+    
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+ 
 
   function handleModalSubmit() {
-    if (userSpaceArr.length >= 1) {
+    updateActiveUserSpaceDatabase()
+   
       dispatch(setUserSpace(userSpaceArr));
       setSelectedCommunitySpace(userSpaceArr);
       setIsOpen(false);
-    } else {
-      window.alert("Please choose atleast one!");
-    }
+    // else {
+    //   window.alert("Please choose atleast one!");
+    // }
   }
 
   console.log("userSpaceArr ", userSpaceArr);
   console.log("userSpace: ", userSpace);
 
   function openTheSpaceModal() {
+    fechingActiveIndexFirebase()
     if (isOpen) {
       setIsOpen(false);
     } else {
@@ -503,6 +542,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     }
   }
   function handleModalClose() {
+    fechingActiveIndexFirebase()
     setIsOpen(false);
   }
 
@@ -682,7 +722,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       }
                       alt="userImage"
                     />
-                    <div className={style.textAreaUploadContainer}>
+                    <div className="textAreaUploadContainer">
                       <div className={style.navbarUploadPostOuterBoxContainer}>
                         <textarea
                           className="navbarUploadPostContainerTextArea"
@@ -926,9 +966,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 />
                 <div className="textAreaUploadContainer">
                   <div
-                    className={`textAreaIsClick
-                        ? ${style.navbarUploadPostOuterBoxContainer}
-                        : ${style.UploadPostOuterBoxContainerNotExpanded}`}
+                    className={textAreaIsClick
+                        ? style.navbarUploadPostOuterBoxContainer
+                        : style.UploadPostOuterBoxContainerNotExpanded}
                   >
                     <textarea
                       style={{ borderRadius: "30px" }}
@@ -952,14 +992,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     ></textarea>
                     {!textAreaIsClick ? (
                       <img
-                        style={{
-                          display: "inline-flex",
-                          position: "absolute",
-                          right: " 23px",
-                          top: "15px",
-                          cursor: "pointer",
-                          height: "40px",
-                        }}
+                        className={style.ArrowImgAfterTextArea}
                         src="./images/right-arraow-bg-blue.png"
                         alt="img"
                         onClick={() => {
@@ -1228,80 +1261,33 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       />
                     </>
                   ) : null}
-                  {spaceFilteredPost.length >= 1 ? (
-                    spaceFilteredPost?.map((item, index) => {
-                      // } else
-                      if (index === 3) {
-                        return (
-                          <>
-                            <PostCardDark
-                              postsData={postsData}
-                              setPostsData={setPostsData}
-                              item={item}
-                              key={index}
-                              handleEditPostButtonClick={
-                                handleEditPostButtonClick
-                              }
-                              setPostsAuthorIsClick={setPostsAuthorIsClick}
-                              setPostsAuthorInfo={setPostsAuthorInfo}
-                              isLoggedIn={isLoggedIn}
-                              openModal={openModal}
-                              postId={item.id}
-                            />
-                            <DiscoverPerfectTools
-                              isLoggedIn={isLoggedIn}
-                              openModal={openModal}
-                            />
-                          </>
-                        );
-                      } else if (index === 7) {
-                        return (
-                          <>
-                            <PostCardDark
-                              postsData={postsData}
-                              setPostsData={setPostsData}
-                              item={item}
-                              key={index}
-                              handleEditPostButtonClick={
-                                handleEditPostButtonClick
-                              }
-                              setPostsAuthorIsClick={setPostsAuthorIsClick}
-                              setPostsAuthorInfo={setPostsAuthorInfo}
-                              isLoggedIn={isLoggedIn}
-                              openModal={openModal}
-                              postId={item.id}
-                            />
-                            <FeaturedSuggestions
-                              isLoggedIn={isLoggedIn}
-                              openModal={openModal}
-                            />
-                          </>
-                        );
-                      } else if (index === 11) {
-                        return (
-                          <>
-                            <PostCardDark
-                              postsData={postsData}
-                              setPostsData={setPostsData}
-                              item={item}
-                              key={index}
-                              handleEditPostButtonClick={
-                                handleEditPostButtonClick
-                              }
-                              setPostsAuthorIsClick={setPostsAuthorIsClick}
-                              setPostsAuthorInfo={setPostsAuthorInfo}
-                              isLoggedIn={isLoggedIn}
-                              openModal={openModal}
-                              postId={item.id}
-                            />
-                            <FeaturedMentors
-                              isLoggedIn={isLoggedIn}
-                              openModal={openModal}
-                            />
-                          </>
-                        );
-                      } else {
-                        return (
+                  {spaceFilteredPost.map((item, index) => {
+                    // if (index === 3) {
+                    //   return (
+                    //     <>
+                    //       <PostCardDark
+                    //         postsData={postsData}
+                    //         setPostsData={setPostsData}
+                    //         item={item}
+                    //         key={index}
+                    //         handleEditPostButtonClick={
+                    //           handleEditPostButtonClick
+                    //         }
+                    //         setPostsAuthorIsClick={setPostsAuthorIsClick}
+                    //         setPostsAuthorInfo={setPostsAuthorInfo}
+                    //         isLoggedIn = { isLoggedIn };
+                    //         openModal = { openModal };
+                    //       />
+                    //       <DiscoverEvents 
+                    //         isLoggedIn={isLoggedIn}
+                    //         openModal={openModal}
+                    //       />
+                    //     </>
+                    //   );
+                    // } else
+                    if (index === 3) {
+                      return (
+                        <>
                           <PostCardDark
                             postsData={postsData}
                             setPostsData={setPostsData}
@@ -1314,23 +1300,73 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
-                            postId={item.id}
                           />
-                        );
-                      }
-                    })
-                  ) : (
-                    <section className={styles.PostCardContainer}>
-                      <div
-                        style={{ alignItems: "center" }}
-                        className={styles.postAuthorDetails}
-                      ></div>
-                      <div className={styles.postDivideLine_community}></div>
-                      <div className={styles.postTextContainer} style={{color:"#ffffff"}}>I regret to inform you that the selected space posts have not been published to date.</div>
-
-                      <div className={styles.postDivideLine_community}></div>
-                    </section>
-                  )}
+                          <DiscoverPerfectTools
+                            isLoggedIn={isLoggedIn}
+                            openModal={openModal}
+                          />
+                        </>
+                      );
+                    } else if (index === 7) {
+                      return (
+                        <>
+                          <PostCardDark
+                            postsData={postsData}
+                            setPostsData={setPostsData}
+                            item={item}
+                            key={index}
+                            handleEditPostButtonClick={
+                              handleEditPostButtonClick
+                            }
+                            setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            setPostsAuthorInfo={setPostsAuthorInfo}
+                            isLoggedIn={isLoggedIn}
+                            openModal={openModal}
+                          />
+                          <FeaturedSuggestions
+                            isLoggedIn={isLoggedIn}
+                            openModal={openModal}
+                          />
+                        </>
+                      );
+                    } else if (index === 11) {
+                      return (
+                        <>
+                          <PostCardDark
+                            postsData={postsData}
+                            setPostsData={setPostsData}
+                            item={item}
+                            key={index}
+                            handleEditPostButtonClick={
+                              handleEditPostButtonClick
+                            }
+                            setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            setPostsAuthorInfo={setPostsAuthorInfo}
+                            isLoggedIn={isLoggedIn}
+                            openModal={openModal}
+                          />
+                          <FeaturedMentors
+                            isLoggedIn={isLoggedIn}
+                            openModal={openModal}
+                          />
+                        </>
+                      );
+                    } else {
+                      return (
+                        <PostCardDark
+                          postsData={postsData}
+                          setPostsData={setPostsData}
+                          item={item}
+                          key={index}
+                          handleEditPostButtonClick={handleEditPostButtonClick}
+                          setPostsAuthorIsClick={setPostsAuthorIsClick}
+                          setPostsAuthorInfo={setPostsAuthorInfo}
+                          isLoggedIn={isLoggedIn}
+                          openModal={openModal}
+                        />
+                      );
+                    }
+                  })}
                 </section>
               ) : (
                 // what's hot posts-container

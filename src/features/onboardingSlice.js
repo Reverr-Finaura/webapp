@@ -1,21 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    profileImg:null,
+    Image:"",
     about:"",
-    education:[{degree:"",schoolOrCollege:"",startingDate:"",lastDate:""}],
-    experience:[{designation:"",previousOrCurrentOrganisation:"",yourRole:"",durationOfYears:"",id:new Date().getTime()}],
+    education:[{degree:"", institute:""}],
+    experience:[{designation:"",company:""}],
+    Country: "",
+    State: "",
     whatULookingFor:"",
     industry:"",
-    linkedinLink:"",
-    twitterLink:"",
-    instagramLink:"",
+    linkedin:"",
+    twitter:"",
+    instagram:"",
     designation:"",
     userType:"Individual",
     phone:"",
     password:"",
-    countryCode:""
+    countryCode:"",
+    userSpace: [],
+    role: "",
+    about: "",
+    here_for: [],
 }
+
+
+
 
 const onboardingSlice=createSlice({
     name:"onboarding",
@@ -30,11 +39,9 @@ reducers:{
          setPassword:(state,action)=>{
             state.password= action.payload
                },
-    setProfileImg:(state,action)=>{
- state.profileImg= action.payload
-    },
-    setAbout:(state,action)=>{
-state.about=action.payload
+    setAboutToStore:(state,action)=>{
+state.about=action.payload;
+
     },
     setEducation:(state,action)=>{
         state.education=[action.payload]
@@ -45,7 +52,7 @@ state.about=action.payload
      setCurrentCompany:(state,action)=>{
       state.experience[0].previousOrCurrentOrganisation=action.payload
      },
-     setDesignation:(state,action)=>{
+     setDesignationToStore:(state,action)=>{
       state.designation=action.payload
      },
      setWhatULookingFor:(state,action)=>{
@@ -54,17 +61,74 @@ state.about=action.payload
      setIndustry:(state,action)=>{
         state.industry=action.payload
      },
-     setLinkedinLink:(state,action)=>{
-        state.linkedinLink=action.payload
+     setLinkedin:(state,action)=>{
+        state.linkedin=action.payload
      },
-     setTwitterLink:(state,action)=>{
-        state.twitterLink=action.payload
+     setTwitter:(state,action)=>{
+        state.twitter=action.payload
      },
-     setInstagramLink:(state,action)=>{
-        state.instagramLink=action.payload
+     setInstagram:(state,action)=>{
+        state.instagram=action.payload
      },
+     setUserSpaces: (state, action) => {
+      state.userSpace = action.payload;
+
+     },
+     setRole: (state, action) => {
+      state.role = action.payload;
+     },
+     setImage: (state, action) => {
+      state.Image = action.payload;
+     },
+     setState: (state, action) => {
+      state.State = action.payload;
+     },
+     setCountry: (state, action) => {
+      state.Country = action.payload;
+     },
+     setDegree: (state, action) => {
+      state.education[0].degree = action.payload;
+     },
+     setInstitute: (state, action) => {
+      state.education[0].institute = action.payload;
+     },
+     setExpDesignation: (state, action) => {
+      state.experience[0].designation = action.payload;
+     },
+     setExpCompany: (state, action) => {
+      state.experience[0].company = action.payload;
+     },
+     setHereFor: (state, action) => {
+      state.here_for = action.payload;
+     }
+
 }
 })
 
-export const {setPhone,setcountryCode,setPassword, setProfileImg,  setAbout,  setEducation,  setCurrentPosition,setDesignation,  setCurrentCompany,  setWhatULookingFor,  setIndustry,  setLinkedinLink,  setTwitterLink,  setInstagramLink } = onboardingSlice.actions;
+export const {
+   setPhone,
+   setcountryCode,
+   setPassword, 
+   setImage,  
+   setAboutToStore,  
+   setEducation,  
+   setCurrentPosition,
+   setDesignationToStore,  
+   setCurrentCompany,  
+   setWhatULookingFor,  
+   setIndustry,  
+   setLinkedin,  
+   setTwitter,  
+   setInstagram, 
+   setUserSpaces, 
+   setRole, 
+   setState,
+   setCountry,
+   setDegree,
+   setInstitute,
+   setExpDesignation,
+   setExpCompany,
+   setHereFor,
+} = onboardingSlice.actions;
 export default onboardingSlice.reducer;
+

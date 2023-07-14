@@ -67,7 +67,7 @@ export default function PostCardDark({
       const data = docSnapshot.data();
       setPostComments(data.comments);
       setPostDetail(data);
-      console.log("the post data is here -- above", data);
+      
     } else {
       // Document doesn't exist
       console.log("Document not found.");
@@ -84,10 +84,10 @@ export default function PostCardDark({
     let newLikeArray;
 
     if (isLiked) {
-      console.log("this is already liked")
+     
       newLikeArray = postDetail.likes.filter((item) => item !== user?.user?.email);
     } else {
-      console.log("this is not already like")
+     
       newLikeArray = [...postDetail.likes, user?.user?.email];
     }
     postDetail.likes = newLikeArray;

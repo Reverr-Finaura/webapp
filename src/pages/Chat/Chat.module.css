@@ -12,8 +12,17 @@
   background-color: black;
 }
 
+
+/* 
 @media(max-width:600px){
   .chat_main_Cont{
     margin: auto;
+  }
+} */
+
+
+@media screen and (min-width: 720px) and (max-width: 1440px){
+  .chat_main_Cont{
+    height: calc(100vh - 130px)
   }
 }
