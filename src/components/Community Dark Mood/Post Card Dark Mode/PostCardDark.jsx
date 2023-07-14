@@ -1,6 +1,7 @@
 import { deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import style from "./PostCardDark.module.css";
 import { toast, ToastContainer } from "react-toastify";
@@ -56,6 +57,9 @@ export default function PostCardDark({
   const [postTime, setPostTime] = useState("");
   const [postComments, setPostComments] = useState([]);
   const [postDetail, setPostDetail] = useState();
+  const navigate = useNavigate();
+
+  // console.log("item111", user)
 
   // get the posts comments
   async function fetchPostData() {
@@ -67,10 +71,10 @@ export default function PostCardDark({
       const data = docSnapshot.data();
       setPostComments(data.comments);
       setPostDetail(data);
-      
+      // console.log("the post data is here -- above", data);
     } else {
       // Document doesn't exist
-      console.log("Document not found.");
+      // console.log("Document not found.");
     }
   }
 
@@ -84,10 +88,12 @@ export default function PostCardDark({
     let newLikeArray;
 
     if (isLiked) {
-     
-      newLikeArray = postDetail.likes.filter((item) => item !== user?.user?.email);
+      // console.log("this is already liked")
+      newLikeArray = postDetail.likes.filter(
+        (item) => item !== user?.user?.email
+      );
     } else {
-     
+      // console.log("this is not already like")
       newLikeArray = [...postDetail.likes, user?.user?.email];
     }
     postDetail.likes = newLikeArray;
@@ -103,7 +109,6 @@ export default function PostCardDark({
     });
 
     await updateLikedPostInFirebase(newLikeArray, id);
-  
   };
 
   //UPDATE POST LIKE PART DATABASE
@@ -113,7 +118,7 @@ export default function PostCardDark({
     try {
       await updateDoc(userDocumentRef, { likes: data });
 
-      await fetchPostData()
+      await fetchPostData();
 
       return;
     } catch (error) {
@@ -138,7 +143,7 @@ export default function PostCardDark({
       },
     ]);
 
-    postDetail.comments = newCommentArray
+    postDetail.comments = newCommentArray;
     // console.log("this is the list of updated comment ",newCommentArray)
     setPostsData(
       postsData.map((item) => {
@@ -253,7 +258,7 @@ export default function PostCardDark({
     const newCommentArray = postDetail.comments.filter((event) => {
       return event.commentid !== commentId;
     });
-    postDetail.comments = newCommentArray
+    postDetail.comments = newCommentArray;
 
     setPostsData(
       postsData.map((item) => {
@@ -313,7 +318,7 @@ export default function PostCardDark({
         toast("Link Copied To ClipBoard");
       },
       function (err) {
-        console.error("Could not copy text: ", err);
+        // console.error("Could not copy text: ", err);
       }
     );
   };
@@ -335,8 +340,13 @@ export default function PostCardDark({
               if (!isLoggedIn) {
                 return openModal();
               } else {
-                setPostsAuthorIsClick(true);
-                setPostsAuthorInfo(postedByUserDoc);
+                // setPostsAuthorIsClick(true);
+                // setPostsAuthorInfo(postedByUserDoc);
+                if (postedByUserDoc?.email === user?.user?.email) {
+                  navigate("/userprofile");
+                } else {
+                  navigate(`/userprofile/${postedByUserDoc?.email}`);
+                }
               }
             }}
             style={{
@@ -355,8 +365,13 @@ export default function PostCardDark({
                 if (!isLoggedIn) {
                   return openModal();
                 } else {
-                  setPostsAuthorIsClick(true);
-                  setPostsAuthorInfo(postedByUserDoc);
+                  // setPostsAuthorIsClick(true);
+                  // setPostsAuthorInfo(postedByUserDoc);
+                  if (postedByUserDoc?.email === user?.user?.email) {
+                    navigate("/userprofile");
+                  } else {
+                    navigate(`/userprofile/${postedByUserDoc?.email}`);
+                  }
                 }
               }}
               className={style.postAuthorName}
@@ -483,11 +498,7 @@ export default function PostCardDark({
                 )}
               </div>
 
-              <h3
-            
-                style={{ cursor: "pointer" }}
-                className={style.postLikeCount}
-              >
+              <h3 style={{ cursor: "pointer" }} className={style.postLikeCount}>
                 {postDetail?.likes.length} Like
               </h3>
             </div>

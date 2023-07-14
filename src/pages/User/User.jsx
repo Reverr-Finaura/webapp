@@ -1,30 +1,34 @@
 import React, { useEffect, useState } from "react";
 import styles from "./User.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const User = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  //   const user = useSelector((state) => state.user);
-  //   const userDoc = useSelector((state) => state.userDoc);
-  const [userDoc, setUserDoc] = useState();
+  const currentLoggedInUser = useSelector((state) => state.user);
+  const [otherUserDoc, setOtherUserDoc] = useState();
+  const [currentLoggedInUserDoc, setCurrentLoggedInUserDoc] = useState();
   //   const [userDoc,setUserDoc]=useState([])
   const userFundingDoc = useSelector((state) => state.userFundingDoc);
-
-  //   console.log("userDoc", userDoc);
-  //   console.log("userFundingDoc", userFundingDoc);
-
   const [hasUserProfile, setHasUserProfile] = useState(true);
   const [userDocId, setUserDocId] = useState([]);
+  const [uiShouldRender, setUiShouldRender] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  console.log("currentLoggedInUser", currentLoggedInUser);
+  console.log("currentLoggedInUserDoc", currentLoggedInUserDoc);
+  console.log("userDoc", otherUserDoc);
 
   // CHECK FOR USER DOC DATA
   useEffect(() => {
@@ -34,24 +38,24 @@ const User = () => {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setUserDocId((prev) => {
-          return [...prev, doc.id];
-        });
+        // setUserDocId((prev) => {
+        //   return [...prev, doc.id];
+        // });
         if (doc.id === id) {
           //   dispatch(setUserDoc(doc.data()));
-          setUserDoc(doc.data());
-        
+          setOtherUserDoc(doc.data());
+        } else if (doc.id === currentLoggedInUser?.user?.email) {
+          setCurrentLoggedInUserDoc(doc.data());
+          // console.log("set doc", doc.data());
         }
       });
     }
     fetchUserDocFromFirebase();
-    
-  }, [id]);
+  }, [id, currentLoggedInUser, uiShouldRender]);
 
   // CHECK IF USER HAS FUNDING PROFILE
-// console.log("userdoc",userDoc);
   useEffect(() => {
-    if (userDoc?.hasFundingProfile === "No") {
+    if (otherUserDoc?.hasFundingProfile === "No") {
       return;
     }
     async function fetchUserFundingDocFromFirebase() {
@@ -66,36 +70,92 @@ const User = () => {
       });
     }
     fetchUserFundingDocFromFirebase();
-  }, [userDoc]);
+  }, [otherUserDoc]);
 
   useEffect(() => {
-    if (id && userDoc) {
-      if (userDoc?.hasGeneralProfile === true) {
+    if (id && otherUserDoc) {
+      if (otherUserDoc?.hasGeneralProfile === true) {
         setHasUserProfile(true);
         return;
-      } else if (userDoc?.hasGeneralProfile === false) {
+      } else if (otherUserDoc?.hasGeneralProfile === false) {
         setHasUserProfile(false);
       }
     }
-    if(userDoc?.userType === "Mentor"){
-      console.log(",emtor");
-      return navigate(`/mentorprofile/${id}`)
+  }, [otherUserDoc]);
+
+  //UPDATE LOGGEDIN USER FOLLOW REQUEST ARRAY
+  // update the send request array of the logged in user
+  const updateUserSendRequestArray = async () => {
+    // userDoc is for the other user to whom the request is being sent
+    let currentLoggedInUserRequestArray;
+
+    if (!currentLoggedInUserDoc.sendRequests.includes(otherUserDoc.email)) {
+      currentLoggedInUserRequestArray = [
+        ...currentLoggedInUserDoc.sendRequests,
+        otherUserDoc.email,
+      ];
+      // console.log("not included", currentLoggedInUserRequestArray);
+    } else {
+      currentLoggedInUserRequestArray =
+        currentLoggedInUserDoc.sendRequests.filter((item) => {
+          return item !== otherUserDoc.email;
+        });
+      // console.log("included", currentLoggedInUserRequestArray);
     }
-  }, [userDoc]);
-// console.log(userDoc);
-  // const ll =()=>{
-  //   if(userDoc  && mentor ){
-  //     // console.log("run");
-      
-  //   }
-  // }
+    const currentLoggedInUserDocumentRef = doc(
+      db,
+      "Users",
+      currentLoggedInUser?.user?.email
+    );
+    const updatedCurrentLoggedInUserDoc = {
+      ...currentLoggedInUserDoc,
+      sendRequests: currentLoggedInUserRequestArray,
+    };
 
-  //   console.log("hasUserProfile", hasUserProfile);
+    try {
+      await updateDoc(currentLoggedInUserDocumentRef, {
+        sendRequests: currentLoggedInUserRequestArray,
+      });
+      dispatch(setUserDoc(updatedCurrentLoggedInUserDoc));
+      setUiShouldRender((prev) => !prev);
+      setIsLoading(false);
+    } catch (error) {
+      toast(error.message);
+    }
+  };
 
+  //HANDLE FOLLOW REQUEST CLICK
+  // update the received request array of the user whose profile is clicked
+  const handleFollowUserClick = async () => {
+    setIsLoading(true);
+    // const userRequestArray = postsAuthorInfo.receivedRequests
+    // here userRequestArray is for the user to whom the request is being sent
+    const userRequestArray = otherUserDoc.receivedRequests.includes(
+      currentLoggedInUser?.user?.email
+    )
+      ? otherUserDoc.receivedRequests
+      : // : userDoc.recivedRequests.push(currentLoggedInUser?.user?.email);
+        [...otherUserDoc.receivedRequests, currentLoggedInUser?.user?.email];
+
+    const userDocumentRef = doc(db, "Users", otherUserDoc.email);
+    console.log("userDocumentRef", userDocumentRef);
+
+    try {
+      await updateDoc(userDocumentRef, { receivedRequests: userRequestArray });
+
+      toast("Follow Request Send ");
+      // setPostsAuthorInfo((prev) => {
+      //   return { ...prev, receivedRequests: userRequestArray };
+      // });
+      updateUserSendRequestArray();
+    } catch (error) {
+      toast(error.message);
+    }
+  };
 
   return (
     <>
-      <Toaster position="bottom-left" />
+      {/* <Toaster position="bottom-left" /> */}
       <NavBarFinalDarkMode />
       <div className={styles.profileWrapper}>
         <div className={styles.profileContainer}>
@@ -113,8 +173,8 @@ const User = () => {
               {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}
               <img
                 src={
-                  userDoc?.image && userDoc?.image !== ""
-                    ? userDoc.image
+                  otherUserDoc?.image && otherUserDoc?.image !== ""
+                    ? otherUserDoc.image
                     : DefaultDP
                 }
                 alt="Linkedin"
@@ -126,7 +186,7 @@ const User = () => {
                   src="/images/fluent_call-24-regular.svg"
                   alt="Call"
                   onClick={() => {
-                    navigator.clipboard.writeText(userDoc.phone);
+                    navigator.clipboard.writeText(otherUserDoc.phone);
                     toast.success("Phone Number Copied");
                   }}
                 />
@@ -134,7 +194,7 @@ const User = () => {
                   src="/images/logos_google-gmail.svg"
                   alt="Gmail"
                   onClick={() => {
-                    navigator.clipboard.writeText(userDoc.email);
+                    navigator.clipboard.writeText(otherUserDoc.email);
                     toast.success("Email Copied");
                   }}
                 />
@@ -142,18 +202,18 @@ const User = () => {
                   src="/images/skill-icons_linkedin.svg"
                   alt="Linkedin"
                   onClick={() => {
-                    navigator.clipboard.writeText(userDoc.linkedin);
+                    navigator.clipboard.writeText(otherUserDoc.linkedin);
                     toast.success("Linkedin Copied");
                   }}
                 />
               </div>
               <div className={styles.profileInfoName}>
-                <p style={{ textTransform: "capitalize" }}>{userDoc?.name}</p>
+                <p style={{ textTransform: "capitalize" }}>{otherUserDoc?.name}</p>
               </div>
               <div className={styles.profileDesignation}>
                 <p>
-                  {userDoc?.designation
-                    ? userDoc.designation
+                  {otherUserDoc?.designation
+                    ? otherUserDoc.designation
                     : "Add your Designation"}
                 </p>
               </div>
@@ -163,52 +223,87 @@ const User = () => {
                   alt="ProfileImage"
                 />
                 <p>
-                  {userDoc?.state
-                    ? userDoc.country
-                      ? userDoc.state + ", " + userDoc.country
+                  {otherUserDoc?.state
+                    ? otherUserDoc.country
+                      ? otherUserDoc.state + ", " + otherUserDoc.country
                       : "Add your country"
                     : "Add your location"}
                 </p>
               </div>
               <div className={styles.profilePost}>
                 <p>
-                  {userDoc?.network ? userDoc.network.length : 0} Connections
+                  {otherUserDoc?.network ? otherUserDoc.network.length : 0} Connections
                 </p>
               </div>
-              <button>Add Connection</button>
+              {/* <button>Add Connection</button> */}
+              {otherUserDoc?.email !== currentLoggedInUser?.user?.email &&
+              !otherUserDoc?.receivedRequests?.includes(
+                currentLoggedInUser?.user?.email
+              ) &&
+              !otherUserDoc?.network?.includes(currentLoggedInUser?.user?.email) &&
+              !currentLoggedInUserDoc?.receivedRequests?.includes(
+                otherUserDoc?.email
+              ) ? (
+                <button
+                  onClick={handleFollowUserClick}
+                  style={{
+                    cursor: isLoading ? "default" : "",
+                    color: isLoading ? "gray" : "#10b7ff",
+                  }}
+                  disabled={isLoading}
+                  // className={styles.followButton}
+                >
+                  Follow
+                </button>
+              ) : (
+                <button>Request Sent</button>
+              )}
             </div>
           </div>
-          {/* <div className={styles.profileContent}>
+          <div className={styles.profileContent}>
             <div className={styles.apointment}>
               <p>Appointment</p>
-              <p>{userDoc?.plans ? `₹${userDoc.plans[0]}/Hour` : "Set your Hourly Cost"}</p>
-              <p>{userDoc?.apointmentRateinfo ? userDoc.apointmentRateinfo : "Half-Hourly sessions + Free Introductory sessions"}</p>
+              <p>
+                {otherUserDoc?.plans
+                  ? `₹${otherUserDoc.plans[0]}/Hour`
+                  : "Set your Hourly Cost"}
+              </p>
+              <p>
+                {otherUserDoc?.apointmentRateinfo
+                  ? otherUserDoc.apointmentRateinfo
+                  : "Half-Hourly sessions + Free Introductory sessions"}
+              </p>
             </div>
             <div className={styles.appointmentcategory}>
-             {userDoc?.domain ?
-              userDoc?.domain?.map((item,idx)=>(
-                <div key={idx} className={styles.appointmentcapsules}>
-                  <p>{item}</p>
-                </div>
-              )) : <></>
-             }
-             
+              {otherUserDoc?.domain ? (
+                otherUserDoc?.domain?.map((item, idx) => (
+                  <div key={idx} className={styles.appointmentcapsules}>
+                    <p>{item}</p>
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
             </div>
-          </div> */}
+          </div>
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
-              <p>{userDoc?.about ? userDoc.about : "Add your Bio"}</p>
+              <p>{otherUserDoc?.about ? otherUserDoc.about : "Add your Bio"}</p>
             </div>
             <div className={styles.aboutMe}>
               <p>Current Designation</p>
-              <p>{userDoc?.designation ? userDoc.designation : "Add your designation"}</p>
+              <p>
+                {otherUserDoc?.designation
+                  ? otherUserDoc.designation
+                  : "Add your designation"}
+              </p>
             </div>
             <div className={styles.connect}>
               <p>How can we connect?</p>
               <div style={{ flexDirection: "column" }}>
-                {userDoc?.Vibe_Data?.How_To_Meet
-                  ? userDoc.Vibe_Data.How_To_Meet.map((item) => {
+                {otherUserDoc?.Vibe_Data?.How_To_Meet
+                  ? otherUserDoc.Vibe_Data.How_To_Meet.map((item) => {
                       return (
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );
@@ -222,8 +317,8 @@ const User = () => {
               <p>Education</p>
               <div className={styles.educationInfo}>
                 <ul>
-                  {userDoc?.education ? (
-                    userDoc.education.map((item) => {
+                  {otherUserDoc?.education ? (
+                    otherUserDoc.education.map((item) => {
                       return (
                         <li>
                           {item.degree ? item.degree : null},{" "}
@@ -242,8 +337,8 @@ const User = () => {
               <p>My Work Experience</p>
               <div className={styles.educationInfo}>
                 <ul>
-                  {userDoc?.experience ? (
-                    userDoc.experience.map((item) => {
+                  {otherUserDoc?.experience ? (
+                    otherUserDoc.experience.map((item) => {
                       return (
                         <li>
                           {item.designation ? item.designation : null} at{" "}
@@ -263,8 +358,8 @@ const User = () => {
             <div className={styles.experienceConnect}>
               <p>I am here </p>
               <div className={styles.experienceBtn}>
-                {userDoc?.Vibe_Data?.Here_for
-                  ? userDoc.Vibe_Data.Here_for.map((item) => {
+                {otherUserDoc?.Vibe_Data?.Here_for
+                  ? otherUserDoc.Vibe_Data.Here_for.map((item) => {
                       return (
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );
@@ -279,20 +374,20 @@ const User = () => {
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
                 <p>
-                  {userDoc?.linlkedin ? userDoc?.linlkedin : "Add your linkedin"}
+                  {otherUserDoc?.linlkedin
+                    ? otherUserDoc?.linlkedin
+                    : "Add your linkedin"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/fbIcon.png" alt="Linkedin" />
                 <p>
-                  {userDoc?.linkedin ? userDoc.linkedin : "Add your facebook"}
+                  {otherUserDoc?.linkedin ? otherUserDoc.linkedin : "Add your facebook"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/twitter.svg" alt="Linkedin" />
-                <p>
-                  {userDoc?.twitter ? userDoc.twitter : "Add your twitter"}
-                </p>
+                <p>{otherUserDoc?.twitter ? otherUserDoc.twitter : "Add your twitter"}</p>
               </div>
             </div>
           </div>
