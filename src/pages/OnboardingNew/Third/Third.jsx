@@ -11,13 +11,15 @@ function Third() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [ProfileImage, setProfileImage] = useState(null);
-  const [imgUrl , setImgUrl] = useState("")
+  const [imgUrl , setImgUrl] = useState("");
+  const [uploadedProfileImage, setUploadedProfileImage] = useState(null)
   const [designation, setDesignation] = useState("");
   const [about, setAbout] = useState("");
 
   const handleImageUpload = (event) => {
     const uploadedImage = event.target.files[0];
-    setProfileImage(uploadedImage);
+    setUploadedProfileImage(uploadedImage)
+    setProfileImage(URL.createObjectURL(uploadedImage));
   };
 
   const handleDesignationChange = (event) => {
@@ -39,12 +41,12 @@ function Third() {
 
 useEffect(() => {
   const uplaodImage =async () => {
-    if(!ProfileImage == null){
+    if(!uploadedProfileImage == null){
       return;
     } 
     try{
-      const imageRef = ref(storage, `onboardingImages/${ProfileImage.name}`)
-      await uploadBytes(imageRef,ProfileImage)
+      const imageRef = ref(storage, `onboardingImages/${uploadedProfileImage.name}`)
+      await uploadBytes(imageRef,uploadedProfileImage)
       const getImageUrl = await getDownloadURL(imageRef);
       setImgUrl(getImageUrl)
     }catch(err){
@@ -52,7 +54,7 @@ useEffect(() => {
     }
   }
   uplaodImage()
-}, [ProfileImage])
+}, [uploadedProfileImage])
 
   return (
     <div className={styles.container}>
