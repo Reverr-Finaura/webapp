@@ -31,7 +31,6 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
   const [otpMatched, setOtpMatched] = useState(false);
   const [newOTP, setNewOTP] = useState("");
 
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (seconds >= 0) {
@@ -74,8 +73,8 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
   const checkOtp = (e) => {
     e.preventDefault();
 
-    // console.log("otp1", propOtp, enteredOtp);
-    // console.log("otp1", newOTP, enteredOtp);
+    console.log("otp1", propOtp, enteredOtp);
+    console.log("otp1", newOTP, enteredOtp);
 
     if (
       ((newOTP === "" && propOtp === enteredOtp) ||
@@ -112,8 +111,8 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
       to_email: tempUserData.email,
       otp,
     };
-    // console.log("otp1", templateParams);
-    // console.log("otp1", otp);
+    console.log("otp1", templateParams);
+    console.log("otp1", otp);
     // dispatch(modify({ rand }));
     emailjs
       .send(
@@ -210,8 +209,11 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                   </Button>
                   <h3
                     onClick={resendOtp}
-                    // disabled={seconds > 0 || minutes > 0}
-                    // style={{ cursor: (seconds > 0 || minutes > 0) ? "default" : "" }}
+                    disabled={seconds > 0 || minutes > 0}
+                    style={{
+                      cursor: seconds > 0 || minutes > 0 ? "default" : "",
+                      color: seconds > 0 || minutes > 0 ? "gray" : "#10b7ff",
+                    }}
                     className={styles.resend}
                   >
                     Resend OTP
