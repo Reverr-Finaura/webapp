@@ -185,17 +185,21 @@ const LoginNew = () => {
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
-        const docRef = doc(db, "Users", auth.currentUser.email);
-        const docSnap = await getDoc(docRef);
-        dispatch(setUserData(docSnap.data()));
-        dispatch(
-          login({
-            email: auth.currentUser.email,
-            uid: auth.currentUser.uid,
-            displayName: auth.currentUser.displayName,
-            profilePic: auth.currentUser.photoURL,
-          })
-        );
+        const docRef = doc(db, "Users", email);
+        const docSnap = await getDoc(docRef)
+        .then((doc)=>{
+
+          dispatch(setUserData(doc.data()));
+          dispatch(
+            login({
+              email: email,
+              uid: auth.currentUser.uid,
+              displayName: auth.currentUser.displayName,
+              profilePic: auth.currentUser.photoURL,
+            })
+          );
+            
+        })
       })
       .then(() => {
         toast.success("Sucessfully logged in");
