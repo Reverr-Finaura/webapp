@@ -258,3 +258,21 @@ margin-right: 3rem;
     margin: auto;
     margin-top: -.75rem;
 }
+
+@media screen and (min-width: 720px) and (max-width: 1024px){
+  .navbar_noOuterContCSS{
+    margin: 0.3em;
+  }
+  .navbar-topp-social-icon{
+    margin-right: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px){
+  .navbar_noOuterContCSS{
+    margin: 0.3em;
+  }
+  .navbar-topp-social-icon{
+    margin-right: 2rem;
+  }
+}
