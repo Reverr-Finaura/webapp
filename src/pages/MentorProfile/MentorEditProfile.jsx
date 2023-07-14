@@ -7,11 +7,12 @@ import styles from "./MentorEditProfile.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const MentorEditProfile = () => {
   const navigate = useNavigate();
@@ -94,6 +95,7 @@ const MentorEditProfile = () => {
     },
     domain: [],
     plans: [],
+    image: "",
   });
   const [workCount, setWorkCount] = useState(1);
   const [educationCount, setEducationCount] = useState(1);
@@ -376,6 +378,33 @@ const MentorEditProfile = () => {
     });
   }
 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, `Images/${user?.user?.email}/profile`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFormData((prev) => {
+            return {
+              ...prev,
+              image: downloadURL,
+            };
+          });
+          // console.log("downloadedURL", downloadURL);
+        });
+      }
+    );
+  };
+
   // ---------------------------------------------
 //   console.log("userDoc", userDoc);
 //   console.log("formData", formData);
@@ -398,12 +427,21 @@ const MentorEditProfile = () => {
           {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}
           <img
             src={
-              userDoc?.image && userDoc?.image !== ""
-                ? userDoc.image
+              formData?.image && formData?.image !== ""
+                ? formData.image
                 : DefaultDP
             }
             alt="User_Image"
           />
+          <label htmlFor="file" className={styles.fileLabel}>
+            <span className={styles.plusIcon}>+</span>
+            <input
+              type="file"
+              id="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </label>
         </div>
         <div className={styles.profileContent}>
           <div className={styles.personalTitle}>
