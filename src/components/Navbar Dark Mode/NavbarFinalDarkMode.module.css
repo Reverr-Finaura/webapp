@@ -506,53 +506,6 @@
 
 
 
-
-@media screen and (min-width: 1024px) and (max-width: 1440px){
-  #navbarFinal{
-    width: 100%;
-    justify-content: flex-start;
-
-  }
-  .navbarIconsCont{
-    width: 60%;
-    margin-left: 2vw;
-    justify-content: flex-end;
-    position: absolute;
-    right: 0;
-  }
-  .navbarIconsImgName{
-    margin-left: 2vw;
-  }
-  .navbarSearchInput{
-    width: 16vw;
-  }
-
-
-}
-
-
-@media screen and (min-width: 720px) and (max-width: 1024px){
-  #navbarFinal{
-    width: 100%;
-    justify-content: flex-start;
-
-  }
-  .navbarIconsCont{
-    width: 60%;
-    margin-left: 2vw;
-    justify-content: flex-end;
-    position: absolute;
-    right: 0;
-  }
-  .navbarIconsImgName{
-    margin-left: 2vw;
-  }
-  .navbarSearchInput{
-    width: 16vw;
-  }
-
-
-}
 .hamburgermenu{
   display: none;
 }
