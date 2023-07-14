@@ -92,9 +92,6 @@ function Fourth() {
   };
 
 
-
-
-
   const removeEducation = (index) => {
     const updatedEducation = [...education];
     updatedEducation.splice(index, 1);

@@ -56,7 +56,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
   const userTypeLower = useSelector((state) =>
     state.onboarding.userType.toLowerCase()
-  );
+    );
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [userImage, setUserImage] = useState("");
   const [isSettingButtonClick, setIsSettingbuttonClick] = useState(false);
@@ -81,9 +81,14 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
   // code for product modal start
   const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE"];
-  const filteredArray = elementsToCheck.filter((element) =>
+
+  const filteredArray = userTypeLower?elementsToCheck.filter((element) =>
     products[userTypeLower].includes(element)
-  );
+  ):elementsToCheck.filter((element) =>
+  products["individual"].includes(element)
+);
+
+
   // console.log("filtered array" +filteredArray);
   const modalRef = useRef(null);
   const buttonRef = useRef(null);

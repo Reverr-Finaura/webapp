@@ -262,10 +262,10 @@ const UserProfileTesting = () => {
               </div>
             </div>
             <div className={styles.experienceConnect}>
-              <p>I am here </p>
+              <p>I am here for</p>
               <div className={styles.experienceBtn}>
-                {userDoc?.Vibe_Data?.Here_for
-                  ? userDoc.Vibe_Data.Here_for.map((item) => {
+                {userDoc?.here_for
+                  ? userDoc.here_for.map((item) => {
                       return (
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );

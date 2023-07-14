@@ -25,6 +25,8 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { setUserSpace } from "../../features/userSlice";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import rightPic from "../../images/signup-img.png";
+import { setName, setEmail } from "../../features/onboardingSlice";
+
 
 function SignupAuthUpdated() {
   const userSpace = useSelector((state) => state.user.userSpace);
@@ -37,7 +39,7 @@ function SignupAuthUpdated() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmails] = useState("");
   const [password, setPass] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const theme = useSelector((state) => state.themeColor);
@@ -190,6 +192,8 @@ function SignupAuthUpdated() {
         setLoading(false);
         return;
       }
+      dispatch(setEmail(email))
+      dispatch(setName(firstName))
       dispatch(setPassword(password));
       dispatch(setPhone(mobile));
       dispatch(setcountryCode(selectedCountry.dialCode.slice(1)));
@@ -633,7 +637,7 @@ function SignupAuthUpdated() {
             <input
               // style={{marginLeft:"50px",    width:"468px", height:"50px"}}
               className={styles.input}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmails(e.target.value)}
               value={email}
               type="email"
               placeholder="Your E-Mail"

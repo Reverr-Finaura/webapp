@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    Image:"",
+    image:"",
     about:"",
     education:[{degree:"", institute:""}],
     experience:[{designation:"",company:""}],
-    Country: "",
-    State: "",
+    country: "",
+    state: "",
     whatULookingFor:"",
     industry:"",
     linkedin:"",
@@ -18,9 +18,10 @@ const initialState={
     password:"",
     countryCode:"",
     userSpace: [],
-    role: "",
     about: "",
     here_for: [],
+    name: "",
+    email:""
 }
 
 
@@ -43,6 +44,12 @@ reducers:{
 state.about=action.payload;
 
     },
+    setName:(state,action)=>{
+      state.name=[action.payload]
+      },
+   setEmail:(state,action)=>{
+      state.email=[action.payload]
+      },
     setEducation:(state,action)=>{
         state.education=[action.payload]
         },
@@ -75,16 +82,16 @@ state.about=action.payload;
 
      },
      setRole: (state, action) => {
-      state.role = action.payload;
+      state.userType = action.payload;
      },
      setImage: (state, action) => {
-      state.Image = action.payload;
+      state.image = action.payload;
      },
      setState: (state, action) => {
-      state.State = action.payload;
+      state.state = action.payload;
      },
      setCountry: (state, action) => {
-      state.Country = action.payload;
+      state.country = action.payload;
      },
      setDegree: (state, action) => {
       state.education[0].degree = action.payload;
@@ -129,6 +136,8 @@ export const {
    setExpDesignation,
    setExpCompany,
    setHereFor,
+   setName,
+   setEmail
 } = onboardingSlice.actions;
 export default onboardingSlice.reducer;
 
