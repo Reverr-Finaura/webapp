@@ -581,7 +581,7 @@ export default function PostCardDark({
             </div>
           </div>
           {/* saveCont */}
-          <BsBookmark
+          {/* <BsBookmark
             onClick={() => {
               if (!isLoggedIn) {
                 return openModal();
@@ -591,7 +591,7 @@ export default function PostCardDark({
             }}
             stlye={{ color: "white" }}
             className="post_card_save_post_icon"
-          />
+          /> */}
         </div>
       </section>
 
