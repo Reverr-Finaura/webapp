@@ -127,7 +127,8 @@ letter-spacing: 0.42px;
 .standardThreeDotsOption {
   width: 110px;
   height: 50px;
-  background-color: var(--bg-clr);
+  background: var(--bg-secondary-gray, #1A1E28);
+  /*background-color: var(--bg-clr);*/
   border-radius: 7px;
   position: absolute;
   right: 0;
@@ -140,7 +141,8 @@ letter-spacing: 0.42px;
 .threeDotsOptions {
   width: 100px;
   height: 100px;
-  background-color: var(--bg-clr);
+  background: var(--bg-secondary-gray, #1A1E28);
+  /*background-color: var(--bg-clr);*/
   border-radius: 7px;
   position: absolute;
   right: 0;
@@ -168,7 +170,8 @@ letter-spacing: 0.42px;
 .threeDotsReportPostOption {
   margin: auto;
   cursor: pointer;
-  color: var(--main-text);
+  color: white;
+ /* color: var(--main-text);*/
 }
 
 .postImageContainer {

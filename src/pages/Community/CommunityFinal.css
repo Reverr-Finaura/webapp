@@ -417,7 +417,7 @@ font-style: normal;
   color: var(--main-text);
 }
 .uploadPostIconButton {
-  margin-left: auto;
+  /*margin-left: auto;*/
   background: #2a72de;
   border-radius: 10px;
   padding: 2px 16px;
