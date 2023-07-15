@@ -17,6 +17,7 @@ export const userSlice = createSlice({
       state.user = null;
     },
     setUserData: (state, action) => {
+      console.log(action.payload)
       state.userData = action.payload;
     },
     setUserSpace: (state,action)=>{

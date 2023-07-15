@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Test.module.css";
 import ConnectSuggestion from "../components/SidebarComponents/ConnectSuggestion/ConnectSuggestion";
@@ -132,7 +132,6 @@ function Test() {
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
           <ConnectSuggestion />
-          {console.log(userType)}
           {products[userType]?products[userType]?.includes("VIBE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
