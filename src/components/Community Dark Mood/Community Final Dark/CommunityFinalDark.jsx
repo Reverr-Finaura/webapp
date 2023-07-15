@@ -1300,6 +1300,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
+                            postId={item.id}
                           />
                           <DiscoverPerfectTools
                             isLoggedIn={isLoggedIn}
@@ -1322,6 +1323,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
+                            postId={item.id}
                           />
                           <FeaturedSuggestions
                             isLoggedIn={isLoggedIn}
@@ -1344,6 +1346,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
+                            postId={item.id}
                           />
                           <FeaturedMentors
                             isLoggedIn={isLoggedIn}
@@ -1363,6 +1366,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           setPostsAuthorInfo={setPostsAuthorInfo}
                           isLoggedIn={isLoggedIn}
                           openModal={openModal}
+                          postId={item.id}
                         />
                       );
                     }

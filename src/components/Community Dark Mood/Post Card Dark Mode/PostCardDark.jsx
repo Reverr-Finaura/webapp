@@ -63,27 +63,34 @@ export default function PostCardDark({
 
   // get the posts comments
   async function fetchPostData() {
+   
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
-    const docSnapshot = await getDoc(postRef);
-
-    if (docSnapshot.exists()) {
-      // Document exists, you can access its data using docSnapshot.data()
-      const data = docSnapshot.data();
-      setPostComments(data.comments);
-      setPostDetail(data);
-      // console.log("the post data is here -- above", data);
-    } else {
-      // Document doesn't exist
-      // console.log("Document not found.");
+  
+    try {
+      const docSnapshot = await getDoc(postRef);
+      if (docSnapshot.exists()) {
+        // Document exists, you can access its data using docSnapshot.data()
+        const data = docSnapshot.data();
+        setPostComments(data.comments);        
+        setPostDetail(data);
+        // console.log("the post data is here -- above", data);
+      } else {
+        // Document doesn't exist
+        console.log("not existing data");
+      }
+      
+    } catch (error) {
+       console.log(error)
     }
   }
 
   useEffect(() => {
-    fetchPostData();
+    fetchPostData();    
   }, []);
 
   //CHECK IF POST LIKES CONTAIN USER OR NOT
   const getLikedPostIdFromFirebase = async (id, items) => {
+    console.log("post details--- ", postDetail)
     const isLiked = postDetail.likes.includes(user?.user?.email);
     let newLikeArray;
 
@@ -144,6 +151,7 @@ export default function PostCardDark({
     ]);
 
     postDetail.comments = newCommentArray;
+   
     // console.log("this is the list of updated comment ",newCommentArray)
     setPostsData(
       postsData.map((item) => {
@@ -166,6 +174,7 @@ export default function PostCardDark({
       await updateDoc(userDocumentRef, { comments: data });
       toast("Sucessfully Commented");
       fetchPostData();
+     
       setNewComment("");
     } catch (error) {
       console.log(error.message);
@@ -719,6 +728,7 @@ export default function PostCardDark({
                           })[0]?.name
                         }
                       </p>
+                   
                       {list?.commentedby?.id === user?.user?.email ? (
                         <TfiMoreAlt
                           className="threeDotsPost commentThreeDotsPost"
