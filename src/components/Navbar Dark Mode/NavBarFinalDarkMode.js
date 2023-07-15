@@ -56,7 +56,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
   const userTypeLower = useSelector((state) =>
     state.onboarding.userType.toLowerCase()
-    );
+  );
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [userImage, setUserImage] = useState("");
   const [isSettingButtonClick, setIsSettingbuttonClick] = useState(false);
@@ -81,14 +81,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
   // code for product modal start
   const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE"];
-  var filteredArray = elementsToCheck;
-  filteredArray = userTypeLower!=undefined?elementsToCheck.filter((element) =>
-    products[userTypeLower]?.includes(element)
-  ):elementsToCheck.filter((element) =>
-  products["individual"].includes(element)
-);
-
-
+  const filteredArray = elementsToCheck.filter((element) =>
+    products[userTypeLower].includes(element)
+  );
   // console.log("filtered array" +filteredArray);
   const modalRef = useRef(null);
   const buttonRef = useRef(null);
@@ -928,7 +923,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         My Profile
                       </button>
 
-                      <button
+                     {/* <button
                         style={{
                           cursor: loading ? "default" : "",
                           height: "50px",
@@ -949,7 +944,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         ) : (
                           "Change Password"
                         )}
-                      </button>
+                        </button>*/}
 
                       {/* <button
                   onClick={() => navigate("/user-edit-profile")}
