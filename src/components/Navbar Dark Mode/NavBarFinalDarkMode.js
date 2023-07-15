@@ -80,7 +80,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   // code for product modal start
-  const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE"];
+  const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE", "KNOWLEDGE"];
   const filteredArray = elementsToCheck.filter((element) =>
     products[userTypeLower].includes(element)
   );
