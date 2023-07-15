@@ -80,28 +80,40 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   // code for product modal start
-  const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE"];
-  const filteredArray = elementsToCheck.filter((element) =>
-    products[userTypeLower].includes(element)
-  );
+  const elementsToCheck = [
+    "TOOLS",
+    "MENTOR",
+    "FUNDING-APPLY",
+    "STARTUP SCORE",
+    "KNOWLEDGE",
+  ];
+
+  const filteredArray = userTypeLower
+    ? elementsToCheck.filter((element) =>
+        products[userTypeLower].includes(element)
+      )
+    : elementsToCheck.filter((element) =>
+        products["individual"].includes(element)
+      );
+
   // console.log("filtered array" +filteredArray);
   const modalRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const setWindowDimensions = () => {
-    setWindowWidth(window.innerWidth)
-  }
+    setWindowWidth(window.innerWidth);
+  };
   useEffect(() => {
-    window.addEventListener('resize', setWindowDimensions);
+    window.addEventListener("resize", setWindowDimensions);
     if (window.innerWidth >= 1250) {
-      setOpenham(false)
+      setOpenham(false);
     }
 
     return () => {
-      window.removeEventListener('resize', setWindowDimensions)
-    }
-  }, [window.innerWidth])
+      window.removeEventListener("resize", setWindowDimensions);
+    };
+  }, [window.innerWidth]);
 
   const toggleProductModal = () => {
     setIsProductModalOpen((prevIsOpen) => !prevIsOpen);
@@ -608,7 +620,10 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 Search Results
               </text>
               {searchResult.map((item, index) => (
-                <div onClick={()=>navigate(`/userprofile/${item.email}`)} key={index}>
+                <div
+                  onClick={() => navigate(`/userprofile/${item.email}`)}
+                  key={index}
+                >
                   <div>
                     <img
                       src={
@@ -653,7 +668,11 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </div>
           )}
         </div>
-        <div className={openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2}>
+        <div
+          className={
+            openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2
+          }
+        >
           <div className={style.navbarIconsCont}>
             <div className={style.allNavbarIconsImgName}>
               <div
@@ -683,22 +702,24 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
                 </div>
-              ) : <div
-                className={style.navbarIconsImgName}
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    return openModal();
-                  } else {
-                    navigate("/discover/nu");
-                  }
-                }}
-              >
-                <AiOutlineGlobal className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Discover</p>
-                {/* <NavLink className="navlinks" to="/discover">
+              ) : (
+                <div
+                  className={style.navbarIconsImgName}
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      return openModal();
+                    } else {
+                      navigate("/discover/nu");
+                    }
+                  }}
+                >
+                  <AiOutlineGlobal className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Discover</p>
+                  {/* <NavLink className="navlinks" to="/discover">
               <p className={style.navbarIconsName}>Discover</p>
             </NavLink> */}
-              </div>}
+                </div>
+              )}
               {!isLoggedIn ? (
                 <div
                   className={style.navbarIconsImgName}
@@ -786,8 +807,6 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </button>
           )} */}
 
-
-
             <div
               onClick={() => setRequestsbuttonClick((current) => !current)}
               className="navbar-topp-social-icon navbar_noOuterContCSS"
@@ -804,7 +823,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {isRequestsButtonClick ? (
                 <div className="notifiction-dropdown-cont">
                   {userDoc?.receivedRequests?.length === 0 &&
-                    userDoc?.notification?.length === 0 ? (
+                  userDoc?.notification?.length === 0 ? (
                     <p className="notifiction-dropdown-Request-Cont">
                       No New Notification
                     </p>
@@ -916,14 +935,13 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   {isSettingButtonClick ? (
                     <div className={style.settingDropdownCont}>
                       <button
-
                         onClick={() => navigate("/userprofile")}
                         className="setting-dropdown-button"
                       >
                         My Profile
                       </button>
 
-                     {/* <button
+                      <button
                         style={{
                           cursor: loading ? "default" : "",
                           height: "50px",
@@ -944,7 +962,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         ) : (
                           "Change Password"
                         )}
-                        </button>*/}
+                      </button>
 
                       {/* <button
                   onClick={() => navigate("/user-edit-profile")}
@@ -956,17 +974,17 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         onClick={
                           user
                             ? () =>
-                              signOut(auth)
-                                .then(() => {
-                                  dispatch(logout());
-                                  dispatch(remove());
-                                  dispatch(removeUserDoc());
-                                  dispatch(removeUserFundingDoc());
-                                })
-                                .then(() => {
-                                  toast.success("Sucessfully logged out");
-                                  navigate("/");
-                                })
+                                signOut(auth)
+                                  .then(() => {
+                                    dispatch(logout());
+                                    dispatch(remove());
+                                    dispatch(removeUserDoc());
+                                    dispatch(removeUserFundingDoc());
+                                  })
+                                  .then(() => {
+                                    toast.success("Sucessfully logged out");
+                                    navigate("/");
+                                  })
                             : () => navigate("/login")
                         }
                         className="setting-dropdown-button"
@@ -981,22 +999,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
           </div>
         </div>
         <div className={style.hamburgermenu}>
-          <GiHamburgerMenu className={style.hamburgermenuicon} onClick={() => {
-            setOpenham(!openHam)
-          }} />
+          <GiHamburgerMenu
+            className={style.hamburgermenuicon}
+            onClick={() => {
+              setOpenham(!openHam);
+            }}
+          />
         </div>
+      </section>
 
-      </section >
-
-      {chat && <Chat />
-      }
-
+      {chat && <Chat />}
     </>
   );
 };
 NavBarFinalDarkMode.defaultProps = {
   isLoggedIn: true,
-  openModal: () => { },
+  openModal: () => {},
 };
 
 export default NavBarFinalDarkMode;
