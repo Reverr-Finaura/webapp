@@ -21,7 +21,10 @@ const initialState={
     about: "",
     here_for: [],
     name: "",
-    email:""
+    email:"",
+    network: [],
+    sendRequests: [],
+    receivedRequests: [],
 }
 
 

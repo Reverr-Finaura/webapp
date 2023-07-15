@@ -11,7 +11,6 @@ import DefaultDP from "../../images/Defaultdp.png";
 // import toast, { Toaster } from "react-hot-toast";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const User = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ const User = () => {
 
   console.log("currentLoggedInUser", currentLoggedInUser);
   console.log("currentLoggedInUserDoc", currentLoggedInUserDoc);
-  console.log("userDoc", otherUserDoc);
+  console.log("otherUserDoc", otherUserDoc);
 
   // CHECK FOR USER DOC DATA
   useEffect(() => {
@@ -153,6 +152,180 @@ const User = () => {
     }
   };
 
+  //HANDLE STOP FOLLOW REQUEST CLICK
+  // update the received request array of the user whose profile is clicked to revoke the request
+  const handleStopFollowRequestClick = async () => {
+    setIsLoading(true);
+    const userRequestArray = otherUserDoc.receivedRequests.filter((item) => {
+      return item !== currentLoggedInUser?.user?.email;
+    });
+    const userDocumentRef = doc(db, "Users", otherUserDoc.email);
+    try {
+      await updateDoc(userDocumentRef, { receivedRequests: userRequestArray });
+
+      toast("Follow Request Revoked ");
+      // setPostsAuthorInfo((prev) => {
+      //   return { ...prev, receivedRequests: userRequestArray };
+      // });
+      updateUserSendRequestArray();
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+
+  // HANDLE ACCEPT FOLLOW REQUEST CLICK
+  // Accept a follow request from another user
+  const handleAcceptFollowRequestClick = async () => {
+    setIsLoading(true);
+
+    // Add the user who sent the follow request to the logged-in user's network array
+    const updatedNetworkArrayOfCurrentLoggedInUser = [
+      ...currentLoggedInUserDoc.network,
+      otherUserDoc.email,
+    ];
+
+    // update the other users network array
+    const updatedNetworkArrayOfOtherUser = [
+      ...otherUserDoc.network,
+      currentLoggedInUser?.user?.email,
+    ];
+
+    // Remove the user who sent the follow request from the logged-in user's received requests array
+    const updatedReceivedRequestsArrayOfCurrentLoggedInUser =
+      currentLoggedInUserDoc.receivedRequests.filter(
+        (item) => item !== otherUserDoc.email
+      );
+
+    // Update the other user's send requests array to remove the logged-in user's email
+    const otherUserSendRequestArray = otherUserDoc.sendRequests.filter(
+      (item) => item !== currentLoggedInUser?.user?.email
+    );
+
+    const currentLoggedInUserDocumentRef = doc(
+      db,
+      "Users",
+      currentLoggedInUser?.user?.email
+    );
+    const otherUserDocumentRef = doc(db, "Users", otherUserDoc.email);
+
+    try {
+      await updateDoc(currentLoggedInUserDocumentRef, {
+        network: updatedNetworkArrayOfCurrentLoggedInUser,
+        receivedRequests: updatedReceivedRequestsArrayOfCurrentLoggedInUser,
+      });
+
+      await updateDoc(otherUserDocumentRef, {
+        network: updatedNetworkArrayOfOtherUser,
+        sendRequests: otherUserSendRequestArray,
+      });
+
+      toast("Follow Request Accepted");
+      dispatch(
+        setUserDoc({
+          ...currentLoggedInUserDoc,
+          network: updatedNetworkArrayOfCurrentLoggedInUser,
+          receivedRequests: updatedReceivedRequestsArrayOfCurrentLoggedInUser,
+        })
+      );
+      setUiShouldRender((prev) => !prev);
+      setIsLoading(false);
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+
+  // HANDLE REJECT FOLLOW REQUEST CLICK
+  // Reject a follow request of another user
+  const handleRejectFollowRequestClick = async () => {
+    setIsLoading(true);
+
+    // Remove the user who sent the follow request from the logged-in user's received requests array
+    const updatedReceivedRequestsArrayOfCurrentLoggedInUser =
+      currentLoggedInUserDoc.receivedRequests.filter(
+        (item) => item !== otherUserDoc.email
+      );
+
+    // Update the other user's send requests array to remove the logged-in user's email
+    const otherUserSendRequestArray = otherUserDoc.sendRequests.filter(
+      (item) => item !== currentLoggedInUser?.user?.email
+    );
+
+    const currentLoggedInUserDocumentRef = doc(
+      db,
+      "Users",
+      currentLoggedInUser?.user?.email
+    );
+    const otherUserDocumentRef = doc(db, "Users", otherUserDoc.email);
+
+    try {
+      await updateDoc(currentLoggedInUserDocumentRef, {
+        receivedRequests: updatedReceivedRequestsArrayOfCurrentLoggedInUser,
+      });
+
+      await updateDoc(otherUserDocumentRef, {
+        sendRequests: otherUserSendRequestArray,
+      });
+
+      toast("Follow Request Rejected");
+      dispatch(
+        setUserDoc({
+          ...currentLoggedInUserDoc,
+          receivedRequests: updatedReceivedRequestsArrayOfCurrentLoggedInUser,
+        })
+      );
+      setUiShouldRender((prev) => !prev);
+      setIsLoading(false);
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+
+  // HANDLE UNFOLLOW CLICK
+  // Remove the connection between the logged-in user and the other user
+  const handleUnfollowClick = async () => {
+    setIsLoading(true);
+
+    // Remove the other user from the logged-in user's network array
+    const updatedNetworkArrayForLoggedInUser =
+      currentLoggedInUserDoc.network.filter(
+        (item) => item !== otherUserDoc.email
+      );
+
+    // Remove the logged-in user from the other user's network array
+    const updatedOtherUserNetworkArray = otherUserDoc.network.filter(
+      (item) => item !== currentLoggedInUser?.user?.email
+    );
+
+    const currentLoggedInUserDocumentRef = doc(
+      db,
+      "Users",
+      currentLoggedInUser?.user?.email
+    );
+    const otherUserDocumentRef = doc(db, "Users", otherUserDoc.email);
+
+    try {
+      await updateDoc(currentLoggedInUserDocumentRef, {
+        network: updatedNetworkArrayForLoggedInUser,
+      });
+
+      await updateDoc(otherUserDocumentRef, {
+        network: updatedOtherUserNetworkArray,
+      });
+
+      toast("Unfollowed");
+      dispatch(
+        setUserDoc({
+          ...currentLoggedInUserDoc,
+          network: updatedNetworkArrayForLoggedInUser,
+        })
+      );
+      setUiShouldRender((prev) => !prev);
+      setIsLoading(false);
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+
   return (
     <>
       {/* <Toaster position="bottom-left" /> */}
@@ -208,7 +381,9 @@ const User = () => {
                 />
               </div>
               <div className={styles.profileInfoName}>
-                <p style={{ textTransform: "capitalize" }}>{otherUserDoc?.name}</p>
+                <p style={{ textTransform: "capitalize" }}>
+                  {otherUserDoc?.name}
+                </p>
               </div>
               <div className={styles.profileDesignation}>
                 <p>
@@ -232,7 +407,8 @@ const User = () => {
               </div>
               <div className={styles.profilePost}>
                 <p>
-                  {otherUserDoc?.network ? otherUserDoc.network.length : 0} Connections
+                  {otherUserDoc?.network ? otherUserDoc.network.length : 0}{" "}
+                  Connections
                 </p>
               </div>
               {/* <button>Add Connection</button> */}
@@ -240,7 +416,9 @@ const User = () => {
               !otherUserDoc?.receivedRequests?.includes(
                 currentLoggedInUser?.user?.email
               ) &&
-              !otherUserDoc?.network?.includes(currentLoggedInUser?.user?.email) &&
+              !otherUserDoc?.network?.includes(
+                currentLoggedInUser?.user?.email
+              ) &&
               !currentLoggedInUserDoc?.receivedRequests?.includes(
                 otherUserDoc?.email
               ) ? (
@@ -255,9 +433,73 @@ const User = () => {
                 >
                   Follow
                 </button>
-              ) : (
-                <button>Request Sent</button>
-              )}
+              ) : null}
+              {otherUserDoc?.email !== currentLoggedInUser?.user?.email &&
+              otherUserDoc?.receivedRequests?.includes(
+                currentLoggedInUser?.user?.email
+              ) ? (
+                <button
+                  onClick={handleStopFollowRequestClick}
+                  style={{
+                    cursor: isLoading ? "default" : "",
+                    color: isLoading ? "gray" : "#10b7ff",
+                  }}
+                  disabled={isLoading}
+                  // className={styles.followButton}
+                >
+                  Cancel Request
+                </button>
+              ) : null}
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                {otherUserDoc?.email !== currentLoggedInUser?.user?.email &&
+                currentLoggedInUserDoc?.receivedRequests?.includes(
+                  otherUserDoc?.email
+                ) ? (
+                  <button
+                    onClick={handleAcceptFollowRequestClick}
+                    style={{
+                      cursor: isLoading ? "default" : "",
+                      color: isLoading ? "gray" : "#10b7ff",
+                    }}
+                    disabled={isLoading}
+                  >
+                    Accept Request
+                  </button>
+                ) : null}
+                {otherUserDoc?.email !== currentLoggedInUser?.user?.email &&
+                currentLoggedInUserDoc?.receivedRequests?.includes(
+                  otherUserDoc?.email
+                ) ? (
+                  <button
+                    onClick={handleRejectFollowRequestClick}
+                    style={{
+                      cursor: isLoading ? "default" : "",
+                      color: isLoading ? "gray" : "#10b7ff",
+                      marginLeft: "20px",
+                    }}
+                    disabled={isLoading}
+                  >
+                    Reject Request
+                  </button>
+                ) : null}
+              </div>
+
+              {otherUserDoc?.email !== currentLoggedInUser?.user?.email &&
+              currentLoggedInUserDoc?.network?.includes(otherUserDoc?.email) &&
+              otherUserDoc?.network?.includes(
+                currentLoggedInUser?.user?.email
+              ) ? (
+                <button
+                  onClick={handleUnfollowClick}
+                  style={{
+                    cursor: isLoading ? "default" : "",
+                    color: isLoading ? "gray" : "#10b7ff",
+                  }}
+                  disabled={isLoading}
+                >
+                  Unfollow
+                </button>
+              ) : null}
             </div>
           </div>
           <div className={styles.profileContent}>
@@ -382,12 +624,18 @@ const User = () => {
               <div className={styles.contactItem}>
                 <img src="/images/fbIcon.png" alt="Linkedin" />
                 <p>
-                  {otherUserDoc?.linkedin ? otherUserDoc.linkedin : "Add your facebook"}
+                  {otherUserDoc?.linkedin
+                    ? otherUserDoc.linkedin
+                    : "Add your facebook"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/twitter.svg" alt="Linkedin" />
-                <p>{otherUserDoc?.twitter ? otherUserDoc.twitter : "Add your twitter"}</p>
+                <p>
+                  {otherUserDoc?.twitter
+                    ? otherUserDoc.twitter
+                    : "Add your twitter"}
+                </p>
               </div>
             </div>
           </div>
