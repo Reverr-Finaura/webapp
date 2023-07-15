@@ -81,9 +81,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
   // code for product modal start
   const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE"];
-
-  const filteredArray = userTypeLower?elementsToCheck.filter((element) =>
-    products[userTypeLower].includes(element)
+  var filteredArray = elementsToCheck;
+  filteredArray = userTypeLower!=undefined?elementsToCheck.filter((element) =>
+    products[userTypeLower]?.includes(element)
   ):elementsToCheck.filter((element) =>
   products["individual"].includes(element)
 );

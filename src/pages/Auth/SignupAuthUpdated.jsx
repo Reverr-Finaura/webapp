@@ -334,8 +334,8 @@ function SignupAuthUpdated() {
     }
   }
 
-  console.log("userSpaceArr ", userSpaceArr);
-  console.log("userSpace: ", userSpace);
+  // console.log("userSpaceArr ", userSpaceArr);
+  // console.log("userSpace: ", userSpace);
 
   return (
     <>
@@ -646,6 +646,7 @@ function SignupAuthUpdated() {
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
+                style={{color:"black"}}
                   className={styles.inputPhoneNumber}
                   onChange={(e) => setMobile(e.target.value)}
                   value={mobile}

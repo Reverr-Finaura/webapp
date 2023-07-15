@@ -45,10 +45,10 @@ state.about=action.payload;
 
     },
     setName:(state,action)=>{
-      state.name=[action.payload]
+      state.name=action.payload
       },
    setEmail:(state,action)=>{
-      state.email=[action.payload]
+      state.email=action.payload
       },
     setEducation:(state,action)=>{
         state.education=[action.payload]

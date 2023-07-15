@@ -24,10 +24,14 @@ function Test() {
   const appoinments = useSelector(
     (state) => state.userDoc.Appointement_request
   );
-  const userType = useSelector((state) => state.onboarding.userType);
+  var userType = useSelector((state) => state.onboarding.userType.toLowerCase());
+  
+  if(userType==undefined){
+    userType = "individual"
+  }
 
   const products = {
-    Mentor: [
+    mentor: [
       "ACCESS TO STARTUPS",
       "DISCOVERABILITY",
       "SUPPORT SERVICES",
@@ -41,7 +45,7 @@ function Test() {
       "CIRCLES",
       "MESSAGES & NOTIFICATIONS",
     ],
-    Investor: [
+    investor: [
       "PATCH",
       "VIBE",
       "DASHBOARD",
@@ -55,7 +59,7 @@ function Test() {
       "SEARCH ENGINE",
       "MESSAGES & NOTIFICATIONS",
     ],
-    Founder: [
+    founder: [
       "MENTOR",
       "COMMUNITY",
       "PATCH",
@@ -73,7 +77,7 @@ function Test() {
       "DISCOVER",
       "MESSAGES & NOTIFICATIONS",
     ],
-    Individual: [
+    individual: [
       "MENTOR",
       "COMMUNITY",
       "PATCH",
@@ -91,7 +95,7 @@ function Test() {
       "DISCOVER",
       "MESSAGES & NOTIFICATIONS",
     ],
-    Professionals: [
+    professionals: [
       "COMMUNITY",
       "PATCH",
       "VIBE",
@@ -104,14 +108,14 @@ function Test() {
       "SEARCH ENGINE",
       "MESSAGES & NOTIFICATIONS",
     ],
-    ServiceProviders: [
+    serviceProviders: [
       "ACCESS TO STARTUPS",
       "RAAYA",
       "MESSAGES & NOTIFICATIONS",
       "DASHBOARD",
       "PREMIUM",
     ],
-    IB: [
+    iB: [
       "SUPPORT SERVICES-CLOSING",
       "DISCOVERABILITY OVER THE PLATFORM- PLATFORM FEES",
       "DASHBOARD",
@@ -128,19 +132,35 @@ function Test() {
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
           <ConnectSuggestion />
-          {products[userType].includes("VIBE") ? (
+          {console.log(userType)}
+          {products[userType]?products[userType]?.includes("VIBE") ? (
+            <>
+              <div style={{ marginTop: 50 }}></div>
+              <Vibe />
+            </>
+          ) : null :products["individual"].includes("VIBE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Vibe />
             </>
           ) : null}
-          {products[userType].includes("PATCH") ? (
+          {products[userType]?products[userType]?.includes("PATCH") ? (
+            <>
+              <div style={{ marginTop: 50 }}></div>
+              <Patch />
+            </>
+          ) : null : products["individual"].includes("PATCH") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Patch />
             </>
           ) : null}
-          {products[userType].includes("TOOLS") ? (
+          {products[userType]?products[userType]?.includes("TOOLS") ? (
+            <>
+              <div style={{ marginTop: 50 }}></div>
+              <ExploreTools />
+            </>
+          ) : null:products["individual"].includes("TOOLS") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <ExploreTools />
@@ -171,19 +191,34 @@ function Test() {
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userType].includes("NEWS & ARTICLES") ? (
+          {products[userType]?products[userType]?.includes("NEWS & ARTICLES") ? (
+            <>
+              <TrendingNews />
+              <div style={{ marginTop: 50 }}></div>
+            </>
+          ) : null:products["individual"].includes("NEWS & ARTICLES") ? (
             <>
               <TrendingNews />
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userType].includes("INVESTOR FINDER") ? (
+          {products[userType]?products[userType]?.includes("INVESTOR FINDER") ? (
+            <>
+              <InvestorFinder />
+              <div style={{ marginTop: 50 }}></div>
+            </>
+          ) : null:products["individual"].includes("INVESTOR FINDER") ? (
             <>
               <InvestorFinder />
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userType].includes("EVENTS") ? (
+          {products[userType]?products[userType]?.includes("EVENTS") ? (
+            <>
+              {/* <Events /> */}
+          <div style={{ marginTop: 50 }}></div>
+            </>
+          ) : null:products["individual"].includes("EVENTS") ? (
             <>
               {/* <Events /> */}
           <div style={{ marginTop: 50 }}></div>
