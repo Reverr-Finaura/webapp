@@ -470,7 +470,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     try {
       const docSnap = await getDoc(docRef)
       // console.log("firebase fechted queries ",docSnap.data().activeIndex)
-      setActiveIndex(docSnap.data().activeIndex)
+      if(docSnap.data().activeIndex){
+        console.log("actice index data is present ... ",docSnap.data().activeIndex)
+        setActiveIndex(docSnap.data().activeIndex)
+      }
     } catch (error) {
        console.log(error)
     } 
@@ -1188,6 +1191,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
               dataLength={displayPosts.length}
               next={fetchMorePosts}
               hasMore={displayPosts.length !== postsData.length}
+              style={{overflow:"unset"}}
               loader={
                 <div>
                   <PostSkeleton cards={2} />

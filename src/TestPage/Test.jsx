@@ -129,6 +129,7 @@ function Test() {
       <NavBarFinalDarkMode />
       <div className={styles.container}>
         <div className={styles.leftSidebar} style={{ marginTop: "10em" }}>
+          <div style={{ marginTop: 50 }}></div>
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
           <ConnectSuggestion />
@@ -196,6 +197,7 @@ function Test() {
         </div>
 
         <div className={styles.rightSidebar} style={{ marginTop: "10em" }}>
+          
           {appoinments?.length ? (
             <>
               <Appoinments />

@@ -137,6 +137,9 @@ function KnowledgeTesting() {
               <div className={styles.slide}>
                 <img src={"images/journey.png"} />
               </div>
+              <div  className={styles.slide}>
+                <img style={{width:"60%",height:"300px"}} src={"images/thejourney2.png"} />
+              </div>
             </Carousel>
           </div>
         </div>

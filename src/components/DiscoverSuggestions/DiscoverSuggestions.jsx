@@ -162,13 +162,20 @@ import ProfileCard from '../../components/ProfileCard/ProfileCard'
 import { collection, doc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import styles from "./Suggestion.css";
+import { useSelector } from "react-redux";
 const DiscoverSuggestions = () => {
+
+  const user = useSelector((state) => state.user)
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
-  // console.log(randomUsers);
+
+  // console.log("userEmail",user.user.email);
+
+
+
   // FETCH USER DATA FROM FIREBASE
   useEffect(() => {
-    async function fetchUsers() {
+    async function fetchUsers(cUser) {
       const mentorsRef = collection(db, "Users");
       const q = query(mentorsRef);
       const querySnapshot = await getDocs(q);
@@ -180,11 +187,13 @@ const DiscoverSuggestions = () => {
           docData.hasOwnProperty("image") &&
           docData.image.trim() !== "" &&
           docData.hasOwnProperty("designation") &&
-          docData.designation.trim() !== ""
+          docData.designation.trim() !== "" &&
+          docData.email !== cUser?.user?.email
         );
       setUsers(filteredUsers);
     }
-    fetchUsers();
+    fetchUsers(user);
+
   }, []);
 
   useEffect(() => {
@@ -200,6 +209,7 @@ const DiscoverSuggestions = () => {
         }
 
         setRandomUsers(randomUsersArr);
+
       };
 
       getRandomUsers();
