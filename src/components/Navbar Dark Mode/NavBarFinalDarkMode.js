@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   updateDoc,
@@ -80,7 +81,13 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   // code for product modal start
-  const elementsToCheck = ["TOOLS", "MENTOR", "FUNDING-APPLY", "STARTUP SCORE", "KNOWLEDGE"];
+  const elementsToCheck = [
+    "TOOLS",
+    "MENTOR",
+    "FUNDING-APPLY",
+    "STARTUP SCORE",
+    "KNOWLEDGE",
+  ];
   const filteredArray = elementsToCheck.filter((element) =>
     products[userTypeLower].includes(element)
   );
@@ -88,20 +95,20 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const modalRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const setWindowDimensions = () => {
-    setWindowWidth(window.innerWidth)
-  }
+    setWindowWidth(window.innerWidth);
+  };
   useEffect(() => {
-    window.addEventListener('resize', setWindowDimensions);
+    window.addEventListener("resize", setWindowDimensions);
     if (window.innerWidth >= 1250) {
-      setOpenham(false)
+      setOpenham(false);
     }
 
     return () => {
-      window.removeEventListener('resize', setWindowDimensions)
-    }
-  }, [window.innerWidth])
+      window.removeEventListener("resize", setWindowDimensions);
+    };
+  }, [window.innerWidth]);
 
   const toggleProductModal = () => {
     setIsProductModalOpen((prevIsOpen) => !prevIsOpen);
@@ -436,7 +443,65 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     });
     setLoading(false);
   };
+  // Set Liked By Notification from Firebase Database
+  useEffect(() => {
+    const getLikedByNotification = async () => {
+      console.log("HELLLLLLOOOOOOOOOO");
+      userDoc?.posts?.map(async (post) => {
+        console.log("the post data is here", post);
+        const postRef = doc(db, "Posts", post); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
+        try {
+          const docSnapshot = await getDoc(postRef);
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            console.log("the post data is hsere -- above", data);
+            if (!data?.likes.includes(userDoc?.email)) {
+              data?.likes?.map(async (like) => {
+                const userRef = doc(db, "Users", like);
+                const userDoc = await getDoc(userRef);
+                if (userDoc.exists()) {
+                  const userData = userDoc.data();
+                  setNotificationList((prev) => {
+                    return [
+                      ...prev,
+                      {
+                        type: "Like-Notification",
+                        likes: data?.likes,
+                        postId: post,
+                        userData,
+                      },
+                    ];
+                  });
+                } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+                }
+              });
+              // setNotificationList((prev) => {
+              //   return [
+              //     ...prev,
+              //     {
+              //       type: "Like-Notification",
+              //       likes: data?.likes,
+              //       postId: post,
+              //     },
+              //   ];
+              // });
+            }
+          } else {
+            // Document doesn't exist
+            console.log("not exissting data");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    };
+    getLikedByNotification();
+  }, []);
 
+  console.log("userDoc", userDoc.posts);
+  console.log("notificationLisst", notificationList);
   return (
     <>
       {isProductModalOpen ? (
@@ -608,7 +673,10 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 Search Results
               </text>
               {searchResult.map((item, index) => (
-                <div onClick={()=>navigate(`/userprofile/${item.email}`)} key={index}>
+                <div
+                  onClick={() => navigate(`/userprofile/${item.email}`)}
+                  key={index}
+                >
                   <div>
                     <img
                       src={
@@ -653,7 +721,11 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </div>
           )}
         </div>
-        <div className={openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2}>
+        <div
+          className={
+            openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2
+          }
+        >
           <div className={style.navbarIconsCont}>
             <div className={style.allNavbarIconsImgName}>
               <div
@@ -683,22 +755,24 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
                 </div>
-              ) : <div
-                className={style.navbarIconsImgName}
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    return openModal();
-                  } else {
-                    navigate("/discover/nu");
-                  }
-                }}
-              >
-                <AiOutlineGlobal className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Discover</p>
-                {/* <NavLink className="navlinks" to="/discover">
+              ) : (
+                <div
+                  className={style.navbarIconsImgName}
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      return openModal();
+                    } else {
+                      navigate("/discover/nu");
+                    }
+                  }}
+                >
+                  <AiOutlineGlobal className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Discover</p>
+                  {/* <NavLink className="navlinks" to="/discover">
               <p className={style.navbarIconsName}>Discover</p>
             </NavLink> */}
-              </div>}
+                </div>
+              )}
               {!isLoggedIn ? (
                 <div
                   className={style.navbarIconsImgName}
@@ -763,9 +837,12 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                               </h1>
                               {/* <h3 className={style.notificationSubHeading}>Today</h3> */}
                             </div>
-                            <NotificationCard />
-                            <NotificationCard />
-                            <NotificationCard />
+                            {notificationList.map((item, index) => (
+                              <NotificationCard key={index} item={item} />
+                            ))}
+                            {/* <NotificationCard /> */}
+                            {/* <NotificationCard /> */}
+                            {/* <NotificationCard /> */}
                           </>
                         ) : (
                           <h4>No notification till Now !</h4>
@@ -786,8 +863,6 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </button>
           )} */}
 
-
-
             <div
               onClick={() => setRequestsbuttonClick((current) => !current)}
               className="navbar-topp-social-icon navbar_noOuterContCSS"
@@ -804,7 +879,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {isRequestsButtonClick ? (
                 <div className="notifiction-dropdown-cont">
                   {userDoc?.receivedRequests?.length === 0 &&
-                    userDoc?.notification?.length === 0 ? (
+                  userDoc?.notification?.length === 0 ? (
                     <p className="notifiction-dropdown-Request-Cont">
                       No New Notification
                     </p>
@@ -916,14 +991,13 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   {isSettingButtonClick ? (
                     <div className={style.settingDropdownCont}>
                       <button
-
                         onClick={() => navigate("/userprofile")}
                         className="setting-dropdown-button"
                       >
                         My Profile
                       </button>
 
-                     {/* <button
+                      {/* <button
                         style={{
                           cursor: loading ? "default" : "",
                           height: "50px",
@@ -956,17 +1030,17 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         onClick={
                           user
                             ? () =>
-                              signOut(auth)
-                                .then(() => {
-                                  dispatch(logout());
-                                  dispatch(remove());
-                                  dispatch(removeUserDoc());
-                                  dispatch(removeUserFundingDoc());
-                                })
-                                .then(() => {
-                                  toast.success("Sucessfully logged out");
-                                  navigate("/");
-                                })
+                                signOut(auth)
+                                  .then(() => {
+                                    dispatch(logout());
+                                    dispatch(remove());
+                                    dispatch(removeUserDoc());
+                                    dispatch(removeUserFundingDoc());
+                                  })
+                                  .then(() => {
+                                    toast.success("Sucessfully logged out");
+                                    navigate("/");
+                                  })
                             : () => navigate("/login")
                         }
                         className="setting-dropdown-button"
@@ -981,22 +1055,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
           </div>
         </div>
         <div className={style.hamburgermenu}>
-          <GiHamburgerMenu className={style.hamburgermenuicon} onClick={() => {
-            setOpenham(!openHam)
-          }} />
+          <GiHamburgerMenu
+            className={style.hamburgermenuicon}
+            onClick={() => {
+              setOpenham(!openHam);
+            }}
+          />
         </div>
+      </section>
 
-      </section >
-
-      {chat && <Chat />
-      }
-
+      {chat && <Chat />}
     </>
   );
 };
 NavBarFinalDarkMode.defaultProps = {
   isLoggedIn: true,
-  openModal: () => { },
+  openModal: () => {},
 };
 
 export default NavBarFinalDarkMode;
