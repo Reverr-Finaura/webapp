@@ -2,7 +2,7 @@
 
 .PostCardContainer {
   height: max-content;
-  width: 93%;
+  /* width: 93%; */
   /* margin: auto; */
   display: flex;
   flex-direction: column;
