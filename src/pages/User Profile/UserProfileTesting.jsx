@@ -172,13 +172,17 @@ const UserProfileTesting = () => {
                 </p>
               </div>
               <button onClick={() => {
-                userDoc?.userType === "Mentor" ? navigate("/mentor-edit-profile") : navigate("/editprofile")
+                // userDoc?.userType === "Mentor" ? navigate("/mentor-edit-profile") :
+                 navigate("/editprofile")
               }}>
                 Edit Profile
               </button>
             </div>
           </div>
-          {/* <div className={styles.profileContent}>
+          {
+            userDoc?.userType === "Mentor" ?
+          
+          <div className={styles.profileContent}>
             <div className={styles.apointment}>
               <p>Appointment</p>
               <p>{userDoc?.apointmentRate ? userDoc.apointmentRate : "Set your Hourly Cost"}</p>
@@ -194,8 +198,9 @@ const UserProfileTesting = () => {
              }
              
             </div>
-          </div> */}
-
+          </div>
+          : <></>
+}
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>

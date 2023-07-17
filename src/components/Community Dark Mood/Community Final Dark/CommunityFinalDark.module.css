@@ -61,7 +61,7 @@
 }
 
 .reverrCommunityUploadContainerrr {
-  width: 96%;
+  width: 100%;
   /* margin-left: 5rem; */
 }
 
@@ -544,7 +544,7 @@ font-weight: 700;
 
 .loading-card-container,
 .posts-containerr {
-  width: 98%;
+  width: 100%;
   height: 100%;
   padding-left: .1rem;
 }
@@ -916,7 +916,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   padding: 20px;
 
-  width: 90%;
+  /* width: 90%; */
 
   margin-bottom: 1em;
 }
@@ -1072,7 +1072,7 @@ body::-webkit-scrollbar {
   font-weight: 600;
   position: fixed;
   bottom: 30px;
-  left: 50px;
+  left: 30px;
   z-index: 999999999;
   cursor: pointer;
   border-radius: 48px;
