@@ -118,8 +118,8 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
                   return openModal();
                 } else {
                   {
-                    user?.userType === "Mentor" ? navigate(`/mentorprofile/${user?.email}`) 
-                    :
+                    // user?.userType === "Mentor" ? navigate(`/mentorprofile/${user?.email}`) 
+                    // :
                     navigate(`/userprofile/${user?.email}`)
 
                   }

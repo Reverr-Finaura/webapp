@@ -502,6 +502,9 @@ const User = () => {
               ) : null}
             </div>
           </div>
+          {
+            otherUserDoc?.userType === "Mentor" ?
+          
           <div className={styles.profileContent}>
             <div className={styles.apointment}>
               <p>Appointment</p>
@@ -528,6 +531,9 @@ const User = () => {
               )}
             </div>
           </div>
+          : 
+          <></>
+}
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
