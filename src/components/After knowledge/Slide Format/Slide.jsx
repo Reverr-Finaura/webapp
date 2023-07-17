@@ -56,11 +56,11 @@ const Slide = ({ content, setCurrIndex, currIndex, size }) => {
           <img src={`/images/${content.img}`} alt="" />
         </div>
       </div>
-      <div className={styles.page_line}>
+      {/* <div className={styles.page_line}>
         <div>
           <span>{currIndex + 1}</span>/<span>{size}</span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
