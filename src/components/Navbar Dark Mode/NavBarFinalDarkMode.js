@@ -141,24 +141,27 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
     const querySnapshot = await getDocs(q);
 
-    const userData = [];
+    const data = [];
     querySnapshot.forEach((doc) => {
-      userData.push({ ...doc.data(), id: doc.id });
+      data.push({ ...doc.data(), id: doc.id });
     });
 
-    return userData;
+    return data;
   }
 
   useEffect(() => {
     async function fetchData() {
-      const userData = await fetchUserDataFromFirebase(userType);
-      setUserData(userData);
+      // const data = await fetchUserDataFromFirebase(userType);
+      const data = await fetchUserDataFromFirebase("");
+
+      setUserData(data);
     }
     fetchData();
   }, []);
 
   const getFilterData = (data, input, key) => {
     return data.filter((item) => {
+      console.log(item[key].toLowerCase())
       return item[key].toLowerCase().includes(input);
     });
   };
