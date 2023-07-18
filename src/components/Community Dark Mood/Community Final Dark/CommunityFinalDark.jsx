@@ -226,7 +226,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       );
       setWhatsHotCommunityPost(
         postsData.filter((post) => {
-        
           return post.likes.length >= likesAverage;
         })
       );
@@ -287,7 +286,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const postsPerPage = 6;
   const pagesVisited = pageNumber * postsPerPage;
   const displayPosts = postsData.slice(0, pagesVisited + postsPerPage);
-  
+
   // const pageCount=Math.ceil(postsData.length/notesPerPage)
   const fetchMorePosts = () => {
     setTimeout(() => {
@@ -462,38 +461,36 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // below code is for the userspace
   const [activeIndex, setActiveIndex] = useState([]);
- 
 
-  async function fechingActiveIndexFirebase(){
-    const docRef = doc(db,"Users",user?.user?.email)
- 
+  async function fechingActiveIndexFirebase() {
+    const docRef = doc(db, "Users", user?.user?.email);
+
     try {
-      const docSnap = await getDoc(docRef)
+      const docSnap = await getDoc(docRef);
       // console.log("firebase fechted queries ",docSnap.data().activeIndex)
-      if(docSnap.data().activeIndex){
-        console.log("actice index data is present ... ",docSnap.data().activeIndex)
-        setActiveIndex(docSnap.data().activeIndex)
+      if (docSnap.data().activeIndex) {
+        console.log(
+          "actice index data is present ... ",
+          docSnap.data().activeIndex
+        );
+        setActiveIndex(docSnap.data().activeIndex);
       }
     } catch (error) {
-       console.log(error)
-    } 
-
+      console.log(error);
+    }
   }
-  
+
   // fetching the activeIndex from the firebase
-  useEffect(()=>{
-    fechingActiveIndexFirebase()
-  },[])
+  useEffect(() => {
+    fechingActiveIndexFirebase();
+  }, []);
 
   const handleSpaceMenuDataClick = (index, event, value) => {
-    
     // console.log(index, event, value)
     if (activeIndex.includes(index)) {
       setActiveIndex(activeIndex.filter((i) => i !== index)); // Remove the index if it's already active
-     
     } else {
       setActiveIndex([...activeIndex, index]); // Add the index if it's not active
-      
     }
     // setIsSpaceMenuDataActive(!isSpaceMenuDataActive)
     setUserSpaceArr((prevOptions) => {
@@ -503,31 +500,27 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         return [...prevOptions, value];
       }
     });
-   
   };
-  
 
   // updating the activeIndex in the firebase
-  async function updateActiveUserSpaceDatabase(){
-    console.log(user?.user?.email)
-    const userdocRef = doc(db,"Users",user?.user?.email)
+  async function updateActiveUserSpaceDatabase() {
+    console.log(user?.user?.email);
+    const userdocRef = doc(db, "Users", user?.user?.email);
 
     try {
-      await updateDoc(userdocRef, { activeIndex:activeIndex  });
-      fechingActiveIndexFirebase()
-    
+      await updateDoc(userdocRef, { activeIndex: activeIndex });
+      fechingActiveIndexFirebase();
     } catch (error) {
       console.log(error.message);
     }
   }
- 
 
   function handleModalSubmit() {
-    updateActiveUserSpaceDatabase()
-   
-      dispatch(setUserSpace(userSpaceArr));
-      setSelectedCommunitySpace(userSpaceArr);
-      setIsOpen(false);
+    updateActiveUserSpaceDatabase();
+
+    dispatch(setUserSpace(userSpaceArr));
+    setSelectedCommunitySpace(userSpaceArr);
+    setIsOpen(false);
     // else {
     //   window.alert("Please choose atleast one!");
     // }
@@ -537,7 +530,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   console.log("userSpace: ", userSpace);
 
   function openTheSpaceModal() {
-    fechingActiveIndexFirebase()
+    fechingActiveIndexFirebase();
     if (isOpen) {
       setIsOpen(false);
     } else {
@@ -545,7 +538,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     }
   }
   function handleModalClose() {
-    fechingActiveIndexFirebase()
+    fechingActiveIndexFirebase();
     setIsOpen(false);
   }
 
@@ -885,7 +878,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   execute and grow.
                 </p> */}
               </div>
-              {width < 600 && scroll > 230 && (
+
+              {/* {width < 600 && scroll > 230 && (
                 <>
                   <div
                     style={{
@@ -950,7 +944,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     alt="addIcon"
                   />
                 </div>
-              )}
+              )} */}
             </div>
 
             <section
@@ -961,7 +955,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 <img
                   className={style.communityUploadContUserImage}
                   src={
-                    userDoc?.image
+                    !isLoggedIn
+                      ? "../../../images/userIcon.png"
+                      : userDoc?.image
                       ? userDoc.image
                       : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
@@ -969,9 +965,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 />
                 <div className="textAreaUploadContainer">
                   <div
-                    className={textAreaIsClick
+                    className={
+                      textAreaIsClick
                         ? style.navbarUploadPostOuterBoxContainer
-                        : style.UploadPostOuterBoxContainerNotExpanded}
+                        : style.UploadPostOuterBoxContainerNotExpanded
+                    }
                   >
                     <textarea
                       style={{ borderRadius: "30px" }}
@@ -1191,7 +1189,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
               dataLength={displayPosts.length}
               next={fetchMorePosts}
               hasMore={displayPosts.length !== postsData.length}
-              style={{overflow:"unset"}}
+              style={{ overflow: "unset" }}
               loader={
                 <div>
                   <PostSkeleton cards={2} />
@@ -1282,7 +1280,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     //         isLoggedIn = { isLoggedIn };
                     //         openModal = { openModal };
                     //       />
-                    //       <DiscoverEvents 
+                    //       <DiscoverEvents
                     //         isLoggedIn={isLoggedIn}
                     //         openModal={openModal}
                     //       />

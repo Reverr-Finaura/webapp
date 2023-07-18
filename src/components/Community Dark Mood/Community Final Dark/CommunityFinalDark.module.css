@@ -120,11 +120,11 @@ font-weight: 700;
 }
 
 .communityUploadContUserImage {
-  border-radius: 11px;
+  border-radius: 25px;
     margin-top: 0.8rem;
     margin-right: 1rem;
-      width: 48.873px;
-    height: 48.873px;
+      width: 40px;
+    height: 40px;
     flex-shrink: 0;
 }
 
