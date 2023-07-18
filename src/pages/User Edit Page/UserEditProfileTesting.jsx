@@ -86,6 +86,7 @@ const UserEditProfileTesting = () => {
     Vibe_Data: {
       How_To_Meet: [],
     },
+    userSpace: [],
   });
   const [workCount, setWorkCount] = useState(1);
   const [educationCount, setEducationCount] = useState(1);
@@ -568,7 +569,7 @@ const UserEditProfileTesting = () => {
               </form>
               <div className={styles.hereFor}>
                 <div className={styles.hereForSelected}>
-                  <p>I’m here for</p>
+                  <p>I’m here to</p>
                   <div className={styles.selectedList}>
                     {formData?.userReason?.map((item, idx) => {
                       return (
