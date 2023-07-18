@@ -166,6 +166,18 @@ function Test() {
               <ExploreTools />
             </>
           ) : null}
+
+          {products[userType]?products[userType]?.includes("KNOWLEDGE") ? (
+            <>
+              <div style={{ marginTop: 50 }}></div>
+              <Journey />
+            </>
+          ) : null:products["individual"].includes("KNOWLEDGE") ? (
+            <>
+              <div style={{ marginTop: 50 }}></div>
+              <Journey />
+            </>
+          ) : null}
           <div style={{ marginTop: 50 }}></div>
           {/* <Journey /> */}
           <div style={{ marginTop: 50 }}></div>
