@@ -449,7 +449,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
       console.log("HELLLLLLOOOOOOOOOO");
       userDoc?.posts?.map(async (post) => {
         console.log("the post data is here", post);
-        const postRef = doc(db, "Posts", post); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
+        const postRef = doc(db, "Posts", post); 
         try {
           const docSnapshot = await getDoc(postRef);
           if (docSnapshot.exists()) {
