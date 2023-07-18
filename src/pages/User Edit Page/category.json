@@ -1,66 +1,77 @@
 [
   {
-    "categoryName": "IT and Telecom",
-    "image": "/images/categoryImages/ITnTelecom.png"
+    "categoryName": "FinTech"
   },
   {
-    "categoryName": "Software and Tech",
-    "image": "/images/categoryImages/SoftwareAndTech.png"
+    "categoryName": "EdTech"
   },
   {
-    "categoryName": "Consulting and Advisory",
-    "image": "/images/categoryImages/Consulting.png"
+    "categoryName": "AgriTech"
   },
   {
-    "categoryName": "Legal",
-    "image": "/images/categoryImages/Legal.png"
+    "categoryName": "FoodTech"
   },
   {
-    "categoryName": "Strategy and Business Development",
-    "image": "/images/categoryImages/Strategy.png"
+    "categoryName": "Ecommerce"
   },
   {
-    "categoryName": "Professional & Commerical Services",
-    "image": "/images/categoryImages/Professional.png"
+    "categoryName": "Logistics & Delivery"
   },
   {
-    "categoryName": "Ed Tech",
-    "image": "/images/categoryImages/EdTech.png"
+    "categoryName": "Cleantech & Renewable Energy"
   },
   {
-    "categoryName": "Food Tech",
-    "image": "/images/categoryImages/FoodTech.png"
+    "categoryName": "Ai & ML"
   },
   {
-    "categoryName": "Consumer-Based Businesses",
-    "image": "/images/categoryImages/Consumer.png"
+    "categoryName": "Web 3.0"
   },
   {
-    "categoryName": "Logistics",
-    "image": "/images/categoryImages/Logistics.png"
+    "categoryName": "FashionTech"
   },
   {
-    "categoryName": "Healthcare and Life Sciences",
-    "image": "/images/categoryImages/Healthcare.png"
+    "categoryName": "SpaceTech"
   },
   {
-    "categoryName": "Travel and Tourism",
-    "image": "/images/categoryImages/Travel.png"
+    "categoryName": "HealthTech"
   },
   {
-    "categoryName": "Agriculture and Allied",
-    "image": "/images/categoryImages/Agriculture.png"
+    "categoryName": "Cybersecurity"
   },
   {
-    "categoryName": "FinTech",
-    "image": "/images/categoryImages/Fintech.png"
+    "categoryName": "AR & VR"
   },
   {
-    "categoryName": "Media and Entertainment",
-    "image": "/images/categoryImages/Media.png"
+    "categoryName": "Internet of Things(IOT)"
   },
   {
-    "categoryName": "Fashion",
-    "image": "/images/categoryImages/Fashion.png"
+    "categoryName": "Biotech"
+  },
+  {
+    "categoryName": "TravelTech"
+  },
+  {
+    "categoryName": "Real Estate-Tech"
+  },
+  {
+    "categoryName": "BeautyTech"
+  },
+  {
+    "categoryName": "LegalTech"
+  },
+  {
+    "categoryName": "HR-Tech"
+  },
+  {
+    "categoryName": "Personal fitness Tech"
+  },
+  {
+    "categoryName": "Waste Management Technologies"
+  },
+  {
+    "categoryName": "Online Marketplaces"
+  },
+  {
+    "categoryName": "CloudTech"
   }
 ]

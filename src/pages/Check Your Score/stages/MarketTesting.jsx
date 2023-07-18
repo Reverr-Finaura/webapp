@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { nonscoredData, scoredData } from "./scores";
 
 const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
-  console.log(data);
   const handleNext = () => {
     if (Object.keys(data["Market"]).length < 11) {
       toast.error("Kindly Fill All Mandatory Fields");
@@ -145,12 +144,12 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
           />
           <DropDown
             defaultValue={"select"}
-            name={"market_dmg"}
-            value={data?.Market?.market_dmg}
+            name="competitors"
+            value={data?.Market?.competitors}
             onChange={handleChange}
-            title={"Describe your market demographics"}
+            title={"Do you have any competitors?"}
+            options={["select", "Yes", "No"]}
             nonscored={true}
-            options={nonscoredData.market_dmg}
           />
         </div>
         <div className={styles.input_flex}>
@@ -211,15 +210,36 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
             type={"text"}
           />
         </div>
-        <DropDown
-          defaultValue={"select"}
-          name="competitors"
-          value={data?.Market?.competitors}
-          onChange={handleChange}
-          title={"Do you have any competitors?"}
-          options={["Yes", "No"]}
-          nonscored={true}
-        />
+        <h3>Market demographics</h3>
+        <div className={styles.input_flex}>
+          <DropDown
+            defaultValue={"select"}
+            name="target_gender"
+            value={data?.Market?.target_gender}
+            onChange={handleChange}
+            title={"Target Gender"}
+            options={["select", "Male", "Female","Both"]}
+            nonscored={true}
+          />
+          <DropDown
+            defaultValue={"select"}
+            name={"market_age"}
+            value={data?.Market?.market_age}
+            onChange={handleChange}
+            title={"Age Group"}
+            nonscored={true}
+            options={nonscoredData.market_age}
+          />
+          <DropDown
+            defaultValue={"select"}
+            name={"market_location"}
+            value={data?.Market?.market_location}
+            onChange={handleChange}
+            title={"Location"}
+            nonscored={true}
+            options={nonscoredData.market_location}
+          />
+        </div>
         {/* <Radio
           name={"competitors"}
           value={data?.Market?.competitors}

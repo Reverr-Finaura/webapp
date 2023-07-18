@@ -168,7 +168,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
   const getFilterData = (data, input, key) => {
     return data.filter((item) => {
-      console.log(item[key].toLowerCase())
+      console.log(item[key].toLowerCase());
       return item[key].toLowerCase().includes(input);
     });
   };
@@ -446,65 +446,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     });
     setLoading(false);
   };
-  // Set Liked By Notification from Firebase Database
-  useEffect(() => {
-    const getLikedByNotification = async () => {
-      console.log("HELLLLLLOOOOOOOOOO");
-      userDoc?.posts?.map(async (post) => {
-        console.log("the post data is here", post);
-        const postRef = doc(db, "Posts", post); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
-        try {
-          const docSnapshot = await getDoc(postRef);
-          if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            console.log("the post data is hsere -- above", data);
-            if (!data?.likes.includes(userDoc?.email)) {
-              data?.likes?.map(async (like) => {
-                const userRef = doc(db, "Users", like);
-                const userDoc = await getDoc(userRef);
-                if (userDoc.exists()) {
-                  const userData = userDoc.data();
-                  setNotificationList((prev) => {
-                    return [
-                      ...prev,
-                      {
-                        type: "Like-Notification",
-                        likes: data?.likes,
-                        postId: post,
-                        userData,
-                      },
-                    ];
-                  });
-                } else {
-                  // doc.data() will be undefined in this case
-                  console.log("No such document!");
-                }
-              });
-              // setNotificationList((prev) => {
-              //   return [
-              //     ...prev,
-              //     {
-              //       type: "Like-Notification",
-              //       likes: data?.likes,
-              //       postId: post,
-              //     },
-              //   ];
-              // });
-            }
-          } else {
-            // Document doesn't exist
-            console.log("not exissting data");
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    };
-    getLikedByNotification();
-  }, []);
 
-  console.log("userDoc", userDoc.posts);
-  console.log("notificationLisst", notificationList);
+  // console.log("userDoc", userDoc.posts);
+  // console.log("notificationLisst", notificationList);
   return (
     <>
       {isProductModalOpen ? (
@@ -831,7 +775,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   {notificationOpen && (
                     <>
                       <div className={style.notificationBar}>
-                        {notificationList.length >= 1 ? (
+                        {userDoc?.notificationList?.length >= 1 ? (
                           <>
                             {" "}
                             <div className={style.notificationHeadings}>
@@ -840,12 +784,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                               </h1>
                               {/* <h3 className={style.notificationSubHeading}>Today</h3> */}
                             </div>
-                            {notificationList.map((item, index) => (
+                            {userDoc?.notificationList?.map((item, index) => (
                               <NotificationCard key={index} item={item} />
                             ))}
-                            {/* <NotificationCard /> */}
-                            {/* <NotificationCard /> */}
-                            {/* <NotificationCard /> */}
                           </>
                         ) : (
                           <h4>No notification till Now !</h4>
