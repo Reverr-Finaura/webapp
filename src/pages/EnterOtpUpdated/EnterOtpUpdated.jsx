@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
 import { create, modify, selectNewUser } from "../../features/newUserSlice";
@@ -24,6 +24,12 @@ function EnterOtpUpdated() {
   const [fourthDigit, setFourthDigit] = useState("");
   const [fifthDigit, setFifthDigit] = useState("");
   const [sixthDigit, setSixthDigit] = useState("");
+  const firstDigitRef = useRef(null);
+  const secondDigitRef = useRef(null);
+  const thirdDigitRef = useRef(null);
+  const fourthDigitRef = useRef(null);
+  const fifthDigitRef = useRef(null);
+  const sixthDigitRef = useRef(null);
   const newUser = useSelector(selectNewUser);
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
@@ -158,37 +164,68 @@ function EnterOtpUpdated() {
               maxLength={1}
               type="text"
               value={firstDigit}
-              onChange={(e) => setFirstDigit(e.target.value)}
+              onChange={(e) => {
+                setFirstDigit(e.target.value);
+                if (e.target.value.length === 1) {
+                  secondDigitRef.current.focus();
+                }
+              }}
+              ref={firstDigitRef}
             />
             <input
               maxLength={1}
               type="text"
               value={secondDigit}
-              onChange={(e) => setSecondDigit(e.target.value)}
+              onChange={(e) => {
+                setSecondDigit(e.target.value);
+                if (e.target.value.length === 1) {
+                  thirdDigitRef.current.focus();
+                }
+              }}
+              ref={secondDigitRef}
             />
             <input
               maxLength={1}
               type="text"
               value={thirdDigit}
-              onChange={(e) => setThirdDigit(e.target.value)}
+              onChange={(e) => {
+                setThirdDigit(e.target.value);
+                if (e.target.value.length === 1) {
+                  fourthDigitRef.current.focus();
+                }
+              }}
+              ref={thirdDigitRef}
             />
             <input
               maxLength={1}
               type="text"
               value={fourthDigit}
-              onChange={(e) => setFourthDigit(e.target.value)}
+              onChange={(e) => {
+                setFourthDigit(e.target.value);
+                if (e.target.value.length === 1) {
+                  fifthDigitRef.current.focus();
+                }
+              }}
+              ref={fourthDigitRef}
             />
             <input
               maxLength={1}
               type="text"
               value={fifthDigit}
-              onChange={(e) => setFifthDigit(e.target.value)}
+              onChange={(e) => {
+                setFifthDigit(e.target.value);
+                if (e.target.value.length === 1) {
+                  sixthDigitRef.current.focus();
+                }
+              }}
+              ref={fifthDigitRef}
             />
             <input
               maxLength={1}
               type="text"
               value={sixthDigit}
               onChange={(e) => setSixthDigit(e.target.value)}
+              ref={sixthDigitRef}
             />
           </div>
           {seconds > 0 || minutes > 0 ? (
