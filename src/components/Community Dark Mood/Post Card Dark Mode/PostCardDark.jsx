@@ -59,7 +59,7 @@ export default function PostCardDark({
   const [postDetail, setPostDetail] = useState();
   const navigate = useNavigate();
 
-  // console.log("item111", user)
+ 
 
   // get the posts comments
   async function fetchPostData() {

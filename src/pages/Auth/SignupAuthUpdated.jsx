@@ -334,8 +334,19 @@ function SignupAuthUpdated() {
     }
   }
 
-  // console.log("userSpaceArr ", userSpaceArr);
-  // console.log("userSpace: ", userSpace);
+  const handleInputNumberChange = (event) => {
+    const maxLength = 10;
+    const value = event.target.value;
+
+    if (value.length <= maxLength) {
+      setMobile(event.target.value)
+     
+    } else {
+      
+      window.alert('Maximum 10 digits allowed.');
+    }
+  };
+  // console.log("this is the mobile number ",mobile)
 
   return (
     <>
@@ -646,13 +657,14 @@ function SignupAuthUpdated() {
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
-                style={{color:"black"}}
+                  style={{color:"black"}}
                   className={styles.inputPhoneNumber}
-                  onChange={(e) => setMobile(e.target.value)}
+           
                   value={mobile}
-                  type="text"
+                  type="number"
                   placeholder="Your Phone Number"
                   required
+                  onChange={handleInputNumberChange}
                 />
                 <CountryCodePicker />
               </div>
