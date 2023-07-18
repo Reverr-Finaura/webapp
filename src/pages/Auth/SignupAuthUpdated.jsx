@@ -26,6 +26,7 @@ import { setUserSpace } from "../../features/userSlice";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import rightPic from "../../images/signup-img.png";
 import { setName, setEmail } from "../../features/onboardingSlice";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 function SignupAuthUpdated() {
@@ -54,6 +55,8 @@ function SignupAuthUpdated() {
   const [tempLinkedinUserData, setTempLinkedinUserData] = useState({});
   const [getLinkedinUrl, setGetLinkedinUrl] = useState(false);
   const [linkedinProfileUrl, setLinkedinProfileUrl] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   //LINKEDIN LOGIN
   const getUserDataFromLinkedin = async (code) => {
@@ -347,7 +350,13 @@ function SignupAuthUpdated() {
     }
   };
   // console.log("this is the mobile number ",mobile)
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   return (
     <>
       {/* <div className="space--section">
@@ -675,19 +684,31 @@ function SignupAuthUpdated() {
                 className={styles.input}
                 onChange={(e) => setPass(e.target.value)}
                 value={password}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter a password"
                 required
               />
+               <button
+                className={styles.toggleButton}
+                onClick={handleTogglePassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
               <input
                 style={{ marginLeft: "50px" }}
                 className={styles.input}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 required
               />
+               <button
+                className={styles.toggleButton}
+                onClick={handleToggleConfirmPassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
 
             <button

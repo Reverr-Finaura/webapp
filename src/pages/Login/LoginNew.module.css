@@ -140,3 +140,22 @@ input ::placeholder {
   height: 100%;
   /* margin-right: 7rem; */
 }
+
+.form .toggleButton {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  color: #A7A7A7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: absolute;
+  right: -12em;
+  top: 10px;
+}
+
+.toggleButton > svg {
+  width: 20px;
+  height: 20px;
+}
