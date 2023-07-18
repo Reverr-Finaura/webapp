@@ -151,8 +151,9 @@ input ::placeholder {
   cursor: pointer;
   outline: none;
   position: absolute;
-  right: -12em;
   top: 10px;
+  width: 10%;
+  left: 18em;
 }
 
 .toggleButton > svg {
