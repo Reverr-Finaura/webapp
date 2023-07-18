@@ -214,7 +214,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         })
       );
 
-      console.log("this is the filtered post ", postsData);
+      // console.log("this is the filtered post ", postsData);
 
       let postDataAllLikesLength = 0;
       postsData.map((post) => {
@@ -560,7 +560,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       });
       setSpaceFilteredPost(filteredData);
     }
-    console.log("this is the space filted data: ", spaceFilteredPost);
+    // console.log("this is the space filted data: ", spaceFilteredPost);
   }, [postsData, selectedCommunitySpace]);
 
   const handleOptionChange = (event) => {

@@ -139,11 +139,12 @@ const nonscoredData = {
     "Wearables",
     "Wireless Power",
   ],
-  primary_offer: ["Product", "Service"],
-  customer_segment: ["B2B", "D2C", "B2B2C", "C2C"],
-  ismoat: ["Yes", "No"],
-  certification: ["Yes", "No"],
+  primary_offer: ["select", "Product", "Service"],
+  customer_segment: ["select", "B2B", "D2C", "B2B2C", "C2C"],
+  ismoat: ["select", "Yes", "No"],
+  certification: ["select", "Yes", "No"],
   education: [
+    "Select",
     "Lower than High-School",
     "High-School",
     "Undergraduate",
@@ -245,6 +246,7 @@ const nonscoredData = {
     "Others",
   ],
   domain: [
+    "Select",
     "Brand & Public Relations",
     "Career Advice & Self Mastery",
     "Culture",
@@ -266,11 +268,20 @@ const nonscoredData = {
     "UX, Design & User Research",
   ],
   market_dmg: [
+    "select",
     "Target Gender",
     "Between Ages",
     "Earnings Between",
     "Location= Tier 1,2,3,4",
   ],
+  market_age: ["Select", "Under 18", "18-35", "35-60", "60 & Above"],
+  market_location: [
+    "select",
+    "Tier 1",
+    "Tier 2",
+    "Tier 3",
+    "Tier 4"
+  ]
 };
 
 const scoredData = {
@@ -623,23 +634,23 @@ const scoredData = {
     { value: "select", score: 0 },
 
     { value: "Negative", score: 4 },
-    { value: "0<<40%", score: 6 },
-    { value: "40%<<80%", score: 7 },
+    { value: "0 to 40%", score: 6 },
+    { value: "40% to 80%", score: 7 },
     { value: ">80%", score: 9 },
   ],
   net_margin: [
     { value: "select", score: 0 },
 
     { value: "Negative", score: 4 },
-    { value: "0<<20%", score: 8 },
-    { value: "20%<<40%", score: 9 },
+    { value: "0 to 20%", score: 8 },
+    { value: "20% to 40%", score: 9 },
     { value: ">40%", score: 10 },
   ],
   funds: [
     { value: "select", score: 0 },
 
     { value: "<6 Months", score: 6 },
-    { value: "6<<12 Months", score: 7 },
+    { value: "6 to 12 Months", score: 7 },
     { value: ">12 Months", score: 8 },
   ],
   curr_ratio: [
