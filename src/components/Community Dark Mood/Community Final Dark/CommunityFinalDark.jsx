@@ -459,10 +459,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     fetchBlogsFromDb();
   }, []);
 
+
+
+  
+
+
   // below code is for the userspace
   const [activeIndex, setActiveIndex] = useState([]);
 
   async function fechingActiveIndexFirebase() {
+
+    console.log("data of user and email ",user?.user?.email)
     const docRef = doc(db, "Users", user?.user?.email);
 
     try {
@@ -471,9 +478,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       if (docSnap.data().activeIndex) {
         console.log(
           "actice index data is present ... ",
+          
           docSnap.data().activeIndex
         );
-        setActiveIndex(docSnap.data().activeIndex);
+         setUserSpaceArr(docSnap.data().userSpace)
+          setActiveIndex(docSnap.data().activeIndex);
       }
     } catch (error) {
       console.log(error);
@@ -482,8 +491,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // fetching the activeIndex from the firebase
   useEffect(() => {
+    
     fechingActiveIndexFirebase();
-  }, []);
+  }, [user?.user?.email]);
 
   const handleSpaceMenuDataClick = (index, event, value) => {
     // console.log(index, event, value)
@@ -501,6 +511,61 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       }
     });
   };
+
+  // spaceFilteredData here
+ 
+  useEffect(() => {
+   
+    if (postsData.length >= 1 && userSpaceArr.length >= 1) {
+      const filteredData = postsData.filter((eachElement) => {
+        if (Array.isArray(eachElement.postSpace)) {
+          return eachElement.postSpace.some((value) =>
+          userSpaceArr.includes(value)
+          );
+        }
+      });
+
+   
+
+      setSpaceFilteredPost(filteredData);
+    }
+   
+  }, [postsData, userSpaceArr]);
+  
+  
+ 
+  function narrowUserSpaceFiltering(){
+    console.log("narrow filtering useeffect called")
+
+    if(activeIndex.length >= 1 && userSpaceArr.length >= 0){
+      let narrowfiltering = activeIndex.map(index => userSpaceArr[index]);
+      
+      const NarrowFilteredPost = postsData.filter(post =>
+        post.postSpace.some(space => narrowfiltering.includes(space))
+      );
+      console.log("this is the narrowFiltered one ", NarrowFilteredPost)
+      setSpaceFilteredPost(NarrowFilteredPost);
+      
+    }
+    if(!activeIndex.length >= 1){
+      
+    if (postsData.length >= 1 && userSpaceArr.length >= 1) {
+      const filteredData = postsData.filter((eachElement) => {
+        if (Array.isArray(eachElement.postSpace)) {
+          return eachElement.postSpace.some((value) =>
+          userSpaceArr.includes(value)
+          );
+        }
+      });   
+
+      setSpaceFilteredPost(filteredData);
+    }
+    }
+  }
+  useEffect(()=>{
+
+    narrowUserSpaceFiltering()
+  },[user?.user?.email,activeIndex])
 
   // updating the activeIndex in the firebase
   async function updateActiveUserSpaceDatabase() {
@@ -542,19 +607,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    if (postsData.length >= 1 && selectedCommunitySpace.length >= 1) {
-      const filteredData = postsData.filter((eachElement) => {
-        if (Array.isArray(eachElement.postSpace)) {
-          return eachElement.postSpace.some((value) =>
-            selectedCommunitySpace.includes(value)
-          );
-        }
-      });
-      setSpaceFilteredPost(filteredData);
-    }
-    // console.log("this is the space filted data: ", spaceFilteredPost);
-  }, [postsData, selectedCommunitySpace]);
 
   const handleOptionChange = (event) => {
     setPostSpaceData(event.target.value);
