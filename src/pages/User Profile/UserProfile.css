@@ -175,7 +175,7 @@ ul li::before{
     content: "\2022";  
     color: #00A6FF; 
     font-weight: bold; 
-    display: inline-block;
+    display: none;
     width: 1em;
     margin-left: -1em;
 }

@@ -169,8 +169,10 @@ const DiscoverSuggestions = () => {
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
 
-  // console.log("userEmail",user.user.email);
-
+  console.log("userEmail",user.user.email);
+  console.log("randomUsers",randomUsers);
+  console.log("users",users);
+  
 
 
   // FETCH USER DATA FROM FIREBASE

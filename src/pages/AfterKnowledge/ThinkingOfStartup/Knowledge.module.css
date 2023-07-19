@@ -1,3 +1,33 @@
+.buttonWrapper{
+  text-decoration: none;
+ display: flex;
+  left: 12rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10rem;
+}
+ 
+.backButton{
+  background-color: #060f1e;
+  position: relative;
+  top: -13px;
+  height: 3rem;
+  width: 6rem;
+  border-radius: 2rem;
+  color: white;
+  font-weight: 200px;
+}
+.arrowClass{
+  position: relative;
+    top: -12px;
+    left: -5px;
+}
+.backButton:hover{
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+
 .book_section {
   margin: auto;
 }
@@ -153,7 +183,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-top: 11rem;
+  margin-top: 15rem;
 }
 
 .sidebar {

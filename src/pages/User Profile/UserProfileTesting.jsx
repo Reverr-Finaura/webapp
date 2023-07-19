@@ -289,15 +289,15 @@ const UserProfileTesting = () => {
                 </p>
               </div>
               <div className={styles.contactItem}>
-                <img src="/images/fbIcon.png" alt="Linkedin" />
+                <img src="/images/fbIcon.png" alt="fb" />
                 <p>
-                  {userDoc?.linkedin ? userDoc.linkedin : "Add your facebook"}
+                  {userDoc?.facebook ? userDoc.facebook : "Add your facebook"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/twitter.svg" alt="Linkedin" />
                 <p>
-                  {userDoc?.linkedin ? userDoc.linkedin : "Add your twitter"}
+                  {userDoc?.twitter ? userDoc.twitter : "Add your twitter"}
                 </p>
               </div>
             </div>

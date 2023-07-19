@@ -1,3 +1,35 @@
+.buttonWrapper{
+  text-decoration: none;
+ display: flex;
+  left: 18rem;
+  cursor: pointer;
+  position: absolute;
+  top: 8rem;
+}
+ 
+.backButton{
+  background-color: #060f1e;
+  position: relative;
+  top: -13px;
+  height: 3rem;
+  width: 6rem;
+  border-radius: 2rem;
+  color: white;
+  font-weight: 200px;
+}
+.arrowClass{
+  position: relative;
+    top: -12px;
+    left: -5px;
+}
+.backButton:hover{
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+
+
+
 .book_section {
   margin: auto;
 }

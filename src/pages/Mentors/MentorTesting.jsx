@@ -13,6 +13,8 @@ import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDa
 import ToolsSkeleton from "../../components/Post Skeleton/Tools Skeleton/ToolsSkeleton";
 import PostSkeleton from "../../components/Post Skeleton/PostSkeleton";
 import MentorCardSkeleton from "./MentorCardSkeleton";
+import { toast, Toaster } from "react-hot-toast";
+
 
 const MentorTesting = () => {
   const responsive = {
@@ -156,6 +158,7 @@ const MentorTesting = () => {
     // End functionality for search bar
 
   return (
+    <>
     <div className={styles.mentor}>
       <NavBarFinalDarkMode />
       <div className={styles.wrapper}>
@@ -258,7 +261,12 @@ const MentorTesting = () => {
             >
               {featuredMentors.length > 0 ? (
                 featuredMentors.map((item, idx) => {
-                  return <ProfileCardTesting key={idx} mentor={item} />;
+                  return <ProfileCardTesting key={idx} mentor={item} handleCopyURL={() => {
+                    if(item?.linkedin){
+                      navigator.clipboard.writeText(item.linkedin)
+                      toast.success("successfully copied to clipboard");
+                    }
+                  }} />;
                 })
               ) : (
                 <div className={styles.skeletonLoadingCont}>
@@ -290,6 +298,8 @@ const MentorTesting = () => {
         {/* ---------------Category Content End------------------ */}
       </div>
     </div>
+    <Toaster position="bottom-left" />
+    </>
   );
 };
 

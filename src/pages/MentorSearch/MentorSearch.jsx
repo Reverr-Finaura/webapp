@@ -6,6 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import { toast, Toaster } from "react-hot-toast";
+import mentorsUnavailableImg from "../../images/mentorsUnavailable.svg";
+import mentorsTextImg from "../../images/mentorsText.svg";
+
 
 const MentorSearch = () => {
   const navigate = useNavigate();
@@ -87,7 +91,7 @@ const MentorSearch = () => {
   }, [mentorArray, category]);
   // console.log(category);
   // console.log(mentorArray);
-  // console.log(searchResult);
+  console.log("searchresultsssssssss",searchResult);
 
   return (
     <>
@@ -106,11 +110,21 @@ const MentorSearch = () => {
           </p>
         </div>
         <div className={styles.searchResultContainer}>
-          {searchResult?.map((item, idx) => {
-            return <ProfileCardTesting key={idx} mentor={item} />;
-          })}
+          {searchResult.length !== 0 ? (searchResult?.map((item, idx) => {
+            return <ProfileCardTesting key={idx} mentor={item} handleCopyURL={() => {
+              if(item?.linkedin){
+                navigator.clipboard.writeText(item.linkedin)
+                toast.success("successfully copied to clipboard");
+              }
+            }} />;
+          })) : (<div className={styles.noMentorContainer}>
+            <img src={mentorsUnavailableImg} alt="mentorsUnavailableImg" className={styles.noMentorImg} />
+            <img src={mentorsTextImg} alt="mentorsTextImg" className={styles.noMentorTxt}  />
+          </div>)
+        }
         </div>
       </div>
+      <Toaster position="bottom-left" />
     </>
   );
 };
