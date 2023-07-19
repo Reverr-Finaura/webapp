@@ -6,7 +6,7 @@ import styles from "./UserEditProfileTesting.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { db, getUserDocByRef } from "../../firebase";
+import { db, getUserDocByRef,auth } from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +25,7 @@ const UserEditProfileTesting = () => {
   const [reasonList, setReasonList] = useState([]);
 
   const connectVia = ["Video Call", "Phone Call", "At Coffee"];
+  // console.log(auth);
 
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
@@ -127,8 +128,8 @@ const UserEditProfileTesting = () => {
     });
   };
 
-  const handlePasswordChange = (e) => {
-    if (currentPassword === userDoc?.password) {
+  const handlePasswordChange = async(e) => {
+    if (currentPassword === userDoc?.Password) {
       if (newPassword === confirmPassword) {
         setFormData((prev) => {
           return {
@@ -136,6 +137,9 @@ const UserEditProfileTesting = () => {
             password: newPassword,
           };
         });
+      //  await updateDoc(doc(db, "Users", user?.user?.email), {
+      //     Password: newPassword
+      //   });
       } else {
         alert("New Password and Confirm Password do not match");
       }
@@ -153,7 +157,7 @@ const UserEditProfileTesting = () => {
     });
   }, [formData?.userSpace]);
 
-  // Remove Same reasons Is Not Same reasons
+ // Remove Same reasons Is Not Same reasons
   useEffect(() => {
     setReasonList((prev) => {
       return prev.filter((reason) => {
@@ -308,6 +312,8 @@ const UserEditProfileTesting = () => {
     navigate("/userProfile");
   }
   // ---------------------------------------------
+
+
 
   return (
     <div className={styles.editWrapper}>
@@ -568,9 +574,10 @@ const UserEditProfileTesting = () => {
               </form>
               <div className={styles.hereFor}>
                 <div className={styles.hereForSelected}>
-                  <p>I’m here for</p>
+                  <p>I am here to</p>
                   <div className={styles.selectedList}>
                     {formData?.userReason?.map((item, idx) => {
+                      
                       return (
                         <button className={styles.selectedButton} key={idx}>
                           {item}
@@ -588,7 +595,7 @@ const UserEditProfileTesting = () => {
                 </div>
               </div>
               <div className={styles.hereForList}>
-                {reasonList?.map((item, idx) => {
+                {Array.from(new Set(reasonList)).map((item, idx) => {
                   return (
                     <button
                       key={idx}
