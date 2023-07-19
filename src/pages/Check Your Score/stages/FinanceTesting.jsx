@@ -11,7 +11,7 @@ import { nonscoredData, scoredData } from "./scores";
 
 const FinanceTesting = ({ setStage, data, setData, score, setScore }) => {
   const handleNext = () => {
-    if (Object.keys(data["Finance"]).length < 12) {
+    if (Object.keys(data["Finance"]).length < 10) {
       toast.error("Kindly Fill All Mandatory Fields");
       console.log("kindly fill all mandatory fields");
     } else {

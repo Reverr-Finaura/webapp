@@ -16,6 +16,9 @@ import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import axios from "axios";
 import useQuery from "../../Utils/useQuery";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+
 const LoginNew = () => {
   const selectedCountry = useSelector((state) => state.countryCode);
   const [metaData, setMetaData] = useState([]);
@@ -35,6 +38,7 @@ const LoginNew = () => {
   const user_code = queryy.get("code");
   const linkedinLoginError = queryy.get("error");
   const [isLogginInUsingLinkedIn, setIsLogginInUsingLinkedIn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   //LINKEDIN LOGIN
   const getUserDataFromLinkedin = async (code) => {
@@ -353,6 +357,10 @@ const LoginNew = () => {
     window.open("https://server.reverr.io/api/linkedin/authorize", "_self");
   };
   // userDoc.Vibe_Data.How_To_Meet - []
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <NavBarFinalDarkMode isLoggedIn={false}/>
@@ -373,16 +381,25 @@ const LoginNew = () => {
                 placeholder="Your E-Mail"
               />
             </div>
-            <div>
+            <div style={{position:"relative"}}>
               <label htmlFor="password" className={styles.label}>
                 Password
               </label>
               <input
-                onChange={(e) => setPassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
                 value={password}
-                type="password"
                 placeholder="Enter a password"
+                onChange={(e) => setPassword(e.target.value)}
               />
+              <button
+                className={styles.toggleButton}
+                onClick={handleTogglePassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+
+
+
             </div>
             <div className={styles.forgotPassword}>
               <Link to="/forgot-password">Forgot Password?</Link>

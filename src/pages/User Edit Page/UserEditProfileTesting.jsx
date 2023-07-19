@@ -87,6 +87,7 @@ const UserEditProfileTesting = () => {
     Vibe_Data: {
       How_To_Meet: [],
     },
+    userSpace: [],
   });
   const [workCount, setWorkCount] = useState(1);
   const [educationCount, setEducationCount] = useState(1);

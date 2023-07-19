@@ -70,7 +70,7 @@ const CheckYourScoreTesting = () => {
   return (
     <>
       <section id={styles.checkyourscore}>
-        <NavBarFinalDarkMode/>
+        <NavBarFinalDarkMode />
         {/* <img
           className={styles.checkscoreicon1}
           src="/images/algo-bg1.png"

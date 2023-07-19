@@ -4,9 +4,9 @@ import { db } from "../../../firebase";
 import styles from "./ConnectSuggestion.module.css";
 import { useNavigate } from "react-router-dom";
 
-function ConnectSuggestion({ isLoggedIn,  openModal }) {
+function ConnectSuggestion({ isLoggedIn, openModal }) {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
@@ -97,15 +97,12 @@ function ConnectSuggestion({ isLoggedIn,  openModal }) {
                 onClick={() => {
                   if (!isLoggedIn) {
                     return openModal();
-                  }else{
+                  } else {
                     //normal code
-                    {
-                      // user?.userType === "Mentor" ? navigate(`/mentorprofile/${user?.email}`) 
-                      // :
-                      navigate(`/userprofile/${user?.email}`)
 
-                    }
-                   
+                    // user?.userType === "Mentor" ? navigate(`/mentorprofile/${user?.email}`)
+                    // :
+                    navigate(`/userprofile/${user?.email}`);
                   }
                 }}
               >
@@ -120,14 +117,11 @@ function ConnectSuggestion({ isLoggedIn,  openModal }) {
   );
 }
 
-
 // Set default props using defaultProps property
 ConnectSuggestion.defaultProps = {
   isLoggedIn: true,
   openModal: () => {},
 };
 
-
 export default ConnectSuggestion;
 // export default React.memo(React.forwardRef(ConnectSuggestion));
-

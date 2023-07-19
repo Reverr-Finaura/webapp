@@ -8,9 +8,10 @@
 
 .leftSidebar {
   width: 300px;
-  padding:30px 15px;
+  padding:30px 30px;
   border-radius: 15px;
   overflow-y: auto;
+  padding-left: 50px;
 }
 
 .leftSidebar::-webkit-scrollbar {
@@ -26,8 +27,8 @@
 }
 
 .middleSection {
-  width: 60%;
-  padding: 29px 10px;
+  width: 53%;
+  padding: 29px 0px;
   border-radius: 15px;
   overflow-y: auto;
 }
@@ -46,9 +47,10 @@
 
 .rightSidebar {
   width: 300px;
-  padding:30px 15px;
+  padding:30px 30px;
   border-radius: 15px;
   overflow-y: auto;
+  padding-right: 50px;
 }
 
 .rightSidebar::-webkit-scrollbar {

@@ -36,7 +36,7 @@
   font-family: "Poppins";
   font-style: normal;
   /* background-color: rgba(255, 255, 255, 0.25); */
-  padding: 1rem 1.5rem;
+  padding: 0rem 0rem;
   /* padding-right: 3.5rem; */
   /* margin-left: 5rem; */
   padding-top: 6em;
@@ -120,11 +120,11 @@ font-weight: 700;
 }
 
 .communityUploadContUserImage {
-  border-radius: 11px;
+  border-radius: 25px;
     margin-top: 0.8rem;
     margin-right: 1rem;
-      width: 48.873px;
-    height: 48.873px;
+      width: 40px;
+    height: 40px;
     flex-shrink: 0;
 }
 
@@ -396,7 +396,7 @@ font-weight: 700;
 
 #postTextContainer {
   height: 23px;
-  width: 80%;
+  width: 93%;
   /* padding-left: 3rem; */
   /* color: var(--main-text); */
   font-size: 20px;
@@ -1072,7 +1072,7 @@ body::-webkit-scrollbar {
   font-weight: 600;
   position: fixed;
   bottom: 30px;
-  left: 30px;
+  left: 65px;
   z-index: 999999999;
   cursor: pointer;
   border-radius: 48px;
