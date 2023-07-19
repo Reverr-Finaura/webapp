@@ -67,11 +67,11 @@
 }
 
 /* -----------------Slider-------------------- */
-.slider {
-  /* display: flex; */
-  /* gap: 1rem; */
-  /* padding-bottom: 1rem; */
-}
+/* .slider {
+  display: flex; 
+   gap: 1rem; 
+   padding-bottom: 1rem;
+} */
 .sliderContainer {
   display: flex;
   flex-direction: column;
@@ -109,11 +109,22 @@
 }
 .leftMainImage {
   width: 7.3rem;
+  position: relative;
+}
+
+
+.linkedImage{
+  height: 40px;
+  position: absolute;
+  bottom: 0px;
+  left: 35px;
+  cursor: pointer;
 }
 
 .leftMainImage > img {
   width: 100%;
   border-radius: 100%;
+
 }
 .LeftCardtextContent {
   display: flex;
@@ -160,6 +171,31 @@ text{
   gap: 1rem;
   padding: 0rem 2rem;
 }
+
+
+.mentorAbout {
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.readMoreBtn {
+  width: 80px;
+  height: 20px;
+  padding: 0.2rem;
+  border: none;
+  border-radius: 15px;
+  background: var(--blue, linear-gradient(97deg, #00b3ff 57.09%, #4cc9ff 100%));
+  color: #000;
+  text-align: center;
+  font-size: 0.6rem;
+  font-family: Poppins;
+  font-weight: 500;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
 .rightCardMain > p {
   font-size: 1rem;
   font-family: Poppins;
