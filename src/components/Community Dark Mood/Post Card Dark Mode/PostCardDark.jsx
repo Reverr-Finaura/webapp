@@ -49,7 +49,9 @@ export default function PostCardDark({
   const [threeDotsClickCommentId, setThreeDotsClickCommentId] = useState(null);
   const user = useSelector((state) => state.user);
 
-  const [postedByUserDoc, setPostedByUserDoc] = useState({});
+  const [postedByUserDoc, setPostedByUserDoc] = useState({
+    notificationList: [],
+  });
 
   const [commentedByUserDoc, setCommentedByUserDoc] = useState([]);
   const [showMorePostTextClick, setShowMorePostTextClick] = useState(false);
@@ -59,38 +61,36 @@ export default function PostCardDark({
   const [postDetail, setPostDetail] = useState();
   const navigate = useNavigate();
 
-  // console.log("item111", user)
+ 
 
   // get the posts comments
   async function fetchPostData() {
-   
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
-  
+
     try {
       const docSnapshot = await getDoc(postRef);
       if (docSnapshot.exists()) {
         // Document exists, you can access its data using docSnapshot.data()
         const data = docSnapshot.data();
-        setPostComments(data.comments);        
+        setPostComments(data.comments);
         setPostDetail(data);
         // console.log("the post data is here -- above", data);
       } else {
         // Document doesn't exist
         console.log("not existing data");
       }
-      
     } catch (error) {
-       console.log(error)
+      console.log(error);
     }
   }
 
   useEffect(() => {
-    fetchPostData();    
+    fetchPostData();
   }, []);
 
   //CHECK IF POST LIKES CONTAIN USER OR NOT
   const getLikedPostIdFromFirebase = async (id, items) => {
-    console.log("post details--- ", postDetail)
+    // console.log("post details--- ", postDetail);
     const isLiked = postDetail.likes.includes(user?.user?.email);
     let newLikeArray;
 
@@ -117,8 +117,48 @@ export default function PostCardDark({
 
     await updateLikedPostInFirebase(newLikeArray, id);
   };
+  const setNotificationDatainFirebase = async (data, id) => {
+    try {
+      console.log('HIIIIIIIIII');
+      const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
+      console.log("posted by", postedByUserDoc.email[0]);
+      const notificationData = {
+        time: new Date(),
+        message: `${user?.user?.email} liked your post`,
+        user: user?.user?.email,
+        type: "Like-Notification",
+        postId: postId,
+      };
+      console.log("notificationData", notificationData);
+      const userDocSnapshot = await getDoc(userDocumentRef);
 
-  //UPDATE POST LIKE PART DATABASE
+      if (userDocSnapshot.exists()) {
+        const existingNotifications =
+          userDocSnapshot.data().notificationList || [];
+
+        // Check if user is already present in the notificationList user with postID as well
+        const userAlreadyNotified = existingNotifications.some(
+          (item) => item.user === user?.user?.email && item.postId === postId
+        );
+        console.log("userAlreadyNotified", userAlreadyNotified);
+        if (!userAlreadyNotified) {
+          await updateDoc(userDocumentRef, {
+            notificationList: [...existingNotifications, notificationData],
+          });
+        }
+      } else {
+        await updateDoc(userDocumentRef, {
+          notificationList: [notificationData],
+        });
+      }
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  // console.log("post details--- ", postDetail);
+  // console.log("postedBy", postedByUserDoc);
+
   const updateLikedPostInFirebase = async (data, id) => {
     const userDocumentRef = doc(db, "Posts", postId);
 
@@ -151,7 +191,7 @@ export default function PostCardDark({
     ]);
 
     postDetail.comments = newCommentArray;
-   
+
     // console.log("this is the list of updated comment ",newCommentArray)
     setPostsData(
       postsData.map((item) => {
@@ -174,7 +214,7 @@ export default function PostCardDark({
       await updateDoc(userDocumentRef, { comments: data });
       toast("Sucessfully Commented");
       fetchPostData();
-     
+
       setNewComment("");
     } catch (error) {
       console.log(error.message);
@@ -295,14 +335,35 @@ export default function PostCardDark({
   //GET USER DATA FROM REFERENCE LINK WHO HAS POSTED
 
   useEffect(() => {
-    getUserDocByRef(item?.postedby).then((res) => {
-      setPostedByUserDoc(res);
-    });
+    if (item?.postedby) {
+      getUserDocByRef(item?.postedby).then((res) => {
+        setPostedByUserDoc((prev) => {
+          return {
+            ...prev,
+            ...res,
+            notificationList: res.notificationList
+              ? [...prev.notificationList, ...res.notificationList]
+              : prev.notificationList,
+          };
+        });
+      });
+    }
   }, [item]);
+
   useEffect(() => {
-    getUserDocByRef(item?.postedby).then((res) => {
-      setPostedByUserDoc(res);
-    });
+    if (userDoc) {
+      getUserDocByRef(item?.postedby).then((res) => {
+        setPostedByUserDoc((prev) => {
+          return {
+            ...prev,
+            ...res,
+            notificationList: res.notificationList
+              ? [...prev.notificationList, ...res.notificationList]
+              : prev.notificationList,
+          };
+        });
+      });
+    }
   }, [userDoc]);
 
   //GET USER DATA FROM REFERENCE LINK WHO HAS COMMENTED
@@ -494,6 +555,7 @@ export default function PostCardDark({
             <div
               onClick={() => {
                 getLikedPostIdFromFirebase(item.id, item);
+                setNotificationDatainFirebase(item);
               }}
               className={style.postLikesContainer}
             >
@@ -728,7 +790,7 @@ export default function PostCardDark({
                           })[0]?.name
                         }
                       </p>
-                   
+
                       {list?.commentedby?.id === user?.user?.email ? (
                         <TfiMoreAlt
                           className="threeDotsPost commentThreeDotsPost"

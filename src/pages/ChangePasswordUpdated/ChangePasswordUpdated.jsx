@@ -123,12 +123,14 @@ function ChangePasswordUpdated({email}) {
                 value={changePassForm.newPass}
                 onChange={handleChangePassFormInputChange}
               />
+
               <button
                 className={styles.toggleButton}
                 onClick={handleTogglePassword}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
+              
             </div>
           </div>
           <div className={styles.passInput}>

@@ -117,8 +117,8 @@ function HomeNotLoggedIn() {
           <TrendingNews isLoggedIn={false} openModal={openModal} />
           <div style={{ marginTop: 50 }}></div>
           <InvestorFinder isLoggedIn={false} openModal={openModal} />
-          <div style={{ marginTop: 50 }}></div>
-          <Events isLoggedIn={false} openModal={openModal} />
+          {/* <div style={{ marginTop: 50 }}></div>
+          <Events isLoggedIn={false} openModal={openModal} /> */}
           <div style={{ marginTop: 50 }}></div>
           <Mentors isLoggedIn={false} openModal={openModal} />
         </div>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TestingMentor.module.css";
 import ProfileCardTesting from "./ProfileCardTesting";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where, } from "firebase/firestore";
 import { db } from "../../firebase";
+import { NavLink, useNavigate } from "react-router-dom";
 import categories from "./category.json";
 import IndustryCard from "../../components/IndustryCard/IndustryCard";
 import Carousel from "react-multi-carousel";
@@ -39,6 +40,9 @@ const MentorTesting = () => {
   const [mentorArray, setMentorArray] = useState([]);
   const [filteredArray, setFilteredArray] = useState([]);
   const [featuredMentors, setFeaturedMentors] = useState([]);
+  const [searchResult, setsearchResult] = useState(null);
+  const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchMentorExpertise() {
@@ -46,7 +50,7 @@ const MentorTesting = () => {
       const q = query(mentorsRef);
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
+        // console.log(doc.data());
         if (doc.data().userType === "Mentor" && doc.data().domain) {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
@@ -100,6 +104,59 @@ const MentorTesting = () => {
     removeEmptyIndustryFromArray();
   }, [industryArray]);
 
+
+
+    // Start functionality for search bar
+    async function fetchUserDataFromFirebase(type) {
+      const userDataRef = collection(db, "Users");
+      let q;
+  
+      if (type !== "") {
+        q = query(userDataRef, where("userType", "==", type));
+      } else {
+        q = query(userDataRef);
+      }
+  
+      const querySnapshot = await getDocs(q);
+  
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id });
+        // console.log("data is ", doc.data().userType)
+      });
+  
+      return data;
+    }
+  
+    useEffect(() => {
+      async function fetchData() {
+        // const data = await fetchUserDataFromFirebase(userType);
+        const data = await fetchUserDataFromFirebase("Mentor");
+  
+        setUserData(data);
+      }
+      fetchData();
+    }, []);
+  
+    const getFilterData = (data, input, key) => {
+      return data.filter((item) => {
+        // console.log(item[key].toLowerCase())
+        return item[key].toLowerCase().includes(input);
+      });
+    };
+  
+    const searchInputHandler = (e) => {
+      const input = e.target.value.toLowerCase();
+      if (input === "") {
+        setsearchResult(null);
+      } else {
+        const key = "name";
+        const filteredData = getFilterData(userData, input, key);
+        setsearchResult(filteredData);
+      }
+    };
+    // End functionality for search bar
+
   return (
     <>
     <div className={styles.mentor}>
@@ -111,8 +168,8 @@ const MentorTesting = () => {
             Find the best <span>Mentors</span>
           </div>
           <div className={styles.search}>
-            <input type="text" placeholder="Search a mentor..." />
-            <button
+            <input type="text" onChange={searchInputHandler} placeholder="Search a mentor..." />
+            {/* <button
               type="button"
               style={{
                 position: "absolute",
@@ -125,7 +182,61 @@ const MentorTesting = () => {
               }}
             >
               <img src={SearchIcon} alt="SearchIcon" />
-            </button>
+            </button> */}
+            <img src={SearchIcon} alt="SearchIcon" />
+            {searchResult && (
+            <div className={styles.searchResult}>
+              <text style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}>
+                Search Results
+              </text>
+              {searchResult.map((item, index) => (
+                <div
+                  onClick={() => navigate(`/userprofile/${item.email}`)}
+                  key={index}
+                >
+                  <div>
+                    <img
+                      src={
+                        item?.image
+                          ? item.image
+                          : require("../../images/userIcon.png")
+                      }
+                      alt="img"
+                    />
+                    <div>
+                      <text
+                        style={{
+                          fontSize: 14,
+                          color: "#000000",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 1,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {item?.name}
+                      </text>
+                      <text
+                        style={{
+                          fontSize: 10,
+                          color: "#1A1E28",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {item?.designation}
+                      </text>
+                    </div>
+                  </div>
+                  <div className={styles.divider}></div>
+                </div>
+              ))}
+            </div>
+          )}
           </div>
         </div>
         {/* -----------------------Header End------------------------------- */}

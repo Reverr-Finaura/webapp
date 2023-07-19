@@ -214,7 +214,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         })
       );
 
-      console.log("this is the filtered post ", postsData);
+      // console.log("this is the filtered post ", postsData);
 
       let postDataAllLikesLength = 0;
       postsData.map((post) => {
@@ -226,7 +226,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       );
       setWhatsHotCommunityPost(
         postsData.filter((post) => {
-        
           return post.likes.length >= likesAverage;
         })
       );
@@ -287,7 +286,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const postsPerPage = 6;
   const pagesVisited = pageNumber * postsPerPage;
   const displayPosts = postsData.slice(0, pagesVisited + postsPerPage);
-  
+
   // const pageCount=Math.ceil(postsData.length/notesPerPage)
   const fetchMorePosts = () => {
     setTimeout(() => {
@@ -460,40 +459,48 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     fetchBlogsFromDb();
   }, []);
 
+
+
+  
+
+
   // below code is for the userspace
   const [activeIndex, setActiveIndex] = useState([]);
- 
 
-  async function fechingActiveIndexFirebase(){
-    const docRef = doc(db,"Users",user?.user?.email)
- 
+  async function fechingActiveIndexFirebase() {
+
+    console.log("data of user and email ",user?.user?.email)
+    const docRef = doc(db, "Users", user?.user?.email);
+
     try {
-      const docSnap = await getDoc(docRef)
+      const docSnap = await getDoc(docRef);
       // console.log("firebase fechted queries ",docSnap.data().activeIndex)
-      if(docSnap.data().activeIndex){
-        console.log("actice index data is present ... ",docSnap.data().activeIndex)
-        setActiveIndex(docSnap.data().activeIndex)
+      if (docSnap.data().activeIndex) {
+        console.log(
+          "actice index data is present ... ",
+          
+          docSnap.data().activeIndex
+        );
+         setUserSpaceArr(docSnap.data().userSpace)
+          setActiveIndex(docSnap.data().activeIndex);
       }
     } catch (error) {
-       console.log(error)
-    } 
-
+      console.log(error);
+    }
   }
-  
+
   // fetching the activeIndex from the firebase
-  useEffect(()=>{
-    fechingActiveIndexFirebase()
-  },[])
+  useEffect(() => {
+    
+    fechingActiveIndexFirebase();
+  }, [user?.user?.email]);
 
   const handleSpaceMenuDataClick = (index, event, value) => {
-    
     // console.log(index, event, value)
     if (activeIndex.includes(index)) {
       setActiveIndex(activeIndex.filter((i) => i !== index)); // Remove the index if it's already active
-     
     } else {
       setActiveIndex([...activeIndex, index]); // Add the index if it's not active
-      
     }
     // setIsSpaceMenuDataActive(!isSpaceMenuDataActive)
     setUserSpaceArr((prevOptions) => {
@@ -503,31 +510,82 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         return [...prevOptions, value];
       }
     });
-   
   };
+
+  // spaceFilteredData here
+ 
+  useEffect(() => {
+   
+    if (postsData.length >= 1 && userSpaceArr.length >= 1) {
+      const filteredData = postsData.filter((eachElement) => {
+        if (Array.isArray(eachElement.postSpace)) {
+          return eachElement.postSpace.some((value) =>
+          userSpaceArr.includes(value)
+          );
+        }
+      });
+
+   
+
+      setSpaceFilteredPost(filteredData);
+    }
+   
+  }, [postsData, userSpaceArr]);
   
+  
+ 
+  function narrowUserSpaceFiltering(){
+    console.log("narrow filtering useeffect called")
+
+    if(activeIndex.length >= 1 && userSpaceArr.length >= 0){
+      let narrowfiltering = activeIndex.map(index => userSpaceArr[index]);
+      
+      const NarrowFilteredPost = postsData.filter(post =>
+        post.postSpace.some(space => narrowfiltering.includes(space))
+      );
+      console.log("this is the narrowFiltered one ", NarrowFilteredPost)
+      setSpaceFilteredPost(NarrowFilteredPost);
+      
+    }
+    if(!activeIndex.length >= 1){
+      
+    if (postsData.length >= 1 && userSpaceArr.length >= 1) {
+      const filteredData = postsData.filter((eachElement) => {
+        if (Array.isArray(eachElement.postSpace)) {
+          return eachElement.postSpace.some((value) =>
+          userSpaceArr.includes(value)
+          );
+        }
+      });   
+
+      setSpaceFilteredPost(filteredData);
+    }
+    }
+  }
+  useEffect(()=>{
+
+    narrowUserSpaceFiltering()
+  },[user?.user?.email,activeIndex])
 
   // updating the activeIndex in the firebase
-  async function updateActiveUserSpaceDatabase(){
-    console.log(user?.user?.email)
-    const userdocRef = doc(db,"Users",user?.user?.email)
+  async function updateActiveUserSpaceDatabase() {
+    console.log(user?.user?.email);
+    const userdocRef = doc(db, "Users", user?.user?.email);
 
     try {
-      await updateDoc(userdocRef, { activeIndex:activeIndex  });
-      fechingActiveIndexFirebase()
-    
+      await updateDoc(userdocRef, { activeIndex: activeIndex });
+      fechingActiveIndexFirebase();
     } catch (error) {
       console.log(error.message);
     }
   }
- 
 
   function handleModalSubmit() {
-    updateActiveUserSpaceDatabase()
-   
-      dispatch(setUserSpace(userSpaceArr));
-      setSelectedCommunitySpace(userSpaceArr);
-      setIsOpen(false);
+    updateActiveUserSpaceDatabase();
+
+    dispatch(setUserSpace(userSpaceArr));
+    setSelectedCommunitySpace(userSpaceArr);
+    setIsOpen(false);
     // else {
     //   window.alert("Please choose atleast one!");
     // }
@@ -537,7 +595,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   console.log("userSpace: ", userSpace);
 
   function openTheSpaceModal() {
-    fechingActiveIndexFirebase()
+    fechingActiveIndexFirebase();
     if (isOpen) {
       setIsOpen(false);
     } else {
@@ -545,23 +603,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     }
   }
   function handleModalClose() {
-    fechingActiveIndexFirebase()
+    fechingActiveIndexFirebase();
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    if (postsData.length >= 1 && selectedCommunitySpace.length >= 1) {
-      const filteredData = postsData.filter((eachElement) => {
-        if (Array.isArray(eachElement.postSpace)) {
-          return eachElement.postSpace.some((value) =>
-            selectedCommunitySpace.includes(value)
-          );
-        }
-      });
-      setSpaceFilteredPost(filteredData);
-    }
-    console.log("this is the space filted data: ", spaceFilteredPost);
-  }, [postsData, selectedCommunitySpace]);
 
   const handleOptionChange = (event) => {
     setPostSpaceData(event.target.value);
@@ -885,7 +930,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   execute and grow.
                 </p> */}
               </div>
-              {width < 600 && scroll > 230 && (
+
+              {/* {width < 600 && scroll > 230 && (
                 <>
                   <div
                     style={{
@@ -950,7 +996,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     alt="addIcon"
                   />
                 </div>
-              )}
+              )} */}
             </div>
 
             <section
@@ -961,7 +1007,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 <img
                   className={style.communityUploadContUserImage}
                   src={
-                    userDoc?.image
+                    !isLoggedIn
+                      ? "../../../images/userIcon.png"
+                      : userDoc?.image
                       ? userDoc.image
                       : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
@@ -969,9 +1017,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 />
                 <div className="textAreaUploadContainer">
                   <div
-                    className={textAreaIsClick
+                    className={
+                      textAreaIsClick
                         ? style.navbarUploadPostOuterBoxContainer
-                        : style.UploadPostOuterBoxContainerNotExpanded}
+                        : style.UploadPostOuterBoxContainerNotExpanded
+                    }
                   >
                     <textarea
                       style={{ borderRadius: "30px" }}
@@ -1191,7 +1241,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
               dataLength={displayPosts.length}
               next={fetchMorePosts}
               hasMore={displayPosts.length !== postsData.length}
-              style={{overflow:"unset"}}
+              style={{ overflow: "unset" }}
               loader={
                 <div>
                   <PostSkeleton cards={2} />
@@ -1282,7 +1332,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     //         isLoggedIn = { isLoggedIn };
                     //         openModal = { openModal };
                     //       />
-                    //       <DiscoverEvents 
+                    //       <DiscoverEvents
                     //         isLoggedIn={isLoggedIn}
                     //         openModal={openModal}
                     //       />
