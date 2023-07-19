@@ -6,11 +6,12 @@ import styles from "./UserEditProfileTesting.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { db, getUserDocByRef } from "../../firebase";
+import { db, getUserDocByRef, storage } from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const UserEditProfileTesting = () => {
   const navigate = useNavigate();
@@ -308,6 +309,34 @@ const UserEditProfileTesting = () => {
     });
     navigate("/userProfile");
   }
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, `Images/${user?.user?.email}/profile`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFormData((prev) => {
+            return {
+              ...prev,
+              image: downloadURL,
+            };
+          });
+          // console.log("downloadedURL", downloadURL);
+        });
+      }
+    );
+  };
+
   // ---------------------------------------------
 
   return (
