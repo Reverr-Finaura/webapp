@@ -1,16 +1,20 @@
-.notificationCard {
-  display: flex;
-  flex-direction: row;
-  width: 409px;
-  border-radius: 5px;
-  background: var(--card, #0d0f14);
-  margin: 8px;
-  padding: 10px;
+.notificationCard{
+    display: flex;
+    flex-direction: row;
+    width: 409px;
+height: 90px;
+/* flex-shrink: 0; */
+border-radius: 5px;
+background: var(--card, #0D0F14);
+margin: 8px;
+    padding: 10px;
 }
 
-.notificationContent {
-  display: flex;
-  flex-direction: column;
+.notificationContent{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding-top: 10px;
 }
 .upperPart {
   display: flex;
@@ -47,6 +51,11 @@
 .notificationImg {
   margin: 0px 22px 0px 15px;
 }
-.image {
-  width: 50px;
+.image{
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding-top: 5px;
 }
+

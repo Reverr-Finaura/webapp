@@ -27,6 +27,7 @@ import { VscBellDot } from "react-icons/vsc";
 import { FaLightbulb, FaFacebookMessenger } from "react-icons/fa";
 import { setTheme } from "../../features/themeSlice";
 import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
+import mentordashboardicon from "../../images/dashboardicon.svg"
 import userIcon from "../../images/userIcon.png";
 import settingIcon from "../../images/Vector (3).png";
 import ReverrLightIcon from "../../images/Reverr Light.png";
@@ -55,9 +56,6 @@ import NotificationCard from "./NotificationCard";
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
-  const userTypeLower = useSelector((state) =>
-    state.onboarding.userType.toLowerCase()
-  );
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [userImage, setUserImage] = useState("");
   const [isSettingButtonClick, setIsSettingbuttonClick] = useState(false);
@@ -74,13 +72,25 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
+<<<<<<< HEAD
   const userType = useSelector((state) => state.onboarding.userType);
+  console.log('userdoc',userDoc)
+=======
+  const [userTypeLower, setUserTypeLower] = useState("individual");
+  // const state = useSelector((state) => state);
+  // console.log("state", state);
+>>>>>>> 25fc889ca89533c006c65fcfeb41c499a30c53d3
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   // code for product modal start
+  useEffect(() => {
+    if (userDoc.userType !== undefined && userDoc.userType !== "") {
+      setUserTypeLower(userDoc.userType.toLowerCase());
+    }
+  }, [userDoc]);
   const elementsToCheck = [
     "TOOLS",
     "MENTOR",
@@ -684,6 +694,44 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <BiHomeAlt className={style.navbarIconsImg} />
                 <p className={style.navbarIconsName}>Home</p>
               </div>
+              {/* //////// */}
+              {isLoggedIn && userDoc?.userType === "Mentor" ? (
+                <div
+                  className={style.navbarIconsImgName}
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      return openModal();
+                    } else {
+                      navigate("/mentordashboard");
+                    }
+                  }}
+                >
+                  <img style={{color:"white"}} src={mentordashboardicon} className={style.navbarIconsImg} />
+                  <p className={style.navbarIconsName}>Dashboard</p>
+                  {/* <NavLink className="navlinks" to="/discover">
+                <p className={style.navbarIconsName}>Discover</p>
+              </NavLink> */}
+                </div>
+              ) : (
+                <></>
+            //     <div
+            //       className={style.navbarIconsImgName}
+            //       onClick={() => {
+            //         if (!isLoggedIn) {
+            //           return openModal();
+            //         } else {
+            //           navigate("/discover/nu");
+            //         }
+            //       }}
+            //     >
+            //       <AiOutlineGlobal className={style.navbarIconsImg} />
+            //       <p className={style.navbarIconsName}>Discover</p>
+            //       {/* <NavLink className="navlinks" to="/discover">
+            //   <p className={style.navbarIconsName}>Discover</p>
+            // </NavLink> */}
+            //     </div>
+              )}
+              {/* //////// */}
 
               {isLoggedIn ? (
                 <div
@@ -774,6 +822,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   <p className={style.navbarIconsName}>Notifications</p>
                   {notificationOpen && (
                     <>
+                    {/* ///aa// */}
                       <div className={style.notificationBar}>
                         {userDoc?.notificationList?.length >= 1 ? (
                           <>
@@ -784,9 +833,16 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                               </h1>
                               {/* <h3 className={style.notificationSubHeading}>Today</h3> */}
                             </div>
-                            {userDoc?.notificationList?.map((item, index) => (
+                            <div className={style.notificationcardcontainer}>
+
+                           
+                            {/* {userDoc?.notificationList?.map((item, index) => (
+                              <NotificationCard key={index} item={item} />
+                            ))} */}
+                            {[...userDoc?.notificationList]?.sort((a, b) => b?.time?.seconds * 1000 - a?.time?.seconds * 1000)?.map((item, index) => (
                               <NotificationCard key={index} item={item} />
                             ))}
+                             </div>
                           </>
                         ) : (
                           <h4>No notification till Now !</h4>

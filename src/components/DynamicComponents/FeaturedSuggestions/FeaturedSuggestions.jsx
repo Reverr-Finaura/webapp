@@ -3,9 +3,12 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 import styles from "./FeaturedSuggestions.module.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function FeaturedSuggestions({ isLoggedIn, openModal }) {
+  const currentLoggedInUser = useSelector((state) => state.user)
   const [users, setUsers] = useState([]);
+  const [randomUsers, setRandomUsers] = useState([]);
   const navigate = useNavigate()
 
   //FETCH USER DATA FROM FIREBASE
@@ -19,7 +22,9 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
           doc.data().hasOwnProperty("name") &&
           doc.data().name !== "" &&
           doc.data().hasOwnProperty("image") &&
-          doc.data().image !== ""
+          doc.data().image !== "" &&
+          doc.data().hasOwnProperty("email") &&
+          doc.data().email !== currentLoggedInUser?.user?.email
         ) {
           setUsers((prev) => {
             return [...prev, doc.data()];
@@ -28,16 +33,32 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
       });
     }
     fetchUsers();
-  }, []);
+  }, [currentLoggedInUser]);
 
-  let randomUsers = [];
-  let length = users.length - 1;
+  useEffect(() => {
+    if (users.length > 0) {
+      const getRandomUsers = () => {
+        let randomUsersArr = [];
+        let length = users.length - 1;
+        let targetCount = 8;
+        let uniqueCount = 0;
+        
+        while (uniqueCount < targetCount) {
+          let randomIndex = Math.floor(Math.random() * length);
+          let randomElement = users[randomIndex];
+        
+          // Check if the randomElement is already in the randomUsers array
+          if (!randomUsersArr.includes(randomElement)) {
+            randomUsersArr.push(randomElement);
+            uniqueCount++;
+          }
+        }
+        setRandomUsers(randomUsersArr);
+      };
 
-  for (let i = 0; i < 10; i++) {
-    let randomIndex = Math.floor(Math.random() * length);
-    let randomElement = users[randomIndex];
-    randomUsers.push(randomElement);
-  }
+      getRandomUsers();
+    }
+  }, [users]);
 
   return (
     <div className={styles.container} style={{ marginBottom: "3.2em" }}>
