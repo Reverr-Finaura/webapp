@@ -28,7 +28,6 @@ import rightPic from "../../images/signup-img.png";
 import { setName, setEmail } from "../../features/onboardingSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
 function SignupAuthUpdated() {
   const userSpace = useSelector((state) => state.user.userSpace);
   const [userSpaceArr, setUserSpaceArr] = useState([]);
@@ -195,8 +194,8 @@ function SignupAuthUpdated() {
         setLoading(false);
         return;
       }
-      dispatch(setEmail(email))
-      dispatch(setName(firstName))
+      dispatch(setEmail(email));
+      dispatch(setName(firstName));
       dispatch(setPassword(password));
       dispatch(setPhone(mobile));
       dispatch(setcountryCode(selectedCountry.dialCode.slice(1)));
@@ -231,21 +230,21 @@ function SignupAuthUpdated() {
         otp,
       };
       try {
-        const response = await emailjs.send(
-          "service_lfmmz8k",
-          "template_n3pcht5",
-          templateParams,
-          // "user_FR6AulWQMZry87FBzhKNu"
-          "dVExxiI8hYMCyc0sY"
-        );
-        // console.log(mobile, selectedCountry.dialCode.slice(1), otp)
-        // const data = await axios.post("https://server.reverr.io/sendSmsCode", {
-        //   to: mobile,
-        //   code: selectedCountry.dialCode.slice(1),
-        //   message: `Your Reverr Signup OTP is ${otp}`,
-        // });
+        // const response = await emailjs.send(
+        //   "service_lfmmz8k",
+        //   "template_n3pcht5",
+        //   templateParams,
+        //   // "user_FR6AulWQMZry87FBzhKNu"
+        //   "dVExxiI8hYMCyc0sY"
+        // );
+        console.log(mobile, selectedCountry.dialCode.slice(1), otp);
+        const data = await axios.post("https://server.reverr.io/sendSmsCode", {
+          to: mobile,
+          code: selectedCountry.dialCode.slice(1),
+          message: `Your Reverr Signup OTP is ${otp}`,
+        });
         // console.log("SUCCESS!", response.status, response.text);
-        // console.log("otpMobile SUCCESS!", data);
+        console.log("otpMobile SUCCESS!", data);
         navigate("/enterotp");
         setLoading(false);
         toast.success("An OTP has been sent to your e-mail ");
@@ -342,11 +341,9 @@ function SignupAuthUpdated() {
     const value = event.target.value;
 
     if (value.length <= maxLength) {
-      setMobile(event.target.value)
-     
+      setMobile(event.target.value);
     } else {
-      
-      window.alert('Maximum 10 digits allowed.');
+      window.alert("Maximum 10 digits allowed.");
     }
   };
   // console.log("this is the mobile number ",mobile)
@@ -666,9 +663,8 @@ function SignupAuthUpdated() {
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
-                  style={{color:"black"}}
+                  style={{ color: "black" }}
                   className={styles.inputPhoneNumber}
-           
                   value={mobile}
                   type="number"
                   placeholder="Your Phone Number"
@@ -688,7 +684,7 @@ function SignupAuthUpdated() {
                 placeholder="Enter a password"
                 required
               />
-               <button
+              <button
                 className={styles.toggleButton}
                 onClick={handleTogglePassword}
               >
@@ -703,7 +699,7 @@ function SignupAuthUpdated() {
                 placeholder="Confirm Password"
                 required
               />
-               <button
+              <button
                 className={styles.toggleButton}
                 onClick={handleToggleConfirmPassword}
               >
