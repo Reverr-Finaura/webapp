@@ -127,6 +127,7 @@ const User = () => {
   // update the received request array of the user whose profile is clicked
   const handleFollowUserClick = async () => {
     setIsLoading(true);
+    toast("Processing Your Request");
     // const userRequestArray = postsAuthorInfo.receivedRequests
     // here userRequestArray is for the user to whom the request is being sent
     const userRequestArray = otherUserDoc.receivedRequests.includes(
@@ -141,12 +142,11 @@ const User = () => {
 
     try {
       await updateDoc(userDocumentRef, { receivedRequests: userRequestArray });
-
-      toast("Follow Request Send ");
       // setPostsAuthorInfo((prev) => {
       //   return { ...prev, receivedRequests: userRequestArray };
       // });
       updateUserSendRequestArray();
+      toast.success("Follow Request Send ");
     } catch (error) {
       toast(error.message);
     }
@@ -156,6 +156,7 @@ const User = () => {
   // update the received request array of the user whose profile is clicked to revoke the request
   const handleStopFollowRequestClick = async () => {
     setIsLoading(true);
+    toast("Processing Your Request");
     const userRequestArray = otherUserDoc.receivedRequests.filter((item) => {
       return item !== currentLoggedInUser?.user?.email;
     });
@@ -163,11 +164,11 @@ const User = () => {
     try {
       await updateDoc(userDocumentRef, { receivedRequests: userRequestArray });
 
-      toast("Follow Request Revoked ");
       // setPostsAuthorInfo((prev) => {
       //   return { ...prev, receivedRequests: userRequestArray };
       // });
       updateUserSendRequestArray();
+      toast.success("Follow Request Revoked ");
     } catch (error) {
       toast(error.message);
     }
@@ -177,6 +178,7 @@ const User = () => {
   // Accept a follow request from another user
   const handleAcceptFollowRequestClick = async () => {
     setIsLoading(true);
+    toast("Processing Your Request");
 
     // Add the user who sent the follow request to the logged-in user's network array
     const updatedNetworkArrayOfCurrentLoggedInUser = [
@@ -219,7 +221,7 @@ const User = () => {
         sendRequests: otherUserSendRequestArray,
       });
 
-      toast("Follow Request Accepted");
+      
       dispatch(
         setUserDoc({
           ...currentLoggedInUserDoc,
@@ -228,6 +230,7 @@ const User = () => {
         })
       );
       setUiShouldRender((prev) => !prev);
+      toast.success("Follow Request Accepted");
       setIsLoading(false);
     } catch (error) {
       toast(error.message);
@@ -238,6 +241,7 @@ const User = () => {
   // Reject a follow request of another user
   const handleRejectFollowRequestClick = async () => {
     setIsLoading(true);
+    toast("Processing Your Request");
 
     // Remove the user who sent the follow request from the logged-in user's received requests array
     const updatedReceivedRequestsArrayOfCurrentLoggedInUser =
@@ -266,7 +270,7 @@ const User = () => {
         sendRequests: otherUserSendRequestArray,
       });
 
-      toast("Follow Request Rejected");
+      
       dispatch(
         setUserDoc({
           ...currentLoggedInUserDoc,
@@ -274,6 +278,7 @@ const User = () => {
         })
       );
       setUiShouldRender((prev) => !prev);
+      toast.success("Follow Request Rejected");
       setIsLoading(false);
     } catch (error) {
       toast(error.message);
@@ -284,6 +289,7 @@ const User = () => {
   // Remove the connection between the logged-in user and the other user
   const handleUnfollowClick = async () => {
     setIsLoading(true);
+    toast("Processing Your Request");
 
     // Remove the other user from the logged-in user's network array
     const updatedNetworkArrayForLoggedInUser =
@@ -312,7 +318,7 @@ const User = () => {
         network: updatedOtherUserNetworkArray,
       });
 
-      toast("Unfollowed");
+      
       dispatch(
         setUserDoc({
           ...currentLoggedInUserDoc,
@@ -320,6 +326,7 @@ const User = () => {
         })
       );
       setUiShouldRender((prev) => !prev);
+      toast("Unfollowed Successfully");
       setIsLoading(false);
     } catch (error) {
       toast(error.message);
