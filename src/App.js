@@ -132,6 +132,7 @@ import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordU
 import User from "./pages/User/User";
 import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
+import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
 
 function App() {
   const user = useSelector(selectUser);
@@ -221,6 +222,7 @@ function App() {
         <Route path="/fundingform" element={<FundingForm />}></Route>
         <Route path="/mentor-profile" element={<MentorProfile />}></Route>
         <Route path="/mentorprofile/:id" element={<MentorProfileid />}></Route>
+        <Route path="/mentordashboard" element={<MentorDashBoard />}></Route>
         <Route path="/community" element={<Test />}>
           {/* <Route path="/community" element={<CommunityFinalDark />}> */}
           {/* <Route path="/community" element={<CommunityFinal />}> */}

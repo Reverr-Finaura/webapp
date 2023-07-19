@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import DefaultDP from "../../images/Defaultdp.png";
+import ReactTimeAgo from 'react-time-ago'
 
 export default function NotificationCard({ item }) {
   const navigate = useNavigate();
@@ -27,6 +28,12 @@ export default function NotificationCard({ item }) {
     }
     fetchUserDocFromFirebase();
   }, []);
+// console.log("noti",item);
+
+//  // Some arbitrary value
+// var date = new Date(item.time.seconds * 1000); // multiply by 1000 because Date() requires miliseconds
+// var timeStr = date.toTimeString().split(' ')[0];
+// console.log(timeStr);
 
   return (
     <div className={style.notificationCard}>
@@ -55,6 +62,10 @@ export default function NotificationCard({ item }) {
             <span>started following you</span>
           ) : null}
         </p>
+      </div>
+
+      <div style={{width:"200px"}}>
+        <p style={{padding:"5px",paddingRight:"0px",textAlign:"center",fontSize:"10px"}} className="timep"><ReactTimeAgo date={item?.time?.seconds * 1000} locale="en-US"/></p>
       </div>
     </div>
   );
