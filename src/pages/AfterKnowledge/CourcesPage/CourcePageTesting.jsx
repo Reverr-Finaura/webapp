@@ -2,12 +2,19 @@ import React from "react";
 import "./CourcePageTesting.css";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { useNavigate } from "react-router-dom";
+import image from "../../../images/arrowMark.svg"
 
 const CourcePageTesting = () => {
+
   const navigate = useNavigate();
   return (
     <div className="firstback">
       <NavBarFinalDarkMode />
+      <div className="buttonWrapper">
+    <img className="arrowClass" src={image} alt="img" />
+    <button className="backButton" onClick={()=>navigate('/knowledge')} > Back</button>
+  </div> 
+      
       <div className="ideavalid">
         <div className="content">
           <text className="head">IDEA VALIDATION</text>

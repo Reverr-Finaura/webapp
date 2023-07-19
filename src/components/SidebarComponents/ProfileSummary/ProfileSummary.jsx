@@ -13,76 +13,42 @@ const ProfileSummary = () => {
   const navigate = useNavigate();
 
   // const spaces = useSelector((state) => state);
-  // console.log("this is spaces");
-  // console.log(spaces);
 
   // CHECK FOR USER PROFILE PROGRESS BAR
   useEffect(() => {
     function checkForUserProfileProgress() {
-      let aboutPerc = 8.33;
-      let countryPerc = 8.33;
-      let desgPerc = 8.33;
-      let dobPerc = 8.33;
-      let educationPerc = 8.33;
-      let experiencePerc = 8.33;
-      let socialLinkPerc = 8.33;
-      let genderPerc = 8.33;
-      let imagePerc = 8.33;
-      let industryPerc = 8.33;
-      let statePerc = 8.33;
-      let namePerc = 8.33;
+      let incrementValue = 10;
       let percentComplete = 0;
 
-      if (userDoc?.about?.length !== 0) {
-        percentComplete += aboutPerc;
+      if (userDoc.image !== undefined && userDoc.image !== "") {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.country?.length !== 0) {
-        percentComplete += countryPerc;
+      if (userDoc.name !== undefined && userDoc.name !== "") {
+        percentComplete += incrementValue;
       }
-      if (userDoc?.designation?.length !== 0) {
-        percentComplete += desgPerc;
+      if (userDoc.email !== undefined && userDoc.email !== "") {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.dob?.length !== 0) {
-        percentComplete += dobPerc;
+      if (userDoc.about !== undefined && userDoc.about !== "") {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.education?.length !== 0) {
-        percentComplete += educationPerc;
+      if (userDoc.designation !== undefined && userDoc.designation !== "") {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.experience?.length !== 0) {
-        percentComplete += experiencePerc;
+      if (userDoc.experience !== undefined && userDoc.experience.length !== 0) {
+        percentComplete += incrementValue;
       }
-
-      if (
-        userDoc?.facebookLink?.length !== 0 ||
-        userDoc?.instagramLink?.length !== 0 ||
-        userDoc?.linkedinLink?.length !== 0 ||
-        userDoc?.twitterLink?.length !== 0
-      ) {
-        percentComplete += socialLinkPerc;
+      if (userDoc.education !== undefined && userDoc.education.length !== 0) {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.gender?.length !== 0) {
-        percentComplete += genderPerc;
+      if (userDoc.linkedin !== undefined && userDoc.linkedin !== "") {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.image?.length !== 0) {
-        percentComplete += imagePerc;
+      if (userDoc.here_for !== undefined && userDoc.here_for.length !== 0) {
+        percentComplete += incrementValue;
       }
-
-      if (userDoc?.industry?.length !== 0) {
-        percentComplete += industryPerc;
-      }
-
-      if (userDoc?.name?.length !== 0) {
-        percentComplete += namePerc;
-      }
-
-      if (userDoc?.state?.length !== 0) {
-        percentComplete += statePerc;
+      if (userDoc.userSpace !== undefined && userDoc.userSpace.length !== 0) {
+        percentComplete += incrementValue;
       }
 
       setProfileCompletionProgress(Math.ceil(percentComplete));
@@ -190,15 +156,23 @@ const ProfileSummary = () => {
         </button>
       )}
 
-      <div className={styles.progressbar}>
-        <div style={{ width: `${profileCompletionProgress}%` }}></div>
-        <text>{100 - profileCompletionProgress}% is yet to complete</text>
-      </div>
+      {profileCompletionProgress === 100 ? null : (
+        <div className={styles.progressbar}>
+          <div style={{ width: `${profileCompletionProgress}%` }}></div>
+          <text>{profileCompletionProgress}% is completed</text>
+        </div>
+      )}
 
       <div className={styles.complete_profile}>
-        <button onClick={() => navigate("/editprofile")}>
-          Complete your profile
-        </button>
+        {profileCompletionProgress === 100 ? (
+          <button onClick={() => navigate("/editprofile")}>
+            Edit your profile
+          </button>
+        ) : (
+          <button onClick={() => navigate("/editprofile")}>
+            Complete your profile
+          </button>
+        )}
       </div>
     </div>
   );

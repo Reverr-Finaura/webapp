@@ -7,7 +7,10 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
 import styles from "./Knowledge.module.css";
 import { useNavigate } from "react-router-dom";
+import image from "../../../images/arrowMark.svg"
+
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+
 const IV_Slides = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
@@ -210,6 +213,10 @@ const IV_Slides = () => {
   return (
     <>
       <NavBarFinalDarkMode />
+      <div className={styles.buttonWrapper}>
+    <img className={styles.arrowClass} src={image} alt="img" />
+    <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
+  </div> 
       <div className={styles.knowledge}>
         <div className={styles.body}>
           {research_plan.map((slide, index) => (
