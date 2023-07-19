@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Test.module.css";
 import ConnectSuggestion from "../components/SidebarComponents/ConnectSuggestion/ConnectSuggestion";
@@ -21,14 +21,16 @@ import NavBarFinalDarkMode from "../components/Navbar Dark Mode/NavBarFinalDarkM
 import Patch from "../components/SidebarComponents/Patch/Patch";
 
 function Test() {
+  const [userTypeLower, setUserTypeLower] = useState("individual");
+  const userDoc = useSelector((state) => state.userDoc);
   const appoinments = useSelector(
     (state) => state.userDoc.Appointement_request
   );
-  var userType = useSelector((state) => state.onboarding.userType.toLowerCase());
-  
-  if(userType==undefined){
-    userType = "individual"
-  }
+  useEffect(() => {
+    if (userDoc.userType !== undefined && userDoc.userType !== "") {
+      setUserTypeLower(userDoc.userType.toLowerCase());
+    }
+  }, [userDoc]);
 
   const products = {
     mentor: [
@@ -133,7 +135,7 @@ function Test() {
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
           <ConnectSuggestion />
-          {products[userType]?products[userType]?.includes("VIBE") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("VIBE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Vibe />
@@ -144,7 +146,7 @@ function Test() {
               <Vibe />
             </>
           ) : null}
-          {products[userType]?products[userType]?.includes("PATCH") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("PATCH") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Patch />
@@ -155,7 +157,7 @@ function Test() {
               <Patch />
             </>
           ) : null}
-          {products[userType]?products[userType]?.includes("TOOLS") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("TOOLS") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <ExploreTools />
@@ -167,7 +169,7 @@ function Test() {
             </>
           ) : null}
 
-          {products[userType]?products[userType]?.includes("KNOWLEDGE") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("KNOWLEDGE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Journey />
@@ -204,7 +206,7 @@ function Test() {
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userType]?products[userType]?.includes("NEWS & ARTICLES") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("NEWS & ARTICLES") ? (
             <>
               <TrendingNews />
               <div style={{ marginTop: 50 }}></div>
@@ -215,7 +217,7 @@ function Test() {
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userType]?products[userType]?.includes("INVESTOR FINDER") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("INVESTOR FINDER") ? (
             <>
               <InvestorFinder />
               <div style={{ marginTop: 50 }}></div>
@@ -226,7 +228,7 @@ function Test() {
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userType]?products[userType]?.includes("EVENTS") ? (
+          {products[userTypeLower]?products[userTypeLower]?.includes("EVENTS") ? (
             <>
               {/* <Events /> */}
           <div style={{ marginTop: 50 }}></div>

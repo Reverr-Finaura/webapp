@@ -55,9 +55,6 @@ import NotificationCard from "./NotificationCard";
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
-  const userTypeLower = useSelector((state) =>
-    state.onboarding.userType.toLowerCase()
-  );
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [userImage, setUserImage] = useState("");
   const [isSettingButtonClick, setIsSettingbuttonClick] = useState(false);
@@ -74,13 +71,20 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
-  const userType = useSelector((state) => state.onboarding.userType);
+  const [userTypeLower, setUserTypeLower] = useState("individual");
+  // const state = useSelector((state) => state);
+  // console.log("state", state);
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   // code for product modal start
+  useEffect(() => {
+    if (userDoc.userType !== undefined && userDoc.userType !== "") {
+      setUserTypeLower(userDoc.userType.toLowerCase());
+    }
+  }, [userDoc]);
   const elementsToCheck = [
     "TOOLS",
     "MENTOR",
