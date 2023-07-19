@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./TestingMentor.module.css";
-import facebookIcon from "../../images/fbIcon.png";
-import instaIcon from "../../images/instaIcon.png";
-import linkedinIcon from "../../images/LinkedinIcon.png";
-import twitterIcon from "../../images/TwitterIconn.png";
+import linkedinImage from "../../images/linkedinImage.svg";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DefaultDP from "../../images/Defaultdp.png";
 
-const ProfileCardTesting = ({ mentor }) => {
+// import twitterIcon from "../../images/TwitterIconn.png";
+// import facebookIcon from "../../images/fbIcon.png";
+// import instaIcon from "../../images/instaIcon.png";
+
+const ProfileCardTesting = ({ mentor, handleCopyURL }) => {
+
+
   const navigate = useNavigate();
   const userDoc = useSelector((state) => state.userDoc);
   const emailToId = (email) => {
@@ -19,7 +22,10 @@ const ProfileCardTesting = ({ mentor }) => {
     }
     return id;
   };
+
+
   return (
+    <>
     <div className={styles.card}>
       <div className={styles.cardLeftContent}>
         <div className={styles.leftMainImage}>
@@ -29,29 +35,33 @@ const ProfileCardTesting = ({ mentor }) => {
             }
             alt="MentorImage"
           />
+          <img
+            src={linkedinImage}
+            alt="LinkedinIcon"
+            onClick={handleCopyURL}
+            className={styles.linkedImage}
+          />
         </div>
         <div className={styles.LeftCardtextContent}>
           <p>{mentor?.name}</p>
           <p>{mentor?.designation}</p>
         </div>
-        <div className={styles.cardIcon}>
+        {/* <div className={styles.cardIcon}>
           <img src={facebookIcon} alt="FaceBookIcon" />
           <img src={instaIcon} alt="InstagramIcon" />
-          <img
-            src={linkedinIcon}
-            alt="LinkedinIcon"
-            onClick={() => {
-              if (mentor.linkedin) {
-                window.open(mentor.linkedin, "_blank");
-              }
-            }}
-          />
+
           <img src={twitterIcon} alt="TwitterIcon" />
-        </div>
+        </div> */}
       </div>
       <div className={styles.cardRightContent}>
         <div className={styles.rightCardMain}>
-          <p>{mentor?.about.slice(0, 125)}...</p>
+          <p className={styles.mentorAbout}>{mentor?.about.slice(0, 80)}...
+          <button
+          className={styles.readMoreBtn}
+          onClick={() => navigate(`/userprofile/${mentor?.email}`)}
+          >Read more</button>
+          </p>
+          
           <div className={styles.CardProfilekills}>
             {mentor?.domain?.slice(0, 2).map((item, idx) => {
               return (
@@ -94,6 +104,7 @@ const ProfileCardTesting = ({ mentor }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

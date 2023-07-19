@@ -396,7 +396,7 @@ const User = () => {
                 <p>
                   {otherUserDoc?.designation
                     ? otherUserDoc.designation
-                    : "Add your Designation"}
+                    : "No designation Added"}
                 </p>
               </div>
               <div className={styles.profileLocation}>
@@ -408,8 +408,8 @@ const User = () => {
                   {otherUserDoc?.state
                     ? otherUserDoc.country
                       ? otherUserDoc.state + ", " + otherUserDoc.country
-                      : "Add your country"
-                    : "Add your location"}
+                      : "country"
+                    : "location"}
                 </p>
               </div>
               <div className={styles.profilePost}>
@@ -518,7 +518,7 @@ const User = () => {
               <p>
                 {otherUserDoc?.plans
                   ? `₹${otherUserDoc.plans[0]}/Hour`
-                  : "Set your Hourly Cost"}
+                  : "Hourly Cost"}
               </p>
               <p>
                 {otherUserDoc?.apointmentRateinfo
@@ -551,7 +551,7 @@ const User = () => {
               <p>
                 {otherUserDoc?.designation
                   ? otherUserDoc.designation
-                  : "Add your designation"}
+                  : "No Designation Added"}
               </p>
             </div>
             <div className={styles.connect}>
@@ -563,7 +563,7 @@ const User = () => {
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );
                     })
-                  : "Update your How to connect"}
+                  : "How to connect not upadted"}
               </div>
             </div>
           </div>
@@ -583,7 +583,7 @@ const User = () => {
                       );
                     })
                   ) : (
-                    <li>Add your Education</li>
+                    <li>No Education Added</li>
                   )}
                 </ul>
               </div>
@@ -605,7 +605,7 @@ const User = () => {
                       );
                     })
                   ) : (
-                    <li>Add your Experience</li>
+                    <li>No Experience Added</li>
                   )}
                 </ul>
               </div>
@@ -619,37 +619,31 @@ const User = () => {
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );
                     })
-                  : "Update your How for"}
+                  : "No i am here for added"}
               </div>
             </div>
           </div>
           <div className={styles.profileContact}>
             <div className={styles.contact}>
               <p>Social Handles</p>
-              <div className={styles.contactItem}>
+              {otherUserDoc?.linlkedin && <div className={styles.contactItem}>
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
                 <p>
-                  {otherUserDoc?.linlkedin
-                    ? otherUserDoc?.linlkedin
-                    : "Add your linkedin"}
+                  {otherUserDoc?.linlkedin}
                 </p>
-              </div>
-              <div className={styles.contactItem}>
+              </div>}
+              {otherUserDoc?.facebook && <div className={styles.contactItem}>
                 <img src="/images/fbIcon.png" alt="Linkedin" />
                 <p>
-                  {otherUserDoc?.linkedin
-                    ? otherUserDoc.linkedin
-                    : "Add your facebook"}
+                  {otherUserDoc?.facebook}
                 </p>
-              </div>
-              <div className={styles.contactItem}>
+              </div>}
+              {otherUserDoc?.twitter && <div className={styles.contactItem}>
                 <img src="/images/twitter.svg" alt="Linkedin" />
                 <p>
-                  {otherUserDoc?.twitter
-                    ? otherUserDoc.twitter
-                    : "Add your twitter"}
+                  {otherUserDoc?.twitter}
                 </p>
-              </div>
+              </div>}
             </div>
           </div>
         </div>

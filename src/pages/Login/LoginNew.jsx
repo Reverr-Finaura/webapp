@@ -193,7 +193,6 @@ const LoginNew = () => {
         const docRef = doc(db, "Users", auth.currentUser.email);
         const docSnap = await getDoc(docRef)
         .then((doc)=>{
-
           dispatch(setUserData(doc.data()));
           dispatch(
             login({
