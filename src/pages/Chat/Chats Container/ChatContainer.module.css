@@ -24,9 +24,13 @@
     width: 93%;
     padding: .5rem 1rem;
     cursor: pointer;
-    background-color:#0a2458;
+    background-color:#0c1631;
     border-bottom: 1px solid white;
     margin-top: 10px;
+    margin: 0px 30px;
+    width: -webkit-fill-available;
+    padding: 18px 0px;
+
 
 }
 /* .chatCont:hover{
@@ -76,12 +80,15 @@ width:130px;
 }
 .messageGroup
 {
-    position: relative;bottom: 290px;
+    /* position: relative;bottom: 290px; */
 }
 .buttonsGroup
 {
-    margin: auto;
-    position: relative;bottom: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 22px 2px 14px 2px;
+
 }
 .userName{
     font-style: normal;

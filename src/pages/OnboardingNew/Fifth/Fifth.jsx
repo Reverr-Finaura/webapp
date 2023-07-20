@@ -88,6 +88,7 @@ function Fifth() {
       text: "Increase my knowledge",
     },
   ];
+  console.log(Here_for)
 
  
   return (
@@ -111,7 +112,7 @@ function Fifth() {
             What are you here for?
           </text>
           <text style={{ fontSize: 14, color: "#ffffff" }}>
-            Select up to 3 objectives.
+            Select minimum 3 objectives.
           </text>
 
           <div className={styles.objectiveContainer}>
@@ -135,7 +136,9 @@ function Fifth() {
             >
               Back
             </button>
-            <button className={styles.rightButton} onClick={handleFunctions} >Next</button>
+            { Here_for.length>=3?<button className={styles.rightButton} onClick={handleFunctions} >Next</button> :
+            <button className={styles.rightButton} style={{opacity:0.5}} >Next</button> }
+            
             <button className={styles.skipButton} onClick={() => navigate("/")} >Skip</button>
           </div>
         </div>
