@@ -72,14 +72,14 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
-<<<<<<< HEAD
+
   const userType = useSelector((state) => state.onboarding.userType);
   console.log('userdoc',userDoc)
-=======
+
   const [userTypeLower, setUserTypeLower] = useState("individual");
   // const state = useSelector((state) => state);
   // console.log("state", state);
->>>>>>> 25fc889ca89533c006c65fcfeb41c499a30c53d3
+
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
