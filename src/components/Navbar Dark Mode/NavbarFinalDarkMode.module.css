@@ -340,7 +340,7 @@
   background: var(--gold, linear-gradient(131deg, #FFF278 31.55%, #F8B533 100%));
 }
 
-.navbar_final_user_Image {
+.navbarfinaluserImage {
   width: 47px;
   height: 47px;
   border-radius: 50%;
@@ -617,7 +617,7 @@ align-items: center;
   .nabar-final-setting-Icon{
     margin-left: 5px;
   }
-  .navbar_final_user_Image{
+  .navbarfinaluserImage{
     padding-left: 5px;
   }
   .notificationBar{

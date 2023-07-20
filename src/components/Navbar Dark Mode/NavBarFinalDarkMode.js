@@ -969,7 +969,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               <div className={style.wrapperBoth}>
                 <img
                   onClick={() => navigate("/userprofile")}
-                  className="navbar_final_user_Image"
+                  className={style.navbarfinaluserImage}
                   src={
                     userImage
                       ? userImage
