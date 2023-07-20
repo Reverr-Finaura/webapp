@@ -589,7 +589,7 @@ export default function PostCardDark({
         ) : null}
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
-          <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <div style={{ display: "flex", alignItems: "center", width: "100 %" }}>
             <div
               onClick={() => {
                 getLikedPostIdFromFirebase(item.id, item);
