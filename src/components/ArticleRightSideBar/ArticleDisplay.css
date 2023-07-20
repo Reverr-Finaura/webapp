@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: row;
     margin-top: 20px;
-    
+
     height: 135px;
-    width: 1000px;
-    margin: 15px 30px;
+    width: 750px;
+    margin: 1px 20px;
     align-items: center;
     /* border-radius: 13.389px; */
     background: var(--bg-secondary-gray, #1A1E28);
@@ -21,7 +21,7 @@
   
   .article-image {
     height: 75px;
-    width: 135px;
+    width: 115px;
     margin-right: 20px; /* Added */
     margin-left: 20px;
   }
@@ -56,7 +56,7 @@
 
 
   .article-desc{
-    color: var(--white, #FFF);
+    color: var(--white, #FFF);;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
