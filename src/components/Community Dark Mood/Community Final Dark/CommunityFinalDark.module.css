@@ -126,6 +126,7 @@ font-weight: 700;
       width: 40px;
     height: 40px;
     flex-shrink: 0;
+    object-fit: cover;
 }
 
 .textAreaUploadContainer {
@@ -524,6 +525,21 @@ font-weight: 700;
   border: none;
   cursor: pointer;
 }
+.disabledPostIconButton{
+    /* margin-left: auto; */
+  background: #2a72de;
+  border-radius: 10px;
+  padding: 2px 16px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+  border: none;
+  
+  /* background-color: #cccccc; */
+  cursor: not-allowed;
+}
 
 .changePhotoIconButton {
   background: #2a72de;
@@ -914,7 +930,7 @@ body::-webkit-scrollbar {
   align-items: center;
   background-color: #1a1e28;
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px;
 
   /* width: 90%; */
 
@@ -923,7 +939,7 @@ body::-webkit-scrollbar {
 
 .communityNavHeading {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 200;
 }
 .communityNavbarBlockNav{
   cursor: pointer;
