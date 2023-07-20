@@ -347,11 +347,13 @@ function SignupAuthUpdated() {
     }
   };
   // console.log("this is the mobile number ",mobile)
-  const handleTogglePassword = () => {
+  const handleTogglePassword = (event) => {
+    event.preventDefault()
     setShowPassword(!showPassword);
   };
 
-  const handleToggleConfirmPassword = () => {
+  const handleToggleConfirmPassword = (event) => {
+    event.preventDefault()
     setShowConfirmPassword(!showConfirmPassword);
   };
   return (
