@@ -50,7 +50,15 @@ export default function NotificationCard({ item }) {
 
       <div className={style.notificationContent}>
         <div className={style.upperPart}>
-          <h3 className={style.heading}>{user?.name}</h3>
+          <h3
+            className={style.heading}
+            onClick={() => {
+              navigate(`/userprofile/${item.user}`);
+              window.scrollTo(0, 0);
+            }}
+          >
+            {user?.name}
+          </h3>
           {/* <small className={style.date}>2 min ago</small> */}
         </div>
         <p className={style.para}>

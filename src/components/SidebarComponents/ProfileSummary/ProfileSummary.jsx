@@ -67,6 +67,7 @@ const ProfileSummary = () => {
                 : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
             }
             className={styles.profileImage}
+            style={{objectFit:"cover"}}
             alt="img"
           />
           <div className={styles.userDetails}>

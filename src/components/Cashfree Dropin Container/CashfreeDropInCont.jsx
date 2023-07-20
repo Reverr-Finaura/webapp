@@ -1,198 +1,245 @@
+import { cashfreeSandbox, cashfreeProd } from "cashfree-dropjs";
+import { useState } from "react";
+import { dropinComponents } from "./DropInComments";
+import styles from "./CashfreeDropInCont.module.css";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { createMentorInMessagesDoc, db } from "../../firebase";
+import axios from "axios";
 
-import { cashfreeSandbox, cashfreeProd } from 'cashfree-dropjs';
-import { useState } from 'react';
-import { dropinComponents } from './DropInComments';
-import styles from "./CashfreeDropInCont.module.css"
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import { createMentorInMessagesDoc, db } from '../../firebase';
-import axios from 'axios';
-
-function CashfreeDropInCont({sessionIdTokken,mentorDetails,setSessionIdTokken,userDoc,setPaymentModeOn,setPaymentMade}) {
-  const navigate=useNavigate()
+function CashfreeDropInCont({
+  sessionIdTokken,
+  mentorDetails,
+  setSessionIdTokken,
+  userDoc,
+  setPaymentModeOn,
+  setPaymentMade,
+}) {
+  const navigate = useNavigate();
   const [orderToken, setOrderToken] = useState(sessionIdTokken);
-  const [orderDetails,setOrderDetails]=useState(null)
+  const [orderDetails, setOrderDetails] = useState(null);
   // const user=useSelector((state)=>state.user)
 
-console.log(mentorDetails,"mentorDetails")
+  console.log(mentorDetails, "mentorDetails");
   const [checkedState, setCheckedState] = useState(
     new Array(dropinComponents.length).fill(true)
   );
   const [style, setStyle] = useState({});
   const [isProd, setIsProd] = useState(true);
-  const [components, setComponents] = useState(['order-details','card','upi','netbanking']);
+  const [components, setComponents] = useState([
+    "order-details",
+    "card",
+    "upi",
+    "netbanking",
+  ]);
   const cbs = (data) => {
-    console.log(data,"sucess")
-    setOrderDetails(data)
+    console.log(data, "sucess");
+    setOrderDetails(data);
     // if (data.order && data.order.status === 'PAID') {
     //   alert('order is paid. Call api to verify');
     // }
   };
   const cbf = (data) => {
     // alert(data.order.errorText || 'ERROR');
-    console.log(data,"errro data")
-    setOrderDetails(data)
+    console.log(data, "errro data");
+    setOrderDetails(data);
   };
-  
+
   const renderDropin = () => {
-    if (orderToken === '') {
-      toast.error('Order Token is empty');
+    if (orderToken === "") {
+      toast.error("Order Token is empty");
       return;
     }
     if (!components.length) {
-      toast.error('No drop in specified');
+      toast.error("No drop in specified");
       return;
     }
-    let parent = document.getElementById('drop_in_container');
-    parent.innerHTML = '';
+    let parent = document.getElementById("drop_in_container");
+    parent.innerHTML = "";
     let cashfree;
     if (isProd) {
       cashfree = new cashfreeProd.Cashfree();
     } else {
       cashfree = new cashfreeSandbox.Cashfree();
     }
-    
+
     cashfree.initialiseDropin(parent, {
       orderToken,
       onSuccess: cbs,
       onFailure: cbf,
       components,
-      style
+      style,
     });
- 
   };
 
-//GENERATE RANDOM UNIQUE ID
-const uuid=()=>{
-  const val1=Date.now().toString(36)
-  const val2=Math.random().toString(36).substring(2)
+  //GENERATE RANDOM UNIQUE ID
+  const uuid = () => {
+    const val1 = Date.now().toString(36);
+    const val2 = Math.random().toString(36).substring(2);
 
-  return val1+val2
-}
+    return val1 + val2;
+  };
 
+  //MAKE PAYMENT DROP DOWN
+  useEffect(() => {
+    renderDropin();
+  }, []);
 
-//MAKE PAYMENT DROP DOWN 
-useEffect(()=>{
-  renderDropin()
-},[])
-
-//ACTION AFTER PAYMENT IS DONE OR FAILED
-useEffect(()=>{
-if(orderDetails===null){return}
-const{order,transaction}=orderDetails
-if(transaction.txStatus==="FAILED"){
-  onFailedPayment(order,transaction)
-  return;
-}
-if(transaction.txStatus==="SUCCESS"){
-  onSuccessfulPayment(order,transaction)
-}
-},[orderDetails])
-
-
-//INITIALIZE SPLIT PAYMENT
-const initiateSplitPayment=async(order)=>{
-
-  const bodyData={
-    orderId:order.orderId,
-    vendorId:mentorDetails.mentorUniqueID,
-    amount:(mentorDetails.plans[0]/2)*0.9,
-    secrett:"2V7W@ODU6HTRS1GY$54JQ*EP0F8N%9!BI&AXKML3#ZCQ!$3U",
-}
-
-  
-  await axios.post("https://server.reverr.io/webSplitPayment",bodyData)
-  .then((res)=>{console.log("success split",res.data.message)})
-  .catch((err)=>{console.log("Failure Split",err.message)})
-}
-
-//ACTION PERFORM ON SUCESSFUL PAYMENT
-
-const onSuccessfulPayment=async(order,transaction)=>{
-  initiateSplitPayment(order)
-  const newId=uuid()
-  await setDoc(
-    doc(db, "Payments", newId),{
-orderAmount:transaction.transactionAmount,
-orderId:order.orderId,
-paymentMode:order.activePaymentMethod,
-transactionId:transaction.transactionId,
-txStatus:transaction.txStatus,
-user:userDoc?.email,
-vendor:mentorDetails.email,
-referenceId:"",
-signature:"",
-txTime:""
-    }).then(()=>{updateUserDatabase(newId,transaction)})
-    .catch((err)=>{toast(err.message)})
-}
-
-//ACTION PERFORM ON FAILED PAYMENT
-
-const onFailedPayment=async(order,transaction)=>{
-  setSessionIdTokken(null)
-  const newId=uuid()
-  await setDoc(
-    doc(db, "Payments", newId),{
-orderAmount:transaction.transactionAmount,
-orderId:order.orderId,
-paymentMode:order.activePaymentMethod,
-transactionId:transaction.transactionId,
-txStatus:transaction.txStatus,
-user:userDoc?.email,
-vendor:mentorDetails.email,
-referenceId:"",
-signature:"",
-txTime:""
-    }).then(()=>{updateUserDatabase(newId,transaction)})
-    .catch((err)=>{toast(err.message)})
-}
-
-//UPDATE DATA IN USER DATABASE
-const updateUserDatabase=async(newId,transaction)=>{
-  let userPaymentArray
-  let userMentorArray
-  let mentorClientArray
-  if(!userDoc.Payments){userPaymentArray=[]}
-  else{userPaymentArray=userDoc.Payments}
-  const newUserPaymentArray=[...userPaymentArray,newId]
-if(!userDoc.mentors){userMentorArray=[]}
-else{userMentorArray=userDoc.mentors}
-const newMentorArray=[...userMentorArray,mentorDetails.email]
-if(!mentorDetails.clients){mentorClientArray=[]}
-else{mentorClientArray=mentorDetails.clients}
-const newMentorClientsArray=[...mentorClientArray,userDoc.email]
-
-
-const userDocumentRef=doc(db,"Users",userDoc?.email)
-const mentorDocumentRef=doc(db,"Users",mentorDetails?.email)
-await updateDoc(userDocumentRef,{Payments:newUserPaymentArray}).then(()=>{
-  if(transaction.txStatus==="FAILED"){
-  toast.error(transaction.txMsg);
-  setTimeout(()=>{
-    navigate("/mentors")
-        },1500)
-        return;
-      }
-    if(transaction.txStatus==="SUCCESS"){
-      updateDoc(userDocumentRef,{mentors:newMentorArray}).then(()=>{
-        updateDoc(mentorDocumentRef,{clients:newMentorClientsArray})
-      }).then(()=>{
-        createMentorInMessagesDoc(userDoc?.email,mentorDetails?.email)
-      }).then(()=>{
-        toast.success(transaction.txMsg); 
-      setPaymentModeOn(false) 
-      setPaymentMade(true)
-      return
-      })
-      
+  //ACTION AFTER PAYMENT IS DONE OR FAILED
+  useEffect(() => {
+    if (orderDetails === null) {
+      return;
     }
-}).catch((err)=>{toast(err.message)})
-}
+    const { order, transaction } = orderDetails;
+    if (transaction.txStatus === "FAILED") {
+      onFailedPayment(order, transaction);
+      return;
+    }
+    if (transaction.txStatus === "SUCCESS") {
+      onSuccessfulPayment(order, transaction);
+    }
+  }, [orderDetails]);
 
+  //INITIALIZE SPLIT PAYMENT
+  const initiateSplitPayment = async (order) => {
+    const bodyData = {
+      orderId: order.orderId,
+      vendorId: mentorDetails.mentorUniqueID,
+      amount: (mentorDetails.plans[0] / 2) * 0.9,
+      secrett: "2V7W@ODU6HTRS1GY$54JQ*EP0F8N%9!BI&AXKML3#ZCQ!$3U",
+    };
+
+    await axios
+      .post("https://server.reverr.io/webSplitPayment", bodyData)
+      .then((res) => {
+        console.log("success split", res.data.message);
+      })
+      .catch((err) => {
+        console.log("Failure Split", err.message);
+      });
+  };
+
+  //ACTION PERFORM ON SUCESSFUL PAYMENT
+
+  const onSuccessfulPayment = async (order, transaction) => {
+    initiateSplitPayment(order);
+    const newId = uuid();
+    await setDoc(doc(db, "Payments", newId), {
+      orderAmount: transaction.transactionAmount,
+      orderId: order.orderId,
+      paymentMode: order.activePaymentMethod,
+      transactionId: transaction.transactionId,
+      txStatus: transaction.txStatus,
+      user: userDoc?.email,
+      vendor: mentorDetails.email,
+      referenceId: "",
+      signature: "",
+      txTime: "",
+    })
+      .then(() => {
+        updateUserDatabase(newId, transaction);
+      })
+      .catch((err) => {
+        toast(err.message);
+      });
+  };
+
+  //ACTION PERFORM ON FAILED PAYMENT
+
+  const onFailedPayment = async (order, transaction) => {
+    setSessionIdTokken(null);
+    const newId = uuid();
+    await setDoc(doc(db, "Payments", newId), {
+      orderAmount: transaction.transactionAmount,
+      orderId: order.orderId,
+      paymentMode: order.activePaymentMethod,
+      transactionId: transaction.transactionId,
+      txStatus: transaction.txStatus,
+      user: userDoc?.email,
+      vendor: mentorDetails.email,
+      referenceId: "",
+      signature: "",
+      txTime: "",
+    })
+      .then(() => {
+        updateUserDatabase(newId, transaction);
+      })
+      .catch((err) => {
+        toast(err.message);
+      });
+  };
+
+  //UPDATE DATA IN USER DATABASE
+  const updateUserDatabase = async (newId, transaction) => {
+    let userPaymentArray;
+    let userMentorArray;
+    let mentorClientArray;
+    let mentorPaymentArray;
+
+    if (!userDoc.Payments) {
+      userPaymentArray = [];
+    } else {
+      userPaymentArray = userDoc.Payments;
+    }
+    const newUserPaymentArray = [...userPaymentArray, newId];
+
+    if (!mentorDetails.Payments) {
+      mentorPaymentArray = [];
+    } else {
+      mentorPaymentArray = mentorDetails.Payments;
+    }
+    const newMentorPaymentArray = [...mentorPaymentArray, newId];
+
+    if (!userDoc.mentors) {
+      userMentorArray = [];
+    } else {
+      userMentorArray = userDoc.mentors;
+    }
+    const newMentorArray = [...userMentorArray, mentorDetails.email];
+    if (!mentorDetails.clients) {
+      mentorClientArray = [];
+    } else {
+      mentorClientArray = mentorDetails.clients;
+    }
+    const newMentorClientsArray = [...mentorClientArray, userDoc.email];
+
+    const userDocumentRef = doc(db, "Users", userDoc?.email);
+    const mentorDocumentRef = doc(db, "Users", mentorDetails?.email);
+    await updateDoc(userDocumentRef, { Payments: newUserPaymentArray })
+      .then(() => {
+        if (transaction.txStatus === "FAILED") {
+          toast.error(transaction.txMsg);
+          setTimeout(() => {
+            navigate("/mentors");
+          }, 1500);
+          return;
+        }
+        if (transaction.txStatus === "SUCCESS") {
+          updateDoc(userDocumentRef, { mentors: newMentorArray })
+            .then(() => {
+              updateDoc(mentorDocumentRef, { clients: newMentorClientsArray });
+            })
+            .then(()=>{
+              updateDoc(mentorDocumentRef, { Payments: newMentorPaymentArray })
+            })
+            .then(() => {
+              createMentorInMessagesDoc(userDoc?.email, mentorDetails?.email);
+            })
+            .then(() => {
+              toast.success(transaction.txMsg);
+              setPaymentModeOn(false);
+              setPaymentMade(true);
+              return;
+            });
+        }
+      })
+      .catch((err) => {
+        toast(err.message);
+      });
+  };
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -211,19 +258,18 @@ await updateDoc(userDocumentRef,{Payments:newUserPaymentArray}).then(()=>{
   const handleStyleChange = () => (e) => {
     setStyle({
       ...style,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
   return (
     <div className={styles.App}>
       <header className={styles.App_header}>
-        <p
-          className={styles.App_link}
-        >
+        <p className={styles.App_link}>
           REVERR PAYMENT GATEWAY
-          <p className={styles.warningMessage}>Note: Do Not Refresh This Page!!</p>
+          <p className={styles.warningMessage}>
+            Note: Do Not Refresh This Page!!
+          </p>
         </p>
-       
       </header>
       {/* <div className={`${styles.mt_1} ${styles.mb_1}`}>
         <span className={`${styles.order_token} ${styles.mr_8}`}>Order Token :</span>
@@ -323,10 +369,7 @@ await updateDoc(userDocumentRef,{Payments:newUserPaymentArray}).then(()=>{
       {/* <button className={`${styles.btn_render} ${styles.mt_2}`} onClick={renderDropin}>
         Pay
       </button> */}
-      <div
-        className={styles.dropin_parent}
-        id="drop_in_container"
-      >
+      <div className={styles.dropin_parent} id="drop_in_container">
         {/* Your component will come here */}
       </div>
     </div>

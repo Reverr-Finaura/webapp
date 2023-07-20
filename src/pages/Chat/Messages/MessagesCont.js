@@ -9,7 +9,10 @@ const MessagesCont = () => {
   return (
   
    <section className={styles.outerCont}>
-    <div>
+    <div style={{display:"flex",
+    justifyContent: "center",
+    alignItems: "center"
+}}>
       <h2 className={styles.message}>Messages</h2>
     </div>
     <div className={styles.sorterCont}>

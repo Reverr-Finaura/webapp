@@ -72,9 +72,14 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
+
+  const userType = useSelector((state) => state.onboarding.userType);
+  console.log('userdoc',userDoc)
+
   const [userTypeLower, setUserTypeLower] = useState("individual");
   // const state = useSelector((state) => state);
   // console.log("state", state);
+
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
@@ -964,7 +969,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               <div className={style.wrapperBoth}>
                 <img
                   onClick={() => navigate("/userprofile")}
-                  className="navbar_final_user_Image"
+                  className={style.navbarfinaluserImage}
                   src={
                     userImage
                       ? userImage

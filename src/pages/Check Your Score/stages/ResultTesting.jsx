@@ -35,7 +35,7 @@ const ResultTesting = ({ score, data }) => {
     { name: "Finance", value: res[3] },
     { name: "", value: 12 },
   ];
-  const COLORS = ["#FF17A8", "#F1F45E", "#41FA8B","#41A1FA", "#D9D9D9"];
+  const COLORS = ["#FF17A8", "#F1F45E", "#41FA8B", "#41A1FA", "#D9D9D9"];
 
   useEffect(() => {
     const saveScore = async () => {
@@ -100,7 +100,9 @@ const ResultTesting = ({ score, data }) => {
             <Label
               width={30}
               position="center"
-              content={<CustomLabel total={res[0] + res[1] + res[2] + res[3]} />}
+              // content={
+              //   <CustomLabel total={res[0] + res[1] + res[2] + res[3]} />
+              // }
               color="white"
             ></Label>
           </Pie>
@@ -109,23 +111,31 @@ const ResultTesting = ({ score, data }) => {
         <div className={styles.result_labels}>
           <div className={styles.result_label}>
             <img src={"/images/pnt_label.png"} />
-            <span>Product -</span>
-            <span>{res[0]}%</span>
+            <div className={styles.innerResult}>
+              <span>Product-</span>
+              <span>{res[0]}%</span>
+            </div>
           </div>
           <div className={styles.result_label}>
             <img src="/images/team_label.png" />
-            <span>Team -</span>
-            <span>{res[1]}%</span>
+            <div className={styles.innerResult}>
+              <span>Team-</span>
+              <span>{res[1]}%</span>
+            </div>
           </div>
           <div className={styles.result_label}>
             <img src={"/images/market_label.png"} />
-            <span>Market -</span>
-            <span>{res[2]}%</span>
+            <div className={styles.innerResult}>
+              <span>Market-</span>
+              <span>{res[2]}%</span>
+            </div>
           </div>
           <div className={styles.result_label}>
             <img src={"/images/finance_label.png"} />
-            <span>Finance -</span>
-            <span>{res[3]}%</span>
+            <div className={styles.innerResult}>
+              <span>Finance-</span>
+              <span>{res[3]}%</span>
+            </div>
           </div>
         </div>
       </div>
@@ -136,13 +146,20 @@ const ResultTesting = ({ score, data }) => {
 function CustomLabel({ total }) {
   return (
     <>
-      <text x={"133"} y={"90"} fontSize="22" color="white">
+      <text
+        x={"133"}
+        y={"90"}
+        fontSize="22"
+        color="white"
+        style={{ color: "white" }}
+      >
         {total}
       </text>
-      <text x={"110"} y={"120"} fontSize="15">
+      <text x={"110"} y={"120"} fontSize="15" color="white">
         out of 100
       </text>
     </>
   );
 }
+
 export default ResultTesting;
