@@ -1,7 +1,11 @@
 .aling{
 
-    margin-left: 8%;
+    margin-left: 1%;
 }
 .people{
-    margin-left: -90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2%;
+    margin-top: 10%;
 }

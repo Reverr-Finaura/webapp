@@ -5,6 +5,10 @@
   display: flex;
   background-color: #030b18;
 }
+.textdanger{
+  color: white;
+  font-size: 15px;
+}
 
 .navbarBrandLogoImgCont {
   position: absolute;

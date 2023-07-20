@@ -138,7 +138,7 @@ import { collection, doc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import styles from "./Suggestion.css";
 import { useSelector } from "react-redux";
-const DiscoverSuggestions = () => {
+const DiscoverSuggestions = ({heading,colorheading}) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
@@ -202,7 +202,7 @@ const DiscoverSuggestions = () => {
       const getRandomUsers = () => {
         let randomUsersArr = [];
         let length = users.length - 1;
-        let targetCount = 4;
+        let targetCount = 8;
         let uniqueCount = 0;
 
         while (uniqueCount < targetCount) {
@@ -225,16 +225,20 @@ const DiscoverSuggestions = () => {
   return (
     <section className="suggest-section">
       {/* Suggestions */}
-      <div className="align">
+      <div className="alignsuggestion">
         <div className="people-suggest">
-          <h3 style={{ color: "white", marginTop: "10px", marginLeft: "20px" }}>
+          <h3 style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}>
             {" "}
-            More Suggestions{" "}
+            <span style={{color:"#00B3FF"}}>{colorheading}</span>
+            {heading}
+            {/* More Suggestions */}
+            {" "}
           </h3>
+          <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"80px",cursor:"pointer"}}>See all</p>
         </div>
 
         <div className="people-card">
-          {randomUsers.length === 4 &&
+          {randomUsers.length === 8 &&
             randomUsers.map((user) => (
               <div key={user.id}>
                 <ProfileCard
