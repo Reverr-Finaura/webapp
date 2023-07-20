@@ -8,10 +8,16 @@ import { setRole } from "../../../features/onboardingSlice";
 function Second() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState([]);
 
-  const handleDivClick = (type) => {
-    setUserType(type);
+  const handleDivClick = (spaceText) => {
+    if (userType.includes(spaceText)) {
+      // If the space text is already selected, remove it from the array
+      setUserType(userType.filter((text) => text !== spaceText));
+    } else {
+      // If the space text is not selected, add it to the array
+      setUserType([...userType, spaceText]);
+    }
   };
 
    // this function will handle two function when the Next button is clicked
@@ -49,6 +55,7 @@ function Second() {
     //   image: require("../../../images/onboardingprovider.png"),
     // },
   ];
+  console.log(userType)
 
   return (
     <div className={styles.container}>
@@ -79,7 +86,7 @@ function Second() {
               <div
                 key={index}
                 className={`${styles.roleCard} ${
-                  userType === roleItem.type ? styles.selected : ""
+                  userType.includes(roleItem.type) ? styles.selected : ""
                 }`}
                 onClick={() => handleDivClick(roleItem.type)}
               >
@@ -96,12 +103,20 @@ function Second() {
             >
               Back
             </button>
+            { userType.length>=1?
+             <button
+             className={styles.rightButton}
+             onClick={handleFunctions}
+           >
+             Next
+           </button>:
             <button
-              className={styles.rightButton}
-              onClick={handleFunctions}
-            >
-              Next
-            </button>
+            className={styles.rightButton}
+            style={{opacity:0.5}}
+          >
+            Next
+          </button> }
+           
           </div>
         </div>
         <img src={require("../../../images/onboardingsecond.png")} alt="img" />
