@@ -124,8 +124,6 @@ function Test() {
     ],
   };
 
-  
-
   return (
     <>
       <NavBarFinalDarkMode />

@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./User.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import { collection, getDocs, query, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  doc,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -147,6 +154,23 @@ const User = () => {
       // });
       updateUserSendRequestArray();
       toast.success("Follow Request Send ");
+      //---------------------- Send Follow Notification----------------------------------
+      const notificationData = {
+        time: new Date(),
+        message: `${currentLoggedInUser?.user?.email} Requested To Follow You`,
+        user: currentLoggedInUser?.user?.email,
+        type: "Follow-Notification",
+      };
+      // console.log("notificationData", notificationData);
+      const userDocSnapshot = await getDoc(userDocumentRef);
+
+      if (userDocSnapshot.exists()) {
+        const existingNotifications =
+          userDocSnapshot.data().notificationList || [];
+        await updateDoc(userDocumentRef, {
+          notificationList: [...existingNotifications, notificationData],
+        });
+      }
     } catch (error) {
       toast(error.message);
     }
@@ -221,7 +245,6 @@ const User = () => {
         sendRequests: otherUserSendRequestArray,
       });
 
-      
       dispatch(
         setUserDoc({
           ...currentLoggedInUserDoc,
@@ -231,6 +254,24 @@ const User = () => {
       );
       setUiShouldRender((prev) => !prev);
       toast.success("Follow Request Accepted");
+      // -------------------------Send Accepted Notification-------------------------
+      const notificationData = {
+        time: new Date(),
+        message: `${otherUserDoc?.email} Accepted Your Follow Request`,
+        user: otherUserDoc?.email,
+        type: "Follow-Accepted-Notification",
+      }
+      // console.log("notificationData", notificationData);
+      const userDocSnapshot = await getDoc(otherUserDocumentRef);
+
+      if (userDocSnapshot.exists()) {
+        const existingNotifications =
+          userDocSnapshot.data().notificationList || [];
+        await updateDoc(otherUserDocumentRef, {
+          notificationList: [...existingNotifications, notificationData],
+        });
+      }
+      // -----------------------------------------------------------------------------
       setIsLoading(false);
     } catch (error) {
       toast(error.message);
@@ -270,7 +311,6 @@ const User = () => {
         sendRequests: otherUserSendRequestArray,
       });
 
-      
       dispatch(
         setUserDoc({
           ...currentLoggedInUserDoc,
@@ -318,7 +358,6 @@ const User = () => {
         network: updatedOtherUserNetworkArray,
       });
 
-      
       dispatch(
         setUserDoc({
           ...currentLoggedInUserDoc,
@@ -509,38 +548,36 @@ const User = () => {
               ) : null}
             </div>
           </div>
-          {
-            otherUserDoc?.userType === "Mentor" ?
-          
-          <div className={styles.profileContent}>
-            <div className={styles.apointment}>
-              <p>Appointment</p>
-              <p>
-                {otherUserDoc?.plans
-                  ? `₹${otherUserDoc.plans[0]}/Hour`
-                  : "Hourly Cost"}
-              </p>
-              <p>
-                {otherUserDoc?.apointmentRateinfo
-                  ? otherUserDoc.apointmentRateinfo
-                  : "Half-Hourly sessions + Free Introductory sessions"}
-              </p>
+          {otherUserDoc?.userType === "Mentor" ? (
+            <div className={styles.profileContent}>
+              <div className={styles.apointment}>
+                <p>Appointment</p>
+                <p>
+                  {otherUserDoc?.plans
+                    ? `₹${otherUserDoc.plans[0]}/Hour`
+                    : "Hourly Cost"}
+                </p>
+                <p>
+                  {otherUserDoc?.apointmentRateinfo
+                    ? otherUserDoc.apointmentRateinfo
+                    : "Half-Hourly sessions + Free Introductory sessions"}
+                </p>
+              </div>
+              <div className={styles.appointmentcategory}>
+                {otherUserDoc?.domain ? (
+                  otherUserDoc?.domain?.map((item, idx) => (
+                    <div key={idx} className={styles.appointmentcapsules}>
+                      <p>{item}</p>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
-            <div className={styles.appointmentcategory}>
-              {otherUserDoc?.domain ? (
-                otherUserDoc?.domain?.map((item, idx) => (
-                  <div key={idx} className={styles.appointmentcapsules}>
-                    <p>{item}</p>
-                  </div>
-                ))
-              ) : (
-                <></>
-              )}
-            </div>
-          </div>
-          : 
-          <></>
-}
+          ) : (
+            <></>
+          )}
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
@@ -626,24 +663,24 @@ const User = () => {
           <div className={styles.profileContact}>
             <div className={styles.contact}>
               <p>Social Handles</p>
-              {otherUserDoc?.linlkedin && <div className={styles.contactItem}>
-                <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
-                <p>
-                  {otherUserDoc?.linlkedin}
-                </p>
-              </div>}
-              {otherUserDoc?.facebook && <div className={styles.contactItem}>
-                <img src="/images/fbIcon.png" alt="Linkedin" />
-                <p>
-                  {otherUserDoc?.facebook}
-                </p>
-              </div>}
-              {otherUserDoc?.twitter && <div className={styles.contactItem}>
-                <img src="/images/twitter.svg" alt="Linkedin" />
-                <p>
-                  {otherUserDoc?.twitter}
-                </p>
-              </div>}
+              {otherUserDoc?.linlkedin && (
+                <div className={styles.contactItem}>
+                  <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
+                  <p>{otherUserDoc?.linlkedin}</p>
+                </div>
+              )}
+              {otherUserDoc?.facebook && (
+                <div className={styles.contactItem}>
+                  <img src="/images/fbIcon.png" alt="Linkedin" />
+                  <p>{otherUserDoc?.facebook}</p>
+                </div>
+              )}
+              {otherUserDoc?.twitter && (
+                <div className={styles.contactItem}>
+                  <img src="/images/twitter.svg" alt="Linkedin" />
+                  <p>{otherUserDoc?.twitter}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
