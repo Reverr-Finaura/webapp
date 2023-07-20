@@ -19,6 +19,7 @@ import FeaturedMentors from "../components/DynamicComponents/FeaturedMentors/Fea
 import CommunityFinalDark from "../components/Community Dark Mood/Community Final Dark/CommunityFinalDark";
 import NavBarFinalDarkMode from "../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import Patch from "../components/SidebarComponents/Patch/Patch";
+import ArticleComponent from "../components/SidebarComponents/ArticleComponent/Article"
 
 function Test() {
   const [userTypeLower, setUserTypeLower] = useState("individual");
@@ -240,6 +241,7 @@ function Test() {
             </>
           ) : null}
           <Mentors />
+          <ArticleComponent />
         </div>
       </div>
     </>

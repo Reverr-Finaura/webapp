@@ -3,14 +3,16 @@ import styles from "./Fourth.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCountry, 
-  setState, 
-  setDegree, 
-  setInstitute, 
-  setExpDesignation, 
-  setExpCompany, 
-  setLinkedin, 
-  setTwitter } from "../../../features/onboardingSlice";
+import {
+  setCountry,
+  setState,
+  setDegree,
+  setInstitute,
+  setExpDesignation,
+  setExpCompany,
+  setLinkedin,
+  setTwitter
+} from "../../../features/onboardingSlice";
 
 function Fourth() {
   const navigate = useNavigate();
@@ -19,6 +21,12 @@ function Fourth() {
   const [StateLocation, setStateLocation] = useState("");
   const [education, setEducation] = useState([{ degree: "", institute: "" }]);
   const [experience, setexperience] = useState([{ designation: "", company: "" }]);
+  const [locError, setlocError] = useState("");
+  const [stateError, setstateError] = useState("");
+  const [degError, setdegError] = useState("");
+  const [insError, setinsError] = useState("");
+  const [desError, setdesError] = useState("");
+  const [comError, setcomError] = useState("");
 
   const [linkedinLink, setLinkedinLink] = useState("");
   const [twitterLink, setTwitterLink] = useState("");
@@ -26,15 +34,23 @@ function Fourth() {
 
 
   const handleFunctions = () => {
-    navigate("/onboarding-fifth");
-    dispatch(setCountry(countryLocation));
-    dispatch(setState(StateLocation));
-    dispatch(setDegree(education[0].degree));
-    dispatch(setInstitute(education[0].institute));
-    dispatch(setExpDesignation(experience[0].designation));
-    dispatch(setExpCompany(experience[0].company));
-    dispatch(setLinkedin(linkedinLink));
-    dispatch(setTwitter(twitterLink));
+    if (validate()) {
+      navigate("/onboarding-fifth");
+      dispatch(setCountry(countryLocation));
+      dispatch(setState(StateLocation));
+      dispatch(setDegree(education[0].degree));
+      dispatch(setInstitute(education[0].institute));
+      dispatch(setExpDesignation(experience[0].designation));
+      dispatch(setExpCompany(experience[0].company));
+      dispatch(setLinkedin(linkedinLink));
+      dispatch(setTwitter(twitterLink));
+      setlocError('');
+      setstateError('');
+      setdesError('');
+      setinsError('');
+      setdegError('');
+      setcomError('');
+    }
   }
 
   const handleCountryChange = (event) => {
@@ -84,7 +100,7 @@ function Fourth() {
       company: event.target.value,
     };
     setexperience(updatedExperience);
-    
+
   };
 
   const addExperience = () => {
@@ -114,6 +130,44 @@ function Fourth() {
     setTwitterLink(event.target.value);
   };
 
+  function validate() {
+    let locError = "";
+    let stateError = "";
+    let desError = "";
+    let comError = "";
+    let degError = "";
+    let insError = "";
+    if (!countryLocation) {
+      locError = "Country field is required";
+    }
+
+    if (!StateLocation) {
+      stateError = "State Field is required ";
+    }
+    if (!education[0].degree) {
+      degError = "Degree field is required";
+    }
+    if (!education[0].institute) {
+      insError = "Institute field is required";
+    }
+    if (!experience[0].designation) {
+      desError = "Designation field is required";
+    }
+    if (!experience[0].company) {
+      comError = "Company field is required";
+    }
+    if (locError || stateError || degError || desError || comError || insError) {
+      setlocError(locError);
+      setstateError(stateError);
+      setdesError(desError);
+      setinsError(insError);
+      setdegError(degError);
+      setcomError(comError);
+      return false;
+    }
+    return true;
+  }
+
   return (
     <div className={styles.container}>
       <div
@@ -142,16 +196,20 @@ function Fourth() {
                 placeholder="State"
                 value={StateLocation}
                 onChange={handleStateChange}
+                required
               />
+              <span className={styles.textdanger}>{stateError}</span>
             </div>
             <div className={styles.textInput}>
-            <text style={{ fontSize: 10, color: "#ffffff" }}>Country</text>
+              <text style={{ fontSize: 10, color: "#ffffff" }}>Country</text>
               <input
                 type="text"
                 placeholder="Country"
                 value={countryLocation}
                 onChange={handleCountryChange}
+                required
               />
+              <span className={styles.textdanger}>{locError}</span>
             </div>
             {/* <div> */}
             {education.map((edu, index) => (
@@ -165,8 +223,10 @@ function Fourth() {
                     placeholder="BTech"
                     value={edu.degree}
                     onChange={(event) => handleDegreeChange(event, index)}
+                    required
                   />
-                  
+                  <span className={styles.textdanger}>{degError}</span>
+
                   {/* <select>
                     <option value="option1">BTech</option>
                     <option value="option2">MTech</option>
@@ -181,7 +241,9 @@ function Fourth() {
                     placeholder="XYZ college"
                     value={edu.institute}
                     onChange={(event) => handleInstituteChange(event, index)}
+                    required
                   />
+                  <span className={styles.textdanger}>{insError}</span>
                   {/* <select>
                     <option value="option1">XYZ college</option>
                     <option value="option2">ABC college</option>
@@ -193,32 +255,36 @@ function Fourth() {
 
 
             {experience.map((exp, index) => (
-                          <React.Fragment key={`exp0-${index}`}>
-                            <div className={styles.textInput} key={`exp0-${index}`}>
-                              <text style={{ fontSize: 10, color: "#ffffff" }}>
-                              What’s your designation?
-                              </text>
-                              <input
-                                type="text"
-                                placeholder="Enter your designation"
-                                value={exp.designation}
-                                onChange={(event) => handleDesignationChange(event, index)}
-                              />
-                            </div>
+              <React.Fragment key={`exp0-${index}`}>
+                <div className={styles.textInput} key={`exp0-${index}`}>
+                  <text style={{ fontSize: 10, color: "#ffffff" }}>
+                    What’s your designation?
+                  </text>
+                  <input
+                    type="text"
+                    placeholder="Enter your designation"
+                    value={exp.designation}
+                    onChange={(event) => handleDesignationChange(event, index)}
+                    required
+                  />
+                  <span className={styles.textdanger}>{desError}</span>
+                </div>
 
-                            <div className={styles.textInput} key={`exp1-${index}`}>
-                              <text style={{ fontSize: 10, color: "#ffffff" }}>
-                                Name of the company
-                              </text>
-                              <input
-                                type="text"
-                                placeholder="Company name"
-                                value={exp.company}
-                                onChange={(event) => handleCompanyChange(event, index)}
-                              />
-                            </div>
-                          </React.Fragment>
-                        ))}
+                <div className={styles.textInput} key={`exp1-${index}`}>
+                  <text style={{ fontSize: 10, color: "#ffffff" }}>
+                    Name of the company
+                  </text>
+                  <input
+                    type="text"
+                    placeholder="Company name"
+                    value={exp.company}
+                    onChange={(event) => handleCompanyChange(event, index)}
+                    required
+                  />
+                  <span className={styles.textdanger}>{comError}</span>
+                </div>
+              </React.Fragment>
+            ))}
 
 
             <div className={styles.textInput}>

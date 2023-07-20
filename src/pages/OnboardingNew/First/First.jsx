@@ -78,6 +78,7 @@ function First() {
     },
     { image: require("../../../images/onboarding124.png"), text: "CloudTech" },
   ];
+  console.log(userSpace)
 
   return (
     <div className={styles.container}>
@@ -97,7 +98,7 @@ function First() {
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
           <text style={{ fontSize: 40, color: "#ffffff", marginBlock: 20 }}>
-            Choose your Space(s).
+            Choose your Space(s).(atleast one)
           </text>
           <text style={{ fontSize: 14, color: "#ffffff" }}>
             Your Space will define your Reverr experience.
@@ -117,15 +118,24 @@ function First() {
               </div>
             ))}
           </div>
-
-          <div style={{ width: "100%" }}>
+          { userSpace.length >= 1 ? <div style={{ width: "100%" }}>
             <button
               className={styles.nextButton}
               onClick={handleFunctions}
             >
               Next
             </button>
-          </div>
+          </div>:
+           <div style={{ width: "100%" }}>
+           <button
+             className={styles.nextButton}
+             style={{opacity:0.5}}
+           >
+             Next
+           </button>
+         </div>}
+
+         
         </div>
         <img src={require("../../../images/onboardingfirst.png")} alt="img" />
       </div>
