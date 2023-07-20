@@ -599,17 +599,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   useEffect(() => {
-    if ((newPostText || tempImageURL) && postSpaceData) {
+    if ((newPostText || tempImageURL) && postSpaceData.length>=1) {
       setPostUploadStatus(true);
     }
-    if (!(newPostText || tempImageURL) && postSpaceData) {
+    if (!(newPostText || tempImageURL) && postSpaceData.length>=1) {
       setPostUploadStatus(false);
     }
-    if((newPostText || tempImageURL) && !postSpaceData){
+    if((newPostText || tempImageURL) && !postSpaceData.length>=1){
       setPostUploadStatus(false);
       
     }
-    if(!(newPostText || tempImageURL) && !postSpaceData){
+    if(!(newPostText || tempImageURL) && !postSpaceData.length>=1){
       setPostUploadStatus(false);
 
     }
@@ -1079,7 +1079,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     ) : null}
 
-                    {postSpaceData ? (
+                    {postSpaceData.length>=1 ? (
                       <p className={style.spaceTag}>{postSpaceData}</p>
                     ) : null}
 

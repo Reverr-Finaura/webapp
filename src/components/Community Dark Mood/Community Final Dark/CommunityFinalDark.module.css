@@ -577,6 +577,14 @@ font-weight: 700;
   width: 90%;
   display: flex;
 }
+.spaceTag{
+  border: 2px solid #fff;
+    width: max-content;
+    padding: 3px 21px;
+    border-radius: 28px;
+    margin: 6px 0px 20px 10px;
+    color: #fff;
+}
 
 .communityPostImageCont {
   width: 98%;
@@ -594,6 +602,7 @@ font-weight: 700;
 }
 
 .communityPostImage {
+  position: relative !important;
   width: 70%;
   /* margin: auto; */
   margin-bottom: 1rem;
