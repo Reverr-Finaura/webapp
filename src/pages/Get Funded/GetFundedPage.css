@@ -84,7 +84,7 @@
   padding-top: 2rem;
 }
 
-.getFundingPageSubTitle{
+.getFundingPageSubTitle {
   width: 100%;
   text-align: center;
   font-family: "Poppins";
@@ -96,10 +96,9 @@
   padding-top: 0.5rem;
 }
 
-
 .getFundingPageOuter span {
   color: #2a72de;
-} 
+}
 .getFundingPageForm {
   display: flex;
   flex-direction: column;
@@ -283,7 +282,6 @@
   display: flex;
 }
 
-
 @media (max-width: 1320px) {
   .input_flex {
     flex-direction: column;
@@ -312,6 +310,12 @@
 @media (max-width: 600px) {
   #getFundingPage {
     margin: auto;
+    margin-top: 7rem;
+  }
+  .getFundingPageSubTitle {
+    font-size: 16px;
+    line-height: 30px;
+    margin: 2rem auto;
   }
   .getFundingPageForm {
     width: 80%;
@@ -322,6 +326,9 @@
   .getFundingPageOuter {
     width: 90%;
     margin: auto 2rem;
+  }
+  .inputWraper {
+    flex-direction: column;
   }
 }
 

@@ -132,6 +132,8 @@ import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordU
 import User from "./pages/User/User";
 import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
+import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
+import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 
 function App() {
   const user = useSelector(selectUser);
