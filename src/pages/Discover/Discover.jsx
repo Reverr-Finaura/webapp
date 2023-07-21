@@ -175,12 +175,13 @@ console.log(randomEvents)
 
      
 
-        <div style={{width:"300px",marginTop:"150px",marginLeft:"5px",padding:"10px",display:"flex",flexDirection:"column",gap:"10px"}}>
+        <div style={{width:"300px",marginTop:"130px",marginLeft:"5px",padding:"8px",display:"flex",flexDirection:"column",gap:"10px",
+      position:"fixed"}}>
         <Vibe  />
         <Patch />
         </div>
         
-        <div style={{width:"80%"}}>
+        <div style={{width:"80%",marginLeft:"20%"}}>
         
         <DiscoverPeople />
         { randomEvents.length>0 && <DiscoverEvents />}
