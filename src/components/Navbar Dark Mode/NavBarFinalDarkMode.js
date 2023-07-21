@@ -27,7 +27,8 @@ import { VscBellDot } from "react-icons/vsc";
 import { FaLightbulb, FaFacebookMessenger } from "react-icons/fa";
 import { setTheme } from "../../features/themeSlice";
 import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
-import mentordashboardicon from "../../images/dashboardicon.svg"
+// import mentordashboardicon from "../../images/dashboardicon.svg"
+import mentordashboardicon from "../../images/radix-icons_dashboard.svg"
 import userIcon from "../../images/userIcon.png";
 import settingIcon from "../../images/Vector (3).png";
 import ReverrLightIcon from "../../images/Reverr Light.png";
@@ -74,7 +75,6 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [openHam, setOpenham] = useState(false);
 
   const userType = useSelector((state) => state.onboarding.userType);
-  console.log('userdoc',userDoc)
 
   const [userTypeLower, setUserTypeLower] = useState("individual");
   // const state = useSelector((state) => state);
@@ -696,7 +696,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <p className={style.navbarIconsName}>Home</p>
               </div>
               {/* //////// */}
-              {isLoggedIn && userDoc?.userType === "Mentor" ? (
+              {isLoggedIn && (userDoc?.userType === "Mentor"|| userDoc?.userType === "mentor") ? (
                 <div
                   className={style.navbarIconsImgName}
                   onClick={() => {
