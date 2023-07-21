@@ -430,6 +430,11 @@ export default function PostCardDark({
     );
   };
 
+  // handleRepostPost
+  function handleReportPost(){
+    toast("reported post")
+  }
+
   //GET TIME OF POST
   useEffect(() => {
     setPostTime(new Date(item?.createdAt.seconds * 1000));
@@ -545,7 +550,7 @@ export default function PostCardDark({
                         </div>
                       </a>
                     ) : null}
-                    <div className={style.threeDotsReportPostOption}>
+                    <div onClick={()=>handleReportPost()} className={style.threeDotsReportPostOption}>
                       Report Post
                     </div>
                   </div>
