@@ -7,6 +7,7 @@ import {
   query,
   doc,
   updateDoc,
+  setDoc,
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -92,37 +93,56 @@ const User = () => {
   //UPDATE LOGGEDIN USER FOLLOW REQUEST ARRAY
   // update the send request array of the logged in user
   const updateUserSendRequestArray = async () => {
-    // userDoc is for the other user to whom the request is being sent
-    let currentLoggedInUserRequestArray;
-
-    if (!currentLoggedInUserDoc.sendRequests.includes(otherUserDoc.email)) {
-      currentLoggedInUserRequestArray = [
-        ...currentLoggedInUserDoc.sendRequests,
-        otherUserDoc.email,
-      ];
-      // console.log("not included", currentLoggedInUserRequestArray);
-    } else {
-      currentLoggedInUserRequestArray =
-        currentLoggedInUserDoc.sendRequests.filter((item) => {
-          return item !== otherUserDoc.email;
-        });
-      // console.log("included", currentLoggedInUserRequestArray);
-    }
+    // Obtain the Firestore reference for the current logged-in user
     const currentLoggedInUserDocumentRef = doc(
       db,
       "Users",
       currentLoggedInUser?.user?.email
     );
-    const updatedCurrentLoggedInUserDoc = {
-      ...currentLoggedInUserDoc,
-      sendRequests: currentLoggedInUserRequestArray,
-    };
 
     try {
+      // Get the current logged-in user's document from Firestore
+      const currentLoggedInUserSnapshot = await getDoc(
+        currentLoggedInUserDocumentRef
+      );
+
+      // Check if the document exists and get the data
+      const currentLoggedInUserData = currentLoggedInUserSnapshot.data();
+      let currentLoggedInUserSendRequestArray = [];
+
+      // Check if the sendRequests field exists in the currentLoggedInUserData
+      if (currentLoggedInUserData && currentLoggedInUserData.sendRequests) {
+        currentLoggedInUserSendRequestArray =
+          currentLoggedInUserData.sendRequests;
+      } else {
+        // If the sendRequests field does not exist, create it with an empty array
+        await updateDoc(currentLoggedInUserDocumentRef, {
+          sendRequests: [],
+        });
+      }
+
+      // Add or remove the otherUserDoc.email from the currentLoggedInUserSendRequestArray
+      if (!currentLoggedInUserSendRequestArray.includes(otherUserDoc.email)) {
+        currentLoggedInUserSendRequestArray.push(otherUserDoc.email);
+      } else {
+        currentLoggedInUserSendRequestArray =
+          currentLoggedInUserSendRequestArray.filter(
+            (item) => item !== otherUserDoc.email
+          );
+      }
+
+      // Update the sendRequests field with the updated currentLoggedInUserSendRequestArray
       await updateDoc(currentLoggedInUserDocumentRef, {
-        sendRequests: currentLoggedInUserRequestArray,
+        sendRequests: currentLoggedInUserSendRequestArray,
       });
-      dispatch(setUserDoc(updatedCurrentLoggedInUserDoc));
+
+      // Update the local state with the new sendRequests array
+      const updatedCurrentLoggedInUserData = {
+        ...currentLoggedInUserData,
+        sendRequests: currentLoggedInUserSendRequestArray,
+      };
+
+      dispatch(setUserDoc(updatedCurrentLoggedInUserData));
       setUiShouldRender((prev) => !prev);
       setIsLoading(false);
     } catch (error) {
@@ -135,25 +155,35 @@ const User = () => {
   const handleFollowUserClick = async () => {
     setIsLoading(true);
     toast("Processing Your Request");
-    // const userRequestArray = postsAuthorInfo.receivedRequests
-    // here userRequestArray is for the user to whom the request is being sent
-    const userRequestArray = otherUserDoc.receivedRequests.includes(
-      currentLoggedInUser?.user?.email
-    )
-      ? otherUserDoc.receivedRequests
-      : // : userDoc.recivedRequests.push(currentLoggedInUser?.user?.email);
-        [...otherUserDoc.receivedRequests, currentLoggedInUser?.user?.email];
-
-    const userDocumentRef = doc(db, "Users", otherUserDoc.email);
-    console.log("userDocumentRef", userDocumentRef);
 
     try {
-      await updateDoc(userDocumentRef, { receivedRequests: userRequestArray });
-      // setPostsAuthorInfo((prev) => {
-      //   return { ...prev, receivedRequests: userRequestArray };
-      // });
-      updateUserSendRequestArray();
-      toast.success("Follow Request Send ");
+      const userDocumentRef = doc(db, "Users", otherUserDoc.email);
+      const userDocSnapshot = await getDoc(userDocumentRef);
+      let userRequestArray = [];
+
+      if (userDocSnapshot.exists()) {
+        const otherUserData = userDocSnapshot.data();
+        if (otherUserData.receivedRequests) {
+          // If receivedRequests field exists, use it
+          userRequestArray = otherUserData.receivedRequests;
+        } else {
+          // If receivedRequests field does not exist, create it
+          await updateDoc(userDocumentRef, { receivedRequests: [] });
+        }
+
+        // Add the currentLoggedInUser's email to the userRequestArray
+        if (!userRequestArray.includes(currentLoggedInUser?.user?.email)) {
+          userRequestArray.push(currentLoggedInUser?.user?.email);
+        }
+
+        // Update the receivedRequests field with the updated userRequestArray
+        await updateDoc(userDocumentRef, {
+          receivedRequests: userRequestArray,
+        });
+        updateUserSendRequestArray();
+        toast.success("Follow Request Sent");
+      }
+
       //---------------------- Send Follow Notification----------------------------------
       const notificationData = {
         time: new Date(),
@@ -161,8 +191,6 @@ const User = () => {
         user: currentLoggedInUser?.user?.email,
         type: "Follow-Notification",
       };
-      // console.log("notificationData", notificationData);
-      const userDocSnapshot = await getDoc(userDocumentRef);
 
       if (userDocSnapshot.exists()) {
         const existingNotifications =
@@ -206,13 +234,13 @@ const User = () => {
 
     // Add the user who sent the follow request to the logged-in user's network array
     const updatedNetworkArrayOfCurrentLoggedInUser = [
-      ...currentLoggedInUserDoc.network,
+      ...(currentLoggedInUserDoc.network || []), // Use existing network array or an empty array if it's not present
       otherUserDoc.email,
     ];
 
     // update the other users network array
     const updatedNetworkArrayOfOtherUser = [
-      ...otherUserDoc.network,
+      ...(otherUserDoc.network || []), // Use existing network array or an empty array if it's not present
       currentLoggedInUser?.user?.email,
     ];
 
@@ -235,6 +263,30 @@ const User = () => {
     const otherUserDocumentRef = doc(db, "Users", otherUserDoc.email);
 
     try {
+      // Check if the 'network' field exists in the current logged-in user's document
+      const currentLoggedInUserSnapshot = await getDoc(
+        currentLoggedInUserDocumentRef
+      );
+      if (
+        !currentLoggedInUserSnapshot.exists() ||
+        !currentLoggedInUserSnapshot.data().network
+      ) {
+        // If 'network' field doesn't exist, create it first
+        await setDoc(
+          currentLoggedInUserDocumentRef,
+          { network: [] },
+          { merge: true }
+        );
+      }
+
+      // Check if the 'network' field exists in the other user's document
+      const otherUserSnapshot = await getDoc(otherUserDocumentRef);
+      if (!otherUserSnapshot.exists() || !otherUserSnapshot.data().network) {
+        // If 'network' field doesn't exist, create it first
+        await setDoc(otherUserDocumentRef, { network: [] }, { merge: true });
+      }
+
+      // Now, perform the updates on the 'network' fields
       await updateDoc(currentLoggedInUserDocumentRef, {
         network: updatedNetworkArrayOfCurrentLoggedInUser,
         receivedRequests: updatedReceivedRequestsArrayOfCurrentLoggedInUser,
@@ -260,7 +312,7 @@ const User = () => {
         message: `${otherUserDoc?.email} Accepted Your Follow Request`,
         user: otherUserDoc?.email,
         type: "Follow-Accepted-Notification",
-      }
+      };
       // console.log("notificationData", notificationData);
       const userDocSnapshot = await getDoc(otherUserDocumentRef);
 

@@ -26,10 +26,7 @@ function First() {
   const handleFunctions = () => {
     navigate("/onboarding-second");
     dispatch(setUserSpaces(userSpace));
-  }
-
-
-
+  };
 
   const spaceItems = [
     { image: require("../../../images/onboarding11.png"), text: "FinTech" },
@@ -78,7 +75,7 @@ function First() {
     },
     { image: require("../../../images/onboarding124.png"), text: "CloudTech" },
   ];
-  console.log(userSpace)
+  console.log(userSpace);
 
   return (
     <div className={styles.container}>
@@ -97,10 +94,10 @@ function First() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-          <text style={{ fontSize: 40, color: "#ffffff", marginBlock: 20 }}>
+          <text className={styles.heading}>
             Choose your Space(s).(atleast one)
           </text>
-          <text style={{ fontSize: 14, color: "#ffffff" }}>
+          <text className={styles.subHeading}>
             Your Space will define your Reverr experience.
           </text>
 
@@ -118,30 +115,33 @@ function First() {
               </div>
             ))}
           </div>
-          { userSpace.length >= 1 ? <div style={{ width: "100%" }}>
-            <button
-              className={styles.nextButton}
-              onClick={handleFunctions}
-            >
-              Next
-            </button>
-          </div>:
-           <div style={{ width: "100%" }}>
-           <button
-             className={styles.nextButton}
-             style={{opacity:0.5}}
-           >
-             Next
-           </button>
-         </div>}
-
-         
+          {userSpace.length >= 1 ? (
+            <div className={styles.buttonDiv}>
+              <button className={styles.nextButton} onClick={handleFunctions}>
+                Next
+              </button>
+            </div>
+          ) : (
+            <div className={styles.buttonDiv}>
+              <button
+                className={styles.nextButton}
+                style={{ cursor: "default", opacity: 0.5 }}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
-        <img src={require("../../../images/onboardingfirst.png")} alt="img" />
+        <div className={styles.hiddenOnMobile}>
+          <img
+            className={styles.mainImage}
+            src={require("../../../images/onboardingfirst.png")}
+            alt="img"
+          />
+        </div>
       </div>
     </div>
   );
 }
 
 export default First;
-

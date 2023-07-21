@@ -48,9 +48,20 @@
   margin-left: 50px;
 }
 
+.heading {
+  font-size: 40px;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.subHeading {
+  font-size: 14px;
+  color: #ffffff;
+}
+
 .objectiveContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Two columns with equal width */
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Five columns */
   grid-gap: 20px; /* Spacing between columns and rows */
   grid-auto-flow: row; /* Fill div elements row-wise */
   margin-top: 15px;
@@ -86,6 +97,11 @@
   height: 60px;
 }
 
+.buttonDiv {
+  display: flex;
+  width: 100%;
+}
+
 .leftButton {
   color: #ffffff;
   padding: 10px 50px;
@@ -109,15 +125,93 @@
   color: #ffffff;
   padding: 10px 50px;
   border-radius: 25px;
-  float: right;
+  margin-left: auto;
   border-color: #00b3ff;
   background: transparent;
   cursor: pointer;
 }
 
-.mainContent > img {
+.mainImage {
+  height: 80vh;
+}
+
+
+.hiddenOnMobile {
   display: flex;
   position: absolute;
   right: 50px;
-  height: 80vh;
+}
+
+
+@media (max-width: 430px) { 
+  .navbarBrandLogoImgCont {
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+  .navbarFinalBrandLogoImg {
+    width: 50px;
+  }
+  .container {
+    /* height: 100%; */
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 6rem;
+    box-sizing: border-box;
+  }
+
+  .leftComponent {
+    align-items: center;
+    width: 100vw;
+    margin-left: 0;
+  }
+  .mainContent {
+    padding: 0 1.5rem;
+  }
+  .heading {
+    font-size: 0.8rem;
+  }
+  .subHeading {
+    font-size: 0.6rem;
+  }
+  .objectiveContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+  }
+
+  .objectiveCard {
+    width: 50px;
+    height: 50px;
+  }
+
+  .objectiveCard > img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .objectiveCard > text {
+    font-size: 0.5rem;
+  }
+
+
+  .leftButton {
+    padding: 5px 25px;
+    margin-right: 10px;
+    font-size: 0.8rem;
+  }
+
+  
+.rightButton {
+  padding: 5px 25px;
+  margin-right: 10px;
+  font-size: 0.8rem;
+}
+
+.skipButton {
+  padding: 5px 25px;
+  margin-right: 10px;
+  font-size: 0.8rem;
+}
+
+  .hiddenOnMobile {
+    display: none;
+  }
 }
