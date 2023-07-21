@@ -8,6 +8,8 @@ import FinanceTesting from "./stages/FinanceTesting";
 import ResultTesting from "./stages/ResultTesting";
 import DoneTesting from "./stages/DoneTesting";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import GroupImg from "../../images/Group.png";
+import collaborateImg from "../../images/Collaborate.png";
 
 const CheckYourScoreTesting = () => {
   const [stage, setStage] = useState(0);
@@ -88,6 +90,8 @@ const CheckYourScoreTesting = () => {
             Take Your Start-Up <span>Assessment </span>today!
           </h1>
           <div className={styles.checkscore__content}>
+            <img className={styles.GroupImg} src={GroupImg} alt="GroupImg" />
+            <img className={styles.collaborateImg} src={collaborateImg} alt="collaborateImg" />
             <div className={styles.stages}>
               <div>
                 {stage >= 0 ? (
@@ -97,7 +101,9 @@ const CheckYourScoreTesting = () => {
                   </>
                 ) : (
                   <>
-                    <img src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                    <div className={styles.imageBackground}>
+                    <img className={styles.imageBackgroundImg} src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                    </div>
                   </>
                 )}
                 <span>Product</span>
@@ -110,7 +116,9 @@ const CheckYourScoreTesting = () => {
                   </>
                 ) : (
                   <>
-                    <img src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                    <div className={styles.imageBackground}>
+                    <img className={styles.imageBackgroundImg} src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                    </div>
                   </>
                 )}
                 <span>Team</span>
@@ -123,7 +131,10 @@ const CheckYourScoreTesting = () => {
                   </>
                 ) : (
                   <>
-                    <img src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                  <div className={styles.imageBackground}>
+                  <img className={styles.imageBackgroundImg} src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                  </div>
+                    
                   </>
                 )}
                 <span>Market</span>
@@ -136,7 +147,9 @@ const CheckYourScoreTesting = () => {
                   </>
                 ) : (
                   <>
-                    <img src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                    <div className={styles.imageBackground}>
+                    <img className={styles.imageBackgroundImg} src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                    </div>
                   </>
                 )}
                 <span>Finance</span>
@@ -149,7 +162,9 @@ const CheckYourScoreTesting = () => {
                   </>
                 ) : (
                   <>
-                    <img src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                   <div className={styles.imageBackground}>
+                   <img className={styles.imageBackgroundImg} src={"/images/empty_circle.svg"} alt="ProgressImg" />
+                   </div>
                   </>
                 )}
                 <span>Done</span>

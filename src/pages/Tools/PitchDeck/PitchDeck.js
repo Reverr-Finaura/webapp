@@ -159,8 +159,8 @@ console.log(pptList);
 
 
           <div className={styles.btnCont}>
-            <button className={styles.download} onClick={() => { handleDownload(ppt.link);}}> Download </button>
             <button onClick={() => {navigate(`/pptTemplates/${ppt.id}`);}} className={styles.viewBtn}>Show</button>
+            <button className={styles.download} onClick={() => { handleDownload(ppt.link);}}> Download </button>
             {/* <FiDownload onClick={() => {
               handleDownload(ppt.link);
             }} className={styles.icon}/>

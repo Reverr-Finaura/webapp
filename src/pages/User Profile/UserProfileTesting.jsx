@@ -115,7 +115,7 @@ const UserProfileTesting = () => {
             </div>
             <div className={styles.profileInfo}>
               <div className={styles.profileUserIcon}>
-                <img
+                {/* <img
                   src="/images/fluent_call-24-regular.svg"
                   alt="Linkedin"
                   onClick={() => {
@@ -123,7 +123,7 @@ const UserProfileTesting = () => {
                     toast.success("Phone number copied to clipboard");
                   }}
                   style={{ cursor: "pointer" }}
-                />
+                /> */}
                 <img
                   src="/images/logos_google-gmail.svg"
                   alt="Linkedin"

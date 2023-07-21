@@ -453,14 +453,14 @@ const User = () => {
             </div>
             <div className={styles.profileInfo}>
               <div className={styles.profileUserIcon}>
-                <img
+                {/* <img
                   src="/images/fluent_call-24-regular.svg"
                   alt="Call"
                   onClick={() => {
                     navigator.clipboard.writeText(otherUserDoc.phone);
                     toast.success("Phone Number Copied");
                   }}
-                />
+                /> */}
                 <img
                   src="/images/logos_google-gmail.svg"
                   alt="Gmail"
@@ -631,19 +631,21 @@ const User = () => {
             <></>
           )}
           <div className={styles.profileContent}>
-            <div className={styles.aboutMe}>
+            {otherUserDoc?.about && <div className={styles.aboutMe}>
               <p>About Me</p>
               <p>{otherUserDoc?.about ? otherUserDoc.about : "Add your Bio"}</p>
-            </div>
-            <div className={styles.aboutMe}>
+            </div>}
+
+            {otherUserDoc?.designation &&  <div className={styles.aboutMe}>
               <p>Current Designation</p>
               <p>
                 {otherUserDoc?.designation
                   ? otherUserDoc.designation
                   : "No Designation Added"}
               </p>
-            </div>
-            <div className={styles.connect}>
+            </div>}
+
+                {otherUserDoc?.Vibe_Data &&  <div className={styles.connect}>
               <p>How can we connect?</p>
               <div style={{ flexDirection: "column" }}>
                 {otherUserDoc?.Vibe_Data?.How_To_Meet
@@ -654,10 +656,10 @@ const User = () => {
                     })
                   : "How to connect not upadted"}
               </div>
-            </div>
+            </div>}
           </div>
           <div className={styles.profileEducation}>
-            <div className={styles.education}>
+            {otherUserDoc?.education && <div className={styles.education}>
               <p>Education</p>
               <div className={styles.educationInfo}>
                 <ul>
@@ -676,8 +678,9 @@ const User = () => {
                   )}
                 </ul>
               </div>
-            </div>
-            <div className={styles.experience}>
+            </div>}
+
+            {otherUserDoc?.experience &&   <div className={styles.experience}>
               <p>My Work Experience</p>
               <div className={styles.educationInfo}>
                 <ul>
@@ -698,8 +701,9 @@ const User = () => {
                   )}
                 </ul>
               </div>
-            </div>
-            <div className={styles.experienceConnect}>
+            </div>}
+
+                  {otherUserDoc?.Vibe_Data &&  <div className={styles.experienceConnect}>
               <p>I am here </p>
               <div className={styles.experienceBtn}>
                 {otherUserDoc?.Vibe_Data?.Here_for
@@ -710,7 +714,7 @@ const User = () => {
                     })
                   : "No i am here for added"}
               </div>
-            </div>
+            </div>}
           </div>
           <div className={styles.profileContact}>
             <div className={styles.contact}>

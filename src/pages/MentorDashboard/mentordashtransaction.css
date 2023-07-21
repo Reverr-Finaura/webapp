@@ -27,7 +27,11 @@ padding-top: 40px;
 }
 .transactionddiv{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     gap: 8px;
+    margin-left: 2rem;
+}
+.transactionddiv >img {
+    margin-right: 2rem;
 }
