@@ -52,6 +52,17 @@
   margin-left: 50px;
 }
 
+.heading {
+  font-size: 40px;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.subHeading {
+  font-size: 14px;
+  color: #ffffff;
+}
+
 .uploadPhoto {
   display: flex;
   position: relative;
@@ -111,6 +122,10 @@
   color: #100f0f;
 }
 
+.buttonDiv {
+  margin-top: 30px;
+}
+
 .leftButton {
   color: #ffffff;
   padding: 10px 50px;
@@ -135,4 +150,58 @@
   position: absolute;
   right: 50px;
   height: 80vh;
+}
+
+
+.mainImage {
+  height: 80vh;
+}
+
+.hiddenOnMobile {
+  display: flex;
+  position: absolute;
+  right: 50px;
+}
+
+
+@media (max-width: 430px) {
+  .navbarBrandLogoImgCont {
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+  .navbarFinalBrandLogoImg {
+    width: 50px;
+  }
+  .container {
+    height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 6rem;
+    box-sizing: border-box;
+  }
+  .heading {
+    font-size: 0.8rem;
+  }
+  .subHeading {
+    font-size: 0.6rem;
+    margin-top: 1rem;
+  }
+  .leftComponent {
+    align-items: center;
+    width: 100vw;
+    margin-left: 0;
+  }
+
+  .textInput > input {
+    width: 20rem;
+  }
+
+  .textInput > textarea {
+    width: 18rem;
+  }
+
+
+  .hiddenOnMobile {
+    display: none;
+  }
 }

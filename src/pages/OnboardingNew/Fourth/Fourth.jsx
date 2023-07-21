@@ -185,7 +185,7 @@ function Fourth() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-          <text style={{ fontSize: 40, color: "#ffffff", marginBlock: 20 }}>
+        <text className={styles.heading}>
             Let us get to know you!
           </text>
           <div className={styles.textInputContainer}>
@@ -310,7 +310,7 @@ function Fourth() {
               />
             </div>
           </div>
-          <div style={{ width: "100%" }}>
+          <div  className={styles.buttonDiv}>
             <button
               className={styles.leftButton}
               onClick={() => navigate("/onboarding-third")}
@@ -326,7 +326,13 @@ function Fourth() {
             <button className={styles.skipButton}>Skip</button>
           </div>
         </div>
-        <img src={require("../../../images/onboardingforth.png")} alt="img" />
+        <div className={styles.hiddenOnMobile}>
+          <img
+            className={styles.mainImage}
+            src={require("../../../images/onboardingforth.png")}
+            alt="img"
+          />
+        </div>
       </div>
     </div>
   );

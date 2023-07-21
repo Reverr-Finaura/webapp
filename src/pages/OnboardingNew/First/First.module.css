@@ -48,6 +48,17 @@
   margin-left: 50px;
 }
 
+.heading {
+  font-size: 40px;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.subHeading {
+  font-size: 14px;
+  color: #ffffff;
+}
+
 .spaceContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Two columns with equal width */
@@ -85,7 +96,10 @@
   height: 45px;
 }
 
-
+.buttonDiv {
+  display: flex;
+  width: 100%;
+}
 
 .nextButton {
   padding: 10px 50px;
@@ -97,9 +111,65 @@
 }
 
 
-.mainContent > img {
+.mainImage {
+  height: 80vh;
+}
+
+.hiddenOnMobile {
   display: flex;
   position: absolute;
   right: 50px;
-  height: 80vh;
+}
+
+@media (max-width: 430px) {
+  .navbarBrandLogoImgCont {
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+  .navbarFinalBrandLogoImg {
+    width: 50px;
+  }
+  .container {
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 6rem;
+    box-sizing: border-box;
+  }
+  .heading {
+    font-size: 0.8rem;
+  }
+  .subHeading {
+    font-size: 0.6rem;
+  }
+  .leftComponent {
+    align-items: center;
+    width: 100vw;
+    margin-left: 0;
+  }
+  .spaceContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+  }
+
+  .spaceItem {
+    width: 50px;
+    height: 50px;
+  }
+
+  .spaceItem > img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .spaceItem > text {
+    font-size: 0.5rem;
+  }
+
+  .buttonDiv {
+    justify-content: center;
+    margin-bottom: 12rem;
+  }
+  .hiddenOnMobile {
+    display: none;
+  }
 }

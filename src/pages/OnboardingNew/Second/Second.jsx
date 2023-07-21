@@ -74,10 +74,10 @@ function Second() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-          <text style={{ fontSize: 40, color: "#ffffff", marginBlock: 20 }}>
+        <text className={styles.heading}>
             Your Role?
           </text>
-          <text style={{ fontSize: 16, color: "#ffffff" }}>
+          <text className={styles.subHeading}>
             Choose an option that fits you the best.
           </text>
 
@@ -119,7 +119,13 @@ function Second() {
            
           </div>
         </div>
-        <img src={require("../../../images/onboardingsecond.png")} alt="img" />
+        <div className={styles.hiddenOnMobile}>
+          <img
+            className={styles.mainImage}
+            src={require("../../../images/onboardingsecond.png")}
+            alt="img"
+          />
+        </div>
       </div>
     </div>
   );
