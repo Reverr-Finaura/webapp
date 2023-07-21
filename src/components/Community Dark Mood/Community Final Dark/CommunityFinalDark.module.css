@@ -1361,31 +1361,7 @@ body::-webkit-scrollbar {
   }
   
 }
-    
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* #communityNewsSection {
     width: 34.5%;
   } */
@@ -1667,4 +1643,76 @@ body::-webkit-scrollbar {
     width: 60px;
     height: 40px;
   }
+}
+@media (max-width: 500px) {
+  .postAssetsIconMain{
+    width: -webkit-fill-available;
+    position: unset;
+    margin: 2px 2px;
+    gap: unset;
+  
+
+  }
+  .assest_icon{
+    font-size: 18px;
+  }
+  .disabledPostIconButton{
+    font-size: 15px;
+
+  }
+  .uploadPostIconButton{
+    font-size: 15px;
+  }
+  .userSpaceSelect{
+    font-size: 10px;
+    width: 105px;
+    border: 0.2px solid #fff;
+
+  }
+  .postAssetsIconMaindiv{
+    padding: 3px 10px 3px 10px;
+    font-size: 10px;
+    border: 1px solid #fff;
+    border: unset;
+    margin: 0px;
+    padding: 0px;
+
+  }
+  .ArrowImgAfterTextArea{
+    right: -3px;
+    height: 36px;
+
+  }
+  #postTextContainer{
+    height: 20px;
+width: -webkit-fill-available;
+
+  }
+  .communityNavbarBlock{
+    padding: 8px
+  }
+  .communityNavHeading{
+    font-size: 15px;
+font-weight: 200;
+
+ }
+ .activeNavHeading{
+  font-size: 15px;
+  font-weight: 200;
+  
+ }
+ #communityFinalPage{
+  padding: 0px;
+  width: -webkit-fill-available;
+
+ }
+ .icon_text{
+  display: none;
+ }
+ .spaceSectionButton{
+  bottom: 22px;
+  left: 12px;
+     font-size: 12px;
+  padding: 2px 13px;
+ }
 }

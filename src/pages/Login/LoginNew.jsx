@@ -354,7 +354,8 @@ const LoginNew = () => {
     window.open("https://server.reverr.io/api/linkedin/authorize", "_self");
   };
   // userDoc.Vibe_Data.How_To_Meet - []
-  const handleTogglePassword = () => {
+  const handleTogglePassword = (event) => {
+    event.preventDefault()
     setShowPassword(!showPassword);
   };
 

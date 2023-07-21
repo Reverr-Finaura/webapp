@@ -35,7 +35,7 @@ import BusinessModal from "./pages/AfterKnowledge/BusinessModal/BusinessModal";
 import BetaTestingOld from "./pages/AfterKnowledge/BetaTesting/BetaTesting";
 import ESOP from "./pages/AfterKnowledge/ESOP/ESOP";
 import FounderAgreement from "./pages/AfterKnowledge/Founder Agreement/FounderAgreement";
-
+import ArticleNavigation from './pages/ArticleNavigation/ArticleNavigation'
 import EquityAndEverything from "./pages/AfterKnowledge/EquityAndEverything/EquityAndEverything";
 
 import IV_Slides from "./pages/AfterKnowledge/Idea Validation & EP/IV_Slides";
@@ -386,6 +386,7 @@ function App() {
         <Route path="/discover/consulting" element={<Consulting />}></Route>
         <Route path="/discover/gaming" element={<Gaming />}></Route>
         <Route path="/discover/design" element={<Design />}></Route>
+        <Route path="/discover/:id" element={<ArticleNavigation />}></Route>
         <Route
           path="/discover/enterpreneurship"
           element={<Enterpreneurship />}

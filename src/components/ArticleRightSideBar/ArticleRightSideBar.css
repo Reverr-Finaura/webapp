@@ -1,4 +1,8 @@
 .right-container{
     height: 619px;
     margin: 10px;
+    margin-right: 20px;
+}
+.firstarticlebox{
+  background: var(--bg-secondary-gray, #1A1E28);;
 }

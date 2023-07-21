@@ -1,5 +1,6 @@
 .left-sidebar{
     width: 263px;
+    height: 70px;
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
     transition: box-shadow ease-in-out 0.1s;
     transform: translateZ(0);
@@ -9,7 +10,7 @@
 
 
 .side-nav{
-    height: auto;
+    height: 100px;
     max-width: 100%;
     /* border: solid 2px white; */
     position: sticky;
@@ -19,7 +20,7 @@
     /* width: 263px; */
     height: 619px;
     padding: 7.5px 0px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     gap: 11px;
     flex-shrink: 0;

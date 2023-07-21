@@ -136,7 +136,7 @@ const ArticleRightSideBar = (props) => {
         let randomArticlesArr = [];
         let length = users.length - 1;
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
           let randomIndex = Math.floor(Math.random() * length);
           let randomElement = users[randomIndex];
           randomArticlesArr.push(randomElement);
@@ -157,11 +157,20 @@ console.log(randomArticles);
       {loading ? (
         <p>Loading...</p>
       ) : (
-        randomArticles && randomArticles.slice(0, 3).map((article) => (
-          <div className='allCards' style={{ display: 'flex', flexDirection: 'row' }}>
+        <div style={{display:"flex"}}>
+          <div className="firstarticlebox" style={{width:"350px",display:"flex",flexDirection:"column",alignItems:"center"}}>
+            <img style={{height:"200px",width:"300px",padding:"20px"}} src={randomArticles[0]?.image?.imageUrl} alt="" />
+            <p style={{textAlign:"center",color:"#fff",fontSize:"25px",fontWeight:"bold",padding:"20px"}}>{randomArticles[0]?.heading}</p>
+          </div>
+          <div style={{width:"600px",paddingRight:"40px"}}>
+          {
+        randomArticles && randomArticles.slice(1, 4).map((article) => (
+          <div className='allCards' style={{ display: 'flex', flexDirection: 'column' }}>
             <ArticleDisplay title={article.heading} imgUrl={article.image.imageUrl} description={article.body} />
           </div>
-        ))
+        ))}
+        </div>
+        </div>
       )}
     </div>
   );

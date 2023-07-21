@@ -15,6 +15,9 @@ function Third() {
   const [uploadedProfileImage, setUploadedProfileImage] = useState(null)
   const [designation, setDesignation] = useState("");
   const [about, setAbout] = useState("");
+  const [imgError,setimgError]=useState('');
+  const [desError,setdesError]=useState('');
+  const [abtError,setabtError]=useState('');
 
   const handleImageUpload = (event) => {
     const uploadedImage = event.target.files[0];
@@ -33,10 +36,17 @@ function Third() {
   // this function will handle two function when the Next button is clicked
 
   const handleFunctions = () => {
+    if(validate()){
     navigate("/onboarding-fourth");
     dispatch(setImage(imgUrl));
     dispatch(setDesignationToStore(designation));
     dispatch(setAboutToStore(about));
+    setImgUrl('');
+    setdesError('');
+    setabtError('');
+    
+    }
+   
   }
 
 useEffect(() => {
@@ -55,6 +65,30 @@ useEffect(() => {
   }
   uplaodImage()
 }, [uploadedProfileImage])
+
+function validate(){
+  let nameError = "";
+  let emailError = "";
+  let passwordError = "";
+  if(!uploadedProfileImage){
+  nameError = "Image field is required";
+  }
+  
+  if(!about){
+  emailError = "About Field is required ";
+  }
+  if(!designation){
+  passwordError = "Designation field is required";
+  }
+  if(emailError || nameError || passwordError){
+  setimgError(nameError);
+  setdesError(passwordError);
+  setabtError(emailError)
+  return false;
+  }
+  return true;
+  }
+  
 
   return (
     <div className={styles.container}>
@@ -101,7 +135,9 @@ useEffect(() => {
             accept="image/*"
             onChange={handleImageUpload}
             style={{ display: "none" }}
+            required
           />
+          <span className={styles.textdanger}>{imgError}</span>
           <div className={styles.textInput}>
             <text style={{ fontSize: 10, color: "#ffffff" }}>
               What’s your designation?
@@ -111,7 +147,9 @@ useEffect(() => {
               placeholder="Enter your designation"
               value={designation}
               onChange={handleDesignationChange}
+              required
             />
+            <span className={styles.textdanger}>{desError}</span>
           </div>
           <div className={styles.textInput}>
             <text style={{ fontSize: 10, color: "#ffffff" }}>
@@ -122,7 +160,9 @@ useEffect(() => {
               placeholder="About"
               value={about}
               onChange={handleAboutChange}
+              required
             />
+            <span className={styles.textdanger}>{abtError}</span>
           </div>
 
           <div style={{ marginTop: 30 }}>
