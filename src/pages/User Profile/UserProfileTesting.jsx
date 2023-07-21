@@ -172,7 +172,7 @@ const UserProfileTesting = () => {
                 </p>
               </div>
               <button onClick={() => {
-                // userDoc?.userType === "Mentor" ? navigate("/mentor-edit-profile") :
+                userDoc?.userType === "Mentor" || "mentor" ? navigate("/mentor-edit-profile") :
                  navigate("/editprofile")
               }}>
                 Edit Profile

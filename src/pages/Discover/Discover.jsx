@@ -171,17 +171,16 @@ console.log(randomEvents)
       <div className='container-1'>
         <NavBarFinalDarkMode />
 
-      <div style={{display:"flex"}}>
+      <div style={{display:"flex",height:"100vh"}}>
 
      
-
-        <div style={{width:"300px",marginTop:"130px",marginLeft:"5px",padding:"8px",display:"flex",flexDirection:"column",gap:"10px",
-      position:"fixed"}}>
+        <div style={{position:"fixed"}}>
+        <div className='discoversidebarcontainer' >
         <Vibe  />
         <Patch />
         </div>
-        
-        <div style={{width:"80%",marginLeft:"20%"}}>
+        </div>
+        <div className='discoverrightside' >
         
         <DiscoverPeople />
         { randomEvents.length>0 && <DiscoverEvents />}
@@ -195,7 +194,7 @@ console.log(randomEvents)
         </div>
 <div className='align'>
         <div className='article-container'>
-          <ArticlesLeftSideBar />
+          {/* <ArticlesLeftSideBar /> */}
           <div className='right-container'>
             {/* <NavLink exact to="/discover/featured"> */}
             <ArticleRightSideBar title='featured' />

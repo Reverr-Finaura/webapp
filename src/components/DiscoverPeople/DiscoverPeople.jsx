@@ -123,7 +123,7 @@ const DiscoverPeople = () => {
     
                 <div className='people'>
                     <h3 className='discover-headings' style={{color:'white', marginLeft:'20px', marginTop:'15px'}}> <span style={{color:"#00B3FF"}}>People</span>  you May Know</h3>
-                    <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"40px",cursor:"pointer"}}>See all</p>
+                    {/* <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"40px",cursor:"pointer"}}>See all</p> */}
                 </div>
              
                  

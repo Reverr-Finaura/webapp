@@ -39,6 +39,24 @@
   height: 100%;
   border-radius: 50%;
 }
+
+.fileLabel {
+  position: absolute;
+  top: 250px;
+  /* bottom: 0; */
+  /* right: 0; */
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #109cdc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.fileLabel input {
+  display: none;
+}
 .passwordButton {
   width: 100%;
   display: flex;

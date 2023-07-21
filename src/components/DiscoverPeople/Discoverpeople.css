@@ -9,3 +9,11 @@
     margin-left: 2%;
     margin-top: 10%;
 }
+
+@media screen and (max-width:424px) {
+    .people-card{
+        display: flex;
+        justify-content: center;
+    }
+}
+

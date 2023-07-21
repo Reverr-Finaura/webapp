@@ -9,7 +9,19 @@ const data = [
         amount:"$ 6,223.07"
     },
     {
-        name:"Darrell Steward",
+        name:"Darrell Stewardaaaaaaaa",
+        date:"May 6, 2012",
+        time:"03:48 am",
+        amount:"$ 6,223.07"
+    },
+    {
+        name:"Darrell Stewardaaaa",
+        date:"May 6, 2012",
+        time:"03:48 am",
+        amount:"$ 6,223.07"
+    },
+    {
+        name:"Darrell",
         date:"May 6, 2012",
         time:"03:48 am",
         amount:"$ 6,223.07"
@@ -21,19 +33,7 @@ const data = [
         amount:"$ 6,223.07"
     },
     {
-        name:"Darrell Steward",
-        date:"May 6, 2012",
-        time:"03:48 am",
-        amount:"$ 6,223.07"
-    },
-    {
-        name:"Darrell Steward",
-        date:"May 6, 2012",
-        time:"03:48 am",
-        amount:"$ 6,223.07"
-    },
-    {
-        name:"Darrell Steward",
+        name:"Darrell ard",
         date:"May 6, 2012",
         time:"03:48 am",
         amount:"$ 6,223.07"
@@ -55,7 +55,7 @@ const MentorDashboardTransaction = () => {
         <tr>
     <th style={{color:"#00B3FF"}}>Customer</th>
     <th style={{color:"#00B3FF"}}>Session Date</th>
-    <th style={{color:"#00B3FF"}}>Session Time</th>
+    {/* <th style={{color:"#00B3FF"}}>Session Time</th> */}
     <th style={{color:"#00B3FF"}}>Amount</th>
     <br />
     <br />
@@ -68,11 +68,14 @@ const MentorDashboardTransaction = () => {
 
         
         <img style={{width:"40px",height:"40px",backgroundColor:"green",borderRadius:"50%"}} src="" alt="" />
+        <p style={{width:"180px"}}>
         {item.name}
+        </p>
+        
         </div>
         </td>
     <td className='transactiond'>{item.date}</td>
-    <td className='transactiond'>{item.time}</td>
+    {/* <td className='transactiond'>{item.time}</td> */}
     <td className='transactiond'>{item.amount}</td>
    
   </tr>

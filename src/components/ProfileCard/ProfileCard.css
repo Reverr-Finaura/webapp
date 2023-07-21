@@ -57,4 +57,32 @@
   .schedule-btn:hover {
     cursor: pointer;
   }
+
+
+  @media screen and (max-width:450px) {
+    .profile-box{
+      margin-top: 20px;
+   
+    height: 250px;
+    width: 170px;
+    justify-content: center;
+    margin: 6px ;
+    text-align: center;
+   
+    }
+    .profilecardname{
+      font-size: 20px;
+    }
+    .schedule-btn{
+      width: 100px;
+    }
+  }
+
+  @media screen and (max-width:394px) {
+    
+      .profile-box{
+        width: 150px;
+      }
+    
+  }
   
