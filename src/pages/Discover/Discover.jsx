@@ -79,6 +79,8 @@ import ArticleRightSideBar from '../../components/ArticleRightSideBar/ArticleRig
 import axios from "axios";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
+import Vibe from '../../components/SidebarComponents/Vibe/Vibe';
+import Patch from '../../components/SidebarComponents/Patch/Patch';
 
 const Discover = () => {
 
@@ -168,15 +170,27 @@ console.log(randomEvents)
     <>
       <div className='container-1'>
         <NavBarFinalDarkMode />
+
+      <div style={{display:"flex"}}>
+
+     
+
+        <div style={{width:"300px",marginTop:"130px",marginLeft:"5px",padding:"8px",display:"flex",flexDirection:"column",gap:"10px",
+      position:"fixed"}}>
+        <Vibe  />
+        <Patch />
+        </div>
+        
+        <div style={{width:"80%",marginLeft:"20%"}}>
         
         <DiscoverPeople />
         { randomEvents.length>0 && <DiscoverEvents />}
-        <DiscoverSuggestions />
+        
         
         {/* Articles */}
         <div className='article'>
-          <h3 style={{ color: 'white', marginTop: '10px', marginLeft:'7%' }}>
-           Articles  for you
+          <h3 style={{ color: 'white', marginTop: '10px', marginLeft:'5%' }}>
+           <span style={{color:"#00B3FF"}}>Articles</span>  for you
           </h3>
         </div>
 <div className='align'>
@@ -189,8 +203,14 @@ console.log(randomEvents)
           </div>
         </div>
 </div>
+          <DiscoverSuggestions heading={"More Suggestions"} />
         {/* Conditionally render DiscoverNews */}
         {newsData.length >= 4 && <DiscoverNews />}
+        {/* <DiscoverNews /> */}
+        <DiscoverSuggestions colorheading={"People"} heading={" you may know from Reverr"} />
+      </div>
+      </div>
+
       </div>
     </>
   );

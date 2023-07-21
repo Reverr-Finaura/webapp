@@ -109,8 +109,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [whatHotStatus, setWhatHotStatus] = useState(false);
   const [spaceFilteredPost, setSpaceFilteredPost] = useState([]);
   const [whatsHotCommunityPost, setWhatsHotCommunityPost] = useState([]);
-  const [postSpaceData, setPostSpaceData] = useState();
+  const [postSpaceData, setPostSpaceData] = useState([]);
   const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
+  const [postUploadStatus, setPostUploadStatus] = useState(false);
   //FETCH LATEST NEWS
   const options = {
     method: "GET",
@@ -342,6 +343,31 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       }
     }
   };
+  // // Fetch User email and ventorId from database
+  // const [userVendorId, setUserVendorId] = useState([]);
+  // useEffect(() => {
+  //   async function fetchUserVendorId() {
+  //     const userRef = collection(db, "Users");
+  //     const q = query(userRef);
+  //     const querySnapshot = await getDocs(q);
+  //     querySnapshot.forEach((doc) => {
+  //       if (doc.data().userType === "Mentor" || doc.data().userType === "mentor") {
+  //         setUserVendorId((prev) => {
+  //           return [
+  //             ...prev,
+  //             {
+  //               email: doc.data().email,
+  //               vendorId: doc.data().vendorId,
+  //             },
+  //           ];
+  //         });
+  //       }
+  //     });
+  //   }
+  //   fetchUserVendorId();
+  // }, []);
+
+  // console.log("userVendorId", userVendorId);
 
   //UPLOAD NEW POST TO FIREBASE
   const createNewPost = async (item) => {
@@ -358,7 +384,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         likes: [],
         postedby: userRef,
         text: newPostText,
-        postSpace: postSpaceArr,
+        postSpace: postSpaceData,
       });
       newPostId.push(timeId);
 
@@ -459,17 +485,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     fetchBlogsFromDb();
   }, []);
 
-
-
-  
-
-
   // below code is for the userspace
   const [activeIndex, setActiveIndex] = useState([]);
 
   async function fechingActiveIndexFirebase() {
-
-    console.log("data of user and email ",user?.user?.email)
+    console.log("data of user and email ", user?.user?.email);
     const docRef = doc(db, "Users", user?.user?.email);
 
     try {
@@ -478,11 +498,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       if (docSnap.data().activeIndex) {
         console.log(
           "actice index data is present ... ",
-          
+
           docSnap.data().activeIndex
         );
-         setUserSpaceArr(docSnap.data().userSpace)
-          setActiveIndex(docSnap.data().activeIndex);
+        setUserSpaceArr(docSnap.data().userSpace);
+        setActiveIndex(docSnap.data().activeIndex);
       }
     } catch (error) {
       console.log(error);
@@ -491,7 +511,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // fetching the activeIndex from the firebase
   useEffect(() => {
-    
     fechingActiveIndexFirebase();
   }, [user?.user?.email]);
 
@@ -513,59 +532,50 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   // spaceFilteredData here
- 
+
   useEffect(() => {
-   
     if (postsData.length >= 1 && userSpaceArr.length >= 1) {
       const filteredData = postsData.filter((eachElement) => {
         if (Array.isArray(eachElement.postSpace)) {
           return eachElement.postSpace.some((value) =>
-          userSpaceArr.includes(value)
+            userSpaceArr.includes(value)
           );
         }
       });
 
-   
-
       setSpaceFilteredPost(filteredData);
     }
-   
   }, [postsData, userSpaceArr]);
-  
-  
- 
-  function narrowUserSpaceFiltering(){
-    console.log("narrow filtering useeffect called")
 
-    if(activeIndex.length >= 1 && userSpaceArr.length >= 0){
-      let narrowfiltering = activeIndex.map(index => userSpaceArr[index]);
-      
-      const NarrowFilteredPost = postsData.filter(post =>
-        post.postSpace.some(space => narrowfiltering.includes(space))
+  function narrowUserSpaceFiltering() {
+    console.log("narrow filtering useeffect called");
+
+    if (activeIndex.length >= 1 && userSpaceArr.length >= 0) {
+      let narrowfiltering = activeIndex.map((index) => userSpaceArr[index]);
+
+      const NarrowFilteredPost = postsData.filter((post) =>
+        post.postSpace.some((space) => narrowfiltering.includes(space))
       );
-      console.log("this is the narrowFiltered one ", NarrowFilteredPost)
+      console.log("this is the narrowFiltered one ", NarrowFilteredPost);
       setSpaceFilteredPost(NarrowFilteredPost);
-      
     }
-    if(!activeIndex.length >= 1){
-      
-    if (postsData.length >= 1 && userSpaceArr.length >= 1) {
-      const filteredData = postsData.filter((eachElement) => {
-        if (Array.isArray(eachElement.postSpace)) {
-          return eachElement.postSpace.some((value) =>
-          userSpaceArr.includes(value)
-          );
-        }
-      });   
+    if (!activeIndex.length >= 1) {
+      if (postsData.length >= 1 && userSpaceArr.length >= 1) {
+        const filteredData = postsData.filter((eachElement) => {
+          if (Array.isArray(eachElement.postSpace)) {
+            return eachElement.postSpace.some((value) =>
+              userSpaceArr.includes(value)
+            );
+          }
+        });
 
-      setSpaceFilteredPost(filteredData);
-    }
+        setSpaceFilteredPost(filteredData);
+      }
     }
   }
-  useEffect(()=>{
-
-    narrowUserSpaceFiltering()
-  },[user?.user?.email,activeIndex])
+  useEffect(() => {
+    narrowUserSpaceFiltering();
+  }, [user?.user?.email, activeIndex]);
 
   // updating the activeIndex in the firebase
   async function updateActiveUserSpaceDatabase() {
@@ -607,12 +617,25 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     setIsOpen(false);
   }
 
-
   const handleOptionChange = (event) => {
-    setPostSpaceData(event.target.value);
+    const newValue = event.target.value;
+    setPostSpaceData([newValue]);
   };
 
-  // Output the filtered posts
+  useEffect(() => {
+    if ((newPostText || tempImageURL) && postSpaceData.length >= 1) {
+      setPostUploadStatus(true);
+    }
+    if (!(newPostText || tempImageURL) && postSpaceData.length >= 1) {
+      setPostUploadStatus(false);
+    }
+    if ((newPostText || tempImageURL) && !postSpaceData.length >= 1) {
+      setPostUploadStatus(false);
+    }
+    if (!(newPostText || tempImageURL) && !postSpaceData.length >= 1) {
+      setPostUploadStatus(false);
+    }
+  }, [newPostText, tempImageURL, postSpaceData]);
 
   return (
     <>
@@ -1078,7 +1101,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     ) : null}
 
-                    {postSpaceData ? (
+                    {postSpaceData.length >= 1 ? (
                       <p className={style.spaceTag}>{postSpaceData}</p>
                     ) : null}
 
@@ -1224,7 +1247,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           uploadImageToFireBase();
                         }
                       }}
-                      className="uploadPostIconButton"
+                      className={
+                        postUploadStatus
+                          ? style.uploadPostIconButton
+                          : style.disabledPostIconButton
+                      }
                     >
                       Post
                     </button>

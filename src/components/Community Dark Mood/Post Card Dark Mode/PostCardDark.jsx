@@ -61,8 +61,6 @@ export default function PostCardDark({
   const [postDetail, setPostDetail] = useState();
   const navigate = useNavigate();
 
- 
-
   // get the posts comments
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -119,9 +117,11 @@ export default function PostCardDark({
   };
   const setNotificationDatainFirebase = async (data, id) => {
     try {
-      console.log('HIIIIIIIIII');
       const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
-      console.log("posted by", postedByUserDoc.email[0]);
+      // console.log("posted by", postedByUserDoc.email[0]);
+      if (postedByUserDoc.email === user?.user?.email) {
+        return;
+      }
       const notificationData = {
         time: new Date(),
         message: `${user?.user?.email} liked your post`,
@@ -129,7 +129,7 @@ export default function PostCardDark({
         type: "Like-Notification",
         postId: postId,
       };
-      console.log("notificationData", notificationData);
+      // console.log("notificationData", notificationData);
       const userDocSnapshot = await getDoc(userDocumentRef);
 
       if (userDocSnapshot.exists()) {
@@ -204,6 +204,43 @@ export default function PostCardDark({
     // fetchPostData()
     setNewComment("");
     setNewCommentTextAreaClick(false);
+  };
+
+  const setCommentNotificationDatainFirebase = async (data, id) => {
+    try {
+      if (postedByUserDoc.email === user?.user?.email) {
+        return;
+      }
+      const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
+      const notificationData = {
+        time: new Date(),
+        message: `${user?.user?.email} Commented on your post`,
+        user: user?.user?.email,
+        type: "Comment-Notification",
+        postId: postId,
+      };
+      // console.log("notificationData", notificationData);
+      const userDocSnapshot = await getDoc(userDocumentRef);
+
+      if (userDocSnapshot.exists()) {
+        const existingNotifications =
+          userDocSnapshot.data().notificationList || [];
+
+        // Check if user is already present in the notificationList user with postID as well
+        // const userAlreadyNotified = existingNotifications.some(
+        //   (item) =>
+        //     item.user === user?.user?.email &&
+        //     item.postId === postId &&
+        //     item.type === "Comment-Notification"
+        // );
+        await updateDoc(userDocumentRef, {
+          notificationList: [...existingNotifications, notificationData],
+        });
+      }
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   //UPDATE NEWCOMMENT IN FIREBASE
@@ -424,6 +461,7 @@ export default function PostCardDark({
               height: "40px",
               borderRadius: "50%",
               marginRight: "1rem",
+              objectFit: "cover"
             }}
             src={postedByUserDoc?.image}
             alt=""
@@ -551,7 +589,7 @@ export default function PostCardDark({
         ) : null}
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
-          <div style={{ display: "flex", alignItems: "center", width: "95%" }}>
+          <div style={{ display: "flex", alignItems: "center", width: "100 %" }}>
             <div
               onClick={() => {
                 getLikedPostIdFromFirebase(item.id, item);
@@ -733,14 +771,20 @@ export default function PostCardDark({
                 ></textarea>
                 {newCommentTextAreaClick ? (
                   <img
-                    onClick={() => handleNewCommentonPost(item, item.id)}
+                    onClick={() => {
+                      handleNewCommentonPost(item, item.id);
+                      setCommentNotificationDatainFirebase();
+                    }}
                     class={style.rightArrowImg}
                     src={rightArrow}
                   />
                 ) : null}
 
                 <img
-                  onClick={() => handleNewCommentonPost(item, item.id)}
+                  onClick={() => {
+                    handleNewCommentonPost(item, item.id);
+                    setCommentNotificationDatainFirebase();
+                  }}
                   class={style.rightArrowImg}
                   src={rightArrow}
                 />

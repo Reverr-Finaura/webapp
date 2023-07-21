@@ -27,6 +27,7 @@
   transition: all 0.8s ease;
 }
 .arroww {
+  color:rgb(39, 106, 207); 
   position: absolute;
   top: 7.3rem;
   right: -17.5rem;

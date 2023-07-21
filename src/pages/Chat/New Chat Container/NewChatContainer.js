@@ -79,8 +79,10 @@ saveChatToDatabase(null)
           />
     <ImAttachment onClick={chooseFile} className={styles.attachmentIcon}/>
     <BsEmojiFrown className={styles.emoji} />
-    <input value={newMsg} style={{paddingLeft:"5%"}} onChange={(e)=>{setNewMsg(e.target.value)}} className={styles.textInp} type="text" placeholder='Send Message...' />
-    <AiOutlineSend  onClick={handleSendMessage} style={{borderRadius:"30px", width:"20px", height:"20px"}} className={styles.sendMessageBtn}/>
+    <input value={newMsg} style={{paddingLeft:"5%",height:"2.3em"}} onChange={(e)=>{setNewMsg(e.target.value)}} className={styles.textInp} type="text" placeholder='Send Message...' />
+    <AiOutlineSend  onClick={handleSendMessage} style={{borderRadius: "30px",
+    width: "81px",
+    height:" 33px"}} className={styles.sendMessageBtn}/>
   </section>
   )
 }

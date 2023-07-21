@@ -142,7 +142,7 @@ const ChatsContainer = ({ sorter }) => {
                 }}
                   style={{
                     background:
-                      chatData?.selectedUser?.id === data.id ? "#1a1e28" : "",
+                      chatData?.selectedUser?.id === data.id ? "unset" : "",
                   }}
                   className={styles.chatCont}
                 >

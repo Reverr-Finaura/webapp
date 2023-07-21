@@ -14,7 +14,6 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
 }
 
-
 .leftCont {
   /* width: 49%; */
   /* min-height: 100vh; */
@@ -209,6 +208,10 @@ input[type="number"]::-webkit-outer-spin-button {
   background: var(--white, #fff);
 }
 
+.inputMarginLeft {
+  margin-left: 50px;
+}
+
 .inputPhoneContainer {
   position: relative;
   width: 100%;
@@ -227,7 +230,7 @@ input[type="number"]::-webkit-outer-spin-button {
   letter-spacing: 0.05em;
   color: white;
   background: var(--white, #fff);
-  width: 13.2rem;
+  width: 17rem;
   padding-left: 120px;
   margin-left: auto;
   height: 2.7rem;
@@ -424,16 +427,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .toggleButton {
-
-
-  color: #A7A7A7;
+  color: #a7a7a7;
   background: transparent;
   border: none;
   cursor: pointer;
   outline: none;
-  position: relative;
-  left: -36px;
-  top: -15px;
+  position: absolute;
+  right: 1.5rem;
+  top: 0.6rem;
 }
 
 .toggleButton > svg {
@@ -441,8 +442,65 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 20px;
 }
 
-@media (max-width: 1024px) {
+.hiddenOnMobile {
+  display: block;
+}
+.hiddenOnDesktop {
+  display: none;
+}
+
+@media (max-width: 430px) {
   .loginOuterCont {
+    flex-direction: column;
+    padding-top: 5rem;
+    padding-left: 0;
+  }
+  .rightCont {
+    flex-direction: column;
+  }
+  .rightCont img {
+    width: 80%;
+  }
+  .leftContHeading {
+    font-size: 1.5rem;
+  }
+  .leftCont {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .form {
+    align-items: center;
+  }
+  .input {
+    width: 20rem;
+  }
+  .inputPhoneNumber {
+    width: 20rem;
+  }
+  .passwordBlock {
+    flex-direction: column;
+  }
+  .inputMarginLeft {
+    margin-left: 0;
+  }
+  .toggleButton {
+    right: 0.5rem;
+    top: -0.2rem;
+  }
+  .links {
+    margin-bottom: 14rem;
+    padding-left: 0;
+    align-self: center;
+  }
+
+  .hiddenOnMobile {
+    display: none;
+  }
+  .hiddenOnDesktop {
+    display: block;
+  }
+
+  /* .loginOuterCont {
     flex-direction: column;
     padding-left: 0.25rem;
   }
@@ -467,5 +525,5 @@ input[type="number"]::-webkit-outer-spin-button {
   .leftMidCont {
     margin: auto;
     margin-top: 2rem;
-  }
+  } */
 }

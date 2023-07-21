@@ -3,7 +3,6 @@
 // import { collection, getDocs, query } from "firebase/firestore";
 // import { db } from "../../firebase";
 
-
 // const DiscoverSuggestions = () => {
 
 //   const [users, setUsers] = useState([]);
@@ -42,8 +41,7 @@
 // console.log(randomUsers)
 
 //   return (
-//     <section className='suggest-section'> 
-
+//     <section className='suggest-section'>
 
 //     {/* Suggestions */}
 //     <div className='people-suggest'>
@@ -57,7 +55,7 @@
 //               </div>
 //             )
 //           })
-          
+
 //           }
 
 //         </div>
@@ -67,15 +65,6 @@
 // }
 
 // export default DiscoverSuggestions
-
-
-
-
-
-
-
-
-
 
 // import React, { useState, useEffect } from "react";
 // import ProfileCard from '../../components/ProfileCard/ProfileCard'
@@ -143,101 +132,127 @@
 
 // export default DiscoverSuggestions;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
-import ProfileCard from '../../components/ProfileCard/ProfileCard'
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import { collection, doc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import styles from "./Suggestion.css";
 import { useSelector } from "react-redux";
-const DiscoverSuggestions = () => {
-
-  const user = useSelector((state) => state.user)
+const DiscoverSuggestions = ({heading,colorheading}) => {
+  const currentLoggedInUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
 
   // console.log("userEmail",user.user.email);
-  // console.log("randomUsers",randomUsers);
-  // console.log("users",users);
-  
 
+  // // FETCH USER DATA FROM FIREBASE
+  // useEffect(() => {
+  //   async function fetchUsers() {
+  //     const mentorsRef = collection(db, "Users");
+  //     const q = query(mentorsRef);
+  //     const querySnapshot = await getDocs(q);
+  //     const filteredUsers = querySnapshot.docs
+  //       .map((doc) => doc.data())
+  //       .filter(
+  //         (docData) =>
+  //           docData.hasOwnProperty("name") &&
+  //           docData.name.trim() !== "" &&
+  //           docData.hasOwnProperty("image") &&
+  //           docData.image.trim() !== "" &&
+  //           docData.hasOwnProperty("designation") &&
+  //           docData.designation.trim() !== "" &&
+  //           doc.data().hasOwnProperty("email") &&
+  //           docData.email !== currentLoggedInUser?.user?.email
+  //       );
+  //     setUsers(filteredUsers);
+  //   }
+  //   fetchUsers();
+  // }, [currentLoggedInUser]);
 
-  // FETCH USER DATA FROM FIREBASE
+  //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
-    async function fetchUsers(cUser) {
+    async function fetchUsers() {
       const mentorsRef = collection(db, "Users");
       const q = query(mentorsRef);
       const querySnapshot = await getDocs(q);
-      const filteredUsers = querySnapshot.docs
-        .map(doc => doc.data())
-        .filter(docData =>
-          docData.hasOwnProperty("name") &&
-          docData.name.trim() !== "" &&
-          docData.hasOwnProperty("image") &&
-          docData.image.trim() !== "" &&
-          docData.hasOwnProperty("designation") &&
-          docData.designation.trim() !== "" &&
-          docData.email !== cUser?.user?.email
-        );
-      setUsers(filteredUsers);
+      querySnapshot.forEach((doc) => {
+        
+        if (
+          doc.data().hasOwnProperty("name") &&
+          doc.data().name !== "" &&
+          doc.data().hasOwnProperty("image") &&
+          doc.data().image !== "" &&
+          doc.data().hasOwnProperty("designation") &&
+          doc.data().designation !== "" &&
+          doc.data().hasOwnProperty("email") &&
+          doc.data().email !== currentLoggedInUser?.user?.email
+        ) {
+          setUsers((prev) => {
+            return [...prev, doc.data()];
+          });
+        }
+      });
     }
-    fetchUsers(user);
-
-  }, []);
+    fetchUsers();
+  }, [currentLoggedInUser]);
 
   useEffect(() => {
     if (users.length > 0) {
+      // console.log("rand", users);
       const getRandomUsers = () => {
         let randomUsersArr = [];
         let length = users.length - 1;
+        let targetCount = 8;
+        let uniqueCount = 0;
 
-        for (let i = 0; i < 4; i++) {
+        while (uniqueCount < targetCount) {
           let randomIndex = Math.floor(Math.random() * length);
           let randomElement = users[randomIndex];
-          randomUsersArr.push(randomElement);
+
+          // Check if the randomElement is already in the randomUsers array
+          if (!randomUsersArr.includes(randomElement)) {
+            randomUsersArr.push(randomElement);
+            uniqueCount++;
+          }
         }
-
         setRandomUsers(randomUsersArr);
-
       };
 
       getRandomUsers();
     }
   }, [users]);
 
-
   return (
-    <section className='suggest-section'>
+    <section className="suggest-section">
       {/* Suggestions */}
-      <div className="align">
-      <div className='people-suggest'>
-        <h3 style={{ color: 'white', marginTop: '10px', marginLeft: '20px' }}> More Suggestions </h3>
-      </div>
-      
-      <div className='people-card'>
-        {randomUsers.length === 4 && randomUsers.map(user => (
-         
-          <div key={user.id}>
-            <ProfileCard email={user.email} name={user.name} post={user.designation} imgUrl={user.image} />
-          </div>
-        ))}
-      </div>
+      <div className="alignsuggestion">
+        <div className="people-suggest">
+          <h3 style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}>
+            {" "}
+            <span style={{color:"#00B3FF"}}>{colorheading}</span>
+            {heading}
+            {/* More Suggestions */}
+            {" "}
+          </h3>
+          <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"80px",cursor:"pointer"}}>See all</p>
+        </div>
+
+        <div className="people-card">
+          {randomUsers.length === 8 &&
+            randomUsers.map((user) => (
+              <div key={user.id}>
+                <ProfileCard
+                  email={user.email}
+                  name={user.name}
+                  post={user.designation}
+                  imgUrl={user.image}
+                />
+              </div>
+            ))}
+        </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default DiscoverSuggestions;

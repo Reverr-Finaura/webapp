@@ -14,6 +14,7 @@ import PaymentMentorMeetingSchedule from "../../components/Payment For Mentor Me
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import userDocSlice from "../../features/userDocSlice";
 
 function ScheduleTesting() {
   // const user = useSelector(selectUser);
@@ -24,9 +25,6 @@ function ScheduleTesting() {
   const [currentUser, setCurrentUser] = useState({});
   const [paymentModeOn, setPaymentModeOn] = useState(false);
   const [paymentMade, setPaymentMade] = useState(false);
-  console.log("userEmail", userEmail);
-  console.log("currentUser", currentUser);
-  console.log("currentMentor", currentMentor);
 
   //FETCH MENTOR DATA FROM FIREBASE
   useEffect(() => {
@@ -38,8 +36,8 @@ function ScheduleTesting() {
         // var mentor = [];
         if (
           doc.data().userType === "Mentor" &&
-          doc.data().domain &&
-          doc.data().mentorUniqueID
+          doc.data().domain
+          // && doc.data().mentorUniqueID
         ) {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
@@ -47,7 +45,8 @@ function ScheduleTesting() {
         }
         if (
           doc.data().userType === "individual" ||
-          doc.data().userType === "Individual"
+          doc.data().userType === "Individual" ||
+          !doc.data().userType
         ) {
           setTempUserArray((prev) => {
             return [...prev, doc.data()];
@@ -106,6 +105,12 @@ function ScheduleTesting() {
       }
     },
   });
+
+  // console.log(paymentModeOn);
+  // console.log("userEmail", userEmail);
+  // console.log("currentUser", currentUser);
+  // console.log("currentMentor", currentMentor);
+  // console.log("Mentor", mentorArray);
 
   const prefill = {
     email: currentUser?.email,

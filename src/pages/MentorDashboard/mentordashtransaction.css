@@ -1,0 +1,37 @@
+.transactioncontainer{
+width: 75%;
+margin: auto;
+padding-top: 40px;
+
+}
+
+
+
+
+.transaction-table{
+    width: 100%;
+    color: white;
+    text-align: center;
+    border-collapse: collapse;
+    
+}
+.transactionrow{
+    background-color: #1A1E28;
+  height: 70px;
+  border-bottom: 15px solid #030b18;
+ 
+}
+.transactiond{
+    gap: 2;
+
+}
+.transactionddiv{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 8px;
+    margin-left: 2rem;
+}
+.transactionddiv >img {
+    margin-right: 2rem;
+}

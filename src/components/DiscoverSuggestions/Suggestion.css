@@ -2,5 +2,8 @@
     margin-left:8%; 
 }
 .people-suggest{
-    margin-left:-3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left:-13%;
 }

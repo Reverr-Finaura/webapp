@@ -35,7 +35,7 @@ import BusinessModal from "./pages/AfterKnowledge/BusinessModal/BusinessModal";
 import BetaTestingOld from "./pages/AfterKnowledge/BetaTesting/BetaTesting";
 import ESOP from "./pages/AfterKnowledge/ESOP/ESOP";
 import FounderAgreement from "./pages/AfterKnowledge/Founder Agreement/FounderAgreement";
-
+import ArticleNavigation from './pages/ArticleNavigation/ArticleNavigation'
 import EquityAndEverything from "./pages/AfterKnowledge/EquityAndEverything/EquityAndEverything";
 
 import IV_Slides from "./pages/AfterKnowledge/Idea Validation & EP/IV_Slides";
@@ -132,7 +132,6 @@ import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordU
 import User from "./pages/User/User";
 import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
-import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 
 function App() {
   const user = useSelector(selectUser);
@@ -222,6 +221,7 @@ function App() {
         <Route path="/fundingform" element={<FundingForm />}></Route>
         <Route path="/mentor-profile" element={<MentorProfile />}></Route>
         <Route path="/mentorprofile/:id" element={<MentorProfileid />}></Route>
+        <Route path="/mentordashboard" element={<MentorDashBoard />}></Route>
         <Route path="/community" element={<Test />}>
           {/* <Route path="/community" element={<CommunityFinalDark />}> */}
           {/* <Route path="/community" element={<CommunityFinal />}> */}
@@ -385,6 +385,7 @@ function App() {
         <Route path="/discover/consulting" element={<Consulting />}></Route>
         <Route path="/discover/gaming" element={<Gaming />}></Route>
         <Route path="/discover/design" element={<Design />}></Route>
+        <Route path="/discover/:id" element={<ArticleNavigation />}></Route>
         <Route
           path="/discover/enterpreneurship"
           element={<Enterpreneurship />}

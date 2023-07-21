@@ -6,11 +6,12 @@ import styles from "./UserEditProfileTesting.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { db, getUserDocByRef,auth } from "../../firebase";
+import { db, getUserDocByRef, auth, storage } from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const UserEditProfileTesting = () => {
   const navigate = useNavigate();
@@ -129,7 +130,7 @@ const UserEditProfileTesting = () => {
     });
   };
 
-  const handlePasswordChange = async(e) => {
+  const handlePasswordChange = async (e) => {
     if (currentPassword === userDoc?.Password) {
       if (newPassword === confirmPassword) {
         setFormData((prev) => {
@@ -138,9 +139,9 @@ const UserEditProfileTesting = () => {
             password: newPassword,
           };
         });
-      //  await updateDoc(doc(db, "Users", user?.user?.email), {
-      //     Password: newPassword
-      //   });
+        //  await updateDoc(doc(db, "Users", user?.user?.email), {
+        //     Password: newPassword
+        //   });
       } else {
         alert("New Password and Confirm Password do not match");
       }
@@ -158,7 +159,7 @@ const UserEditProfileTesting = () => {
     });
   }, [formData?.userSpace]);
 
- // Remove Same reasons Is Not Same reasons
+  // Remove Same reasons Is Not Same reasons
   useEffect(() => {
     setReasonList((prev) => {
       return prev.filter((reason) => {
@@ -312,9 +313,35 @@ const UserEditProfileTesting = () => {
     });
     navigate("/userProfile");
   }
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, `Images/${user?.user?.email}/profile`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFormData((prev) => {
+            return {
+              ...prev,
+              image: downloadURL,
+            };
+          });
+          // console.log("downloadedURL", downloadURL);
+        });
+      }
+    );
+  };
+
   // ---------------------------------------------
-
-
 
   return (
     <div className={styles.editWrapper}>
@@ -334,12 +361,21 @@ const UserEditProfileTesting = () => {
           {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}
           <img
             src={
-              userDoc?.image && userDoc?.image !== ""
-                ? userDoc.image
+              formData?.image && formData?.image !== ""
+                ? formData.image
                 : DefaultDP
             }
             alt="User_Image"
           />
+          <label htmlFor="file" className={styles.fileLabel}>
+            <span className={styles.plusIcon}>+</span>
+            <input
+              type="file"
+              id="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </label>
         </div>
         <div className={styles.profileContent}>
           <div className={styles.personalTitle}>
@@ -578,7 +614,6 @@ const UserEditProfileTesting = () => {
                   <p>I am here to</p>
                   <div className={styles.selectedList}>
                     {formData?.userReason?.map((item, idx) => {
-                      
                       return (
                         <button className={styles.selectedButton} key={idx}>
                           {item}

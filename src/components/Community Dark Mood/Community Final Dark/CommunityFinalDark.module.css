@@ -126,6 +126,7 @@ font-weight: 700;
       width: 40px;
     height: 40px;
     flex-shrink: 0;
+    object-fit: cover;
 }
 
 .textAreaUploadContainer {
@@ -524,6 +525,21 @@ font-weight: 700;
   border: none;
   cursor: pointer;
 }
+.disabledPostIconButton{
+    /* margin-left: auto; */
+  background: #2a72de;
+  border-radius: 10px;
+  padding: 2px 16px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+  border: none;
+  
+  /* background-color: #cccccc; */
+  cursor: not-allowed;
+}
 
 .changePhotoIconButton {
   background: #2a72de;
@@ -561,6 +577,14 @@ font-weight: 700;
   width: 90%;
   display: flex;
 }
+.spaceTag{
+  border: 2px solid #fff;
+    width: max-content;
+    padding: 3px 21px;
+    border-radius: 28px;
+    margin: 6px 0px 20px 10px;
+    color: #fff;
+}
 
 .communityPostImageCont {
   width: 98%;
@@ -578,6 +602,7 @@ font-weight: 700;
 }
 
 .communityPostImage {
+  position: relative !important;
   width: 70%;
   /* margin: auto; */
   margin-bottom: 1rem;
@@ -914,7 +939,7 @@ body::-webkit-scrollbar {
   align-items: center;
   background-color: #1a1e28;
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px;
 
   /* width: 90%; */
 
@@ -923,7 +948,7 @@ body::-webkit-scrollbar {
 
 .communityNavHeading {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 200;
 }
 .communityNavbarBlockNav{
   cursor: pointer;
@@ -1336,31 +1361,7 @@ body::-webkit-scrollbar {
   }
   
 }
-    
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* #communityNewsSection {
     width: 34.5%;
   } */
@@ -1642,4 +1643,76 @@ body::-webkit-scrollbar {
     width: 60px;
     height: 40px;
   }
+}
+@media (max-width: 500px) {
+  .postAssetsIconMain{
+    width: -webkit-fill-available;
+    position: unset;
+    margin: 2px 2px;
+    gap: unset;
+  
+
+  }
+  .assest_icon{
+    font-size: 18px;
+  }
+  .disabledPostIconButton{
+    font-size: 15px;
+
+  }
+  .uploadPostIconButton{
+    font-size: 15px;
+  }
+  .userSpaceSelect{
+    font-size: 10px;
+    width: 105px;
+    border: 0.2px solid #fff;
+
+  }
+  .postAssetsIconMaindiv{
+    padding: 3px 10px 3px 10px;
+    font-size: 10px;
+    border: 1px solid #fff;
+    border: unset;
+    margin: 0px;
+    padding: 0px;
+
+  }
+  .ArrowImgAfterTextArea{
+    right: -3px;
+    height: 36px;
+
+  }
+  #postTextContainer{
+    height: 20px;
+width: -webkit-fill-available;
+
+  }
+  .communityNavbarBlock{
+    padding: 8px
+  }
+  .communityNavHeading{
+    font-size: 15px;
+font-weight: 200;
+
+ }
+ .activeNavHeading{
+  font-size: 15px;
+  font-weight: 200;
+  
+ }
+ #communityFinalPage{
+  padding: 0px;
+  width: -webkit-fill-available;
+
+ }
+ .icon_text{
+  display: none;
+ }
+ .spaceSectionButton{
+  bottom: 22px;
+  left: 12px;
+     font-size: 12px;
+  padding: 2px 13px;
+ }
 }

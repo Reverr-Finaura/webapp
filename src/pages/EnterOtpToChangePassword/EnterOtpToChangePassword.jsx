@@ -154,8 +154,19 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
         <>
           <NavBarFinalDarkMode isLoggedIn={false} />
           <div className={styles.otp}>
+            <div className={styles.hiddenOnDesktop}>
+              <div className="rightPart">
+                <div className={styles.getStarted}>
+                  <h1>Enter Verification Code</h1>
+                </div>
+                <img className={styles.otpRightImg} src={otpPhoto} />
+              </div>
+            </div>
+
             <div className={styles.leftPart}>
-              <div className={styles.getStarted}>
+              <div
+                className={[styles.getStarted, styles.hiddenOnMobile].join(" ")}
+              >
                 <h1>Enter Verification Code</h1>
               </div>
               <div className={styles.para}>
@@ -259,8 +270,10 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
               </form>
             </div>
 
-            <div className="rightPart">
-              <img className={styles.otpRightImg} src={otpPhoto} />
+            <div className={styles.hiddenOnMobile}>
+              <div className="rightPart">
+                <img className={styles.otpRightImg} src={otpPhoto} />
+              </div>
             </div>
           </div>
           {/* <Footer /> */}

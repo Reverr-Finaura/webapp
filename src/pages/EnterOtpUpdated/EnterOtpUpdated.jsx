@@ -11,7 +11,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../Footer/Footer";
 import { toast } from "react-hot-toast";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import otpPhoto from "../../images/otp-picture.png"
+import otpPhoto from "../../images/otp-picture.png";
 
 function EnterOtpUpdated() {
   const dispatch = useDispatch();
@@ -142,120 +142,124 @@ function EnterOtpUpdated() {
 
   return (
     <>
-      <NavBarFinalDarkMode isLoggedIn={false}/>
+      <NavBarFinalDarkMode isLoggedIn={false} />
 
       <div className={styles.otp}>
+        <div className={styles.hiddenOnDesktop}>
+          <div className="rightPart">
+            <div className={styles.getStarted}>
+              <h1>Enter Verification Code</h1>
+            </div>
+            <img className={styles.otpRightImg} src={otpPhoto} />
+          </div>
+        </div>
 
         <div className={styles.leftPart}>
-            
-        <div className={styles.getStarted}>
-          <h1>
-             Enter Verification Code
-          </h1>
-        </div>
-        <div className={styles.para}>
-          <p>
-           Enter the OTP sent to your given Email Id.
-          </p>
-        </div>
-        <form className={styles.otpForm} onSubmit={checkOtp}>
-          <div className={styles.otpInputs}>
-            <input
-              maxLength={1}
-              type="text"
-              value={firstDigit}
-              onChange={(e) => {
-                setFirstDigit(e.target.value);
-                if (e.target.value.length === 1) {
-                  secondDigitRef.current.focus();
-                }
-              }}
-              ref={firstDigitRef}
-            />
-            <input
-              maxLength={1}
-              type="text"
-              value={secondDigit}
-              onChange={(e) => {
-                setSecondDigit(e.target.value);
-                if (e.target.value.length === 1) {
-                  thirdDigitRef.current.focus();
-                }
-              }}
-              ref={secondDigitRef}
-            />
-            <input
-              maxLength={1}
-              type="text"
-              value={thirdDigit}
-              onChange={(e) => {
-                setThirdDigit(e.target.value);
-                if (e.target.value.length === 1) {
-                  fourthDigitRef.current.focus();
-                }
-              }}
-              ref={thirdDigitRef}
-            />
-            <input
-              maxLength={1}
-              type="text"
-              value={fourthDigit}
-              onChange={(e) => {
-                setFourthDigit(e.target.value);
-                if (e.target.value.length === 1) {
-                  fifthDigitRef.current.focus();
-                }
-              }}
-              ref={fourthDigitRef}
-            />
-            <input
-              maxLength={1}
-              type="text"
-              value={fifthDigit}
-              onChange={(e) => {
-                setFifthDigit(e.target.value);
-                if (e.target.value.length === 1) {
-                  sixthDigitRef.current.focus();
-                }
-              }}
-              ref={fifthDigitRef}
-            />
-            <input
-              maxLength={1}
-              type="text"
-              value={sixthDigit}
-              onChange={(e) => setSixthDigit(e.target.value)}
-              ref={sixthDigitRef}
-            />
+          <div className={[styles.getStarted, styles.hiddenOnMobile].join(" ")}>
+            <h1>Enter Verification Code</h1>
           </div>
-          {seconds > 0 || minutes > 0 ? (
-            <p className={styles.otp_timer}>
-              Otp valid till: {minutes < 10 ? `0${minutes}` : minutes}:
-              {seconds < 10 ? `0${seconds}` : seconds}
-            </p>
-          ) : (
-            <p className={styles.otp_timer}>Didn't recieve code?</p>
-          )}
+          <div className={styles.para}>
+            <p>Enter the OTP sent to your given Email Id.</p>
+          </div>
+          <form className={styles.otpForm} onSubmit={checkOtp}>
+            <div className={styles.otpInputs}>
+              <input
+                maxLength={1}
+                type="text"
+                value={firstDigit}
+                onChange={(e) => {
+                  setFirstDigit(e.target.value);
+                  if (e.target.value.length === 1) {
+                    secondDigitRef.current.focus();
+                  }
+                }}
+                ref={firstDigitRef}
+              />
+              <input
+                maxLength={1}
+                type="text"
+                value={secondDigit}
+                onChange={(e) => {
+                  setSecondDigit(e.target.value);
+                  if (e.target.value.length === 1) {
+                    thirdDigitRef.current.focus();
+                  }
+                }}
+                ref={secondDigitRef}
+              />
+              <input
+                maxLength={1}
+                type="text"
+                value={thirdDigit}
+                onChange={(e) => {
+                  setThirdDigit(e.target.value);
+                  if (e.target.value.length === 1) {
+                    fourthDigitRef.current.focus();
+                  }
+                }}
+                ref={thirdDigitRef}
+              />
+              <input
+                maxLength={1}
+                type="text"
+                value={fourthDigit}
+                onChange={(e) => {
+                  setFourthDigit(e.target.value);
+                  if (e.target.value.length === 1) {
+                    fifthDigitRef.current.focus();
+                  }
+                }}
+                ref={fourthDigitRef}
+              />
+              <input
+                maxLength={1}
+                type="text"
+                value={fifthDigit}
+                onChange={(e) => {
+                  setFifthDigit(e.target.value);
+                  if (e.target.value.length === 1) {
+                    sixthDigitRef.current.focus();
+                  }
+                }}
+                ref={fifthDigitRef}
+              />
+              <input
+                maxLength={1}
+                type="text"
+                value={sixthDigit}
+                onChange={(e) => setSixthDigit(e.target.value)}
+                ref={sixthDigitRef}
+              />
+            </div>
+            {seconds > 0 || minutes > 0 ? (
+              <p className={styles.otp_timer}>
+                Otp valid till: {minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}
+              </p>
+            ) : (
+              <p className={styles.otp_timer}>Didn't recieve code?</p>
+            )}
 
-
-          <div className={styles.buttonWrap}>
-
-          <Button className={styles.verifyBtn} type="submit">Verify</Button>
-          <h3
-            onClick={resendOtp}
-            disabled={seconds > 0 || minutes > 0}
-            className={styles.resend}
-            >
-            Resend OTP
-          </h3>
+            <div className={styles.buttonWrap}>
+              <Button className={styles.verifyBtn} type="submit">
+                Verify
+              </Button>
+              <h3
+                onClick={resendOtp}
+                disabled={seconds > 0 || minutes > 0}
+                className={styles.resend}
+              >
+                Resend OTP
+              </h3>
+            </div>
+          </form>
         </div>
-        </form>
-        </div>    
 
-        <div className="rightPart">
-        <img className={styles.otpRightImg} src={otpPhoto}/>    
-            
-        </div>    
+        <div className={styles.hiddenOnMobile}>
+          <div className="rightPart">
+            <img className={styles.otpRightImg} src={otpPhoto} />
+          </div>
+        </div>
       </div>
       <Footer />
     </>
