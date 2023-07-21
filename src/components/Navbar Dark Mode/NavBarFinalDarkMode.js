@@ -678,6 +678,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             </div>
           )}
         </div>
+        
         <div
           className={
             openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2

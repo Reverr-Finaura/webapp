@@ -347,11 +347,13 @@ function SignupAuthUpdated() {
     }
   };
   // console.log("this is the mobile number ",mobile)
-  const handleTogglePassword = () => {
+  const handleTogglePassword = (event) => {
+    event.preventDefault()
     setShowPassword(!showPassword);
   };
 
-  const handleToggleConfirmPassword = () => {
+  const handleToggleConfirmPassword = (event) => {
+    event.preventDefault()
     setShowConfirmPassword(!showConfirmPassword);
   };
   return (
@@ -628,8 +630,21 @@ function SignupAuthUpdated() {
         </>
       )}
       <section className={styles.loginOuterCont}>
+        <div className={styles.hiddenOnDesktop}>
+          <div className={styles.rightCont}>
+            <h1 className={styles.leftContHeading}>
+              Create your <span style={{ color: "#4bc8fe" }}>account.</span>
+            </h1>
+            <img src={require("../../images/signupmobile.png")} alt="img" />
+          </div>
+        </div>
+
         <div className={styles.leftCont}>
-          <h1 className={styles.leftContHeading}>
+          <h1
+            className={[styles.leftContHeading, styles.hiddenOnMobile].join(
+              " "
+            )}
+          >
             Create your <span style={{ color: "#4bc8fe" }}>account.</span>
           </h1>
 
@@ -676,35 +691,38 @@ function SignupAuthUpdated() {
             </div>
 
             <div className={styles.passwordBlock}>
-              <input
-                className={styles.input}
-                onChange={(e) => setPass(e.target.value)}
-                value={password}
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter a password"
-                required
-              />
-              <button
-                className={styles.toggleButton}
-                onClick={handleTogglePassword}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-              <input
-                style={{ marginLeft: "50px" }}
-                className={styles.input}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                value={confirmPassword}
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm Password"
-                required
-              />
-              <button
-                className={styles.toggleButton}
-                onClick={handleToggleConfirmPassword}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              <div style={{ position: "relative" }}>
+                <input
+                  className={styles.input}
+                  onChange={(e) => setPass(e.target.value)}
+                  value={password}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter a password"
+                  required
+                />
+                <button
+                  className={styles.toggleButton}
+                  onClick={handleTogglePassword}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              <div style={{ position: "relative" }}>
+                <input
+                  className={[styles.input, styles.inputMarginLeft].join(" ")}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={confirmPassword}
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  required
+                />
+                <button
+                  className={styles.toggleButton}
+                  onClick={handleToggleConfirmPassword}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
 
             <button
@@ -760,8 +778,10 @@ function SignupAuthUpdated() {
             </button>
           </div> */}
         </div>
-        <div className={styles.rightCont}>
-          <img src={rightPic} />
+        <div className={styles.hiddenOnMobile}>
+          <div className={styles.rightCont}>
+            <img src={rightPic} />
+          </div>
         </div>
       </section>
     </>

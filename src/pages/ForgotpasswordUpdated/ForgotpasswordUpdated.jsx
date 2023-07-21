@@ -80,7 +80,6 @@ function ForgotpasswordUpdated() {
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-      
       if (doc.id === email) {
         // console.log("id11: ", doc.data())
         tempDocData = { name: doc.data().name, password: doc.data().password };
@@ -266,14 +265,31 @@ function ForgotpasswordUpdated() {
   return (
     <div>
       {tempOtp !== null ? (
-        <EnterOtpToChangePassword propOtp={tempOtp} tempUserData={tempUserData} />
+        <EnterOtpToChangePassword
+          propOtp={tempOtp}
+          tempUserData={tempUserData}
+        />
       ) : (
         <>
           <NavBarFinalDarkMode isLoggedIn={false} />
           <div className={styles.mainContent}>
+            <div className={styles.hiddenOnDesktop}>
+              <text style={{ fontSize: 20, color: "#ffffff"}}>
+                Forgot Password?
+              </text>
+              <img
+                className={styles.mainImage}
+                src={require("../../images/forgotpassword.png")}
+                alt="img"
+              />
+            </div>
+
             <div className={styles.leftComponent}>
-              <text style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}>
-                Forgot Password
+              <text
+                className={styles.hiddenOnMobile}
+                style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
+              >
+                Forgot Password?
               </text>
               <text style={{ fontSize: 12, color: "#ffffff" }}>
                 Enter the email address associated with your account
@@ -317,7 +333,13 @@ function ForgotpasswordUpdated() {
                 </span>
               </div>
             </div>
-            <img src={require("../../images/forgotpassword.png")} alt="img" />
+            <div className={styles.hiddenOnMobile}>
+              <img
+                className={styles.mainImage}
+                src={require("../../images/forgotpassword.png")}
+                alt="img"
+              />
+            </div>
           </div>
         </>
       )}

@@ -11,7 +11,7 @@ import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDa
 import styles from "./ChangePasswordUpdated.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-function ChangePasswordUpdated({email}) {
+function ChangePasswordUpdated({ email }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [oldPass, setOldPass] = useState("");
@@ -109,8 +109,22 @@ function ChangePasswordUpdated({email}) {
     <div>
       <NavBarFinalDarkMode isLoggedIn={false} />
       <div className={styles.mainContent}>
+        <div className={styles.hiddenOnDesktop}>
+          <text style={{ fontSize: 20, color: "#ffffff" }}>
+            Change Password
+          </text>
+          <img
+            className={styles.mainImage}
+            src={require("../../images/changepassword.png")}
+            alt="img"
+          />
+        </div>
+
         <div className={styles.leftComponent}>
-          <text style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}>
+          <text
+            className={styles.hiddenOnMobile}
+            style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
+          >
             Change Password
           </text>
           <div className={styles.passInput}>
@@ -130,7 +144,6 @@ function ChangePasswordUpdated({email}) {
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
-              
             </div>
           </div>
           <div className={styles.passInput}>
@@ -161,7 +174,13 @@ function ChangePasswordUpdated({email}) {
             Submit
           </button>
         </div>
-        <img src={require("../../images/changepassword.png")} alt="img" />
+        <div className={styles.hiddenOnMobile}>
+          <img
+            className={styles.mainImage}
+            src={require("../../images/changepassword.png")}
+            alt="img"
+          />
+        </div>
       </div>
     </div>
   );
