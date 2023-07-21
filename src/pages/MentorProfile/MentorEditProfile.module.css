@@ -522,3 +522,17 @@
   letter-spacing: 0.02rem;
   cursor: pointer;
 }
+
+
+
+
+@media screen and (min-width: 360px) and (max-width: 540px) {
+  .editContainer {
+    width: 90%;
+    margin: 0;
+    padding: 0px 20px;
+  }
+  .profileImage {
+    width: 150px;
+  }
+}

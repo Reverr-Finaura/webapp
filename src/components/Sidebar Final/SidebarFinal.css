@@ -1,11 +1,11 @@
 #sidebar-final {
-  background: var(--bg-clr);
+  background-color: #0C1631;
   /* width: 156px; */
   width: 200px;
   height: 100vh;
   display: flex;
   position: fixed;
-  top: 103px;
+  top: 102px;
   left: 0;
   flex-direction: column;
   padding: 1rem 2rem;
@@ -46,7 +46,7 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 36px;
-  color: var(--main-text);
+  color: white;
 }
 
 .sidebar-final-line {

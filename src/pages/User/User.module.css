@@ -361,3 +361,78 @@ padding: 6px;
 .contactItem img{
   width: 20px;
 }
+
+
+
+@media screen and (min-width: 360px) and (max-width: 540px) {
+  .profileWrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .profileContainer {
+    width: 95%;
+    margin: 0;
+  }
+
+  .profileBackground {
+    display: none;
+  }
+
+  .profileUser {
+    align-items: center;
+  }
+
+  .profileImage {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    top: 0;
+    left: 0;
+  }
+
+  .profileInfo {
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-bottom: 0px;
+  }
+
+  .profileUserIcon {
+    order: 2;
+    background-color: rgb(26,30,40);
+    width: 95vw;
+    justify-content: center;
+    height: 40px;
+    border-radius: 5px;
+  }
+
+  .profileInfoName {
+    text-align: center;
+  }
+  .profileDesignation {
+    text-align: center;
+  }
+
+  .profileLocation {
+    justify-content: center;
+  }
+  .profilePost {
+    text-align: center;
+  }
+  .profileContent {
+    border-radius: 5px;
+  }
+  .profileEducation {
+    border-radius: 5px;
+  }
+  .profileContact {
+    border-radius: 5px;
+  }
+
+  .profileUser button {
+    width: 96px;
+    height: 38px;
+  }
+}

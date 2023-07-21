@@ -169,9 +169,9 @@ const DiscoverSuggestions = () => {
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
 
-  console.log("userEmail",user.user.email);
-  console.log("randomUsers",randomUsers);
-  console.log("users",users);
+  // console.log("userEmail",user.user.email);
+  // console.log("randomUsers",randomUsers);
+  // console.log("users",users);
   
 
 

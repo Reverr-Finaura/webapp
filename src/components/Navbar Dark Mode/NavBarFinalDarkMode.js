@@ -607,7 +607,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
           </span>
         </div>
 
-        <div className={style.navbarSearch}>
+          {window.innerWidth >= 540 && <div className={style.navbarSearch}>
           <AiOutlineSearch className={style.navbarSearchImg} />
           <input
             className={style.navbarSearchInput}
@@ -667,7 +667,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ))}
             </div>
           )}
-        </div>
+        </div>}
+
         <div
           className={
             openHam ? style.hamburgermenuActive1 : style.hamburgermenuActive2

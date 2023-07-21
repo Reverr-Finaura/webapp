@@ -132,6 +132,7 @@ import ForgotpasswordUpdated from "./pages/ForgotpasswordUpdated/ForgotpasswordU
 import User from "./pages/User/User";
 import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
+import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 
 function App() {
   const user = useSelector(selectUser);
@@ -327,8 +328,8 @@ function App() {
           path="/change-user-password"
           element={<ChangePassword />}
         ></Route>
-        <Route path="/funding-page" element={<GetFundedPage />}></Route>
-
+        <Route path="/funding-form" element={<GetFundedPage />}></Route>
+        <Route path="/funding-page" element={<FundingPageNew />}></Route>
         <Route path="*" element={<NotFound />}></Route>
         <Route
           path="/payment"

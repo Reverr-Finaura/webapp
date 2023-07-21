@@ -10,6 +10,7 @@ import PptCard from "../../components/Knowledge card/PptCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import CardTesting from "../../components/Knowledge card/CardTesting";
+import knowledgeCarouselImg from "../../images/knowledgeCarousel3.png";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const knowledgeData = [
@@ -140,6 +141,9 @@ function KnowledgeTesting() {
               <div  className={styles.slide}>
                 <img style={{width:"60%",height:"300px"}} src={"images/thejourney2.png"} />
               </div>
+              <div  className={styles.slide}>
+                <img style={{width:"60%",height:"300px"}}  src={knowledgeCarouselImg} />
+              </div>
             </Carousel>
           </div>
         </div>
@@ -170,7 +174,9 @@ function KnowledgeTesting() {
             <div className={activeLink === "Books" && styles.underLine}></div>
           </section> */}
         </div>
-
+          <div className={styles.solutionText}>
+            <h3 className={styles.confusedText}>Confused How to Begin?</h3><h3 className={styles.weGotText}>We got the <span> solution </span> for you!</h3>
+          </div>
         <div className={styles.knowledge_cards_container}>
           <div className={styles.knowledge_card_head}>
             {/* <h5>The Journney</h5> */}

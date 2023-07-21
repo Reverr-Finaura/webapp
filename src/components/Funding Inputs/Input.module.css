@@ -1,8 +1,8 @@
 .funding_input_div {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: 1rem auto;
+  width: 45%;
+  margin: 1rem 1rem;
 }
 
 .funding_input_div > label {
