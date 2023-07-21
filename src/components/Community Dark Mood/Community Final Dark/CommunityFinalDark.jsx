@@ -317,7 +317,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
- 
     if (imageUpload === null && newPostText === "") {
       toast("Nothing To Post");
       return;
@@ -344,6 +343,31 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       }
     }
   };
+  // // Fetch User email and ventorId from database
+  // const [userVendorId, setUserVendorId] = useState([]);
+  // useEffect(() => {
+  //   async function fetchUserVendorId() {
+  //     const userRef = collection(db, "Users");
+  //     const q = query(userRef);
+  //     const querySnapshot = await getDocs(q);
+  //     querySnapshot.forEach((doc) => {
+  //       if (doc.data().userType === "Mentor" || doc.data().userType === "mentor") {
+  //         setUserVendorId((prev) => {
+  //           return [
+  //             ...prev,
+  //             {
+  //               email: doc.data().email,
+  //               vendorId: doc.data().vendorId,
+  //             },
+  //           ];
+  //         });
+  //       }
+  //     });
+  //   }
+  //   fetchUserVendorId();
+  // }, []);
+
+  // console.log("userVendorId", userVendorId);
 
   //UPLOAD NEW POST TO FIREBASE
   const createNewPost = async (item) => {
@@ -599,19 +623,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   useEffect(() => {
-    if ((newPostText || tempImageURL) && postSpaceData.length>=1) {
+    if ((newPostText || tempImageURL) && postSpaceData.length >= 1) {
       setPostUploadStatus(true);
     }
-    if (!(newPostText || tempImageURL) && postSpaceData.length>=1) {
+    if (!(newPostText || tempImageURL) && postSpaceData.length >= 1) {
       setPostUploadStatus(false);
     }
-    if((newPostText || tempImageURL) && !postSpaceData.length>=1){
+    if ((newPostText || tempImageURL) && !postSpaceData.length >= 1) {
       setPostUploadStatus(false);
-      
     }
-    if(!(newPostText || tempImageURL) && !postSpaceData.length>=1){
+    if (!(newPostText || tempImageURL) && !postSpaceData.length >= 1) {
       setPostUploadStatus(false);
-
     }
   }, [newPostText, tempImageURL, postSpaceData]);
 
@@ -1079,7 +1101,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     ) : null}
 
-                    {postSpaceData.length>=1 ? (
+                    {postSpaceData.length >= 1 ? (
                       <p className={style.spaceTag}>{postSpaceData}</p>
                     ) : null}
 

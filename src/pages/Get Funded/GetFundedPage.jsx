@@ -217,17 +217,7 @@ const GetFundedPage = () => {
 
   return (
     <>
-      {width >= 600 ? (
-        <>
-          <NavBarFinalDarkMode />
-        </>
-      ) : (
-        <>
-          <PhnSidebar />
-          <KnowledgeNavbar />
-        </>
-      )}
-
+      <NavBarFinalDarkMode />
       <section id="getFundingPage">
         {/* <img
           className="getFundingPageOuterIcon1"
@@ -243,8 +233,12 @@ const GetFundedPage = () => {
           Apply For Funding Now{" "}
         </h1> */}
         <div className="getFundingPageOuter">
-          <h1 className="getFundingPageTitle">Fill Up The Form</h1>
-          <hr />
+          <h1 className="getFundingPageTitle">
+            Empower Your <span>Aspirations</span>
+          </h1>
+          <h1 className="getFundingPageSubTitle">
+            Apply for <span>funding</span> and make your vision a reality!{" "}
+          </h1>
           <div>
             <div className="getFundingPageForm">
               <Input
@@ -255,41 +249,48 @@ const GetFundedPage = () => {
                 placeholder="Enter here"
                 value={getFundedInput.Name}
               />
-              <Input
-                onChange={handleGetFundedInputChange}
-                type="text"
-                name="StartUpName"
-                label="Start-Up Name*"
-                placeholder="Enter here"
-                value={getFundedInput.StartUpName}
-              />
-              {/* <div className="input_flex"> */}
+
+              <div className="inputWraper">
                 <Input
                   onChange={handleGetFundedInputChange}
                   type="text"
                   name="Email"
-                  label="Email*"
+                  label="Email Address*"
                   placeholder="xyz@gmail.com"
                   value={getFundedInput.Email}
                 />
-              {/* </div> */}
-              <Input
-                onChange={handleGetFundedInputChange}
-                type="text"
-                name="Phone"
-                label="Phone No*"
-                placeholder="+91 -"
-                value={getFundedInput.Phone}
-              />
 
-              <Input
-                onChange={handleGetFundedInputChange}
-                type="text"
-                name="WebsiteLink"
-                label="Website Link"
-                placeholder="https://samplelink.com"
-                value={getFundedInput.WebsiteLink}
-              />
+                <Input
+                  onChange={handleGetFundedInputChange}
+                  type="text"
+                  name="Phone"
+                  label="Contact No*"
+                  placeholder="+91 -"
+                  value={getFundedInput.Phone}
+                />
+              </div>
+              {/* <div className="input_flex"> */}
+              <div className="inputWraper">
+                <Input
+                  onChange={handleGetFundedInputChange}
+                  type="text"
+                  name="StartUpName"
+                  label="Start-Up Name*"
+                  placeholder="Enter here"
+                  value={getFundedInput.StartUpName}
+                />
+
+                <Input
+                  onChange={handleGetFundedInputChange}
+                  type="text"
+                  name="WebsiteLink"
+                  label="Website Link"
+                  placeholder="https://samplelink.com"
+                  value={getFundedInput.WebsiteLink}
+                />
+              </div>
+              {/* </div> */}
+
               <label className="uploadPitchLabel">Pitch Deck*</label>
               <div className="uploadPitchDeckContainer">
                 <div

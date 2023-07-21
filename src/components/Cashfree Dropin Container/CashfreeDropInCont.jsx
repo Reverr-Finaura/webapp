@@ -163,6 +163,7 @@ function CashfreeDropInCont({
       referenceId: "",
       signature: "",
       txTime: "",
+      time: Date.now(),
     })
       .then(() => {
         updateUserDatabase(newId, transaction);
@@ -222,8 +223,8 @@ function CashfreeDropInCont({
             .then(() => {
               updateDoc(mentorDocumentRef, { clients: newMentorClientsArray });
             })
-            .then(()=>{
-              updateDoc(mentorDocumentRef, { Payments: newMentorPaymentArray })
+            .then(() => {
+              updateDoc(mentorDocumentRef, { Payments: newMentorPaymentArray });
             })
             .then(() => {
               createMentorInMessagesDoc(userDoc?.email, mentorDetails?.email);

@@ -108,10 +108,10 @@ function Fifth() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-          <text style={{ fontSize: 40, color: "#ffffff", marginBlock: 20 }}>
+        <text className={styles.heading}>
             What are you here for?
           </text>
-          <text style={{ fontSize: 14, color: "#ffffff" }}>
+          <text className={styles.subHeading}>
             Select minimum 3 objectives.
           </text>
 
@@ -129,20 +129,35 @@ function Fifth() {
               </div>
             ))}
           </div>
-          <div style={{ width: "100%" }}>
+          <div  className={styles.buttonDiv}>
             <button
               className={styles.leftButton}
               onClick={() => navigate("/onboarding-fourth")}
             >
               Back
             </button>
-            { Here_for.length>=3?<button className={styles.rightButton} onClick={handleFunctions} >Next</button> :
-            <button className={styles.rightButton} style={{opacity:0.5}} >Next</button> }
-            
-            <button className={styles.skipButton} onClick={() => navigate("/")} >Skip</button>
+            {Here_for.length >= 3 ? (
+              <button className={styles.rightButton} onClick={handleFunctions}>
+                Next
+              </button>
+            ) : (
+              <button className={styles.rightButton} style={{ opacity: 0.5 }}>
+                Next
+              </button>
+            )}
+
+            <button className={styles.skipButton} onClick={() => navigate("/")}>
+              Skip
+            </button>
           </div>
         </div>
-        <img src={require("../../../images/onboardingfifth.png")} alt="img" />
+        <div className={styles.hiddenOnMobile}>
+          <img
+            className={styles.mainImage}
+            src={require("../../../images/onboardingfifth.png")}
+            alt="img"
+          />
+        </div>
       </div>
     </div>
   );

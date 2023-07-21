@@ -27,7 +27,7 @@ function ExploreTools({ isLoggedIn, openModal }) {
             return openModal();
           } else {
             //normal code
-            console.log("user logged!");
+            navigate("/tools");
           }
         }}
       >

@@ -20,6 +20,7 @@ import CommunityFinalDark from "../components/Community Dark Mood/Community Fina
 import NavBarFinalDarkMode from "../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import Patch from "../components/SidebarComponents/Patch/Patch";
 import ArticleComponent from "../components/SidebarComponents/ArticleComponent/Article"
+import NoAppoinments from "../components/SidebarComponents/NoAppoinments/NoAppoinments";
 
 function Test() {
   const [userTypeLower, setUserTypeLower] = useState("individual");
@@ -204,7 +205,12 @@ function Test() {
               <Appoinments />
               {/* <div style={{ marginTop: 50 }}></div> */}
             </>
-          ) : null}
+          ) : 
+            <>
+              <NoAppoinments />
+              <div style={{ marginTop: 50 }}></div>
+            </>
+          }
           {products[userTypeLower]?products[userTypeLower]?.includes("NEWS & ARTICLES") ? (
             <>
               <TrendingNews />

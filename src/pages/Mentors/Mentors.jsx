@@ -84,7 +84,7 @@ function Mentors() {
               </p>
               <div className={styles.mentorofweek}>
                 {expertiseArray.map((mentor, index) => {
-                  console.log(mentor.image)
+                  // console.log(mentor.image)
                   if (index>expertiseArray.length-5)
                   return (
                   <MentorOfWeek

@@ -1,8 +1,8 @@
 .funding_input_div {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: 1rem auto;
+  width: 45%;
+  margin: 1rem 1rem;
 }
 
 .funding_input_div > label {
@@ -32,4 +32,11 @@
   padding: 10px;
   font-size: 16px;
   box-sizing: border-box;
+}
+@media (max-width: 600px) {
+ 
+  .funding_input_div {
+    width: auto;
+  }
+  
 }

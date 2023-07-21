@@ -107,10 +107,10 @@ function validate(){
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-          <text style={{ fontSize: 40, color: "#ffffff", marginBlock: 20 }}>
+        <text className={styles.heading}>
             Let us get to know you!
           </text>
-          <text style={{ fontSize: 12, color: "#ffffff" }}>
+          <text className={styles.subHeading}>
             Upload your photo
           </text>
           <label htmlFor="upload" className={styles.uploadPhoto}>
@@ -165,7 +165,7 @@ function validate(){
             <span className={styles.textdanger}>{abtError}</span>
           </div>
 
-          <div style={{ marginTop: 30 }}>
+          <div className={styles.buttonDiv}>
             <button
               className={styles.leftButton}
               onClick={() => navigate("/onboarding-second")}
@@ -180,7 +180,13 @@ function validate(){
             </button>
           </div>
         </div>
-        <img src={require("../../../images/onboardingthird.png")} alt="img" />
+        <div className={styles.hiddenOnMobile}>
+          <img
+            className={styles.mainImage}
+            src={require("../../../images/onboardingthird.png")} 
+            alt="img"
+          />
+        </div>
       </div>
     </div>
   );
