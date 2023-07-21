@@ -18,7 +18,6 @@ import useQuery from "../../Utils/useQuery";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
 const LoginNew = () => {
   const selectedCountry = useSelector((state) => state.countryCode);
   const [metaData, setMetaData] = useState([]);
@@ -191,8 +190,7 @@ const LoginNew = () => {
       .then(async (userCredential) => {
         // console.log(auth.currentUser.email, email);
         const docRef = doc(db, "Users", auth.currentUser.email);
-        const docSnap = await getDoc(docRef)
-        .then((doc)=>{
+        const docSnap = await getDoc(docRef).then((doc) => {
           dispatch(setUserData(doc.data()));
           dispatch(
             login({
@@ -202,8 +200,7 @@ const LoginNew = () => {
               profilePic: auth.currentUser.photoURL,
             })
           );
-            
-        })
+        });
       })
       .then(() => {
         toast.success("Sucessfully logged in");
@@ -363,10 +360,26 @@ const LoginNew = () => {
 
   return (
     <>
-      <NavBarFinalDarkMode isLoggedIn={false}/>
+      <NavBarFinalDarkMode isLoggedIn={false} />
       <div className={styles.PageWrapper}>
+        <div className={styles.hiddenOnDesktop}>
+          <div className={styles.headerImage}>
+            <div className={styles.leftHeading}>
+              Welcome to <span>Reverr</span>.
+            </div>
+            <div className={styles.rightImage}>
+              {/* <img className={styles.hiddenOnMobile} src="/images/login_Image.png" alt="LoginImg" /> */}
+              <img
+                src={require("../../images/loginmobile.png")}
+                alt="LoginImg"
+              />
+            </div>
+          </div>
+        </div>
         <div className={styles.leftContent}>
-          <div className={styles.leftHeading}>
+          <div
+            className={[styles.leftHeading, styles.hiddenOnMobile].join(" ")}
+          >
             Welcome to <span>Reverr</span>.
           </div>
           <form onSubmit={loginEmail} className={styles.form}>
@@ -381,7 +394,7 @@ const LoginNew = () => {
                 placeholder="Your E-Mail"
               />
             </div>
-            <div style={{position:"relative"}}>
+            <div style={{ position: "relative" }}>
               <label htmlFor="password" className={styles.label}>
                 Password
               </label>
@@ -397,9 +410,6 @@ const LoginNew = () => {
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
-
-
-
             </div>
             <div className={styles.forgotPassword}>
               <Link to="/forgot-password">Forgot Password?</Link>
@@ -423,9 +433,11 @@ const LoginNew = () => {
             </div>
           </div>
         </div>
-        <div className={styles.rightContent}>
-          <div className={styles.rightImage}>
-            <img src="/images/login_Image.png" alt="LoginImg" />
+        <div className={styles.hiddenOnMobile}>
+          <div className={styles.headerImage}>
+            <div className={styles.rightImage}>
+              <img src="/images/login_Image.png" alt="LoginImg" />
+            </div>
           </div>
         </div>
       </div>

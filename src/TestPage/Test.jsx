@@ -131,7 +131,7 @@ function Test() {
       <NavBarFinalDarkMode />
       <div className={styles.container}>
         <div className={styles.leftSidebar} style={{ marginTop: "10em" }}>
-          <div style={{ marginTop: 50 }}></div>
+          {/* <div style={{ marginTop: 50 }}></div> */}
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
           <ConnectSuggestion />
@@ -203,24 +203,24 @@ function Test() {
           {appoinments?.length ? (
             <>
               <Appoinments />
-              <div style={{ marginTop: 50 }}></div>
+              {/* <div style={{ marginTop: 50 }}></div> */}
             </>
           ) : null}
           {products[userTypeLower]?products[userTypeLower]?.includes("NEWS & ARTICLES") ? (
             <>
               <TrendingNews />
-              <div style={{ marginTop: 50 }}></div>
+              {/* <div style={{ marginTop: 50 }}></div> */}
             </>
           ) : null:products["individual"].includes("NEWS & ARTICLES") ? (
             <>
               <TrendingNews />
-              <div style={{ marginTop: 50 }}></div>
+              {/* <div style={{ marginTop: 50 }}></div> */}
             </>
           ) : null}
           {products[userTypeLower]?products[userTypeLower]?.includes("INVESTOR FINDER") ? (
             <>
               <InvestorFinder />
-              <div style={{ marginTop: 50 }}></div>
+              {/* <div style={{ marginTop: 50 }}></div> */}
             </>
           ) : null:products["individual"].includes("INVESTOR FINDER") ? (
             <>
@@ -239,7 +239,17 @@ function Test() {
           <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          <Mentors />
+          {products[userTypeLower]?products[userTypeLower]?.includes("MENTOR") ? (
+            <>
+              <Mentors />
+          <div style={{ marginTop: 50 }}></div>
+            </>
+          ) : null:products["individual"].includes("MENTOR") ? (
+            <>
+              <Mentors />
+          <div style={{ marginTop: 50 }}></div>
+            </>
+          ) : null}
         </div>
       </div>
     </>

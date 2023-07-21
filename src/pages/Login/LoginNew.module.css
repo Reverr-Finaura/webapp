@@ -18,6 +18,7 @@
   font-size: 2rem;
   font-weight: 600;
   color: var(--text-main, #fff);
+  white-space: nowrap;
 }
 .leftHeading > span {
   color: #00b3ff;
@@ -90,6 +91,7 @@ input {
   border: none;
   padding: 0 3rem;
   color: var(--main-text);
+  box-sizing: border-box;
 }
 input ::placeholder {
   color: var(--gray, #a7a7a7);
@@ -128,7 +130,7 @@ input ::placeholder {
   color: var(--blue, #00b3ff);
 }
 
-.rightContent {
+.headerImage {
   display: flex;
   flex: 6;
 }
@@ -137,7 +139,7 @@ input ::placeholder {
 }
 .rightImage > img {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   /* margin-right: 7rem; */
 }
 
@@ -153,10 +155,69 @@ input ::placeholder {
   position: absolute;
   top: 10px;
   width: 10%;
-  left: 18em;
+  /* left: 18em; */
 }
 
 .toggleButton > svg {
   width: 20px;
   height: 20px;
+}
+
+
+.hiddenOnMobile {
+  display: block;
+}
+.hiddenOnDesktop {
+  display: none;
+}
+
+
+
+
+
+@media (max-width: 430px) {
+  .PageWrapper {
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  .leftContent {
+    align-items: center;
+    margin: 0;
+  }
+  .leftHeading {
+    font-size: 1.5rem;
+  }
+  .form {
+    gap: 1rem;
+    padding: 1.5rem;
+    width: auto;
+  }
+  input {
+    box-sizing: border-box;
+  }
+  .newUser {
+    display: flex;
+  }
+  .forgotPassword {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .headerImage {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .rightImage > img {
+    height: 100%;
+  }
+  .form .toggleButton {
+    top: 8px;
+  }
+  .hiddenOnMobile {
+    display: none;
+  }
+  .hiddenOnDesktop {
+    display: block;
+  }
 }
