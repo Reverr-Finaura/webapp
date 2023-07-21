@@ -55,6 +55,19 @@ color: var(--main-text);
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    position: relative;
+}
+.cross {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.cross > img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
 }
 .makePaymentContainerHeading{
     text-align: center;
