@@ -704,7 +704,7 @@ const User = () => {
             </div>}
 
                   {otherUserDoc?.Vibe_Data &&  <div className={styles.experienceConnect}>
-              <p>I am here </p>
+              <p>I am here to </p>
               <div className={styles.experienceBtn}>
                 {otherUserDoc?.Vibe_Data?.Here_for
                   ? otherUserDoc.Vibe_Data.Here_for.map((item) => {
@@ -712,7 +712,7 @@ const User = () => {
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );
                     })
-                  : "No i am here for added"}
+                  : "No i am here to added"}
               </div>
             </div>}
           </div>

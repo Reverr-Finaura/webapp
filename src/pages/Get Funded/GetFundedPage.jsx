@@ -233,12 +233,18 @@ const GetFundedPage = () => {
           Apply For Funding Now{" "}
         </h1> */}
         <div className="getFundingPageOuter">
+          <div className="header">
+            <div onClick={() => navigate(-1)} className="back">
+            <img src="/images/profileArrowLeft.svg" alt="back" />
+            <p>Back</p>
+            </div>
           <h1 className="getFundingPageTitle">
             Empower Your <span>Aspirations</span>
           </h1>
           <h1 className="getFundingPageSubTitle">
             Apply for <span>funding</span> and make your vision a reality!{" "}
           </h1>
+          </div>
           <div>
             <div className="getFundingPageForm">
               <Input

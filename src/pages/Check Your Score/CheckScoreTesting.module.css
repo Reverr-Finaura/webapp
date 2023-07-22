@@ -222,6 +222,37 @@
   .checkscore__content > h3 {
     font-size: 25px;
   }
+
+  .GroupImg {
+    display: none;
+  }
+  .collaborateImg{
+    display: none;
+  }
+
+  .stages {
+    width: 85%;
+    justify-content: center;
+    padding: 1rem 1rem;
+  }
+  .checkscore__content {
+    align-items: center;
+  }
+  .stage {
+    width: 80%;
+    padding: 1rem 2rem;
+
+  }
+
+  .stages::before {
+    top: 72px;
+    width: 60%;
+    right: 90px;
+  }
+
+  .checkscore__container > h1 {
+    font-size: 22px;
+  }
 }
 
 

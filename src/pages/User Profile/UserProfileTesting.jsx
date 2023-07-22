@@ -267,7 +267,7 @@ const UserProfileTesting = () => {
               </div>
             </div>
             <div className={styles.experienceConnect}>
-              <p>I am here for</p>
+              <p>I am here to</p>
               <div className={styles.experienceBtn}>
                 {userDoc?.here_for
                   ? userDoc.here_for.map((item) => {
@@ -275,7 +275,7 @@ const UserProfileTesting = () => {
                         <button style={{ marginRight: "25px" }}>{item}</button>
                       );
                     })
-                  : "Update your How for"}
+                  : "Update your i am here to"}
               </div>
             </div>
           </div>

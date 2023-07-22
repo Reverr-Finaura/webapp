@@ -81,7 +81,7 @@
   font-size: 32px;
   line-height: 48px;
   color: white;
-  padding-top: 2rem;
+
 }
 
 .getFundingPageSubTitle {
@@ -261,6 +261,7 @@
   color: #fff;
   border: none;
 }
+
 .btn_flex_div > button {
   padding: 0.5rem 2rem;
   cursor: pointer;
@@ -280,6 +281,21 @@
 
 .inputWraper {
   display: flex;
+}
+
+
+.back {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 8rem;
+  cursor: pointer;
+}
+
+.back p {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 @media (max-width: 1320px) {
