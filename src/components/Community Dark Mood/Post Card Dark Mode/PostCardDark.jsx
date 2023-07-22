@@ -24,6 +24,7 @@ import { BsBookmark } from "react-icons/bs";
 import eyeIcon from "../../../images/white-outline-eye.png";
 import commentIcon from "../../../images/white-outline-comment.png";
 import rightArrow from "../../../images/right-arraow-bg-blue.png";
+import defaultImg from "../../../images/default-profile-pic.png"
 
 export default function PostCardDark({
   postsData,
@@ -829,6 +830,11 @@ export default function PostCardDark({
                           commentedByUserDoc?.filter((it) => {
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
+                          // The ternary operator starts here
+                          ? commentedByUserDoc?.filter((it) => {
+                              return it.email === list?.commentedby?.id;
+                            })[0]?.image
+                          : defaultImg
                         }
                         alt="CommentedUserPhoto"
                       />

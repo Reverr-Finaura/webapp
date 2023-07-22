@@ -1485,6 +1485,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         setPostsAuthorInfo={setPostsAuthorInfo}
                         isLoggedIn={isLoggedIn}
                         openModal={openModal}
+                        postId={item.id}
                       />
                     );
                   })}

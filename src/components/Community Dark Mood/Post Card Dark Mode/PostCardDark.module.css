@@ -426,6 +426,7 @@ letter-spacing: 0.42px;
   margin-top: 1rem;
   margin-right: 15px;
   margin-left: 15px;
+  object-fit: cover;
 }
 
 .newCommentAddImageAndUpload {
