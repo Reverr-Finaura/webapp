@@ -174,6 +174,7 @@ font-weight: 700;
   display: flex;
   gap: 2.5rem;
   justify-content: space-between;
+  width: 100% !important;
   /* margin-right: 88px; */
 }
 
@@ -409,6 +410,7 @@ font-weight: 700;
   font-family: Poppins;
   font-weight: 500;
   letter-spacing: 0.42px;
+  width: -webkit-fill-available !important;
 }
 
 .ArrowImgAfterTextArea{
@@ -1141,8 +1143,10 @@ body::-webkit-scrollbar {
 
   /* ***************** */
   .postAssetsIconMain{
-    position: relative;
-    right: 54px;
+    
+    /* margin-left: 59px; */
+    gap: unset;
+    
   }
 
   .ArrowImgAfterTextArea{
@@ -1179,6 +1183,17 @@ body::-webkit-scrollbar {
     
     
   }
+  .postAssetsIconMaindiv{
+    font-size: 12px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    padding: 6px 10px 6px 10px;
+
+  }
+  .userSpaceSelect{
+    font-size: 12px;
+    width:unset;
+  }
 }
   @media (max-width: 1335px) {
     /* For Icons , Images,video */
@@ -1205,8 +1220,7 @@ body::-webkit-scrollbar {
   
     /* ***************** */
     .postAssetsIconMain{
-      position: relative;
-      right: 54px;
+      
       display: flex;
       flex-wrap: wrap;
 
@@ -1292,8 +1306,7 @@ body::-webkit-scrollbar {
   
     /* ***************** */
     .postAssetsIconMain{
-      position: relative;
-      right: 54px;
+     
       display: flex;
       flex-wrap: wrap;
 
