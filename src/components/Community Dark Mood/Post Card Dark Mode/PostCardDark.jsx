@@ -26,6 +26,7 @@ import commentIcon from "../../../images/white-outline-comment.png";
 import rightArrow from "../../../images/right-arraow-bg-blue.png";
 import defaultImg from "../../../images/default-profile-pic.png"
 
+
 export default function PostCardDark({
   postsData,
   setPostsData,
@@ -469,7 +470,7 @@ export default function PostCardDark({
               marginRight: "1rem",
               objectFit: "cover"
             }}
-            src={postedByUserDoc?.image}
+            src={postedByUserDoc?.image ? postedByUserDoc?.image: defaultImg }
             alt=""
           />
           <div className={style.postAuthorNameAndDesignationCont}>

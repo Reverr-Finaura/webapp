@@ -54,6 +54,7 @@ import { HiOutlineTemplate } from "react-icons/hi";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
+import defaultImg from "../../images/default-profile-pic.png"
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
@@ -974,7 +975,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   src={
                     userImage
                       ? userImage
-                      : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                      : defaultImg
                   }
                   alt="userimg"
                 />

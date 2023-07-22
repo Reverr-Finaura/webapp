@@ -355,7 +355,7 @@ letter-spacing: 0.42px;
 
 /* NEW COMMENT SECTION */
 .newCommentOnPostSection {
-  width: 97.7%;
+  width: 100%;
   height: max-content;
   border-bottom-left-radius: 19px;
   border-bottom-right-radius: 19px;
@@ -436,11 +436,12 @@ letter-spacing: 0.42px;
   padding-right: 16px;
 }
 .rightArrowImg{
+  height: 52px;
   position: absolute;
-    top: 15px;
-    right: 2px;
-    width: 10.1%;
-    cursor: pointer;
+  top: 12px;
+  right: 12px;
+  width: 10.1%;
+  cursor: pointer;
 }
 
 .commented-by-comment {
