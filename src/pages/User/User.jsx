@@ -473,7 +473,7 @@ const User = () => {
                   src="/images/skill-icons_linkedin.svg"
                   alt="Linkedin"
                   onClick={() => {
-                    navigator.clipboard.writeText(otherUserDoc.linkedin);
+                    navigator.clipboard.writeText(otherUserDoc.linkedin || otherUserDoc.linlkedin);
                     toast.success("Linkedin Copied");
                   }}
                 />

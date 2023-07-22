@@ -140,7 +140,9 @@ const UserProfileTesting = () => {
                   src="/images/skill-icons_linkedin.svg"
                   alt="Linkedin"
                   onClick={() => {
-                    navigator.clipboard.writeText(userDoc.linkedin);
+                    navigator.clipboard.writeText(
+                      userDoc.linkedin || userDoc.linlkedin
+                    );
                     toast.success("Linkedin profile copied to clipboard");
                   }}
                   style={{ cursor: "pointer" }}
