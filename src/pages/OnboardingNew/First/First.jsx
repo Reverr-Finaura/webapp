@@ -42,7 +42,7 @@ function First() {
       image: require("../../../images/onboarding17.png"),
       text: "CleanTech & RE",
     },
-    { image: require("../../../images/onboarding18.png"), text: "AI & ML" },
+    { image: require("../../../images/onboarding18.png"), text: "Ai & ML" },
     { image: require("../../../images/onboarding19.png"), text: "Web 3.0" },
     {
       image: require("../../../images/onboarding110.png"),
@@ -95,10 +95,10 @@ function First() {
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
           <text className={styles.heading}>
-            Choose your Space(s).(atleast one)
+            Choose your Space(s)
           </text>
           <text className={styles.subHeading}>
-            Your Space will define your Reverr experience.
+            Your Space will define your Reverr experience. (Add atleast one)
           </text>
 
           <div className={styles.spaceContainer}>
