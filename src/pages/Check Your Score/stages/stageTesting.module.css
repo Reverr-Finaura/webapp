@@ -273,6 +273,9 @@
   .inputgrp > h3 {
     font-size: 18px;
   }
+  .result_score {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 1000px) {

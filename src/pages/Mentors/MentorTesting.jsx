@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TestingMentor.module.css";
 import ProfileCardTesting from "./ProfileCardTesting";
-import { collection, getDocs, query, where, } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { NavLink, useNavigate } from "react-router-dom";
 import categories from "./category.json";
@@ -14,7 +14,6 @@ import ToolsSkeleton from "../../components/Post Skeleton/Tools Skeleton/ToolsSk
 import PostSkeleton from "../../components/Post Skeleton/PostSkeleton";
 import MentorCardSkeleton from "./MentorCardSkeleton";
 import { toast, Toaster } from "react-hot-toast";
-
 
 const MentorTesting = () => {
   const responsive = {
@@ -87,7 +86,7 @@ const MentorTesting = () => {
       industry: item.industry?.split(",").map((x) => x.trim()),
       domain: item.domain,
       designation: item.designation,
-      linkedin: item.linkedin,
+      linkedin: item.linlkedin || item.linkedin,
       image: item.image,
       plans: item.plans,
     }));
@@ -104,72 +103,74 @@ const MentorTesting = () => {
     removeEmptyIndustryFromArray();
   }, [industryArray]);
 
+  // Start functionality for search bar
+  async function fetchUserDataFromFirebase(type) {
+    const userDataRef = collection(db, "Users");
+    let q;
 
-
-    // Start functionality for search bar
-    async function fetchUserDataFromFirebase(type) {
-      const userDataRef = collection(db, "Users");
-      let q;
-  
-      if (type !== "") {
-        q = query(userDataRef, where("userType", "==", type));
-      } else {
-        q = query(userDataRef);
-      }
-  
-      const querySnapshot = await getDocs(q);
-  
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
-        // console.log("data is ", doc.data().userType)
-      });
-  
-      return data;
+    if (type !== "") {
+      q = query(userDataRef, where("userType", "==", type));
+    } else {
+      q = query(userDataRef);
     }
-  
-    useEffect(() => {
-      async function fetchData() {
-        // const data = await fetchUserDataFromFirebase(userType);
-        const data = await fetchUserDataFromFirebase("Mentor");
-  
-        setUserData(data);
-      }
-      fetchData();
-    }, []);
-  
-    const getFilterData = (data, input, key) => {
-      return data.filter((item) => {
-        // console.log(item[key].toLowerCase())
-        return item[key].toLowerCase().includes(input);
-      });
-    };
-  
-    const searchInputHandler = (e) => {
-      const input = e.target.value.toLowerCase();
-      if (input === "") {
-        setsearchResult(null);
-      } else {
-        const key = "name";
-        const filteredData = getFilterData(userData, input, key);
-        setsearchResult(filteredData);
-      }
-    };
-    // End functionality for search bar
+
+    const querySnapshot = await getDocs(q);
+
+    const data = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ ...doc.data(), id: doc.id });
+      // console.log("data is ", doc.data().userType)
+    });
+
+    return data;
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      // const data = await fetchUserDataFromFirebase(userType);
+      const data = await fetchUserDataFromFirebase("Mentor");
+
+      setUserData(data);
+    }
+    fetchData();
+  }, []);
+
+  const getFilterData = (data, input, key) => {
+    return data.filter((item) => {
+      // console.log(item[key].toLowerCase())
+      return item[key].toLowerCase().includes(input);
+    });
+  };
+
+  const searchInputHandler = (e) => {
+    const input = e.target.value.toLowerCase();
+    if (input === "") {
+      setsearchResult(null);
+    } else {
+      const key = "name";
+      const filteredData = getFilterData(userData, input, key);
+      setsearchResult(filteredData);
+    }
+  };
+  // End functionality for search bar
 
   return (
     <>
-    <div className={styles.mentor}>
-      <NavBarFinalDarkMode />
-      <div className={styles.wrapper}>
-        {/* --------------------Header---------------------- */}
-        <div className={styles.header}>
-          <div>
-            Find the best <span>Mentors</span>
-          </div>
-          <div className={styles.search}>
-            <input type="text" onChange={searchInputHandler} placeholder="Search a mentor..." />
-            {/* <button
+      <div className={styles.mentor}>
+        <NavBarFinalDarkMode />
+        <div className={styles.wrapper}>
+          {/* --------------------Header---------------------- */}
+          <div className={styles.header}>
+            <div>
+              Find the best <span>Mentors</span>
+            </div>
+            <div className={styles.search}>
+              <input
+                type="text"
+                onChange={searchInputHandler}
+                placeholder="Search a mentor..."
+              />
+              {/* <button
               type="button"
               style={{
                 position: "absolute",
@@ -183,122 +184,132 @@ const MentorTesting = () => {
             >
               <img src={SearchIcon} alt="SearchIcon" />
             </button> */}
-            <img src={SearchIcon} alt="SearchIcon" />
-            {searchResult && (
-            <div className={styles.searchResult}>
-              <text style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}>
-                Search Results
-              </text>
-              {searchResult.map((item, index) => (
-                <div
-                  onClick={() => navigate(`/userprofile/${item.email}`)}
-                  key={index}
-                >
-                  <div>
-                    <img
-                      src={
-                        item?.image
-                          ? item.image
-                          : require("../../images/userIcon.png")
-                      }
-                      alt="img"
-                    />
-                    <div>
-                      <text
-                        style={{
-                          fontSize: 14,
-                          color: "#000000",
-                          display: "-webkit-box",
-                          WebkitLineClamp: 1,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {item?.name}
-                      </text>
-                      <text
-                        style={{
-                          fontSize: 10,
-                          color: "#1A1E28",
-                          display: "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {item?.designation}
-                      </text>
+              <img src={SearchIcon} alt="SearchIcon" />
+              {searchResult && (
+                <div className={styles.searchResult}>
+                  <text
+                    style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}
+                  >
+                    Search Results
+                  </text>
+                  {searchResult.map((item, index) => (
+                    <div
+                      onClick={() => navigate(`/userprofile/${item.email}`)}
+                      key={index}
+                    >
+                      <div>
+                        <img
+                          src={
+                            item?.image
+                              ? item.image
+                              : require("../../images/userIcon.png")
+                          }
+                          alt="img"
+                        />
+                        <div>
+                          <text
+                            style={{
+                              fontSize: 14,
+                              color: "#000000",
+                              display: "-webkit-box",
+                              WebkitLineClamp: 1,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {item?.name}
+                          </text>
+                          <text
+                            style={{
+                              fontSize: 10,
+                              color: "#1A1E28",
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {item?.designation}
+                          </text>
+                        </div>
+                      </div>
+                      <div className={styles.divider}></div>
                     </div>
-                  </div>
-                  <div className={styles.divider}></div>
-                </div>
-              ))}
-            </div>
-          )}
-          </div>
-        </div>
-        {/* -----------------------Header End------------------------------- */}
-
-        {/* ----------------------Carousel------------------------------ */}
-
-        <div className={styles.sliderContainer}>
-          <p>Featured Mentors</p>
-          <div className={styles.slider}>
-            <Carousel
-              responsive={responsive}
-              swipeable={true}
-              draggable={true}
-              // showDots={true}
-              partialVisible={false}
-              transitionDuration={500}
-              infinite={true}
-              autoPlay={true}
-              autoPlaySpeed={3000}
-              keyBoardControl={true}
-              customTransition="transform 300ms ease-in-out"
-            >
-              {featuredMentors.length > 0 ? (
-                featuredMentors.map((item, idx) => {
-                  return <ProfileCardTesting key={idx} mentor={item} handleCopyURL={() => {
-                    if(item?.linkedin){
-                      navigator.clipboard.writeText(item.linkedin)
-                      toast.success("successfully copied to clipboard");
-                    }
-                  }} />;
-                })
-              ) : (
-                <div className={styles.skeletonLoadingCont}>
-                  <MentorCardSkeleton cards={3} />
+                  ))}
                 </div>
               )}
-              {/* {featuredMentors.map((item, idx) => {
+            </div>
+          </div>
+          {/* -----------------------Header End------------------------------- */}
+
+          {/* ----------------------Carousel------------------------------ */}
+
+          <div className={styles.sliderContainer}>
+            <p>Featured Mentors</p>
+            <div className={styles.slider}>
+              <Carousel
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                // showDots={true}
+                partialVisible={false}
+                transitionDuration={500}
+                infinite={true}
+                autoPlay={true}
+                autoPlaySpeed={3000}
+                keyBoardControl={true}
+                customTransition="transform 300ms ease-in-out"
+              >
+                {featuredMentors.length > 0 ? (
+                  featuredMentors.map((item, idx) => {
+                    return (
+                      <ProfileCardTesting
+                        key={idx}
+                        mentor={item}
+                        handleCopyURL={() => {
+                          if (item?.linkedin) {
+                            navigator.clipboard.writeText(item.linkedin);
+                            window.open(item.linkedin, "_blank");
+                          } else {
+                            toast.error("No linkedin profile found");
+                          }
+                        }}
+                      />
+                    );
+                  })
+                ) : (
+                  <div className={styles.skeletonLoadingCont}>
+                    <MentorCardSkeleton cards={3} />
+                  </div>
+                )}
+                {/* {featuredMentors.map((item, idx) => {
                 return <ProfileCardTesting key={idx} mentor={item} />;
               })} */}
-              {/* <div className={styles.skeletonLoadingCont}>
+                {/* <div className={styles.skeletonLoadingCont}>
                 {featuredMentors.length == 0 && <ToolsSkeleton cards={2} />}
               </div> */}
-            </Carousel>
+              </Carousel>
+            </div>
           </div>
-        </div>
-        {/* ---------------Carousel End-------------------------------------- */}
+          {/* ---------------Carousel End-------------------------------------- */}
 
-        {/* ---------------Category Content------------------ */}
-        <div className={styles.categoryWrapper}>
-          <p>
-            Browse by <span>Categories</span>
-          </p>
-          <div className={styles.categoryContainer}>
-            {categories?.map((item, idx) => {
-              return <IndustryCard key={idx} item={item} />;
-            })}
+          {/* ---------------Category Content------------------ */}
+          <div className={styles.categoryWrapper}>
+            <p>
+              Browse by <span>Categories</span>
+            </p>
+            <div className={styles.categoryContainer}>
+              {categories?.map((item, idx) => {
+                return <IndustryCard key={idx} item={item} />;
+              })}
+            </div>
           </div>
+          {/* ---------------Category Content End------------------ */}
         </div>
-        {/* ---------------Category Content End------------------ */}
       </div>
-    </div>
-    <Toaster position="bottom-left" />
+      <Toaster position="bottom-left" />
     </>
   );
 };

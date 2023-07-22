@@ -231,31 +231,71 @@ function SignupAuthUpdated() {
         to_email: email,
         otp,
       };
+
+      // EMAIL OTP
+      let emailSuccess = false;
+      let mobileSuccess = false;
       try {
-        // const response = await emailjs.send(
-        //   "service_lfmmz8k",
-        //   "template_n3pcht5",
-        //   templateParams,
-        //   // "user_FR6AulWQMZry87FBzhKNu"
-        //   "dVExxiI8hYMCyc0sY"
-        // );
-        console.log(mobile, selectedCountry.dialCode.slice(1), otp);
-        const data = await axios.post("https://server.reverr.io/sendSmsCode", {
-          to: mobile,
-          code: selectedCountry.dialCode.slice(1),
-          message: `Your Reverr Signup OTP is ${otp}`,
-        });
-        // console.log("SUCCESS!", response.status, response.text);
-        console.log("otpMobile SUCCESS!", data);
-        navigate("/enterotp");
+        const emailResponse = await emailjs.send(
+          "service_lfmmz8k",
+          "template_n3pcht5",
+          templateParams,
+          // "user_FR6AulWQMZry87FBzhKNu"
+          "dVExxiI8hYMCyc0sY"
+        );
+        emailSuccess = emailResponse?.status === 200;
+      } catch (error) {
+        console.log(error.message);
+        // toast.error(error.text);
         setLoading(false);
-        toast.success("An OTP has been sent to your e-mail ");
+        // toast.error(error?.response?.data?.message);
+        // toast.error("There is some error in sending OTP");
+      }
+
+      try {
+        // Sending Mobile OTP
+        const mobileResponse = await axios.post(
+          "https://server.reverr.io/sendSmsCode",
+          {
+            to: mobile,
+            code: selectedCountry.dialCode.slice(1),
+            message: `Your Reverr Signup OTP is ${otp}`,
+          }
+        );
+        console.log(mobileResponse);
+
+        mobileSuccess = mobileResponse.status === 200;
       } catch (error) {
         console.log(error.message);
         toast.error(error.text);
         setLoading(false);
-        toast.error(error?.response?.data?.message);
       }
+      console.log(emailSuccess, mobileSuccess);
+
+      if (emailSuccess && mobileSuccess) {
+        toast.success(
+          "An OTP have been sent to your email and mobile number"
+        );
+        setTimeout(() => {
+          navigate("/enterotp");
+          setLoading(false);
+        }, 3000);
+      } else if (emailSuccess) {
+        toast.success("An OTP has been sent to your email");
+        setTimeout(() => {
+          navigate("/enterotp");
+          setLoading(false);
+        }, 3000);
+      } else if (mobileSuccess) {
+        toast.success("An OTP has been sent to your mobile number");
+        setTimeout(() => {
+          navigate("/enterotp");
+          setLoading(false);
+        }, 3000);
+      } else {
+        toast.error("Both email and mobile OTPs failed to send");
+      }
+
       // emailjs
       //   .send(
       //     "service_lfmmz8k",
@@ -350,12 +390,12 @@ function SignupAuthUpdated() {
   };
   // console.log("this is the mobile number ",mobile)
   const handleTogglePassword = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setShowPassword(!showPassword);
   };
 
   const handleToggleConfirmPassword = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setShowConfirmPassword(!showConfirmPassword);
   };
   return (
