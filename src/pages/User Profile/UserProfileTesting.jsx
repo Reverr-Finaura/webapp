@@ -10,10 +10,13 @@ import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import toast, { Toaster } from "react-hot-toast";
 
-const apointmentdata =[
-  "Software","Self Advisory","Product Management","Career Advice",
-  "IT Consulting"
-]
+const apointmentdata = [
+  "Software",
+  "Self Advisory",
+  "Product Management",
+  "Career Advice",
+  "IT Consulting",
+];
 
 const UserProfileTesting = () => {
   const navigate = useNavigate();
@@ -171,36 +174,48 @@ const UserProfileTesting = () => {
                   {userDoc?.network ? userDoc.network.length : 0} Connections
                 </p>
               </div>
-              <button onClick={() => {
-                userDoc?.userType === "Mentor" || "mentor" ? navigate("/mentor-edit-profile") :
-                 navigate("/editprofile")
-              }}>
+              <button
+                onClick={() => {
+                  userDoc?.userType === "Mentor" ||
+                  userDoc?.userType === "mentor"
+                    ? navigate("/mentor-edit-profile")
+                    : navigate("/editprofile");
+                }}
+              >
                 Edit Profile
               </button>
             </div>
           </div>
-          {
-            userDoc?.userType === "Mentor" ?
-          
-          <div className={styles.profileContent}>
-            <div className={styles.apointment}>
-              <p>Appointment</p>
-              <p>{userDoc?.apointmentRate ? userDoc.apointmentRate : "Set your Hourly Cost"}</p>
-              <p>{userDoc?.apointmentRateinfo ? userDoc.apointmentRateinfo : "Half-Hourly sessions + Free Introductory sessions"}</p>
+          {userDoc?.userType === "Mentor" ? (
+            <div className={styles.profileContent}>
+              <div className={styles.apointment}>
+                <p>Appointment</p>
+                <p>
+                  {userDoc?.apointmentRate
+                    ? userDoc.apointmentRate
+                    : "Set your Hourly Cost"}
+                </p>
+                <p>
+                  {userDoc?.apointmentRateinfo
+                    ? userDoc.apointmentRateinfo
+                    : "Half-Hourly sessions + Free Introductory sessions"}
+                </p>
+              </div>
+              <div className={styles.appointmentcategory}>
+                {userDoc?.domain ? (
+                  userDoc?.domain?.map((item, idx) => (
+                    <div key={idx} className={styles.appointmentcapsules}>
+                      <p>{item}</p>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
-            <div className={styles.appointmentcategory}>
-            {userDoc?.domain ?
-              userDoc?.domain?.map((item,idx)=>(
-                <div key={idx} className={styles.appointmentcapsules}>
-                  <p>{item}</p>
-                </div>
-              )) : <></>
-             }
-             
-            </div>
-          </div>
-          : <></>
-}
+          ) : (
+            <></>
+          )}
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
@@ -208,7 +223,11 @@ const UserProfileTesting = () => {
             </div>
             <div className={styles.aboutMe}>
               <p>Current Designation</p>
-              <p>{userDoc?.designation ? userDoc.designation : "Add your designation"}</p>
+              <p>
+                {userDoc?.designation
+                  ? userDoc.designation
+                  : "Add your designation"}
+              </p>
             </div>
             <div className={styles.connect}>
               <p>How can we connect?</p>
@@ -289,16 +308,14 @@ const UserProfileTesting = () => {
                 </p>
               </div>
               <div className={styles.contactItem}>
-                <img src="/images/fbIcon.png" alt="fb" />
+                <img src="/images/devicon_facebook.svg" alt="fb" />
                 <p>
                   {userDoc?.facebook ? userDoc.facebook : "Add your facebook"}
                 </p>
               </div>
               <div className={styles.contactItem}>
-                <img src="/images/twitter.svg" alt="Linkedin" />
-                <p>
-                  {userDoc?.twitter ? userDoc.twitter : "Add your twitter"}
-                </p>
+                <img src="/images/skill-icons_twitter.svg" alt="Linkedin" />
+                <p>{userDoc?.twitter ? userDoc.twitter : "Add your twitter"}</p>
               </div>
             </div>
           </div>

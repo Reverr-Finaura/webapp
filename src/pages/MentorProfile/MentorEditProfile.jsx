@@ -717,7 +717,7 @@ const MentorEditProfile = () => {
               </form>
               <div className={styles.hereFor}>
                 <div className={styles.hereForSelected}>
-                  <p>I’m here for</p>
+                  <p>I’m here to</p>
                   <div className={styles.selectedList}>
                     {formData?.userReason?.map((item, idx) => {
                       return (
