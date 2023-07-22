@@ -116,7 +116,7 @@ const ChatsContainer = ({ sorter }) => {
       }}
       onClick={handleClick}
     >
-      Your Charts
+      Your Chats
     </button>
     <button className={styles.matchButton}
       style={{

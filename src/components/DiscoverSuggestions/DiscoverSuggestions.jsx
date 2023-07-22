@@ -227,14 +227,14 @@ const DiscoverSuggestions = ({heading,colorheading}) => {
       {/* Suggestions */}
       <div className="alignsuggestion">
         <div className="people-suggest">
-          <h3 style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}>
+          <h3 className="hpeoplesuggest" style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}>
             {" "}
             <span style={{color:"#00B3FF"}}>{colorheading}</span>
             {heading}
             {/* More Suggestions */}
             {" "}
           </h3>
-          <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"80px",cursor:"pointer"}}>See all</p>
+          {/* <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"80px",cursor:"pointer"}}>See all</p> */}
         </div>
 
         <div className="people-card">

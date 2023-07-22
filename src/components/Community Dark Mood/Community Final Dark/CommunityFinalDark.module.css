@@ -1662,6 +1662,7 @@ body::-webkit-scrollbar {
   }
   .uploadPostIconButton{
     font-size: 15px;
+    position: inherit;
   }
   .userSpaceSelect{
     font-size: 10px;
@@ -1714,5 +1715,14 @@ font-weight: 200;
   left: 12px;
      font-size: 12px;
   padding: 2px 13px;
+ }
+ .spaceTag{
+  border: 1px solid #fff;
+  width: max-content;
+  padding: 0px 18px;
+  border-radius: 28px;
+  margin: 6px 0px 20px 10px;
+  color: #fff;
+  font-size: 15px;
  }
 }

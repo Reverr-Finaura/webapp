@@ -102,6 +102,7 @@ import './ArticleRightSideBar.css'
 import ArticleDisplay from './ArticleDisplay'
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 
 const ArticleRightSideBar = (props) => {
@@ -109,6 +110,7 @@ const ArticleRightSideBar = (props) => {
   const [randomArticles, setrandomArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate()
   useEffect(() => {
     async function fetchUsers() {
       const mentorsRef = collection(db, "Blogs");
@@ -150,22 +152,22 @@ const ArticleRightSideBar = (props) => {
   }, [users]);
 
 
-console.log(randomArticles);    
+console.log("random articles",randomArticles);    
 
   return (
     <div className='right-container'>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{display:"flex"}}>
-          <div className="firstarticlebox" style={{width:"350px",display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div className="articlerightsidecontainer">
+          <div onClick={()=>navigate(`/discover/${randomArticles[0]?.id}`)} className="firstarticlebox" style={{width:"350px",display:"flex",flexDirection:"column",alignItems:"center"}}>
             <img style={{height:"200px",width:"300px",padding:"20px"}} src={randomArticles[0]?.image?.imageUrl} alt="" />
             <p style={{textAlign:"center",color:"#fff",fontSize:"25px",fontWeight:"bold",padding:"20px"}}>{randomArticles[0]?.heading}</p>
           </div>
-          <div style={{width:"600px",paddingRight:"40px"}}>
+          <div className="secondarticlecontainer" style={{width:"600px",paddingRight:"40px"}}>
           {
         randomArticles && randomArticles.slice(1, 4).map((article) => (
-          <div className='allCards' style={{ display: 'flex', flexDirection: 'column' }}>
+          <div onClick={()=>navigate(`/discover/${article?.id}`)} className='allCards' style={{ display: 'flex', flexDirection: 'column' }}>
             <ArticleDisplay title={article.heading} imgUrl={article.image.imageUrl} description={article.body} />
           </div>
         ))}

@@ -30,10 +30,11 @@ export default function NotificationCard({ item }) {
   }, []);
   // console.log("noti",item);
 
-  //  // Some arbitrary value
+   // Some arbitrary value
   // var date = new Date(item.time.seconds * 1000); // multiply by 1000 because Date() requires miliseconds
   // var timeStr = date.toTimeString().split(' ')[0];
-  // console.log(timeStr);
+  // console.log("time",timeStr);
+  // console.log("date",date);
 
   return (
     <div className={style.notificationCard}>

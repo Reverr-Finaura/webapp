@@ -1199,7 +1199,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       <MdPoll className={style.assest_icon} />
                       <span className={style.icon_text}>Polls</span>
                     </div> */}
-                    <div
+
+                    {/* this is the video section */}
+                    {/* <div
                       className={style.postAssetsIconMaindiv}
                       onClick={() => {
                         if (!isLoggedIn) {
@@ -1211,7 +1213,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     >
                       <MdVideoCameraBack className={style.assest_icon} />
                       <span className={style.icon_text}>Video</span>
-                    </div>
+                    </div> */}
 
                     <select
                       className={style.userSpaceSelect}

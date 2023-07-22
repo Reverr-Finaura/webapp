@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    background-color: var(--bg-card);
+    background-color: #151820;
     border-radius: 19px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -25,13 +25,14 @@ color: var(--main-text);
     font-size: 1.4rem;
     display: flex;
     align-items: center;
+    color:#fff
 }
 .postAuthorDesignation{
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    color: var(--main-text);
+    color:#fff !important;
 }
 .postAuthorName{
     font-size: 1.4rem;
@@ -74,6 +75,7 @@ font-weight: 600;
 .postText{
     font-weight: lighter;
     font-size: 1rem!important;
+    color: #fff;
 }
 .morePostTextButton{
     color: #2A72DE;
@@ -89,10 +91,12 @@ font-weight: 600;
 .postImage{
     width: 90%;
     margin: auto;
+    color: #fff;
 }
 .postLikesAndCommentContainer{
     display: flex;
     margin-top: 2.5rem;
+    color: #fff;
 }
 .postLikesContainer{
     display: flex;
@@ -210,8 +214,8 @@ font-weight: 600;
     margin: auto;
     margin-bottom: 2.5rem;
     padding: 1rem;
-    background-color: #e6e4e4dc;
-    background-color: var(--bg-card);
+
+    background-color: #151820;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     margin-bottom: 10rem;
 }

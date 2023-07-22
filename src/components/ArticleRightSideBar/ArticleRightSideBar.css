@@ -6,3 +6,38 @@
 .firstarticlebox{
   background: var(--bg-secondary-gray, #1A1E28);;
 }
+.articlerightsidecontainer{
+  display: flex;
+  gap: 10px;
+}
+@media screen and (max-width: 950px) {
+  .secondarticlecontainer{
+    padding-right: 0 !important;
+    width: 290px !important;
+    
+  }
+  .articlerightsidecontainer{
+    flex-direction: column !important;
+    
+    align-items: center;
+  
+  }
+}
+
+@media screen and (max-width: 450px) {
+
+  .right-container{
+    margin: 0;
+    margin-top: 40px;
+  }
+  .secondarticlecontainer{
+    width: 290px !important;
+
+    
+  }
+.allCards{
+  width: 100%;
+  align-items: center;
+  
+}
+}
