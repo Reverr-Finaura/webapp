@@ -194,6 +194,8 @@ function SignupAuthUpdated() {
         setLoading(false);
         return;
       }
+
+      // console.log("these are the filled data",email,firstName,password,mobile)
       dispatch(setEmail(email));
       dispatch(setName(firstName));
       dispatch(setPassword(password));
@@ -249,7 +251,7 @@ function SignupAuthUpdated() {
         setLoading(false);
         toast.success("An OTP has been sent to your e-mail ");
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
         toast.error(error.text);
         setLoading(false);
         toast.error(error?.response?.data?.message);
@@ -720,7 +722,7 @@ function SignupAuthUpdated() {
                   className={styles.toggleButton}
                   onClick={handleToggleConfirmPassword}
                 >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
             </div>

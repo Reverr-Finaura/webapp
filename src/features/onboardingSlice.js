@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import defaultProfile from "../images/default-profile-pic.png"
 
 const initialState={
-    image:"",
+    image: defaultProfile,
     about:"",
     education:[{degree:"", institute:""}],
     experience:[{designation:"",company:""}],
