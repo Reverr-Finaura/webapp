@@ -526,6 +526,7 @@ font-weight: 700;
   color: white;
   border: none;
   cursor: pointer;
+  position: unset !important;
 }
 .disabledPostIconButton{
     /* margin-left: auto; */
