@@ -26,7 +26,15 @@
     justify-content: center;
     /* gap: 3rem; */
   }
-  
+  .calender-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 5rem 5rem;
+    border-radius: 30px;
+  }
 
   
  

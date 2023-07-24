@@ -132,7 +132,8 @@ function MentorDashBoardCalendy() {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           
           <div
-           style={{paddingLeft:"10rem",backgroundColor:"#030b18"}}
+          //  style={{paddingLeft:"10rem",backgroundColor:"#030b18"}}
+           className="calender-container"
           >
             <InlineWidget
               // url="https://calendly.com/reverrmeet/30min"
