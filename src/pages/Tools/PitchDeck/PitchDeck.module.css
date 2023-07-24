@@ -178,24 +178,97 @@ text-transform: capitalize;
 }
 
 
-@media screen and (max-width:450px) {
-    .outerCont{
-        width: 90%;
+@media (max-width:500px) {
+    .title{
+        width: -webkit-fill-available;
     }
     .loadMoreImg{
-        font-size: 0.8rem;
+        right: 71px;
+    top: 24rem;
+        font-size: 12px;
     }
-    .loadMoreImgIcon{
-        font-size: 0.8rem;
+    .pptOuterCont{
+        width: -webkit-fill-available;
+        height: 362px;
     }
-    .AllpptCont{
-        width: 100%;
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: unset;
-        overflow-x: scroll;
-        gap: 2rem;
-        position: relative;
+    .imgCont{
+        width: -webkit-fill-available;
+    }
+    .img{
+        margin-left: 12px;
+    }
+    .pptName{
+        width: -webkit-fill-available;
+    }
+    .tags{
+        width: -webkit-fill-available;
+        flex-wrap: wrap;
+    }
+    .btnCont{
+        gap: 4px;
+        width: -webkit-fill-available;
+        flex-wrap: wrap;
     }
 }
+
+
+
+/*@media(max-width:550px){
+
+    .title{
+        margin-left: 1rem;
+    }
+    .pptCont{
+        margin-top: 3rem;
+    }
+    .loadMoreImg{
+        top: -2rem;
+        font-size: 16px;
+    }
+}
+@media (max-width:480px) {
+    .tags{
+        flex-wrap: wrap;
+    }
+    .viewBtn{
+        font-size: 12.68px;
+        width: 38%;
+    
+    }
+    .download{
+        font-size: 12.68px;
+        width: 38%;
+    }
+    .img{
+        margin-left: 7px;
+        margin-top: -4px;
+    }
+    .btnCont{
+        margin-top: -18px;
+    }
+    .pptName{
+        padding-left: 9px;
+    }
+    
+}
+@media (max-width:400px) {
+    .tbwrapper{
+    display: flex;
+    }
+    .btnCont{
+        flex-direction: column;
+        margin-top: 4px;
+
+    }
+    .viewBtn{
+        margin-left: -26px;
+        width: 86%;
+    }
+    .download{
+        margin-left: -19px;
+        width: 134%;
+        margin-top: 3px;
+    }
+    
+}
+*/
