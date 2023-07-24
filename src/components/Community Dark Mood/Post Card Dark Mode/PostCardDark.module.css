@@ -414,6 +414,40 @@ letter-spacing: 0.42px;
   /* outline: 2px solid #2a72de; */
 }
 
+/* user type */
+.founder,.mentor,.investor,.professional{
+  border-radius: 10px;
+  padding: 2px 15px;
+  text-align: center;
+  font-family: Reem Kufi;
+  font-weight: 500;
+  margin-left: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+.founder{
+  color: rgba(255, 199, 108, 1);
+  border: 2px solid rgba(255, 199, 108, 1);
+
+}
+.mentor{
+  border: 2px solid rgba(173, 39, 237, 1);
+  color: rgba(173, 39, 237, 1);
+
+}
+.investor{
+  border: 2px solid rgba(145, 135, 255, 1);
+  color: rgba(145, 135, 255, 1);
+
+}
+.professional{
+  border: 2px solid rgba(51, 234, 245, 1);
+  color: rgba(51, 234, 245, 1);
+
+}
+
 .newCommentContainerrrr {
   display: flex;
   /* margin-bottom: 1.5rem; */

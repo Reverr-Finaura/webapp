@@ -24,7 +24,7 @@ import { BsBookmark } from "react-icons/bs";
 import eyeIcon from "../../../images/white-outline-eye.png";
 import commentIcon from "../../../images/white-outline-comment.png";
 import rightArrow from "../../../images/right-arraow-bg-blue.png";
-import defaultImg from "../../../images/default-profile-pic.png"
+import defaultImg from "../../../images/default-profile-pic.png";
 import ReactTimeAgo from "react-time-ago";
 
 export default function PostCardDark({
@@ -62,6 +62,7 @@ export default function PostCardDark({
   const [postComments, setPostComments] = useState([]);
   const [postDetail, setPostDetail] = useState();
   const navigate = useNavigate();
+  const [userType, setUserType] = useState();
 
   // get the posts comments
   async function fetchPostData() {
@@ -74,7 +75,14 @@ export default function PostCardDark({
         const data = docSnapshot.data();
         setPostComments(data.comments);
         setPostDetail(data);
-        // console.log("the post data is here -- above", data);
+
+        // data.map((event) => {
+        getUserDocByRef(data.postedby).then((res) => {
+          //  console.log("___looking of user data_____",res.userType)
+          setUserType(res.userType);
+        });
+        // });
+        console.log("the post data is here -- above", data.postedby);
       } else {
         // Document doesn't exist
         console.log("not existing data");
@@ -433,9 +441,11 @@ export default function PostCardDark({
   };
 
   // handleRepostPost
-  function handleReportPost(){
-    toast("reported post")
+  function handleReportPost() {
+    toast("reported post");
   }
+  // fetching the post user type
+  useEffect(() => {});
 
   //GET TIME OF POST
   useEffect(() => {
@@ -468,38 +478,62 @@ export default function PostCardDark({
               height: "40px",
               borderRadius: "50%",
               marginRight: "1rem",
-              objectFit: "cover"
+              objectFit: "cover",
             }}
-            src={postedByUserDoc?.image ? postedByUserDoc?.image: defaultImg }
+            src={postedByUserDoc?.image ? postedByUserDoc?.image : defaultImg}
             alt=""
           />
           <div className={style.postAuthorNameAndDesignationCont}>
-            <h3
-              onClick={() => {
-                console.log("postcard click: ", isLoggedIn);
-                if (!isLoggedIn) {
-                  return openModal();
-                } else {
-                  // setPostsAuthorIsClick(true);
-                  // setPostsAuthorInfo(postedByUserDoc);
-                  if (postedByUserDoc?.email === user?.user?.email) {
-                    navigate("/userprofile");
+            <div style={{ display: "flex" ,alignItems:"center",justifyContent:"center"}}>
+              <h3
+                onClick={() => {
+                  console.log("postcard click: ", isLoggedIn);
+                  if (!isLoggedIn) {
+                    return openModal();
                   } else {
-                    navigate(`/userprofile/${postedByUserDoc?.email}`);
+                    // setPostsAuthorIsClick(true);
+                    // setPostsAuthorInfo(postedByUserDoc);
+                    if (postedByUserDoc?.email === user?.user?.email) {
+                      navigate("/userprofile");
+                    } else {
+                      navigate(`/userprofile/${postedByUserDoc?.email}`);
+                    }
                   }
-                }
-              }}
-              className={style.postAuthorName}
-            >
-              {postedByUserDoc?.name}
-            </h3>
+                }}
+                className={style.postAuthorName}
+              >
+                {postedByUserDoc?.name}
+              </h3>
+              <div className="postAuthorType">
+                {(() => {
+                  switch (userType) {
+                    case "founder":
+                      return <div className={style.founder}>Founder</div>;
+                    case "mentor":
+                      return <div className={style.mentor}>Mentor</div>;
+                    case "investor":
+                      return <div className={style.investor}>Investor</div>;
+                    case "professional":
+                      return (
+                        <div className={style.professional}>Professional</div>
+                      );
+                    default:
+                      return null;
+                  }
+                })()}
+              </div>
+            </div>
+
             <p className={style.postAuthorDesignation}>
               {postedByUserDoc?.designation ? postedByUserDoc?.designation : ""}
             </p>
           </div>
 
           <div className={style.postUploadDateContainer}>
-          <ReactTimeAgo date={item?.createdAt?.seconds * 1000} locale="en-US" />
+            <ReactTimeAgo
+              date={item?.createdAt?.seconds * 1000}
+              locale="en-US"
+            />
             {/* {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)} */}
 
             {/* MORE OPTION CONT */}
@@ -553,7 +587,10 @@ export default function PostCardDark({
                         </div>
                       </a>
                     ) : null}
-                    <div onClick={()=>handleReportPost()} className={style.threeDotsReportPostOption}>
+                    <div
+                      onClick={() => handleReportPost()}
+                      className={style.threeDotsReportPostOption}
+                    >
                       Report Post
                     </div>
                   </div>
@@ -597,7 +634,9 @@ export default function PostCardDark({
         ) : null}
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
-          <div style={{ display: "flex", alignItems: "center", width: "100 %" }}>
+          <div
+            style={{ display: "flex", alignItems: "center", width: "100 %" }}
+          >
             <div
               onClick={() => {
                 getLikedPostIdFromFirebase(item.id, item);
@@ -633,7 +672,11 @@ export default function PostCardDark({
             >
               <div className={style.commentContainer}>
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
-                <img src={commentIcon} alt="img" className={style.commentPostIconn} />
+                <img
+                  src={commentIcon}
+                  alt="img"
+                  className={style.commentPostIconn}
+                />
 
                 {/* ;(document.getElementsByClassName(`${item.id}`)[0]).click();(document.getElementsByClassName(`${item.id}`)[0]).focus() */}
               </div>
@@ -832,11 +875,11 @@ export default function PostCardDark({
                           commentedByUserDoc?.filter((it) => {
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
-                          // The ternary operator starts here
-                          ? commentedByUserDoc?.filter((it) => {
-                              return it.email === list?.commentedby?.id;
-                            })[0]?.image
-                          : defaultImg
+                            ? // The ternary operator starts here
+                              commentedByUserDoc?.filter((it) => {
+                                return it.email === list?.commentedby?.id;
+                              })[0]?.image
+                            : defaultImg
                         }
                         alt="CommentedUserPhoto"
                       />
