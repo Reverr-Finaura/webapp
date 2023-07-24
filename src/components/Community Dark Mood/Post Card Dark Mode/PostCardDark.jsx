@@ -25,7 +25,7 @@ import eyeIcon from "../../../images/white-outline-eye.png";
 import commentIcon from "../../../images/white-outline-comment.png";
 import rightArrow from "../../../images/right-arraow-bg-blue.png";
 import defaultImg from "../../../images/default-profile-pic.png"
-
+import ReactTimeAgo from "react-time-ago";
 
 export default function PostCardDark({
   postsData,
@@ -499,7 +499,8 @@ export default function PostCardDark({
           </div>
 
           <div className={style.postUploadDateContainer}>
-            {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)}
+          <ReactTimeAgo date={item?.createdAt?.seconds * 1000} locale="en-US" />
+            {/* {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)} */}
 
             {/* MORE OPTION CONT */}
             <div className={style.threeDotsMainCont}>
