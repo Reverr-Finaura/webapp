@@ -31,8 +31,8 @@
 #communityFinalPage {
   min-height: 100vh;
   /* width: 58%; */
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   font-family: "Poppins";
   font-style: normal;
   /* background-color: rgba(255, 255, 255, 0.25); */
@@ -417,7 +417,7 @@ font-weight: 700;
   
     display: flex;
     position: absolute;
-    right: 11px;
+    right: 0px !important;
     top: 15px;
     cursor: pointer;
     height: 40px;
