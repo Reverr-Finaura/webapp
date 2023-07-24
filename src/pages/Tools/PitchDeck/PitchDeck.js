@@ -125,7 +125,7 @@ console.log(pptList);
     <section className={styles.outerCont}>
        <h1 className={styles.title}>Pitch Deck Templates</h1>
 
-       <div className={styles.pptCont}>
+       <div className={` ${dataFilter === "All" && contWidth <= 450 ? styles.AllpptCont :styles.pptCont}`}>
        {dataFilter==="All"&&<h1 onClick={()=>{setDataFilter("pitch deck");window.scrollTo({ top: 0, behavior: 'smooth' })}} className={styles.loadMoreImg}>See All <span><FiArrowUpRight className={styles.loadMoreImgIcon}/></span></h1>}
        
       {pptList.map((ppt,idx)=>{return <>
