@@ -185,7 +185,10 @@ const DiscoverSuggestions = ({heading,colorheading}) => {
           doc.data().hasOwnProperty("designation") &&
           doc.data().designation !== "" &&
           doc.data().hasOwnProperty("email") &&
-          doc.data().email !== currentLoggedInUser?.user?.email
+          doc.data().email !== currentLoggedInUser?.user?.email &&
+          (doc.data().hasOwnProperty("network") // Check if "network" array is present in doc.data()
+            ? !doc.data().network.includes(currentLoggedInUser?.user?.email) // if present then only check current user's email is not included in it
+            : true)
         ) {
           setUsers((prev) => {
             return [...prev, doc.data()];
@@ -198,29 +201,23 @@ const DiscoverSuggestions = ({heading,colorheading}) => {
 
   useEffect(() => {
     if (users.length > 0) {
-      // console.log("rand", users);
-      const getRandomUsers = () => {
-        let randomUsersArr = [];
-        let length = users.length - 1;
-        let targetCount = 8;
-        let uniqueCount = 0;
-
-        while (uniqueCount < targetCount) {
-          let randomIndex = Math.floor(Math.random() * length);
-          let randomElement = users[randomIndex];
-
-          // Check if the randomElement is already in the randomUsers array
-          if (!randomUsersArr.includes(randomElement)) {
-            randomUsersArr.push(randomElement);
-            uniqueCount++;
-          }
+      const shuffleArray = (arr) => {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-        setRandomUsers(randomUsersArr);
       };
-
+  
+      const getRandomUsers = () => {
+        const randomUsersArr = users.slice(); // Create a shallow copy of the users array
+        shuffleArray(randomUsersArr);
+        setRandomUsers(randomUsersArr.slice(0, 8)); // Select the first 8 elements
+      };
+  
       getRandomUsers();
     }
   }, [users]);
+  
 
   return (
     <section className="suggest-section">
