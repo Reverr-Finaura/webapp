@@ -570,3 +570,44 @@ letter-spacing: 0.42px;
 .postCommentContainer{ margin: 0px 4px 0px 4px}
 .postSednLinkContainer{ margin: 0px 4px 0px 4px}
 } 
+
+@media (max-width: 310px) {
+  .PostCardContainer{
+    padding:10px;
+    }
+    .postLikesContainerLikeIconn{
+    font-size: 17px;
+    margin-right:0px
+    }
+    .postLikesAndCommentContainer{
+      font-size: 8px;
+    }
+    .commentPostIconn{
+      width: 20px;
+      margin-right: 0px !important;
+    }
+    .postSendIcon{
+      width: 17px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    }
+    .postSendLinkContainer img{
+      font-size: 17px ;
+    }
+    .postCommentContainer img{
+      width: 17px !important; 
+    }
+    .postLikesAndCommentContainer{
+      font-size: 8px;
+    }
+    .postLikesContainerLikeIconn{
+
+    }
+    .postLikesContainerLikedIconn{
+      font-size: 17px;
+    }
+    .commentContainer{
+      margin-right: 0px !important;
+    }
+}

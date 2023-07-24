@@ -630,9 +630,9 @@ export default function PostCardDark({
                 }
               }}
             >
-              <div className="commentContainer">
+              <div className={style.commentContainer}>
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
-                <img src={commentIcon} alt="img" className="commentPostIconn" />
+                <img src={commentIcon} alt="img" className={style.commentPostIconn} />
 
                 {/* ;(document.getElementsByClassName(`${item.id}`)[0]).click();(document.getElementsByClassName(`${item.id}`)[0]).focus() */}
               </div>
@@ -653,7 +653,7 @@ export default function PostCardDark({
               className={style.postSendLinkContainer}
             >
               <div className="postSendCont">
-                <div className="postSendIcon">
+                <div className={style.postSendIcon}>
                   {/* <img style={{width:"100%",height:"100%"}} src="./images/paper-plane.png" alt="sendIcon" /> */}
                   <RiShareForwardLine style={{ fontSize: "1.8rem" }} />
                 </div>
@@ -667,7 +667,7 @@ export default function PostCardDark({
             </div>
 
             <div className={style.postCommentContainer}>
-              <div className="commentContainer">
+              <div className={style.commentContainer}>
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
                 <img src={eyeIcon} />
 

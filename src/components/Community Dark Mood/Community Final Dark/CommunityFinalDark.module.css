@@ -1740,3 +1740,14 @@ font-weight: 200;
   font-size: 15px;
  }
 }
+@media (max-width: 310px ){
+
+  .uploadPostContainerrrrSection{
+  padding: 10px
+   
+  }
+  #postTextContainer{
+  width: 70% !important;
+  }
+}
+  
