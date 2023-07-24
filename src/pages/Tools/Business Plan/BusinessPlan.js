@@ -56,13 +56,13 @@ setTagDocToShow(AllTagDocuments)
     <div className={styles.docSkeletonCont}>
       {tagDocToShow.length===0&&<DocSkeleton cards={2}/>}
     </div>
-    <div className={styles.docCont}>
+    <div className={` ${dataFilter === "All" && contWidth <= 450 ?  styles.ALLdocCont : styles.docCont}`}>
     {dataFilter==="All"&&<h1 onClick={()=>{setDataFilter("pitch deck");window.scrollTo({ top: 0, behavior: 'smooth' })}} className={styles.loadMoreImg}>See All <span><FiArrowUpRight className={styles.loadMoreImgIcon}/></span></h1>}
 
 
     {tagDocToShow.map((doc)=>{
       return <>
-    <div style={{width:(contWidth<1450&&contWidth>1300)?"28%":""}} className={styles.doc}>
+    <div style={{width:(contWidth<1450&&contWidth>1300)?"28%": ""}} className={styles.doc}>
 <h3 className={styles.docHeading}>{doc.title}</h3>
 <p className={styles.info}>{doc.description.slice(0,250)}</p>
 <div className={styles.tagAndBtnCont}>
