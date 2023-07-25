@@ -26,6 +26,10 @@ import commentIcon from "../../../images/white-outline-comment.png";
 import rightArrow from "../../../images/right-arraow-bg-blue.png";
 import defaultImg from "../../../images/default-profile-pic.png";
 import ReactTimeAgo from "react-time-ago";
+import founder from "../../../images/rocket.png"
+import investor from "../../../images/investor.png"
+import mentor from "../../../images/mentor.png"
+import pro from "../../../images/professional.png"
 
 export default function PostCardDark({
   postsData,
@@ -508,14 +512,14 @@ export default function PostCardDark({
                 {(() => {
                   switch (userType) {
                     case "founder":
-                      return <div className={style.founder}>Founder</div>;
+                      return <div className={style.founder}> <img  className={style.typeImg}  src={founder} /> Founder</div>;
                     case "mentor":
-                      return <div className={style.mentor}>Mentor</div>;
+                      return <div className={style.mentor}>  <img className={style.typeImg}  src={mentor} /> Mentor</div>;
                     case "investor":
-                      return <div className={style.investor}>Investor</div>;
+                      return <div className={style.investor}>  <img  className={style.typeImg} src={investor} /> Investor</div>;
                     case "professional":
                       return (
-                        <div className={style.professional}>Professional</div>
+                        <div className={style.professional}>  <img className={style.typeImg}  src={pro} />Professional</div>
                       );
                     default:
                       return null;

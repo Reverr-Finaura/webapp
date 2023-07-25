@@ -415,9 +415,15 @@ letter-spacing: 0.42px;
 }
 
 /* user type */
+.typeImg{
+  width: 14px;
+  margin-right: 4px;
+}
+
+
 .founder,.mentor,.investor,.professional{
   border-radius: 10px;
-  padding: 2px 15px;
+  padding: 2px 12px;
   text-align: center;
   font-family: Reem Kufi;
   font-weight: 500;
