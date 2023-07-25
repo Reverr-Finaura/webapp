@@ -11,10 +11,10 @@ const CourseIntro = ({ courseDetails, url }) => {
         <p className={styles.course_para}>{courseDetails.para}</p>
         <p className={styles.course_rating}>
           <span>
-            <img src="/images/star.png" alt="" />
-            <img src="/images/star.png" alt="" />
-            <img src="/images/star.png" alt="" />
-            <img src="/images/star.png" alt="" />
+            <img src="/images/star.webp" alt="" />
+            <img src="/images/star.webp" alt="" />
+            <img src="/images/star.webp" alt="" />
+            <img src="/images/star.webp" alt="" />
           </span>
           <span style={{ color: "#001AFF", fontWeight: "500" }}>
             (270+ Ratings)

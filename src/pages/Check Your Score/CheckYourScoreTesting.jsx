@@ -8,8 +8,8 @@ import FinanceTesting from "./stages/FinanceTesting";
 import ResultTesting from "./stages/ResultTesting";
 import DoneTesting from "./stages/DoneTesting";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import GroupImg from "../../images/Group.png";
-import collaborateImg from "../../images/Collaborate.png";
+import GroupImg from "../../images/Group.webp";
+import collaborateImg from "../../images/Collaborate.webp";
 
 const CheckYourScoreTesting = () => {
   const [stage, setStage] = useState(0);

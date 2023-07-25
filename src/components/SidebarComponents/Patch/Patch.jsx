@@ -10,7 +10,7 @@ function Patch({ isLoggedIn, openModal }) {
       </button> */}
       <img
         // style={{ marginTop: 40 }}
-        src={require("../../../images/image 827.png")}
+        src={require("../../../images/image 827.webp")}
         alt="img"
       />
       <text

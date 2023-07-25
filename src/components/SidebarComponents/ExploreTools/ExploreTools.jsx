@@ -18,7 +18,7 @@ function ExploreTools({ isLoggedIn, openModal }) {
         style={{
           marginTop: 20,
         }}
-        src={require("../../../images/peoplediscussion.png")}
+        src={require("../../../images/peoplediscussion.webp")}
         alt="img"
       />
       <button

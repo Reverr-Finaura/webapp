@@ -36,7 +36,7 @@ const IdeaValidation = () => {
         <div className={styles.body}>
         {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
-          <Hero imgUrl="ideavalidation.png" />
+          <Hero imgUrl="ideavalidation.webp" />
           <CourseIntro
             courseDetails={courseDetails}
             url="/idea-validation-slides"

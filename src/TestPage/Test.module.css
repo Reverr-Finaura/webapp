@@ -83,3 +83,11 @@
 
    }
 } 
+
+@media (max-width: 310px ){
+  .middleSection{
+    padding:0px !important;
+    }
+
+}
+  

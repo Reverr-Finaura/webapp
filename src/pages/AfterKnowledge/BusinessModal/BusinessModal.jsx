@@ -44,7 +44,7 @@ const BusinessModal = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="businessmodal1.png"
+              imgUrl="businessmodal1.webp"
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
@@ -57,7 +57,7 @@ const BusinessModal = () => {
                 "Understanding the components of Business Model Canvas.",
                 "Why Business Model Canvas is important in the initial stages?",
               ]}
-              imgUrl="businessmodal2.png"
+              imgUrl="businessmodal2.webp"
             />
             {/* <CourseReview /> */}
           </div>

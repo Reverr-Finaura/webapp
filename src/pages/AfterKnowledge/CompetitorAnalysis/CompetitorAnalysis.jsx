@@ -44,7 +44,7 @@ const CompetitorAnalysis = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="competitor1.png"
+              imgUrl="competitor1.webp"
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
@@ -57,7 +57,7 @@ const CompetitorAnalysis = () => {
                 "Who is a true competitor?",
                 "What you should do after discovering a competitor?",
               ]}
-              imgUrl="competitor2.png"
+              imgUrl="competitor2.webp"
             />
             {/* <CourseReview /> */}
           </div>

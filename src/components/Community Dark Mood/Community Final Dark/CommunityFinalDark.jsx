@@ -1069,7 +1069,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     {!textAreaIsClick ? (
                       <img
                         className={style.ArrowImgAfterTextArea}
-                        src="./images/right-arraow-bg-blue.png"
+                        src="./images/right-arraow-bg-blue.webp"
                         alt="img"
                         onClick={() => {
                           if (!isLoggedIn) {

@@ -271,21 +271,21 @@ if(dataFilter.toLowerCase()==="startup basics"){setPptToShow([]);setDocTagToShow
     <>
     <div className='toolspage' style={{backgroundColor:'#0b0b2c'}}>
 
-        {width >= 600 ? (
-        <>
+        {/* {width >= 600 ? (
+        <> */}
           {/* <SidebarFinal /> */}
           <div className='navbar'>
             <NavBarFinalDarkMode />
           </div>
-        </>
+        {/* </>
       ) : (
         <><div>
           <PhnSidebar />
           <KnowledgeNavbar />
 
         </div>
-        </>
-      )}
+        </> */}
+      {/* )} */}
       <section className={styles.outerCont}>
         {/* <h1 className={styles.title}>Explore Tools</h1> */}
 

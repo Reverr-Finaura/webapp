@@ -83,7 +83,7 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
                   src={
                     user?.image
                       ? user.image
-                      : require("../../../images/userIcon.png")
+                      : require("../../../images/userIcon.webp")
                   }
                   className={styles.profileImage}
                   alt="Profile"
