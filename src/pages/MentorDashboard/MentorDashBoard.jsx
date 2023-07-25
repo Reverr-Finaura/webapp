@@ -8,6 +8,7 @@ import MentorDashBoardCalendy from "./MentorDashBoardCalendy";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useSelector } from "react-redux";
+import DropdownArrow from "../../images/dropdown-arrow.svg";
 
 const list = ["Transactions", "Support", "Calendly Overview"];
 
@@ -16,6 +17,17 @@ const MentorDashBoard = () => {
 
   const [paymentList, setPaymentList] = useState([]);
   const userDoc = useSelector((state) => state.userDoc);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   useEffect(() => {
     // setArrayToBeMapped(mentorArray);
@@ -37,8 +49,6 @@ const MentorDashBoard = () => {
     fetchData();
   }, []);
 
-  console.log("paymentListArrayyy", paymentList);
-
   return (
     <>
       <div
@@ -52,36 +62,68 @@ const MentorDashBoard = () => {
           <NavBarFinalDarkMode />
         </div>
 
-        <div style={{ height: "100vh", paddingTop: "120px" }}>
-          <p
-            style={{
-              color: "white",
-              fontSize: "30px",
-              fontWeight: "bold",
-              paddingLeft: "140px",
-              paddingBottom: "40px",
-            }}
-          >
-            Mentor <span style={{ color: "#00B3FF" }}>Dashboard</span>
-          </p>
-
-          {/* toolbar */}
-          <div className="toolbar">
-            <div className="inner-toolbar">
-              {list.map((item) => (
-                <p
-                  onClick={() => setToolName(item)}
-                  style={{
-                    color: `${item === toolname ? "#00B3FF" : "white"}`,
-                    textDecoration: `${item === toolname ? "underline" : ""}`,
-                    cursor: "pointer",
-                  }}
-                >
-                  {item}
+        <div
+          style={{ height: "100vh", paddingTop: "120px" }}
+          className="mentor-dashboard"
+        >
+          {width > 480 ? (
+            <>
+              <p>
+                Mentor <span style={{ color: "#00B3FF" }}>Dashboard</span>
+              </p>
+              {/* toolbar */}
+              <div className="toolbar">
+                <div className="inner-toolbar">
+                  {list.map((item) => (
+                    <p
+                      onClick={() => setToolName(item)}
+                      style={{
+                        color: `${item === toolname ? "#00B3FF" : "white"}`,
+                        textDecoration: `${
+                          item === toolname ? "underline" : ""
+                        }`,
+                        cursor: "pointer",
+                      }}
+                    >
+                      {item}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="dashboard-title">
+                <p>
+                  Mentor <span style={{ color: "#00B3FF" }}>Dashboard</span>
                 </p>
-              ))}
-            </div>
-          </div>
+                {/* toolbar */}
+                <div className="dropdown">
+                  {/* Assuming you have a state to handle the selected tool */}
+                  <select
+                    className="toolbar-dropdown"
+                    value={toolname}
+                    onChange={(e) => setToolName(e.target.value)}
+                  >
+                    {list.map((item) => (
+                      <option
+                        key={item}
+                        value={item}
+                        style={{ color: "white" }}
+                      >
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                  <img
+                    className="dropdown-arrow"
+                    src={DropdownArrow}
+                    alt="arrow"
+                  />
+                </div>
+              </div>
+            </>
+          )}
 
           {/* //body */}
           <div>

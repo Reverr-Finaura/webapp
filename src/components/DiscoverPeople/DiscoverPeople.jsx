@@ -40,31 +40,36 @@ import { useSelector } from "react-redux";
 const DiscoverPeople = () => {
 
 
-  const user = useSelector((state) => state.user);
+  const currentLoggedInUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
 
-  // FETCH USER DATA FROM FIREBASE
+  //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
-    async function fetchUsers(cUser) {
-      const mentorsRef = collection(db, "Users");
-      const q = query(mentorsRef);
+    async function fetchUsers() {
+      const usersRef = collection(db, "Users");
+      const q = query(usersRef);
       const querySnapshot = await getDocs(q);
-      const filteredUsers = querySnapshot.docs
-        .map(doc => doc.data())
-        .filter(docData =>
-          docData.hasOwnProperty("name") &&
-          docData.name.trim() !== "" &&
-          docData.hasOwnProperty("image") &&
-          docData.image.trim() !== "" &&
-          docData.hasOwnProperty("designation") &&
-          docData.designation.trim() !== "" &&
-          docData.email !== cUser?.user?.email
-        );
-      setUsers(filteredUsers);
+      querySnapshot.forEach((doc) => {
+        if (
+          doc.data().hasOwnProperty("name") &&
+          doc.data().name !== "" &&
+          doc.data().hasOwnProperty("image") &&
+          doc.data().image !== "" &&
+          doc.data().hasOwnProperty("email") &&
+          doc.data().email !== currentLoggedInUser?.user?.email &&
+          (doc.data().hasOwnProperty("network") // Check if "network" array is present in doc.data()
+            ? !doc.data().network.includes(currentLoggedInUser?.user?.email) // if present then only check current user's email is not included in it
+            : true)
+        ) {
+          setUsers((prev) => {
+            return [...prev, doc.data()];
+          });
+        }
+      });
     }
-    fetchUsers(user);
-  }, []);
+    fetchUsers();
+  }, [currentLoggedInUser]);
 
   // useEffect(() => {
   //   if (users.length > 0) {
@@ -88,25 +93,23 @@ const DiscoverPeople = () => {
 
   useEffect(() => {
     if (users.length > 0) {
-      const getRandomUsers = () => {
-        const randomUsersArr = [];
-        const userIndices = new Set();
-  
-        while (randomUsersArr.length < 8) {
-          const randomIndex = Math.floor(Math.random() * users.length);
-          if (!userIndices.has(randomIndex)) {
-            userIndices.add(randomIndex);
-            const randomElement = users[randomIndex];
-            randomUsersArr.push(randomElement);
-          }
+      const shuffleArray = (arr) => {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
         }
+      };
   
-        setRandomUsers(randomUsersArr);
+      const getRandomUsers = () => {
+        const randomUsersArr = users.slice(); // Create a shallow copy of the users array
+        shuffleArray(randomUsersArr);
+        setRandomUsers(randomUsersArr.slice(0, 8)); // Select the first 8 elements
       };
   
       getRandomUsers();
     }
   }, [users]);
+  
   
 
 

@@ -129,7 +129,7 @@ const UserProfileTesting = () => {
                 /> */}
                 <img
                   src="/images/logos_google-gmail.svg"
-                  alt="Linkedin"
+                  alt="Email"
                   onClick={() => {
                     navigator.clipboard.writeText(userDoc.email);
                     toast.success("Email copied to clipboard");
