@@ -25,30 +25,43 @@ function Fifth() {
     }
   };
 
-  const finalOnboardingData = {
-    ...onboardingData,
-    here_for: Here_for
-  }
-
-  const handleFunctions = () => {
+  // Function to handle the "Next" button click
+  const handleNextButtonClick = async () => {
     dispatch(setHereFor(Here_for));
-    uploadOnboardingData(docRef,finalOnboardingData);
-    navigate("/");
+
+    // Upload onboarding data to Firebase
+    const onboardingDataSoFar = {
+      here_for: Here_for,
+    };
+
+    try {
+      // Attempt to upload the data
+      await uploadOnboardingData(onboardingDataSoFar);
+      // If data upload is successful, navigate to the next page
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      // Handle the error (optional) or show an error message to the user
+      // Don't navigate since data upload was not successful
+    }
   };
 
+  const uploadOnboardingData = async (data) => {
+    const userEmail = user?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
 
-   // uploading onboardingData 
+    const docRef = doc(db, "Users", userEmail);
 
-   const docRef = doc(db, "Users", user?.user?.email);
-
-   const uploadOnboardingData = async (docRef,finalOnboardingData) => {
-     try{
-       await setDoc(docRef,finalOnboardingData);
-     }catch(err){
-       console.error(err);
-     }
-   }
- 
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, data, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
+    }
+  };
 
   const objectives = [
     {
@@ -88,9 +101,8 @@ function Fifth() {
       text: "Increase my knowledge",
     },
   ];
-  console.log(Here_for)
+  console.log(Here_for);
 
- 
   return (
     <div className={styles.container}>
       <div
@@ -108,9 +120,7 @@ function Fifth() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-        <text className={styles.heading}>
-            What are you here for?
-          </text>
+          <text className={styles.heading}>What are you here for?</text>
           <text className={styles.subHeading}>
             Select minimum 3 objectives.
           </text>
@@ -129,7 +139,7 @@ function Fifth() {
               </div>
             ))}
           </div>
-          <div  className={styles.buttonDiv}>
+          <div className={styles.buttonDiv}>
             <button
               className={styles.leftButton}
               onClick={() => navigate("/onboarding-fourth")}
@@ -137,7 +147,10 @@ function Fifth() {
               Back
             </button>
             {Here_for.length >= 3 ? (
-              <button className={styles.rightButton} onClick={handleFunctions}>
+              <button
+                className={styles.rightButton}
+                onClick={handleNextButtonClick}
+              >
                 Next
               </button>
             ) : (
@@ -146,7 +159,10 @@ function Fifth() {
               </button>
             )}
 
-            <button className={styles.skipButton} onClick={() => navigate("/")}>
+            <button
+              className={styles.skipButton}
+              onClick={() => navigate("/")}
+            >
               Skip
             </button>
           </div>

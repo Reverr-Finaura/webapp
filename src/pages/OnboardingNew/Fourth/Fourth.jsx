@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styles from "./Fourth.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../../firebase";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import {
   setCountry,
   setState,
@@ -11,16 +13,20 @@ import {
   setExpDesignation,
   setExpCompany,
   setLinkedin,
-  setTwitter
+  setTwitter,
 } from "../../../features/onboardingSlice";
 
 function Fourth() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const onboardingData = useSelector((state) => state.onboarding);
   const [countryLocation, setCountryLocation] = useState("");
   const [StateLocation, setStateLocation] = useState("");
   const [education, setEducation] = useState([{ degree: "", institute: "" }]);
-  const [experience, setexperience] = useState([{ designation: "", company: "" }]);
+  const [experience, setexperience] = useState([
+    { designation: "", company: "" },
+  ]);
   const [locError, setlocError] = useState("");
   const [stateError, setstateError] = useState("");
   const [degError, setdegError] = useState("");
@@ -31,11 +37,9 @@ function Fourth() {
   const [linkedinLink, setLinkedinLink] = useState("");
   const [twitterLink, setTwitterLink] = useState("");
 
-
-
-  const handleFunctions = () => {
+  // Function to handle the "Next" button click
+  const handleNextButtonClick = async () => {
     if (validate()) {
-      navigate("/onboarding-fifth");
       dispatch(setCountry(countryLocation));
       dispatch(setState(StateLocation));
       dispatch(setDegree(education[0].degree));
@@ -44,14 +48,53 @@ function Fourth() {
       dispatch(setExpCompany(experience[0].company));
       dispatch(setLinkedin(linkedinLink));
       dispatch(setTwitter(twitterLink));
-      setlocError('');
-      setstateError('');
-      setdesError('');
-      setinsError('');
-      setdegError('');
-      setcomError('');
+      setlocError("");
+      setstateError("");
+      setdesError("");
+      setinsError("");
+      setdegError("");
+      setcomError("");
+
+      // Upload onboarding data to Firebase
+      const onboardingDataSoFar = {
+        country: countryLocation,
+        state: StateLocation,
+        education: education,
+        experience: experience,
+        linkedin: linkedinLink,
+        twitterLink: twitterLink,
+      };
+
+      try {
+        // Attempt to upload the data
+        await uploadOnboardingData(onboardingDataSoFar);
+        // If data upload is successful, navigate to the next page
+        navigate("/onboarding-fifth");
+      } catch (err) {
+        console.error(err);
+        // Handle the error (optional) or show an error message to the user
+        // Don't navigate since data upload was not successful
+      }
     }
-  }
+  };
+
+  const uploadOnboardingData = async (data) => {
+    const userEmail = user?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
+  
+    const docRef = doc(db, "Users", userEmail);
+  
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, data, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
+    }
+  };
+
 
   const handleCountryChange = (event) => {
     setCountryLocation(event.target.value);
@@ -83,7 +126,6 @@ function Fourth() {
     setEducation([...education, { degree: "", institute: "" }]);
   };
 
-
   const handleDesignationChange = (event, index) => {
     const updatedExperience = [...experience];
     updatedExperience[index] = {
@@ -100,13 +142,11 @@ function Fourth() {
       company: event.target.value,
     };
     setexperience(updatedExperience);
-
   };
 
   const addExperience = () => {
     setexperience([...experience, { designation: "", company: "" }]);
   };
-
 
   const removeEducation = (index) => {
     const updatedEducation = [...education];
@@ -156,7 +196,14 @@ function Fourth() {
     if (!experience[0].company) {
       comError = "Company field is required";
     }
-    if (locError || stateError || degError || desError || comError || insError) {
+    if (
+      locError ||
+      stateError ||
+      degError ||
+      desError ||
+      comError ||
+      insError
+    ) {
       setlocError(locError);
       setstateError(stateError);
       setdesError(desError);
@@ -185,9 +232,7 @@ function Fourth() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-        <text className={styles.heading}>
-            Let us get to know you!
-          </text>
+          <text className={styles.heading}>Let us get to know you!</text>
           <div className={styles.textInputContainer}>
             <div className={styles.textInput}>
               <text style={{ fontSize: 10, color: "#ffffff" }}>Location</text>
@@ -253,7 +298,6 @@ function Fourth() {
               </React.Fragment>
             ))}
 
-
             {experience.map((exp, index) => (
               <React.Fragment key={`exp0-${index}`}>
                 <div className={styles.textInput} key={`exp0-${index}`}>
@@ -286,7 +330,6 @@ function Fourth() {
               </React.Fragment>
             ))}
 
-
             <div className={styles.textInput}>
               <text style={{ fontSize: 10, color: "#ffffff" }}>
                 LinkedIn Id
@@ -310,20 +353,17 @@ function Fourth() {
               />
             </div>
           </div>
-          <div  className={styles.buttonDiv}>
+          <div className={styles.buttonDiv}>
             <button
               className={styles.leftButton}
               onClick={() => navigate("/onboarding-third")}
             >
               Back
             </button>
-            <button
-              className={styles.rightButton}
-              onClick={handleFunctions}
-            >
+            <button className={styles.rightButton} onClick={handleNextButtonClick}>
               Next
             </button>
-            <button className={styles.skipButton}>Skip</button>
+            <button className={styles.skipButton} onClick={() => navigate("/onboarding-fifth")}>Skip</button>
           </div>
         </div>
         <div className={styles.hiddenOnMobile}>

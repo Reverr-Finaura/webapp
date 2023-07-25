@@ -14,10 +14,13 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
   //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
     async function fetchUsers() {
-      const mentorsRef = collection(db, "Users");
-      const q = query(mentorsRef);
+      const usersRef = collection(db, "Users");
+      const q = query(usersRef);
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
+      var isFinished = false;
+      var localUsers = [];
+      console.log("querySnapshot", querySnapshot);
+      querySnapshot.docs.map((doc, idx) => {
         if (
           doc.data().hasOwnProperty("name") &&
           doc.data().name !== "" &&
@@ -32,30 +35,34 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
           setUsers((prev) => {
             return [...prev, doc.data()];
           });
+          localUsers.push(doc.data());
+          if (idx === querySnapshot.docs.length - 1) {
+            isFinished = true;
+            if (localUsers.length > 0)
+              getRandomUsers(8, setRandomUsers, localUsers);
+          }
         }
       });
+      if (isFinished) {
+        localUsers = null; // This removes the reference to the localUsers array
+      }
     }
     fetchUsers();
   }, [currentLoggedInUser]);
 
-  useEffect(() => {
-    if (users.length > 0) {
-      const shuffleArray = (arr) => {
-        for (let i = arr.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-      };
-  
-      const getRandomUsers = () => {
-        const randomUsersArr = users.slice(); // Create a shallow copy of the users array
-        shuffleArray(randomUsersArr);
-        setRandomUsers(randomUsersArr.slice(0, 8)); // Select the first 8 elements
-      };
-  
-      getRandomUsers();
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-  }, [users]);
+
+    return arr;
+  }
+
+  const getRandomUsers = (length, setUser, userArray) => {
+    const modifiedArray = shuffleArray(userArray);
+    setUser(modifiedArray.slice(0, length));
+  };
   
 
   return (

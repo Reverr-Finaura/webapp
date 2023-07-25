@@ -2,26 +2,36 @@ import React, { useState, useEffect } from "react";
 import styles from "./Third.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
-import { setImage,setAboutToStore,setDesignationToStore } from "../../../features/onboardingSlice";
-import { useDispatch } from "react-redux";
+import {
+  setImage,
+  setAboutToStore,
+  setDesignationToStore,
+} from "../../../features/onboardingSlice";
 import { storage } from "../../../firebase";
-import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import { ToastContainer, toast } from "react-toastify";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../../firebase";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
 function Third() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const onboardingData = useSelector((state) => state.onboarding);
   const [ProfileImage, setProfileImage] = useState(null);
-  const [imgUrl , setImgUrl] = useState("");
-  const [uploadedProfileImage, setUploadedProfileImage] = useState(null)
+  const [imgUrl, setImgUrl] = useState("");
+  const [uploadedProfileImage, setUploadedProfileImage] = useState(null);
   const [designation, setDesignation] = useState("");
   const [about, setAbout] = useState("");
-  const [imgError,setimgError]=useState('');
-  const [desError,setdesError]=useState('');
-  const [abtError,setabtError]=useState('');
+  const [imgError, setimgError] = useState("");
+  const [desError, setdesError] = useState("");
+  const [abtError, setabtError] = useState("");
 
   const handleImageUpload = (event) => {
     const uploadedImage = event.target.files[0];
-    setUploadedProfileImage(uploadedImage)
+    console.log("uploadedImage", uploadedImage);
+    setUploadedProfileImage(uploadedImage);
     setProfileImage(URL.createObjectURL(uploadedImage));
   };
 
@@ -33,61 +43,111 @@ function Third() {
     setAbout(event.target.value);
   };
 
-  // this function will handle two function when the Next button is clicked
+  // // this function will handle two function when the Next button is clicked
 
-  const handleFunctions = () => {
-    if(validate()){
-    navigate("/onboarding-fourth");
-    dispatch(setImage(imgUrl));
-    dispatch(setDesignationToStore(designation));
-    dispatch(setAboutToStore(about));
-    setImgUrl('');
-    setdesError('');
-    setabtError('');
-    
+  // const handleFunctions = () => {
+  //   if (validate()) {
+  //     navigate("/onboarding-fourth");
+  //     dispatch(setImage(imgUrl));
+  //     dispatch(setDesignationToStore(designation));
+  //     dispatch(setAboutToStore(about));
+  //     setImgUrl("");
+  //     setdesError("");
+  //     setabtError("");
+  //   }
+  // };
+
+  // Function to handle the "Next" button click
+  const handleNextButtonClick = async () => {
+    if (validate()) {
+      dispatch(setImage(imgUrl));
+      dispatch(setDesignationToStore(designation));
+      dispatch(setAboutToStore(about));
+      setImgUrl("");
+      setdesError("");
+      setabtError("");
+
+      // Upload onboarding data to Firebase
+      const onboardingDataSoFar = {
+        image: imgUrl,
+        about: about,
+        designation: designation,
+      };
+
+      try {
+        // Attempt to upload the data
+        await uploadOnboardingData(onboardingDataSoFar);
+        // If data upload is successful, navigate to the next page
+        navigate("/onboarding-fourth");
+      } catch (err) {
+        console.error(err);
+        // Handle the error (optional) or show an error message to the user
+        // Don't navigate since data upload was not successful
+      }
     }
-   
-  }
+  };
 
-useEffect(() => {
-  const uplaodImage =async () => {
-    if(!uploadedProfileImage == null){
-      return;
-    } 
-    try{
-      const imageRef = ref(storage, `onboardingImages/${uploadedProfileImage.name}`)
-      await uploadBytes(imageRef,uploadedProfileImage)
-      const getImageUrl = await getDownloadURL(imageRef);
-      setImgUrl(getImageUrl)
-    }catch(err){
-      console.error(err)
+  useEffect(() => {
+    const uplaodImage = async () => {
+      if (!uploadedProfileImage == null) {
+        return;
+      }
+      try {
+        const imageRef = ref(
+          storage,
+          `onboardingImages/${uploadedProfileImage.name}`
+        );
+        await uploadBytes(imageRef, uploadedProfileImage);
+        const getImageUrl = await getDownloadURL(imageRef);
+        setImgUrl(getImageUrl);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    uplaodImage();
+  }, [uploadedProfileImage]);
+
+  function validate() {
+    let nameError = "";
+    let emailError = "";
+    let passwordError = "";
+    if (!uploadedProfileImage) {
+      nameError = "Image field is required";
+      toast.error(nameError);
     }
-  }
-  uplaodImage()
-}, [uploadedProfileImage])
 
-function validate(){
-  let nameError = "";
-  let emailError = "";
-  let passwordError = "";
-  if(!uploadedProfileImage){
-  nameError = "Image field is required";
+    if (about==="") {
+      emailError = "About Field is required ";
+    }
+    if (designation==="") {
+      passwordError = "Designation field is required";
+    }
+    if (emailError || nameError || passwordError) {
+      setimgError(nameError);
+      setdesError(passwordError);
+      setabtError(emailError);
+      return false;
+    }
+    return true;
   }
+
+  const uploadOnboardingData = async (data) => {
+    const userEmail = user?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
   
-  if(!about){
-  emailError = "About Field is required ";
-  }
-  if(!designation){
-  passwordError = "Designation field is required";
-  }
-  if(emailError || nameError || passwordError){
-  setimgError(nameError);
-  setdesError(passwordError);
-  setabtError(emailError)
-  return false;
-  }
-  return true;
-  }
+    const docRef = doc(db, "Users", userEmail);
+  
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, data, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
+    }
+  };
+  
   
 
   return (
@@ -107,12 +167,8 @@ function validate(){
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-        <text className={styles.heading}>
-            Let us get to know you!
-          </text>
-          <text className={styles.subHeading}>
-            Upload your photo
-          </text>
+          <text className={styles.heading}>Let us get to know you!</text>
+          <text className={styles.subHeading}>Upload your photo</text>
           <label htmlFor="upload" className={styles.uploadPhoto}>
             {ProfileImage ? (
               <img src={ProfileImage} alt="img" />
@@ -172,10 +228,7 @@ function validate(){
             >
               Back
             </button>
-            <button
-              className={styles.rightButton}
-              onClick={handleFunctions}
-            >
+            <button className={styles.rightButton} onClick={handleNextButtonClick}>
               Next
             </button>
           </div>
@@ -183,7 +236,7 @@ function validate(){
         <div className={styles.hiddenOnMobile}>
           <img
             className={styles.mainImage}
-            src={require("../../../images/onboardingthird.png")} 
+            src={require("../../../images/onboardingthird.png")}
             alt="img"
           />
         </div>

@@ -33,9 +33,9 @@ const User = () => {
   const [uiShouldRender, setUiShouldRender] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log("currentLoggedInUser", currentLoggedInUser);
-  console.log("currentLoggedInUserDoc", currentLoggedInUserDoc);
-  console.log("otherUserDoc", otherUserDoc);
+  // console.log("currentLoggedInUser", currentLoggedInUser);
+  // console.log("currentLoggedInUserDoc", currentLoggedInUserDoc);
+  // console.log("otherUserDoc", otherUserDoc);
 
   // CHECK FOR USER DOC DATA
   useEffect(() => {
