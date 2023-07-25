@@ -52,6 +52,16 @@ const data = [
 const MentorDashboardTransaction = ({ paymentList }) => {
   // console.log("PaymentList", paymentList);
   const [list, setList] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   useEffect(() => {
     async function fetchMentorExpertise(item) {
@@ -94,42 +104,63 @@ const MentorDashboardTransaction = ({ paymentList }) => {
 
   return (
     <div className="transactioncontainer">
-      <table className="transaction-table">
-        <tr>
-          <th style={{ color: "#00B3FF" }}>Customer</th>
-          <th style={{ color: "#00B3FF" }}>Session Date</th>
-          {/* <th style={{ color: "#00B3FF" }}>Session Time</th> */}
-          <th style={{ color: "#00B3FF" }}>Amount</th>
-          <br />
-          <br />
-        </tr>
-        {list?.map((item, idx) => (
-          <tr key={idx} className="transactionrow">
-            <td className="transactiond">
+      <div className="table-top">
+        <div className="table-header" style={{ color: "#00B3FF" }}>
+          Customer
+        </div>
+        <div className="table-header" style={{ color: "#00B3FF" }}>
+          Session Date
+        </div>
+        <div className="table-header" style={{ color: "#00B3FF" }}>
+          Amount
+        </div>
+      </div>
+      {list?.map((item, idx) =>
+        width >= 480 ? (
+          <div key={idx} className="transactionrow">
+            <div className="transactiond">
               <div className="transactionddiv">
-                <img
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    backgroundColor: "green",
-                    borderRadius: "50%",
-                  }}
-                  src={item.userData?.image || DefaultDP}
-                  alt="image"
-                />
-                {item.userData ? item.userData.name : item.user}
+                <img src={item.userData?.image || DefaultDP} alt="image" />
+                <span>{item.userData ? item.userData.name : item.user}</span>
               </div>
-            </td>
-            <td className="transactiond">
-              {item.time ? getTimeFromDate(50000 * 1000).toDateString() : "N/A"}
-            </td>
-            {/* <td className="transactiond">{item.time}</td> */}
-            <td className="transactiond">
-              {item.orderAmount ? item.orderAmount : 0.0}
-            </td>
-          </tr>
-        ))}
-      </table>
+            </div>
+            <div className="right">
+              <div className="transactiond">
+                {item.time
+                  ? getTimeFromDate(50000 * 1000).toDateString()
+                  : "N/A"}
+              </div>
+              <div className="transactiond">
+                {item.orderAmount ? item.orderAmount : 0.0}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div key={idx} className="transactionrow">
+            <div className="left">
+              <div className="profile">
+                <img src={item.userData?.image || DefaultDP} alt="image" />
+              </div>
+            </div>
+            <div className="right">
+              <div className="right-item">
+                <span style={{ color: "#00B3FF" }}>Customer:</span>
+                <span>{item.userData ? item.userData.name : item.user}</span>
+              </div>
+              <div className="right-item">
+                <span style={{ color: "#00B3FF" }}>Session Date:</span>
+                {item.time
+                  ? getTimeFromDate(50000 * 1000).toDateString()
+                  : "N/A"}
+              </div>
+              <div className="right-item">
+                <span style={{ color: "#00B3FF" }}>Amount:</span>
+                {item.orderAmount ? item.orderAmount : 0.0}
+              </div>
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 };

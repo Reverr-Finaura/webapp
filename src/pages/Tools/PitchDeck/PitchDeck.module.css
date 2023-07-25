@@ -176,3 +176,26 @@ text-transform: capitalize;
     line-height: normal;
     letter-spacing: 0.314px;
 }
+
+
+@media screen and (max-width:450px) {
+    .outerCont{
+        width: 90%;
+    }
+    .loadMoreImg{
+        font-size: 0.8rem;
+    }
+    .loadMoreImgIcon{
+        font-size: 0.8rem;
+    }
+    .AllpptCont{
+        width: 100%;
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: unset;
+        overflow-x: scroll;
+        gap: 2rem;
+        position: relative;
+    }
+}

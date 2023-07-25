@@ -44,7 +44,7 @@ const BuildAudience = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="audience1.png"
+              imgUrl="audience1.webp"
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
@@ -57,7 +57,7 @@ const BuildAudience = () => {
                 "What are the means and channels to reach your audience?",
                 "How to develop a long term marketing strategy?",
               ]}
-              imgUrl="audience2.png"
+              imgUrl="audience2.webp"
             />
             {/* <CourseReview /> */}
           </div>
