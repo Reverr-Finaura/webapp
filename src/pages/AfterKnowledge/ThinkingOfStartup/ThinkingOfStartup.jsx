@@ -44,7 +44,7 @@ const ThinkingOfStartup = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="tos1.png"
+              imgUrl="tos1.webp"
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
@@ -57,7 +57,7 @@ const ThinkingOfStartup = () => {
                 "How to come up with innovative solutions?",
                 "How to be more observant?",
               ]}
-              imgUrl="tos2.png"
+              imgUrl="tos2.webp"
             />
             {/* <CourseReview /> */}
           </div>

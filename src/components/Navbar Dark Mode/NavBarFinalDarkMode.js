@@ -32,7 +32,7 @@ import mentordashboardicon from "../../images/radix-icons_dashboard.svg"
 import userIcon from "../../images/userIcon.png";
 import settingIcon from "../../images/Vector (3).png";
 import ReverrLightIcon from "../../images/Reverr Light.png";
-import ReverrDarkIcon from "../../images/new-dark-mode-logo.png";
+import ReverrDarkIcon from "../../images/new-dark-mode-logo.webp";
 import {
   AiFillBell,
   AiFillSetting,

@@ -21,10 +21,10 @@ const CourcePageTesting = () => {
           <div className="rateing">
             {/* <img src="./images/Star.svg" alt="" height={20} width={120} /> */}
             <span className="star">
-              <img src="/images/star.png" alt="" />
-              <img src="/images/star.png" alt="" />
-              <img src="/images/star.png" alt="" />
-              <img src="/images/star.png" alt="" />
+              <img src="/images/star.webp" alt="" />
+              <img src="/images/star.webp" alt="" />
+              <img src="/images/star.webp" alt="" />
+              <img src="/images/star.webp" alt="" />
             </span>
             <span className="space">4.8</span>
             <text className="rat"> 1,980 s ratings | 97%</text>
@@ -52,7 +52,7 @@ const CourcePageTesting = () => {
           <p className="rever">REVERR</p>
           <div className="ideagirl">
             <img
-              src="/images/idea-validation1.png"
+              src="/images/idea-validation1.webp"
               alt=""
               height={280}
               width={250}
@@ -96,7 +96,7 @@ const CourcePageTesting = () => {
         </div>
         <div className="imggraph">
           <img
-            src="./images/idea-validation2.png"
+            src="./images/idea-validation2.webp"
             alt=""
             height={300}
             width={250}

@@ -14,7 +14,7 @@ function NoAppoinments({ isLoggedIn, openModal }) {
         style={{
           marginTop: 20,
         }}
-        src={require("../../../images/noappoinment.png")}
+        src={require("../../../images/noappoinment.webp")}
         alt="img"
       />
       <p className={styles.buttomText}>

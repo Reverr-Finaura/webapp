@@ -5,8 +5,8 @@ import PhnSidebar from "../../components/PhnSidebar/PhnSidebar";
 import KnowledgeNavbar from "../../components/KnowledgeNavbar/KnowledgeNavbar";
 import { useNavigate } from "react-router-dom";
 import styles from "./FundingPageNew.module.css";
-import fundingForm from "../../images/fundingForm.png";
-import startupScore from "../../images/startupScore.png";
+import fundingForm from "../../images/fundingForm.webp";
+import startupScore from "../../images/startupScore.webp";
 
 const FundingPageNew = () => {
   const navigate = useNavigate();

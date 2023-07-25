@@ -43,7 +43,7 @@ const ReachingOutToInvestor = () => {
         <div className={styles.body}>
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
-            <Hero imgUrl="ReachingOutToInvestor.png" />
+            <Hero imgUrl="ReachingOutToInvestor.webp" />
             <CourseIntro
               courseDetails={courseDetails}
               url="/reaching-out-to-investor-slides"
@@ -54,7 +54,7 @@ const ReachingOutToInvestor = () => {
                 "What are the places to lookout for investors for?",
                 "What are the requirements in order to win over an investor?",
               ]}
-              imgUrl="reachingOut2.png"
+              imgUrl="reachingOut2.webp"
             />
             {/* <CourseReview /> */}
           </div>

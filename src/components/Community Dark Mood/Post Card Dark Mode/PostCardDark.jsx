@@ -380,9 +380,9 @@ export default function PostCardDark({
           return {
             ...prev,
             ...res,
-            notificationList: res.notificationList
-              ? [...prev.notificationList, ...res.notificationList]
-              : prev.notificationList,
+            notificationList: res?.notificationList
+              ? [...prev?.notificationList, ...res?.notificationList]
+              : prev?.notificationList,
           };
         });
       });
@@ -396,9 +396,9 @@ export default function PostCardDark({
           return {
             ...prev,
             ...res,
-            notificationList: res.notificationList
-              ? [...prev.notificationList, ...res.notificationList]
-              : prev.notificationList,
+            notificationList: res?.notificationList
+              ? [...prev?.notificationList, ...res?.notificationList]
+              : prev?.notificationList,
           };
         });
       });

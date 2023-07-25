@@ -44,7 +44,7 @@ const FundraisingAndMeans = () => {
         <div className={styles.body}>
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
-            <Hero imgUrl="FundraisingandMeans.png" />
+            <Hero imgUrl="FundraisingandMeans.webp" />
             <CourseIntro
               courseDetails={courseDetails}
               url="/fundraising-and-means-slides"
@@ -55,7 +55,7 @@ const FundraisingAndMeans = () => {
                 "What are the different means to raise funds?",
                 "What is the role of a pitchdeck in fundraising?",
               ]}
-              imgUrl="fundraising2.png"
+              imgUrl="fundraising2.webp"
             />
             {/* <CourseReview /> */}
           </div>
