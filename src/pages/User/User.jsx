@@ -448,7 +448,7 @@ const User = () => {
                     ? otherUserDoc.image
                     : DefaultDP
                 }
-                alt="Linkedin"
+                alt="ProfileImage"
               />
             </div>
             <div className={styles.profileInfo}>
@@ -461,22 +461,35 @@ const User = () => {
                     toast.success("Phone Number Copied");
                   }}
                 /> */}
-                <img
-                  src="/images/logos_google-gmail.svg"
-                  alt="Gmail"
-                  onClick={() => {
-                    navigator.clipboard.writeText(otherUserDoc.email);
-                    toast.success("Email Copied");
-                  }}
-                />
-                <img
-                  src="/images/skill-icons_linkedin.svg"
-                  alt="Linkedin"
-                  onClick={() => {
-                    navigator.clipboard.writeText(otherUserDoc.linkedin || otherUserDoc.linlkedin);
-                    toast.success("Linkedin Copied");
-                  }}
-                />
+                {otherUserDoc?.email ? (
+                  <>
+                    <img
+                      src="/images/logos_google-gmail.svg"
+                      alt="Email"
+                      onClick={() => {
+                        navigator.clipboard.writeText(otherUserDoc?.email);
+                        toast.success("Email copied to clipboard");
+                      }}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </>
+                ) : null}
+
+                {otherUserDoc?.linkedin || otherUserDoc?.linlkedin ? (
+                  <>
+                    <img
+                      src="/images/skill-icons_linkedin.svg"
+                      alt="Linkedin"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          otherUserDoc?.linkedin || otherUserDoc?.linlkedin
+                        );
+                        toast.success("Linkedin profile copied to clipboard");
+                      }}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </>
+                ) : null}
               </div>
               <div className={styles.profileInfoName}>
                 <p style={{ textTransform: "capitalize" }}>
@@ -631,90 +644,108 @@ const User = () => {
             <></>
           )}
           <div className={styles.profileContent}>
-            {otherUserDoc?.about && <div className={styles.aboutMe}>
-              <p>About Me</p>
-              <p>{otherUserDoc?.about ? otherUserDoc.about : "Add your Bio"}</p>
-            </div>}
-
-            {otherUserDoc?.designation &&  <div className={styles.aboutMe}>
-              <p>Current Designation</p>
-              <p>
-                {otherUserDoc?.designation
-                  ? otherUserDoc.designation
-                  : "No Designation Added"}
-              </p>
-            </div>}
-
-                {otherUserDoc?.Vibe_Data &&  <div className={styles.connect}>
-              <p>How can we connect?</p>
-              <div style={{ flexDirection: "column" }}>
-                {otherUserDoc?.Vibe_Data?.How_To_Meet
-                  ? otherUserDoc.Vibe_Data.How_To_Meet.map((item) => {
-                      return (
-                        <button style={{ marginRight: "25px" }}>{item}</button>
-                      );
-                    })
-                  : "How to connect not upadted"}
+            {otherUserDoc?.about && (
+              <div className={styles.aboutMe}>
+                <p>About Me</p>
+                <p>
+                  {otherUserDoc?.about ? otherUserDoc.about : "Add your Bio"}
+                </p>
               </div>
-            </div>}
+            )}
+
+            {otherUserDoc?.designation && (
+              <div className={styles.aboutMe}>
+                <p>Current Designation</p>
+                <p>
+                  {otherUserDoc?.designation
+                    ? otherUserDoc.designation
+                    : "No Designation Added"}
+                </p>
+              </div>
+            )}
+
+            {otherUserDoc?.Vibe_Data && (
+              <div className={styles.connect}>
+                <p>How can we connect?</p>
+                <div style={{ flexDirection: "column" }}>
+                  {otherUserDoc?.Vibe_Data?.How_To_Meet
+                    ? otherUserDoc.Vibe_Data.How_To_Meet.map((item) => {
+                        return (
+                          <button style={{ marginRight: "25px" }}>
+                            {item}
+                          </button>
+                        );
+                      })
+                    : "How to connect not upadted"}
+                </div>
+              </div>
+            )}
           </div>
           <div className={styles.profileEducation}>
-            {otherUserDoc?.education && <div className={styles.education}>
-              <p>Education</p>
-              <div className={styles.educationInfo}>
-                <ul>
-                  {otherUserDoc?.education ? (
-                    otherUserDoc.education.map((item) => {
-                      return (
-                        <li>
-                          {item.degree ? item.degree : null},{" "}
-                          {item.institute ? item.institute : null}{" "}
-                          {item.year ? item.year : null}
-                        </li>
-                      );
-                    })
-                  ) : (
-                    <li>No Education Added</li>
-                  )}
-                </ul>
+            {otherUserDoc?.education && (
+              <div className={styles.education}>
+                <p>Education</p>
+                <div className={styles.educationInfo}>
+                  <ul>
+                    {otherUserDoc?.education ? (
+                      otherUserDoc.education.map((item) => {
+                        return (
+                          <li>
+                            {item.degree ? item.degree : null},{" "}
+                            {item.institute ? item.institute : null}{" "}
+                            {item.year ? item.year : null}
+                          </li>
+                        );
+                      })
+                    ) : (
+                      <li>No Education Added</li>
+                    )}
+                  </ul>
+                </div>
               </div>
-            </div>}
+            )}
 
-            {otherUserDoc?.experience &&   <div className={styles.experience}>
-              <p>My Work Experience</p>
-              <div className={styles.educationInfo}>
-                <ul>
-                  {otherUserDoc?.experience ? (
-                    otherUserDoc.experience.map((item) => {
-                      return (
-                        <li>
-                          {item.designation ? item.designation : null} at{" "}
-                          {item.company ? item.company : null}{" "}
-                          <span style={{ fontSize: "14px", color: "gray" }}>
-                            {item.tenure ? item.tenure : null}
-                          </span>
-                        </li>
-                      );
-                    })
-                  ) : (
-                    <li>No Experience Added</li>
-                  )}
-                </ul>
+            {otherUserDoc?.experience && (
+              <div className={styles.experience}>
+                <p>My Work Experience</p>
+                <div className={styles.educationInfo}>
+                  <ul>
+                    {otherUserDoc?.experience ? (
+                      otherUserDoc.experience.map((item) => {
+                        return (
+                          <li>
+                            {item.designation ? item.designation : null} at{" "}
+                            {item.company ? item.company : null}{" "}
+                            <span style={{ fontSize: "14px", color: "gray" }}>
+                              {item.tenure ? item.tenure : null}
+                            </span>
+                          </li>
+                        );
+                      })
+                    ) : (
+                      <li>No Experience Added</li>
+                    )}
+                  </ul>
+                </div>
               </div>
-            </div>}
+            )}
 
-                  {otherUserDoc?.Vibe_Data &&  <div className={styles.experienceConnect}>
-              <p>I am here to </p>
-              <div className={styles.experienceBtn}>
-                {otherUserDoc?.Vibe_Data?.Here_for
-                  ? otherUserDoc.Vibe_Data.Here_for.map((item) => {
-                      return (
-                        <button style={{ marginRight: "25px" }}>{item}</button>
-                      );
-                    })
-                  : "No i am here to added"}
+            {otherUserDoc?.Vibe_Data && (
+              <div className={styles.experienceConnect}>
+                <p>I am here to </p>
+                <div className={styles.experienceBtn}>
+                  {otherUserDoc?.Vibe_Data?.Here_for
+                    ? otherUserDoc.Vibe_Data.Here_for.map((item) => {
+                        return (
+                          <button style={{ marginRight: "25px" }}>
+                            {item}
+                          </button>
+                        );
+                      })
+                    : "No i am here to added"}
+                </div>
               </div>
-            </div>}
+            )}
           </div>
           <div className={styles.profileContact}>
             <div className={styles.contact}>
