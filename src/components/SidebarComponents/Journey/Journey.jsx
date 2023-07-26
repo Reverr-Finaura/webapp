@@ -13,7 +13,7 @@ function Journey({ isLoggedIn, openModal }) {
         <span style={{ color: "#ffffff" }}>&nbsp;just for you!</span>
       </p>
       <div>
-        <img src={require("../../../images/Rectangle 1612.png")} alt="img" />
+        <img src={require("../../../images/Rectangle 1612.webp")} alt="img" />
         <button
           onClick={() => {
             if (!isLoggedIn) {

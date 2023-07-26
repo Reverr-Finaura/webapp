@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./DocSkeleton.module.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const DocSkeleton = ({ cards }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+ useEffect(() => {
+    setWidth(window.innerWidth)
+  
+  }, [window.innerWidth])
+  
   return Array(cards)
     .fill(0)
     .map((item, index) => {
@@ -14,7 +20,7 @@ const DocSkeleton = ({ cards }) => {
               <div className={styles.cardTop}>
                 <Skeleton
                   className={styles.cardTopUserImage}
-                  width={547}
+                  width={`${width <= 450 ? 340 : 547 } `}
                   height={200}
                 />
               </div>

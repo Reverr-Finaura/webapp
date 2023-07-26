@@ -47,7 +47,7 @@ const BetaTesting = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="betatesting.png"
+              imgUrl="betatesting.webp"
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
@@ -60,7 +60,7 @@ const BetaTesting = () => {
                 "Why beta test?",
                 "A/B testing?",
               ]}
-              imgUrl="betaimg2.png"
+              imgUrl="betaimg2.webp"
             />
             {/* <CourseReview /> */}
           </div>

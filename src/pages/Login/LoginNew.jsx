@@ -371,7 +371,7 @@ const LoginNew = () => {
             <div className={styles.rightImage}>
               {/* <img className={styles.hiddenOnMobile} src="/images/login_Image.png" alt="LoginImg" /> */}
               <img
-                src={require("../../images/loginmobile.png")}
+                src={require("../../images/loginmobile.webp")}
                 alt="LoginImg"
               />
             </div>
@@ -437,7 +437,7 @@ const LoginNew = () => {
         <div className={styles.hiddenOnMobile}>
           <div className={styles.headerImage}>
             <div className={styles.rightImage}>
-              <img src="/images/login_Image.png" alt="LoginImg" />
+              <img src="/images/login_Image.webp" alt="LoginImg" />
             </div>
           </div>
         </div>

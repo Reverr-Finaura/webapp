@@ -192,6 +192,7 @@ import BusinessPlan from './Business Plan/BusinessPlan';
 import ToolsSkeleton from '../../components/Post Skeleton/Tools Skeleton/ToolsSkeleton';
 import NavBarFinalDarkMode from '../../components/Navbar Dark Mode/NavBarFinalDarkMode';
 import './Tools.module.css'
+import ToolsDropdown from './ToolsDropdown';
 
 const list=["Pitch Deck","Business Plan","Business validation","Financial Models","fundraising","HR","Legal","startup basics"]
 
@@ -270,26 +271,28 @@ if(dataFilter.toLowerCase()==="startup basics"){setPptToShow([]);setDocTagToShow
     <>
     <div className='toolspage' style={{backgroundColor:'#0b0b2c'}}>
 
-        {width >= 600 ? (
-        <>
+        {/* {width >= 600 ? (
+        <> */}
           {/* <SidebarFinal /> */}
           <div className='navbar'>
             <NavBarFinalDarkMode />
           </div>
-        </>
+        {/* </>
       ) : (
         <><div>
           <PhnSidebar />
           <KnowledgeNavbar />
 
         </div>
-        </>
-      )}
+        </> */}
+      {/* )} */}
       <section className={styles.outerCont}>
         {/* <h1 className={styles.title}>Explore Tools</h1> */}
 
         {/* TAG SORTER */}
+        <div>
 
+        
         <div className={styles.chooser}>
           <div className='options'>
           <section style={{color:dataFilter === "All"&&"#2a72de"}}
@@ -322,6 +325,16 @@ if(dataFilter.toLowerCase()==="startup basics"){setPptToShow([]);setDocTagToShow
             );
           })}
         </div>
+
+        {/* for mobile */}
+          
+
+        {width <= 450 &&
+        <ToolsDropdown list={list} setDataFilter={setDataFilter} dataFilter={dataFilter}/>
+          }
+
+        </div>
+          {/* // */}
 
           <div className={styles.skeletonLoaingCont}>
           

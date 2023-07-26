@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-
 const MentorEditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -335,7 +334,6 @@ const MentorEditProfile = () => {
     });
   };
 
-
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = ref(storage, `Images/${user?.user?.email}/profile`);
@@ -363,7 +361,6 @@ const MentorEditProfile = () => {
     );
   };
 
-  
   //   -------------------------Handle Domain-------------------------
   const domainAdd = (domainName) => {
     setFormData((prev) => {
@@ -403,14 +400,14 @@ const MentorEditProfile = () => {
     setFormData((prev) => {
       return {
         ...prev,
-        [name]: [value, value*4 , value*12, value*24]
+        [name]: [value, value * 4, value * 12, value * 24],
       };
     });
-  }
+  };
 
   // ---------------------------------------------
-//   console.log("userDoc", userDoc);
-//   console.log("formData", formData);
+  //   console.log("userDoc", userDoc);
+  //   console.log("formData", formData);
 
   return (
     <div className={styles.editWrapper}>
@@ -427,17 +424,13 @@ const MentorEditProfile = () => {
           <p>Edit Profile</p>
         </div>
         <div className={styles.profileImage}>
-          {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}
           <img
             src={
-              // userDoc?.image && userDoc?.image !== ""
-              //   ? userDoc.image
-              //   : DefaultDP
               formData?.image && formData?.image !== ""
                 ? formData.image
                 : DefaultDP
             }
-            alt="User_Image"
+            alt="ProfileImage"
           />
           <label htmlFor="file" className={styles.fileLabel}>
             <span className={styles.plusIcon}>+</span>
@@ -901,7 +894,9 @@ const MentorEditProfile = () => {
                       id="charges"
                       name="plans"
                       value={formData?.plans[0]}
-                      onChange={(e)=>{handleCharges(e)}}
+                      onChange={(e) => {
+                        handleCharges(e);
+                      }}
                       placeholder="Enter your charges per hour"
                       required
                       min={0}

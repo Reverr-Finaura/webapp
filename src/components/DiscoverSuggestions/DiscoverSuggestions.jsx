@@ -142,85 +142,61 @@ const DiscoverSuggestions = ({heading,colorheading}) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
-
-  // console.log("userEmail",user.user.email);
-
-  // // FETCH USER DATA FROM FIREBASE
-  // useEffect(() => {
-  //   async function fetchUsers() {
-  //     const mentorsRef = collection(db, "Users");
-  //     const q = query(mentorsRef);
-  //     const querySnapshot = await getDocs(q);
-  //     const filteredUsers = querySnapshot.docs
-  //       .map((doc) => doc.data())
-  //       .filter(
-  //         (docData) =>
-  //           docData.hasOwnProperty("name") &&
-  //           docData.name.trim() !== "" &&
-  //           docData.hasOwnProperty("image") &&
-  //           docData.image.trim() !== "" &&
-  //           docData.hasOwnProperty("designation") &&
-  //           docData.designation.trim() !== "" &&
-  //           doc.data().hasOwnProperty("email") &&
-  //           docData.email !== currentLoggedInUser?.user?.email
-  //       );
-  //     setUsers(filteredUsers);
-  //   }
-  //   fetchUsers();
-  // }, [currentLoggedInUser]);
+  
 
   //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
     async function fetchUsers() {
-      const mentorsRef = collection(db, "Users");
-      const q = query(mentorsRef);
+      const usersRef = collection(db, "Users");
+      const q = query(usersRef);
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        
+      var isFinished = false;
+      var localUsers = [];
+      console.log("querySnapshot", querySnapshot);
+      querySnapshot.docs.map((doc, idx) => {
         if (
           doc.data().hasOwnProperty("name") &&
           doc.data().name !== "" &&
           doc.data().hasOwnProperty("image") &&
           doc.data().image !== "" &&
-          doc.data().hasOwnProperty("designation") &&
-          doc.data().designation !== "" &&
           doc.data().hasOwnProperty("email") &&
-          doc.data().email !== currentLoggedInUser?.user?.email
+          doc.data().email !== currentLoggedInUser?.user?.email &&
+          (doc.data().hasOwnProperty("network") // Check if "network" array is present in doc.data()
+            ? !doc.data().network.includes(currentLoggedInUser?.user?.email) // if present then only check current user's email is not included in it
+            : true)
         ) {
           setUsers((prev) => {
             return [...prev, doc.data()];
           });
+          localUsers.push(doc.data());
+          if (idx === querySnapshot.docs.length - 1) {
+            isFinished = true;
+            if (localUsers.length > 0)
+              getRandomUsers(8, setRandomUsers, localUsers);
+          }
         }
       });
+      if (isFinished) {
+        localUsers = null; // This removes the reference to the localUsers array
+      }
     }
     fetchUsers();
   }, [currentLoggedInUser]);
 
-  useEffect(() => {
-    if (users.length > 0) {
-      // console.log("rand", users);
-      const getRandomUsers = () => {
-        let randomUsersArr = [];
-        let length = users.length - 1;
-        let targetCount = 8;
-        let uniqueCount = 0;
-
-        while (uniqueCount < targetCount) {
-          let randomIndex = Math.floor(Math.random() * length);
-          let randomElement = users[randomIndex];
-
-          // Check if the randomElement is already in the randomUsers array
-          if (!randomUsersArr.includes(randomElement)) {
-            randomUsersArr.push(randomElement);
-            uniqueCount++;
-          }
-        }
-        setRandomUsers(randomUsersArr);
-      };
-
-      getRandomUsers();
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-  }, [users]);
+
+    return arr;
+  }
+
+  const getRandomUsers = (length, setUser, userArray) => {
+    const modifiedArray = shuffleArray(userArray);
+    setUser(modifiedArray.slice(0, length));
+  };
+  
 
   return (
     <section className="suggest-section">

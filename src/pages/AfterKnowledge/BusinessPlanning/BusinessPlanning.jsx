@@ -13,6 +13,7 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import NavBarFinal from "../../../components/Navbar/NavBarFinal";
 import {useNavigate} from 'react-router-dom'
 import image from "../../../images/arrowMark.svg"
+import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const BusinessPlanning = () => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -32,9 +33,10 @@ const BusinessPlanning = () => {
   };
   return (
     <>
-    {width>=600?<><SidebarFinal /><NavBarFinal /></>:<><PhnSidebar />
+    {/* {width>=600?<><SidebarFinal /><NavBarFinal /></>:<><PhnSidebar /> */}
 
-    <KnowledgeNavbar /></>}
+    {/* <KnowledgeNavbar /></>} */}
+    <NavBarFinalDarkMode />
     <div className={styles.buttonWrapper}>
     <img className={styles.arrowClass} src={image} alt="img" />
     <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
@@ -45,11 +47,11 @@ const BusinessPlanning = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
           <Hero
-            imgUrl="businessplan1.png"
+            imgUrl="businessplan1.webp"
             // heading="Idea validation and elevator pitch"
           />
           <CourseIntro url="/buisnessplanningslides" courseDetails={courseDetails} />
-          <CourseContent points={["What is a business plan?","How to draft a business plan?"," What are the elements of business plan and how to define each one of them?"]} imgUrl="businessplan2.png" />
+          <CourseContent points={["What is a business plan?","How to draft a business plan?"," What are the elements of business plan and how to define each one of them?"]} imgUrl="businessplan2.webp" />
           {/* <CourseReview /> */}
           </div>
         </div>

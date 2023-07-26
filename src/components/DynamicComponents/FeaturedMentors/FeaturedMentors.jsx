@@ -48,23 +48,23 @@ function FeaturedMentors({ isLoggedIn, openModal }) {
   const cardData = [
     {
       title: "IT and Telecom",
-      image: require("../../../images/unsplash_5.png"),
+      image: require("../../../images/unsplash_5.webp"),
     },
     {
       title: "Software and Tech",
-      image: require("../../../images/unsplash_6.png"),
+      image: require("../../../images/unsplash_6.webp"),
     },
     {
       title: "Consulting and Advisory",
-      image: require("../../../images/unsplash_7.png"),
+      image: require("../../../images/unsplash_7.webp"),
     },
     {
       title: "Legal",
-      image: require("../../../images/unsplash_8.png"),
+      image: require("../../../images/unsplash_8.webp"),
     },
     {
       title: "Strategy and Business Development",
-      image: require("../../../images/unsplash_6.png"),
+      image: require("../../../images/unsplash_6.webp"),
     },
   ];
 

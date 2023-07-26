@@ -44,7 +44,7 @@ const ProductDevelopment = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="pd1.png"
+              imgUrl="pd1.webp"
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
@@ -57,7 +57,7 @@ const ProductDevelopment = () => {
                 "What is product life cycle?",
                 "How to commercialize the product?",
               ]}
-              imgUrl="pd2.png"
+              imgUrl="pd2.webp"
             />
             {/* <CourseReview /> */}
           </div>

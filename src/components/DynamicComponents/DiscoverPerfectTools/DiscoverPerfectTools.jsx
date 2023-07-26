@@ -8,17 +8,17 @@ function DiscoverPerfectTools({ isLoggedIn, openModal }) {
   const cardData = [
     {
       title: "StartUp Algo",
-      image: require("../../../images/explore1.png"),
+      image: require("../../../images/explore1.webp"),
       route: "/start-up",
     },
     {
       title: "Pitch Deck",
-      image: require("../../../images/peoplediscussion.png"),
+      image: require("../../../images/peoplediscussion.webp"),
       route: "/tools",
     },
     {
       title: "Document Templates",
-      image: require("../../../images/explore.png"),
+      image: require("../../../images/explore.webp"),
       route: "/tools",
     },
   ];

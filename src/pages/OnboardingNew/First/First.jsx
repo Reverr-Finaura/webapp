@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import styles from "./First.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setUserSpaces } from "../../../features/onboardingSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../../firebase";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+
 
 function First() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userSpace, setUserSpace] = useState([]);
+  const user = useSelector((state) => state.user);
+  const onboardingData = useSelector((state) => state.onboarding);
 
   const handleSpaceClick = (spaceText) => {
     if (userSpace.includes(spaceText)) {
@@ -18,14 +23,45 @@ function First() {
       // If the space text is not selected, add it to the array
       setUserSpace([...userSpace, spaceText]);
     }
-    // console.log("userSpace",userSpace);
   };
 
-  // this function will handle two function when the Next button is clicked
-
-  const handleFunctions = () => {
-    navigate("/onboarding-second");
+  // Function to handle the "Next" button click
+  const handleNextButtonClick = async () => {
     dispatch(setUserSpaces(userSpace));
+
+    // Upload onboarding data to Firebase
+    const onboardingDataSoFar = {
+      ...onboardingData,
+      userSpace: userSpace,
+    };
+
+    try {
+      // Attempt to upload the data
+      await uploadOnboardingData(onboardingDataSoFar);
+      // If data upload is successful, navigate to the next page
+      navigate("/onboarding-second");
+    } catch (err) {
+      console.error(err);
+      // Handle the error (optional) or show an error message to the user
+      // Don't navigate since data upload was not successful
+    }
+  };
+
+  const uploadOnboardingData = async (data) => {
+    const userEmail = user?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
+  
+    const docRef = doc(db, "Users", userEmail);
+  
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, data, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
+    }
   };
 
   const spaceItems = [
@@ -94,9 +130,7 @@ function First() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-          <text className={styles.heading}>
-            Choose your Space(s)
-          </text>
+          <text className={styles.heading}>Choose your Space(s)</text>
           <text className={styles.subHeading}>
             Your Space will define your Reverr experience. (Add atleast one)
           </text>
@@ -117,7 +151,10 @@ function First() {
           </div>
           {userSpace.length >= 1 ? (
             <div className={styles.buttonDiv}>
-              <button className={styles.nextButton} onClick={handleFunctions}>
+              <button
+                className={styles.nextButton}
+                onClick={handleNextButtonClick}
+              >
                 Next
               </button>
             </div>
