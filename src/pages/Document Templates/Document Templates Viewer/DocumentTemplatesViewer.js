@@ -10,6 +10,7 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import { BsArrowRightSquareFill,BsArrowLeftSquareFill } from "react-icons/bs";
 import { DocumentViewer } from "react-documents";
 import loader from "../../../images/Pulse-1s-200px.svg";
+import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 const DocumentTemplatesViewer = () => {
   const documentId = useParams().id;
   const [documentLink, setDocumentLink] = useState("");
@@ -59,12 +60,14 @@ const DocumentTemplatesViewer = () => {
            
             <SidebarFinal />
           </div>
-          <NavBarFinal />
+          {/* <NavBarFinal /> */}
+          <NavBarFinalDarkMode />
         </>
       ) : (
         <>
           <PhnSidebar />
-          <KnowledgeNavbar />
+          {/* <KnowledgeNavbar /> */}
+          <NavBarFinalDarkMode />
         </>
       )}
       {documentLink !== "" ? (

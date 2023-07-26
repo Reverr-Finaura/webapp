@@ -13,6 +13,7 @@ import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import NavBarFinal from "../../../components/Navbar/NavBarFinal";
 import {useNavigate} from 'react-router-dom'
 import image from "../../../images/arrowMark.svg"
+import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const BusinessPlanning = () => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -32,9 +33,10 @@ const BusinessPlanning = () => {
   };
   return (
     <>
-    {width>=600?<><SidebarFinal /><NavBarFinal /></>:<><PhnSidebar />
+    {/* {width>=600?<><SidebarFinal /><NavBarFinal /></>:<><PhnSidebar /> */}
 
-    <KnowledgeNavbar /></>}
+    {/* <KnowledgeNavbar /></>} */}
+    <NavBarFinalDarkMode />
     <div className={styles.buttonWrapper}>
     <img className={styles.arrowClass} src={image} alt="img" />
     <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
