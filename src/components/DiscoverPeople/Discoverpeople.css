@@ -1,7 +1,4 @@
-.aling{
 
-    margin-left: 1%;
-}
 .people{
     display: flex;
     justify-content: space-between;
@@ -10,10 +7,18 @@
     margin-top: 10%;
 }
 
-@media screen and (max-width:424px) {
+
+
+@media screen and (max-width: 560px) {
     .people-card{
         display: flex;
         justify-content: center;
+    }
+    .people-section {
+        width: 100%;
+    }
+    .people-card-container {
+        width: 100%;
     }
 }
 

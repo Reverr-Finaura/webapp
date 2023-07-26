@@ -94,7 +94,7 @@ html {
   top: 50%;
 } */
 
-@media (max-width: 768px) {
+@media (max-width: 560px) {
   .logo {
     height: 4rem;
   }
@@ -103,7 +103,7 @@ html {
   }
 
   h3 {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .search_div {

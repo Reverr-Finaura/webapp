@@ -7,18 +7,17 @@
     align-items: center;
     margin-left:-13%;
 }
-@media screen and (max-width:950px) {
-    .suggest-section{
-        margin-top:300px;
-    }
-}
 
-@media screen and (max-width:450px) {
+
+@media screen and (max-width: 560px) {
   
     .hpeoplesuggest{
        margin: 0 !important;
        margin-left: 80px !important;
         font-size: 17px;
     
+    }
+    .align {
+        margin: 0px;
     }
 }

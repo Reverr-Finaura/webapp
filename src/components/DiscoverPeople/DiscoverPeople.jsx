@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import { collection, doc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
-import styles from "./Discoverpeople.css";
+import "./Discoverpeople.css";
 import { useSelector } from "react-redux";
 
 // export const DiscoverPeople = () => {
@@ -150,7 +150,7 @@ const DiscoverPeople = () => {
         <div className="people-card">
           {randomUsers.length === 8 &&
             randomUsers.map((user) => (
-              <div key={user.id}>
+              <div className="people-card-container" key={user.id}>
                 <ProfileCard
                   email={user.email}
                   name={user.name}

@@ -1,4 +1,4 @@
-body{
+/* body{
     background: #030B18;
 }
 
@@ -15,7 +15,6 @@ body{
     position: relative;
     text-decoration: none;
     color: white;
-   /* background: #0C1631;*/
     top: -1px;
     height: 3rem;
     width: 8rem;
@@ -103,4 +102,148 @@ top: 51rem;
 left: 5rem;
 letter-spacing: 2px;
 
+}
+
+@media screen and (max-width: 560px) {
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .headingCont {
+    left: 0rem;
+    top: 14rem;
+    width: 80%;
+    height: auto;
+  }
+  .buttonWrapper {
+    left: 2rem;
+  }
+  .h1Heading{
+    font-size: 25px;
+    padding-left: 30px;
+  }
+  .imageCont{
+    width: 90%;
+    height: 350px;
+    position: absolute;
+    top: 350px;
+    left: 30px;
+  }
+  .upperText {
+    top: 42rem;
+    left: 30px;
+    width: 25rem;
+    font-size: 15px;
+  }
+  .lowerText {
+    bottom: 0px;
+    left: 30px;
+    width:25rem;
+    font-size: 15px;
+    margin-top: 20rem;
+  }
+} */
+
+* {
+  box-sizing: border-box;
+}
+.sectionContainer {
+  width: 100%;
+  margin-top: 102px;
+  height: 100%;
+  padding: 40px 60px;
+}
+
+.image {
+  width: 100%;
+  border-radius: 20px;
+  
+}
+
+.buttonWrapper {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.buttonWrapper img {
+  width: 40px;
+}
+
+.backButton {
+  font-family:'Reem kufi';
+  text-decoration: none;
+  color: white;
+  font-weight: 200px;
+  font-size: 25px;
+}
+
+.container {
+  padding: 20px 0px;
+}
+
+.headingCont {
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.h1Heading {
+  color: white;
+  font-size: 35px;
+  letter-spacing: 2px;
+}
+
+.imageCont {
+  width: 40%;
+  height: 30%;
+  float: right;
+  border-radius: 20px;
+  margin-left: 30px;
+}
+
+
+.upperText {
+  color: white;
+  font-size: 15px;
+}
+
+.lowerText {
+  color: white;
+  font-size: 15px;
+  padding-top: 30px;
+}
+
+
+@media screen and (max-width: 560px) {
+  .sectionContainer{
+    padding: 20px 30px;
+  }
+  .buttonWrapper img{
+    width: 30px;
+  }
+  .backButton {
+    font-size: 25px;
+  }
+  .headingCont {
+    width: 100%;
+  }
+  .h1Heading {
+    font-size: 25px;
+  }
+  .imageCont {
+    float: none;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .imageCont {
+    width: 100%;
+    margin-left: 0px;
+    margin-bottom: 30px;
+  }
 }

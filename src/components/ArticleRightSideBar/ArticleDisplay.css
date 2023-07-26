@@ -66,20 +66,39 @@
     margin: 2px 2px;
   }
 
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 560px) {
     .article-image {
       max-width: 100px;
     }
     .article-box {
-      width: 350px;
+      width: 100%;
       margin: 0;
   }
   .article-heading{
-    font-size: 15px;
+    font-size: 12px;
   }
   .article-desc{
-    font-size: 7px;
+    font-size: 10px;
+  }
+  .article-details {
+    margin-left: 0px;
   }
 }
 
+@media screen and (max-width: 472px) {
+.article-desc{
+  display: none;
+}
+}
+
+
+@media screen and (max-width: 350px) {
+  .article-heading{
+    font-size: 8px;
+  }
+  .article-details {
+    margin-left: 0px;
+    padding-right: 20px;
+  }
+  }
 
