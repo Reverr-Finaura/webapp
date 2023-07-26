@@ -201,4 +201,11 @@ text-transform: capitalize;
     .pptOuterCont{
         min-width: 300px;
     }
+    .tags{
+        flex-wrap: wrap;
+    }
+    .btnCont{
+        
+        padding: 0.5rem 6px;
+    }
 }
