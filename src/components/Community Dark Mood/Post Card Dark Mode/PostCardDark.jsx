@@ -30,6 +30,7 @@ import founder from "../../../images/rocket.png";
 import investor from "../../../images/investor.png";
 import mentor from "../../../images/mentor.png";
 import pro from "../../../images/professional.png";
+import video from "video.js"
 
 export default function PostCardDark({
   postsData,
@@ -679,14 +680,23 @@ export default function PostCardDark({
         {item?.video ? (
           <div className="postImageContainer" style={{ width: "100%" }}>
             <video
-               id="videoPlayer"
-              className="postImage"
-              style={{ aspectRatio: "7/3", width: "100%" }}
+           
+              //  id="videoPlayer"
+              id="my-video"
+              style={{ aspectRatio: "7/3", width: "100%",height:"49em" }}
               src={item?.video}
               alt="postVideo"
               muted="muted"
               autoplay="autoplay"
-            />
+              className="video-js"
+              controls
+              preload="auto"
+              width="640"
+              height="264" 
+              poster="MY_VIDEO_POSTER.jpg"
+              data-setup="{}"
+              >
+              </video>
             {/* <button onClick={handlePlayVideo} className="playButton">
               {isPlaying ? "Pause" : "Play"}
             </button> */}

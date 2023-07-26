@@ -38,6 +38,7 @@ import CommunityNews from "../../../components/Community News/CommunityNews";
 import NewSkeleton from "../../../components/Post Skeleton/News Skeleton/NewSkeleton";
 import { RxCrossCircled } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
+import video from "video.js"
 
 // import SortingNavbarTest from ".././Sorting Navbar Test/SortingNavbarTest";
 
@@ -1191,18 +1192,31 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
                     {tempVideoURL ? (
                       <div className={style.communityPostImageCont}>
+                        
                         <video
-                          className={style.communityPostImage}
+                          // className={style.communityPostImage}
                           src={tempVideoURL}
-                          alt="postFile"
-                          id="videoPlayer"
-                        />
-                        <button
+                          style={{    width: "-webkit-fill-available",
+                            height: "-webkit-fill-available"}}
+                          id="my-video"                          
+                          alt="postVideo"
+                          muted="muted"
+                          autoplay="autoplay"
+                          className="video-js"
+                          controls
+                          preload="auto"
+                          width="640"
+                          height="264" 
+                          poster="MY_VIDEO_POSTER.jpg"
+                          data-setup="{}"
+                        >
+                        </video>
+                        {/* <button
                           onClick={handlePlayVideo}
                           className={style.playButton}
                         >
                           {isPlaying ? "Pause" : "Play"}
-                        </button>
+                        </button> */}
                         <div className={style.editDeleteBtn}>
                           <RxCrossCircled
                             onClick={RemoveFile}
