@@ -95,15 +95,15 @@
 .discoversidebarcontainer{
 
     width:300px;
-    margin-top:230px;
+    margin-top:130px;
     margin-left:5px;
     padding:8px;
     display:flex;
     flex-direction:column;
     /* justify-content: space-between; */
-    height: 500px;
-    gap: 100px;
-overflow-y: scroll;
+    height: 100%;
+    gap: 20px;
+    overflow-y: scroll;
       /* position:fixed */
 }
 .discoversidebarcontainer::-webkit-scrollbar {
@@ -142,15 +142,27 @@ overflow-y: scroll;
     }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 560px) {
     .discoverrightside{
        margin-top: 100px;
-       
     }
-    
+    .people-card{
+        flex-wrap: nowrap;
+        flex-direction: column;
+        margin: 30px;
+        margin-top: 0px;
+    }
+    .align {
+        margin: 0px;
+        height: 850px;
+    }
+    .article-container {
+        width: 100%;
+        margin: 0px;
+    }
 }
 
-@media screen and (max-width: 450px) {
+/* @media screen and (max-width: 450px) {
     .article-container{
         margin: 0px -40px;
         width: 400px;
@@ -160,4 +172,4 @@ overflow-y: scroll;
     .discoverrightside{
         overflow-x: hidden;
     }
-}
+} */

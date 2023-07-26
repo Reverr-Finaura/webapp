@@ -59,16 +59,13 @@
   }
 
 
-  @media screen and (max-width:450px) {
+  @media screen and (max-width:560px) {
     .profile-box{
-      margin-top: 20px;
-   
     height: 250px;
-    width: 170px;
+    width: 100%;
     justify-content: center;
-    margin: 6px ;
-    text-align: center;
-   
+    margin: 0px;
+    margin-top: 30px;
     }
     .profilecardname{
       font-size: 20px;
@@ -78,11 +75,11 @@
     }
   }
 
-  @media screen and (max-width:394px) {
+  /* @media screen and (max-width:394px) {
     
       .profile-box{
         width: 150px;
       }
     
   }
-  
+   */
