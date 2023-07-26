@@ -1,4 +1,4 @@
-.outerCont{
+.outerCont {
     position: relative;
     display: flex;
     align-items: center;
@@ -9,7 +9,8 @@
     position: relative;
     border-top: 1px solid #EEEEEE;
 }
-.tempImgCont{
+
+.tempImgCont {
     width: 170px;
     height: 170px;
     z-index: 0;
@@ -19,66 +20,83 @@
     background-color: #dadada;
     box-shadow: 0px 4px 24px 2px #0000001a;
 }
-.crossIcon{
+
+.crossIcon {
     z-index: 2;
     position: absolute;
     font-size: 1.5rem;
     right: 0;
     cursor: pointer;
-    
+
 }
-.tempImg{
+
+.tempImg {
     width: 100%;
     height: 100%;
     border-radius: 15px;
 }
-.attachmentIcon{
+
+.attachmentIcon {
     cursor: pointer;
     color: black;
-    position: absolute;
-    left: 82px;
-    font-size: x-large;
+    transform: rotate(-46deg);
 
 }
 
-.textInp{
+.textInp {
+    padding-left: 1%;
     margin-left: 1rem;
     background: #FAFAFA;
-border-radius: 12px;
-width: 150%;
-padding: 0.5rem;
-font-style: normal;
-font-weight: 500;
-font-size: 1rem;
-line-height: 16px;
-color: black;
+    border-radius: 12px;
+    width: 150%;
+    padding: 0.5rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 16px;
+    color: black;
 
 }
-.emoji
-{
+
+.emoji {
+    display: none;
     font-size: 25px;
     position: absolute;
     left: 42px;
     color: black;
 
 }
-.textInp::placeholder{
+
+.textInp::placeholder {
     color: rgba(0, 0, 0, 0.45);
-    position: relative;left: 50px; 
+    position: relative;
+    left: 50px;
 }
-.textInp:focus{
+
+.textInp:focus {
     outline: none;
 }
 
-.sendMessageBtn{
+.sendMessageBtn {
     padding: 10px;
     border: none;
-    color: white;
+    color: rgb(16, 16, 16);
     font-style: normal;
-font-weight: 500;
-font-size: 1rem;
-cursor: pointer;
-border-radius: 10px;
-background-color: #47c8ff;
-position: relative;right: 42px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #47c8ff;
+    position: relative;
+    right: 39px;
+}
+
+.wrapperEmoji {
+    width: 4rem;
+    height: 2rem;
+    background-color: #2C2F38;
+    display: flex;
+    border-radius: 22px;
+    justify-content: center;
+    align-items: center;
 }
