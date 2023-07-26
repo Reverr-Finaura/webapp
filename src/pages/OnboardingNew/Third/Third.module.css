@@ -5,10 +5,7 @@
   display: flex;
   background-color: #030b18;
 }
-.textdanger{
-  color: white;
-  font-size: 15px;
-}
+
 
 .navbarBrandLogoImgCont {
   position: absolute;
@@ -155,6 +152,11 @@
 
 .mainImage {
   height: 80vh;
+}
+
+.textdanger{
+  color: rgb(255, 0, 0);
+  font-size: 10px;
 }
 
 .hiddenOnMobile {

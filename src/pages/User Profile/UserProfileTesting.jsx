@@ -127,26 +127,35 @@ const UserProfileTesting = () => {
                   }}
                   style={{ cursor: "pointer" }}
                 /> */}
-                <img
-                  src="/images/logos_google-gmail.svg"
-                  alt="Email"
-                  onClick={() => {
-                    navigator.clipboard.writeText(userDoc.email);
-                    toast.success("Email copied to clipboard");
-                  }}
-                  style={{ cursor: "pointer" }}
-                />
-                <img
-                  src="/images/skill-icons_linkedin.svg"
-                  alt="Linkedin"
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      userDoc.linkedin || userDoc.linlkedin
-                    );
-                    toast.success("Linkedin profile copied to clipboard");
-                  }}
-                  style={{ cursor: "pointer" }}
-                />
+                {userDoc?.email ? (
+                  <>
+                    <img
+                      src="/images/logos_google-gmail.svg"
+                      alt="Email"
+                      onClick={() => {
+                        navigator.clipboard.writeText(userDoc.email);
+                        toast.success("Email copied to clipboard");
+                      }}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </>
+                ) : null}
+
+                {userDoc.linkedin || userDoc.linlkedin ? (
+                  <>
+                    <img
+                      src="/images/skill-icons_linkedin.svg"
+                      alt="Linkedin"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          userDoc.linkedin || userDoc.linlkedin
+                        );
+                        toast.success("Linkedin profile copied to clipboard");
+                      }}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </>
+                ) : null}
               </div>
               <div className={styles.profileInfoName}>
                 <p style={{ textTransform: "capitalize" }}>{userDoc?.name}</p>
