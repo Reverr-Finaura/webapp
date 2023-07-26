@@ -193,4 +193,8 @@
 .docHeading{
   max-height: 120px;
 }
+.info{
+  overflow-y: hidden;
+  max-height: 130px;
+}
 }
