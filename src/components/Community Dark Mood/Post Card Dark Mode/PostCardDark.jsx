@@ -21,15 +21,15 @@ import { FiSend } from "react-icons/fi";
 import { BiCommentDots } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
-import eyeIcon from "../../../images/white-outline-eye.png";
-import commentIcon from "../../../images/white-outline-comment.png";
-import rightArrow from "../../../images/right-arraow-bg-blue.png";
-import defaultImg from "../../../images/default-profile-pic.png";
+import eyeIcon from "../../../images/white-outline-eye.webp";
+import commentIcon from "../../../images/white-outline-comment.webp";
+import rightArrow from "../../../images/right-arraow-bg-blue.webp";
+import defaultImg from "../../../images/default-profile-pic.webp";
 import ReactTimeAgo from "react-time-ago";
-import founder from "../../../images/rocket.png";
-import investor from "../../../images/investor.png";
-import mentor from "../../../images/mentor.png";
-import pro from "../../../images/professional.png";
+import founder from "../../../images/rocket.webp";
+import investor from "../../../images/investor.webp";
+import mentor from "../../../images/mentor.webp";
+import pro from "../../../images/professional.webp";
 import video from "video.js"
 
 export default function PostCardDark({

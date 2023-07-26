@@ -58,7 +58,7 @@ import Appoinments from "../../SidebarComponents/Appoinments/Appoinments";
 import TrendingNews from "../../SidebarComponents/TrendingNews/TrendingNews";
 import Events from "../../SidebarComponents/Events/Events";
 import Mentors from "../../SidebarComponents/Mentors/Mentors";
-import darkSparkle from "../../../images/black-sparkle.png";
+import darkSparkle from "../../../images/black-sparkle.webp";
 import { auth } from "../../../firebase";
 import DiscoverEvents from "../../DynamicComponents/DiscoverEvents/DiscoverEvents";
 import DiscoverPerfectTools from "../../DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
@@ -1120,7 +1120,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   className={style.communityUploadContUserImage}
                   src={
                     !isLoggedIn
-                      ? "../../../images/userIcon.png"
+                      ? "../../../images/userIcon.webp"
                       : userDoc?.image
                       ? userDoc.image
                       : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
