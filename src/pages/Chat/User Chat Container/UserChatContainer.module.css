@@ -1,58 +1,87 @@
-.outerCont{
+.outerCont {
     width: 96.2%;
     /* height: 295px; */
     height: 65%;
     background: #1a1e28;
-    
+
     padding: 1rem;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
 }
+
 .outerCont::-webkit-scrollbar {
     display: none;
 }
-.chatCont{
-display: flex;
-/* width: 65%; */
-margin-bottom: 1.5rem;
-height: max-content;
-/* height: 70%; */
+
+.chatCont {
+    display: flex;
+    /* width: 65%; */
+    margin-bottom: 1.5rem;
+    height: max-content;
+    /* height: 70%; */
 }
-.userImg{
+
+.userImg {
+    order: 2;
     width: 30px;
     height: 30px;
     border-radius: 50%;
 }
-.chatImg{
+
+.chatImg {
     width: 200px;
     height: 200px;
     border-radius: 15px;
     margin: .5rem auto;
 }
-.messNTimeCont{
+
+.messNTimeCont {
+    height: 2rem;
     display: flex;
     flex-direction: column;
-    max-width: 60%;
+    max-width: fit-content;
     margin-left: .8rem;
     margin-top: .5rem;
     color: white;
     font-style: normal;
-font-weight: 400;
-font-size: 1rem;
-line-height: 16px;
-padding: .7rem 1rem;
-background:#47c8ff;
-border-radius:10px 10px 10px 0px;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 16px;
+    background: var(--blue-core, #4285F4);
+    border-radius: 10px 10px 10px 10px;
+    padding-top: 0.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
-.messNTimeCont p{
+
+.messNTimeCont p {
     line-height: 23px;
+
 }
-.time{
-    margin-top: .5rem;
-    color: white;
+
+.time {
+    margin-top: 0rem;
+    color: #696868;
     font-style: normal;
-font-weight: 300;
-font-size: .8rem;
-line-height: 15px;
+    font-weight: 300;
+    font-size: .6rem;
+    line-height: 15px;
+    margin-top: 0.2rem;
+
+
+
+}
+
+.wrapperTime {
+    display: flex;
+    justify-content: end;
+}
+
+@media (max-width:500px) {
+    .messNTimeCont{
+    width: -webkit-fill-available;
+    height: fit-content;
+    }
+    
 }

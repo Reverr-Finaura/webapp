@@ -198,4 +198,14 @@ text-transform: capitalize;
         gap: 2rem;
         position: relative;
     }
+    .pptOuterCont{
+        min-width: 300px;
+    }
+    .tags{
+        flex-wrap: wrap;
+    }
+    .btnCont{
+        
+        padding: 0.5rem 6px;
+    }
 }

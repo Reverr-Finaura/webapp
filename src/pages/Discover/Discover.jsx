@@ -192,7 +192,7 @@ console.log(randomEvents)
            <span style={{color:"#00B3FF"}}>Articles</span>  for you
           </h3>
         </div>
-<div className='align'>
+      <div className='align'>
         <div className='article-container'>
           {/* <ArticlesLeftSideBar /> */}
           <div className='right-container'>
@@ -201,7 +201,7 @@ console.log(randomEvents)
             {/* </NavLink> */}
           </div>
         </div>
-</div>
+      </div>
           <DiscoverSuggestions heading={"More Suggestions"} />
         {/* Conditionally render DiscoverNews */}
         {newsData.length >= 4 && <DiscoverNews />}

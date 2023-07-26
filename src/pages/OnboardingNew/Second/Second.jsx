@@ -2,25 +2,61 @@ import React, { useState } from "react";
 import styles from "./Second.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setRole } from "../../../features/onboardingSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../../firebase";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
 function Second() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userType, setUserType] = useState("");
+  const user = useSelector((state) => state.user);
+  const onboardingData = useSelector((state) => state.onboarding);
+  // console.log("userType", userType)
+  // console.log("onboardingData", onboardingData)
 
   const handleDivClick = (spaceText) => {
     setUserType(spaceText);
   };
 
-   // this function will handle two function when the Next button is clicked
-  const handleFunctions = () => {
-    navigate("/onboarding-third")
-    dispatch(setRole(userType))
-  }
+  // Function to handle the "Next" button click
+  const handleNextButtonClick = async () => {
+    dispatch(setRole(userType));
 
+    // Upload onboarding data to Firebase
+    const onboardingDataSoFar = {
+      userType: userType,
+    };
 
+    try {
+      // Attempt to upload the data
+      await uploadOnboardingData(onboardingDataSoFar);
+      // If data upload is successful, navigate to the next page
+      navigate("/onboarding-third");
+    } catch (err) {
+      console.error(err);
+      // Handle the error (optional) or show an error message to the user
+      // Don't navigate since data upload was not successful
+    }
+  };
+
+  const uploadOnboardingData = async (data) => {
+    const userEmail = user?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
+  
+    const docRef = doc(db, "Users", userEmail);
+  
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, data, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
+    }
+  };
 
   const roleItems = [
     {
@@ -68,9 +104,7 @@ function Second() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
-        <text className={styles.heading}>
-            Your Role?
-          </text>
+          <text className={styles.heading}>Your Role?</text>
           <text className={styles.subHeading}>
             Choose an option that fits you the best.
           </text>
@@ -97,20 +131,18 @@ function Second() {
             >
               Back
             </button>
-            { userType !== ""?
-             <button
-             className={styles.rightButton}
-             onClick={handleFunctions}
-           >
-             Next
-           </button>:
-            <button
-            className={styles.rightButton}
-            style={{opacity:0.5}}
-          >
-            Next
-          </button> }
-           
+            {userType !== "" ? (
+              <button
+                className={styles.rightButton}
+                onClick={handleNextButtonClick}
+              >
+                Next
+              </button>
+            ) : (
+              <button className={styles.rightButton} style={{ opacity: 0.5 }}>
+                Next
+              </button>
+            )}
           </div>
         </div>
         <div className={styles.hiddenOnMobile}>

@@ -72,7 +72,11 @@ const PPTTemplatesViewer = () => {
       ) : (
         <>
           <PhnSidebar />
-          <KnowledgeNavbar />
+          {/* <KnowledgeNavbar /> */}
+          <div style={{marginBottom:"150px"}}>
+          <NavBarFinalDarkMode />
+          </div>
+          
         </>
       )}
       {pptLink !== "" ? (

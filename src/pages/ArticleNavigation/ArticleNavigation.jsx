@@ -36,8 +36,8 @@ const ArticleNavigation = () => {
 
     return (<>
         <NavBarFinalDarkMode />
-
-        <div className={styles.buttonWrapper} onClick={() => navigate('/')}>
+        <section className={styles.sectionContainer}>
+        <div className={styles.buttonWrapper} onClick={() => navigate(-1)}>
             <img className={styles.arrowClass} src={image} alt="img" />
             <div className={styles.backButton} > Back</div>
         </div>
@@ -50,28 +50,22 @@ const ArticleNavigation = () => {
                     </div>
                     <div className={styles.imageCont}>
                         <img className={styles.image} src={info?.image?.imageUrl} alt="img" />
-
                     </div>
+                        <p className={styles.upperText}>{info.body.length >500?info.body.slice(0, 500) + '...':info.body}</p>
 
-                    <div className={styles.upperText}>
-                        <p>{info.body.length >500?info.body.slice(0, 500) + '...':info.body}</p>
-                    </div>
-                    
-                    <div className={styles.lowerText}>
-                        <p>{info.body.length > 1400 ? info.body.slice(500, 1400)+'...':info.body}</p>
-                    </div>
-
-
-
+                        <p className={styles.lowerText}>{info.body.length > 1400 ? info.body.slice(500, 1400)+'...':info.body}</p>
                 </div>
+                                    
             )
         }
-
-
+        </section>
+        
 
     </>
 
     )
 
 }
+
+
 export default ArticleNavigation;

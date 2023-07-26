@@ -24,7 +24,7 @@ import linkedinLogin from "../../images/linkedinImage.png";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { setUserSpace } from "../../features/userSlice";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import rightPic from "../../images/signup-img.png";
+import rightPic from "../../images/signup-img.webp";
 import { setName, setEmail } from "../../features/onboardingSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -677,7 +677,7 @@ function SignupAuthUpdated() {
             <h1 className={styles.leftContHeading}>
               Create your <span style={{ color: "#4bc8fe" }}>account.</span>
             </h1>
-            <img src={require("../../images/signupmobile.png")} alt="img" />
+            <img src={require("../../images/signupmobile.webp")} alt="img" />
           </div>
         </div>
 
