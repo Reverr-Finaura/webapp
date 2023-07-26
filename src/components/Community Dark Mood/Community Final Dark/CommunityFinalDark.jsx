@@ -79,7 +79,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postsData, setPostsData] = useState([]);
   const [imageUpload, setImageUpload] = useState(null);
   const [tempImageURL, setTempImageURL] = useState(null);
+  const [tempVideoURL, setTempVideoURL] = useState(null);
   const chooseFileRef = useRef(null);
+  const chooseVidoFileRef = useRef(null);
   const [newPostText, setNewPostText] = useState("");
   const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
@@ -112,6 +114,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postSpaceData, setPostSpaceData] = useState([]);
   const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
   const [postUploadStatus, setPostUploadStatus] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   //FETCH LATEST NEWS
   const options = {
     method: "GET",
@@ -300,16 +303,80 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       chooseFileRef.current.click();
     }
   };
+  const chooseVideoFile = () => {
+    if (chooseVidoFileRef.current) {
+      chooseVidoFileRef.current.click();
+    }
+  };
 
   const RemoveFile = () => {
     setImageUpload(null);
     setTempImageURL(null);
+    setSelectedVideo(null);
+    setTempVideoURL(null);
   };
+
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videoUrlInFirebase, setVideoUrlInFirebase] = useState();
+
+  // on video change
+  const onVideoChange = (event) => {
+    // Get the selected video file from the input element
+    const file = event.target.files[0];
+    setSelectedVideo(file);
+    // console.log("this is the selected video ", file);
+    if (file) {
+      setTempVideoURL(URL.createObjectURL(file));
+    }
+  };
+  const handlePlayVideo = () => {
+    const videoElement = document.getElementById("videoPlayer");
+    if (videoElement) {
+      if (isPlaying) {
+        videoElement.pause();
+      } else {
+        videoElement.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const uploadVideoToFireBase = async () => {
+    if (selectedVideo === null && newPostText === "") {
+      toast("Nothing To Post");
+      return;
+    }
+    toast("Processing Your Request");
+    if (selectedVideo === null) {
+      createNewPost("");
+      return;
+    } else if (selectedVideo !== null) {
+      const videoReff = ref(
+        storage,
+        `Community/Posts/${selectedVideo.name + new Date().getTime()}`
+      );
+      const uploadTask = uploadBytesResumable(videoReff, selectedVideo);
+      try {
+        await uploadBytes(videoReff, selectedVideo);
+
+        // GET URL OF IMAGE UPLOADED IN FIREBASE
+        await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          // console.log("this is the video url-----", downloadURL);
+          // setVideoUrlInFirebase(downloadURL)
+          createNewPost(downloadURL);
+        });
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+  };
+  // uploadVideoToFireBase()
 
   //ON IMAGE CHANGE
   function onImageChange(e) {
     setImageUpload(e.target.files[0]);
     const fileURL = e.target.files[0];
+    // console.log("this is image upload", imageUpload);
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
@@ -377,15 +444,27 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       const timeId = new Date().getTime().toString();
       let newPostId = [...newPostdataId];
 
-      await setDoc(doc(db, "Posts", timeId), {
-        comments: [],
-        createdAt: new Date(),
-        image: item,
-        likes: [],
-        postedby: userRef,
-        text: newPostText,
-        postSpace: postSpaceData,
-      });
+      if (tempImageURL) {
+        await setDoc(doc(db, "Posts", timeId), {
+          comments: [],
+          createdAt: new Date(),
+          image: item,
+          likes: [],
+          postedby: userRef,
+          text: newPostText,
+          postSpace: postSpaceData,
+        });
+      } else if (tempVideoURL) {
+        await setDoc(doc(db, "Posts", timeId), {
+          comments: [],
+          createdAt: new Date(),
+          video: item,
+          likes: [],
+          postedby: userRef,
+          text: newPostText,
+          postSpace: postSpaceData,
+        });
+      }
       newPostId.push(timeId);
 
       updateUserDatabase(newPostId);
@@ -763,6 +842,15 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
             onChange={onImageChange}
             ref={chooseFileRef}
             type="file"
+            accept="image/*"
+            hidden
+            className={style.postImageUpload}
+          />
+          <input
+            onChange={onVideoChange}
+            ref={chooseVidoFileRef}
+            type="file"
+            accept="video/*"
             hidden
             className={style.postImageUpload}
           />
@@ -1101,6 +1189,33 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     ) : null}
 
+                    {tempVideoURL ? (
+                      <div className={style.communityPostImageCont}>
+                        <video
+                          className={style.communityPostImage}
+                          src={tempVideoURL}
+                          alt="postFile"
+                          id="videoPlayer"
+                        />
+                        <button
+                          onClick={handlePlayVideo}
+                          className={style.playButton}
+                        >
+                          {isPlaying ? "Pause" : "Play"}
+                        </button>
+                        <div className={style.editDeleteBtn}>
+                          <RxCrossCircled
+                            onClick={RemoveFile}
+                            className="delete_Btn"
+                          />
+                          <FiEdit
+                            onClick={chooseFile}
+                            className={style.editBtn}
+                          />
+                        </div>
+                      </div>
+                    ) : null}
+
                     {postSpaceData.length >= 1 ? (
                       <p className={style.spaceTag}>{postSpaceData}</p>
                     ) : null}
@@ -1195,25 +1310,33 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       <BsImages className={style.assest_icon} />
                       <span className={style.icon_text}>Images</span>
                     </div>
-                    {/* <div className="post_assets_icon_main_div">
-                      <MdPoll className={style.assest_icon} />
-                      <span className={style.icon_text}>Polls</span>
-                    </div> */}
 
                     {/* this is the video section */}
-                    {/* <div
+                    <div
                       className={style.postAssetsIconMaindiv}
                       onClick={() => {
                         if (!isLoggedIn) {
                           return openModal();
                         } else {
-                          console.log("user logged!");
+                          chooseVideoFile();
+                          // document.getElementById("videoInput").click();
+
+                          // chooseFile();
                         }
                       }}
                     >
                       <MdVideoCameraBack className={style.assest_icon} />
                       <span className={style.icon_text}>Video</span>
-                    </div> */}
+
+                      {/* Hidden file input element to handle video selection */}
+                      {/* <input
+                        id="videoInput"
+                        type="file"
+                        accept="video/*"
+                        style={{ display: "none" }}
+                        onChange={handleVideoChange}
+                      /> */}
+                    </div>
 
                     <select
                       className={style.userSpaceSelect}
@@ -1246,7 +1369,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         if (!isLoggedIn) {
                           return openModal();
                         } else {
-                          uploadImageToFireBase();
+                          if (tempImageURL) {
+                            uploadImageToFireBase();
+                          } else if (tempVideoURL) {
+                            uploadVideoToFireBase();
+                          }
                         }
                       }}
                       className={

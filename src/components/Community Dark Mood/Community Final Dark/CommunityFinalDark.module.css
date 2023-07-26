@@ -423,6 +423,31 @@ font-weight: 700;
     height: 40px;
   
 }
+.playButton {
+  display: inline-block;
+  width: 51px;
+  height: 46px;
+  border-radius: 10px;
+  background-color: #030b18;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  color: #fff;
+  font-weight: 700;
+  margin: 5px;
+}
+
+.playButton:hover {
+  background-color: #e0e0e0; /* Darker background color on hover */
+  transform: scale(1.1); /* Slightly scale up on hover for a subtle effect */
+  color: #030b18;
+}
+
+.playButton:focus {
+  outline: none; /* Remove focus outline */
+}
 
 #postTextContainer::placeholder {
   color: var(--main-text);

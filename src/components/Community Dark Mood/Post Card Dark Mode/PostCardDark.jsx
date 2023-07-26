@@ -26,10 +26,10 @@ import commentIcon from "../../../images/white-outline-comment.png";
 import rightArrow from "../../../images/right-arraow-bg-blue.png";
 import defaultImg from "../../../images/default-profile-pic.png";
 import ReactTimeAgo from "react-time-ago";
-import founder from "../../../images/rocket.png"
-import investor from "../../../images/investor.png"
-import mentor from "../../../images/mentor.png"
-import pro from "../../../images/professional.png"
+import founder from "../../../images/rocket.png";
+import investor from "../../../images/investor.png";
+import mentor from "../../../images/mentor.png";
+import pro from "../../../images/professional.png";
 
 export default function PostCardDark({
   postsData,
@@ -67,6 +67,7 @@ export default function PostCardDark({
   const [postDetail, setPostDetail] = useState();
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // get the posts comments
   async function fetchPostData() {
@@ -86,7 +87,7 @@ export default function PostCardDark({
           setUserType(res.userType);
         });
         // });
-        console.log("the post data is here -- above", data.postedby);
+        // console.log("the post data is here -- above", data.postedby);
       } else {
         // Document doesn't exist
         console.log("not existing data");
@@ -428,7 +429,19 @@ export default function PostCardDark({
       });
     });
   }, [item]);
-
+  
+  // for video play and pause
+  const handlePlayVideo = () => {
+    const videoElement = document.getElementById('videoPlayer');
+    if (videoElement) {
+      if (isPlaying) {
+        videoElement.pause();
+      } else {
+        videoElement.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
   // HANDLE POST SEND CLICK
 
   const handleSendPostLinkClick = (id) => {
@@ -488,7 +501,13 @@ export default function PostCardDark({
             alt=""
           />
           <div className={style.postAuthorNameAndDesignationCont}>
-            <div style={{ display: "flex" ,alignItems:"center",justifyContent:"center"}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <h3
                 onClick={() => {
                   console.log("postcard click: ", isLoggedIn);
@@ -512,14 +531,35 @@ export default function PostCardDark({
                 {(() => {
                   switch (userType) {
                     case "founder":
-                      return <div className={style.founder}> <img  className={style.typeImg}  src={founder} /> Founder</div>;
+                      return (
+                        <div className={style.founder}>
+                          {" "}
+                          <img className={style.typeImg} src={founder} />{" "}
+                          Founder
+                        </div>
+                      );
                     case "mentor":
-                      return <div className={style.mentor}>  <img className={style.typeImg}  src={mentor} /> Mentor</div>;
+                      return (
+                        <div className={style.mentor}>
+                          {" "}
+                          <img className={style.typeImg} src={mentor} /> Mentor
+                        </div>
+                      );
                     case "investor":
-                      return <div className={style.investor}>  <img  className={style.typeImg} src={investor} /> Investor</div>;
+                      return (
+                        <div className={style.investor}>
+                          {" "}
+                          <img className={style.typeImg} src={investor} />{" "}
+                          Investor
+                        </div>
+                      );
                     case "professional":
                       return (
-                        <div className={style.professional}>  <img className={style.typeImg}  src={pro} />Professional</div>
+                        <div className={style.professional}>
+                          {" "}
+                          <img className={style.typeImg} src={pro} />
+                          Professional
+                        </div>
                       );
                     default:
                       return null;
@@ -636,6 +676,23 @@ export default function PostCardDark({
             />
           </div>
         ) : null}
+        {item?.video ? (
+          <div className="postImageContainer" style={{ width: "100%" }}>
+            <video
+               id="videoPlayer"
+              className="postImage"
+              style={{ aspectRatio: "7/3", width: "100%" }}
+              src={item?.video}
+              alt="postVideo"
+              muted="muted"
+              autoplay="autoplay"
+            />
+            {/* <button onClick={handlePlayVideo} className="playButton">
+              {isPlaying ? "Pause" : "Play"}
+            </button> */}
+          </div>
+        ) : null}
+
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
           <div
