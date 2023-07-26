@@ -78,6 +78,8 @@
 }
 
 .sendMessageBtn {
+    width: 60px;
+    height: 39px;
     padding: 10px;
     border: none;
     color: rgb(16, 16, 16);
@@ -85,7 +87,7 @@
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 30px;
     background-color: #47c8ff;
     position: relative;
     right: 39px;
