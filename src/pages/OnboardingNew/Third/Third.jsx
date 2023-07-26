@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Third.module.css";
-import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
+import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
 import {
   setImage,
@@ -175,7 +175,7 @@ function Third() {
             ) : (
               <>
                 <img
-                  src={require("../../../images/uploadphoto.png")}
+                  src={require("../../../images/uploadphoto.webp")}
                   alt="img"
                 />
                 <div>
@@ -236,7 +236,7 @@ function Third() {
         <div className={styles.hiddenOnMobile}>
           <img
             className={styles.mainImage}
-            src={require("../../../images/onboardingthird.png")}
+            src={require("../../../images/onboardingthird.webp")}
             alt="img"
           />
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Second.module.css";
-import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
+import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
 import { setRole } from "../../../features/onboardingSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,27 +62,27 @@ function Second() {
     {
       text: "I’m a Founder",
       type: "founder",
-      image: require("../../../images/onboardingfounder.png"),
+      image: require("../../../images/onboardingfounder.webp"),
     },
     {
       text: "I’m a Mentor",
       type: "mentor",
-      image: require("../../../images/onboardingmentor.png"),
+      image: require("../../../images/onboardingmentor.webp"),
     },
     {
       text: "I’m an Investor",
       type: "investor",
-      image: require("../../../images/onboardinginvester.png"),
+      image: require("../../../images/onboardinginvester.webp"),
     },
     {
       text: "I’m a Professional",
       type: "professionals",
-      image: require("../../../images/onboardingprofessional.png"),
+      image: require("../../../images/onboardingprofessional.webp"),
     },
     // {
     //   text: "I’m a Service Provider",
     //   type: "serviceproviders",
-    //   image: require("../../../images/onboardingprovider.png"),
+    //   image: require("../../../images/onboardingprovider.webp"),
     // },
   ];
   // console.log("userType1", userType)
@@ -148,7 +148,7 @@ function Second() {
         <div className={styles.hiddenOnMobile}>
           <img
             className={styles.mainImage}
-            src={require("../../../images/onboardingsecond.png")}
+            src={require("../../../images/onboardingsecond.webp")}
             alt="img"
           />
         </div>

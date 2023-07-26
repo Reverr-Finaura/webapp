@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Fourth.module.css";
-import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
+import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../../firebase";
@@ -369,7 +369,7 @@ function Fourth() {
         <div className={styles.hiddenOnMobile}>
           <img
             className={styles.mainImage}
-            src={require("../../../images/onboardingforth.png")}
+            src={require("../../../images/onboardingforth.webp")}
             alt="img"
           />
         </div>

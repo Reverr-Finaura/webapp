@@ -279,7 +279,7 @@ function ForgotpasswordUpdated() {
               </text>
               <img
                 className={styles.mainImage}
-                src={require("../../images/forgotpassword.png")}
+                src={require("../../images/forgotpassword.webp")}
                 alt="img"
               />
             </div>
@@ -336,7 +336,7 @@ function ForgotpasswordUpdated() {
             <div className={styles.hiddenOnMobile}>
               <img
                 className={styles.mainImage}
-                src={require("../../images/forgotpassword.png")}
+                src={require("../../images/forgotpassword.webp")}
                 alt="img"
               />
             </div>

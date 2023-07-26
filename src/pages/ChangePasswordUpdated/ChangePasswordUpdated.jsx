@@ -115,7 +115,7 @@ function ChangePasswordUpdated({ email }) {
           </text>
           <img
             className={styles.mainImage}
-            src={require("../../images/changepassword.png")}
+            src={require("../../images/changepassword.webp")}
             alt="img"
           />
         </div>
@@ -177,7 +177,7 @@ function ChangePasswordUpdated({ email }) {
         <div className={styles.hiddenOnMobile}>
           <img
             className={styles.mainImage}
-            src={require("../../images/changepassword.png")}
+            src={require("../../images/changepassword.webp")}
             alt="img"
           />
         </div>

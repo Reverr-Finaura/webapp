@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Fifth.module.css";
-import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
+import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setHereFor } from "../../../features/onboardingSlice";
@@ -65,39 +65,39 @@ function Fifth() {
 
   const objectives = [
     {
-      imageSrc: require("../../../images/onboarding41.png"),
+      imageSrc: require("../../../images/onboarding41.webp"),
       text: "Raise Investments",
     },
     {
-      imageSrc: require("../../../images/onboarding42.png"),
+      imageSrc: require("../../../images/onboarding42.webp"),
       text: "Find your CoFounder",
     },
     {
-      imageSrc: require("../../../images/onboarding43.png"),
+      imageSrc: require("../../../images/onboarding43.webp"),
       text: "Grow my Team",
     },
     {
-      imageSrc: require("../../../images/onboarding44.png"),
+      imageSrc: require("../../../images/onboarding44.webp"),
       text: "Find a Mentor",
     },
     {
-      imageSrc: require("../../../images/onboarding45.png"),
+      imageSrc: require("../../../images/onboarding45.webp"),
       text: "Networking",
     },
     {
-      imageSrc: require("../../../images/onboarding46.png"),
+      imageSrc: require("../../../images/onboarding46.webp"),
       text: "Collaborations & Partnerships",
     },
     {
-      imageSrc: require("../../../images/onboarding47.png"),
+      imageSrc: require("../../../images/onboarding47.webp"),
       text: "Brainstorm Ideas",
     },
     {
-      imageSrc: require("../../../images/onboarding48.png"),
+      imageSrc: require("../../../images/onboarding48.webp"),
       text: "Gain Insights",
     },
     {
-      imageSrc: require("../../../images/onboarding49.png"),
+      imageSrc: require("../../../images/onboarding49.webp"),
       text: "Increase my knowledge",
     },
   ];
@@ -170,7 +170,7 @@ function Fifth() {
         <div className={styles.hiddenOnMobile}>
           <img
             className={styles.mainImage}
-            src={require("../../../images/onboardingfifth.png")}
+            src={require("../../../images/onboardingfifth.webp")}
             alt="img"
           />
         </div>

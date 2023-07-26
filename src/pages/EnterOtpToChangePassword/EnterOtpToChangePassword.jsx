@@ -11,7 +11,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import otpPhoto from "../../images/otp-picture.png";
+import otpPhoto from "../../images/otp-picture.webp";
 import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdated";
 
 function EnterOtpToChangePassword({ propOtp, tempUserData }) {

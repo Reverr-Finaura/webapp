@@ -11,7 +11,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../Footer/Footer";
 import { toast } from "react-hot-toast";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import otpPhoto from "../../images/otp-picture.png";
+import otpPhoto from "../../images/otp-picture.webp";
 
 function EnterOtpUpdated() {
   const dispatch = useDispatch();

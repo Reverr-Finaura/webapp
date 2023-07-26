@@ -20,7 +20,7 @@ import { collection, getDocs, query, getDoc, doc } from "firebase/firestore";
 import axios from "axios";
 import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker";
 import useQuery from "../../Utils/useQuery";
-import linkedinLogin from "../../images/linkedinImage.png";
+import linkedinLogin from "../../images/linkedinImage.webp";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { setUserSpace } from "../../features/userSlice";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
