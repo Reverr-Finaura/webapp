@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./CardTesting.module.css";
-import Playbtn from "../../images/Play.png";
+import Playbtn from "../../images/Play.webp";
 import { useNavigate } from "react-router-dom";
 
 function CardTesting({ title, img, url, desc }) {

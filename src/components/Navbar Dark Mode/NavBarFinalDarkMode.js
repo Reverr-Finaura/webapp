@@ -29,9 +29,9 @@ import { setTheme } from "../../features/themeSlice";
 import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
 // import mentordashboardicon from "../../images/dashboardicon.svg"
 import mentordashboardicon from "../../images/radix-icons_dashboard.svg"
-import userIcon from "../../images/userIcon.png";
-import settingIcon from "../../images/Vector (3).png";
-import ReverrLightIcon from "../../images/Reverr Light.png";
+import userIcon from "../../images/userIcon.webp";
+import settingIcon from "../../images/Vector (3).webp";
+import ReverrLightIcon from "../../images/Reverr Light.webp";
 import ReverrDarkIcon from "../../images/new-dark-mode-logo.webp";
 import {
   AiFillBell,
@@ -54,7 +54,7 @@ import { HiOutlineTemplate } from "react-icons/hi";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
-import defaultImg from "../../images/default-profile-pic.png"
+import defaultImg from "../../images/default-profile-pic.webp"
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
@@ -469,7 +469,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             <div className={style.productContainer}>
               {filteredArray.includes("TOOLS") ? (
                 <div onClick={() => navigate("/tools")}>
-                  <img src={require("../../images/rulepen.png")} alt="img" />
+                  <img src={require("../../images/rulepen.webp")} alt="img" />
                   <div>
                     <text
                       style={{
@@ -494,7 +494,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {filteredArray.includes("MENTOR") ? (
                 <div onClick={() => navigate("/mentors")}>
                   <img
-                    src={require("../../images/securityuser.png")}
+                    src={require("../../images/securityuser.webp")}
                     alt="img"
                   />
                   <div>
@@ -520,7 +520,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
               {filteredArray.includes("KNOWLEDGE") ? (
                 <div onClick={() => navigate("/knowledge")}>
-                  <img src={require("../../images/book1.png")} alt="img" />
+                  <img src={require("../../images/book1.webp")} alt="img" />
                   <div>
                     <text
                       style={{
@@ -544,7 +544,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {filteredArray.includes("FUNDING-APPLY") ? (
                 <div onClick={() => navigate("/funding-page")}>
                   <img
-                    src={require("../../images/currencyusd.png")}
+                    src={require("../../images/currencyusd.webp")}
                     alt="img"
                   />
                   <div>
@@ -570,7 +570,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {filteredArray.includes("STARTUP SCORE") ? (
                 <div onClick={() => navigate("/start-up")}>
                   <img
-                    src={require("../../images/moneyreveive.png")}
+                    src={require("../../images/moneyreveive.webp")}
                     alt="img"
                   />
                   <div>
@@ -640,7 +640,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       src={
                         item?.image
                           ? item.image
-                          : require("../../images/userIcon.png")
+                          : require("../../images/userIcon.webp")
                       }
                       alt="img"
                     />

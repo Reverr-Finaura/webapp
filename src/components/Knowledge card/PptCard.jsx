@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Card.module.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FiDownload } from "react-icons/fi";
-import Playbtn from "../../images/Play.png";
+import Playbtn from "../../images/Play.webp";
 
 function PptCard({ title, img }) {
   const [hover, setHover] = useState(false);

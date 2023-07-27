@@ -340,7 +340,7 @@ const Chat = () => {
               {selectedMentor ? <h3>{selectedMentor.name}</h3> : null}
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src="images/add.png" alt="add" className={styles.add} />
+              <img src="images/add.webp" alt="add" className={styles.add} />
               <img
                 src="images/options.png"
                 alt="add"

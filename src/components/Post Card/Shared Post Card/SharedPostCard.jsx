@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import LikedIcon from '../../Like And Liked Icon/LikedIcon';
 import LikeIcon from '../../Like And Liked Icon/LikeIcon';
 import { useSelector } from 'react-redux';
-import commentIcon from "../../../images/postCommentIcon.png"
-import sendIcon from "../../../images/paper-plane.png"
-import threeDotsIcon from "../../../images/dots.png"
+import commentIcon from "../../../images/postCommentIcon.webp"
+import sendIcon from "../../../images/paper-plane.webp"
+import threeDotsIcon from "../../../images/dots.webp"
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { FaComments } from 'react-icons/fa'
 import {RiShareForwardFill} from "react-icons/ri"
