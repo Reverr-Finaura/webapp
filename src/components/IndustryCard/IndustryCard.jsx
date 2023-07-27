@@ -1,5 +1,5 @@
 import React from "react";
-import FinanceImg from "../../images/FinanceImg.png";
+import FinanceImg from "../../images/FinanceImg.webp";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 const IndustryCard = ({ item }) => {

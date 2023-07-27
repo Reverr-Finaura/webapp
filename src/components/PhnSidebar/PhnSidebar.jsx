@@ -7,25 +7,25 @@ import {
   selectPhnSidebar,
 } from "../../features/phnSidebarSlice";
 import styles from "./PhnSidebar.module.css";
-import dashD from "../../images/dash-light.png";
-import dashL from "../../images/dash-dark.png";
-import knowD from "../../images/know-dark.png";
-import knowL from "../../images/know-light.png";
-import mentD from "../../images/ment-dark.png";
-import mentL from "../../images/cil_education.png";
-import comD from "../../images/com-dark.png";
-import comL from "../../images/Vector (1).png";
-import fundD from "../../images/funding-dark.png";
-import fundL from "../../images/funding-light.png";
-import startL from "../../images/startup-light.png";
-import toolsL from "../../images/tools-light.png";
+import dashD from "../../images/dash-light.webp";
+import dashL from "../../images/dash-dark.webp";
+import knowD from "../../images/know-dark.webp";
+import knowL from "../../images/know-light.webp";
+import mentD from "../../images/ment-dark.webp";
+import mentL from "../../images/cil_education.webp";
+import comD from "../../images/com-dark.webp";
+import comL from "../../images/Vector (1).webp";
+import fundD from "../../images/funding-dark.webp";
+import fundL from "../../images/funding-light.webp";
+import startL from "../../images/startup-light.webp";
+import toolsL from "../../images/tools-light.webp";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { logout, selectUser } from "../../features/userSlice";
 import { remove } from "../../features/newUserSlice";
 import { toast } from "react-toastify";
 import { BiArrowBack } from "react-icons/bi";
-import logOutIconn from "../../images/bx_log-out.png"
+import logOutIconn from "../../images/bx_log-out.webp"
 
 function Sidebar() {
   const user = useSelector(selectUser);

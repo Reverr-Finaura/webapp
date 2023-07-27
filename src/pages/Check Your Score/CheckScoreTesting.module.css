@@ -108,7 +108,7 @@
   height: 2px;
 }
 
-.stages > div {
+.stages .stageWraper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,7 +129,7 @@
   z-index: 1; /* Set a higher z-index to ensure the tick image appears above the circle image */
 }
 
-.stages > div {
+.stages .stageWraper {
   font-weight: 600;
   font-size: 1rem;
   line-height: 26px;
@@ -189,7 +189,9 @@
   top: 130px;
   right: -220px;
 }
-
+.progress {
+  display: none;
+}
 @media screen and (min-width: 530px) and (max-width: 600px) {
   #checkyourscore {
     margin: 0;
@@ -303,10 +305,25 @@
     width: 85%;
     justify-content: center;
     padding: 0;
+    position: relative;
+    overflow: hidden;
   }
 
-  .stages div {
+  .stages .stageWraper {
     padding: 1rem 0.5rem;
+    font-size: 13px;
+  }
+
+  .stages > div > img {
+    display: none;
+  }
+
+  .imageBackground {
+    display: none;
+  }
+
+  .imageBackgroundImg {
+    display: none;
   }
   .checkscore__content {
     align-items: center;
@@ -321,15 +338,26 @@
     top: 68px;
     width: 60%;
     right: 90px;
+    display: none;
   }
 
   .checkscore__container > h1 {
     font-size: 22px;
   }
+  .progress {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+  }
 }
 
 
-
+@media screen and (max-width: 350px) {
+  .stageWraper {
+    padding: 1rem 0.3rem !important;
+  }
+}
 
 /* @media screen and (max-width: 1333px) and (min-width: 600px) {
     #checkyourscore {

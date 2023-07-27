@@ -1,10 +1,10 @@
 import style from "./NotificationCard.module.css";
-import profile from "../../images/notification-gurl.png";
+import profile from "../../images/notification-gurl.webp";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
-import DefaultDP from "../../images/Defaultdp.png";
+import DefaultDP from "../../images/Defaultdp.webp";
 import ReactTimeAgo from "react-time-ago";
 
 export default function NotificationCard({ item }) {

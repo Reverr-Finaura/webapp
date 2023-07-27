@@ -159,6 +159,7 @@ letter-spacing: 2px;
 
 .image {
   width: 100%;
+  max-height: 400px;
   border-radius: 20px;
   
 }
@@ -187,7 +188,7 @@ letter-spacing: 2px;
 }
 
 .headingCont {
-  width: 60%;
+  width: 100%;
   margin-bottom: 20px;
 }
 

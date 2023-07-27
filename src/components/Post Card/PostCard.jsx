@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { getUserDocByRef } from "../../firebase";
 import LikeIcon from "../Like And Liked Icon/LikeIcon";
 import LikedIcon from "../Like And Liked Icon/LikedIcon";
-import commentIcon from "../../images/postCommentIcon.png";
+import commentIcon from "../../images/postCommentIcon.webp";
 import { FaComments, FaRegCommentDots,FaBullseye } from "react-icons/fa";
 import { RiShareForwardFill, RiShareForwardLine } from "react-icons/ri";
 import { TfiMoreAlt } from "react-icons/tfi";

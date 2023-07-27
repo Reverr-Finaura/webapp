@@ -69,6 +69,16 @@ const CheckYourScoreTesting = () => {
     />,
   ];
 
+  const progressPercentage = [
+    {p: 0},
+    {p: 25},
+    {p: 50},
+    {p: 75},
+    {p: 100}
+  ]
+  const progressWidth = progressPercentage[stage].p + '%';
+
+  
   return (
     <>
       <section id={styles.checkyourscore}>
@@ -93,7 +103,7 @@ const CheckYourScoreTesting = () => {
             <img className={styles.GroupImg} src={GroupImg} alt="GroupImg" />
             <img className={styles.collaborateImg} src={collaborateImg} alt="collaborateImg" />
             <div className={styles.stages}>
-              <div>
+              <div className={styles.stageWraper}>
                 {stage >= 0 ? (
                   <>
                     <img src={"/images/blue_circle.svg"} alt="ProgressImg" />
@@ -108,7 +118,7 @@ const CheckYourScoreTesting = () => {
                 )}
                 <span>Product</span>
               </div>
-              <div>
+              <div className={styles.stageWraper}>
                 {stage >= 1 ? (
                   <>
                     <img src={"/images/blue_circle.svg"} alt="ProgressImg" />
@@ -123,7 +133,7 @@ const CheckYourScoreTesting = () => {
                 )}
                 <span>Team</span>
               </div>
-              <div>
+              <div className={styles.stageWraper}>
                 {stage >= 2 ? (
                   <>
                     <img src={"/images/blue_circle.svg"} alt="ProgressImg" />
@@ -139,7 +149,7 @@ const CheckYourScoreTesting = () => {
                 )}
                 <span>Market</span>
               </div>
-              <div>
+              <div className={styles.stageWraper}>
                 {stage >= 3 ? (
                   <>
                     <img src={"/images/blue_circle.svg"} alt="ProgressImg" />
@@ -154,7 +164,7 @@ const CheckYourScoreTesting = () => {
                 )}
                 <span>Finance</span>
               </div>
-              <div>
+              <div className={styles.stageWraper}>
                 {stage >= 4 ? (
                   <>
                     <img src={"/images/blue_circle.svg"} alt="ProgressImg" />
@@ -168,6 +178,9 @@ const CheckYourScoreTesting = () => {
                   </>
                 )}
                 <span>Done</span>
+              </div>
+              <div className={styles.progress} style={{width: progressWidth, height: "3px", backgroundColor: "rgba(76, 201, 255, 1)"}}>
+
               </div>
             </div>
             {/* <div className={styles.progress_bar}>
