@@ -213,10 +213,10 @@ const IV_Slides = () => {
   return (
     <>
       <NavBarFinalDarkMode />
-      <div className={styles.buttonWrapper}>
-    <img className={styles.arrowClass} src={image} alt="img" />
-    <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
-  </div> 
+      {/* <div className={styles.buttonWrapper}> */}
+    {/* <img className={styles.arrowClass} src={image} alt="img" /> */}
+    {/* <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button> */}
+  {/* </div>  */}
       <div className={styles.knowledge}>
         <div className={styles.body}>
           {research_plan.map((slide, index) => (

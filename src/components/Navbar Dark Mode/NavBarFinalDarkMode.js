@@ -179,8 +179,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
   const getFilterData = (data, input, key) => {
     return data.filter((item) => {
-      console.log(item[key].toLowerCase());
-      return item[key].toLowerCase().includes(input);
+      // console.log("navkey",item[key]?.toLowerCase());
+      return item?.[key]?.toLowerCase().includes(input);
     });
   };
 
