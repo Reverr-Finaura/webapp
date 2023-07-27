@@ -577,6 +577,11 @@ letter-spacing: 0.42px;
 }
 
 @media screen and (max-width: 500px) {
+  .timeSpan{
+    display: none;
+   }
+   
+   
   .postAuthorName{
       font-size: 15px
   }
