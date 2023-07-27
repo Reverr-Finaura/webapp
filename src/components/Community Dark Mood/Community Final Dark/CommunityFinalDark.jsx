@@ -330,48 +330,57 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       setTempVideoURL(URL.createObjectURL(file));
     }
   };
-  const handlePlayVideo = () => {
-    const videoElement = document.getElementById("videoPlayer");
-    if (videoElement) {
-      if (isPlaying) {
-        videoElement.pause();
-      } else {
-        videoElement.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
+
+
+  // uploadVideoToFireBase()
   const uploadVideoToFireBase = async () => {
     if (selectedVideo === null && newPostText === "") {
       toast("Nothing To Post");
       return;
     }
+  
     toast("Processing Your Request");
+  
+    let downloadURL = "";
+  
     if (selectedVideo === null) {
       createNewPost("");
-      return;
-    } else if (selectedVideo !== null) {
-      const videoReff = ref(
+    } else {
+      const videoRef = ref(
         storage,
         `Community/Posts/${selectedVideo.name + new Date().getTime()}`
       );
-      const uploadTask = uploadBytesResumable(videoReff, selectedVideo);
+  
       try {
-        await uploadBytes(videoReff, selectedVideo);
-
-        // GET URL OF IMAGE UPLOADED IN FIREBASE
-        await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // console.log("this is the video url-----", downloadURL);
-          // setVideoUrlInFirebase(downloadURL)
-          createNewPost(downloadURL);
+        const uploadTask = uploadBytesResumable(videoRef, selectedVideo);
+  
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              // Handle progress or any other updates if needed
+            },
+            reject,
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref)
+                .then((url) => {
+                  downloadURL = url;
+                  resolve();
+                })
+                .catch(reject);
+            }
+          );
         });
       } catch (error) {
         toast.error(error.message);
+        return;
       }
     }
+  
+    createNewPost(downloadURL);
   };
-  // uploadVideoToFireBase()
+  
 
   //ON IMAGE CHANGE
   function onImageChange(e) {
@@ -455,7 +464,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           text: newPostText,
           postSpace: postSpaceData,
         });
-      } else if (tempVideoURL) {
+      }
+       else  {
         await setDoc(doc(db, "Posts", timeId), {
           comments: [],
           createdAt: new Date(),
@@ -466,6 +476,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           postSpace: postSpaceData,
         });
       }
+      
       newPostId.push(timeId);
 
       updateUserDatabase(newPostId);
@@ -1043,72 +1054,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 </p> */}
               </div>
 
-              {/* {width < 600 && scroll > 230 && (
-                <>
-                  <div
-                    style={{
-                      position: "fixed",
-                      width: "50px",
-                      height: "50px",
-                      bottom: "1rem",
-                      zIndex: "10000",
-                      right: "1rem",
-                    }}
-                    onClick={() => {
-                      if (!isLoggedIn) {
-                        return openModal();
-                      } else {
-                        setTextAreaIsClick((current) => !current);
-                      }
-                    }}
-                    id={style.postUploaddSquareCont}
-                    className={style.postUploaddSquareCont}
-                  >
-                    <img
-                      className="postUploaddSquareContAddImg"
-                      src="./images/add.png"
-                      alt="addIcon"
-                    />
-                  </div>
-                </>
-              )}
-              {width < 600 ? (
-                <div
-                  onClick={() => {
-                    if (!isLoggedIn) {
-                      return openModal();
-                    } else {
-                      setTextAreaIsClick((current) => !current);
-                    }
-                  }}
-                  id={style.postUploaddSquareCont}
-                  className={style.postUploaddSquareCont}
-                >
-                  <img
-                    className="postUploaddSquareContAddImg"
-                    src="./images/add.png"
-                    alt="addIcon"
-                  />
-                </div>
-              ) : scroll > 150 ? null : (
-                <div
-                  onClick={() => {
-                    if (!isLoggedIn) {
-                      return openModal();
-                    } else {
-                      setTextAreaIsClick((current) => !current);
-                    }
-                  }}
-                  id={style.postUploaddSquareCont}
-                  className={style.postUploaddSquareCont}
-                >
-                  <img
-                    className="postUploaddSquareContAddImg"
-                    src="./images/add.png"
-                    alt="addIcon"
-                  />
-                </div>
-              )} */}
+             
             </div>
 
             <section
@@ -1134,7 +1080,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         ? style.navbarUploadPostOuterBoxContainer
                         : style.UploadPostOuterBoxContainerNotExpanded
                     }
-                  >
+                  > 
+
+                    
+                  
                     <textarea
                       style={{ borderRadius: "30px" }}
                       onClick={() => {
@@ -1155,6 +1104,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       value={newPostText}
                       placeholder="What Would You Like To Post?"
                     ></textarea>
+                   
+
+                    {textAreaIsClick ? (
+                      <div className={style.clsBtn} onClick={()=>{ setTextAreaIsClick(false);RemoveFile()} }>close</div>
+                    ) : null}
+                   
+
                     {!textAreaIsClick ? (
                       <img
                         className={style.ArrowImgAfterTextArea}
@@ -1234,83 +1190,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       <p className={style.spaceTag}>{postSpaceData}</p>
                     ) : null}
 
-                    {/* {textAreaIsClick ? (
-                      <div className="addImageandUploadPostIcon uploadNewPostaddImageandUploadPostIcon">
-                      
-                        {isOpenPostUserspace && (
-                          <div className={style.spaceSection}>
-                            
-
-                            <div className={style.spaceModal}>
-                              <div className={style.spaceModalContent}>
-                                <p className={style.spaceModalHeading}>
-                                  Select the Post Space (s).
-                                </p>
-                                
-                                <div className={style.spaceMenu}>
-                                  {currentUserDoc.userSpace.map((space) => {
-                                    return (
-                                      <div
-                                        className={style.spaceMenuData}
-                                        onClick={(event) =>
-                                          handleSpaceMenuDataClick(
-                                            event,
-                                            event.target.innerText
-                                          )
-                                        }
-                                      >
-                                        <p className={style.spaceMenuDataPara}>
-                                          {space}
-                                        </p>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                                <div className={style.spaceDoneCloseBtn}>
-                                  <button
-                                    className={style.spaceDoneBtn}
-                                    onClick={() => {
-                                      if (userSpaceArr.length >= 1) {
-                                        setPostSpaceArr(userSpaceArr);
-                                        setIsOpenPostUserspace(
-                                          !isOpenPostUserspace
-                                        );
-                                        setPostBtnVisible(true);
-                                      } else {
-                                        window.alert("choose atleast one.");
-                                      }
-                                    }}
-                                  >
-                                    Done
-                                  </button>
-                                  <button
-                                    className={style.spaceCloseBtn}
-                                    onClick={() =>
-                                      setIsOpenPostUserspace(
-                                        !isOpenPostUserspace
-                                      )
-                                    }
-                                  >
-                                    Close
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        
-                          {/* <button
-                            onClick={uploadImageToFireBase}
-                            className="uploadPostIconButton"
-                          >
-                            Post
-                          </button> */}
-
-                    {/* </div>
-                    ) : null} */}
                   </div>
+
                   <div className={style.postAssetsIconMain}>
+                  {/* image section */}
                     <div
                       className={style.postAssetsIconMaindiv}
                       onClick={() => {
@@ -1318,6 +1201,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           return openModal();
                         } else {
                           chooseFile();
+                          setTextAreaIsClick(true);
                         }
                       }}
                     >
@@ -1333,6 +1217,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           return openModal();
                         } else {
                           chooseVideoFile();
+                          setTextAreaIsClick(true);
+                          
                           // document.getElementById("videoInput").click();
 
                           // chooseFile();

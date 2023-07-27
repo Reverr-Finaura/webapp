@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   selectedUser: null,
   selectedUserData: [],
+  chatdisplay:false,
 };
 
 export const chatSlice = createSlice({
@@ -14,10 +15,13 @@ export const chatSlice = createSlice({
     },
     updateSelectedUserData: (state, action) => {
       state.selectedUserData = action.payload;
-    },
+    }, 
+    Chatshow:(state)=>{
+      state.chatdisplay=!state.chatdisplay;
+    }
   },
 });
 
-export const { updateSelectedUser, updateSelectedUserData } = chatSlice.actions;
+export const { updateSelectedUser, updateSelectedUserData,Chatshow } = chatSlice.actions;
 
 export default chatSlice.reducer;

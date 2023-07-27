@@ -575,7 +575,9 @@ export default function PostCardDark({
           </div>
 
           <div className={style.postUploadDateContainer}>
+            
             <ReactTimeAgo
+              className={style.timeSpan}
               date={item?.createdAt?.seconds * 1000}
               locale="en-US"
             />

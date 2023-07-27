@@ -23,11 +23,11 @@ useEffect(()=>{
   return <>
   <div key={idx} style={{alignSelf:chat.sendBy===currentcUser.email?"end":""}} className={styles.chatCont}>
     <img style={{display:"none",order:chat.sendBy===currentcUser.email?"2":""}} className={styles.userImg} src={chat.sendBy===currentcUser.email?currentcUser.image:chatData.selectedUser.userImg} alt="userImg" />
-    <div  style={{background:chat.sendBy===currentcUser.email?"#4285F4":"#030B18"}} className={styles.messNTimeCont}>
-      {chat.type?chat.type==="image/png"?<img className={styles.chatImg} src={chat.msg} alt="ima" />: <p>{chat.msg}</p>: <p>{chat.msg}</p>}
+    <div   className={styles.messNTimeCont}>
+      {chat.type?chat.type==="image/png"?<img className={styles.chatImg} src={chat.msg} alt="ima" />: <p style={{background:chat.sendBy===currentcUser.email?"#4285F4":"#030B18"}}  className={styles.pClass}>{chat.msg}</p>: <p style={{background:chat.sendBy===currentcUser.email?"#4285F4":"#030B18"}}  className={styles.pClass}>{chat.msg}</p>}
       {chat.imgMsg&&<img className={styles.chatImg} src={chat.imgMsg} alt="ima" />}
       <div style={{justifyContent:chat.sendBy===currentcUser.email?"end":"start"}} className={styles.wrapperTime}>
-      <p style={{marginRight:chat.sendBy===currentcUser.email?"-1rem":"0",marginLeft:chat.sendBy===currentcUser.email?"0":"-15px"}}  className={styles.time}>{chat.createdAt!==""?new Date(chat.createdAt).toTimeString().slice(0,5):"N/A"}</p>
+      <p style={{marginRight:chat.sendBy===currentcUser.email?"0rem":"0",marginLeft:chat.sendBy===currentcUser.email?"0":"10px"}}  className={styles.time}>{chat.createdAt!==""?new Date(chat.createdAt).toTimeString().slice(0,5):"N/A"}</p>
       </div>
     </div>
       </div>
