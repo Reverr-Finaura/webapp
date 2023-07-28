@@ -12,6 +12,9 @@ import Footer from "../Footer/Footer";
 import { toast } from "react-hot-toast";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import otpPhoto from "../../images/otp-picture.webp";
+import { doc,updateDoc,arrayUnion } from "firebase/firestore";
+import { db } from "../../firebase";
+
 
 function EnterOtpUpdated() {
   const dispatch = useDispatch();
@@ -73,24 +76,19 @@ function EnterOtpUpdated() {
     sixthDigit,
   ]);
 
-  const checkOtp = (e) => {
+  const checkOtp = async (e) => {
     e.preventDefault();
-
     console.log(enteredOtp);
-
     if (newUser.otp === enteredOtp) {
-      createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-        .then(() => {
-          dispatch(create({ newUser }));
-        })
-        .then(() => {
-          // navigate("/startup-list");
-          navigate("/onboarding-first");
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          toast.error(errorMessage);
-        });
+      try{
+        await createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
+        await updateDoc(doc(db,"meta","emailPhone"),{emailPhone:arrayUnion({email:newUser.email,phone:newUser.phone})});
+        dispatch(create({ newUser }));
+        navigate("/onboarding-first");
+      }catch(error){
+        console.log(error.message);
+        toast.error(error.message);
+      }
     } else {
       toast.error("Please check the entered OTP");
     }

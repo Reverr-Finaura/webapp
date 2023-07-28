@@ -222,6 +222,7 @@ function SignupAuthUpdated() {
           otp,
           password,
           loginType: "email-pass",
+          phone: mobile,
         })
       );
 
