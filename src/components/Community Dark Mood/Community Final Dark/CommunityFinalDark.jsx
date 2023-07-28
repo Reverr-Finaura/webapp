@@ -306,6 +306,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
   const chooseVideoFile = () => {
     if (chooseVidoFileRef.current) {
+      console.log(chooseVidoFileRef.current)
       chooseVidoFileRef.current.click();
     }
   };
@@ -325,7 +326,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     // Get the selected video file from the input element
     const file = event.target.files[0];
     setSelectedVideo(file);
-    // console.log("this is the selected video ", file);
+    console.log("this is the selected video ", file);
     if (file) {
       setTempVideoURL(URL.createObjectURL(file));
     }
@@ -386,7 +387,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   function onImageChange(e) {
     setImageUpload(e.target.files[0]);
     const fileURL = e.target.files[0];
-    // console.log("this is image upload", imageUpload);
+    console.log("this is image upload", imageUpload);
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }

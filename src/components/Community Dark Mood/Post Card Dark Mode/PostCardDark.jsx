@@ -69,7 +69,7 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-
+  console.log("this is post detail--",postDetail)
   // get the posts comments
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -886,8 +886,8 @@ export default function PostCardDark({
                   name="newComment"
                   id={
                     newCommentTextAreaClick
-                      ? "postCommentContainerExpanded"
-                      : "postCommentContainer"
+                    ? style.postCommentContainerExpanded
+                    : style.postCommentContainer
                   }
                   rows="3"
                   placeholder="Share Your Thoughts"
