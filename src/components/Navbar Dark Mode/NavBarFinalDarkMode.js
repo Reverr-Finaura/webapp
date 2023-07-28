@@ -826,6 +826,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     <>
                     {/* ///aa// */}
                       <div className={style.notificationBar}>
+
+                        {notificationOpen ? (<div className={style.closeBtn} onClick={()=> { notificationOpen(true)}} > close </div>) : null }
+
                         {userDoc?.notificationList?.length >= 1 ? (
                           <>
                             {" "}

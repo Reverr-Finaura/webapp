@@ -369,8 +369,9 @@ letter-spacing: 0.42px;
 }
 
 #postCommentContainer {
-  height: 32px !important;
-  width: 84% !important;
+  height: 47px !important;
+  width: 100% !important;
+
   padding-left: 3rem;
   font-size: 18px;
   /* background-color: var(--comment-card); */
@@ -480,10 +481,11 @@ letter-spacing: 0.42px;
 .rightArrowImg{
   height: 52px;
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 13px;
+  right: -15px;
   width: 10.1%;
   cursor: pointer;
+
 }
 
 .commented-by-comment {
