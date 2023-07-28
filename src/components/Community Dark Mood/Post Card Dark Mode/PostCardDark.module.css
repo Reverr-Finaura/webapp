@@ -478,11 +478,11 @@ letter-spacing: 0.42px;
   padding-right: 16px;
 }
 .rightArrowImg{
-  height: 52px;
+  height: 32px;
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 10.1%;
+  width: 8%;
   cursor: pointer;
 }
 

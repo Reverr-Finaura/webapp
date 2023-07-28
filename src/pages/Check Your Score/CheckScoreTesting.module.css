@@ -114,6 +114,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  width: 95px;
   position: relative;
   /* width: 3rem; */
   padding: 1rem 1rem;

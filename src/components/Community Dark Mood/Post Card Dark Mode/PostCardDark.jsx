@@ -206,6 +206,13 @@ export default function PostCardDark({
       },
     ]);
 
+
+    getUserDocByRef(userRef).then((userData) => {
+      setCommentedByUserDoc((prev) => [...prev, userData]);
+    });
+
+
+
     postDetail.comments = newCommentArray;
 
     // console.log("this is the list of updated comment ",newCommentArray)
@@ -930,7 +937,7 @@ export default function PostCardDark({
         {commentIconClick ? (
           <section
             className={
-              item?.comments.length !== 0
+              postDetail?.comments.length !== 0
                 ? style.oldCommentSection
                 : style.oldCommentSectionNothing
             }

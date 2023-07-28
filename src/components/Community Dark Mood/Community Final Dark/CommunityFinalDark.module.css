@@ -1182,7 +1182,7 @@ body::-webkit-scrollbar {
 
 
   #postTextContainer {
-    height: 23px;
+    height: 38px;
     width: 70%;
    
   }
@@ -1259,7 +1259,7 @@ body::-webkit-scrollbar {
   
   
     #postTextContainer {
-      height: 23px;
+      height: 38px;
       width: 70%;
      
     }
@@ -1340,12 +1340,13 @@ body::-webkit-scrollbar {
   
      .ArrowImgAfterTextArea{
       right: 10px;
+      height: 30px;
   
     }
   
   
     #postTextContainer {
-      height: 23px;
+      height: 30px;
       width: 60%;
      
     }
@@ -1720,7 +1721,7 @@ body::-webkit-scrollbar {
   }
   .ArrowImgAfterTextArea{
     right: -3px;
-    height: 36px;
+    height: 20px;
 
   }
   #postTextContainer{
