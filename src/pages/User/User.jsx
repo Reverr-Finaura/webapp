@@ -10,7 +10,7 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, createNetworkInMessagesDoc } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDoc } from "../../features/userDocSlice";
@@ -324,6 +324,13 @@ const User = () => {
         });
       }
       // -----------------------------------------------------------------------------
+
+
+      //------------ Create respective Docs for sending and receiving messages ------------------
+      await createNetworkInMessagesDoc(currentLoggedInUser?.user?.email, otherUserDoc.email);
+      //---------------------------------------------------------------------------------------
+
+
       setIsLoading(false);
     } catch (error) {
       toast(error.message);

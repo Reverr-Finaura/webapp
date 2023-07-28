@@ -11,47 +11,50 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import CardTesting from "../../components/Knowledge card/CardTesting";
 import knowledgeCarouselImg from "../../images/knowledgeCarousel3.webp";
+import know1 from "../../images/know1.webp"
+import know2 from "../../images/know2.webp"
+import know3 from "../../images/know3.webp"
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const knowledgeData = [
   {
     heading: "Idea Validation",
-    image: "./images/idea_validate.webp",
+    image: "./images/idea_validate.png",
     description:
       "Is it worthwhile to pursue your fresh startup idea? Let's put it through our tried-and-true method to obtain opinions from experts, users, and the available research to determine whether it's worthwhile to construct.",
     url: "/idea-validation",
   },
   {
     heading: "Fundraising and its Means",
-    image: "./images/fundraising.webp",
+    image: "./images/fundraising.png",
     description:
       "How are businesses supported in reality? From the various funding sources accessible to locating investors and creating the ideal pitch, we'll walk you through everything you could possible want to know.",
     url: "/fundraising-and-means",
   },
   {
     heading: "Reaching Out to Investor",
-    image: "./images/reachingout.webp",
+    image: "./images/reachingout.png",
     description:
       "Find out who angel investors are, why they invest in early-stage firms, and how to contact them. Discover how to use your connections with angel investors to advance your firm.",
     url: "/reaching-out-to-investor",
   },
   {
     heading: "Beta Testing",
-    image: "./images/beta.webp",
+    image: "./images/beta.png",
     description:
       "Prior to releasing your MVP, become proficient at conducting a beta test. Also read about how to get ready for obstacles both known and unknown while beta testing the product of your firm.",
     url: "/betatesting",
   },
   {
     heading: "Business Modal",
-    image: "./images/definevalues.webp",
+    image: "./images/definevalues.png",
     description:
       "Find out what a business model canvas is, what makes up its components, and why early-stage startup entrepreneurs should care.",
     url: "/buisnessmodal",
   },
   {
     heading: "Business Planning",
-    image: "./images/pitchdeck.webp",
+    image: "./images/pitchdeck.png",
     description:
       "A solid business strategy is the foundation of every successful venture. However, developing a strategy for your firm doesn't need to be a tedious 80-page exercise. To help you succeed, we're dissecting each element in detail.",
     url: "/buisnessplanning",
@@ -65,14 +68,14 @@ const knowledgeData = [
   },
   {
     heading: "Product Development",
-    image: "./images/productdev.webp",
+    image: "./images/productdev.png",
     description:
       "How is a new product introduced to the market? Learn the ins and outs of the full product lifecycle to avoid getting lost on the way to commercialization.",
     url: "/productdevelopment",
   },
   {
     heading: "Thinking Of A Startup Idea",
-    image: "./images/thinking.webp",
+    image: "./images/thinking.png",
     description:
       "How do you come up with the next big concept? What issues need to be resolved, and what would be the best approach for each one? Find out nocw!",
     url: "/thinkingofstartup",
@@ -136,13 +139,13 @@ function KnowledgeTesting() {
               customTransition="transform 300ms ease-in-out"
             >
               <div className={styles.slide}>
-                <img src={"images/journey.webp"} />
+                <img style={{width:"80%",height:"400px"}} src={know1} />
               </div>
               <div  className={styles.slide}>
-                <img style={{width:"60%",height:"300px"}} src={"images/thejourney2.webp"} />
+                <img style={{width:"80%",height:"400px"}} src={know2} />
               </div>
               <div  className={styles.slide}>
-                <img style={{width:"60%",height:"300px"}}  src={knowledgeCarouselImg} />
+                <img style={{width:"80%",height:"400px"}}  src={know3} />
               </div>
             </Carousel>
           </div>

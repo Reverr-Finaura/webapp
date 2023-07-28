@@ -171,7 +171,7 @@ console.log(randomEvents)
       <div className='container-1'>
         <NavBarFinalDarkMode />
 
-      <div style={{display:"flex",height:"100vh"}}>
+      <div className='' style={{display:"flex",height:"100vh"}}>
 
      
         <div style={{position:"fixed"}}>
@@ -193,6 +193,7 @@ console.log(randomEvents)
           </h3>
         </div>
       <div className='align'>
+     
         <div className='article-container'>
           {/* <ArticlesLeftSideBar /> */}
           <div className='right-container'>
@@ -201,6 +202,7 @@ console.log(randomEvents)
             {/* </NavLink> */}
           </div>
         </div>
+      
       </div>
           <DiscoverSuggestions heading={"More Suggestions"} />
         {/* Conditionally render DiscoverNews */}

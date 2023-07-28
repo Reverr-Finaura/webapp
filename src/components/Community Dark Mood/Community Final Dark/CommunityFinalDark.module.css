@@ -1197,8 +1197,8 @@ body::-webkit-scrollbar {
 
 
   #postTextContainer {
-    /* height: 23px; */
-    width: -webkit-fill-available;
+    height: 38px;
+    width: 70%;
    
   }
   #postTextContainerExpanded {
@@ -1274,8 +1274,8 @@ body::-webkit-scrollbar {
   
   
     #postTextContainer {
-      /* height: 23px; */
-      width: -webkit-fill-available;
+      height: 38px;
+      width: 70%;
      
     }
     #postTextContainer::placeholder {
@@ -1355,13 +1355,14 @@ body::-webkit-scrollbar {
   
      .ArrowImgAfterTextArea{
       right: 10px;
+      height: 30px;
   
     }
   
   
     #postTextContainer {
-      /* height: 23px; */
-      width: -webkit-fill-available;
+      height: 30px;
+      width: 60%;
      
     }
     #postTextContainer::placeholder {
@@ -1735,7 +1736,7 @@ body::-webkit-scrollbar {
   }
   .ArrowImgAfterTextArea{
     right: -3px;
-    height: 36px;
+    height: 20px;
 
   }
   #postTextContainer{
