@@ -40,8 +40,13 @@ function Third() {
   };
 
   const handleAboutChange = (event) => {
-    setAbout(event.target.value);
+    const inputText = event.target.value;
+
+    
+    setAbout(inputText);
   };
+  const remainingWords = 1000 - about.trim().split(/\s+/).filter((word) => word !== '').length;
+
 
   // // this function will handle two function when the Next button is clicked
 
@@ -116,10 +121,10 @@ function Third() {
       toast.error(nameError);
     }
 
-    if (about==="") {
+    if (about === "") {
       emailError = "About Field is required ";
     }
-    if (designation==="") {
+    if (designation === "") {
       passwordError = "Designation field is required";
     }
     if (emailError || nameError || passwordError) {
@@ -136,9 +141,9 @@ function Third() {
     if (!userEmail) {
       throw new Error("User email not available");
     }
-  
+
     const docRef = doc(db, "Users", userEmail);
-  
+
     try {
       // Perform a single update with all the fields to be updated
       await setDoc(docRef, data, { merge: true });
@@ -147,8 +152,8 @@ function Third() {
       throw err; // Rethrow the error to be caught in the calling function
     }
   };
-  
-  
+
+
 
   return (
     <div className={styles.container}>
@@ -195,7 +200,7 @@ function Third() {
           />
           <span className={styles.textdanger}>{imgError}</span>
           <div className={styles.textInput}>
-            <text style={{ fontSize: 10, color: "#ffffff" }}>
+            <text className={styles.asterik} style={{ fontSize: 10, color: "#ffffff" }}>
               What’s your designation?
             </text>
             <input
@@ -208,16 +213,23 @@ function Third() {
             <span className={styles.textdanger}>{desError}</span>
           </div>
           <div className={styles.textInput}>
-            <text style={{ fontSize: 10, color: "#ffffff" }}>
+            <text className={styles.asterik} style={{ fontSize: 10, color: "#ffffff" }}>
               Tell us a little bit about yourself.
             </text>
             <textarea
               type="text"
-              placeholder="About"
+              placeholder="Enter upto 1000 words"
               value={about}
               onChange={handleAboutChange}
               required
             />
+            <div>
+              {remainingWords >= 0 ? (
+                <span style={{color:'white'}}>{remainingWords} word(s) remaining</span>
+              ) : (
+                <span style={{ color: 'red' }}>You've exceeded the word limit</span>
+              )}
+            </div>
             <span className={styles.textdanger}>{abtError}</span>
           </div>
 

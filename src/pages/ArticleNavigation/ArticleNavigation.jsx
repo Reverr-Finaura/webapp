@@ -11,6 +11,7 @@ import image from '../../images/arrowMark.svg'
 const ArticleNavigation = () => {
     const [info, setinfo] = useState('');
     const [loading, setLoading] = useState(true);
+    const [showAll,setshowAll]=useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -51,9 +52,12 @@ const ArticleNavigation = () => {
                     <div className={styles.imageCont}>
                         <img className={styles.image} src={info?.image?.imageUrl} alt="img" />
                     </div>
-                        <p className={styles.upperText}>{info.body.length >500?info.body.slice(0, 500) + '...':info.body}</p>
-
-                        <p className={styles.lowerText}>{info.body.length > 1400 ? info.body.slice(500, 1400)+'...':info.body}</p>
+                    
+                        { showAll ?<div> <p className={styles.lowerText}>{info.body}</p> <a className={styles.acont} onClick={()=>setshowAll(!showAll)}>Read less</a></div>:
+                       <div> <p className={styles.lowerText}>{info.body.substring(0,1400).concat('...')}</p> <a className={styles.acont}  onClick={()=>setshowAll(!showAll)}>Read more</a></div>
+                    
+            }
+    
                 </div>
                                     
             )
