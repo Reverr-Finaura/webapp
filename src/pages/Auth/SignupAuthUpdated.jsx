@@ -295,6 +295,7 @@ function SignupAuthUpdated() {
         }, 3000);
       } else {
         toast.error("Both email and mobile OTPs failed to send");
+        setLoading(false)
       }
 
       // emailjs
@@ -324,6 +325,7 @@ function SignupAuthUpdated() {
       //   });
     } else {
       toast.error("passwords do not match");
+      setLoading(false);
     }
   };
 

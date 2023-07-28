@@ -235,7 +235,7 @@ function Fourth() {
           <text className={styles.heading}>Let us get to know you!</text>
           <div className={styles.textInputContainer}>
             <div className={styles.textInput}>
-              <text style={{ fontSize: 10, color: "#ffffff" }}>Location</text>
+              <text className={styles.asterik} style={{ fontSize: 10, color: "#ffffff" }}>Location</text>
               <input
                 type="text"
                 placeholder="State"
@@ -246,7 +246,7 @@ function Fourth() {
               <span className={styles.textdanger}>{stateError}</span>
             </div>
             <div className={styles.textInput}>
-              <text style={{ fontSize: 10, color: "#ffffff" }}>Country</text>
+              <text className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>Country</text>
               <input
                 type="text"
                 placeholder="Country"
@@ -260,7 +260,7 @@ function Fourth() {
             {education.map((edu, index) => (
               <React.Fragment key={`edu0-${index}`}>
                 <div className={styles.textInput} key={`edu0-${index}`}>
-                  <text style={{ fontSize: 10, color: "#ffffff" }}>
+                  <text className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
                     Highest educational degree?
                   </text>
                   <input
@@ -278,7 +278,7 @@ function Fourth() {
                   </select> */}
                 </div>
                 <div className={styles.textInput} key={`edu1-${index}`}>
-                  <text style={{ fontSize: 10, color: "#ffffff" }}>
+                  <text className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
                     Name of Institution
                   </text>
                   <input
@@ -301,7 +301,7 @@ function Fourth() {
             {experience.map((exp, index) => (
               <React.Fragment key={`exp0-${index}`}>
                 <div className={styles.textInput} key={`exp0-${index}`}>
-                  <text style={{ fontSize: 10, color: "#ffffff" }}>
+                  <text  className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
                     What’s your designation?
                   </text>
                   <input
@@ -315,7 +315,7 @@ function Fourth() {
                 </div>
 
                 <div className={styles.textInput} key={`exp1-${index}`}>
-                  <text style={{ fontSize: 10, color: "#ffffff" }}>
+                  <text  className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
                     Name of the company
                   </text>
                   <input
