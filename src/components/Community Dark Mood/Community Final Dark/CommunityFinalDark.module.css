@@ -398,7 +398,7 @@ font-weight: 700;
 
 #postTextContainer {
   height: 38px;
-  width: 93%;
+  width: -webkit-fill-available;
   /* padding-left: 3rem; */
   /* color: var(--main-text); */
   font-size: 20px;
@@ -748,7 +748,21 @@ font-weight: 700;
   position: absolute;
 }
 
+.clsBtn{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: 2px solid #2a72de;
+  background-color: #2a72de;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+
 .navbarUploadPostOuterBoxContainer {
+  position: relative;
   /* border: 2px solid var(--main-text); */
   /* border: 1px solid rgb(42, 114, 222);
 
@@ -758,6 +772,7 @@ font-weight: 700;
   /* background-color: var(--bg-clr); */
   /* background-color: white; */
   border-bottom: 2px solid gray;
+
 }
 
 .navbarUploadPostContainerTextArea {
@@ -1275,7 +1290,7 @@ body::-webkit-scrollbar {
     #postTextContainerExpanded {
       height: fit-content;
     
-      width: 92.5%;
+      width:-webkit-fill-available;
       padding-left: 0.5rem;
       font-size: 18px;
       border-bottom-left-radius: 0;
@@ -1596,11 +1611,11 @@ body::-webkit-scrollbar {
     margin-left: 12rem;
   } */
   #postTextContainer {
-    height: 64px;
+    /* height: 64px; */
   }
 
   #postTextContainerExpanded {
-    width: 90%;
+    width:-webkit-fill-available;
   }
 
   .sortOptionBigContainer {
@@ -1725,8 +1740,8 @@ body::-webkit-scrollbar {
 
   }
   #postTextContainer{
-    height: 20px;
-width: -webkit-fill-available;
+    height: 37px;
+    width: -webkit-fill-available;
 
   }
   .communityNavbarBlock{

@@ -48,12 +48,19 @@
     font-weight: 400;
     font-size: 1rem;
     line-height: 16px;
-    background: var(--blue-core, #4285F4);
+   /* background: var(--blue-core, #4285F4);
+    border-radius: 10px 10px 10px 10px;
+    padding-top: 0.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;*/
+}
+.pClass{
     border-radius: 10px 10px 10px 10px;
     padding-top: 0.3rem;
     padding-left: 1rem;
     padding-right: 1rem;
-}
+    margin-left: 0rem;
+    }
 
 .messNTimeCont p {
     line-height: 23px;
@@ -82,6 +89,16 @@
     .messNTimeCont{
     width: -webkit-fill-available;
     height: fit-content;
+    }
+   /* .pClass{
+    border-radius: 10px 10px 10px 10px;
+    padding-top: 0.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0rem;
+    }*/
+    .time{
+        margin-right: 0rem;
     }
     
 }

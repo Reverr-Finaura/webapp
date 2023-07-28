@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ChatSkeleton from '../../../components/Post Skeleton/Chat Skeleton/ChatSkeleton'
 import { db, getAllUserHavingChatWith } from '../../../firebase'
 import styles from "./ChatContainer.module.css"
-import { updateSelectedUser } from '../../../features/chatSlice_latest'
+import { updateSelectedUser,Chatshow} from '../../../features/chatSlice_latest'
 
 
 // const currentcUser={email:"jatin@reverrapp.com"}
@@ -139,6 +139,7 @@ const ChatsContainer = ({ sorter }) => {
               <div className={styles.messageGroup}>
                 <div key={idx} onClick={() => {
                   dispatch(updateSelectedUser(data));
+                  dispatch(Chatshow());
                 }}
                   style={{
                     background:
@@ -160,7 +161,7 @@ const ChatsContainer = ({ sorter }) => {
                       </p>{" "}
                       <p className={styles.userLastText}>
                         {data.latestMessage !== ""
-                          ? data.latestMessage
+                          ? data.latestMessage.slice(0,15)
                           : "Image"}
                       </p>
                     </div>

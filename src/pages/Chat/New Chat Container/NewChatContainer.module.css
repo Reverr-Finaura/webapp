@@ -102,3 +102,13 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width:500px) {
+    .outerCont{
+        margin-top: 1rem;
+    }
+    .sendMessageBtn{
+        right: 33px;
+    }
+    
+}

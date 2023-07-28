@@ -316,12 +316,15 @@ padding: 6px;
   display: flex;
   align-items: center;
   gap: 1rem;
+  max-width: 90%;
+  flex-wrap: wrap;
 }
 .experienceConnect button {
   border-radius: 3.63638rem;
   border: 0.582px solid var(--white, #fff);
   background: var(--white, #fff);
-  width: 10rem;
+  max-height: 40px;
+  /* width: 10rem; */
   /* height: 2rem; */
   color: #000;
   text-align: center;

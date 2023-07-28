@@ -299,10 +299,10 @@ const UserProfileTesting = () => {
             <div className={styles.experienceConnect}>
               <p>I am here to</p>
               <div className={styles.experienceBtn}>
-                {userDoc?.here_for
-                  ? userDoc.here_for.map((item) => {
+                {userDoc?.userReason
+                  ? userDoc.userReason.map((item) => {
                       return (
-                        <button style={{ marginRight: "25px" }}>{item}</button>
+                        <button className={styles.iamhereforbtn}>{item}</button>
                       );
                     })
                   : "Update your i am here to"}
@@ -321,12 +321,12 @@ const UserProfileTesting = () => {
               <div className={styles.contactItem}>
                 <img src="/images/devicon_facebook.svg" alt="fb" />
                 <p>
-                  {userDoc?.facebook ? userDoc.facebook : "Add your facebook"}
+                  {userDoc?.facebookLink ? userDoc.facebookLink : "Add your facebook"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_twitter.svg" alt="Linkedin" />
-                <p>{userDoc?.twitter ? userDoc.twitter : "Add your twitter"}</p>
+                <p>{userDoc?.twitterLink ? userDoc.twitterLink : "Add your twitter"}</p>
               </div>
             </div>
           </div>
