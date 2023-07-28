@@ -470,7 +470,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {filteredArray.includes("TOOLS") ? (
                 <div onClick={() => navigate("/tools")}>
                   <img src={require("../../images/rulepen.webp")} alt="img" />
-                  <div>
+                  <div className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -484,6 +484,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         fontSize: 10,
                         color: "#A7A7A7",
                       }}
+                      className={style.discriponmobilehide}
                     >
                       Elevate your startup performance with our next-level
                       online tools!
@@ -497,7 +498,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={require("../../images/securityuser.webp")}
                     alt="img"
                   />
-                  <div>
+                  <div  className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -511,6 +512,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         fontSize: 10,
                         color: "#A7A7A7",
                       }}
+                      className={style.discriponmobilehide}
                     >
                       Qualified mentors across multiple categories for all your
                       needs.
@@ -521,12 +523,13 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {filteredArray.includes("KNOWLEDGE") ? (
                 <div onClick={() => navigate("/knowledge")}>
                   <img src={require("../../images/book1.webp")} alt="img" />
-                  <div>
+                  <div  className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
+                      
                     >
                       Knowledge
                     </text>
@@ -535,6 +538,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         fontSize: 10,
                         color: "#A7A7A7",
                       }}
+                      className={style.discriponmobilehide}
                     >
                       Check out our tailor-made roadmap of courses.
                     </text>
@@ -547,7 +551,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={require("../../images/currencyusd.webp")}
                     alt="img"
                   />
-                  <div>
+                  <div  className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -561,6 +565,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         fontSize: 10,
                         color: "#A7A7A7",
                       }}
+                      className={style.discriponmobilehide}
                     >
                       Find investors perfectly suited for you.
                     </text>
@@ -573,7 +578,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={require("../../images/moneyreveive.webp")}
                     alt="img"
                   />
-                  <div>
+                  <div  className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -587,6 +592,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         fontSize: 10,
                         color: "#A7A7A7",
                       }}
+                      className={style.discriponmobilehide}
                     >
                       Check your startup score.
                     </text>
@@ -632,7 +638,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               </text>
               {searchResult.map((item, index) => (
                 <div
-                  onClick={() => navigate(`/userprofile/${item.email}`)}
+                  onClick={() => (navigate(`/userprofile/${item.email}`),setsearchResult(null))}
                   key={index}
                 >
                   <div>

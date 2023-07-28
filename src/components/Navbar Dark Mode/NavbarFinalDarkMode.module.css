@@ -655,6 +655,23 @@ align-items: center;
     width: 50px;
    
   }
+
+  .discriponmobilehide{
+    display: none;
+  }
+  .productModal{
+    width: 90%;
+  }
+  .productContainer > div{
+    margin-top: 12px;
+  }
+  /* .keyproddiv{
+    
+  } */
+  /* .productContainer{
+    
+    align-items: center;
+  } */
   
 }
 @media screen and (max-width:500px){

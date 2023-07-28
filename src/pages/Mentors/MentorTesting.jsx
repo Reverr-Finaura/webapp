@@ -250,6 +250,7 @@ const MentorTesting = () => {
             <p>Featured Mentors</p>
             <div className={styles.slider}>
               <Carousel
+                containerClass="react-multi-carousel-list-padding-40-px"
                 responsive={responsive}
                 swipeable={true}
                 draggable={true}
@@ -257,7 +258,7 @@ const MentorTesting = () => {
                 partialVisible={false}
                 transitionDuration={500}
                 infinite={true}
-                autoPlay={true}
+                // autoPlay={true}
                 autoPlaySpeed={3000}
                 keyBoardControl={true}
                 customTransition="transform 300ms ease-in-out"
