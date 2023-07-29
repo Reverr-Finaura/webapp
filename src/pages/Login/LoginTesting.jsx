@@ -18,7 +18,7 @@ import useQuery from "../../Utils/useQuery";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const LoginNew = () => {
+const LoginTesting = () => {
   const selectedCountry = useSelector((state) => state.countryCode);
   const [metaData, setMetaData] = useState([]);
   const [email, setEmail] = useState("");
@@ -180,7 +180,8 @@ const LoginNew = () => {
       });
   };
 
-  const loginEmail = (e) => {
+  const onSubmit = (e) => {
+    console.log('Login');
     e.preventDefault();
     if (/^\d+$/.test(email)) {
       loginPhone();
@@ -356,9 +357,11 @@ const LoginNew = () => {
   // userDoc.Vibe_Data.How_To_Meet - []
   const handleTogglePassword = (event) => {
     event.preventDefault()
+    console.log(showPassword)
     setShowPassword(!showPassword);
   };
 
+  console.log("Set Show Password",showPassword);
   return (
     <>
       <NavBarFinalDarkMode isLoggedIn={false} />
@@ -383,12 +386,13 @@ const LoginNew = () => {
           >
             Welcome to <span>Reverr</span>.
           </div>
-          <form onSubmit={loginEmail} className={styles.form}>
+          <form onSubmit={onSubmit} className={styles.form}>x``
             <div>
               <label htmlFor="email" className={styles.label}>
                 Email
               </label>
               <input
+                id="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 type="email"
@@ -400,17 +404,23 @@ const LoginNew = () => {
                 Password
               </label>
               <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 placeholder="Enter a password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button
+              <span
                 className={styles.toggleButton}
-                onClick={handleTogglePassword}
+                // onClick={handleTogglePassword}
+                onClick={(e)=>{
+                  console.log("TEsting");
+                  e.preventDefault()
+                  setShowPassword(!showPassword)
+                }}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              </span>
             </div>
             <div className={styles.forgotPassword}>
               <Link to="/forgot-password">Forgot Password?</Link>
@@ -446,4 +456,4 @@ const LoginNew = () => {
   );
 };
 
-export default LoginNew;
+export default LoginTesting;

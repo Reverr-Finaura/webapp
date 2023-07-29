@@ -118,7 +118,7 @@ import KnowledgeTesting from "./pages/Knowledge/KnowledgeTesting";
 import CheckYourScoreTesting from "./pages/Check Your Score/CheckYourScoreTesting";
 import CourcePageTesting from "./pages/AfterKnowledge/CourcesPage/CourcePageTesting";
 import HomeNotLoggedIn from "./pages/HomeNotLoggedIn/HomeNotLoggedIn";
-import LoginTesting from "./pages/Login/LoginNew";
+import LoginTesting from "./pages/Login/LoginTesting";
 import UserProfileTesting from "./pages/User Profile/UserProfileTesting";
 import UserEditProfileTesting from "./pages/User Edit Page/UserEditProfileTesting";
 import First from "./pages/OnboardingNew/First/First";
