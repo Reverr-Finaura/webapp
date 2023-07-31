@@ -9,7 +9,20 @@
 .articlerightsidecontainer{
   display: flex;
   gap: 10px;
+  width: 100%;
 }
+.secondarticlecontainer{
+  padding-right: 0 !important;
+  width: 100% !important;
+  
+}
+.allCards{
+  width: 90%;
+}
+.article-box{
+  width: 100% !important;
+}
+
 @media screen and (max-width: 950px) {
   .secondarticlecontainer{
     padding-right: 0 !important;

@@ -70,6 +70,8 @@ export default function PostCardDark({
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   console.log("this is post detail--",postDetail)
+  console.log("this is user type",userType);
+
   // get the posts comments
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -477,6 +479,8 @@ export default function PostCardDark({
     setPostTime(new Date(item?.createdAt.seconds * 1000));
   }, [item]);
 
+
+  console.log("posted by user",postedByUserDoc);
   return (
     <>
       <section className={style.PostCardContainer} id={item.id}>
@@ -491,9 +495,13 @@ export default function PostCardDark({
               } else {
                 // setPostsAuthorIsClick(true);
                 // setPostsAuthorInfo(postedByUserDoc);
-                if (postedByUserDoc?.email === user?.user?.email) {
+                if ( postedByUserDoc?.email  === user?.user?.email) {
                   navigate("/userprofile");
-                } else {
+                }
+                else if(!postedByUserDoc?.email){
+                  return console.log("empty")
+                } 
+                else {
                   navigate(`/userprofile/${postedByUserDoc?.email}`);
                 }
               }
@@ -526,14 +534,17 @@ export default function PostCardDark({
                     // setPostsAuthorInfo(postedByUserDoc);
                     if (postedByUserDoc?.email === user?.user?.email) {
                       navigate("/userprofile");
-                    } else {
+                    }
+                    else if(!postedByUserDoc?.email){
+                      return console.log("empty")
+                    }  else {
                       navigate(`/userprofile/${postedByUserDoc?.email}`);
                     }
                   }
                 }}
                 className={style.postAuthorName}
               >
-                {postedByUserDoc?.name}
+                {postedByUserDoc?.name ? postedByUserDoc?.name : "NULL " }
               </h3>
               <div className="postAuthorType">
                 {(() => {
@@ -577,7 +588,7 @@ export default function PostCardDark({
             </div>
 
             <p className={style.postAuthorDesignation}>
-              {postedByUserDoc?.designation ? postedByUserDoc?.designation : ""}
+              {postedByUserDoc?.designation ? postedByUserDoc?.designation : "Null"}
             </p>
           </div>
 

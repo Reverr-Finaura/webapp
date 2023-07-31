@@ -99,6 +99,7 @@
 
   .searchResultContainer {
     padding: 0 1rem;
+    gap: 15px;
     justify-content: center;
     align-items: center;
   }

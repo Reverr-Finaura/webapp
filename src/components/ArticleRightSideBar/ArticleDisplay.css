@@ -45,7 +45,8 @@
 
   .article-heading{
     color: #FFF;
-    font-size: 23px;
+    /* font-size: 23px; */
+    font-size: 90%;
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
@@ -58,7 +59,8 @@
     color: var(--white, #FFF);;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 67%;
     font-family: Poppins;
     font-style: normal;
     font-weight: 400;
