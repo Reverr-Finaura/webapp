@@ -30,7 +30,7 @@ export default function NotificationCard({ item }) {
   }, []);
   // console.log("noti",item);
 
-   // Some arbitrary value
+  // Some arbitrary value
   // var date = new Date(item.time.seconds * 1000); // multiply by 1000 because Date() requires miliseconds
   // var timeStr = date.toTimeString().split(' ')[0];
   // console.log("time",timeStr);
@@ -46,10 +46,22 @@ export default function NotificationCard({ item }) {
             navigate(`/userprofile/${item.user}`);
             window.scrollTo(0, 0);
           }}
+          alt="profile"
         />
       </div>
 
-      <div className={style.notificationContent}>
+      <div
+        className={style.notificationContent}
+        onClick={() => {
+          if (item?.type === "Like-Notification") {
+            navigate(`/community/${item?.id}`);
+            window.scrollTo(0, 0);
+          } else if (item?.type === "Comment-Notification") {
+            navigate(`/community/${item?.id}`);
+            window.scrollTo(0, 0);
+          }
+        }}
+      >
         <div className={style.upperPart}>
           <h3
             className={style.heading}
@@ -75,7 +87,18 @@ export default function NotificationCard({ item }) {
         </p>
       </div>
 
-      <div style={{ width: "200px" }}>
+      <div
+        style={{ width: "200px" }}
+        onClick={() => {
+          if (item?.type === "Like-Notification") {
+            navigate(`/community/${item?.id}`);
+            window.scrollTo(0, 0);
+          } else if (item?.type === "Comment-Notification") {
+            navigate(`/community/${item?.id}`);
+            window.scrollTo(0, 0);
+          }
+        }}
+      >
         <p
           style={{
             padding: "5px",
