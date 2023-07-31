@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.66eb17fa.css",
-    "main.js": "/static/js/main.c62be30c.js",
+    "main.css": "/static/css/main.d244289f.css",
+    "main.js": "/static/js/main.232f17a4.js",
     "static/media/illustration.svg": "/static/media/illustration.19635081d007bb47015e1ef6f9599be3.svg",
     "static/media/mentorsUnavailable.svg": "/static/media/mentorsUnavailable.422b9186f395d918299098286ba6866b.svg",
     "static/media/community mockup.svg": "/static/media/community mockup.39e6b22b0621801842e4a5857e9af195.svg",
@@ -137,6 +137,7 @@
     "static/media/Twitter.svg": "/static/media/Twitter.201d34a3c81c7b071edf32b890f776b0.svg",
     "static/media/GroupLast.svg": "/static/media/GroupLast.b0e34ed869bda590c996bfca3560ddc7.svg",
     "static/media/dots.webp": "/static/media/dots.7dfcf206bf177de1cc20.webp",
+    "static/media/galleryedit.svg": "/static/media/galleryedit.a4ec725c53a7a32f7228cd22f4c24ba5.svg",
     "static/media/Linkedin.svg": "/static/media/Linkedin.aabc8504b623f976d83109d7f4167f2d.svg",
     "static/media/currencyusd.webp": "/static/media/currencyusd.813be3ee70219fb8730f.webp",
     "static/media/profile2user.svg": "/static/media/profile2user.625caae89b02e8d48fb8b49622922ccb.svg",
@@ -144,7 +145,6 @@
     "static/media/new-dark-mode-logo.webp": "/static/media/new-dark-mode-logo.5052d32c7e119f5c528f.webp",
     "static/media/Group 6267336.svg": "/static/media/Group 6267336.41842a3c1f5f4fd8097cf657bf145838.svg",
     "static/media/evaArrowIosDownwardFill2.svg": "/static/media/evaArrowIosDownwardFill2.cb2fdfe870fe2bf8abd1c4ac0b625aca.svg",
-    "static/media/eye.svg": "/static/media/eye.ebf8baa35afaef2664b77659c235ce79.svg",
     "static/media/mentor.webp": "/static/media/mentor.32a83aaed0d8e845ba98.webp",
     "static/media/clock.svg": "/static/media/clock.b00de8004e0a399a2210cf56a282b9f0.svg",
     "static/media/professional.webp": "/static/media/professional.1da0d4750953babe761e.webp",
@@ -177,11 +177,11 @@
     "static/media/bx_log-out-white.webp": "/static/media/bx_log-out-white.447a0ccaaec25d692ce9.webp",
     "static/media/dash-light.webp": "/static/media/dash-light.f6ff8f702436e60452aa.webp",
     "static/media/know-dark.webp": "/static/media/know-dark.d7fd0cfb3e18feb704d9.webp",
-    "main.66eb17fa.css.map": "/static/css/main.66eb17fa.css.map",
-    "main.c62be30c.js.map": "/static/js/main.c62be30c.js.map"
+    "main.d244289f.css.map": "/static/css/main.d244289f.css.map",
+    "main.232f17a4.js.map": "/static/js/main.232f17a4.js.map"
   },
   "entrypoints": [
-    "static/css/main.66eb17fa.css",
-    "static/js/main.c62be30c.js"
+    "static/css/main.d244289f.css",
+    "static/js/main.232f17a4.js"
   ]
 }
