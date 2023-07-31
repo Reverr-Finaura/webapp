@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import eye from "../../../images/eye.svg";
+// import eye from "../../../images/eye.svg";
+import postsIcon from "../../../images/galleryedit.svg"
 import people from "../../../images/people.svg";
 import setting from "../../../images/setting.svg";
 import edit from "../../../images/edit.svg";
 import styles from "./ProfileSummary.module.css";
+import defaultImg from "../../../images/default-profile-pic.webp";
+
 
 const ProfileSummary = () => {
   const [profileCompletionProgress, setProfileCompletionProgress] = useState(0);
@@ -64,7 +67,8 @@ const ProfileSummary = () => {
             src={
               userDoc?.image
                 ? userDoc.image
-                : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                : defaultImg
+                // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
             }
             className={styles.profileImage}
             style={{objectFit:"cover"}}
@@ -88,11 +92,13 @@ const ProfileSummary = () => {
         </button> */}
       </div>
 
-      <div className={styles.viewConnectionRow}>
-        {/* <div className={styles.view}>
-          <img className={styles.viewImage} src={eye} alt="eye" />
-          <text className={styles.viewText}>4130 views</text>
-        </div> */}
+      <div className={styles.postConnectionRow}>
+        <div className={styles.post}>
+          <img className={styles.postImage} src={postsIcon} alt="postsIcon" />
+          <text className={styles.postText}>
+            {userDoc?.posts ? userDoc.posts.length : 0} Posts
+            </text>
+        </div>
         <div className={styles.connection}>
           <img className={styles.connectionImage} src={people} alt="eye" />
           <text className={styles.connectionText}>

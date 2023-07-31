@@ -46,25 +46,26 @@
   cursor: pointer;
 }
 
-.viewConnectionRow {
+.postConnectionRow {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 16px;
+  justify-content: space-between;
 }
 
-.view {
+.post {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.viewImage {
+.postImage {
   width: 12px;
   height: 12px;
 }
 
-.viewText {
+.postText {
   font-size: 12px;
   color: #FFFFFF;
   margin-left: 8px;
@@ -113,7 +114,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 6px;
+  /* margin-top: 6px; */
+  flex-wrap: wrap;
 }
 
 .spacesRowDiv {
@@ -122,6 +124,7 @@
   padding-bottom: 5px;
   border-radius: 15px;
   margin-right: 10px;
+  margin-top: 10px;
   background-color: #FFFFFF;
 }
 
