@@ -42,6 +42,20 @@
   height: 100%;
   border-radius: 50%;
 }
+.removeDP {
+  position: absolute;
+  /* bottom: 0; */
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  background-color: red;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
 
 .fileLabel {
   position: absolute;
@@ -451,7 +465,6 @@
 }
 /* -------------------------Mentor detail----------- */
 
-
 /* --------------------Mentor detial end ----------------- */
 /* -----------------------Education ------------------------- */
 .educationWrapper {
@@ -543,9 +556,6 @@
   letter-spacing: 0.02rem;
   cursor: pointer;
 }
-
-
-
 
 @media screen and (min-width: 360px) and (max-width: 540px) {
   .editContainer {
