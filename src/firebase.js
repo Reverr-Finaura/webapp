@@ -168,44 +168,71 @@ export const uploadMedia = async (media, path) => {
 
 
 export const getAllUserHavingChatWith = async (currentcUser, setList) => {
-  const list = [];
   const ref = doc(db, "Messages", currentcUser.email);
-  const c = collection(
-    ref,
-    currentcUser && currentcUser.userType === "Mentor"
-      ? "YourClients"
-      : "YourMentors"
-  );
-
+  const isMentor = currentcUser && currentcUser.userType?.toLowerCase() === "mentor";
+  const c = collection(ref, isMentor ? "YourClients" : "YourMentors");
   const f = collection(ref, "Networks");
 
-  const snap = await getDocs(f);
-  onSnapshot(f, (snapshot) => {
-    const dummyList = [];
-    snapshot.docs.forEach((doc) => {
-      dummyList.push({ ...doc.data(), id: doc.id, bucket: "Networks" });
-    });
+  const clientSnapshot = await getDocs(c);
+  const networkSnapshot = await getDocs(f);
 
-    setList(dummyList);
-  });
+  const clientData = clientSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+    bucket: isMentor ? "YourClients" : "YourMentors",
+  }));
 
-  const querySnapshot = await getDocs(c);
-  //SNAPSHOT IMPLEMENT
-  onSnapshot(c, (snapshot) => {
-    const dummyList = [];
-    snapshot.docs.forEach((doc) => {
-      dummyList.push({
-        ...doc.data(),
-        id: doc.id,
-        bucket:
-          currentcUser && currentcUser.userType === "Mentor"
-            ? "YourClients"
-            : "YourMentors",
-      });
-    });
+  const networkData = networkSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+    bucket: "Networks",
+  }));
 
-    setList(dummyList);
-  });
+  const mergedData = [...clientData, ...networkData];
+
+  setList(mergedData);
+
+
+
+
+  // const list = [];
+  // const ref = doc(db, "Messages", currentcUser.email);
+  // const c = collection(
+  //   ref,
+  //   currentcUser && currentcUser.userType?.toLowerCase() === "mentor"
+  //     ? "YourClients"
+  //     : "YourMentors"
+  // );
+
+  // const f = collection(ref, "Networks");
+
+  // const snap = await getDocs(f);
+  // onSnapshot(f, (snapshot) => {
+  //   const dummyList = [];
+  //   snapshot.docs.forEach((doc) => {
+  //     dummyList.push({ ...doc.data(), id: doc.id, bucket: "Networks" });
+  //   });
+
+  //   setList(dummyList);
+  // });
+
+  // const querySnapshot = await getDocs(c);
+  // //SNAPSHOT IMPLEMENT
+  // onSnapshot(c, (snapshot) => {
+  //   const dummyList = [];
+  //   snapshot.docs.forEach((doc) => {
+  //     dummyList.push({
+  //       ...doc.data(),
+  //       id: doc.id,
+  //       bucket:
+  //         currentcUser && currentcUser.userType?.toLowerCase() === "mentor"
+  //           ? "YourClients"
+  //           : "YourMentors",
+  //     });
+  //   });
+
+  //   setList(dummyList);
+  // });
 };
 
 export const createNetworkInMessagesDoc=async(userId,senderId)=>{
@@ -248,7 +275,7 @@ export const SendMessage = async (
   if (bucket === "YourClients" || bucket === "YourMentors") {
     furtherSenderRef = doc(
       senderRef,
-      currentcUser && currentcUser.userType === "Mentor"
+      currentcUser && currentcUser.userType?.toLowerCase() === "mentor"
         ? "YourClients"
         : "YourMentors",
       sendTo.email
@@ -261,7 +288,7 @@ export const SendMessage = async (
   if (bucket === "YourClients" || bucket === "YourMentors") {
     furtherReceiverRef = doc(
       receiverRef,
-      sendTo && sendTo.userType === "Mentor" ? "YourClients" : "YourMentors",
+      sendTo && sendTo.userType?.toLowerCase() === "mentor" ? "YourClients" : "YourMentors",
       currentcUser.email
     );
   } else if (bucket === "Networks") {

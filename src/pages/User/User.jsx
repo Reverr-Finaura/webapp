@@ -330,8 +330,8 @@ const User = () => {
       // -----------------------------------------------------------------------------
 
       //------------ Create respective Docs for sending and receiving messages ------------------
-      const currentUserType = currentLoggedInUserDoc?.userType ?? "not_mentor";
-      const otherUserType = otherUserDoc?.userType ?? "not_mentor";   // in case userType is not present in the doc, set it to "not_mentor"
+      const currentUserType = currentLoggedInUserDoc?.userType?.toLowerCase() ?? "not_mentor";
+      const otherUserType = otherUserDoc?.userType?.toLowerCase() ?? "not_mentor";   // in case userType is not present in the doc, set it to "not_mentor"
 
       if (
         (currentUserType === "mentor" && otherUserType === "mentor") ||
