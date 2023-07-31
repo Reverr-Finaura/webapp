@@ -5,6 +5,7 @@ import CommunityNavbar from "../../../components/Community Navbar/CommunityNavba
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
 import NavBarFinalDarkMode from "../../Navbar Dark Mode/NavBarFinalDarkMode";
 import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
+import styles from "../Post Card Dark Mode/PostCardDark.module.css";
 import {
   collection,
   doc,
@@ -64,6 +65,7 @@ import DiscoverEvents from "../../DynamicComponents/DiscoverEvents/DiscoverEvent
 import DiscoverPerfectTools from "../../DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
 import FeaturedSuggestions from "../../DynamicComponents/FeaturedSuggestions/FeaturedSuggestions";
 import FeaturedMentors from "../../DynamicComponents/FeaturedMentors/FeaturedMentors";
+
 
 const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const userSpace = useSelector((state) => state.user.userSpace);
@@ -126,6 +128,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       "Ocp-Apim-Subscription-Key": "bd03e8f8f29b46479ee4c2004280308f",
     },
   };
+
 
   async function getNews() {
     try {
@@ -340,11 +343,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       toast("Nothing To Post");
       return;
     }
-  
+
     toast("Processing Your Request");
-  
+
     let downloadURL = "";
-  
+
     if (selectedVideo === null) {
       createNewPost("");
     } else {
@@ -352,10 +355,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         storage,
         `Community/Posts/${selectedVideo.name + new Date().getTime()}`
       );
-  
+
       try {
         const uploadTask = uploadBytesResumable(videoRef, selectedVideo);
-  
+
         await new Promise((resolve, reject) => {
           uploadTask.on(
             "state_changed",
@@ -378,16 +381,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         return;
       }
     }
-  
+
     createNewPost(downloadURL);
   };
-  
+
 
   //ON IMAGE CHANGE
   function onImageChange(e) {
     setImageUpload(e.target.files[0]);
     const fileURL = e.target.files[0];
-    console.log("this is image upload", imageUpload);
+    console.log("this is image upload", fileURL);
+    console.log("this is image upload", URL.createObjectURL(fileURL));
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
@@ -466,7 +470,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           postSpace: postSpaceData,
         });
       }
-       else  {
+      else {
         await setDoc(doc(db, "Posts", timeId), {
           comments: [],
           createdAt: new Date(),
@@ -477,7 +481,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           postSpace: postSpaceData,
         });
       }
-      
+
       newPostId.push(timeId);
 
       updateUserDatabase(newPostId);
@@ -772,11 +776,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     return (
                       <div
                         key={index}
-                        className={`${style.spaceMenuData} ${
-                          activeIndex.includes(index)
-                            ? style.spaceMenuDataActive
-                            : ""
-                        }`}
+                        className={`${style.spaceMenuData} ${activeIndex.includes(index)
+                          ? style.spaceMenuDataActive
+                          : ""
+                          }`}
                         onClick={(event) =>
                           handleSpaceMenuDataClick(
                             index,
@@ -786,11 +789,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       >
                         <p
-                          className={`${style.spaceMenuDataPara} ${
-                            activeIndex.includes(index)
-                              ? style.spaceMenuDataParaActive
-                              : ""
-                          }`}
+                          className={`${style.spaceMenuDataPara} ${activeIndex.includes(index)
+                            ? style.spaceMenuDataParaActive
+                            : ""
+                            }`}
                         >
                           {space}
                         </p>
@@ -1055,7 +1057,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 </p> */}
               </div>
 
-             
+
             </div>
 
             <section
@@ -1069,8 +1071,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     !isLoggedIn
                       ? "../../../images/userIcon.webp"
                       : userDoc?.image
-                      ? userDoc.image
-                      : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                        ? userDoc.image
+                        : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
                   alt="userImage"
                 />
@@ -1081,10 +1083,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         ? style.navbarUploadPostOuterBoxContainer
                         : style.UploadPostOuterBoxContainerNotExpanded
                     }
-                  > 
+                  >
 
-                    
-                  
+
+
                     <textarea
                       style={{ borderRadius: "30px" }}
                       onClick={() => {
@@ -1105,12 +1107,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       value={newPostText}
                       placeholder="What Would You Like To Post?"
                     ></textarea>
-                   
+
 
                     {textAreaIsClick ? (
-                      <div className={style.clsBtn} onClick={()=>{ setTextAreaIsClick(false);RemoveFile()} }>close</div>
+                      <div className={style.clsBtn} onClick={() => { setTextAreaIsClick(false); RemoveFile() }}>close</div>
                     ) : null}
-                   
+
 
                     {!textAreaIsClick ? (
                       <img
@@ -1149,13 +1151,15 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
                     {tempVideoURL ? (
                       <div className={style.communityPostImageCont}>
-                        
+
                         <video
                           // className={style.communityPostImage}
                           src={tempVideoURL}
-                          style={{    width: "-webkit-fill-available",
-                            height: "-webkit-fill-available"}}
-                          id="my-video"                          
+                          style={{
+                            width: "-webkit-fill-available",
+                            height: "-webkit-fill-available"
+                          }}
+                          id="my-video"
                           alt="postVideo"
                           muted="muted"
                           autoplay="autoplay"
@@ -1163,7 +1167,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           controls
                           preload="auto"
                           width="640"
-                          height="264" 
+                          height="264"
                           poster="MY_VIDEO_POSTER.jpg"
                           data-setup="{}"
                         >
@@ -1194,7 +1198,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   </div>
 
                   <div className={style.postAssetsIconMain}>
-                  {/* image section */}
+                    {/* image section */}
                     <div
                       className={style.postAssetsIconMaindiv}
                       onClick={() => {
@@ -1219,7 +1223,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         } else {
                           chooseVideoFile();
                           setTextAreaIsClick(true);
-                          
+
                           // document.getElementById("videoInput").click();
 
                           // chooseFile();
@@ -1249,7 +1253,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       }}
                       onChange={handleOptionChange}
-                      // disabled={!isLoggedIn}
+                    // disabled={!isLoggedIn}
                     >
                       <option className={style.userSpaceOption} value="">
                         Select Spaces
@@ -1364,7 +1368,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                  sortOptionSelected.whose === "People You Follow" ? (
+                    sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1373,29 +1377,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     </>
                   ) : null}
                   {spaceFilteredPost.map((item, index) => {
-                    // if (index === 3) {
-                    //   return (
-                    //     <>
-                    //       <PostCardDark
-                    //         postsData={postsData}
-                    //         setPostsData={setPostsData}
-                    //         item={item}
-                    //         key={index}
-                    //         handleEditPostButtonClick={
-                    //           handleEditPostButtonClick
-                    //         }
-                    //         setPostsAuthorIsClick={setPostsAuthorIsClick}
-                    //         setPostsAuthorInfo={setPostsAuthorInfo}
-                    //         isLoggedIn = { isLoggedIn };
-                    //         openModal = { openModal };
-                    //       />
-                    //       <DiscoverEvents
-                    //         isLoggedIn={isLoggedIn}
-                    //         openModal={openModal}
-                    //       />
-                    //     </>
-                    //   );
-                    // } else
+
                     if (index === 3) {
                       return (
                         <>
@@ -1482,6 +1464,19 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       );
                     }
                   })}
+                  {spaceFilteredPost.length == 0 && (<section className={styles.PostCardContainer} >
+                    <div
+                      style={{ alignItems: "center" }}
+                      className={styles.postAuthorDetails}
+                    >
+                    </div>
+                    <div className={styles.postDivideLine_community}></div>
+                    <h2>CHOOSEN POST SPACE , IS NOT AVAIBLE RIGHT NOW!</h2>
+
+                    <div className={styles.postDivideLine_community}></div>
+
+                  </section>)}
+
                 </section>
               ) : (
                 // what's hot posts-container
@@ -1493,7 +1488,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                  sortOptionSelected.whose === "People You Follow" ? (
+                    sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1517,6 +1512,20 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       />
                     );
                   })}
+
+                  {whatsHotCommunityPost.length == 0 && (<section className={styles.PostCardContainer} >
+                    <div
+                      style={{ alignItems: "center" }}
+                      className={styles.postAuthorDetails}
+                    >
+                    </div>
+                    <div className={styles.postDivideLine_community}></div>
+                    <h2>CHOOSEN POST SPACE , IS NOT AVAIBLE RIGHT NOW!</h2>
+
+                    <div className={styles.postDivideLine_community}></div>
+
+                  </section>)}
+
                 </section>
               )}
             </InfiniteScroll>
@@ -1541,7 +1550,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
 CommunityFinalDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => {},
+  openModal: () => { },
 };
 
 export default CommunityFinalDark;

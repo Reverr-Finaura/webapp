@@ -69,7 +69,7 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log("this is post detail--",postDetail)
+  console.log("this is post detail--", postDetail)
   // get the posts comments
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -437,7 +437,7 @@ export default function PostCardDark({
       });
     });
   }, [item]);
-  
+
   // for video play and pause
   const handlePlayVideo = () => {
     const videoElement = document.getElementById('videoPlayer');
@@ -470,7 +470,7 @@ export default function PostCardDark({
     toast("reported post");
   }
   // fetching the post user type
-  useEffect(() => {});
+  useEffect(() => { });
 
   //GET TIME OF POST
   useEffect(() => {
@@ -582,7 +582,7 @@ export default function PostCardDark({
           </div>
 
           <div className={style.postUploadDateContainer}>
-            
+
             <ReactTimeAgo
               className={style.timeSpan}
               date={item?.createdAt?.seconds * 1000}
@@ -614,20 +614,14 @@ export default function PostCardDark({
                         : "standardThreeDotsOption"
                     }
                   >
-                    {user?.user?.email === item?.postedby?.id ? (
-                      <div
-                        onClick={() => handleDeletePostButtonClick(item.id)}
-                        className={style.threeDotsDeletePostOption}
-                      >
-                        Delete Post
-                      </div>
-                    ) : null}
+
                     {user?.user?.email === item?.postedby?.id ? (
                       <a
                         style={{
                           textDecoration: "none",
                           color: "black",
                           margin: "auto",
+                          color: "#fff"
                         }}
                       >
                         <div
@@ -641,12 +635,27 @@ export default function PostCardDark({
                         </div>
                       </a>
                     ) : null}
-                    <div
+
+                    {user?.user?.email === item?.postedby?.id ? (
+                      <div
+                        onClick={() => handleDeletePostButtonClick(item.id)}
+                        className={style.threeDotsDeletePostOption}
+                      >
+                        Delete Post
+                      </div>
+                    ) : null}
+                    
+                    {user?.user?.email !== item?.postedby?.id ? (
+                     <div
                       onClick={() => handleReportPost()}
                       className={style.threeDotsReportPostOption}
                     >
                       Report Post
-                    </div>
+                    </div> 
+                    ) : null}
+              
+
+
                   </div>
                 ) : null}
               </div>
@@ -689,10 +698,10 @@ export default function PostCardDark({
         {item?.video ? (
           <div className="postImageContainer" style={{ width: "100%" }}>
             <video
-           
+
               //  id="videoPlayer"
               id="my-video"
-              style={{ aspectRatio: "7/3", width: "100%",height:"49em" }}
+              style={{ aspectRatio: "7/3", width: "100%", height: "49em" }}
               src={item?.video}
               alt="postVideo"
               muted="muted"
@@ -701,11 +710,11 @@ export default function PostCardDark({
               controls
               preload="auto"
               width="640"
-              height="264" 
+              height="264"
               poster="MY_VIDEO_POSTER.jpg"
               data-setup="{}"
-              >
-              </video>
+            >
+            </video>
             {/* <button onClick={handlePlayVideo} className="playButton">
               {isPlaying ? "Pause" : "Play"}
             </button> */}
@@ -893,8 +902,8 @@ export default function PostCardDark({
                   name="newComment"
                   id={
                     newCommentTextAreaClick
-                    ? style.postCommentContainerExpanded
-                    : style.postCommentContainer
+                      ? style.postCommentContainerExpanded
+                      : style.postCommentContainer
                   }
                   rows="3"
                   placeholder="Share Your Thoughts"
@@ -956,9 +965,9 @@ export default function PostCardDark({
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
                             ? // The ternary operator starts here
-                              commentedByUserDoc?.filter((it) => {
-                                return it.email === list?.commentedby?.id;
-                              })[0]?.image
+                            commentedByUserDoc?.filter((it) => {
+                              return it.email === list?.commentedby?.id;
+                            })[0]?.image
                             : defaultImg
                         }
                         alt="CommentedUserPhoto"
@@ -983,27 +992,17 @@ export default function PostCardDark({
                       {/* <img onClick={()=>{setIsCommentThreeDotsClicked(current=>!current);setThreeDotsClickCommentId(list?.commentid)}} className='threeDotsPost commentThreeDotsPost' src="./images/dots.png" alt="3dots" /> */}
 
                       {isCommentThreeDotsClicked &&
-                      list?.commentedby?.id === user?.user?.email &&
-                      threeDotsClickCommentId === list?.commentid ? (
+                        list?.commentedby?.id === user?.user?.email &&
+                        threeDotsClickCommentId === list?.commentid ? (
                         <>
                           <div className="threeDotsOptions commentThreeDotsOption">
-                            <div
-                              onClick={() =>
-                                handleDeleteCommentClick(
-                                  list.commentid,
-                                  item,
-                                  item.id
-                                )
-                              }
-                              className="threeDotsDeletePostOption"
-                            >
-                              Delete
-                            </div>
+
                             <a
                               style={{
                                 textDecoration: "none",
                                 color: "black",
                                 margin: "auto",
+                                color: "#fff"
                               }}
                             >
                               <div
@@ -1012,10 +1011,27 @@ export default function PostCardDark({
                                   setIsCommentThreeDotsClicked(false);
                                 }}
                                 className="threeDotsEditPostOption"
+
                               >
                                 Edit
                               </div>
+
                             </a>
+
+                            <div
+                              onClick={() =>
+                                handleDeleteCommentClick(
+                                  list.commentid,
+                                  item,
+                                  item.id
+                                )
+                              }
+
+                              className="threeDotsDeletePostOption"
+                            >
+                              Delete
+                            </div>
+
                           </div>
                         </>
                       ) : null}
@@ -1034,5 +1050,5 @@ export default function PostCardDark({
 
 PostCardDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => {},
+  openModal: () => { },
 };

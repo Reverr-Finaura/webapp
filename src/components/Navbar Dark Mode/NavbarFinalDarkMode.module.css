@@ -529,6 +529,14 @@ justify-content: center;
 align-items: center;
 }
 
+.closeBtn{
+  background-color: red;
+  padding: 2px 10px 2px 10px;
+  border-radius: 5px;
+  right: 30px;
+  position: absolute;
+}
+
 @media screen and (max-width:1250px) {
   .hamburgermenu{
     display:flex;
