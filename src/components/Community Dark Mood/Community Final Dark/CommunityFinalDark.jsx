@@ -5,6 +5,8 @@ import CommunityNavbar from "../../../components/Community Navbar/CommunityNavba
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
 import NavBarFinalDarkMode from "../../Navbar Dark Mode/NavBarFinalDarkMode";
 import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
+import defaultImg from "../../../images/default-profile-pic.webp";
+
 import styles from "../Post Card Dark Mode/PostCardDark.module.css";
 import {
   collection,
@@ -892,7 +894,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       src={
                         userDoc?.image
                           ? userDoc.image
-                          : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                          : defaultImg
+                          // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                       }
                       alt="userImage"
                     />
@@ -980,7 +983,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         src={
                           userDoc?.image
                             ? userDoc.image
-                            : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                            : defaultImg
+                            //  "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                         }
                         alt="userImage"
                       />
@@ -1071,8 +1075,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     !isLoggedIn
                       ? "../../../images/userIcon.webp"
                       : userDoc?.image
-                        ? userDoc.image
-                        : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                      ? userDoc.image
+                      : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
                   alt="userImage"
                 />

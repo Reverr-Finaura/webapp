@@ -30,7 +30,7 @@ import founder from "../../../images/rocket.webp";
 import investor from "../../../images/investor.webp";
 import mentor from "../../../images/mentor.webp";
 import pro from "../../../images/professional.webp";
-import video from "video.js"
+import video from "video.js";
 
 export default function PostCardDark({
   postsData,
@@ -131,7 +131,8 @@ export default function PostCardDark({
 
     await updateLikedPostInFirebase(newLikeArray, id);
   };
-  const setNotificationDatainFirebase = async (data, id) => {
+  const setNotificationDatainFirebase = async (item) => {
+    console.log("this is item", item);
     try {
       const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
       // console.log("posted by", postedByUserDoc.email[0]);
@@ -144,8 +145,8 @@ export default function PostCardDark({
         user: user?.user?.email,
         type: "Like-Notification",
         postId: postId,
+        id: item.id,
       };
-      // console.log("notificationData", notificationData);
       const userDocSnapshot = await getDoc(userDocumentRef);
 
       if (userDocSnapshot.exists()) {
@@ -156,7 +157,6 @@ export default function PostCardDark({
         const userAlreadyNotified = existingNotifications.some(
           (item) => item.user === user?.user?.email && item.postId === postId
         );
-        console.log("userAlreadyNotified", userAlreadyNotified);
         if (!userAlreadyNotified) {
           await updateDoc(userDocumentRef, {
             notificationList: [...existingNotifications, notificationData],
@@ -206,12 +206,9 @@ export default function PostCardDark({
       },
     ]);
 
-
     getUserDocByRef(userRef).then((userData) => {
       setCommentedByUserDoc((prev) => [...prev, userData]);
     });
-
-
 
     postDetail.comments = newCommentArray;
 
@@ -229,7 +226,7 @@ export default function PostCardDark({
     setNewCommentTextAreaClick(false);
   };
 
-  const setCommentNotificationDatainFirebase = async (data, id) => {
+  const setCommentNotificationDatainFirebase = async (item) => {
     try {
       if (postedByUserDoc.email === user?.user?.email) {
         return;
@@ -241,6 +238,7 @@ export default function PostCardDark({
         user: user?.user?.email,
         type: "Comment-Notification",
         postId: postId,
+        id: item.id,
       };
       // console.log("notificationData", notificationData);
       const userDocSnapshot = await getDoc(userDocumentRef);
@@ -440,7 +438,7 @@ export default function PostCardDark({
 
   // for video play and pause
   const handlePlayVideo = () => {
-    const videoElement = document.getElementById('videoPlayer');
+    const videoElement = document.getElementById("videoPlayer");
     if (videoElement) {
       if (isPlaying) {
         videoElement.pause();
@@ -493,6 +491,8 @@ export default function PostCardDark({
                 // setPostsAuthorInfo(postedByUserDoc);
                 if (postedByUserDoc?.email === user?.user?.email) {
                   navigate("/userprofile");
+                } else if (!postedByUserDoc?.email) {
+                  return console.log("empty");
                 } else {
                   navigate(`/userprofile/${postedByUserDoc?.email}`);
                 }
@@ -518,7 +518,6 @@ export default function PostCardDark({
             >
               <h3
                 onClick={() => {
-                  console.log("postcard click: ", isLoggedIn);
                   if (!isLoggedIn) {
                     return openModal();
                   } else {
@@ -526,6 +525,8 @@ export default function PostCardDark({
                     // setPostsAuthorInfo(postedByUserDoc);
                     if (postedByUserDoc?.email === user?.user?.email) {
                       navigate("/userprofile");
+                    } else if (!postedByUserDoc?.email) {
+                      return console.log("empty");
                     } else {
                       navigate(`/userprofile/${postedByUserDoc?.email}`);
                     }
@@ -533,7 +534,7 @@ export default function PostCardDark({
                 }}
                 className={style.postAuthorName}
               >
-                {postedByUserDoc?.name}
+                {postedByUserDoc?.name ? postedByUserDoc?.name : "NULL "}
               </h3>
               <div className="postAuthorType">
                 {(() => {
@@ -577,12 +578,14 @@ export default function PostCardDark({
             </div>
 
             <p className={style.postAuthorDesignation}>
-              {postedByUserDoc?.designation ? postedByUserDoc?.designation : ""}
+              {postedByUserDoc?.designation
+                ? postedByUserDoc?.designation
+                : "Null"}
             </p>
           </div>
 
           <div className={style.postUploadDateContainer}>
-
+            
             <ReactTimeAgo
               className={style.timeSpan}
               date={item?.createdAt?.seconds * 1000}
@@ -698,7 +701,7 @@ export default function PostCardDark({
         {item?.video ? (
           <div className="postImageContainer" style={{ width: "100%" }}>
             <video
-
+           
               //  id="videoPlayer"
               id="my-video"
               style={{ aspectRatio: "7/3", width: "100%", height: "49em" }}
@@ -713,8 +716,8 @@ export default function PostCardDark({
               height="264"
               poster="MY_VIDEO_POSTER.jpg"
               data-setup="{}"
-            >
-            </video>
+              >
+              </video>
             {/* <button onClick={handlePlayVideo} className="playButton">
               {isPlaying ? "Pause" : "Play"}
             </button> */}
@@ -913,20 +916,22 @@ export default function PostCardDark({
                   <img
                     onClick={() => {
                       handleNewCommentonPost(item, item.id);
-                      setCommentNotificationDatainFirebase();
+                      setCommentNotificationDatainFirebase(item);
                     }}
                     class={style.rightArrowImg}
                     src={rightArrow}
+                    alt="rightArrow"
                   />
                 ) : null}
 
                 <img
                   onClick={() => {
                     handleNewCommentonPost(item, item.id);
-                    setCommentNotificationDatainFirebase();
+                    setCommentNotificationDatainFirebase(item);
                   }}
                   class={style.rightArrowImg}
                   src={rightArrow}
+                  alt="rightArrow"
                 />
 
                 <GrAddCircle

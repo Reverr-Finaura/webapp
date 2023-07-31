@@ -340,6 +340,14 @@ const UserEditProfileTesting = () => {
       }
     );
   };
+  const RemoveProfile = () => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        image: "",
+      };
+    });
+  };
 
   // ---------------------------------------------
 
@@ -376,6 +384,14 @@ const UserEditProfileTesting = () => {
               onChange={handleImageChange}
             />
           </label>
+          <div
+            className={styles.removeDP}
+            onClick={() => {
+              RemoveProfile();
+            }}
+          >
+            <span>X</span>
+          </div>
         </div>
         <div className={styles.profileContent}>
           <div className={styles.personalTitle}>

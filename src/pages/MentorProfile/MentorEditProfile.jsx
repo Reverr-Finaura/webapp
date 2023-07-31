@@ -361,6 +361,15 @@ const MentorEditProfile = () => {
     );
   };
 
+  const RemoveProfile = () => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        image: "",
+      };
+    });
+  };
+
   //   -------------------------Handle Domain-------------------------
   const domainAdd = (domainName) => {
     setFormData((prev) => {
@@ -441,6 +450,18 @@ const MentorEditProfile = () => {
               onChange={handleImageChange}
             />
           </label>
+          <div
+            className={styles.removeDP}
+            onClick={() => {
+              RemoveProfile();
+            }}
+          >
+            {/* <img
+              alt="CrossImg"
+              style={{ color: "white" }}
+            /> */}
+            <span>X</span>
+          </div>
         </div>
         <div className={styles.profileContent}>
           <div className={styles.personalTitle}>

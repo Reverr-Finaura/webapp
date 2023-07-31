@@ -220,7 +220,7 @@ text{
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0rem 2rem;
 }
 
@@ -267,7 +267,7 @@ text{
   margin: 0.1rem 0;
 }
 .amountToPay {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   display: flex;
   width: 8rem;
   padding: 0.4rem 1rem;
@@ -276,7 +276,8 @@ text{
   border: 2px solid var(--white, #fff);
 }
 .schedule {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
+  margin-top: 0.2rem;
   padding: 0.4rem 1.5rem;
   border-radius: 100px;
   background: var(--blue, linear-gradient(97deg, #00b3ff 57.09%, #4cc9ff 100%));
@@ -419,4 +420,12 @@ text{
     grid-template-columns: repeat(auto-fit, minmax(153px, 1fr));
     grid-gap: 0.5rem;
   }
+
+  .skill{
+    max-height: 45px;
+  }
+  .schedule{
+    max-height: 65px;
+  }
+
 }

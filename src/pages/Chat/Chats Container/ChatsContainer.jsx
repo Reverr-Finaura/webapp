@@ -1,146 +1,190 @@
-
-import { doc, getDoc } from 'firebase/firestore'
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import ChatSkeleton from '../../../components/Post Skeleton/Chat Skeleton/ChatSkeleton'
-import { db, getAllUserHavingChatWith } from '../../../firebase'
-import styles from "./ChatContainer.module.css"
-import { updateSelectedUser,Chatshow} from '../../../features/chatSlice_latest'
-
+import { doc, getDoc } from "firebase/firestore";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ChatSkeleton from "../../../components/Post Skeleton/Chat Skeleton/ChatSkeleton";
+import { db, getAllUserHavingChatWith } from "../../../firebase";
+import styles from "./ChatContainer.module.css";
+import {
+  updateSelectedUser,
+  Chatshow,
+} from "../../../features/chatSlice_latest";
 
 // const currentcUser={email:"jatin@reverrapp.com"}
 
 const ChatsContainer = ({ sorter }) => {
   const currentcUser = useSelector((state) => state.userDoc);
   // const currentcUser={email:"mauricerana@gmail.com"}
-  const dispatch = useDispatch()
-  const [dummyLoading, setDummyLoadig] = useState(false)
-  const [dummyLoading2, setDummyLoadig2] = useState(false)
-  const [chatList, setChatList] = useState([])
-  const chatData = useSelector((state) => state.chatLatest)
-  const [chatUserData, setChatUserData] = useState([])
-  const [isClicked,setIsClicked]=useState(false)
-  const [isClicked2,setIsClicked2]=useState(false)
+  const dispatch = useDispatch();
+  const [dummyLoading, setDummyLoadig] = useState(false);
+  const [dummyLoading2, setDummyLoadig2] = useState(false);
+  const [chatList, setChatList] = useState([]);
+  const chatData = useSelector((state) => state.chatLatest);
+  const [chatUserData, setChatUserData] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked2, setIsClicked2] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
   };
   const handleClick2 = () => {
     setIsClicked2(!isClicked2);
   };
+
   const getAllUserChat = async () => {
-    setDummyLoadig(true)
-    await getAllUserHavingChatWith(currentcUser, setChatList)
-    setDummyLoadig(false)
-
-  }
-  useEffect(() => {
-
-    getAllUserChat()
-
-  }, [])
-
-
+    try {
+      setDummyLoadig(true);
+      await getAllUserHavingChatWith(currentcUser, setChatList);
+      setDummyLoadig(false);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
 
   useEffect(() => {
+    getAllUserChat();
+  }, [currentcUser]);
 
-    if (chatList.length === 0) { setDummyLoadig2(false); return }
-  
+  useEffect(() => {
+    if (chatList.length === 0) {
+      setDummyLoadig2(false);
+      return;
+    }
+
     if (chatUserData.length === 0) {
       chatList.map(async (list, idx) => {
         const docRef = doc(db, "Users", list.id);
         const docSnap = await getDoc(docRef);
-        if(docSnap.data())
-        setChatUserData((prev) => {
-          return [...new Set([...prev, { id: docSnap.data().email, email: docSnap.data().email, userType: docSnap.data().userType, bucket: list?.bucket, name: docSnap.data().name, userImg: docSnap.data().image, latestMessage: list?.messages[list?.messages?.length - 1].msg, sendAT: list.messages[list.messages.length - 1].createdAt !== "" ? list?.messages[list?.messages?.length - 1].createdAt.seconds * 1000 : "", latestMessageSenderId: list?.messages[list?.messages?.length - 1].sendBy, imgMsg: list?.messages[list?.messages?.length - 1].image }])]
-        })
-        setDummyLoadig2(false)
-      })
-    }
-    else if (chatUserData.length > 0) {
-
-      let newChatUserData = []
+        if (docSnap.data())
+          setChatUserData((prev) => {
+            return [
+              ...new Set([
+                ...prev,
+                {
+                  id: docSnap.data().email,
+                  email: docSnap.data().email,
+                  userType: docSnap.data().userType,
+                  bucket: list?.bucket,
+                  name: docSnap.data().name,
+                  userImg: docSnap.data().image,
+                  latestMessage: list?.messages[list?.messages?.length - 1].msg,
+                  sendAT:
+                    list.messages[list.messages.length - 1].createdAt !== ""
+                      ? list?.messages[list?.messages?.length - 1].createdAt
+                          .seconds * 1000
+                      : "",
+                  latestMessageSenderId:
+                    list?.messages[list?.messages?.length - 1].sendBy,
+                  imgMsg: list?.messages[list?.messages?.length - 1].image,
+                },
+              ]),
+            ];
+          });
+        setDummyLoadig2(false);
+      });
+    } else if (chatUserData.length > 0) {
+      let newChatUserData = [];
       chatUserData.forEach((oldChat) => {
         chatList.forEach((newList) => {
-          if ((oldChat?.id === newList?.id)) { newChatUserData.push({ ...oldChat, latestMessage: newList?.messages[newList?.messages?.length - 1].msg, sendAT: newList.messages[newList.messages.length - 1].createdAt !== "" ? newList?.messages[newList?.messages?.length - 1].createdAt.seconds * 1000 : "", imgMsg: newList?.messages[newList?.messages?.length - 1].image }) }
-          else { return }
-        })
-      })
+          if (oldChat?.id === newList?.id) {
+            newChatUserData.push({
+              ...oldChat,
+              latestMessage:
+                newList?.messages[newList?.messages?.length - 1].msg,
+              sendAT:
+                newList.messages[newList.messages.length - 1].createdAt !== ""
+                  ? newList?.messages[newList?.messages?.length - 1].createdAt
+                      .seconds * 1000
+                  : "",
+              imgMsg: newList?.messages[newList?.messages?.length - 1].image,
+            });
+          } else {
+            return;
+          }
+        });
+      });
 
-      let dummy = newChatUserData
-      dummy.sort(customSort)
+      let dummy = newChatUserData;
+      dummy.sort(customSort);
       const finaluserChatArr = chatUserData.map((oldChat) => {
-        if (oldChat?.id === dummy[0]?.id) { return { ...oldChat, latestMessage: dummy[0]?.latestMessage, sendAT: dummy[0].sendAT, imgMsg: dummy[0]?.imgMsg } }
-        else { return oldChat }
-      })
-      setChatUserData(finaluserChatArr)
-
+        if (oldChat?.id === dummy[0]?.id) {
+          return {
+            ...oldChat,
+            latestMessage: dummy[0]?.latestMessage,
+            sendAT: dummy[0].sendAT,
+            imgMsg: dummy[0]?.imgMsg,
+          };
+        } else {
+          return oldChat;
+        }
+      });
+      setChatUserData(finaluserChatArr);
     }
-
-  }, [chatList])
-
+  }, [chatList]);
 
   function customSort(a, b) {
-    const dateA = new Date(a.sendAT)
-    const dateB = new Date(b.sendAT)
+    const dateA = new Date(a.sendAT);
+    const dateB = new Date(b.sendAT);
 
-    if (dateB > dateA) { return 1 }
-    else if (dateB < dateA) { return -1 }
-    return 0
-
+    if (dateB > dateA) {
+      return 1;
+    } else if (dateB < dateA) {
+      return -1;
+    }
+    return 0;
   }
 
-  useEffect(() => {
-
-  }, [sorter])
+  useEffect(() => {}, [sorter]);
 
   return (
     <section className={styles.outerCont}>
-      
-      {dummyLoading2 && <ChatSkeleton cards={3} />}
-      {dummyLoading && <ChatSkeleton cards={3} />}
-      {!dummyLoading && chatUserData.length === 0 && (
-        <>
-          <p className={styles.noChatsMesssage}>No Chats To Display</p>
-        </>
-      )}
-     <div>
-     </div>
-    {!dummyLoading ?( <div className={styles.buttonsGroup}>
-      <button className={styles.chatButton}
-      style={{
-        color: isClicked ? 'white' : '#0a2458',
-        backgroundColor: isClicked ? '#0a2458' : 'white',
-        border:isClicked? '0.5px solid white' :''
-      }}
-      onClick={handleClick}
-    >
-      Your Chats
-    </button>
-    <button className={styles.matchButton}
-      style={{
-        color: isClicked2 ? '#0a2458' : 'white',
-        backgroundColor: isClicked2 ? 'white' : '#0a2458',
-      }}
-      onClick={handleClick2}
-    >
-      New Matches
-    </button>
-        
-      </div>):(<div></div>)}
+      {dummyLoading ? (
+        <ChatSkeleton cards={3} />
+      ) : chatUserData.length === 0 ? (
+        <p className={styles.noChatsMesssage}>No Chats To Display</p>
+      ) : null}
+
+      {dummyLoading === false && chatUserData.length !== 0 ? (
+        <div className={styles.buttonsGroup}>
+          <button
+            className={styles.chatButton}
+            style={{
+              color: isClicked ? "white" : "#0a2458",
+              backgroundColor: isClicked ? "#0a2458" : "white",
+              border: isClicked ? "0.5px solid white" : "",
+            }}
+            onClick={handleClick}
+          >
+            Your Chats
+          </button>
+          <button
+            className={styles.matchButton}
+            style={{
+              color: isClicked2 ? "#0a2458" : "white",
+              backgroundColor: isClicked2 ? "white" : "#0a2458",
+            }}
+            onClick={handleClick2}
+          >
+            New Matches
+          </button>
+        </div>
+      ) : null}
       {chatUserData.length > 0 &&
         chatUserData
           .sort((a, b) => {
-            return (sorter === "Newest" ? (b.sendAT - a.sendAT) : (a.sendAT - b.sendAT));
+            return sorter === "Newest"
+              ? b.sendAT - a.sendAT
+              : a.sendAT - b.sendAT;
           })
           .map((data, idx) => {
             return (
               <div className={styles.messageGroup}>
-                <div key={idx} onClick={() => {
-                  dispatch(updateSelectedUser(data));
-                  dispatch(Chatshow());
-                }}
+                <div
+                  key={idx}
+                  onClick={() => {
+                    dispatch(updateSelectedUser(data));
+                    dispatch(Chatshow());
+                  }}
                   style={{
                     background:
                       chatData?.selectedUser?.id === data.id ? "unset" : "",
@@ -161,7 +205,7 @@ const ChatsContainer = ({ sorter }) => {
                       </p>{" "}
                       <p className={styles.userLastText}>
                         {data.latestMessage !== ""
-                          ? data.latestMessage.slice(0,15)
+                          ? data.latestMessage.slice(0, 15)
                           : "Image"}
                       </p>
                     </div>
@@ -171,9 +215,7 @@ const ChatsContainer = ({ sorter }) => {
                       ? new Date(data.sendAT).toTimeString().slice(0, 5)
                       : ""}
                   </p>
-
                 </div>
-
               </div>
             );
           })}

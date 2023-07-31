@@ -10,7 +10,11 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
-import { db, createNetworkInMessagesDoc } from "../../firebase";
+import {
+  db,
+  createNetworkInMessagesDoc,
+  createMentorInMessagesDoc,
+} from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDoc } from "../../features/userDocSlice";
@@ -325,11 +329,32 @@ const User = () => {
       }
       // -----------------------------------------------------------------------------
 
-
       //------------ Create respective Docs for sending and receiving messages ------------------
-      await createNetworkInMessagesDoc(currentLoggedInUser?.user?.email, otherUserDoc.email);
-      //---------------------------------------------------------------------------------------
+      const currentUserType = currentLoggedInUserDoc?.userType?.toLowerCase() ?? "not_mentor";
+      const otherUserType = otherUserDoc?.userType?.toLowerCase() ?? "not_mentor";   // in case userType is not present in the doc, set it to "not_mentor"
 
+      if (
+        (currentUserType === "mentor" && otherUserType === "mentor") ||
+        (currentUserType !== "mentor" && otherUserType !== "mentor")
+      ) {
+        await createNetworkInMessagesDoc(
+          currentLoggedInUserDoc?.email,
+          otherUserDoc?.email
+        );
+      } else {
+        if (currentUserType === "mentor") {
+          await createMentorInMessagesDoc(
+            otherUserDoc?.email,
+            currentLoggedInUserDoc?.email
+          );
+        } else {
+          await createMentorInMessagesDoc(
+            currentLoggedInUserDoc?.email,
+            otherUserDoc?.email
+          );
+        }
+      }
+      //---------------------------------------------------------------------------------------
 
       setIsLoading(false);
     } catch (error) {

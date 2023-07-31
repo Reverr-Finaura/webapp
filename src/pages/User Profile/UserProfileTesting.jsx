@@ -230,7 +230,7 @@ const UserProfileTesting = () => {
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
-              <p>{userDoc?.about ? userDoc.about : "Add your Bio"}</p>
+              <p>{userDoc?.about ? userDoc.about.slice(0,1000) : "Add your Bio"}</p>
             </div>
             <div className={styles.aboutMe}>
               <p>Current Designation</p>

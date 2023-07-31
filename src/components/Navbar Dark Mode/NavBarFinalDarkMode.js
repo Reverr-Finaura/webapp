@@ -28,7 +28,7 @@ import { FaLightbulb, FaFacebookMessenger } from "react-icons/fa";
 import { setTheme } from "../../features/themeSlice";
 import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
 // import mentordashboardicon from "../../images/dashboardicon.svg"
-import mentordashboardicon from "../../images/radix-icons_dashboard.svg"
+import mentordashboardicon from "../../images/radix-icons_dashboard.svg";
 import userIcon from "../../images/userIcon.webp";
 import settingIcon from "../../images/Vector (3).webp";
 import ReverrLightIcon from "../../images/Reverr Light.webp";
@@ -54,7 +54,7 @@ import { HiOutlineTemplate } from "react-icons/hi";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
-import defaultImg from "../../images/default-profile-pic.webp"
+import defaultImg from "../../images/default-profile-pic.webp";
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
@@ -498,7 +498,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={require("../../images/securityuser.webp")}
                     alt="img"
                   />
-                  <div  className={style.keyproddiv}>
+                  <div className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -523,13 +523,12 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {filteredArray.includes("KNOWLEDGE") ? (
                 <div onClick={() => navigate("/knowledge")}>
                   <img src={require("../../images/book1.webp")} alt="img" />
-                  <div  className={style.keyproddiv}>
+                  <div className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
-                      
                     >
                       Knowledge
                     </text>
@@ -551,7 +550,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={require("../../images/currencyusd.webp")}
                     alt="img"
                   />
-                  <div  className={style.keyproddiv}>
+                  <div className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -578,7 +577,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={require("../../images/moneyreveive.webp")}
                     alt="img"
                   />
-                  <div  className={style.keyproddiv}>
+                  <div className={style.keyproddiv}>
                     <text
                       style={{
                         fontSize: 14,
@@ -624,67 +623,74 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
           </span>
         </div>
 
-          {window.innerWidth >= 540 && <div className={style.navbarSearch}>
-          <AiOutlineSearch className={style.navbarSearchImg} />
-          <input
-            className={style.navbarSearchInput}
-            onChange={searchInputHandler}
-            placeholder="Search"
-          />
-          {searchResult && (
-            <div className={style.navbarSearchResult}>
-              <text style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}>
-                Search Results
-              </text>
-              {searchResult.map((item, index) => (
-                <div
-                  onClick={() => (navigate(`/userprofile/${item.email}`),setsearchResult(null))}
-                  key={index}
+        {window.innerWidth >= 540 && (
+          <div className={style.navbarSearch}>
+            <AiOutlineSearch className={style.navbarSearchImg} />
+            <input
+              className={style.navbarSearchInput}
+              onChange={searchInputHandler}
+              placeholder="Search"
+            />
+            {searchResult && (
+              <div className={style.navbarSearchResult}>
+                <text
+                  style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}
                 >
-                  <div>
-                    <img
-                      src={
-                        item?.image
-                          ? item.image
-                          : require("../../images/userIcon.webp")
-                      }
-                      alt="img"
-                    />
+                  Search Results
+                </text>
+                {searchResult.map((item, index) => (
+                  <div
+                    onClick={() => (
+                      navigate(`/userprofile/${item.email}`),
+                      setsearchResult(null)
+                    )}
+                    key={index}
+                  >
                     <div>
-                      <text
-                        style={{
-                          fontSize: 14,
-                          color: "#000000",
-                          display: "-webkit-box",
-                          WebkitLineClamp: 1,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {item?.name}
-                      </text>
-                      <text
-                        style={{
-                          fontSize: 10,
-                          color: "#1A1E28",
-                          display: "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {item?.designation}
-                      </text>
+                      <img
+                        src={
+                          item?.image
+                            ? item.image
+                            : require("../../images/userIcon.webp")
+                        }
+                        alt="img"
+                      />
+                      <div>
+                        <text
+                          style={{
+                            fontSize: 14,
+                            color: "#000000",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 1,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {item?.name}
+                        </text>
+                        <text
+                          style={{
+                            fontSize: 10,
+                            color: "#1A1E28",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {item?.designation}
+                        </text>
+                      </div>
                     </div>
+                    <div className={style.divider}></div>
                   </div>
-                  <div className={style.divider}></div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>}
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         <div
           className={
@@ -703,7 +709,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <p className={style.navbarIconsName}>Home</p>
               </div>
               {/* //////// */}
-              {isLoggedIn && (userDoc?.userType === "Mentor"|| userDoc?.userType === "mentor") ? (
+              {isLoggedIn &&
+              (userDoc?.userType === "Mentor" ||
+                userDoc?.userType === "mentor") ? (
                 <div
                   className={style.navbarIconsImgName}
                   onClick={() => {
@@ -714,7 +722,11 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     }
                   }}
                 >
-                  <img style={{color:"white"}} src={mentordashboardicon} className={style.navbarIconsImg} />
+                  <img
+                    style={{ color: "white" }}
+                    src={mentordashboardicon}
+                    className={style.navbarIconsImg}
+                  />
                   <p className={style.navbarIconsName}>Dashboard</p>
                   {/* <NavLink className="navlinks" to="/discover">
                 <p className={style.navbarIconsName}>Discover</p>
@@ -722,22 +734,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 </div>
               ) : (
                 <></>
-            //     <div
-            //       className={style.navbarIconsImgName}
-            //       onClick={() => {
-            //         if (!isLoggedIn) {
-            //           return openModal();
-            //         } else {
-            //           navigate("/discover/nu");
-            //         }
-            //       }}
-            //     >
-            //       <AiOutlineGlobal className={style.navbarIconsImg} />
-            //       <p className={style.navbarIconsName}>Discover</p>
-            //       {/* <NavLink className="navlinks" to="/discover">
-            //   <p className={style.navbarIconsName}>Discover</p>
-            // </NavLink> */}
-            //     </div>
+                //     <div
+                //       className={style.navbarIconsImgName}
+                //       onClick={() => {
+                //         if (!isLoggedIn) {
+                //           return openModal();
+                //         } else {
+                //           navigate("/discover/nu");
+                //         }
+                //       }}
+                //     >
+                //       <AiOutlineGlobal className={style.navbarIconsImg} />
+                //       <p className={style.navbarIconsName}>Discover</p>
+                //       {/* <NavLink className="navlinks" to="/discover">
+                //   <p className={style.navbarIconsName}>Discover</p>
+                // </NavLink> */}
+                //     </div>
               )}
               {/* //////// */}
 
@@ -830,10 +842,19 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   <p className={style.navbarIconsName}>Notifications</p>
                   {notificationOpen && (
                     <>
-                    {/* ///aa// */}
+                      {/* ///aa// */}
                       <div className={style.notificationBar}>
-
-                        {notificationOpen ? (<div className={style.closeBtn} onClick={()=> { notificationOpen(true)}} > close </div>) : null }
+                        {notificationOpen ? (
+                          <div
+                            className={style.closeBtn}
+                            onClick={() => {
+                              notificationOpen(true);
+                            }}
+                          >
+                            {" "}
+                            close{" "}
+                          </div>
+                        ) : null}
 
                         {userDoc?.notificationList?.length >= 1 ? (
                           <>
@@ -845,15 +866,19 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                               {/* <h3 className={style.notificationSubHeading}>Today</h3> */}
                             </div>
                             <div className={style.notificationcardcontainer}>
-
-                           
-                            {/* {userDoc?.notificationList?.map((item, index) => (
+                              {/* {userDoc?.notificationList?.map((item, index) => (
                               <NotificationCard key={index} item={item} />
                             ))} */}
-                            {[...userDoc?.notificationList]?.sort((a, b) => b?.time?.seconds * 1000 - a?.time?.seconds * 1000)?.map((item, index) => (
-                              <NotificationCard key={index} item={item} />
-                            ))}
-                             </div>
+                              {[...userDoc?.notificationList]
+                                ?.sort(
+                                  (a, b) =>
+                                    b?.time?.seconds * 1000 -
+                                    a?.time?.seconds * 1000
+                                )
+                                ?.map((item, index) => (
+                                  <NotificationCard key={index} item={item} />
+                                ))}
+                            </div>
                           </>
                         ) : (
                           <h4>No notification till Now !</h4>
@@ -981,11 +1006,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <img
                   onClick={() => navigate("/userprofile")}
                   className={style.navbarfinaluserImage}
-                  src={
-                    userImage
-                      ? userImage
-                      : defaultImg
-                  }
+                  src={userImage ? userImage : defaultImg}
                   alt="userimg"
                 />
                 {/* <div className="navbar-topp-social-icon">
