@@ -31,7 +31,7 @@ const SelectedUserCont = ({setChatUserData}) => {
     <>
     {width>500?
       <section className={styles.outerCont}>
-      {!chatData.selectedUser&&<><div className={styles.innerCont}>No Chat Selected</div></>}
+      {!chatData.selectedUser&&<><div className={styles.innerCont}>No Chat To Display</div></>}
       {chatData.selectedUser&&<>
          <UserTitleCont/>
          <UserChatContainer/>
@@ -44,7 +44,7 @@ const SelectedUserCont = ({setChatUserData}) => {
       :
       
       <section className={styles.outerCont} style={{display:chatData.chatdisplay===true?"flex":"none",flexDirection:"column"}}>
-      {!chatData.selectedUser&&<><div className={styles.innerCont}>No Chat Selected</div></>}
+      {!chatData.selectedUser&&<><div className={styles.innerCont}>No Chat To Display</div></>}
       {chatData.selectedUser&&<>
          <UserTitleCont/>
          <UserChatContainer/>

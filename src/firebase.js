@@ -1,7 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
-import { Timestamp, arrayUnion, getFirestore, onSnapshot, serverTimestamp } from "firebase/firestore";
+import {
+  Timestamp,
+  arrayUnion,
+  getFirestore,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
 import {
   doc,
   getDocs,
@@ -37,7 +43,7 @@ const auth = getAuth();
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export { app, auth, db, analytics,storage };
+export { app, auth, db, analytics, storage };
 
 export const getUserFromDatabase = async (email) => {
   //let User;
@@ -50,9 +56,7 @@ export const getUserFromDatabase = async (email) => {
 export const getUserDocByRef = async (DocumentReference) => {
   const userDocSnapshot = await getDoc(DocumentReference);
   return userDocSnapshot.data();
-}
-
-
+};
 
 export const getMentorFromDatabase = async (email) => {
   let Mentor;
@@ -162,38 +166,50 @@ export const uploadMedia = async (media, path) => {
     return mediaLink;
   } catch (err) {
     console.log("Err: ", err);
-    
   }
 };
 
-
 export const getAllUserHavingChatWith = async (currentcUser, setList) => {
-  const ref = doc(db, "Messages", currentcUser.email);
-  const isMentor = currentcUser && currentcUser.userType?.toLowerCase() === "mentor";
-  const c = collection(ref, isMentor ? "YourClients" : "YourMentors");
-  const f = collection(ref, "Networks");
+  const userEmail = currentcUser?.email;
+  if (!userEmail) {
+    throw new Error("User email not available");
+  }
+  const ref = doc(db, "Messages", userEmail);
 
-  const clientSnapshot = await getDocs(c);
-  const networkSnapshot = await getDocs(f);
+  const isMentor =
+    currentcUser && currentcUser.userType?.toLowerCase() === "mentor";
 
-  const clientData = clientSnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-    bucket: isMentor ? "YourClients" : "YourMentors",
-  }));
+  let clientData = [];
+  let networkData = [];
 
-  const networkData = networkSnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-    bucket: "Networks",
-  }));
+  try {
+    const c = collection(ref, isMentor ? "YourClients" : "YourMentors");
+    const clientSnapshot = await getDocs(c);
+    clientData = clientSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      bucket: isMentor ? "YourClients" : "YourMentors",
+    }));
+  } catch (clientError) {
+    // Handle error fetching from the 'c' collection (YourClients or YourMentors)
+    console.error("Error fetching from 'c' collection:", clientError);
+  }
+
+  try {
+    const f = collection(ref, "Networks");
+    const networkSnapshot = await getDocs(f);
+    networkData = networkSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      bucket: "Networks",
+    }));
+  } catch (networkError) {
+    // Handle error fetching from the 'f' collection (Networks)
+    console.error("Error fetching from 'f' collection:", networkError);
+  }
 
   const mergedData = [...clientData, ...networkData];
-
   setList(mergedData);
-
-
-
 
   // const list = [];
   // const ref = doc(db, "Messages", currentcUser.email);
@@ -233,35 +249,44 @@ export const getAllUserHavingChatWith = async (currentcUser, setList) => {
 
   //   setList(dummyList);
   // });
+
 };
 
-export const createNetworkInMessagesDoc=async(userId,senderId)=>{
-const userRef=doc(db,"Messages",userId)
-const furtherUserRef=doc(userRef,"Networks",senderId)
-const senderRef=doc(db,"Messages",senderId)
-const furtherSenderRef=doc(senderRef,"Networks",userId)
+export const createNetworkInMessagesDoc = async (userId, senderId) => {
+  const userRef = doc(db, "Messages", userId);
+  const furtherUserRef = doc(userRef, "Networks", senderId);
+  const senderRef = doc(db, "Messages", senderId);
+  const furtherSenderRef = doc(senderRef, "Networks", userId);
 
-try {
-  await setDoc(furtherUserRef,{messages: [{createdAt: '',msg: '',sendBy: '',},]})
-  await setDoc(furtherSenderRef,{messages: [{createdAt: '',msg: '',sendBy: '',},]})
-} catch (error) {
-  console.log(error.messages)
-}
-}
-
-export const createMentorInMessagesDoc=async(userId,mentorId)=>{
-  const userRef=doc(db,"Messages",userId)
-  const furtherUserRef=doc(userRef,"YourMentors",mentorId)
-  const mentorRef=doc(db,"Messages",mentorId)
-  const furtherMentorRef=doc(mentorRef,"YourClients",userId)
-  
   try {
-    await setDoc(furtherUserRef,{messages: [{createdAt: '',msg: '',sendBy: ''}]})
-    await setDoc(furtherMentorRef,{messages: [{createdAt: '',msg: '',sendBy: ''}]})
+    await setDoc(furtherUserRef, {
+      messages: [{ createdAt: "", msg: "", sendBy: "" }],
+    });
+    await setDoc(furtherSenderRef, {
+      messages: [{ createdAt: "", msg: "", sendBy: "" }],
+    });
   } catch (error) {
-    console.log(error.messages)
+    console.log(error.messages);
   }
+};
+
+export const createMentorInMessagesDoc = async (userId, mentorId) => {
+  const userRef = doc(db, "Messages", userId);
+  const furtherUserRef = doc(userRef, "YourMentors", mentorId);
+  const mentorRef = doc(db, "Messages", mentorId);
+  const furtherMentorRef = doc(mentorRef, "YourClients", userId);
+
+  try {
+    await setDoc(furtherUserRef, {
+      messages: [{ createdAt: "", msg: "", sendBy: "" }],
+    });
+    await setDoc(furtherMentorRef, {
+      messages: [{ createdAt: "", msg: "", sendBy: "" }],
+    });
+  } catch (error) {
+    console.log(error.messages);
   }
+};
 
 export const SendMessage = async (
   currentcUser,
@@ -288,7 +313,9 @@ export const SendMessage = async (
   if (bucket === "YourClients" || bucket === "YourMentors") {
     furtherReceiverRef = doc(
       receiverRef,
-      sendTo && sendTo.userType?.toLowerCase() === "mentor" ? "YourClients" : "YourMentors",
+      sendTo && sendTo.userType?.toLowerCase() === "mentor"
+        ? "YourClients"
+        : "YourMentors",
       currentcUser.email
     );
   } else if (bucket === "Networks") {
