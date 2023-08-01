@@ -96,7 +96,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     "TOOLS",
     "MENTOR",
     "FUNDING-APPLY",
-    "STARTUP SCORE",
+    // "STARTUP SCORE",
     "KNOWLEDGE",
   ];
   const filteredArray = elementsToCheck.filter((element) =>
