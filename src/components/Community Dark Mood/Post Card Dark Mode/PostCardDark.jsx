@@ -173,7 +173,7 @@ export default function PostCardDark({
     }
   };
   // console.log("post details--- ", postDetail);
-  // console.log("postedBy", postedByUserDoc);
+  console.log("postedBy", postedByUserDoc);
 
   const updateLikedPostInFirebase = async (data, id) => {
     const userDocumentRef = doc(db, "Posts", postId);

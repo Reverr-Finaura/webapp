@@ -29,7 +29,7 @@ function Test() {
     (state) => state.userDoc.Appointement_request
   );
   useEffect(() => {
-    if (userDoc.userType !== undefined && userDoc.userType !== "") {
+    if (userDoc?.userType !== undefined && userDoc?.userType !== "") {
       setUserTypeLower(userDoc.userType.toLowerCase());
     }
   }, [userDoc]);
