@@ -1077,7 +1077,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       ? "../../../images/userIcon.webp"
                       : userDoc?.image
                       ? userDoc.image
-                      : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                      : defaultImg
+                      // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
                   alt="userImage"
                 />
