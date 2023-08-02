@@ -12,7 +12,7 @@ import Footer from "../Footer/Footer";
 import { toast } from "react-hot-toast";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import otpPhoto from "../../images/otp-picture.webp";
-import { doc,updateDoc,arrayUnion } from "firebase/firestore";
+import { doc,updateDoc,arrayUnion, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 
@@ -34,6 +34,7 @@ function EnterOtpUpdated() {
   const fifthDigitRef = useRef(null);
   const sixthDigitRef = useRef(null);
   const newUser = useSelector(selectNewUser);
+  const onboardingData = useSelector((state) => state.onboarding);
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
 
@@ -83,6 +84,8 @@ function EnterOtpUpdated() {
       try{
         await createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
         await updateDoc(doc(db,"meta","emailPhone"),{emailPhone:arrayUnion({email:newUser.email,phone:newUser.phone})});
+        // Attempt to upload the data
+        await uploadOnboardingData();
         dispatch(create({ newUser }));
         navigate("/onboarding-first");
       }catch(error){
@@ -91,6 +94,27 @@ function EnterOtpUpdated() {
       }
     } else {
       toast.error("Please check the entered OTP");
+    }
+  };
+
+  const uploadOnboardingData = async () => {
+    const userEmail = newUser?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
+
+    const onboardingDataSoFar = {
+      ...onboardingData,
+    };
+  
+    const docRef = doc(db, "Users", userEmail);
+  
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, onboardingDataSoFar, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
     }
   };
 

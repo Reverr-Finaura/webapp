@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e28c6d7d.css",
-    "main.js": "/static/js/main.a5b3a12d.js",
+    "main.css": "/static/css/main.b6cd83e5.css",
+    "main.js": "/static/js/main.f1aff0f2.js",
     "static/media/illustration.svg": "/static/media/illustration.19635081d007bb47015e1ef6f9599be3.svg",
     "static/media/mentorsUnavailable.svg": "/static/media/mentorsUnavailable.422b9186f395d918299098286ba6866b.svg",
     "static/media/community mockup.svg": "/static/media/community mockup.39e6b22b0621801842e4a5857e9af195.svg",
@@ -61,6 +61,7 @@
     "static/media/Conversation.svg": "/static/media/Conversation.79d99e3fae608fa3a19ab5d5064fe99c.svg",
     "static/media/Job Change People.svg": "/static/media/Job Change People.d198259bf9f8a659139ed59343dd4c02.svg",
     "static/media/ProductDevIcon.svg": "/static/media/ProductDevIcon.dfbda43ecabfdc08016f8a0d9f3e6c9a.svg",
+    "static/media/MentorProfileCard.webp": "/static/media/MentorProfileCard.fd04c44df7c513e9d329.webp",
     "static/media/Co Founder.svg": "/static/media/Co Founder.b60a09720e9a3853505a2d2be77dfa14.svg",
     "static/media/unsplash_5.webp": "/static/media/unsplash_5.3d0153d4448379abef4c.webp",
     "static/media/Potential.svg": "/static/media/Potential.0aa22067cd079ed140a65f39baf21958.svg",
@@ -177,11 +178,11 @@
     "static/media/bx_log-out-white.webp": "/static/media/bx_log-out-white.447a0ccaaec25d692ce9.webp",
     "static/media/dash-light.webp": "/static/media/dash-light.f6ff8f702436e60452aa.webp",
     "static/media/know-dark.webp": "/static/media/know-dark.d7fd0cfb3e18feb704d9.webp",
-    "main.e28c6d7d.css.map": "/static/css/main.e28c6d7d.css.map",
-    "main.a5b3a12d.js.map": "/static/js/main.a5b3a12d.js.map"
+    "main.b6cd83e5.css.map": "/static/css/main.b6cd83e5.css.map",
+    "main.f1aff0f2.js.map": "/static/js/main.f1aff0f2.js.map"
   },
   "entrypoints": [
-    "static/css/main.e28c6d7d.css",
-    "static/js/main.a5b3a12d.js"
+    "static/css/main.b6cd83e5.css",
+    "static/js/main.f1aff0f2.js"
   ]
 }
