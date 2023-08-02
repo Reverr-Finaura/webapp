@@ -468,7 +468,7 @@ export default function PostCardDark({
     toast("reported post");
   }
   // fetching the post user type
-  useEffect(() => {});
+  useEffect(() => { });
 
   //GET TIME OF POST
   useEffect(() => {
@@ -663,7 +663,7 @@ export default function PostCardDark({
         <div className={style.postDivideLine_community}></div>
         <div className={style.postTextContainer}>
 
-          {  item?.text.length  > 3 ? (
+          {Array.isArray(item.text) ? (item?.text.length > 3 ? (
             <h3 className={style.postText}>
               {showMorePostTextClick ? (
                 // Display all strings in item.text, each on a new line
@@ -692,7 +692,11 @@ export default function PostCardDark({
                 <div key={index}>{textItem}</div>
               ))}
             </h3>
-          )}
+          )) : (<h3 className={style.postText}>
+            {item?.text}
+          </h3>)}
+
+
         </div>
         {item?.image ? (
           <div className="postImageContainer" style={{ width: "100%" }}>
@@ -974,9 +978,9 @@ export default function PostCardDark({
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
                             ? // The ternary operator starts here
-                              commentedByUserDoc?.filter((it) => {
-                                return it.email === list?.commentedby?.id;
-                              })[0]?.image
+                            commentedByUserDoc?.filter((it) => {
+                              return it.email === list?.commentedby?.id;
+                            })[0]?.image
                             : defaultImg
                         }
                         alt="CommentedUserPhoto"
@@ -1001,8 +1005,8 @@ export default function PostCardDark({
                       {/* <img onClick={()=>{setIsCommentThreeDotsClicked(current=>!current);setThreeDotsClickCommentId(list?.commentid)}} className='threeDotsPost commentThreeDotsPost' src="./images/dots.png" alt="3dots" /> */}
 
                       {isCommentThreeDotsClicked &&
-                      list?.commentedby?.id === user?.user?.email &&
-                      threeDotsClickCommentId === list?.commentid ? (
+                        list?.commentedby?.id === user?.user?.email &&
+                        threeDotsClickCommentId === list?.commentid ? (
                         <>
                           <div className="threeDotsOptions commentThreeDotsOption">
                             <a
@@ -1054,5 +1058,5 @@ export default function PostCardDark({
 
 PostCardDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => {},
+  openModal: () => { },
 };
