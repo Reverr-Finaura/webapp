@@ -218,7 +218,7 @@ letter-spacing: 0.42px;
 
 .postLikesContainer {
   display: flex;
-  margin: auto;
+  /* margin: auto; */
   color: #ffffff;
 }
 
@@ -259,7 +259,7 @@ letter-spacing: 0.42px;
 
 .postCommentContainer {
   display: flex;
-  margin: auto;
+  /* margin: auto; */
   /* --main-text */
   color: #ffffff;
 }
@@ -305,7 +305,7 @@ letter-spacing: 0.42px;
 }
 
 .postSendLinkContainer {
-  margin: auto;
+  /* margin: auto; */
   cursor: pointer;
   /* --main-text */
   color: #ffffff;
@@ -593,6 +593,9 @@ letter-spacing: 0.42px;
 }
 
 @media screen and (max-width: 500px) {
+  .postIconsText{
+    display: none;
+  }
   .timeSpan{
     display: none;
    }

@@ -735,7 +735,7 @@ export default function PostCardDark({
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
           <div
-            style={{ display: "flex", alignItems: "center", width: "100 %" }}
+            style={{ display: "flex", alignItems: "center", width: "100 %",    justifyContent:"space-evenly" }}
           >
             <div
               onClick={() => {
@@ -755,7 +755,7 @@ export default function PostCardDark({
               </div>
 
               <h3 style={{ cursor: "pointer" }} className={style.postLikeCount}>
-                {postDetail?.likes.length} Like
+                {postDetail?.likes.length} <span className={style.postIconsText}>Like</span> 
               </h3>
             </div>
 
@@ -782,7 +782,7 @@ export default function PostCardDark({
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
-                {postDetail?.comments.length} Comment
+                {postDetail?.comments.length} <span className={style.postIconsText}>Comment</span> 
               </h3>
             </div>
 
@@ -804,8 +804,8 @@ export default function PostCardDark({
                 <h3
                   style={{ cursor: "pointer" }}
                   className={style.postCommentCount}
-                >
-                  Share
+                > <span className={style.postIconsText}>Share</span>
+                  
                 </h3>
               </div>
             </div>

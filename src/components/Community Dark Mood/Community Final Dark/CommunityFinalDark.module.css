@@ -1700,6 +1700,7 @@ body::-webkit-scrollbar {
   }
 }
 @media (max-width: 500px) {
+
   .postAssetsIconMain{
     width: -webkit-fill-available;
     position: unset;
