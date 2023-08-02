@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Fourth.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +36,31 @@ function Fourth() {
 
   const [linkedinLink, setLinkedinLink] = useState("");
   const [twitterLink, setTwitterLink] = useState("");
+  console.log("onboardingData", onboardingData)
+
+  useEffect(() => {
+    if (onboardingData?.country) {
+      setCountryLocation(onboardingData.country);
+    }
+    if (onboardingData?.state) {
+      setStateLocation(onboardingData.state);
+    }
+    if (onboardingData?.education) {
+      setEducation(onboardingData.education);
+    }
+    if (onboardingData?.experience) {
+      setexperience(onboardingData.experience);
+    }
+    if (!onboardingData?.experience && onboardingData?.designation) {
+      setexperience([{ designation: onboardingData.designation, company: "" }]);
+    }
+    if (onboardingData?.linkedin) {
+      setLinkedinLink(onboardingData.linkedin);
+    }
+    if (onboardingData?.twitterLink) {
+      setTwitterLink(onboardingData.twitterLink);
+    }
+  }, [onboardingData]);
 
   // Function to handle the "Next" button click
   const handleNextButtonClick = async () => {
@@ -83,9 +108,9 @@ function Fourth() {
     if (!userEmail) {
       throw new Error("User email not available");
     }
-  
+
     const docRef = doc(db, "Users", userEmail);
-  
+
     try {
       // Perform a single update with all the fields to be updated
       await setDoc(docRef, data, { merge: true });
@@ -94,7 +119,6 @@ function Fourth() {
       throw err; // Rethrow the error to be caught in the calling function
     }
   };
-
 
   const handleCountryChange = (event) => {
     setCountryLocation(event.target.value);
@@ -235,7 +259,7 @@ function Fourth() {
           <text className={styles.heading}>Let us get to know you!</text>
           <div className={styles.textInputContainer}>
             <div className={styles.textInput}>
-              <text className={styles.asterik} style={{ fontSize: 10, color: "#ffffff" }}>Location</text>
+              <text className={styles.lebel}>State</text>
               <input
                 type="text"
                 placeholder="State"
@@ -246,7 +270,7 @@ function Fourth() {
               <span className={styles.textdanger}>{stateError}</span>
             </div>
             <div className={styles.textInput}>
-              <text className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>Country</text>
+              <text className={styles.lebel}>Country</text>
               <input
                 type="text"
                 placeholder="Country"
@@ -260,7 +284,7 @@ function Fourth() {
             {education.map((edu, index) => (
               <React.Fragment key={`edu0-${index}`}>
                 <div className={styles.textInput} key={`edu0-${index}`}>
-                  <text className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
+                  <text className={styles.lebel}>
                     Highest educational degree?
                   </text>
                   <input
@@ -278,9 +302,7 @@ function Fourth() {
                   </select> */}
                 </div>
                 <div className={styles.textInput} key={`edu1-${index}`}>
-                  <text className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
-                    Name of Institution
-                  </text>
+                  <text className={styles.lebel}>Name of Institution</text>
                   <input
                     type="text"
                     placeholder="XYZ college"
@@ -301,9 +323,7 @@ function Fourth() {
             {experience.map((exp, index) => (
               <React.Fragment key={`exp0-${index}`}>
                 <div className={styles.textInput} key={`exp0-${index}`}>
-                  <text  className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
-                    What’s your designation?
-                  </text>
+                  <text className={styles.lebel}>What’s your designation?</text>
                   <input
                     type="text"
                     placeholder="Enter your designation"
@@ -315,9 +335,7 @@ function Fourth() {
                 </div>
 
                 <div className={styles.textInput} key={`exp1-${index}`}>
-                  <text  className={styles.asterik}  style={{ fontSize: 10, color: "#ffffff" }}>
-                    Name of the company
-                  </text>
+                  <text className={styles.lebel}>Name of the company</text>
                   <input
                     type="text"
                     placeholder="Company name"
@@ -331,7 +349,7 @@ function Fourth() {
             ))}
 
             <div className={styles.textInput}>
-              <text style={{ fontSize: 10, color: "#ffffff" }}>
+              <text style={{ fontSize: 14, color: "#ffffff" }}>
                 LinkedIn Id
               </text>
               <input
@@ -342,7 +360,7 @@ function Fourth() {
               />
             </div>
             <div className={styles.textInput}>
-              <text style={{ fontSize: 10, color: "#ffffff" }}>
+              <text style={{ fontSize: 14, color: "#ffffff" }}>
                 Twitter username
               </text>
               <input
@@ -360,10 +378,18 @@ function Fourth() {
             >
               Back
             </button>
-            <button className={styles.rightButton} onClick={handleNextButtonClick}>
+            <button
+              className={styles.rightButton}
+              onClick={handleNextButtonClick}
+            >
               Next
             </button>
-            <button className={styles.skipButton} onClick={() => navigate("/onboarding-fifth")}>Skip</button>
+            <button
+              className={styles.skipButton}
+              onClick={() => navigate("/onboarding-fifth")}
+            >
+              Skip
+            </button>
           </div>
         </div>
         <div className={styles.hiddenOnMobile}>

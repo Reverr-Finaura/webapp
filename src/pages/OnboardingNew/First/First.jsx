@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./First.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,13 @@ function First() {
   const [userSpace, setUserSpace] = useState([]);
   const user = useSelector((state) => state.user);
   const onboardingData = useSelector((state) => state.onboarding);
+  // console.log("onboardingData", onboardingData)
+
+  useEffect(() => {
+    if(onboardingData?.userSpace){
+      setUserSpace(onboardingData.userSpace)
+    }
+  }, [onboardingData]);
 
   const handleSpaceClick = (spaceText) => {
     if (userSpace.includes(spaceText)) {
@@ -31,7 +38,6 @@ function First() {
 
     // Upload onboarding data to Firebase
     const onboardingDataSoFar = {
-      ...onboardingData,
       userSpace: userSpace,
     };
 
