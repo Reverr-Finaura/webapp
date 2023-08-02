@@ -20,17 +20,30 @@ function Third() {
   const user = useSelector((state) => state.user);
   const onboardingData = useSelector((state) => state.onboarding);
   const [ProfileImage, setProfileImage] = useState(null);
-  const [imgUrl, setImgUrl] = useState("");
-  const [uploadedProfileImage, setUploadedProfileImage] = useState(null);
   const [designation, setDesignation] = useState("");
   const [about, setAbout] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
+  const [uploadedProfileImage, setUploadedProfileImage] = useState(null);
   const [imgError, setimgError] = useState("");
   const [desError, setdesError] = useState("");
   const [abtError, setabtError] = useState("");
 
+  useEffect(() => {
+    if(onboardingData?.image){
+      setProfileImage(onboardingData.image)
+      setImgUrl(onboardingData.image)
+    }
+    if(onboardingData?.designation){
+      setDesignation(onboardingData.designation)
+    }
+    if(onboardingData?.about){
+      setAbout(onboardingData.about)
+    }
+  }, [onboardingData]);
+
   const handleImageUpload = (event) => {
     const uploadedImage = event.target.files[0];
-    console.log("uploadedImage", uploadedImage);
+    // console.log("uploadedImage", uploadedImage);
     setUploadedProfileImage(uploadedImage);
     setProfileImage(URL.createObjectURL(uploadedImage));
   };
@@ -47,20 +60,6 @@ function Third() {
   };
   const remainingWords = 1000 - about.trim().split(/\s+/).filter((word) => word !== '').length;
 
-
-  // // this function will handle two function when the Next button is clicked
-
-  // const handleFunctions = () => {
-  //   if (validate()) {
-  //     navigate("/onboarding-fourth");
-  //     dispatch(setImage(imgUrl));
-  //     dispatch(setDesignationToStore(designation));
-  //     dispatch(setAboutToStore(about));
-  //     setImgUrl("");
-  //     setdesError("");
-  //     setabtError("");
-  //   }
-  // };
 
   // Function to handle the "Next" button click
   const handleNextButtonClick = async () => {
@@ -113,24 +112,24 @@ function Third() {
   }, [uploadedProfileImage]);
 
   function validate() {
-    let nameError = "";
-    let emailError = "";
-    let passwordError = "";
-    if (!uploadedProfileImage) {
-      nameError = "Image field is required";
-      toast.error(nameError);
+    let imageError = "";
+    let aboutError = "";
+    let designationError = "";
+    if (!imgUrl) {
+      imageError = "Image field is required";
+      toast.error(imageError);
     }
 
     if (about === "") {
-      emailError = "About Field is required ";
+      aboutError = "About Field is required ";
     }
     if (designation === "") {
-      passwordError = "Designation field is required";
+      designationError = "Designation field is required";
     }
-    if (emailError || nameError || passwordError) {
-      setimgError(nameError);
-      setdesError(passwordError);
-      setabtError(emailError);
+    if (aboutError || imageError || designationError) {
+      setimgError(imageError);
+      setdesError(designationError);
+      setabtError(aboutError);
       return false;
     }
     return true;
@@ -200,7 +199,7 @@ function Third() {
           />
           <span className={styles.textdanger}>{imgError}</span>
           <div className={styles.textInput}>
-            <text className={styles.asterik} style={{ fontSize: 10, color: "#ffffff" }}>
+            <text className={styles.asterik} style={{ fontSize: 14, color: "#ffffff" }}>
               What’s your designation?
             </text>
             <input
@@ -213,7 +212,7 @@ function Third() {
             <span className={styles.textdanger}>{desError}</span>
           </div>
           <div className={styles.textInput}>
-            <text className={styles.asterik} style={{ fontSize: 10, color: "#ffffff" }}>
+            <text className={styles.asterik} style={{ fontSize: 14, color: "#ffffff" }}>
               Tell us a little bit about yourself.
             </text>
             <textarea

@@ -10,7 +10,7 @@ const VibeYourChat = ({data,setChatSelected}) => {
           {
             data.map((item,key)=>(
               <div onClick={()=>setChatSelected(true)} className={style.singlemessageboxcontainer} key={key}>
-                <img style={{width:"30px",height:"30px"}} src={item.img} alt="img" />
+                <img style={{width:"35px",height:"35px"}} src={item.img} alt="img" />
                 <div>
                 <p>{item.name}</p>
                 <p style={{fontSize:"15px",color:"#A7A7A7"}}>{item.message.slice(0,25) }...</p>

@@ -151,7 +151,12 @@
   right: 50px;
 }
 
-.asterik::after{
+.lebel {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.lebel::after{
   content: '*';
   color: red;
   font-size: 17px;
