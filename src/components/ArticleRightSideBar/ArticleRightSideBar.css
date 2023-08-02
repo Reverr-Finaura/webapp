@@ -59,3 +59,15 @@
     gap: 20px;
   }
 }
+
+@media screen and (min-width: 950px) and (max-width: 1120px) {
+  
+.articlerightsidecontainer{
+  flex-direction: column;
+
+}
+.firstarticlebox {
+  margin-left: 20px;
+  width: 90% !important;
+}
+}
