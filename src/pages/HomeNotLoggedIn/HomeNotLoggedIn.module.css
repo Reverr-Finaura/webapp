@@ -7,7 +7,7 @@
 }
 
 .leftSidebar {
-  width: 300px;
+  width: 25%;
   padding: 30px;
   border-radius: 15px;
   overflow-y: auto;
@@ -26,7 +26,7 @@
 }
 
 .middleSection {
-  width: 750px;
+  width: 50%;
   padding: 30px;
   border-radius: 15px;
   overflow-y: auto;
@@ -45,7 +45,7 @@
 }
 
 .rightSidebar {
-  width: 300px;
+  width: 25%;
   padding: 30px;
   border-radius: 15px;
   overflow-y: auto;

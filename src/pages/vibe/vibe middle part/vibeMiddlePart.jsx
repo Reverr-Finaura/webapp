@@ -1,14 +1,18 @@
 import styles from "./vibeMiddlePart.module.css";
-import filterIcon from "../../images/filterIcon.svg";
-import userProfilePucture from "../../images/userProfilePicture.svg";
-import location from "../../images/location.svg";
-import videoCall from "../../images/videocallimg.svg";
-import phoneCall from "../../images/phonecallimg.svg";
-import atCoffee from "../../images/atcoffeeimg.svg";
-import phoneIcon from "../../images/phoneMiniIcon.svg";
-import emailIcon from "../../images/emailMiniIcon.svg";
-import linkedinIcon from "../../images/linkedinMiniIcon.svg";
-import twitterIcon from "../../images/twitterMiniIcon.svg";
+import filterIcon from "../../../images/filterIcon.svg";
+import userProfilePucture from "../../../images/userProfilePicture.svg";
+import location from "../../../images/location.svg";
+import videoCall from "../../../images/videocallimg.svg";
+import phoneCall from "../../../images/phonecallimg.svg";
+import atCoffee from "../../../images/atcoffeeimg.svg";
+import phoneIcon from "../../../images/phoneMiniIcon.svg";
+import emailIcon from "../../../images/emailMiniIcon.svg";
+import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
+import twitterIcon from "../../../images/twitterMiniIcon.svg";
+import nopeIcon from "../../../images/nopeIcon.svg";
+import handShakeIcon from "../../../images/handshakeIcon.svg";
+import blueLikeIcon from "../../../images/bluelikeIcon.svg";
+import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 
 const VibeMiddlePart = () => {
 
@@ -49,9 +53,14 @@ const VibeMiddlePart = () => {
         }
     }
     return <>
-        <div className={styles.container}>
         <div className={styles.middleContainer}>
             <div className={styles.filterContainer}>
+            <div className={styles.undoMoveCont}>
+                    <div className={styles.innerUndoMove}>
+                        <img className={styles.undoMoveImg} src={undoMoveIcon} alt="undoMoveIcon" />
+                        <p className={styles.undoMoveText}>Undo Move</p>
+                    </div>
+                </div>
                 <img className={styles.filterIcon} src={filterIcon} alt="filterIcon" />
             </div>
             <div className={styles.vibeinfo}>
@@ -128,9 +137,26 @@ const VibeMiddlePart = () => {
                         </div>
                 </div>
             </div>
+            <div className={styles.likeHandshake}>
+                <div className={styles.innerContainer}>
+                    <div className={styles.Cont} >
+                            <img className={styles.likehandShakeImg} src={nopeIcon} alt="nopeIcon" />
+                            <p className={styles.text}>Nope</p>
+                    </div>
+                    <div className={styles.Cont}>
+                    <img className={styles.likehandShakeImg} src={handShakeIcon} alt="handShakeIcon" />
+                            <p className={styles.text}>Handshake</p>
+                    </div>
+                    <div className={styles.Cont}>
+                    <img className={styles.likehandShakeImg} src={blueLikeIcon} alt="blueLikeIcon" />
+                            <p className={styles.text}>Like</p>
+                    </div>
+                </div>
+                <div className={styles.background}>
 
+                </div>
+            </div>
         </div>
-    </div>
     </>
 }
 
