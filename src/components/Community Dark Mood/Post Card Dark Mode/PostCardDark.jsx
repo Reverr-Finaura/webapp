@@ -69,7 +69,7 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log("this is post detail--", postDetail);
+  // console.log("this is post detail--", postDetail);
   // get the posts comments
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -132,7 +132,7 @@ export default function PostCardDark({
     await updateLikedPostInFirebase(newLikeArray, id);
   };
   const setNotificationDatainFirebase = async (item) => {
-    console.log("this is item", item);
+    // console.log("this is item", item);
     try {
       const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
       // console.log("posted by", postedByUserDoc.email[0]);
@@ -173,7 +173,7 @@ export default function PostCardDark({
     }
   };
   // console.log("post details--- ", postDetail);
-  console.log("postedBy", postedByUserDoc);
+  // console.log("postedBy", postedByUserDoc);
 
   const updateLikedPostInFirebase = async (data, id) => {
     const userDocumentRef = doc(db, "Posts", postId);
@@ -562,7 +562,7 @@ export default function PostCardDark({
                           Investor
                         </div>
                       );
-                    case "professional":
+                    case "professionals":
                       return (
                         <div className={style.professional}>
                           {" "}
@@ -662,7 +662,8 @@ export default function PostCardDark({
         </div>
         <div className={style.postDivideLine_community}></div>
         <div className={style.postTextContainer}>
-          {item?.text.length > 3 ? (
+
+          {  item?.text.length  > 3 ? (
             <h3 className={style.postText}>
               {showMorePostTextClick ? (
                 // Display all strings in item.text, each on a new line
