@@ -1736,12 +1736,12 @@ body::-webkit-scrollbar {
   }
   .ArrowImgAfterTextArea{
     right: -3px;
-    height: 20px;
+    height: 35px;
 
   }
   #postTextContainer{
     height: 37px;
-    width: -webkit-fill-available;
+    width: -webkit-fill-available  !important;
 
   }
   .communityNavbarBlock{
@@ -1781,6 +1781,7 @@ body::-webkit-scrollbar {
   font-size: 15px;
  }
 }
+
 @media (max-width: 310px ){
 
   .uploadPostContainerrrrSection{
