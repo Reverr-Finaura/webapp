@@ -67,6 +67,17 @@
     line-height: normal;
     margin: 2px 2px;
   }
+  @media screen and (max-width: 1160px){
+    .article-image{
+      margin-right: 0px;
+    }
+    .article-heading{
+      font-size: 70%;
+    }
+    .article-desc{
+      font-size: 57%;
+    }
+  }
 
   @media screen and (max-width: 560px) {
     .article-image {
