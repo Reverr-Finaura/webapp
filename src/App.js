@@ -134,6 +134,7 @@ import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
 import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
+import VibeTestA from "./pages/Vibe/VibeTestA";
 
 
 
@@ -396,6 +397,7 @@ function App() {
         ></Route>
         <Route path="/discover/finance" element={<Finance />}></Route>
         <Route path="/discover/healthcare" element={<Healthcare />}></Route>
+        <Route path="/vibetestinga" element={<VibeTestA />}></Route>
       </Routes>
     </>
   );

@@ -42,7 +42,7 @@ import CommunityNews from "../../../components/Community News/CommunityNews";
 import NewSkeleton from "../../../components/Post Skeleton/News Skeleton/NewSkeleton";
 import { RxCrossCircled } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
-import video from "video.js"
+import video from "video.js";
 
 // import SortingNavbarTest from ".././Sorting Navbar Test/SortingNavbarTest";
 
@@ -68,7 +68,6 @@ import DiscoverEvents from "../../DynamicComponents/DiscoverEvents/DiscoverEvent
 import DiscoverPerfectTools from "../../DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
 import FeaturedSuggestions from "../../DynamicComponents/FeaturedSuggestions/FeaturedSuggestions";
 import FeaturedMentors from "../../DynamicComponents/FeaturedMentors/FeaturedMentors";
-
 
 const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const userSpace = useSelector((state) => state.user.userSpace);
@@ -121,6 +120,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
   const [postUploadStatus, setPostUploadStatus] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isPostLoading, setIsPostLoading] = useState(true);
+
   //FETCH LATEST NEWS
   const options = {
     method: "GET",
@@ -131,7 +132,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       "Ocp-Apim-Subscription-Key": "bd03e8f8f29b46479ee4c2004280308f",
     },
   };
-
 
   async function getNews() {
     try {
@@ -210,6 +210,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   useEffect(() => {
     async function fetchPostsFromDb() {
+      setIsPostLoading(true);
       const postRef = collection(db, "Posts");
       const q = query(postRef);
       const querySnapshot = await getDocs(q);
@@ -240,7 +241,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           return post.likes.length >= likesAverage;
         })
       );
-      console.log("hot community posts ", whatsHotCommunityPost);
+      // console.log("hot community posts ", whatsHotCommunityPost);
 
       if (sortOptionSelected.time === "") {
         setPostsData(
@@ -274,6 +275,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         );
         furtherSortPost();
       }
+      setIsPostLoading(false);
     }
     fetchPostsFromDb();
   }, [sortOptionSelected, whatHotStatus]);
@@ -312,7 +314,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
   const chooseVideoFile = () => {
     if (chooseVidoFileRef.current) {
-      console.log(chooseVidoFileRef.current)
+      console.log(chooseVidoFileRef.current);
       chooseVidoFileRef.current.click();
     }
   };
@@ -337,8 +339,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       setTempVideoURL(URL.createObjectURL(file));
     }
   };
-
-
 
   // uploadVideoToFireBase()
   const uploadVideoToFireBase = async () => {
@@ -387,7 +387,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
     createNewPost(downloadURL);
   };
-
 
   //ON IMAGE CHANGE
   function onImageChange(e) {
@@ -461,6 +460,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     try {
       const timeId = new Date().getTime().toString();
       let newPostId = [...newPostdataId];
+      const newPostArray = newPostText.split("\n");
+      console.log("newPostArray", newPostArray);
 
       if (tempImageURL) {
         await setDoc(doc(db, "Posts", timeId), {
@@ -469,18 +470,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           image: item,
           likes: [],
           postedby: userRef,
-          text: newPostText,
+          text: newPostArray,
           postSpace: postSpaceData,
         });
-      }
-      else {
+      } else {
         await setDoc(doc(db, "Posts", timeId), {
           comments: [],
           createdAt: new Date(),
           video: item,
           likes: [],
           postedby: userRef,
-          text: newPostText,
+          text: newPostArray,
           postSpace: postSpaceData,
         });
       }
@@ -700,8 +700,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     // }
   }
 
-  console.log("userSpaceArr ", userSpaceArr);
-  console.log("userSpace: ", userSpace);
+  // console.log("userSpaceArr ", userSpaceArr);
+  // console.log("userSpace: ", userSpace);
 
   function openTheSpaceModal() {
     fechingActiveIndexFirebase();
@@ -779,10 +779,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     return (
                       <div
                         key={index}
-                        className={`${style.spaceMenuData} ${activeIndex.includes(index)
-                          ? style.spaceMenuDataActive
-                          : ""
-                          }`}
+                        className={`${style.spaceMenuData} ${
+                          activeIndex.includes(index)
+                            ? style.spaceMenuDataActive
+                            : ""
+                        }`}
                         onClick={(event) =>
                           handleSpaceMenuDataClick(
                             index,
@@ -792,10 +793,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       >
                         <p
-                          className={`${style.spaceMenuDataPara} ${activeIndex.includes(index)
-                            ? style.spaceMenuDataParaActive
-                            : ""
-                            }`}
+                          className={`${style.spaceMenuDataPara} ${
+                            activeIndex.includes(index)
+                              ? style.spaceMenuDataParaActive
+                              : ""
+                          }`}
                         >
                           {space}
                         </p>
@@ -893,10 +895,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     <img
                       className="community-upload-cont-userImage"
                       src={
-                        userDoc?.image
-                          ? userDoc.image
-                          : defaultImg
-                          // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                        userDoc?.image ? userDoc.image : defaultImg
+                        // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                       }
                       alt="userImage"
                     />
@@ -982,10 +982,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       <img
                         className="community-upload-cont-userImage"
                         src={
-                          userDoc?.image
-                            ? userDoc.image
-                            : defaultImg
-                            //  "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                          userDoc?.image ? userDoc.image : defaultImg
+                          //  "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                         }
                         alt="userImage"
                       />
@@ -1044,25 +1042,31 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           <div className={style.reverrCommunityUploadContainerrr}>
             <div className="reverrCommunityHeadingAndPostUploadIcon">
               <div>
-                <h2 className={style.reverrCommunityHeading}>
-                  {" "}
-                  Welcome To Reverr ,{" "}
-                  <span
-                    style={{
-                      color: "rgba(42, 114, 222, 1)",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {userDoc?.name ? userDoc.name : ""}
-                  </span>
-                </h2>
+                {isLoggedIn ? (
+                  <h2 className={style.reverrCommunityHeading}>
+                    {" "}
+                    Welcome To Reverr ,{" "}
+                    <span
+                      style={{
+                        color: "rgba(42, 114, 222, 1)",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      {userDoc?.name ? userDoc.name : ""}
+                    </span>
+                  </h2>
+                ) : (
+                  <h2 className={style.reverrCommunityHeading}>
+                    {" "}
+                    Welcome To Reverr
+                  </h2>
+                )}
+
                 {/* <p className="reverrCommunitySubbHeading">
                   The community where future entrepreneurs come to learn,
                   execute and grow.
                 </p> */}
               </div>
-
-
             </div>
 
             <section
@@ -1074,11 +1078,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   className={style.communityUploadContUserImage}
                   src={
                     !isLoggedIn
-                      ? "../../../images/userIcon.webp"
+                      ? defaultImg
                       : userDoc?.image
                       ? userDoc.image
                       : defaultImg
-                      // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+                    // : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
                   alt="userImage"
                 />
@@ -1090,9 +1094,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         : style.UploadPostOuterBoxContainerNotExpanded
                     }
                   >
-
-
-
                     <textarea
                       style={{ borderRadius: "30px" }}
                       onClick={() => {
@@ -1114,11 +1115,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       placeholder="What Would You Like To Post?"
                     ></textarea>
 
-
                     {textAreaIsClick ? (
-                      <div className={style.clsBtn} onClick={() => { setTextAreaIsClick(false); RemoveFile() }}>close</div>
+                      <div
+                        className={style.clsBtn}
+                        onClick={() => {
+                          setTextAreaIsClick(false);
+                          RemoveFile();
+                        }}
+                      >
+                        close
+                      </div>
                     ) : null}
-
 
                     {!textAreaIsClick ? (
                       <img
@@ -1157,13 +1164,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
                     {tempVideoURL ? (
                       <div className={style.communityPostImageCont}>
-
                         <video
                           // className={style.communityPostImage}
                           src={tempVideoURL}
                           style={{
                             width: "-webkit-fill-available",
-                            height: "-webkit-fill-available"
+                            height: "-webkit-fill-available",
                           }}
                           id="my-video"
                           alt="postVideo"
@@ -1176,8 +1182,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           height="264"
                           poster="MY_VIDEO_POSTER.jpg"
                           data-setup="{}"
-                        >
-                        </video>
+                        ></video>
                         {/* <button
                           onClick={handlePlayVideo}
                           className={style.playButton}
@@ -1200,7 +1205,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     {postSpaceData.length >= 1 ? (
                       <p className={style.spaceTag}>{postSpaceData}</p>
                     ) : null}
-
                   </div>
 
                   <div className={style.postAssetsIconMain}>
@@ -1259,7 +1263,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       }}
                       onChange={handleOptionChange}
-                    // disabled={!isLoggedIn}
+                      // disabled={!isLoggedIn}
                     >
                       <option className={style.userSpaceOption} value="">
                         Select Spaces
@@ -1367,14 +1371,15 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
               {mySpaceStatus ? (
                 // myfeed posts-container
                 <section className="posts-containerr">
-                  {displayPosts.length === 0 &&
+                  {isPostLoading &&
+                    displayPosts.length === 0 &&
                     sortOptionSelected.whose !== "People You Follow" && (
                       <div>
                         <PostSkeleton cards={2} />
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                    sortOptionSelected.whose === "People You Follow" ? (
+                  sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1383,7 +1388,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     </>
                   ) : null}
                   {spaceFilteredPost.map((item, index) => {
-
                     if (index === 3) {
                       return (
                         <>
@@ -1470,31 +1474,24 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       );
                     }
                   })}
-                  {spaceFilteredPost.length == 0 && (<section className={styles.PostCardContainer} >
-                    <div
-                      style={{ alignItems: "center" }}
-                      className={styles.postAuthorDetails}
-                    >
+                  {!isPostLoading && spaceFilteredPost.length === 0 ? (
+                    <div className={styles.noPostAvailable}>
+                      CHOOSEN POST SPACE, IS NOT AVAIBLE RIGHT NOW!
                     </div>
-                    <div className={styles.postDivideLine_community}></div>
-                    <h2>CHOOSEN POST SPACE , IS NOT AVAIBLE RIGHT NOW!</h2>
-
-                    <div className={styles.postDivideLine_community}></div>
-
-                  </section>)}
-
+                  ) : null}
                 </section>
               ) : (
                 // what's hot posts-container
                 <section className="posts-containerr">
-                  {displayPosts.length === 0 &&
+                  {isPostLoading &&
+                    displayPosts.length === 0 &&
                     sortOptionSelected.whose !== "People You Follow" && (
                       <div>
                         <PostSkeleton cards={2} />
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                    sortOptionSelected.whose === "People You Follow" ? (
+                  sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1519,19 +1516,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     );
                   })}
 
-                  {whatsHotCommunityPost.length == 0 && (<section className={styles.PostCardContainer} >
-                    <div
-                      style={{ alignItems: "center" }}
-                      className={styles.postAuthorDetails}
-                    >
+                  {!isPostLoading && whatsHotCommunityPost.length === 0 ? (
+                    <div className={styles.noPostAvailable}>
+                      CHOOSEN POST SPACE, IS NOT AVAIBLE RIGHT NOW!
                     </div>
-                    <div className={styles.postDivideLine_community}></div>
-                    <h2>CHOOSEN POST SPACE , IS NOT AVAIBLE RIGHT NOW!</h2>
-
-                    <div className={styles.postDivideLine_community}></div>
-
-                  </section>)}
-
+                  ) : null}
                 </section>
               )}
             </InfiniteScroll>
@@ -1556,7 +1545,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
 CommunityFinalDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => { },
+  openModal: () => {},
 };
 
 export default CommunityFinalDark;
