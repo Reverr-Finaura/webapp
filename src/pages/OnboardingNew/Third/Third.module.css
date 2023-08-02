@@ -117,6 +117,8 @@
   outline: none;
   padding-left: 20px;
   color: #100f0f;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
 
 .buttonDiv {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Second.module.css";
 import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,12 @@ function Second() {
   const onboardingData = useSelector((state) => state.onboarding);
   // console.log("userType", userType)
   // console.log("onboardingData", onboardingData)
+
+  useEffect(() => {
+    if(onboardingData?.userType){
+      setUserType(onboardingData.userType)
+    }
+  }, [onboardingData]);
 
   const handleDivClick = (spaceText) => {
     setUserType(spaceText);
