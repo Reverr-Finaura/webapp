@@ -134,8 +134,8 @@ import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
 import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
-import VibeTestA from "./pages/vibe/VibeTestA";
-import FilterPart from "./pages/vibe/FilterPart/FilterPart";
+import VibeTestA from "./pages/Vibe/VibeTestA";
+import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
 
 
 
@@ -399,7 +399,7 @@ function App() {
         <Route path="/discover/finance" element={<Finance />}></Route>
         <Route path="/discover/healthcare" element={<Healthcare />}></Route>
         <Route path="/vibetestinga" element={<VibeTestA />}></Route>
-        <Route path="/vibetestinga" element={<FilterPart />}></Route>
+        <Route path="/vibetestingb" element={<FilterPart />}></Route>
       </Routes>
     </>
   );

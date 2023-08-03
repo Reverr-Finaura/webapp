@@ -1,9 +1,10 @@
 .RigtSidebarContainer{
-    width: 30%;
+    width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    color: white;
 }
 
 .UserdetailsHeader{
@@ -71,6 +72,7 @@
    align-items: center;
    justify-content: center;
    padding-top: 30px;
+   
    gap: 10px;
 }
 
@@ -104,6 +106,7 @@
     height: 60px;
     width: 100%;
     padding: 20px;
+    
     
 }
 
