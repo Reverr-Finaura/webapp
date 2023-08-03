@@ -1,9 +1,10 @@
 .MatchesContainer{
-    width: 30%;
+    width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    color: white;
 }
 
 .MatchesInnerContainer{
@@ -56,8 +57,11 @@
     border: 2px solid #FFF278;
     border-radius: 87px 0px 0px 87px;
     color: #FFF278;
-    
     padding: 4px;
+    display: inline-block;
+    width: 50%;
+  white-space: nowrap;
+  
 }
 .seewholikedyou{
 
@@ -65,11 +69,15 @@
 
 }
 .matchesHeader div span:last-child{
+    display: inline-block;
+    width: 50%;
     border: 2px solid #00B3FF;
     border-radius: 0 87px 87px 0;
     border-left: 0px;
     color: #00B3FF;
     padding: 4px;
+    white-space: nowrap;
+    
 }
 .managematches{
     

@@ -1,7 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 
@@ -36,6 +40,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .innerUndoMove {
@@ -89,7 +94,7 @@
 }
 
 .userDetailsContainer {
-    width: 50%;
+    width: 40%;
     padding: 10px;
     padding-top: 20px;
     display: flex;
@@ -105,7 +110,7 @@
 
 .userName {
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -239,7 +244,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 140px;
+    margin-bottom: 120px;
 }
 
 .findmeOnWraper {
@@ -259,7 +264,7 @@
 }
 
 .likeHandshake {
-    width: 32%;
+    width: 33%;
     position: fixed;
     bottom: 80px;
     display: flex;
@@ -298,5 +303,62 @@
 
 .text {
     color: white;
+}
+
+
+
+/* ///pop-up/// */
+.middlePopUp{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.middlePopUp div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+    color: white;
+   background-color: #0C1631;
+   text-align: center;
+   gap: 20px;
+   padding: 40px;
+box-shadow: inset 1px 1px 24px #4CC9FF40;
+border-bottom: 2px solid #FFF278;
+border-radius: 15px;
+position: relative;
+    
+   
+}
+.middlePopUp div p:first-of-type{
+    color: #FFF278;
+    font-size: 14px;
+    font-weight: bolder;
+}
+.middlePopUp div p:nth-of-type(2){
+    max-width: 200px;
+    font-size: 10px;
+}
+.middlePopUp div p:last-child{
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-weight: 100;
+}
+
+.middlePopUp div button{
+    width: 210px;
+    height: 40px;
+    border-radius: 26px;
+    border: none;
+    background: linear-gradient(to left, #FFF278 ,#F8B533);
+    font-weight: bolder;
 }
 

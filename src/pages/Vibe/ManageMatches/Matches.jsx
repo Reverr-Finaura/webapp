@@ -1,54 +1,79 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "./matches.module.css"
 import MatchesResults from './MatchesResults'
 import profileimg from "../../../images/MentorProfileCard.webp"
+import { collection } from 'firebase/firestore'
+import { db, getUserFromDatabase } from '../../../firebase'
+import { useSelector } from 'react-redux'
 
 const seewholikekdata =[
     {name: "jatin",
     designation: "ceo",
-    img:profileimg },
+    image:profileimg },
     {name: "sheetal",
     designation: "manager",
-    img:profileimg},
+    image:profileimg},
     {name: "dante",
     designation: "ceo",
-    img:profileimg},
+    image:profileimg},
     {name: "nero",
     designation: "work",
-    img:profileimg},
+    image:profileimg},
     {name: "jatin",
     designation: "ceo",
-    img:profileimg},
+    image:profileimg},
     {name: "jatin",
     designation: "ceo",
-    img:profileimg},
+    image:profileimg},
 ]
 
 const managematches =[
     {name: "Shachin",
     designation: "Super CEO",
-    img:profileimg },
+    image:profileimg },
     {name: "Neel",
     designation: "manager",
-    img:profileimg},
+    image:profileimg},
     {name: "Hiyamoto",
     designation: "ceo",
-    img:profileimg},
+    image:profileimg},
     {name: "Norton",
     designation: "work",
-    img:profileimg},
+    image:profileimg},
     {name: "Quick",
     designation: "ceo",
-    img:profileimg},
+    image:profileimg},
     {name: "jatin",
     designation: "ceo",
-    img:profileimg},
+    image:profileimg},
 ]
 
 const Matches = () => {
     const [data , setData] = useState(seewholikekdata)
     const [ismanage, setIsManage] = useState(false)
     const [ispremium, setIsPremium] = useState(true)
+    const [likedUser,setLikedUsers] = useState([]);
+    const [matchedUser,setMatchedUsers] = useState([])
+    const userDoc=useSelector((state)=>state.userDoc)
+
+    useEffect(()=>{
+      async function FetchLikedUsers() {
+        const userData = getUserFromDatabase(userDoc.email)
+        setLikedUsers(userData.likedUsers);
+      } 
+      FetchLikedUsers();
+    },[])
+
+    async function FetchLikedUsers() {
+      const userData = getUserFromDatabase(userDoc.email)
+      setLikedUsers(userData.likedUsers);
+    } 
+
+    async function FetchMatchesUsers() {
+      const userData = getUserFromDatabase(userDoc.email)
+      setMatchedUsers(userData.matchedUsers);
+    } 
+
   return (
     <div className={style.MatchesContainer}>
         <div className={style.MatchesInnerContainer}>

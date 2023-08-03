@@ -3,6 +3,7 @@ import NavBarFinalDarkMode from '../../components/Navbar Dark Mode/NavBarFinalDa
 import VibeRightSideBar from './RightPart/VibeRightSideBar'
 import style from "./vibe.module.css"
 import Matches from './ManageMatches/Matches'
+import VibeMiddlePart from './vibe middle part/vibeMiddlePart'
 
 const VibeTestA = () => {
   return (
@@ -10,7 +11,7 @@ const VibeTestA = () => {
     <NavBarFinalDarkMode/>
     <div className={style.vibeContainer}>
     <VibeRightSideBar/>
-        <div>1st</div>
+      <VibeMiddlePart />
         <Matches/>
         
     </div>

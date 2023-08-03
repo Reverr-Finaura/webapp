@@ -36,7 +36,8 @@ function Fourth() {
 
   const [linkedinLink, setLinkedinLink] = useState("");
   const [twitterLink, setTwitterLink] = useState("");
-  console.log("onboardingData", onboardingData)
+  console.log("experience", onboardingData.experience[0].designation);
+  console.log("designation", onboardingData);
 
   useEffect(() => {
     if (onboardingData?.country) {
@@ -51,7 +52,12 @@ function Fourth() {
     if (onboardingData?.experience) {
       setexperience(onboardingData.experience);
     }
-    if (!onboardingData?.experience && onboardingData?.designation) {
+    if (
+      onboardingData?.experience &&
+      onboardingData.experience.length > 0 &&
+      onboardingData.experience[0]?.designation === "" &&
+      onboardingData?.designation
+    ) {
       setexperience([{ designation: onboardingData.designation, company: "" }]);
     }
     if (onboardingData?.linkedin) {

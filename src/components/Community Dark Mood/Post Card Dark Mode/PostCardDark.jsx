@@ -573,7 +573,7 @@ export default function PostCardDark({
                 }}
                 className={style.postAuthorName}
               >
-                {postedByUserDoc?.name ? postedByUserDoc?.name : "NULL "}
+                {postedByUserDoc?.name ? postedByUserDoc?.name : " "}
               </h3>
               <div className="postAuthorType">
                 {   postsDataWithUserDoc.length >= 1 && 
@@ -624,7 +624,7 @@ export default function PostCardDark({
             <p className={style.postAuthorDesignation}>
               {postedByUserDoc?.designation
                 ? postedByUserDoc?.designation
-                : "Null"}
+                : ""}
             </p>
           </div>
 

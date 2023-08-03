@@ -13,8 +13,12 @@ import nopeIcon from "../../../images/nopeIcon.svg";
 import handShakeIcon from "../../../images/handshakeIcon.svg";
 import blueLikeIcon from "../../../images/bluelikeIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
+import FilterRedoPopUp from "./FilterRedoPopUp";
+import { useState } from "react";
 
 const VibeMiddlePart = () => {
+    const [ispremium, setIsPremium] = useState(false)
+    const [redo, SetRedo] = useState(false)
 
     const data = {
         userphoto : userProfilePucture,
@@ -52,16 +56,33 @@ const VibeMiddlePart = () => {
             twitter : "@jatinkhurana"
         }
     }
+
+    const CheckisPremium=()=>{
+        if(!ispremium){
+            return SetRedo(true)
+        }
+         
+    }
+
     return <>
-        <div className={styles.middleContainer}>
+        <div style={{overflowY: !redo ? "scroll" : "hidden"}} className={styles.middleContainer}>
+            {/* ////Not Premium Pop-UP//// */}
+        {
+            
+            !ispremium && redo &&  <FilterRedoPopUp SetRedo={SetRedo} setIsPremium={setIsPremium}/>
+
+        }
+            
+           
+
             <div className={styles.filterContainer}>
-            <div className={styles.undoMoveCont}>
+            <div onClick={()=>CheckisPremium()} className={styles.undoMoveCont}>
                     <div className={styles.innerUndoMove}>
                         <img className={styles.undoMoveImg} src={undoMoveIcon} alt="undoMoveIcon" />
-                        <p className={styles.undoMoveText}>Undo Move</p>
+                        <p  className={styles.undoMoveText}>Undo Move</p>
                     </div>
                 </div>
-                <img className={styles.filterIcon} src={filterIcon} alt="filterIcon" />
+                <img onClick={()=>CheckisPremium()} className={styles.filterIcon} src={filterIcon} alt="filterIcon" />
             </div>
             <div className={styles.vibeinfo}>
                 <div className={styles.userDetailsContainer}>
