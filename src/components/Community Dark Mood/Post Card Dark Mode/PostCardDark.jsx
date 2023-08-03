@@ -69,7 +69,7 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log("this is post detail--", postDetail);
+  // console.log("this is post detail--", postDetail);
   // get the posts comments
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -132,7 +132,7 @@ export default function PostCardDark({
     await updateLikedPostInFirebase(newLikeArray, id);
   };
   const setNotificationDatainFirebase = async (item) => {
-    console.log("this is item", item);
+    // console.log("this is item", item);
     try {
       const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
       // console.log("posted by", postedByUserDoc.email[0]);
@@ -173,7 +173,7 @@ export default function PostCardDark({
     }
   };
   // console.log("post details--- ", postDetail);
-  console.log("postedBy", postedByUserDoc);
+  // console.log("postedBy", postedByUserDoc);
 
   const updateLikedPostInFirebase = async (data, id) => {
     const userDocumentRef = doc(db, "Posts", postId);
@@ -468,7 +468,7 @@ export default function PostCardDark({
     toast("reported post");
   }
   // fetching the post user type
-  useEffect(() => {});
+  useEffect(() => { });
 
   //GET TIME OF POST
   useEffect(() => {
@@ -562,7 +562,7 @@ export default function PostCardDark({
                           Investor
                         </div>
                       );
-                    case "professional":
+                    case "professionals":
                       return (
                         <div className={style.professional}>
                           {" "}
@@ -662,7 +662,8 @@ export default function PostCardDark({
         </div>
         <div className={style.postDivideLine_community}></div>
         <div className={style.postTextContainer}>
-          {item?.text.length > 3 ? (
+
+          {Array.isArray(item.text) ? (item?.text.length > 3 ? (
             <h3 className={style.postText}>
               {showMorePostTextClick ? (
                 // Display all strings in item.text, each on a new line
@@ -691,7 +692,11 @@ export default function PostCardDark({
                 <div key={index}>{textItem}</div>
               ))}
             </h3>
-          )}
+          )) : (<h3 className={style.postText}>
+            {item?.text}
+          </h3>)}
+
+
         </div>
         {item?.image ? (
           <div className="postImageContainer" style={{ width: "100%" }}>
@@ -730,7 +735,7 @@ export default function PostCardDark({
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
           <div
-            style={{ display: "flex", alignItems: "center", width: "100 %" }}
+            style={{ display: "flex", alignItems: "center", width: "100 %",    justifyContent:"space-evenly" }}
           >
             <div
               onClick={() => {
@@ -750,7 +755,7 @@ export default function PostCardDark({
               </div>
 
               <h3 style={{ cursor: "pointer" }} className={style.postLikeCount}>
-                {postDetail?.likes.length} Like
+                {postDetail?.likes.length} <span className={style.postIconsText}>Like</span> 
               </h3>
             </div>
 
@@ -777,7 +782,7 @@ export default function PostCardDark({
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
-                {postDetail?.comments.length} Comment
+                {postDetail?.comments.length} <span className={style.postIconsText}>Comment</span> 
               </h3>
             </div>
 
@@ -799,8 +804,8 @@ export default function PostCardDark({
                 <h3
                   style={{ cursor: "pointer" }}
                   className={style.postCommentCount}
-                >
-                  Share
+                > <span className={style.postIconsText}>Share</span>
+                  
                 </h3>
               </div>
             </div>
@@ -973,9 +978,9 @@ export default function PostCardDark({
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
                             ? // The ternary operator starts here
-                              commentedByUserDoc?.filter((it) => {
-                                return it.email === list?.commentedby?.id;
-                              })[0]?.image
+                            commentedByUserDoc?.filter((it) => {
+                              return it.email === list?.commentedby?.id;
+                            })[0]?.image
                             : defaultImg
                         }
                         alt="CommentedUserPhoto"
@@ -1000,8 +1005,8 @@ export default function PostCardDark({
                       {/* <img onClick={()=>{setIsCommentThreeDotsClicked(current=>!current);setThreeDotsClickCommentId(list?.commentid)}} className='threeDotsPost commentThreeDotsPost' src="./images/dots.png" alt="3dots" /> */}
 
                       {isCommentThreeDotsClicked &&
-                      list?.commentedby?.id === user?.user?.email &&
-                      threeDotsClickCommentId === list?.commentid ? (
+                        list?.commentedby?.id === user?.user?.email &&
+                        threeDotsClickCommentId === list?.commentid ? (
                         <>
                           <div className="threeDotsOptions commentThreeDotsOption">
                             <a
@@ -1053,5 +1058,5 @@ export default function PostCardDark({
 
 PostCardDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => {},
+  openModal: () => { },
 };

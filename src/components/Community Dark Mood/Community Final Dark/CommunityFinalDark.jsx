@@ -92,7 +92,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const userDoc = useSelector((state) => state.userDoc);
   const [newPostdataId, setNewPostDataId] = useState([]);
   const [editPostButtonClick, setEditPostButtonClick] = useState(false);
-  const [newEditText, setNewEditText] = useState("");
+  const [newEditText, setNewEditText] = useState([]);
   const [editPostId, setEditPostId] = useState(null);
   const [textAreaIsClick, setTextAreaIsClick] = useState(false);
   const [scroll, setScroll] = useState(0);
@@ -342,6 +342,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // uploadVideoToFireBase()
   const uploadVideoToFireBase = async () => {
+    if(!postSpaceData[0] ){
+      toast("No postSpace");
+      return;
+    }
+    if(postSpaceData.length != 1){
+      toast("No postSpace");
+      return;
+    }
     if (selectedVideo === null && newPostText === "") {
       toast("Nothing To Post");
       return;
@@ -401,6 +409,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
+    if(!postSpaceData[0] ){
+      toast("No postSpace");
+      return;
+    }
+    if(postSpaceData.length != 1){
+      toast("No postSpace");
+      return;
+    }
     if (imageUpload === null && newPostText === "") {
       toast("Nothing To Post");
       return;
@@ -468,6 +484,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           comments: [],
           createdAt: new Date(),
           image: item,
+          video:null,
           likes: [],
           postedby: userRef,
           text: newPostArray,
@@ -477,6 +494,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         await setDoc(doc(db, "Posts", timeId), {
           comments: [],
           createdAt: new Date(),
+          image: null,
           video: item,
           likes: [],
           postedby: userRef,
@@ -484,6 +502,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           postSpace: postSpaceData,
         });
       }
+    
 
       newPostId.push(timeId);
 
@@ -512,8 +531,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // HANDLE EDIT POST BUTTON CLICK
   const handleEditPostButtonClick = (item, itemId) => {
-    setEditPostButtonClick(true);
+      setEditPostButtonClick(true);
+    let result = (item.text).join('\n')
+    // console.log("item.text ---- ",item.text)
+    // console.log("item.text ---- result ",result)
+  
     setNewEditText(item.text);
+    
     setEditPostId(itemId);
     if (item.image !== "") {
       setTempImageURL(item.image);
@@ -523,7 +547,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   // EDIT POST CHECK
   const EditPost = async () => {
     toast("Processing Your Request");
-    toast("Processing Your Request");
+    // toast("Processing Your Request");
     if (imageUpload === null && newEditText === "") {
       toast("Nothing To Edit");
       return;
@@ -554,7 +578,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   const EditPostInDatabase = async (imageURLL) => {
     const postRef = doc(db, "Posts", editPostId);
-
+    console.log("newEditText just after into database" ,newEditText)
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
 
@@ -722,16 +746,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   useEffect(() => {
-    if ((newPostText || tempImageURL) && postSpaceData.length >= 1) {
+    console.log("postSpaceData",postSpaceData[0])
+    if ((newPostText || tempImageURL) && postSpaceData.length == 1 && postSpaceData[0]) {
       setPostUploadStatus(true);
     }
-    if (!(newPostText || tempImageURL) && postSpaceData.length >= 1) {
-      setPostUploadStatus(false);
-    }
-    if ((newPostText || tempImageURL) && !postSpaceData.length >= 1) {
-      setPostUploadStatus(false);
-    }
-    if (!(newPostText || tempImageURL) && !postSpaceData.length >= 1) {
+   else{
+
       setPostUploadStatus(false);
     }
   }, [newPostText, tempImageURL, postSpaceData]);
@@ -992,12 +1012,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           className={style.navbarUploadPostOuterBoxContainer}
                         >
                           <textarea
-                            onChange={(e) => setNewEditText(e.target.value)}
+                            onChange={(e) => {{
+                              const newValue = e.target.value;
+                              const newLinesArray = newValue.split('\n');
+                              setNewEditText(newLinesArray);
+                              console.log("newEditText on textArea", newEditText);
+                            };}}
                             name="postText"
                             className="editOldPostTextArea"
                             id="postTextContainerExpanded"
                             rows="3"
-                            value={newEditText}
+                            value={newEditText.join('\n')}
                             placeholder="What Would You Like To Edit?"
                           ></textarea>
                           {tempImageURL ? (
@@ -1284,10 +1309,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         if (!isLoggedIn) {
                           return openModal();
                         } else {
-                          if (tempImageURL) {
+                          if ((tempImageURL && newPostText) || tempImageURL ) {
                             uploadImageToFireBase();
-                          } else if (tempVideoURL) {
+                          } else if ((tempVideoURL && newPostText) || tempVideoURL ) {
                             uploadVideoToFireBase();
+                          }
+                          else{
+                            uploadImageToFireBase();
+
                           }
                         }
                       }}

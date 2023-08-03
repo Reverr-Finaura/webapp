@@ -218,7 +218,7 @@ letter-spacing: 0.42px;
 
 .postLikesContainer {
   display: flex;
-  margin: auto;
+  /* margin: auto; */
   color: #ffffff;
 }
 
@@ -259,7 +259,7 @@ letter-spacing: 0.42px;
 
 .postCommentContainer {
   display: flex;
-  margin: auto;
+  /* margin: auto; */
   /* --main-text */
   color: #ffffff;
 }
@@ -305,7 +305,7 @@ letter-spacing: 0.42px;
 }
 
 .postSendLinkContainer {
-  margin: auto;
+  /* margin: auto; */
   cursor: pointer;
   /* --main-text */
   color: #ffffff;
@@ -593,6 +593,9 @@ letter-spacing: 0.42px;
 }
 
 @media screen and (max-width: 500px) {
+  .postIconsText{
+    display: none;
+  }
   .timeSpan{
     display: none;
    }
@@ -616,7 +619,7 @@ letter-spacing: 0.42px;
   }
 
   .postText{
-      font-size: 1rem !important
+      font-size: .8rem !important
   }
   .middleSection {
       margin-top: 120px
@@ -633,6 +636,16 @@ letter-spacing: 0.42px;
 .postCommentContainer{ margin: 0px 4px 0px 4px}
 .postSednLinkContainer{ margin: 0px 4px 0px 4px}
 } 
+@media (max-width: 350px ){
+  .founder,.mentor,.investor,.professional{
+    font-size: 10px;  
+    
+    font-weight: 400;
+    margin-left: 5px;
+   
+  }
+
+}
 
 @media (max-width: 310px) {
   .PostCardContainer{
