@@ -69,8 +69,45 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  // console.log("this is post detail--", postDetail);
-  // get the posts comments
+  const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([])
+
+
+  useEffect(()=>{
+  
+    const fetchUserInformation = async () => {
+      const updatedPostsData = await Promise.all(
+        postsData.map(async (item) => {
+          const userData = await getUserDocByRef(item.postedby); 
+          return { ...item, postedby: userData }; // Create a new object with updated user data
+        })
+      );
+
+      setPostsDataWithUserDoc(updatedPostsData)
+    };
+    fetchUserInformation()
+    
+  },[])
+  console.log("postsDateWithUserDoc ----" , postsDataWithUserDoc)
+
+  // useEffect(() => {
+  //   let temp = postsData;
+  //   console.log("this is temp[idx] ---", temp)
+  //   postsData.map((item, idx) => {
+
+  //       getUserDocByRef(item.postedby).then((res) => {
+  //         temp[idx].postedby = res;
+  //        // setPostsData(temp)
+
+  //     });
+      
+  //   })  
+  //    // const foundPost = postsData.find((post) => post.id === postId);
+  //    setPostsDataWithUserDoc(temp)
+  //    console.log("this is temp " , temp)
+  //    console.log("this is item ", item)
+
+  // }, [])
+
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
 
@@ -82,11 +119,13 @@ export default function PostCardDark({
         setPostComments(data.comments);
         setPostDetail(data);
 
-        // data.map((event) => {
-        getUserDocByRef(data.postedby).then((res) => {
-          //  console.log("___looking of user data_____",res.userType)
-          setUserType(res.userType);
-        });
+
+
+        // // data.map((event) => {
+        // getUserDocByRef(data.postedby).then((res) => {
+        //   //  console.log("___looking of user data_____",res.userType)
+        //   setUserType(res.userType);
+        // });
         // });
         // console.log("the post data is here -- above", data.postedby);
       } else {
@@ -537,8 +576,11 @@ export default function PostCardDark({
                 {postedByUserDoc?.name ? postedByUserDoc?.name : "NULL "}
               </h3>
               <div className="postAuthorType">
-                {(() => {
-                  switch (userType) {
+                {   postsDataWithUserDoc.length >= 1 && 
+                 (() => {
+                  const foundPost = postsDataWithUserDoc.find((post) => post.id === postId);
+                  // console.log("this is foundpost ---- ",foundPost )
+                  switch (foundPost?.postedby?.userType) {
                     case "founder":
                       return (
                         <div className={style.founder}>
@@ -573,7 +615,9 @@ export default function PostCardDark({
                     default:
                       return null;
                   }
-                })()}
+                })()
+              }
+                
               </div>
             </div>
 
@@ -735,7 +779,7 @@ export default function PostCardDark({
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
           <div
-            style={{ display: "flex", alignItems: "center", width: "100 %",    justifyContent:"space-evenly" }}
+            style={{ display: "flex", alignItems: "center", width: "100 %", justifyContent: "space-evenly" }}
           >
             <div
               onClick={() => {
@@ -755,7 +799,7 @@ export default function PostCardDark({
               </div>
 
               <h3 style={{ cursor: "pointer" }} className={style.postLikeCount}>
-                {postDetail?.likes.length} <span className={style.postIconsText}>Like</span> 
+                {postDetail?.likes.length} <span className={style.postIconsText}>Like</span>
               </h3>
             </div>
 
@@ -782,7 +826,7 @@ export default function PostCardDark({
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
-                {postDetail?.comments.length} <span className={style.postIconsText}>Comment</span> 
+                {postDetail?.comments.length} <span className={style.postIconsText}>Comment</span>
               </h3>
             </div>
 
@@ -805,7 +849,7 @@ export default function PostCardDark({
                   style={{ cursor: "pointer" }}
                   className={style.postCommentCount}
                 > <span className={style.postIconsText}>Share</span>
-                  
+
                 </h3>
               </div>
             </div>
