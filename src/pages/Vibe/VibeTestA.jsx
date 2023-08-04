@@ -16,7 +16,8 @@ const VibeTestA = () => {
     <NavBarFinalDarkMode/>
     <div className={style.vibeContainer}>
     <VibeRightSideBar/>
-      <LikesExhaust/>
+      {/* <LikesExhaust/> */}
+      <VibeMiddlePart/>
       <Matches/>
         
     </div>

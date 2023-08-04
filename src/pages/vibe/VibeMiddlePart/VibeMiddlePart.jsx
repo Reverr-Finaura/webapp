@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
+  const [frtext, setFRText] = useState("")
 
   const data = {
     userphoto: userProfilePucture,
@@ -64,12 +65,12 @@ const VibeMiddlePart = () => {
   const userDoc = useSelector((state) => state.userDoc);
   // console.log(userDoc?.vibeuser);
   const CheckisPremium = () => {
-    // if (!ispremium) {
-    //   return SetRedo(true);
-    // }
-    if (!userDoc?.vibeuser) {
+    if (!ispremium) {
       return SetRedo(true);
     }
+    // if (!userDoc?.vibeuser) {
+    //   return SetRedo(true);
+    // }
   };
 
   const HandShakeUser = async (userEmail) => {};
@@ -160,11 +161,11 @@ const VibeMiddlePart = () => {
       >
         {/* ////Not Premium Pop-UP//// */}
         {
-           !ispremium && redo &&  <FilterRedoPopUp SetRedo={SetRedo} setIsPremium={setIsPremium}/>
+           !ispremium && redo &&  <FilterRedoPopUp frtext={frtext} SetRedo={SetRedo} setIsPremium={setIsPremium}/>
         }
 
         <div className={styles.filterContainer}>
-          <div onClick={() => CheckisPremium()} className={styles.undoMoveCont}>
+          <div onClick={()=>(CheckisPremium(),setFRText("Undo"))} className={styles.undoMoveCont}>
             <div className={styles.innerUndoMove}>
               <img
                 className={styles.undoMoveImg}
@@ -175,7 +176,7 @@ const VibeMiddlePart = () => {
             </div>
           </div>
           <img
-            onClick={() => CheckisPremium()}
+           onClick={()=>(CheckisPremium(),setFRText("Filter"))}
             className={styles.filterIcon}
             src={filterIcon}
             alt="filterIcon"
