@@ -136,6 +136,7 @@ import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
 import VibeTestA from "./pages/vibe/VibeTestA";
 import FilterPart from "./pages/vibe/FilterPart/FilterPart";
+import VibeOuter from "./pages/vibe/Left/LeftContainer";
 
 
 
@@ -400,6 +401,7 @@ function App() {
         <Route path="/discover/healthcare" element={<Healthcare />}></Route>
         <Route path="/vibetestinga" element={<VibeTestA />}></Route>
         <Route path="/vibetestinga" element={<FilterPart />}></Route>
+        <Route path="/vibe" element={<VibeOuter />}></Route>
       </Routes>
     </>
   );
