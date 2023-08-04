@@ -26,6 +26,8 @@ const initialState={
     network: [],
     sendRequests: [],
     receivedRequests: [],
+    vibeuser:"",
+    
 }
 
 
@@ -111,7 +113,12 @@ state.about=action.payload;
      },
      setHereFor: (state, action) => {
       state.here_for = action.payload;
+     },
+     setvibeuser:(state,action)=>{
+      state.vibeuser=action.payload
+
      }
+    
 
 }
 })
@@ -141,7 +148,7 @@ export const {
    setExpCompany,
    setHereFor,
    setName,
-   setEmail
+   setEmail,setvibeuser
 } = onboardingSlice.actions;
 export default onboardingSlice.reducer;
 
