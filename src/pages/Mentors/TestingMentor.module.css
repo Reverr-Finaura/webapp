@@ -269,7 +269,7 @@ text{
 .amountToPay {
   /* margin-top: 1rem; */
   display: flex;
-  width: 8rem;
+  width: 10rem;
   padding: 0.4rem 1rem;
   align-items: flex-start;
   border-radius: 50px;
