@@ -28,6 +28,7 @@ import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import defaultImg from "../../../images/default-profile-pic.webp";
 import { toast } from "react-toastify";
+import NoData from "./No Data Screen/NoData";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -54,9 +55,19 @@ const VibeMiddlePart = () => {
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
       const usersnapshot = await getDocs(userquery);
+      const likedByCurrentUserDoc = usersnapshot.docs.find((doc) => {
+        return doc.data().email === currentLoggedInUser?.user?.email
+      });
+      const likedByCurrentUser = likedByCurrentUserDoc?.data().liked_by;
+      const fleshedByCurrentUserDoc = usersnapshot.docs.find((doc) => {
+        return doc.data().email === currentLoggedInUser?.user?.email
+      });
+      const fleshedByCurrentUser = fleshedByCurrentUserDoc?.data().passed_email;
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
           doc.data().email !== currentLoggedInUser?.user?.email &&
+          !likedByCurrentUser.includes(doc.data().email) &&
+          !fleshedByCurrentUser.includes(doc.data().email) &&
           doc.data().vibeuser === "true"
       );
       const fetchedUserData = filteredDocs.map((doc) => doc.data());
@@ -91,6 +102,7 @@ const VibeMiddlePart = () => {
       console.log(userData);
       setCurrentUserIndex(currentUserIndex + 1);
     }
+
     LikeUser();
     handleSwipe();
   };
@@ -303,8 +315,7 @@ const VibeMiddlePart = () => {
             setIsPremium={setIsPremium}
           />
         )}
-
-        <div className={styles.filterContainer}>
+          <div className={styles.filterContainer}>
           <div
             onClick={() => (CheckisPremium(), setFRText("Undo"))}
             className={styles.undoMoveCont}
