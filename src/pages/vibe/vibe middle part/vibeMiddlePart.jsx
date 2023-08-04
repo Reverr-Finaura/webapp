@@ -19,6 +19,7 @@ import { useState } from "react";
 const VibeMiddlePart = () => {
     const [ispremium, setIsPremium] = useState(false)
     const [redo, SetRedo] = useState(false)
+    const [frtext, setFRText] = useState("")
 
     const data = {
         userphoto : userProfilePucture,
@@ -69,20 +70,20 @@ const VibeMiddlePart = () => {
             {/* ////Not Premium Pop-UP//// */}
         {
             
-            !ispremium && redo &&  <FilterRedoPopUp SetRedo={SetRedo} setIsPremium={setIsPremium}/>
+            !ispremium && redo &&  <FilterRedoPopUp frtext={frtext} SetRedo={SetRedo} setIsPremium={setIsPremium}/>
 
         }
             
            
 
             <div className={styles.filterContainer}>
-            <div onClick={()=>CheckisPremium()} className={styles.undoMoveCont}>
+            <div onClick={()=>(CheckisPremium(),setFRText("Undo"))} className={styles.undoMoveCont}>
                     <div className={styles.innerUndoMove}>
                         <img className={styles.undoMoveImg} src={undoMoveIcon} alt="undoMoveIcon" />
                         <p  className={styles.undoMoveText}>Undo Move</p>
                     </div>
                 </div>
-                <img onClick={()=>CheckisPremium()} className={styles.filterIcon} src={filterIcon} alt="filterIcon" />
+                <img onClick={()=>(CheckisPremium(),setFRText("Filter"))} className={styles.filterIcon} src={filterIcon} alt="filterIcon" />
             </div>
             <div className={styles.vibeinfo}>
                 <div className={styles.userDetailsContainer}>

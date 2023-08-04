@@ -1,14 +1,14 @@
 import React from 'react'
 import styles from "./vibeMiddlePart.module.css";
 
-const FilterRedoPopUp = ({setIsPremium,SetRedo}) => {
+const FilterRedoPopUp = ({setIsPremium,SetRedo,frtext}) => {
   return (
     <div className={styles.middlePopUp}>
     <div>
-        <p>Unable to Undo Move?</p>
+        <p>Unable to {frtext} Move?</p>
         <p>Upgrade to <span style={{color:"#00B3FF"}}> Premium </span>to use this feature and never miss a potential match.</p>
         <button>Get Premium</button>
-        <p onClick={()=>(setIsPremium(false),SetRedo(false))}>x</p>
+        <p style={{cursor:"pointer"}} onClick={()=>(setIsPremium(false),SetRedo(false))}>x</p>
     </div>
 </div>
   )
