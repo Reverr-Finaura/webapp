@@ -3,7 +3,7 @@ import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDa
 import VibeRightSideBar from "./RightPart/VibeRightSideBar";
 import style from "./vibe.module.css";
 import Matches from "./ManageMatches/Matches";
-import VibeMiddlePart from "../vibe/VibeMiddlePart/VibeMiddlePart";
+import VibeMiddlePart from "../Vibe/VibeMiddlePart/VibeMiddlePart";
 
 const VibeTestA = () => {
   return (

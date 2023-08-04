@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "./vibeMiddlePart.module.css";
+import styles from "../VibeMiddlePart/vibeMiddlePart.module.css";
 
 const FilterRedoPopUp = ({setIsPremium,SetRedo,frtext}) => {
   return (

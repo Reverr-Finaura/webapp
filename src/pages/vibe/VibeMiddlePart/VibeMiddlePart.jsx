@@ -13,7 +13,7 @@ import nopeIcon from "../../../images/nopeIcon.svg";
 import handShakeIcon from "../../../images/handshakeIcon.svg";
 import blueLikeIcon from "../../../images/bluelikeIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
-// import FilterRedoPopUp from "./FilterRedoPopUp";
+import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
 import { useState } from "react";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -62,9 +62,12 @@ const VibeMiddlePart = () => {
   };
 
   const userDoc = useSelector((state) => state.userDoc);
-
+  // console.log(userDoc?.vibeuser);
   const CheckisPremium = () => {
-    if (!ispremium) {
+    // if (!ispremium) {
+    //   return SetRedo(true);
+    // }
+    if (!userDoc?.vibeuser) {
       return SetRedo(true);
     }
   };
@@ -157,7 +160,7 @@ const VibeMiddlePart = () => {
       >
         {/* ////Not Premium Pop-UP//// */}
         {
-          // !ispremium && redo &&  <FilterRedoPopUp SetRedo={SetRedo} setIsPremium={setIsPremium}/>
+           !ispremium && redo &&  <FilterRedoPopUp SetRedo={SetRedo} setIsPremium={setIsPremium}/>
         }
 
         <div className={styles.filterContainer}>

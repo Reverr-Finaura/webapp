@@ -1,4 +1,4 @@
-import styles from "./vibeMiddlePart.module.css";
+import styles from "../VibeMiddlePart/vibeMiddlePart.module.css";
 import filterIcon from "../../../images/filterIcon.svg";
 import userProfilePucture from "../../../images/userProfilePicture.svg";
 import location from "../../../images/location.svg";
