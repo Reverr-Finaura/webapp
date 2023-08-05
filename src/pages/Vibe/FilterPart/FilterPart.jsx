@@ -1,7 +1,15 @@
 import React from "react";
 import styles from "./styles.module.css";
+import videoCall from "../../../images/videocallimg.svg";
+import phoneCall from "../../../images/phonecallimg.svg";
+import atCoffee from "../../../images/atcoffeeimg.svg";
 
-const FilterPart = () => {
+const FilterPart = ({setFilter}) => {
+  const role =["Founder","Mentor","Professional","Investor","Service Provider"]
+  const spaces =["FinTech","Visual Design","EdTech","FoodTech","AgriTech","E-commerce","Logistics & Delivery",
+                "CleanTech & RE","AI & ML","Web 3.0","FashionTech","HealthTech","SpaceTech","Cybersecurity",
+                "Internet of Things (IOT)","AR & VR","BioTech","Real Estate","TravelTech","BeautyTech","LegalTech","HR-Tech",
+                "Personal Fitness Tech","Waste Management","CouldTech"]
   const interests = ["MentorShip", "Fundraising", "Knowledge"];
   const industry = [
     "FinTech",
@@ -30,7 +38,7 @@ const FilterPart = () => {
   ];
   return (
     <div className={styles.filterWrapper}>
-      <div className={styles.filter}>
+      {/* <div className={styles.filter}>
         <div className={styles.filterTitle}>
           Select your preferred interests
         </div>
@@ -41,16 +49,30 @@ const FilterPart = () => {
                 {item}
               </div>
             );
-          })}
+          })} */}
           {/* <div className={styles.filterItemSelected}>MentorShip</div> */}
+        {/* </div> */}
+      {/* </div> */}
+       <div className={styles.filter}>
+        <div className={styles.filterTitle}>
+        Select a Role.
+        </div>
+        <div className={styles.filterContent}>
+          {role.map((item, index) => {
+            return (
+              <div className={styles.filterItem} key={index}>
+                {item}
+              </div>
+            );
+          })} 
         </div>
       </div>
       <div className={styles.filter}>
         <div className={styles.filterTitle}>
-          Select your preferred interests
+        Select Spaces(s)
         </div>
         <div className={styles.filterContent}>
-          {industry.map((item, index) => {
+          {spaces.map((item, index) => {
             return (
               <div className={styles.filterItem} key={index}>
                 {item}
@@ -61,7 +83,7 @@ const FilterPart = () => {
         </div>
       </div>
       {/* ------------------------Strengths--------------------- */}
-      <div className={styles.filter}>
+      {/* <div className={styles.filter}>
         <div className={styles.filterTitle}>
           Select your preferred interests
         </div>
@@ -72,10 +94,10 @@ const FilterPart = () => {
                 {item}
               </div>
             );
-          })}
+          })} */}
           {/* <div className={styles.filterItemSelected}>MentorShip</div> */}
-        </div>
-      </div>
+        {/* </div>
+      </div> */}
       {/* --------------------Age Preference---------------- */}
       {/* IT IS LINE RANGE INPUT */}
       <div className={styles.filter}>
@@ -98,13 +120,13 @@ const FilterPart = () => {
         <div className={styles.filterTitle}>Type of meeting?</div>
         <div className={styles.filterContent}>
           <div className={styles.meetingCard}>
-            <div className={styles.meetingCardTitle}>Video Call</div>
+            <div className={styles.meetingCardTitle}> <img style={{width:"80px",height:"80px"}} src={videoCall} alt="" />Video Call</div>
           </div>
           <div className={styles.meetingCard}>
-            <div className={styles.meetingCardTitle}>Phone Call</div>
+            <div className={styles.meetingCardTitle}><img style={{width:"80px",height:"80px"}} src={phoneCall} alt="" />Phone Call</div>
           </div>
           <div className={styles.meetingCard}>
-            <div className={styles.meetingCardTitle}>At Coffee</div>
+            <div className={styles.meetingCardTitle}><img style={{width:"80px",height:"80px"}} src={atCoffee} alt="" />At Coffee</div>
           </div>
         </div>
       </div>
@@ -124,7 +146,7 @@ const FilterPart = () => {
       <div className={styles.filter}>
         <div className={styles.filterContent}>
           <div className={styles.doneBtn}>Done</div>
-          <div className={styles.filterItem}>Cancel</div>
+          <div onClick={()=>setFilter(false)} className={styles.filterItem}>Cancel</div>
         </div>
       </div>
     </div>

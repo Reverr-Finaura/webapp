@@ -14,6 +14,7 @@ import handShakeIcon from "../../../images/handshakeIcon.svg";
 import blueLikeIcon from "../../../images/bluelikeIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
+import FilterPart from "../FilterPart/FilterPart";
 import { useState } from "react";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -22,6 +23,7 @@ import { useSelector } from "react-redux";
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
+  const [filter, setFilter] = useState(false);
   const [frtext, setFRText] = useState("")
 
   const data = {
@@ -65,13 +67,17 @@ const VibeMiddlePart = () => {
   const userDoc = useSelector((state) => state.userDoc);
   // console.log(userDoc?.vibeuser);
   const CheckisPremium = () => {
-    if (!ispremium) {
+    
+    if (!ispremium  ) {
       return SetRedo(true);
     }
-    // if (!userDoc?.vibeuser) {
-    //   return SetRedo(true);
-    // }
+   
   };
+  const CheckisPremiumFilter=()=>{
+    if(!ispremium){
+      return setFilter(true)
+    }
+  }
 
   const HandShakeUser = async (userEmail) => {};
 
@@ -155,6 +161,19 @@ const VibeMiddlePart = () => {
   //   FlushUser();
   return (
     <>
+     {/* ///Filter Screen//// */}
+  {     !ispremium && filter && <>
+       <div className={styles.filtermodalback}>
+       </div>
+       <div className={styles.filtermodal}>
+            {
+              <FilterPart setFilter={setFilter}/>
+            }
+          </div>
+          </>
+  }
+        
+
       <div
         style={{ overflowY: !redo ? "scroll" : "hidden" }}
         className={styles.middleContainer}
@@ -163,6 +182,8 @@ const VibeMiddlePart = () => {
         {
            !ispremium && redo &&  <FilterRedoPopUp frtext={frtext} SetRedo={SetRedo} setIsPremium={setIsPremium}/>
         }
+
+       
 
         <div className={styles.filterContainer}>
           <div onClick={()=>(CheckisPremium(),setFRText("Undo"))} className={styles.undoMoveCont}>
@@ -176,7 +197,7 @@ const VibeMiddlePart = () => {
             </div>
           </div>
           <img
-           onClick={()=>(CheckisPremium(),setFRText("Filter"))}
+           onClick={()=>(CheckisPremiumFilter(),setFRText("Filter"))}
             className={styles.filterIcon}
             src={filterIcon}
             alt="filterIcon"
