@@ -50,42 +50,42 @@ const VibeMiddlePart = () => {
     "At Coffee": atCoffee,
   };
 
-  const getUserData = async () => {
-    try {
-      const userRef = collection(db, "Users");
-      const userquery = query(userRef);
-      const usersnapshot = await getDocs(userquery);
-      const likedByCurrentUserDoc = usersnapshot.docs.find((doc) => {
-        return doc.data().email === currentLoggedInUser?.user?.email
-      });
-      const likedByCurrentUser = likedByCurrentUserDoc?.data().liked_by;
-      const fleshedByCurrentUserDoc = usersnapshot.docs.find((doc) => {
-        return doc.data().email === currentLoggedInUser?.user?.email
-      });
-      const fleshedByCurrentUser = fleshedByCurrentUserDoc?.data().passed_email;
-      const filteredDocs = usersnapshot.docs.filter(
-        (doc) =>
-          doc.data().email !== currentLoggedInUser?.user?.email &&
-          !likedByCurrentUser.includes(doc.data().email) &&
-          !fleshedByCurrentUser.includes(doc.data().email) &&
-          doc.data().vibeuser === "true"
-      );
-      const fetchedUserData = filteredDocs.map((doc) => doc.data());
-      setUserData(fetchedUserData);
-      console.log("fetched User data", fetchedUserData);
-      console.log("userdataV", userData);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
   useEffect(() => {
+    const getUserData = async () => {
+      try {
+        console.log("userDoc data fetch");
+        const userRef = await collection(db, "Users");
+        const userquery = await query(userRef);
+        const usersnapshot = await getDocs(userquery);
+
+        const currentUserLikes = userDoc?.liked || [];
+        console.log("currentUserLikes", currentUserLikes);
+
+        const fleshedByCurrentUser = userDoc?.passed_email || [];
+        console.log("fleshedByCurrentUser", fleshedByCurrentUser);
+        const filteredDocs = usersnapshot.docs.filter(
+          (doc) =>
+            doc.data().email !== userDoc?.email &&
+            !currentUserLikes.includes(doc.data().email) &&
+            !fleshedByCurrentUser.includes(doc.data().email) &&
+            doc.data().vibeuser === "true"
+        );
+        console.log("filteredDocs", filteredDocs);
+        const fetchedUserData = filteredDocs.map((doc) => doc.data());
+        setUserData(fetchedUserData);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
     getUserData();
   }, []);
+
+  console.log("userdatV", userData);
 
   const handleLikeCkick = () => {
     // if the user has no swipe remaining and the update time is not reached yet
     // then show the toast message and return
+
     if (
       swipeLimit.swipeRemaining === 0 &&
       swipeLimit.swipeUpdateTime > new Date().getTime()
@@ -98,13 +98,14 @@ const VibeMiddlePart = () => {
       return;
     }
 
+    LikeUser(userData[currentUserIndex].email);
+
     if (currentUserIndex < userData.length - 1) {
-      console.log(userData);
+      console.log(userData[currentUserIndex]);
       setCurrentUserIndex(currentUserIndex + 1);
     }
 
-    LikeUser();
-    handleSwipe();
+    // handleSwipe();
   };
 
   const handleNopeCkick = () => {
@@ -168,7 +169,7 @@ const VibeMiddlePart = () => {
       }
     };
 
-    fetchSwipeLimit();
+    // fetchSwipeLimit();
   }, [currentLoggedInUser]);
 
   const handleSwipe = async () => {
@@ -221,48 +222,100 @@ const VibeMiddlePart = () => {
   };
   //---------------------Swipe Limit Code End---------------------//
 
-  const HandShakeUser = async (userEmail) => {};
-
-  const NopeUser = async (userEmail) => {
-    userEmail = "raman2@gmail.com";
-    FlushUser(userEmail);
-  };
-
-  const LikeUser = async (userEmail) => {
-    userEmail = "raman@gmail.com";
+  // ------------------HandShake---------------------------------
+  const HandShakeUser = async (userEmail) => {
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
     try {
       const docSnap = await getDoc(docRef);
       const otherDocSnap = await getDoc(otherDocRef);
-      console.log("HIIIIII");
 
       if (docSnap.exists()) {
-        let liked_by;
+        let superlikes;
 
-        if (!docSnap.data().liked_by) {
-          liked_by = [];
+        if (!docSnap.data().handShake) {
+          superlikes = [];
         } else {
-          liked_by = docSnap.data().liked_by;
+          superlikes = docSnap.data().superlikes;
         }
 
-        await updateDoc(docRef, {
-          liked_by: [...liked_by, userEmail],
-        });
+        if (superlikes.includes(userEmail)) {
+          console.log("Already HandShaked");
+        } else {
+          await updateDoc(docRef, {
+            handShake: [...superlikes, userEmail],
+          });
+        }
       }
 
       if (otherDocSnap.exists()) {
-        let likes;
+        let superliked_by;
 
-        if (!otherDocSnap.data().likes) {
-          likes = [];
+        if (!otherDocSnap.data().superliked_by) {
+          superliked_by = [];
         } else {
-          likes = otherDocSnap.data().likes;
+          superliked_by = otherDocSnap.data().superliked_by;
         }
 
-        await updateDoc(otherDocRef, {
-          likes: [...likes, userDoc?.email],
-        });
+        if (superliked_by.includes(userDoc?.email)) {
+          console.log("Already HandShaked");
+        } else {
+          await updateDoc(otherDocRef, {
+            handShake: [...superliked_by, userDoc?.email],
+          });
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const NopeUser = async (userEmail) => {
+    FlushUser(userEmail);
+  };
+
+  const LikeUser = async (userEmail) => {
+    console.log("userEmail To Like", userEmail);
+    const docRef = doc(db, "Users", userDoc?.email);
+    const otherDocRef = doc(db, "Users", userEmail);
+    try {
+      const docSnap = await getDoc(docRef);
+      const otherDocSnap = await getDoc(otherDocRef);
+
+      if (docSnap.exists()) {
+        let liked;
+
+        if (!docSnap.data().liked) {
+          liked = [];
+        } else {
+          liked = docSnap.data().liked;
+        }
+
+        if (liked.includes(userEmail)) {
+          console.log("Already Liked");
+        } else {
+          await updateDoc(docRef, {
+            liked: [...liked, userEmail],
+          });
+        }
+      }
+
+      if (otherDocSnap.exists()) {
+        let liked_by;
+
+        if (!otherDocSnap.data().liked_by) {
+          liked_by = [];
+        } else {
+          liked_by = otherDocSnap.data().liked_by;
+        }
+
+        if (liked_by.includes(userDoc?.email)) {
+          console.log("Already Liked By");
+        } else {
+          await updateDoc(otherDocRef, {
+            liked_by: [...liked_by, userDoc?.email],
+          });
+        }
       } else {
         console.log("No such document!");
       }
@@ -276,31 +329,35 @@ const VibeMiddlePart = () => {
     const docRef = doc(db, "Users", userDoc?.email);
     try {
       const docSnap = await getDoc(docRef);
-      console.log("HIIIIII");
-      let passed_email;
 
-      if (!docSnap.data().passed_email) {
-        passed_email = [];
-      } else {
-        passed_email = docSnap.data().passed_email;
-      }
-
-      updateDoc(docRef, {
-        passed_email: [...passed_email, email],
-      });
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+        let passed_email;
+
+        if (!docSnap.data().passed_email) {
+          passed_email = [];
+        } else {
+          passed_email = docSnap.data().passed_email;
+        }
+
+        if (passed_email.length >= 10) {
+          passed_email.shift();
+        }
+
+        passed_email.push(email);
+
+        await updateDoc(docRef, {
+          passed_email: passed_email,
+        });
+
+        console.log("Email flushed successfully!");
       } else {
-        // doc.data() will be undefined in this case
         console.log("No such document!");
       }
     } catch (e) {
       console.log("Error getting document:", e);
     }
-    // const userDocument = await getDoc(userDocumentRef);
   };
 
-  //   FlushUser();
   return (
     <>
       <div
@@ -315,7 +372,7 @@ const VibeMiddlePart = () => {
             setIsPremium={setIsPremium}
           />
         )}
-          <div className={styles.filterContainer}>
+        <div className={styles.filterContainer}>
           <div
             onClick={() => (CheckisPremium(), setFRText("Undo"))}
             className={styles.undoMoveCont}
