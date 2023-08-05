@@ -18,6 +18,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { getUserDocByRef } from "../../../firebase";
 import { db, storage } from "../../../firebase";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
@@ -121,6 +122,27 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postUploadStatus, setPostUploadStatus] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPostLoading, setIsPostLoading] = useState(true);
+  const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([])
+
+
+  useEffect(() => {
+    const fetchUserInformation = async () => {
+      const updatedPostsData = await Promise.all(
+        postsData.map(async (item) => {
+          const userData = await getUserDocByRef(item.postedby);
+          return { ...item, postedby: userData }; // Create a new object with updated user data
+        })
+      );
+      setPostsDataWithUserDoc(updatedPostsData)
+
+    };
+
+    fetchUserInformation()
+
+  }, [postsData])
+
+  console.log("postsDateWithUserDoc ----", postsDataWithUserDoc)
+  console.log("this is the postsData----", postsData)
 
   //FETCH LATEST NEWS
   const options = {
@@ -342,11 +364,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // uploadVideoToFireBase()
   const uploadVideoToFireBase = async () => {
-    if(!postSpaceData[0] ){
+    if (!postSpaceData[0]) {
       toast("No postSpace");
       return;
     }
-    if(postSpaceData.length != 1){
+    if (postSpaceData.length != 1) {
       toast("No postSpace");
       return;
     }
@@ -409,11 +431,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
-    if(!postSpaceData[0] ){
+    if (!postSpaceData[0]) {
       toast("No postSpace");
       return;
     }
-    if(postSpaceData.length != 1){
+    if (postSpaceData.length != 1) {
       toast("No postSpace");
       return;
     }
@@ -484,7 +506,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           comments: [],
           createdAt: new Date(),
           image: item,
-          video:null,
+          video: null,
           likes: [],
           postedby: userRef,
           text: newPostArray,
@@ -502,7 +524,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           postSpace: postSpaceData,
         });
       }
-    
+
 
       newPostId.push(timeId);
 
@@ -531,13 +553,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // HANDLE EDIT POST BUTTON CLICK
   const handleEditPostButtonClick = (item, itemId) => {
-      setEditPostButtonClick(true);
+    setEditPostButtonClick(true);
     let result = (item.text).join('\n')
     // console.log("item.text ---- ",item.text)
     // console.log("item.text ---- result ",result)
-  
+
     setNewEditText(item.text);
-    
+
     setEditPostId(itemId);
     if (item.image !== "") {
       setTempImageURL(item.image);
@@ -578,7 +600,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   const EditPostInDatabase = async (imageURLL) => {
     const postRef = doc(db, "Posts", editPostId);
-    console.log("newEditText just after into database" ,newEditText)
+    console.log("newEditText just after into database", newEditText)
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
 
@@ -746,11 +768,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   useEffect(() => {
-    console.log("postSpaceData",postSpaceData[0])
+    console.log("postSpaceData", postSpaceData[0])
     if ((newPostText || tempImageURL) && postSpaceData.length == 1 && postSpaceData[0]) {
       setPostUploadStatus(true);
     }
-   else{
+    else {
 
       setPostUploadStatus(false);
     }
@@ -799,11 +821,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     return (
                       <div
                         key={index}
-                        className={`${style.spaceMenuData} ${
-                          activeIndex.includes(index)
-                            ? style.spaceMenuDataActive
-                            : ""
-                        }`}
+                        className={`${style.spaceMenuData} ${activeIndex.includes(index)
+                          ? style.spaceMenuDataActive
+                          : ""
+                          }`}
                         onClick={(event) =>
                           handleSpaceMenuDataClick(
                             index,
@@ -813,11 +834,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       >
                         <p
-                          className={`${style.spaceMenuDataPara} ${
-                            activeIndex.includes(index)
-                              ? style.spaceMenuDataParaActive
-                              : ""
-                          }`}
+                          className={`${style.spaceMenuDataPara} ${activeIndex.includes(index)
+                            ? style.spaceMenuDataParaActive
+                            : ""
+                            }`}
                         >
                           {space}
                         </p>
@@ -1012,12 +1032,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           className={style.navbarUploadPostOuterBoxContainer}
                         >
                           <textarea
-                            onChange={(e) => {{
-                              const newValue = e.target.value;
-                              const newLinesArray = newValue.split('\n');
-                              setNewEditText(newLinesArray);
-                              console.log("newEditText on textArea", newEditText);
-                            };}}
+                            onChange={(e) => {
+                              {
+                                const newValue = e.target.value;
+                                const newLinesArray = newValue.split('\n');
+                                setNewEditText(newLinesArray);
+                                console.log("newEditText on textArea", newEditText);
+                              };
+                            }}
                             name="postText"
                             className="editOldPostTextArea"
                             id="postTextContainerExpanded"
@@ -1105,8 +1127,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     !isLoggedIn
                       ? defaultImg
                       : userDoc?.image
-                      ? userDoc.image
-                      : defaultImg
+                        ? userDoc.image
+                        : defaultImg
                     // : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
                   alt="userImage"
@@ -1288,7 +1310,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       }}
                       onChange={handleOptionChange}
-                      // disabled={!isLoggedIn}
+                    // disabled={!isLoggedIn}
                     >
                       <option className={style.userSpaceOption} value="">
                         Select Spaces
@@ -1309,12 +1331,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         if (!isLoggedIn) {
                           return openModal();
                         } else {
-                          if ((tempImageURL && newPostText) || tempImageURL ) {
+                          if ((tempImageURL && newPostText) || tempImageURL) {
                             uploadImageToFireBase();
-                          } else if ((tempVideoURL && newPostText) || tempVideoURL ) {
+                          } else if ((tempVideoURL && newPostText) || tempVideoURL) {
                             uploadVideoToFireBase();
                           }
-                          else{
+                          else {
                             uploadImageToFireBase();
 
                           }
@@ -1408,7 +1430,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                  sortOptionSelected.whose === "People You Follow" ? (
+                    sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1433,6 +1455,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
+                            postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                           <DiscoverPerfectTools
                             isLoggedIn={isLoggedIn}
@@ -1456,6 +1479,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
+                            postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                           <FeaturedSuggestions
                             isLoggedIn={isLoggedIn}
@@ -1479,6 +1503,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
+                            postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                           <FeaturedMentors
                             isLoggedIn={isLoggedIn}
@@ -1499,6 +1524,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           isLoggedIn={isLoggedIn}
                           openModal={openModal}
                           postId={item.id}
+                          postsDataWithUserDoc={postsDataWithUserDoc}
                         />
                       );
                     }
@@ -1520,7 +1546,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                  sortOptionSelected.whose === "People You Follow" ? (
+                    sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1541,6 +1567,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         isLoggedIn={isLoggedIn}
                         openModal={openModal}
                         postId={item.id}
+                        postsDataWithUserDoc={postsDataWithUserDoc}
                       />
                     );
                   })}
@@ -1574,7 +1601,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
 CommunityFinalDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => {},
+  openModal: () => { },
 };
 
 export default CommunityFinalDark;
