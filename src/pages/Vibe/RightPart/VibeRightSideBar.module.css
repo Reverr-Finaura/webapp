@@ -1,234 +1,229 @@
-.RigtSidebarContainer{
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: white;
+.RigtSidebarContainer {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: white;
 }
 
-.UserdetailsHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #0C1631;
-    height: 60px;
-    width: 100%;
-    padding: 20px;
-    border-radius: 16px;
+.UserdetailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0c1631;
+  height: 60px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
 }
 
-.UserdetailsHeader div{
-    display: flex;
-    align-items: center;
-    gap: 4px;
+.UserdetailsHeader div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-
-.UserdetailsHeaderPtag{
-    font-size: 10px;
-    color: #00B3FF;
+.UserdetailsHeaderPtag {
+  font-size: 10px;
+  color: #00b3ff;
 }
-
-
 
 /* userdisplay */
 
-.Userdisplay{
-    width: 100%;
-    height: 60vh;
-    background: #0C1631;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.Userdisplay {
+  width: 100%;
+  height: 60vh;
+  background: #0c1631;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.Userdisplaycapsule{
-    margin-top: 20px;
-    width: 100px;
-    height: 30px;
-    background: #00B3FF;
-    text-align: center;
-    border-radius: 50px;
-    color: black;
+.Userdisplaycapsule {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  width: 100px;
+  height: 30px;
+  background: #00b3ff;
+  text-align: center;
+  border-radius: 50px;
+  color: black;
 }
 
-.messageboxcontainer{
-    width: 100%;
-    overflow-y: scroll;
+.messageboxcontainer {
+  width: 100%;
+  overflow-y: scroll;
 }
 .messageboxcontainer::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
-.scrollnone::-webkit-scrollbar{
-    display: none;
-}
-
-.singlemessageboxcontainer{
-    position: relative;
-    display: flex;
-    width: 100%;
-   align-items: center;
-   justify-content: center;
-   padding-top: 30px;
-   
-   gap: 10px;
+.scrollnone::-webkit-scrollbar {
+  display: none;
 }
 
-.singlemessageboxcontainer::after{
-    content: '';
+.singlemessageboxcontainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 30px;
+  margin-left: 15px;  
+  gap: 10px;
+  cursor: pointer;
+}
+
+.singlemessageboxcontainer > img {
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+}
+
+.singlemessageboxcontainer::after {
+  content: "";
   position: absolute;
-  width: 80%;
+  width: 90%;
   display: block;
   height: 1px;
-  background-color: #373A3F80;
-    top: 120%;
- 
+  background-color: #373a3f80;
+  top: 120%;
 }
-
 
 /* /////selected Chat section ///// */
-.SelectedChatContainer{
-    width: 100%;
-    height: 60vh;
-    background: #373A3F80;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.SelectedChatContainer {
+  width: 100%;
+  height: 60vh;
+  background: #373a3f80;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.SelectedChatHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    width: 100%;
-    padding: 20px;
-    
-    
+.SelectedChatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 20px;
 }
 
-.SelectedChatHeader div{
-    display: flex;
-    align-items: center;
-    gap: 4px;
+.SelectedChatHeader div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
-
 
 /* ////////// */
 .outerCont {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    border-bottom-right-radius: 1px;
-    height: 45px;
-    /* border-top:1.6px solid #EEEEEE; */
-    position: relative;
-    border-top: 1px solid #EEEEEE;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom-right-radius: 1px;
+  height: 45px;
+  /* border-top:1.6px solid #EEEEEE; */
+  position: relative;
+  border-top: 1px solid #eeeeee;
 }
 
 .tempImgCont {
-    width: 170px;
-    height: 170px;
-    z-index: 0;
-    position: absolute;
-    top: -180px;
-    border-radius: 15px;
-    background-color: #dadada;
-    box-shadow: 0px 4px 24px 2px #0000001a;
+  width: 170px;
+  height: 170px;
+  z-index: 0;
+  position: absolute;
+  top: -180px;
+  border-radius: 15px;
+  background-color: #dadada;
+  box-shadow: 0px 4px 24px 2px #0000001a;
 }
 
 .crossIcon {
-    z-index: 2;
-    position: absolute;
-    font-size: 1.5rem;
-    right: 0;
-    cursor: pointer;
-
+  z-index: 2;
+  position: absolute;
+  font-size: 1.5rem;
+  right: 0;
+  cursor: pointer;
 }
 
 .tempImg {
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
 }
 
 .attachmentIcon {
-    cursor: pointer;
-    color: black;
-    transform: rotate(-46deg);
-
+  cursor: pointer;
+  color: black;
+  transform: rotate(-46deg);
 }
 
 .textInp {
-    padding-left: 1%;
-    margin-left: 1rem;
-    background: #FAFAFA;
-    border-radius: 12px;
-    width: 150%;
-    padding: 0.5rem;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 16px;
-    color: black;
-
+  padding-left: 1%;
+  margin-left: 1rem;
+  background: #fafafa;
+  border-radius: 12px;
+  width: 150%;
+  padding: 0.5rem;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 16px;
+  color: black;
 }
 
 .emoji {
-    display: none;
-    font-size: 25px;
-    position: absolute;
-    left: 42px;
-    color: black;
-
+  display: none;
+  font-size: 25px;
+  position: absolute;
+  left: 42px;
+  color: black;
 }
 
 .textInp::placeholder {
-    color: rgba(0, 0, 0, 0.45);
-    position: relative;
-    left: 50px;
+  color: rgba(0, 0, 0, 0.45);
+  position: relative;
+  left: 50px;
 }
 
 .textInp:focus {
-    outline: none;
+  outline: none;
 }
 
 .sendMessageBtn {
-    width: 60px;
-    height: 39px;
-    padding: 10px;
-    border: none;
-    color: rgb(16, 16, 16);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 0px 0px 0px 0px ;
-    background-color: #47c8ff;
-    position: relative;
-    right: 30px;
+  width: 60px;
+  height: 39px;
+  padding: 10px;
+  border: none;
+  color: rgb(16, 16, 16);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0px 0px 0px 0px;
+  background-color: #47c8ff;
+  position: relative;
+  right: 30px;
 }
 
 .wrapperEmoji {
-    width: 4rem;
-    height: 2rem;
-    background-color: #2C2F38;
-    display: flex;
-    border-radius: 22px;
-    justify-content: center;
-    align-items: center;
+  width: 4rem;
+  height: 2rem;
+  background-color: #2c2f38;
+  display: flex;
+  border-radius: 22px;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width:500px) {
-    .outerCont{
-        margin-top: 1rem;
-    }
-    .sendMessageBtn{
-        right: 33px;
-    }
-    
+@media (max-width: 500px) {
+  .outerCont {
+    margin-top: 1rem;
+  }
+  .sendMessageBtn {
+    right: 33px;
+  }
 }

@@ -27,7 +27,7 @@ const initialState={
     sendRequests: [],
     receivedRequests: [],
     vibeuser:"",
-    
+    swipeLimit: {swipeRemaining: 10, swipeUpdateTime: new Date().getTime() - 24 * 60 * 60 * 1000}
 }
 
 
