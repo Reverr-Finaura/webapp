@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from "./VibeRightSideBar.module.css"
 import profileimg from "../../../images/MentorProfileCard.webp"
 import VibeYourChat from './VibeYourChat'
 import { useState } from 'react'
 import SelectedChat from './SelectedChat'
+import {
+  createMatchedInMessagesDoc
+} from "../../../firebase";
 
 const data =[
   {
@@ -44,8 +47,27 @@ const data =[
   },
 ]
 
+
+
 const VibeRightSideBar = () => {
   const [Chatselected, setChatSelected] = useState(false)
+
+  useEffect(()=> {
+    const createMatch = async () => {
+      try {
+        await createMatchedInMessagesDoc(
+          "test@reverr.io",
+          // "apurbar06@gmail.com",
+          "ced19i053@iiitdm.ac.in"
+          // "sivatharun2212@gmail.com"
+        );
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
+    // createMatch();
+  },[])
 
   return (
     <div className={style.RigtSidebarContainer}>

@@ -97,7 +97,7 @@ const VibeMiddlePart = () => {
     }
 
     if (currentUserIndex < userData.length - 1) {
-      console.log(userData);
+      // console.log(userData);
       setCurrentUserIndex(currentUserIndex + 1);
     }
 
@@ -107,7 +107,7 @@ const VibeMiddlePart = () => {
 
   const handleNopeCkick = () => {
     if (currentUserIndex < userData.length - 1) {
-      console.log(userData);
+      // console.log(userData);
       setCurrentUserIndex(currentUserIndex + 1);
     }
     NopeUser();

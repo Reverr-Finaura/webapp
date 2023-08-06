@@ -134,10 +134,10 @@ import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
 import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
-import VibeTestA from "./pages/vibe/VibeTestA";
+import VibeTestA from "./pages/Vibe/VibeTestA";
 // import VibeTestA from "./pages/vibe/VibeTestA";
-import FilterPart from "./pages/vibe/FilterPart/FilterPart";
-import VibeOuter from "./pages/vibe/Left/LeftContainer";
+import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
+import VibeOuter from "./pages/Vibe/Left/LeftContainer";
 
 
 

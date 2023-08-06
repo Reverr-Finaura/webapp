@@ -169,6 +169,47 @@ export const uploadMedia = async (media, path) => {
   }
 };
 
+export const createMatchedInMessagesDoc = async (userId, senderId) => {
+  const userRef = doc(db, "Messages", userId);
+  const furtherUserRef = doc(userRef, "Matched", senderId);
+  const senderRef = doc(db, "Messages", senderId);
+  const furtherSenderRef = doc(senderRef, "Matched", userId);
+
+  try {
+    await setDoc(furtherUserRef, {
+      messages: [{ createdAt: "", msg: "", sendBy: "" }],
+    });
+    await setDoc(furtherSenderRef, {
+      messages: [{ createdAt: "", msg: "", sendBy: "" }],
+    });
+  } catch (error) {
+    console.log(error.messages);
+  }
+};
+
+export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
+  // const userEmail = currentcUser?.email;
+  if (!userEmail) {
+    throw new Error("User email not available");
+  }
+  const ref = doc(db, "Messages", userEmail);
+
+  try {
+    const f = collection(ref, "Matched");
+    const matchedSnapshot = await getDocs(f);
+    let matchedData = matchedSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      bucket: "Matched",
+    }));
+    setList(matchedData);
+    console.log("matched", matchedData)
+  } catch (error) {
+    // Handle error fetching from the 'f' collection (Matched)
+    console.error("Error fetching from 'f' collection:", error);
+  }
+};
+
 export const getAllUserHavingChatWith = async (currentcUser, setList) => {
   const userEmail = currentcUser?.email;
   if (!userEmail) {
