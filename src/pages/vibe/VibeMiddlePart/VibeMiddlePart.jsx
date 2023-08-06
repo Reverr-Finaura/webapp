@@ -134,7 +134,7 @@ const VibeMiddlePart = () => {
             setSwipeLimit(data.swipeLimit);
           } else {
             // If swipeLimit field is not present, create it with initial values
-            const updateTime = new Date().getTime() + 24 * 60 * 60 * 1000;
+            const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
             // await setDoc(docRef, data, { merge: true });
             await setDoc(
               docRef,
@@ -177,7 +177,7 @@ const VibeMiddlePart = () => {
       });
     } else {
       // If swipeUpdateTime is already passed, reset swipeRemaining to 10 and update swipeUpdateTime
-      if (swipeLimit.swipeUpdateTime <= new Date().getTime()) {
+      if (swipeLimit.swipeUpdateTime < new Date().getTime()) {
         console.log("it't time to reset");
         setSwipeLimit((prevState) => ({
           ...prevState,
