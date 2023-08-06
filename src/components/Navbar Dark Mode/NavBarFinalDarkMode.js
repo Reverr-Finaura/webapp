@@ -12,6 +12,7 @@ import { remove } from "../../features/newUserSlice";
 import { removeUserDoc, setUserDoc } from "../../features/userDocSlice";
 import { removeUserFundingDoc } from "../../features/userFundingDocSlice";
 import { ToastContainer, toast } from "react-toastify";
+import Upgrade from "../../pages/Upgrade/Upgrade"
 import "react-toastify/dist/ReactToastify.css";
 import {
   collection,
@@ -74,6 +75,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
+  const [premiumModalStatus , setPremiumModalStatus] = useState(false)
 
   const userType = useSelector((state) => state.onboarding.userType);
 
@@ -461,7 +463,17 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   // console.log("userDoc", userDoc.posts);
   // console.log("notificationLisst", notificationList);
   return (
-    <>
+    <> 
+    {premiumModalStatus ? (
+      <div class={style.overlay}>
+      <div className={style.premiumModal}>
+        <div onClick={()=> setPremiumModalStatus(false)} className={style.closebtnModal}>
+          close
+        </div>
+        <Upgrade/>
+      </div>
+      </div>
+    ): ''}
       {isProductModalOpen ? (
         <div className={style.productModalCont}>
           <div className={style.productModal} ref={modalRef}>
@@ -890,14 +902,14 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
             </div>
 
-            {/* {!userDoc.hasUpgrade && (
+            {!userDoc.hasUpgrade && (
             <button
               className={style.navbarFinalUpgradeBtn}
-              onClick={() => navigate("/upgrade")}
+              onClick={() => setPremiumModalStatus(true)}
             >
               Get Premium
             </button>
-          )} */}
+          )}
 
             <div
               onClick={() => setRequestsbuttonClick((current) => !current)}
