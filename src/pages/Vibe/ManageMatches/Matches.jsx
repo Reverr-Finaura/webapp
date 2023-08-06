@@ -2,30 +2,10 @@ import React, { useEffect, useState } from 'react'
 import style from "./matches.module.css"
 import MatchesResults from './MatchesResults'
 import profileimg from "../../../images/MentorProfileCard.webp"
-import { collection } from 'firebase/firestore'
+import { collection, getDocs, query } from 'firebase/firestore'
 import { db, getUserFromDatabase } from '../../../firebase'
 import { useSelector } from 'react-redux'
 
-const seewholikekdata =[
-    {name: "jatin",
-    designation: "ceo",
-    image:profileimg },
-    {name: "sheetal",
-    designation: "manager",
-    image:profileimg},
-    {name: "dante",
-    designation: "ceo",
-    image:profileimg},
-    {name: "nero",
-    designation: "work",
-    image:profileimg},
-    {name: "jatin",
-    designation: "ceo",
-    image:profileimg},
-    {name: "jatin",
-    designation: "ceo",
-    image:profileimg},
-]
 
 const managematches =[
     {name: "Shachin",
@@ -49,30 +29,40 @@ const managematches =[
 ]
 
 const Matches = () => {
-    const [data , setData] = useState(seewholikekdata)
+  const [likedMeData, setLikedMeData] = useState([])
+    const [data , setData] = useState([])
     const [ismanage, setIsManage] = useState(false)
     const [ispremium, setIsPremium] = useState(true)
-    const [likedUser,setLikedUsers] = useState([]);
     const [matchedUser,setMatchedUsers] = useState([])
     const userDoc=useSelector((state)=>state.userDoc)
 
-    useEffect(()=>{
-      async function FetchLikedUsers() {
-        const userData = getUserFromDatabase(userDoc.email)
-        setLikedUsers(userData.likedUsers);
-      } 
-      FetchLikedUsers();
-    },[])
 
-    async function FetchLikedUsers() {
-      const userData = getUserFromDatabase(userDoc.email)
-      setLikedUsers(userData.likedUsers);
-    } 
+    const getWhoLikeData = async() => {
+      try{
+        const userRef = collection(db, "Users");
+        const userQuery = query(userRef);
+        const usersnapshot = await getDocs(userQuery);
+        console.log("cruserEMAIL",userDoc.email);
+        let whoLikedMe = [];
+        usersnapshot.docs.forEach((doc) => {
+          const likedBy = doc.data().liked_by;
+          if(likedBy && likedBy.includes(userDoc?.email)){
+            whoLikedMe.push(doc.data());
+          }
+        })
+        console.log("fetched whoLikedMe data" , whoLikedMe);
+        setLikedMeData(whoLikedMe)
+        setData(whoLikedMe)
+        console.log("likedmeData", likedMeData);
+      }catch(error){
+        console.error(error.message)
+      }
+    }
 
-    async function FetchMatchesUsers() {
-      const userData = getUserFromDatabase(userDoc.email)
-      setMatchedUsers(userData.matchedUsers);
-    } 
+
+    useEffect(() => {
+      getWhoLikeData();
+    }, [userDoc])
 
   return (
     <div className={style.MatchesContainer}>
@@ -87,7 +77,7 @@ const Matches = () => {
        
                 <div className={style.matchesHeader}>
                     <div>
-                        <span style={{color: !ismanage && "black",cursor:"pointer"}} className={!ismanage && style.seewholikedyou} onClick={()=>(setData(seewholikekdata),setIsManage(false))}>See Who Liked You</span>
+                        <span style={{color: !ismanage && "black",cursor:"pointer"}} className={!ismanage && style.seewholikedyou} onClick={()=>(setData(likedMeData),setIsManage(false))}>See Who Liked You</span>
                         <span style={{color: ismanage && "black",cursor:"pointer"}} className={ismanage && style.managematches} onClick={()=>(setData(managematches),setIsManage(true))}>Manage Matches</span>
                     </div>
                 </div>
@@ -102,4 +92,4 @@ const Matches = () => {
   )
 }
 
-export default Matches
+export default Matches;
