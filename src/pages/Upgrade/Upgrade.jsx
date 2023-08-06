@@ -43,10 +43,17 @@ const Upgrade = () => {
       customer_phone: userDoc?.phone,
 
     }
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    };
+    console.log("this is the body ",bodyData);
     axios.post("https://server.reverr.io/webcftoken", bodyData)
       .then((res) => { setSessionIdTokken(res.data.token); setLoading(false) })
       .catch((err) => { toast.error(err.message); setLoading(false) })
   }
+  console.log("sessionIdTokken --- ",sessionIdTokken)
 
   return (
     <><ToastContainer />
@@ -65,7 +72,7 @@ const Upgrade = () => {
             </h1>
             <p>Lorem ipsum is a dummy text used for typography</p>
             <div className={styles.plans_card}>
-              <div className={styles.plan_card_1}>
+              <div className={styles.plan_card_1} onClick={() => { handleUpgrade(199, 1, "Monthly") }} >
                 <p className={styles.plan_duration}>Monthly</p>
                 <h3 className={styles.plan_price}>
                   ₹199/<span>Month</span>
@@ -87,9 +94,9 @@ const Upgrade = () => {
                 <ul>
 
                 </ul>
-                <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(499, 1, "Monthly") }} className={styles.plan_buy_btn}>Buy 1 Month</button>
+                {/* <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(199, 1, "Monthly") }} className={styles.plan_buy_btn}>Buy 1 Month</button> */}
               </div>
-              <div className={styles.plan_card_2}>
+              <div className={styles.plan_card_2}  onClick={() => { handleUpgrade(499, 3, "Quarterly") }} >
                 <p className={styles.plan_duration}>Quarterly</p>
                 <h3 className={styles.planCrossedprice}>
                   ₹600/<span>3Month</span>
@@ -110,9 +117,9 @@ const Upgrade = () => {
                     <li>Unlimited filters</li>
                   </div>
                 </ul>
-                <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(1200, 3, "Quarterly") }} className={styles.plan_buy_btn}>Buy 3 Months</button>
+                {/* <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(499, 3, "Quarterly") }} className={styles.plan_buy_btn}>Buy 3 Months</button> */}
               </div>
-              <div className={styles.plan_card_3}>
+              <div className={styles.plan_card_3} onClick={() => { handleUpgrade(799, 6, "Semi-Annually") }}>
                 <p className={styles.plan_duration}>Semi-Annually</p>
                 <h3 className={styles.planCrossedprice}>
                   ₹1200/<span>6Month</span>
@@ -133,7 +140,7 @@ const Upgrade = () => {
                     <li>Unlimited filters</li>
                   </div>
                 </ul>
-                <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(2000, 6, "Semi-Annually") }} className={styles.plan_buy_btn}>Buy 6 Months</button>
+                {/* <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(799, 6, "Semi-Annually") }} className={styles.plan_buy_btn}>Buy 6 Months</button> */}
               </div>
               {/* <div className={styles.plan_card_4}>
             <p className={styles.plan_duration}>Yearly</p>

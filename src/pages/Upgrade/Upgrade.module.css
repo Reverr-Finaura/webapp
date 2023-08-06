@@ -6,7 +6,7 @@
   background-color: rgba(26, 30, 40, 1);
 
   width: 75em;
-  height: 53em;
+  height: 50em;
 
 
 }
@@ -87,6 +87,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 .plan_card_1 {
