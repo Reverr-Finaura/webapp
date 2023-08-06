@@ -17,15 +17,15 @@ const Upgrade = () => {
   const [planDuration, setPlanDuration] = useState('')
   const [planName, setPlanName] = useState("")
 
-  console.log("userDoc", userDoc)
-
+ 
   //GENERATE RANDOM UNIQUE ID
   const uuid = () => {
     const val1 = Date.now().toString(36)
     const val2 = Math.random().toString(36).substring(2)
 
     return val1 + val2
-  }
+  } 
+
 
   const handleUpgrade = (amt, duration, planName) => {
     toast("Processing Your Request")
@@ -40,7 +40,7 @@ const Upgrade = () => {
       // amount:"1",
       currency: "INR",
       customer_id: uuid(),
-      customer_phone: userDoc?.phone,
+      customer_phone: userDoc.phone,
 
     }
     const requestOptions = {
@@ -49,6 +49,7 @@ const Upgrade = () => {
       body: JSON.stringify(bodyData),
     };
     console.log("this is the body ",bodyData);
+    console.log("this is the requestOptions",requestOptions);
     axios.post("https://server.reverr.io/webcftoken", bodyData)
       .then((res) => { setSessionIdTokken(res.data.token); setLoading(false) })
       .catch((err) => { toast.error(err.message); setLoading(false) })

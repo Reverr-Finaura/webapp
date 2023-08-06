@@ -52,11 +52,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: relative;
   z-index: 9999999999;
-  left: 24%;
-  top: 10%;
+  /* left: 24%; */
+  /* top: 10%; */
   border-radius: 51px;
+  width: fit-content;
 
 }
 
@@ -69,7 +70,10 @@
   background-color: rgba(128,128,128,0.5); /* color */
   z-index: 9999999999;
   background: rgba(0, 0, 0, 0.60);
-  backdrop-filter: blur(7.5px)
+  backdrop-filter: blur(7.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
  
 }
 
