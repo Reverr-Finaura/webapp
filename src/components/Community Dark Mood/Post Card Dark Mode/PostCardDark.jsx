@@ -42,6 +42,7 @@ export default function PostCardDark({
   isLoggedIn,
   openModal,
   postId,
+  postsDataWithUserDoc
 }) {
   const userDoc = useSelector((state) => state.userDoc);
   const [isThreeDotsClicked, setIsThreeDotsClicked] = useState(false);
@@ -69,44 +70,7 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([])
-
-
-  useEffect(()=>{
   
-    const fetchUserInformation = async () => {
-      const updatedPostsData = await Promise.all(
-        postsData.map(async (item) => {
-          const userData = await getUserDocByRef(item.postedby); 
-          return { ...item, postedby: userData }; // Create a new object with updated user data
-        })
-      );
-
-      setPostsDataWithUserDoc(updatedPostsData)
-    };
-    fetchUserInformation()
-    
-  },[])
-  console.log("postsDateWithUserDoc ----" , postsDataWithUserDoc)
-
-  // useEffect(() => {
-  //   let temp = postsData;
-  //   console.log("this is temp[idx] ---", temp)
-  //   postsData.map((item, idx) => {
-
-  //       getUserDocByRef(item.postedby).then((res) => {
-  //         temp[idx].postedby = res;
-  //        // setPostsData(temp)
-
-  //     });
-      
-  //   })  
-  //    // const foundPost = postsData.find((post) => post.id === postId);
-  //    setPostsDataWithUserDoc(temp)
-  //    console.log("this is temp " , temp)
-  //    console.log("this is item ", item)
-
-  // }, [])
 
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve

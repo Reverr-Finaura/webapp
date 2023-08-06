@@ -3,6 +3,7 @@ import NavBarFinalDarkMode from '../../components/Navbar Dark Mode/NavBarFinalDa
 import VibeRightSideBar from './RightPart/VibeRightSideBar'
 import style from "./vibe.module.css"
 import Matches from './ManageMatches/Matches'
+// import VibeMiddlePart from './VibeMiddlePart/VibeMiddlePart'
 import VibeMiddlePart from './VibeMiddlePart/VibeMiddlePart'
 import { useSelector } from 'react-redux'
 import LikesExhaust from './VibeMiddlePart/LikesExhaustScreen/LikesExhaust';
@@ -19,7 +20,6 @@ const VibeTestA = () => {
       {/* <LikesExhaust/> */}
       <VibeMiddlePart/>
       <Matches/>
-        
     </div>
 
     </>

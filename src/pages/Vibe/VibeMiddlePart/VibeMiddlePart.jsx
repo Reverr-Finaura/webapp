@@ -28,6 +28,7 @@ import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import defaultImg from "../../../images/default-profile-pic.webp";
 import { toast } from "react-toastify";
+import NoData from "./No Data Screen/NoData";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -51,18 +52,26 @@ const VibeMiddlePart = () => {
 
   const getUserData = async () => {
     try {
-      const userRef = collection(db, "Users");
-      const userquery = query(userRef);
+      console.log("userDoc data fetch");
+      const userRef = await collection(db, "Users");
+      const userquery = await query(userRef);
       const usersnapshot = await getDocs(userquery);
+
+      const currentUserLikes = userDoc?.liked || [];
+      console.log("currentUserLikes", currentUserLikes);
+
+      const fleshedByCurrentUser = userDoc?.passed_email || [];
+      console.log("fleshedByCurrentUser", fleshedByCurrentUser);
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
-          doc.data().email !== currentLoggedInUser?.user?.email &&
+          doc.data().email !== userDoc?.email &&
+          !currentUserLikes.includes(doc.data().email) &&
+          !fleshedByCurrentUser.includes(doc.data().email) &&
           doc.data().vibeuser === "true"
       );
+      console.log("filteredDocs", filteredDocs);
       const fetchedUserData = filteredDocs.map((doc) => doc.data());
       setUserData(fetchedUserData);
-      console.log("fetched User data", fetchedUserData);
-      console.log("userdataV", userData);
     } catch (error) {
       console.error(error.message);
     }
@@ -91,6 +100,7 @@ const VibeMiddlePart = () => {
       console.log(userData);
       setCurrentUserIndex(currentUserIndex + 1);
     }
+
     LikeUser();
     handleSwipe();
   };
@@ -303,8 +313,7 @@ const VibeMiddlePart = () => {
             setIsPremium={setIsPremium}
           />
         )}
-
-        <div className={styles.filterContainer}>
+          <div className={styles.filterContainer}>
           <div
             onClick={() => (CheckisPremium(), setFRText("Undo"))}
             className={styles.undoMoveCont}
