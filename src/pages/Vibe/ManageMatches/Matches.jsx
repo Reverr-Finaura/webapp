@@ -5,6 +5,7 @@ import profileimg from "../../../images/MentorProfileCard.webp"
 import { collection, getDocs, query } from 'firebase/firestore'
 import { db, getUserFromDatabase } from '../../../firebase'
 import { useSelector } from 'react-redux'
+import Upgrade from '../../Upgrade/Upgrade'
 
 
 const managematches =[
@@ -33,6 +34,7 @@ const Matches = () => {
     const [data , setData] = useState([])
     const [ismanage, setIsManage] = useState(false)
     const [ispremium, setIsPremium] = useState(true)
+    const [premiumModalStatus , setPremiumModalStatus] = useState(false)
     const [matchedUser,setMatchedUsers] = useState([])
     const userDoc=useSelector((state)=>state.userDoc)
 
@@ -65,13 +67,25 @@ const Matches = () => {
     }, [userDoc])
 
   return (
+    <>
+     {premiumModalStatus ? (
+      <div class={style.overlay}>
+      <div className={style.premiumModal}>
+        <div onClick={()=> setPremiumModalStatus(false)} className={style.closebtnModal}>
+          close
+        </div>
+        <Upgrade/>
+      </div>
+      </div>
+    ): ''}
+    
     <div className={style.MatchesContainer}>
         <div className={style.MatchesInnerContainer}>
             {
-                ispremium && 
-                <div onClick={()=>setIsPremium(false)} className={style.NotPremium}>
+                ispremium && !ismanage && 
+                <div className={style.NotPremium}>
                 <p>Upgrade to <span style={{color:"#00B3FF"}}> Premium </span> and receive access to exclusive features</p>
-                <button>Get Premium</button>
+                <button onClick={()=>setPremiumModalStatus(true)}>Get Premium</button>
             </div>
             }
        
@@ -89,6 +103,7 @@ const Matches = () => {
 
         </div>
     </div>
+    </>
   )
 }
 
