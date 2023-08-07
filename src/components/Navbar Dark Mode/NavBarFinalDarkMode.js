@@ -100,6 +100,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     "FUNDING-APPLY",
     // "STARTUP SCORE",
     "KNOWLEDGE",
+    "VIBE"
   ];
   const filteredArray = elementsToCheck.filter((element) =>
     products[userTypeLower].includes(element)
@@ -583,6 +584,32 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   </div>
                 </div>
               ) : null}
+              {/* ///Vibe/// */}
+              {filteredArray.includes("VIBE") ? (
+                <div className={style.hideonmobile} onClick={() => navigate("/vibetestinga")}>
+                  <img src={require("../../images/book1.webp")} alt="img" />
+                  <div className={style.keyproddiv}>
+                    <text
+                      style={{
+                        fontSize: 14,
+                        color: "#ffffff",
+                      }}
+                    >
+                      Vibe
+                    </text>
+                    <text
+                      style={{
+                        fontSize: 10,
+                        color: "#A7A7A7",
+                      }}
+                      className={style.discriponmobilehide}
+                    >
+                      Explore and Connect with individuals that think alike.
+                    </text>
+                  </div>
+                </div>
+              ) : null}
+              {/* ///Vibe end/// */}
               {filteredArray.includes("STARTUP SCORE") ? (
                 <div onClick={() => navigate("/start-up")}>
                   <img
