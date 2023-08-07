@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import style from "./matches.module.css";
 import MatchesResults from "./MatchesResults";
+import Upgrade from '../../Upgrade/Upgrade'
 import profileimg from "../../../images/MentorProfileCard.webp";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { db, getUserFromDatabase } from "../../../firebase";
 import { useSelector } from "react-redux";
+
 
 const managematches = [
   { name: "Shachin", designation: "Super CEO", image: profileimg },
@@ -16,11 +18,13 @@ const managematches = [
 ];
 
 const Matches = () => {
-  const [likedMeData, setLikedMeData] = useState([]);
-  const [data, setData] = useState([]);
-  const [ismanage, setIsManage] = useState(false);
-  const [ispremium, setIsPremium] = useState(true);
-  const userDoc = useSelector((state) => state.userDoc);
+  const [likedMeData, setLikedMeData] = useState([])
+    const [data , setData] = useState([])
+    const [ismanage, setIsManage] = useState(false)
+    const [ispremium, setIsPremium] = useState(true)
+    const [premiumModalStatus , setPremiumModalStatus] = useState(false)
+    const [matchedUser,setMatchedUsers] = useState([])
+    const userDoc=useSelector((state)=>state.userDoc)
 
   const getWhoLikeData = async () => {
     try {
@@ -76,19 +80,41 @@ const Matches = () => {
   };
 
   return (
+    <>
+     {premiumModalStatus ? (
+      <div class={style.overlay}>
+      <div className={style.premiumModal}>
+        <div onClick={()=> setPremiumModalStatus(false)} className={style.closebtnModal}>
+          close
+        </div>
+        <Upgrade/>
+      </div>
+      </div>
+    ): ''}
+    
     <div className={style.MatchesContainer}>
-      <div className={style.MatchesInnerContainer}>
-        {ispremium && (
-          <div onClick={() => setIsPremium(false)} className={style.NotPremium}>
-            <p>
-              Upgrade to <span style={{ color: "#00B3FF" }}> Premium </span> and
-              receive access to exclusive features
-            </p>
-            <button>Get Premium</button>
-          </div>
-        )}
+        <div className={style.MatchesInnerContainer}>
+            {
+                ispremium && !ismanage && 
+                <div className={style.NotPremium}>
+                <p>Upgrade to <span style={{color:"#00B3FF"}}> Premium </span> and receive access to exclusive features</p>
+                <button onClick={()=>setPremiumModalStatus(true)}>Get Premium</button>
+            </div>
+            }
+       
+                <div className={style.matchesHeader}>
+                    <div>
+                        <span style={{color: !ismanage && "black",cursor:"pointer"}} className={!ismanage && style.seewholikedyou} onClick={()=>(setData(likedMeData),setIsManage(false))}>See Who Liked You</span>
+                        <span style={{color: ismanage && "black",cursor:"pointer"}} className={ismanage && style.managematches} onClick={()=>(setMatchedData(),setIsManage(true))}>Manage Matches</span>
+                    </div>
+                </div>
 
-        <div className={style.matchesHeader}>
+                <div className={style.matchesResultContainer}>
+                
+                    <MatchesResults ispremium={ispremium} ismanage={ismanage} data={data}/>
+                </div>
+
+        {/* <div className={style.matchesHeader}>
           <div>
             <span
               style={{ color: !ismanage && "black", cursor: "pointer" }}
@@ -105,18 +131,13 @@ const Matches = () => {
               Manage Matches
             </span>
           </div>
-        </div>
-
-        <div className={style.matchesResultContainer}>
-          <MatchesResults
-            ispremium={ispremium}
-            ismanage={ismanage}
-            data={data}
-          />
-        </div>
-      </div>
+        </div> */}
     </div>
-  );
-};
+    </div>
+    </>
+  
+  )
+          }
 
+  
 export default Matches;

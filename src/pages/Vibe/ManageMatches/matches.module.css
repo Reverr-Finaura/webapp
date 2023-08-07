@@ -157,3 +157,49 @@
     color: #A7A7A7;
     margin-bottom: 4px;
 }
+
+
+/* //////select plan/// */
+.closebtnModal {
+
+    position: absolute;
+    color: #fff;
+    top: 35px;
+    right: 15px;
+    background-color: red;
+    padding: 2px 9px;
+    border-radius: 8px;
+    cursor: pointer;
+  
+  }
+  
+  .premiumModal {
+    /* width: 55%;
+    height: 70%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 9999999999;
+    /* left: 24%; */
+    /* top: 10%; */
+    border-radius: 51px;
+    width: fit-content;
+  
+  }
+  
+  .overlay {
+    position: fixed; /* Positioning and size */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(128,128,128,0.5); /* color */
+    z-index: 9999999999;
+    background: rgba(0, 0, 0, 0.60);
+    backdrop-filter: blur(7.5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
