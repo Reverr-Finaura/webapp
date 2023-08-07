@@ -155,12 +155,12 @@ const VibeMiddlePart = () => {
       try {
         setLoadingSwipeData(true);
         const docRef = doc(db, "Users", userEmail);
-        console.log("docRef", docRef);
+        // console.log("docRef", docRef);
         const docSnapshot = await getDoc(docRef);
 
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
-          console.log("data", data);
+          // console.log("data", data);
           if (data.swipeLimit) {
             setSwipeLimit(data.swipeLimit);
           } else {

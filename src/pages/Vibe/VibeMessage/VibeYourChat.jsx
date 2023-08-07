@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./VibeRightSideBar.module.css";
+import style from "./VibeMessageMain.module.css";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -14,7 +14,7 @@ const VibeYourChat = ({ data, setChatSelected }) => {
   // const currentcUser={email:"mauricerana@gmail.com"}
   const dispatch = useDispatch();
   const [dummyLoading, setDummyLoadig] = useState(false);
-  const [dataPreprocessing, setDataPreprocessing] = useState(true)
+  const [dataPreprocessing, setDataPreprocessing] = useState(true);
   const [dummyLoading2, setDummyLoadig2] = useState(false);
   const [chatList, setChatList] = useState([]);
   const chatData = useSelector((state) => state.chatLatest);
@@ -44,7 +44,7 @@ const VibeYourChat = ({ data, setChatSelected }) => {
   }, [currentLoggedInUser]);
 
   useEffect(() => {
-    setDataPreprocessing(true)
+    setDataPreprocessing(true);
     if (chatList.length === 0) {
       setDummyLoadig2(false);
       return;
@@ -119,7 +119,7 @@ const VibeYourChat = ({ data, setChatSelected }) => {
       });
       setChatUserData(finaluserChatArr);
     }
-    setDataPreprocessing(false)
+    setDataPreprocessing(false);
     // console.log("chat data is1:", chatUserData);
   }, [chatList]);
 
@@ -142,40 +142,42 @@ const VibeYourChat = ({ data, setChatSelected }) => {
       <div className={style.Userdisplaycapsule}>Your Chats</div>
 
       <div className={style.messageboxcontainer}>
-        {dummyLoading || dataPreprocessing ? (
+        {dummyLoading ? (
           <ChatSkeleton cards={3} />
         ) : chatUserData.length === 0 ? (
           <p style={{ display: "flex", justifyContent: "center" }}>
             No Chats To Display
           </p>
-        ) : (
-          chatUserData.map((item, key) => (
-            <div
-              onClick={() => {
-                setChatSelected(true);
-                dispatch(updateSelectedUser(item));
-                dispatch(Chatshow());
-              }}
-              className={style.singlemessageboxcontainer}
-              key={key}
-            >
-              <img src={item.userImg} alt="img" />
-              <div>
-                <p>{item.name}</p>
-                <p style={{ fontSize: "15px", color: "#A7A7A7" }}>
-                  {item.latestMessageSenderId ===
-                  currentLoggedInUser?.user?.email
-                    ? "Me: "
-                    : " "}
-                  {item.latestMessage !== ""
-                    ? item.latestMessage.slice(0, 35)
-                    : ""}
-                  ...
-                </p>
+        ) : null}
+
+        {!dummyLoading && chatUserData.length !== 0
+          ? chatUserData.map((item, key) => (
+              <div
+                onClick={() => {
+                  setChatSelected(true);
+                  dispatch(updateSelectedUser(item));
+                  dispatch(Chatshow());
+                }}
+                className={style.singlemessageboxcontainer}
+                key={key}
+              >
+                <img src={item.userImg} alt="img" />
+                <div>
+                  <p>{item.name}</p>
+                  <p style={{ fontSize: "15px", color: "#A7A7A7" }}>
+                    {item.latestMessageSenderId ===
+                    currentLoggedInUser?.user?.email
+                      ? "Me: "
+                      : " "}
+                    {item.latestMessage !== ""
+                      ? item.latestMessage.slice(0, 35)
+                      : ""}
+                    ...
+                  </p>
+                </div>
               </div>
-            </div>
-          ))
-        )}
+            ))
+          : null}
       </div>
     </div>
   );
