@@ -594,7 +594,11 @@
   right: 30px;
   position: absolute;
 }
-
+@media screen and (max-width:1050px){
+  .hideonmobile{
+    display: none !important;
+  }
+}
 @media screen and (max-width:1250px) {
   .hamburgermenu {
     display: flex;

@@ -8,7 +8,7 @@ import VibeMiddlePart from "./VibeMiddlePart/VibeMiddlePart";
 import { useSelector } from "react-redux";
 import LikesExhaust from "./VibeMiddlePart/LikesExhaustScreen/LikesExhaust";
 import NoData from "./VibeMiddlePart/No Data Screen/NoData";
-
+import VibeMessageMain from "./VibeMessage/VibeMessageMain";
 const VibeTestA = () => {
   const onboardingData = useSelector((state) => state.onboarding);
   console.log(onboardingData);
@@ -16,7 +16,7 @@ const VibeTestA = () => {
     <>
       <NavBarFinalDarkMode />
       <div className={style.vibeContainer}>
-        <VibeRightSideBar />
+        <VibeMessageMain />
         {/* <LikesExhaust/> */}
         <VibeMiddlePart />
         <Matches />

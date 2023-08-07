@@ -61,6 +61,7 @@
     display: inline-block;
     width: 50%;
   white-space: nowrap;
+  font-size: 90%;
   
 }
 .seewholikedyou{
@@ -77,6 +78,7 @@
     color: #00B3FF;
     padding: 4px;
     white-space: nowrap;
+    font-size: 90%;
     
 }
 .managematches{
