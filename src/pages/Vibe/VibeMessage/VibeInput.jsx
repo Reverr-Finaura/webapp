@@ -1,6 +1,6 @@
 import React from 'react'
 import {ImAttachment} from "react-icons/im"
-import styles from "./VibeRightSideBar.module.css"
+import styles from "./VibeMessageMain.module.css"
 import {AiFillCloseCircle,AiOutlineSend} from "react-icons/ai"
 import {BsEmojiFrown} from "react-icons/bs"
 
