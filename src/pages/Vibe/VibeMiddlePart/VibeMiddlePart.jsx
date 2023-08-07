@@ -30,6 +30,8 @@ import { useSelector } from "react-redux";
 import defaultImg from "../../../images/default-profile-pic.webp";
 import { toast } from "react-toastify";
 import NoData from "./No Data Screen/NoData";
+import Loading from "./LoadingScreen/Loading";
+import LikesExhaust from "./LikesExhaustScreen/LikesExhaust";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -44,6 +46,8 @@ const VibeMiddlePart = () => {
     swipeUpdateTime: null,
   });
   const [loadingSwipeData, setLoadingSwipeData] = useState(true);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isLikesEXhaust, setIsLikesEXhaust] = useState(false);
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const howToMeetImages = {
@@ -58,25 +62,28 @@ const VibeMiddlePart = () => {
   const getUserData = async () => {
     try {
       console.log("userDoc data fetch");
-      const userRef = await collection(db, "Users");
-      const userquery = await query(userRef);
+      const userRef = collection(db, "Users");
+      const userquery = query(userRef);
       const usersnapshot = await getDocs(userquery);
 
-      const currentUserLikes = userDoc?.liked || [];
-      console.log("currentUserLikes", currentUserLikes);
+      const userDocRef = doc(db, "Users", currentLoggedInUser?.user?.email)
+      const userDocsnapshot = await getDoc(userDocRef);
+      const userDocData = userDocsnapshot.data();
 
-      const fleshedByCurrentUser = userDoc?.passed_email || [];
+      const fleshedByCurrentUser = userDocData?.passed_email || [];
       console.log("fleshedByCurrentUser", fleshedByCurrentUser);
+
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
-          doc.data().email !== userDoc?.email &&
-          !currentUserLikes.includes(doc.data().email) &&
+          doc.data().email !== currentLoggedInUser?.user?.email &&
           !fleshedByCurrentUser.includes(doc.data().email) &&
           doc.data().vibeuser === "true"
       );
       console.log("filteredDocs", filteredDocs);
       const fetchedUserData = filteredDocs.map((doc) => doc.data());
+      setNoMoreVibeData(fetchedUserData.length === 0);
       setUserData(fetchedUserData);
+      setIsLoadingData(false)
     } catch (error) {
       console.error(error.message);
     }
@@ -84,7 +91,7 @@ const VibeMiddlePart = () => {
 
   useEffect(() => {
     getUserData();
-  }, [userDoc]);
+  }, [currentLoggedInUser]);
 
   const handleLikeCkick = () => {
     // if the user has no swipe remaining and the update time is not reached yet
@@ -98,6 +105,7 @@ const VibeMiddlePart = () => {
           swipeLimit.swipeUpdateTime
         ).toLocaleString()}`
       );
+      setIsLikesEXhaust(true)
       return;
     }
 
@@ -126,7 +134,9 @@ const VibeMiddlePart = () => {
     setTimeout(() => {
       setIsFadedLeft(false);
     }, 500);
-    NopeUser(userData[currentUserIndex].email);
+    if(userData[currentUserIndex]){
+      NopeUser(userData[currentUserIndex].email);
+    }
   };
 
   // console.log(userDoc?.vibeuser);
@@ -163,6 +173,11 @@ const VibeMiddlePart = () => {
           // console.log("data", data);
           if (data.swipeLimit) {
             setSwipeLimit(data.swipeLimit);
+            if(data.swipeLimit.swipeRemaining === 0){
+              setIsLikesEXhaust(true)
+            }else{
+              setIsLikesEXhaust(false)
+            }
           } else {
             // If swipeLimit field is not present, create it with initial values
             const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
@@ -215,6 +230,7 @@ const VibeMiddlePart = () => {
           swipeRemaining: 10,
           swipeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
         }));
+        setIsLikesEXhaust(false)
         await updateSwipeLimit({
           swipeRemaining: 10,
           swipeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
@@ -298,7 +314,7 @@ const VibeMiddlePart = () => {
   };
 
   const NopeUser = async (userEmail) => {
-    FlushUser(userEmail);
+  await FlushUser(userEmail);
   };
 
   const LikeUser = async (userEmail) => {
@@ -370,7 +386,7 @@ const VibeMiddlePart = () => {
   };
 
   const FlushUser = async (email) => {
-    const docRef = doc(db, "Users", userDoc?.email);
+    const docRef = doc(db, "Users", currentLoggedInUser?.user?.email);
     try {
       const docSnap = await getDoc(docRef);
       console.log("HIIIIII");
@@ -403,16 +419,17 @@ const VibeMiddlePart = () => {
   //   FlushUser();
   return (
     <>
-      {/* ///Filter Screen//// */}
-      {!ispremium && filter && (
-        <>
-          <div className={styles.filtermodalback}></div>
-          <div className={styles.filtermodal}>
-            {<FilterPart setFilter={setFilter} />}
+  {/* ///Filter Screen//// */}
+  {!ispremium && filter && <>
+       <div className={styles.filtermodalback}>
+       </div>
+       <div className={styles.filtermodal}>
+            {
+              <FilterPart setFilter={setFilter}/>
+            }
           </div>
-        </>
-      )}
-
+          </>}
+    {isLikesEXhaust && (<LikesExhaust />) ||  (isLoadingData ? (<Loading />) : (
       <div
         style={{ overflowY: !redo ? "scroll" : "hidden" }}
         className={styles.middleContainer}
@@ -439,14 +456,14 @@ const VibeMiddlePart = () => {
               <p className={styles.undoMoveText}>Undo Move</p>
             </div>
           </div>
-          <img
-            onClick={() => (CheckisPremiumFilter(), setFRText("Filter"))}
+          {!noMoreVibeData && <img
+            onClick={()=>(CheckisPremiumFilter(),setFRText("Filter"))}
             className={styles.filterIcon}
             src={filterIcon}
             alt="filterIcon"
-          />
+          />}
         </div>
-        {userData.length > 0 && (
+        {noMoreVibeData ? (<NoData noMoreVibeData={noMoreVibeData} />) : (
           <div className={styles.vibeinfo}>
             <div className={styles.userDetailsContainer}>
               <div className={styles.imgContainer}>
@@ -964,8 +981,7 @@ const VibeMiddlePart = () => {
             </div>
           </div>
         )}
-
-        <div className={styles.likeHandshake}>
+        {!noMoreVibeData && <div className={styles.likeHandshake}>
           <div className={styles.innerContainer}>
             <div className={styles.Cont} onClick={handleNopeCkick}>
               <img
@@ -993,8 +1009,8 @@ const VibeMiddlePart = () => {
             </div>
           </div>
           <div className={styles.background}></div>
-        </div>
-      </div>
+        </div>}
+      </div>))}
     </>
   );
 };

@@ -6,6 +6,7 @@ import sidebarReducer from "../features/sidebarSlice";
 import phnSidebarReducer from "../features/phnSidebarSlice";
 import chatReducer from "../features/chatSlice";
 import chatSliceReducer from "../features/chatSlice_latest";
+import vibeChatSliceReducer from "../features/vibeChatSlice";
 import reDeploySliceReducer from "../features/reDeploySlice";
 import userDocReducer from "../features/userDocSlice";
 import userFundingDocReducer from "../features/userFundingDocSlice";
@@ -22,6 +23,7 @@ export const store = configureStore({
     phnSidebar: phnSidebarReducer,
     chat: chatReducer,
     chatLatest: chatSliceReducer,
+    vibeChat: vibeChatSliceReducer,
     deploy: reDeploySliceReducer,
     userDoc:userDocReducer,
     userFundingDoc:userFundingDocReducer,
