@@ -14,6 +14,7 @@ import handShakeIcon from "../../../images/handshakeIcon.svg";
 import blueLikeIcon from "../../../images/bluelikeIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
+import FilterPart from "../FilterPart/FilterPart";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -34,6 +35,7 @@ const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
   const [frtext, setFRText] = useState("");
+  const [filter, setFilter] = useState(false);
   const [userData, setUserData] = useState([]);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noMoreVibeData, setNoMoreVibeData] = useState(false);
@@ -136,6 +138,11 @@ const VibeMiddlePart = () => {
     //   return SetRedo(true);
     // }
   };
+  const CheckisPremiumFilter=()=>{
+    if(!ispremium){
+      return setFilter(true)
+    }
+  }
 
   //---------------------Swipe Limit Code Start---------------------//
   useEffect(() => {
@@ -315,6 +322,18 @@ const VibeMiddlePart = () => {
   //   FlushUser();
   return (
     <>
+      {/* ///Filter Screen//// */}
+  {     !ispremium && filter && <>
+       <div className={styles.filtermodalback}>
+       </div>
+       <div className={styles.filtermodal}>
+            {
+              <FilterPart setFilter={setFilter}/>
+            }
+          </div>
+          </>
+  }
+
       <div
         style={{ overflowY: !redo ? "scroll" : "hidden" }}
         className={styles.middleContainer}
@@ -342,7 +361,7 @@ const VibeMiddlePart = () => {
             </div>
           </div>
           <img
-            onClick={() => (CheckisPremium(), setFRText("Filter"))}
+            onClick={()=>(CheckisPremiumFilter(),setFRText("Filter"))}
             className={styles.filterIcon}
             src={filterIcon}
             alt="filterIcon"
