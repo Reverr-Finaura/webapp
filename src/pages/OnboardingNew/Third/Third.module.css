@@ -175,6 +175,10 @@
 
 }
 
+.asterik{
+  font-size: 14px;
+  color: white;
+}
 .asterik::after{
   content: '*';
   color: red;
@@ -224,3 +228,250 @@
     display: none;
   }
 }
+
+
+@media (min-width:731px) and (max-width:920px) {
+  .container{
+    width: -webkit-fill-available;
+  }
+  .mainContent{
+    width: 60%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    font-size: 27px;
+    width: 80%;
+  }
+  .subHeading{
+    font-size: 11px;
+    width: 90%;
+  }
+  .uploadPhoto img{
+    width: 50%;
+    height: 50%;
+}
+.textInput input{
+  width: 85%;
+}
+.buttonDiv{
+  width: 90%;
+}
+.leftButton{
+  padding:10px 20px;
+}
+.rightButton{
+  padding:10px 20px;
+}
+.mainImage{
+  height: 64vh;
+}
+.textInput textarea{
+  width: 85%;
+}
+.asterik{
+  font-size: 11px
+}
+.textInput{
+  width: 91%;
+}
+
+  
+}
+
+@media(min-width:681px) and (max-width:730px) {
+  .container{
+    width: -webkit-fill-available;
+  }
+  .mainContent{
+    width: 60%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    font-size: 27px;
+    width: 80%;
+  }
+  .subHeading{
+    font-size: 11px;
+    width: 90%;
+  }
+  .uploadPhoto img{
+    width: 50%;
+    height: 50%;
+}
+.textInput input{
+  width: 85%;
+}
+.buttonDiv{
+  width: 90%;
+}
+.leftButton{
+  padding:10px 20px;
+}
+.rightButton{
+  padding:10px 20px;
+}
+.mainImage{
+  height: 64vh;
+}
+.textInput textarea{
+  width: 85%;
+}
+.asterik{
+  font-size: 11px
+}
+.textInput{
+  width: 91%;
+}
+  
+  
+}
+@media(min-width:581px) and ( max-width:680px){
+  .container{
+    width: -webkit-fill-available;
+  }
+  .mainContent{
+    width: 60%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    font-size: 27px;
+    width: 80%;
+  }
+  .subHeading{
+    font-size: 11px;
+    width: 90%;
+  }
+  .uploadPhoto img{
+    width: 50%;
+    height: 50%;
+}
+.textInput input{
+  width: 75%;
+}
+.buttonDiv{
+  width: 90%;
+}
+.leftButton{
+  padding:10px 20px;
+}
+.rightButton{
+  padding:10px 20px;
+}
+.mainImage{
+  height: 54vh;
+}
+.textInput textarea{
+  width: 75%;
+}
+.asterik{
+  font-size: 11px
+}
+.textInput{
+  width: 91%;
+}
+
+}
+@media (min-width:500px) and (max-width:580px) {
+  .container{
+    width: -webkit-fill-available;
+  }
+  .mainContent{
+    width: 60%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    font-size: 16px;
+    width: 80%;
+  }
+  .subHeading{
+    font-size: 11px;
+    width: 90%;
+  }
+  .uploadPhoto img{
+    width: 50%;
+    height: 50%;
+}
+.textInput input{
+  width: 85%;
+}
+.buttonDiv{
+  width: 90%;
+}
+.leftButton{
+  padding:10px 20px;
+}
+.rightButton{
+  padding:10px 20px;
+}
+.mainImage{
+  height: 45vh;
+}
+.textInput textarea{
+  width: 85%;
+}
+.asterik{
+  font-size: 11px
+}
+.textInput{
+  width: 84%;
+}
+  
+}
+@media(min-width:430px)and (max-width:500px) {
+  .container{
+    width: -webkit-fill-available;
+  }
+  .mainContent{
+    width: 60%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    font-size: 13px;
+    width: 80%;
+  }
+  .subHeading{
+    font-size: 11px;
+    width: 90%;
+  }
+  .uploadPhoto img{
+    width: 50%;
+    height: 50%;
+}
+.textInput input{
+  width: 85%;
+}
+.buttonDiv{
+  width: 90%;
+}
+.leftButton{
+  padding:10px 20px;
+}
+.rightButton{
+  padding:10px 20px;
+}
+.mainImage{
+  height: 40vh;
+}
+.textInput textarea{
+  width: 81%;
+  height: 20%;
+}
+.asterik{
+  font-size: 9px
+}
+.textInput{
+  width: 79%;
+}
+  
+}
+
