@@ -3,14 +3,10 @@ import styles from './NoData.module.css'
 import curveArr from '../../../../images/curvedArrow.svg'
 import NoDataImg from '../../../../images/NoDataImg.png'
 
-const NoData=()=>{
+const NoData=({noMoreVibeData})=>{
     return (
         <>
-        <section className={styles.outerCont}>
-            <div className={styles.wrapperAr}>
-                <img src={curveArr} alt='img' />
-                <div className={styles.textArr}>Undo Move</div>
-            </div>
+        <section style={{ overflowY: noMoreVibeData ? "hidden" : "scroll" }} className={styles.outerCont}>
             <div className={styles.imgOuter}>
                 <img src={NoDataImg} alt='img' />
 
