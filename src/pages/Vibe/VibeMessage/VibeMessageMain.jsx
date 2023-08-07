@@ -3,11 +3,18 @@ import style from "./VibeMessageMain.module.css";
 import profileimg from "../../../images/MentorProfileCard.webp";
 import VibeYourChat from "./VibeYourChat";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SelectedChat from "./SelectedChat";
 import defaultImg from "../../../images/default-profile-pic.webp";
-import { createMatchedInMessagesDoc } from "../../../firebase";
+import {
+  ReciveMessage,
+  createMatchedInMessagesDoc,
+  db,
+} from "../../../firebase";
+import { updateSelectedUserData } from "../../../features/vibeChatSlice";
+import { doc, getDoc } from "firebase/firestore";
+import { setUserDoc } from "../../../features/userDocSlice";
 // import { set } from "video.js/dist/types/tech/middleware";
 
 const data = [
@@ -50,21 +57,45 @@ const data = [
 ];
 
 const VibeMessageMain = () => {
+  const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
+  const chatData = useSelector((state) => state.vibeChat);
+  const [tempId, setTempId] = useState("");
   const [name, setName] = useState("");
   const [profileImg, setProfileImg] = useState(defaultImg);
   const [Chatselected, setChatSelected] = useState(false);
+  const [Recive, setRecive] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log("userDoc.......0", userDoc);
 
+  // useEffect(() => {
+  //   if (userDoc) {
+  //     setName(userDoc.name);
+  //     userDoc.image !== undefined && userDoc.image !== ""
+  //       ? setProfileImg(userDoc.image)
+  //       : setProfileImg(defaultImg);
+  //   }
+  // }, [userDoc]);
+
+  // Fetch current user doc from firebase and set it to redux store
   useEffect(() => {
-    if (userDoc) {
-      setName(userDoc.name);
-      userDoc.image !== undefined && userDoc.image !== ""
-        ? setProfileImg(userDoc.image)
-        : setProfileImg(defaultImg);
+    async function fetchUserDocFromFirebase() {
+      const docRef = doc(db, "Users", currentLoggedInUser?.user?.email);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        // console.log("111", data)
+        setName(data.name);
+        data.image !== undefined && data.image !== ""
+          ? setProfileImg(data.image)
+          : setProfileImg(defaultImg);
+        dispatch(setUserDoc(data));
+      }
     }
-    console.log("userDoc.......", userDoc);
-  }, [userDoc]);
+    fetchUserDocFromFirebase();
+  }, [currentLoggedInUser]);
 
   useEffect(() => {
     const createMatch = async () => {
@@ -82,6 +113,35 @@ const VibeMessageMain = () => {
 
     // createMatch();
   }, []);
+
+  useEffect(() => {
+    const getChatList = async () => {
+      ReciveMessage(
+        currentLoggedInUser?.user,
+        chatData.selectedUser,
+        setRecive,
+        chatData.selectedUser.bucket
+      );
+    };
+    if (chatData.selectedUser && tempId !== chatData.selectedUser.id) {
+      getChatList();
+      setTempId(chatData.selectedUser.id);
+    }
+  }, [chatData]);
+
+  useEffect(() => {
+    let finalReceive = [];
+    if (Recive.length > 0) {
+      Recive.map((c, idx) => {
+        finalReceive.push({
+          ...c,
+          createdAt:
+            c.createdAt.seconds !== "" ? c.createdAt.seconds * 1000 : "",
+        });
+      });
+      dispatch(updateSelectedUserData(finalReceive));
+    }
+  }, [Recive]);
 
   return (
     <div className={style.RigtSidebarContainer}>
