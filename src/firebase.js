@@ -25,6 +25,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { current } from "@reduxjs/toolkit";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -395,8 +396,10 @@ export const SendMessage = async (
 
 export const ReciveMessage = async (currentcUser, sendTo, setmsg, bucket) => {
   try {
+    console.log(currentcUser.email, sendTo, bucket)
     const docRef = doc(db, "Messages", currentcUser.email);
     const furtherdocRef = collection(docRef, bucket);
+    
 
     onSnapshot(furtherdocRef, (snapshot) => {
       snapshot.docs.forEach((doc) => {
