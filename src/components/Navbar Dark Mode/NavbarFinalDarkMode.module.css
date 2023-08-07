@@ -10,18 +10,20 @@
   /* border-bottom: 0.3px solid #b4b4b4; */
   background-color: #0c1631;
 }
-.reverrHeadingSpan{
- display: block;
+
+.reverrHeadingSpan {
+  display: block;
 }
-.reverrHeading{
+
+.reverrHeading {
   font-size: 24px;
-    font-family: Lora;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.352px;
-   
-      color: #3ec5ff;
+  font-family: Lora;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.352px;
+
+  color: #3ec5ff;
 }
 
 .allNavbarIconsImgName {
@@ -29,6 +31,50 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.closebtnModal {
+
+  position: absolute;
+  color: #fff;
+  top: 15px;
+  right: 15px;
+  background-color: red;
+  padding: 2px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+.premiumModal {
+  /* width: 55%;
+  height: 70%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 9999999999;
+  /* left: 24%; */
+  /* top: 10%; */
+  border-radius: 51px;
+  width: fit-content;
+
+}
+
+.overlay {
+  position: fixed; /* Positioning and size */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128,128,128,0.5); /* color */
+  z-index: 9999999999;
+  background: rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(7.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
 }
 
 .navbarIconsImgName {
@@ -41,7 +87,8 @@
   position: relative;
   cursor: pointer;
 }
-.notificationBar{
+
+.notificationBar {
   position: absolute;
   top: 90px;
   left: -250px;
@@ -52,14 +99,15 @@
   /* height: 781px; */
   flex-shrink: 0;
   display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    
-    padding: 15px;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+
+  padding: 15px;
 
 }
-.notificationHeading{
+
+.notificationHeading {
   color: #FFF;
   font-size: 24px;
   font-family: Poppins;
@@ -69,7 +117,8 @@
   letter-spacing: 0.024px;
   margin: 20px 0px 30px 0px;
 }
-.notificationSubHeading{
+
+.notificationSubHeading {
   color: var(--white, #FFF);
   font-size: 16px;
   font-family: Poppins;
@@ -79,14 +128,15 @@
   letter-spacing: 0.016px;
   margin: 10px 0px 3px 5px;
 }
-.notificationHeadings{
+
+.notificationHeadings {
   display: flex;
   flex-direction: column;
   justify-content: end;
-  width:90%;
+  width: 90%;
 }
 
-.notificationcardcontainer{
+.notificationcardcontainer {
   height: 500px;
   overflow-y: scroll;
 }
@@ -403,19 +453,19 @@
   z-index: 100000;
 }
 
-.navbarSearchResult > div > div {
+.navbarSearchResult>div>div {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.navbarSearchResult > div > div > img {
+.navbarSearchResult>div>div>img {
   width: 30px;
   height: 30px;
   border-radius: 15px;
 }
 
-.navbarSearchResult > div > div > div {
+.navbarSearchResult>div>div>div {
   display: flex;
   flex-direction: column;
   padding-left: 12px;
@@ -479,98 +529,115 @@
 
 .productContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two columns with equal width */
-  grid-gap: 10px; /* Spacing between columns and rows */
-  grid-auto-flow: row; /* Fill div elements row-wise */
+  grid-template-columns: 1fr 1fr;
+  /* Two columns with equal width */
+  grid-gap: 10px;
+  /* Spacing between columns and rows */
+  grid-auto-flow: row;
+  /* Fill div elements row-wise */
   margin-top: 25px;
 }
 
-.productContainer > div:nth-child(2n+1) {
-  margin-top: 15px; /* Add margin-top for odd rows */
+.productContainer>div:nth-child(2n+1) {
+  margin-top: 15px;
+  /* Add margin-top for odd rows */
 }
 
 
-.productContainer > div {
+.productContainer>div {
   display: flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
 }
 
-.productContainer > div > img {
+.productContainer>div>img {
   width: 30px;
   height: 30px;
   border-radius: 15px;
 }
 
-.productContainer > div > div {
+.productContainer>div>div {
   display: flex;
   flex-direction: column;
   padding-left: 12px;
 }
-.hamburgermenu{
+
+.hamburgermenu {
   display: none;
 }
-.hamburgermenuActive2{
+
+.hamburgermenuActive2 {
   width: 80vw;
   height: 7vh;
   display: flex;
   margin-left: auto;
   margin-right: 5px;
-  
-}
-.hamburgermenuActive1{
-  display: none;
-}
-.wrapperBoth{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
+
 }
 
-.closeBtn{
+.hamburgermenuActive1 {
+  display: none;
+}
+
+.wrapperBoth {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.closeBtn {
   background-color: red;
   padding: 2px 10px 2px 10px;
   border-radius: 5px;
   right: 30px;
   position: absolute;
 }
-
+@media screen and (max-width:1050px){
+  .hideonmobile{
+    display: none !important;
+  }
+}
 @media screen and (max-width:1250px) {
-  .hamburgermenu{
-    display:flex;
+  .hamburgermenu {
+    display: flex;
     justify-content: flex-end;
     color: #e2e8f0;
     width: 100%;
-    
+
   }
-  .hamburgermenuicon{
+
+  .hamburgermenuicon {
     font-size: 22px;
     margin-right: 30px;
     cursor: pointer;
-    transition: right 0.5s , top 0.5s, border-radius 0.5s;
-    
+    transition: right 0.5s, top 0.5s, border-radius 0.5s;
+
   }
-  .hamburgermenuicon:hover{
-    color:rgb(167, 167, 173);
+
+  .hamburgermenuicon:hover {
+    color: rgb(167, 167, 173);
   }
-  .hamburgermenuActive1{
+
+  .hamburgermenuActive1 {
     display: flex;
     position: absolute;
-    right:33px;
+    right: 33px;
     top: 73px;
     background-color: rgb(29, 29, 84);
     width: 250px;
     border-radius: 10px;
-    
-    
-    
+
+
+
   }
-  .hamburgermenuActive2{
+
+  .hamburgermenuActive2 {
     display: none;
   }
-  .navbarIconsCont{
+
+  .navbarIconsCont {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -579,66 +646,77 @@ align-items: center;
     position: relative;
     height: 100%;
     width: 100%;
-    
+
   }
-  .allNavbarIconsImgName{
+
+  .allNavbarIconsImgName {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%;
     width: 100%;
-    
+
   }
-  .navbarIconsImgName{
+
+  .navbarIconsImgName {
     display: flex;
     flex-direction: row;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     margin: 5px;
     height: 80%;
     width: 80%;
     padding: 10px;
-    
+
   }
-  .navbarIconsName{
-    margin:5px;
+
+  .navbarIconsName {
+    margin: 5px;
     font-size: 18px;
 
   }
-  .wrapperBoth{
+
+  .wrapperBoth {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:10px;
-    margin-left:54px;
-    margin-bottom:10px;
+    margin-top: 10px;
+    margin-left: 54px;
+    margin-bottom: 10px;
     padding-bottom: 10px;
   }
-  .navbarIconsImgName:hover{
+
+  .navbarIconsImgName:hover {
 
     border: 2px solid black;
     border-radius: 15px;
-    .navbarIconsName{
-      color:rgb(167, 167, 173);
+
+    .navbarIconsName {
+      color: rgb(167, 167, 173);
     }
   }
-  .nabar-final-setting-Icon{
+
+  .nabar-final-setting-Icon {
     margin-left: 5px;
   }
-  .navbarfinaluserImage{
+
+  .navbarfinaluserImage {
     padding-left: 5px;
   }
-  .notificationBar{
+
+  .notificationBar {
     z-index: 999;
     top: 74px;
     right: -13px;
 
   }
-  
-  
-  
+
+
+
 }
-@media screen and (max-width:650px){
+
+@media screen and (max-width:650px) {
+
   /*.navbarSearch {
     position: absolute;
     left:99px;
@@ -648,8 +726,9 @@ align-items: center;
   */
   .navbarSearchInput {
     width: 150px;
-   
+
   }
+
   /*.navbarSearchImg {
   position: absolute;
   left: 30px;
@@ -657,22 +736,26 @@ align-items: center;
   z-index: 99999;
   */
 }
-@media screen and (max-width:480px){
-  
+
+@media screen and (max-width:480px) {
+
   .navbarSearchInput {
     width: 50px;
-   
+
   }
 
-  .discriponmobilehide{
+  .discriponmobilehide {
     display: none;
   }
-  .productModal{
+
+  .productModal {
     width: 90%;
   }
-  .productContainer > div{
+
+  .productContainer>div {
     margin-top: 12px;
   }
+
   /* .keyproddiv{
     
   } */
@@ -680,26 +763,29 @@ align-items: center;
     
     align-items: center;
   } */
-  
+
 }
-@media screen and (max-width:500px){
-  
+
+@media screen and (max-width:500px) {
+
   .navbarFinalBrandLogoImg {
     width: 65px;
-   
+
   }
-  .reverrHeading{
+
+  .reverrHeading {
     font-size: 20px;
   }
-  .navbarSearchInput{
+
+  .navbarSearchInput {
     height: 30px;
   }
-  
+
 }
 
 
 
-  
+
 
 /*@media screen and (min-width:1000px) {
   .hamburgermenuActive1{
@@ -717,12 +803,13 @@ align-items: center;
 
 
 
-@media (max-width: 500px ){
-    .navbarIconsImgName {
+@media (max-width: 500px) {
+  .navbarIconsImgName {
     position: unset;
 
   }
-  .closeBtn{
+
+  .closeBtn {
     position: absolute;
     right: 12px;
     background: red;
@@ -734,32 +821,34 @@ align-items: center;
   .allNavbarIconsImgName {
     position: unset;
   }
-  
+
   .navbarIconsCont {
     position: unset;
   }
-  
+
   .notificationBar {
     top: 0px;
     left: 0%;
 
     width: 258px;
   }
-   .notificationcardcontainer {
+
+  .notificationcardcontainer {
 
     display: flex;
     flex-direction: column;
     justify-content: unset;
     align-items: center;
     width: -webkit-fill-available;
-    height:30em
+    height: 30em
   }
 }
+
 @media (max-width: 310px) {
 
-.notificationBar{
+  .notificationBar {
 
-  left: 22px;
-      width: 239px;
-}
+    left: 22px;
+    width: 239px;
+  }
 }

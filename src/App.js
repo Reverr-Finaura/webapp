@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { selectNewUser } from "./features/newUserSlice";
 import { login, logout, selectUser } from "./features/userSlice";
+import { setUserDoc } from "./features/userDocSlice";
 import Card from "./pages/AfterSignUp/Cards/Card";
 import Auth from "./pages/Auth/Auth";
 import SignUpAuth from "./pages/Auth/SignUpAuth";
@@ -21,7 +22,8 @@ import Gender from "./pages/AfterSignUp/Gender/Gender";
 import Review from "./pages/AfterSignUp/Review page/Review";
 import Confirmation from "./pages/AfterSignUp/Confirmation/Confirmation";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
+import { doc, getDoc } from "firebase/firestore";
 import Verification from "./pages/AfterSignUp/Verification/Verification";
 import { Toaster } from "react-hot-toast";
 import Knowledge from "./pages/Knowledge/Knowledge";
@@ -35,7 +37,7 @@ import BusinessModal from "./pages/AfterKnowledge/BusinessModal/BusinessModal";
 import BetaTestingOld from "./pages/AfterKnowledge/BetaTesting/BetaTesting";
 import ESOP from "./pages/AfterKnowledge/ESOP/ESOP";
 import FounderAgreement from "./pages/AfterKnowledge/Founder Agreement/FounderAgreement";
-import ArticleNavigation from './pages/ArticleNavigation/ArticleNavigation'
+import ArticleNavigation from "./pages/ArticleNavigation/ArticleNavigation";
 import EquityAndEverything from "./pages/AfterKnowledge/EquityAndEverything/EquityAndEverything";
 
 import IV_Slides from "./pages/AfterKnowledge/Idea Validation & EP/IV_Slides";
@@ -139,8 +141,6 @@ import VibeTestA from "./pages/vibe/VibeTestA";
 import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import VibeOuter from "./pages/vibe/Left/LeftContainer";
 
-
-
 function App() {
   const user = useSelector(selectUser);
   const newUser = useSelector(selectNewUser);
@@ -163,7 +163,22 @@ function App() {
     });
   }, []);
 
-  console.log(user);
+  // Fetch current user doc from firebase and set it to redux store
+  useEffect(() => {
+    async function fetchUserDocFromFirebase() {
+      const docRef = doc(db, "Users", user?.email);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        // console.log("data11111122222", data);
+        dispatch(setUserDoc(data));
+      }
+    }
+    fetchUserDocFromFirebase();
+  }, [user]);
+
+  // console.log("user isssssssss", user);
 
   return (
     <>

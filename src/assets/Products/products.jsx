@@ -45,6 +45,7 @@ const products = {
     "DISCOVER",
     "MESSAGES & NOTIFICATIONS",
     "STARTUP SCORE",
+  
   ],
   individual: [
     "MENTOR",

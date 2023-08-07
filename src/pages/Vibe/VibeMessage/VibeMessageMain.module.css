@@ -18,6 +18,13 @@
   border-radius: 16px;
 }
 
+.UserdetailsHeaderImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  margin-right: 8px;
+}
+
 .UserdetailsHeader div {
   display: flex;
   align-items: center;
@@ -27,6 +34,7 @@
 .UserdetailsHeaderPtag {
   font-size: 10px;
   color: #00b3ff;
+  cursor: pointer;
 }
 
 /* userdisplay */

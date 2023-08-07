@@ -1,5 +1,5 @@
 import React from 'react'
-import style from "./VibeRightSideBar.module.css"
+import style from "./VibeMessageMain.module.css"
 import profileimg from "../../../images/MentorProfileCard.webp"
 import SelectedChatBox from './SelectedChatBox'
 import VibeInput from './VibeInput'
