@@ -70,13 +70,19 @@ const VibeMiddlePart = () => {
       const userDocsnapshot = await getDoc(userDocRef);
       const userDocData = userDocsnapshot.data();
 
+      const likedByCurrentUser = userDocData?.likes || [];
+      console.log("likedByCurrentUser", likedByCurrentUser);
       const fleshedByCurrentUser = userDocData?.passed_email || [];
       console.log("fleshedByCurrentUser", fleshedByCurrentUser);
+      const matchedUsers = userDocData?.matched_user || [];
+      console.log("matchedUsers", matchedUsers);
 
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
           doc.data().email !== currentLoggedInUser?.user?.email &&
+          !likedByCurrentUser.includes(doc.data().email) &&
           !fleshedByCurrentUser.includes(doc.data().email) &&
+          !matchedUsers.includes(doc.data().email) &&
           doc.data().vibeuser === "true"
       );
       console.log("filteredDocs", filteredDocs);
@@ -116,6 +122,9 @@ const VibeMiddlePart = () => {
       // console.log(userData);
       setCurrentUserIndex(currentUserIndex + 1);
     }
+    if (currentUserIndex >= userData.length - 1) {
+      setNoMoreVibeData(true);
+    }
     setTimeout(() => {
       setIsFadedRight(false);
     }, [500]);
@@ -130,6 +139,9 @@ const VibeMiddlePart = () => {
     if (currentUserIndex < userData.length - 1) {
       // console.log(userData);
       setCurrentUserIndex(currentUserIndex + 1);
+    }
+    if (currentUserIndex >= userData.length - 1) {
+      setNoMoreVibeData(true);
     }
     setTimeout(() => {
       setIsFadedLeft(false);
