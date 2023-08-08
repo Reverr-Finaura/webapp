@@ -139,7 +139,7 @@ const VibeYourChat = ({ data, setChatSelected }) => {
 
   return (
     <div className={style.Userdisplay}>
-      <div className={style.Userdisplaycapsule}>Your Chats</div>
+      <div className={style.Userdisplaycapsule}>Your Messages</div>
 
       <div className={style.messageboxcontainer}>
         {dummyLoading ? (

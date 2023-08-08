@@ -349,6 +349,8 @@ export const SendMessage = async (
     );
   } else if (bucket === "Networks") {
     furtherSenderRef = doc(senderRef, "Networks", sendTo.email);
+  } else if (bucket === "Matched") {
+    furtherSenderRef = doc(senderRef, "Matched", sendTo.email);
   }
   const receiverRef = doc(db, "Messages", sendTo.email);
   let furtherReceiverRef;
@@ -362,7 +364,9 @@ export const SendMessage = async (
     );
   } else if (bucket === "Networks") {
     furtherReceiverRef = doc(receiverRef, "Networks", currentcUser.email);
-  }
+  } else if (bucket === "Matched") {
+    furtherReceiverRef = doc(receiverRef, "Matched", currentcUser.email);
+  } 
 
   let timestmp = Timestamp.now();
 

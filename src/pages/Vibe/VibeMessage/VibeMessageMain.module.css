@@ -50,9 +50,12 @@
 }
 
 .Userdisplaycapsule {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 5px;
-  width: 100px;
+  width: 70%;
   height: 30px;
   background: #00b3ff;
   text-align: center;
@@ -170,7 +173,8 @@
 }
 
 .textInp {
-  padding-left: 1%;
+  padding-left: 5%;
+  height: 2.5em;
   margin-left: 1rem;
   background: #fafafa;
   border-radius: 12px;
