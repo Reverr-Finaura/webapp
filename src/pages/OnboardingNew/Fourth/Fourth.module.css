@@ -5,6 +5,10 @@
   display: flex;
   background-color: #030b18;
 }
+.lowL{
+  font-size: 14px;
+  color: white;
+}
 
 .navbarBrandLogoImgCont {
   position: absolute;
@@ -227,3 +231,320 @@
     display: none;
   }
 }
+@media(min-width:991px) and  (max-width:1220px) {
+  .container{
+    width: -webkit-fill-available;
+  }
+  .mainContent{
+    width: 66%;
+  }
+  .heading{
+    font-size: 25px;
+  }
+  .leftComponent{
+    width: 92%;
+    margin-left: 25px;
+  }
+  .heading{
+    width: 90%;
+  }
+  .textInputContainer{
+    width: 84%;
+    grip-gap:10px 20px;
+  }
+  .textInput{
+    width: 100%;
+  }
+  .lebel{
+    width: 100%;
+  }
+  .textInput input{
+    width: 90%;
+  }
+  .buttonDiv{
+    width: 90%;
+  }
+  
+  .mainImage{
+    height: 67vh;
+    margin-left: 1rem;
+  }
+  }
+  @media(min-width:771px) and (max-width:990px) {
+    .container{
+      width: -webkit-fill-available;
+    }
+    .mainContent{
+      width: 66%;
+    }
+    .heading{
+      font-size: 25px;
+    }
+    .leftComponent{
+      width: 92%;
+      margin-left: 25px;
+    }
+    .heading{
+      width: 90%;
+    }
+    .textInputContainer{
+      width: 84%;
+      grip-gap:10px 20px;
+    }
+    .textInput{
+      width: 100%;
+    }
+    .lebel,.lowL{
+      width: 100%;
+      font-size: 11px;
+    }
+
+    .textInput input{
+      width: 100%;
+    }
+    .buttonDiv{
+      width: 90%;
+    }
+    
+    .mainImage{
+      height: 57vh;
+      margin-left: 1rem;
+    }
+    .leftButton{
+      padding: 10px 35px;
+    }
+    .rightButton{
+      padding: 10px 35px;
+    }
+    .skipButton{
+      padding: 10px 35px;
+    }
+    }
+    @media(min-width:691px) and (max-width:770px) {
+      .container{
+        width: -webkit-fill-available;
+      }
+      .mainContent{
+        width: 66%;
+      }
+      .heading{
+        font-size: 25px;
+      }
+      .leftComponent{
+        width: 82%;
+        margin-left: 25px;
+      }
+      .heading{
+        width: 81%;
+        font-size: 22px;
+      }
+      .textInputContainer{
+        width: 100%;
+        grip-gap:10px 20px;
+      }
+      .textInput{
+        width: 92%;
+        height: 80%;
+      }
+      .lebel,.lowL{
+        width: 100%;
+        font-size: 7px;
+      }
+      .textInput input{
+        width: 100%;
+        font-size: 13px;
+      }
+      .buttonDiv{
+        width: 79%;
+      }
+      
+      .mainImage{
+        height: 47vh;
+        margin-left: 1rem;
+      }
+      .leftButton{
+        padding: 10px 20px;
+      }
+      .rightButton{
+        padding: 10px 20px;
+      }
+      .skipButton{
+        padding: 10px 20px;
+      }
+      
+    }
+@media(min-width:581px) and (max-width:690px) {
+      .container{
+        width: -webkit-fill-available;
+      }
+      .mainContent{
+        width: 66%;
+      }
+      .heading{
+        font-size: 25px;
+      }
+      .leftComponent{
+        width: 84%;
+        margin-left: 17px;
+      }
+      .heading{
+        width: 81%;
+        font-size: 22px;
+      }
+      .textInputContainer{
+        width: 100%;
+        grip-gap:10px 20px;
+      }
+      .textInput{
+        width: 92%;
+        height: 76%;
+      }
+      .lebel,.lowL{
+        width: 100%;
+        font-size: 7px;
+      }
+      .textInput input{
+        width: 100%;
+        font-size: 11px;
+      }
+      .buttonDiv{
+        width: 79%;
+      }
+      
+      .mainImage{
+        height: 43vh;
+        margin-left: 1rem;
+      }
+      .leftButton{
+        padding: 3px 20px;
+        height: 29px;
+      }
+      .rightButton{
+        padding: 3px 20px;
+        height: 29px;
+      }
+      .skipButton{
+        padding: 3px 20px;
+        height: 29px;
+      }
+      
+    }
+    @media(min-width:531px) and (max-width:580px) {
+      .container{
+        width: -webkit-fill-available;
+      }
+      .mainContent{
+        width: 60%;
+      }
+      .heading{
+        font-size: 25px;
+      }
+      .leftComponent{
+        width: 100%;
+        margin-left: 25px;
+      }
+      .heading{
+        width: 81%;
+        font-size: 19px;
+      }
+      .textInputContainer{
+        width: 100%;
+        grip-gap:10px 20px;
+      }
+      .textInput{
+        width: 92%;
+        height: 76%;
+      }
+      .lebel,.lowL{
+        width: 100%;
+        font-size: 7px;
+      }
+      .textInput input{
+        width: 100%;
+        font-size: 9px;
+        height: 30px;
+      }
+      .buttonDiv{
+        width: 79%;
+      }
+      
+      .mainImage{
+        height: 37vh;
+      }
+      .leftButton{
+        padding: 3px 12px;
+        height: 29px;
+      }
+      .rightButton{
+        padding: 3px 12px;
+        height: 29px;
+      }
+      .skipButton{
+        padding: 3px 12px;
+        height: 29px;
+      }
+     
+      
+
+      
+    }
+    @media(min-width:430px) and (max-width:530px) {
+      .container{
+        width: -webkit-fill-available;
+      }
+      .mainContent{
+        width: 60%;
+      }
+      .heading{
+        font-size: 25px;
+      }
+      .leftComponent{
+        width: 100%;
+        margin-left: 17px;
+      }
+      .heading{
+        width: 100%;
+        font-size: 19px;
+      }
+      .textInputContainer{
+        width: 100%;
+        grip-gap:10px 20px;
+      }
+      .textInput{
+        width: 84%;
+        height: 78%;
+      }
+      .lebel,.lowL{
+        width: 100%;
+        font-size: 7px;
+      }
+      .textInput input{
+        width: 100%;
+        font-size: 9px;
+        height: 30px;
+      }
+      .buttonDiv{
+        width: 79%;
+      }
+      
+      .mainImage{
+        height: 29vh;
+      }
+      .leftButton{
+        padding: 3px 12px;
+        height: 29px;
+      }
+      .rightButton{
+        padding: 3px 12px;
+        height: 29px;
+      }
+      .skipButton{
+        padding: 3px 12px;
+        height: 29px;
+      }
+      
+    }
+    
+  
+  
+

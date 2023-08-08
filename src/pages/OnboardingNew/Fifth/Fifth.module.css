@@ -215,3 +215,357 @@
     display: none;
   }
 }
+@media (min-width:871px) and (max-width:1000px) {
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 100%;
+    font-size: 30px;
+  }
+  .subHeading{
+    font-size: 13px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 18px;
+  }
+  .objectiveCard{
+    width: 94%;
+    height: max-content;
+}
+.buttonDiv{
+  width: 93%;
+}
+.leftButton{
+  padding: 10px 30px;
+}
+.rightButton{
+  padding: 10px 30px;
+}
+.skipButton{
+  padding: 10px 30px;
+}
+.mainImage{
+  height: 70vh;
+}
+  
+
+  
+}
+@media(min-width:781px) and (max-width:870px) {
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 80%;
+    font-size: 26px;
+  }
+  .subHeading{
+    width: 80%;
+    font-size: 11px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+  }
+  .objectiveCard{
+    width: 94%;
+    height: max-content;
+}
+.objectiveCard img{
+  width: 71%;
+    height: 30%;
+}
+.buttonDiv{
+  width: 75%;
+}
+.leftButton{
+  padding: 10px 20px;
+}
+.rightButton{
+  padding: 10px 20px;
+}
+.skipButton{
+  padding: 10px 20px;
+}
+.mainImage{
+  height: 62vh;
+}
+
+  
+}
+@media(min-width:751px) and (max-width:780px) {
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 80%;
+    font-size: 23px;
+  }
+  .subHeading{
+    width: 80%;
+    font-size: 9px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+  }
+  .objectiveCard{
+    width: 94%;
+    height: fit-content;
+}
+.objectiveCard img{
+  width: 71%;
+    height: 30%;
+}
+.objectiveCard text{
+  font-size: 9px;
+}
+.buttonDiv{
+  width: 75%;
+}
+.leftButton{
+  padding: 8px 14px;
+}
+.rightButton{
+  padding: 8px 14px;
+}
+.skipButton{
+  padding: 8px 14px;
+}
+.mainImage{
+  height: 53vh;
+}
+
+  
+}
+@media(min-width:661px) and (max-width:750px) {
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 80%;
+    font-size: 23px;
+  }
+  .subHeading{
+    width: 80%;
+    font-size: 9px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 7px;
+  }
+  .objectiveCard{
+    width: 86%;
+    height: fit-content;
+}
+.objectiveCard img{
+  width: 60%;
+    height: 30%;
+}
+.objectiveCard text{
+  font-size: 8px;
+}
+.buttonDiv{
+  width: 75%;
+}
+.leftButton{
+  padding: 8px 14px;
+}
+.rightButton{
+  padding: 8px 14px;
+}
+.skipButton{
+  padding: 8px 14px;
+}
+.mainImage{
+  height: 47vh;
+}
+  
+}
+@media(min-width:561px) and (max-width:660px) {
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 80%;
+    font-size: 18px;
+  }
+  .subHeading{
+    width: 80%;
+    font-size: 7px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-gap: 7px;
+  }
+  .objectiveCard{
+    width: 73%;
+    height: fit-content;
+}
+.objectiveCard img{
+  width: 60%;
+    height: 30%;
+}
+.objectiveCard text{
+  font-size: 7px;
+}
+.buttonDiv{
+  width: 75%;
+}
+.leftButton{
+  padding: 8px 14px;
+}
+.rightButton{
+  padding: 8px 14px;
+}
+.skipButton{
+  padding: 8px 14px;
+}
+.mainImage{
+  height: 47vh;
+}
+
+  
+}
+@media(min-width:471px) and (max-width:560px){
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 80%;
+    font-size: 15px;
+  }
+  .subHeading{
+    width: 80%;
+    font-size: 7px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr  ;
+    grid-gap: 7px;
+  }
+  .objectiveCard{
+    width: 68%;
+    height: fit-content;
+}
+.objectiveCard img{
+  width: 60%;
+    height: 30%;
+}
+.objectiveCard text{
+  font-size: 7px;
+}
+.buttonDiv{
+  width: 75%;
+  height:2rem;
+}
+.leftButton{
+  padding: 5px 14px;
+}
+.rightButton{
+  padding: 5px 14px;
+}
+.skipButton{
+  padding: 5px 14px;
+}
+.mainImage{
+  height: 43vh;
+}
+.hiddenOnMobile{
+  right: 35px;
+}
+
+
+}
+@media (min-width:431px) and (max-width:470px) {
+  .container{
+    width: -webkit-fill-available;
+}
+  .mainContent{
+    width: 65%;
+  }
+  .leftComponent{
+    width: 100%;
+  }
+  .heading{
+    width: 80%;
+    font-size: 15px;
+  }
+  .subHeading{
+    width: 80%;
+    font-size: 7px;
+  }
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr  ;
+    grid-gap: 7px;
+  }
+  .objectiveCard{
+    width: 73%;
+    height: fit-content;
+}
+.objectiveCard img{
+  width: 66%;
+    height: 30%;
+}
+.objectiveCard text{
+  font-size: 6px;
+}
+.buttonDiv{
+  width: 75%;
+  height:25px;
+}
+.leftButton{
+  padding: 2px 10px;
+}
+.rightButton{
+  padding: 2px 10px;
+}
+.skipButton{
+  padding: 2px 10px;
+}
+.mainImage{
+  height: 43vh;
+}
+.hiddenOnMobile{
+  right: 25px;
+}
+
+  
+}
