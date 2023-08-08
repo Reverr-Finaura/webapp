@@ -359,7 +359,6 @@ const VibeMiddlePart = () => {
         likes = docSnap.data()?.likes || [];
         liked_by = docSnap.data()?.liked_by || [];
 
-        console.log("liked_by", liked_by);
 
         if (!liked_by.includes(userEmail)) {
           await updateDoc(docRef, {
@@ -389,7 +388,6 @@ const VibeMiddlePart = () => {
     const docRef = doc(db, "Users", currentLoggedInUser?.user?.email);
     try {
       const docSnap = await getDoc(docRef);
-      console.log("HIIIIII");
       let passed_email;
 
       if (!docSnap.data().passed_email) {
