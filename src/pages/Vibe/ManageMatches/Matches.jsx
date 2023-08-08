@@ -54,7 +54,8 @@ const Matches = () => {
 
   const setMatchedData = async () => {
     let matched_users = userDoc?.matched_user || [];
-
+    console.log("matched_users", matched_users);
+    console.log(userDoc);
     try {
       const promises = matched_users.map(async (user) => {
         const docRef = doc(db, "Users", user);
@@ -62,6 +63,7 @@ const Matches = () => {
 
         if (docSnap.exists()) {
           const userData = docSnap.data();
+          console.log("userData", userData);
           return userData;
         } else {
           return null;

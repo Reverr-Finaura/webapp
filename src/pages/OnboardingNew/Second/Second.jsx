@@ -130,7 +130,7 @@ function Second() {
             ))}
           </div>
 
-          <div>
+          <div className={styles.btnwrapper}>
             <button
               className={styles.leftButton}
               onClick={() => navigate("/onboarding-first")}

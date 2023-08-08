@@ -160,11 +160,11 @@ const VibeMiddlePart = () => {
     //   return SetRedo(true);
     // }
   };
-  const CheckisPremiumFilter=()=>{
-    if(!ispremium){
-      return setFilter(true)
+  const CheckisPremiumFilter = () => {
+    if (!ispremium) {
+      return setFilter(true);
     }
-  }
+  };
 
   //---------------------Swipe Limit Code Start---------------------//
   useEffect(() => {
@@ -307,6 +307,18 @@ const VibeMiddlePart = () => {
       } else {
         console.log("No such document!");
       }
+      setPrevUserIndex(currentUserIndex);
+      setIsFadedRight(true);
+      if (currentUserIndex < userData.length - 1) {
+        // console.log(userData);
+        setCurrentUserIndex(currentUserIndex + 1);
+      }
+      setTimeout(() => {
+        setIsFadedRight(false);
+      }, [500]);
+
+      // LikeUser();
+      handleSwipe();
       FlushUser(userEmail);
     } catch (e) {
       console.log("Error getting document:", e);
@@ -320,40 +332,33 @@ const VibeMiddlePart = () => {
   const LikeUser = async (userEmail) => {
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
+
     try {
       const docSnap = await getDoc(docRef);
       const otherDocSnap = await getDoc(otherDocRef);
 
       if (otherDocSnap.exists()) {
         let liked_by;
+        let likes;
 
-        if (!otherDocSnap.data().liked_by) {
-          liked_by = [];
-        } else {
-          liked_by = otherDocSnap.data().liked_by;
-        }
+        likes = otherDocSnap.data()?.likes || [];
+        liked_by = otherDocSnap.data()?.liked_by || [];
 
-        if (!liked_by.includes(userDoc?.email)) {
+        if (!likes.includes(userDoc?.email)) {
           await updateDoc(otherDocRef, {
             liked_by: [...liked_by, userDoc?.email],
           });
         } else {
           console.log("Already liked by this user");
           // Delete the user from the likedby array
-          liked_by = liked_by.filter((email) => email !== userDoc?.email);
+          likes = likes.filter((email) => email !== userDoc?.email);
           await updateDoc(otherDocRef, {
-            liked_by: [...liked_by],
+            likes: [...likes],
           });
           let other_matched_user = otherDocSnap.data()?.matched_user || [];
-          let matched_user = docSnap.data()?.matched_user || [];
-
-          await updateDoc(docRef, {
-            matched_user: [matched_user, userEmail],
-          });
           await updateDoc(otherDocRef, {
-            matched_user: [other_matched_user, userDoc?.email],
+            matched_user: [...other_matched_user, userDoc?.email],
           });
-          return;
         }
       } else {
         console.log("No such document!");
@@ -361,16 +366,27 @@ const VibeMiddlePart = () => {
 
       if (docSnap.exists()) {
         let likes;
+        let liked_by;
 
-        if (!docSnap.data().likes) {
-          likes = [];
-        } else {
-          likes = docSnap.data().likes;
-        }
+        likes = docSnap.data()?.likes || [];
+        liked_by = docSnap.data()?.liked_by || [];
 
-        if (!likes.includes(userEmail)) {
+        console.log("liked_by", liked_by);
+
+        if (!liked_by.includes(userEmail)) {
           await updateDoc(docRef, {
             likes: [...likes, userEmail],
+          });
+        } else {
+          console.log("Already liked this user");
+          // Delete the user from the likedby array
+          liked_by = liked_by.filter((email) => email !== userEmail);
+          await updateDoc(docRef, {
+            liked_by: liked_by,
+          });
+          let matched_user = docSnap.data()?.matched_user || [];
+          await updateDoc(docRef, {
+            matched_user: [...matched_user, userEmail],
           });
         }
       }

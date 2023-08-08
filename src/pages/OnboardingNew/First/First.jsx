@@ -143,6 +143,9 @@ function First() {
 
           <div className={styles.spaceContainer}>
             {spaceItems.map((spaceItem, index) => (
+              <div style={{
+                 display:index===10?"flex":"unset",flexDirection:index===10?"column":"unset"
+              }}>
               <div
                 key={index}
                 className={`${styles.spaceItem} ${
@@ -152,6 +155,7 @@ function First() {
               >
                 <img src={spaceItem.image} alt="img" />
                 <text>{spaceItem.text}</text>
+              </div>
               </div>
             ))}
           </div>
