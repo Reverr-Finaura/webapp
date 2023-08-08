@@ -58,6 +58,19 @@ const VibeMiddlePart = () => {
   const [isFadedLeft, setIsFadedLeft] = useState(false);
   const [isFadedRight, setIsFadedRight] = useState(false);
   const [prevUserIndex, setPrevUserIndex] = useState();
+  const [filterData,setfilterData]=useState({
+    roles:"",
+    spaces:[],
+    cities:"",
+    age:"",
+    mode:""
+
+})
+const [modal,setModal]=useState(false);
+
+const toggle=()=>{
+  setModal(!modal);
+}
 
   const getUserData = async () => {
     try {
@@ -437,7 +450,7 @@ const VibeMiddlePart = () => {
        </div>
        <div className={styles.filtermodal}>
             {
-              <FilterPart setFilter={setFilter}/>
+              <FilterPart setFilter={setFilter} filterData={filterData} setfilterData={setfilterData}/>
             }
           </div>
           </>}
