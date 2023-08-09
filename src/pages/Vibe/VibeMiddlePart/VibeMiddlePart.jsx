@@ -333,7 +333,8 @@ const toggle=()=>{
         console.log("No such document!");
       }
       setPrevUserIndex(currentUserIndex);
-      setIsFadedTop(true);     
+      setIsFadedTop(true);
+     
       if (currentUserIndex < userData.length - 1) {
         // console.log(userData);
         setCurrentUserIndex(currentUserIndex + 1);
