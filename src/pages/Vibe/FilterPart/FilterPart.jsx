@@ -293,6 +293,7 @@ console.log(filterData.roles);
             step={1}
             onChange={(e)=>handleAge(e)}
           />
+          <p>{age}</p>
         </div>
       </div>
 
@@ -303,7 +304,7 @@ console.log(filterData.roles);
           {modeAll.map((item,index) => {
             return (
               <div className={ (modeSelected===(item))? styles.meetingCardalter : styles.meetingCard} key={index} onClick={()=>handleModeClick(item)} >
-                <div className={styles.meetingCardTitle} > <img style={{ width: "80px", height: "80px" }} src={videoCall} alt=""  />{item}</div>
+                <div className={styles.meetingCardTitle} > <img style={{ width: "66px", height: "62px" }} src={videoCall} alt=""  />{item}</div>
               </div>
 
             )
@@ -329,7 +330,7 @@ console.log(filterData.roles);
   <div className={styles.filter}>
     <div className={styles.filterContent} >
       <div className={styles.doneBtn} onClick={handleDoneClick} >Done</div>
-      <div onClick={() => (setIsPremium(false),SetRedo(false),setModal(!modal),setFilter(false),navigate('/vibetestinga'))} className={styles.filterItem}>Cancel</div>
+      <div onClick={() => (setFilter(false),setIsPremium(false),SetRedo(false),setModal(!modal))} className={styles.filterItem}>Cancel</div>
     </div>
   </div>
     </div >
