@@ -25,8 +25,8 @@
   width: 100%;
   color: #fff;
   padding: 1rem 2rem;
-  gap: 2rem;
-  height: 83vh;
+  gap: 1.5rem;
+  height: 86vh;
   border-radius: 16px;
   z-index: 999999999999;
 }
@@ -59,6 +59,7 @@
 }
 .filterContent {
   display: flex;
+  align-items: center;
   margin-top: 4px;
   gap: 11px;
   flex-wrap: wrap;
