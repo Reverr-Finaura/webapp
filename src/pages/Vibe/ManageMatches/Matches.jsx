@@ -6,6 +6,7 @@ import profileimg from "../../../images/MentorProfileCard.webp";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { db, getUserFromDatabase } from "../../../firebase";
 import { useSelector } from "react-redux";
+import NoData from "../VibeMiddlePart/No Data Screen/NoData";
 
 
 const managematches = [
@@ -110,11 +111,11 @@ const Matches = () => {
                         <span style={{color: ismanage && "black",cursor:"pointer"}} className={ismanage && style.managematches} onClick={()=>(setMatchedData(),setIsManage(true))}>Manage Matches</span>
                     </div>
                 </div>
-
+                {data?.length < 1 ? <NoData matches={false}/> :
                 <div className={style.matchesResultContainer}>
                 
                     <MatchesResults ispremium={ispremium} ismanage={ismanage} data={data}/>
-                </div>
+                </div>}
 
         {/* <div className={style.matchesHeader}>
           <div>

@@ -1,4 +1,5 @@
 import styles from "./vibeMiddlePart.module.css";
+import style from "../../Upgrade/Upgrade.module.css";
 import filterIcon from "../../../images/filterIcon.svg";
 // import userProfilePucture from "../../../images/userProfilePicture.svg";
 import location from "../../../images/location.svg";
@@ -32,6 +33,7 @@ import { toast } from "react-toastify";
 import NoData from "./No Data Screen/NoData";
 import Loading from "./LoadingScreen/Loading";
 import LikesExhaust from "./LikesExhaustScreen/LikesExhaust";
+import Upgrade from "../../Upgrade/Upgrade";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -39,6 +41,7 @@ const VibeMiddlePart = () => {
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [premiumModalStatus , setPremiumModalStatus] = useState(false)
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noMoreVibeData, setNoMoreVibeData] = useState(false);
   const [swipeLimit, setSwipeLimit] = useState({
@@ -174,8 +177,16 @@ const toggle=()=>{
     // }
   };
   const CheckisPremiumFilter = () => {
-    if (!ispremium) {
+    // if (!ispremium) {
+    //   return setFilter(true);
+    // }
+    // add An ! before ispremium to make filter modal render
+    if (ispremium) {
       return setFilter(true);
+    }
+    else{
+      return setFilter(false),SetRedo(true)
+     
     }
   };
 
@@ -444,6 +455,17 @@ const toggle=()=>{
   //   FlushUser();
   return (
     <>
+
+{premiumModalStatus ? (
+      <div class={styles.overlay}>
+      <div className={styles.premiumModal}>
+        <div onClick={()=> setPremiumModalStatus(false)} className={styles.closebtnModal}>
+          close
+        </div>
+        <Upgrade/>
+      </div>
+      </div>
+    ): ''}
   {/* ///Filter Screen//// */}
   {!ispremium && filter && <>
        <div className={styles.filtermodalback}>
@@ -460,11 +482,12 @@ const toggle=()=>{
         className={styles.middleContainer}
       >
         {/* ////Not Premium Pop-UP//// */}
-        {!ispremium && redo && (
+        {!ispremium && redo   && (
           <FilterRedoPopUp
             frtext={frtext}
             SetRedo={SetRedo}
             setIsPremium={setIsPremium}
+            setPremiumModalStatus={setPremiumModalStatus}
           />
         )}
         <div className={styles.filterContainer}>

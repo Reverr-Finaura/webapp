@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import style from "./matches.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import NoData from "../VibeMiddlePart/No Data Screen/NoData";
 
 const MatchesResults = ({ data, ismanage }) => {
+ 
   const navigate = useNavigate();
   const HandleRemoveLikedUser = () => {};
   const HandleRemoveMatchUsers = () => {};
   return (
+    
     <div className={style.matchesreusultmiddlecontainer}>
-      {data.map((item, key) => (
+      {
+      data?.map((item, key) => (
         <div className={style.matchesresultinnercontainer}>
           <div className={style.singlematchresultcontainer} key={key}>
             <img
-              style={{ width: "35px", height: "35px" }}
+              style={{ width: "35px", height: "35px",borderRadius:"50%" }}
               src={item.image}
               alt="img"
             />
