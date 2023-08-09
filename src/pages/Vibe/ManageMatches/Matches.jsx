@@ -113,7 +113,7 @@ const Matches = () => {
 
                 <div className={style.matchesResultContainer}>
                 
-                    <MatchesResults ispremium={ispremium} ismanage={ismanage} data={data}/>
+                    <MatchesResults ispremium={ispremium} ismanage={ismanage} data={data} setData={setData}/>
                 </div>
 
         {/* <div className={style.matchesHeader}>
