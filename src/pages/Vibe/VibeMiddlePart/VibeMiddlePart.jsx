@@ -10,9 +10,9 @@ import phoneIcon from "../../../images/phoneMiniIcon.svg";
 import emailIcon from "../../../images/emailMiniIcon.svg";
 import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
 import twitterIcon from "../../../images/twitterMiniIcon.svg";
-import nopeIcon from "../../../images/nopeIcon.svg";
-import handShakeIcon from "../../../images/handshakeIcon.svg";
-import blueLikeIcon from "../../../images/bluelikeIcon.svg";
+import declineIcon from "../../../images/declineIcon.svg";
+import handShakeIcon from "../../../images/handShakeIcon.svg";
+import acceptIcon from "../../../images/acceptIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
 import FilterPart from "../FilterPart/FilterPart";
@@ -39,7 +39,7 @@ const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
   const [frtext, setFRText] = useState("");
-  const [filter, setFilter] = useState(false);
+  const [filter, setFilter] = useState(true);
   const [userData, setUserData] = useState([]);
   const [premiumModalStatus , setPremiumModalStatus] = useState(false)
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
@@ -1034,10 +1034,9 @@ const toggle=()=>{
             <div className={styles.Cont} onClick={handleNopeCkick}>
               <img
                 className={styles.likehandShakeImg}
-                src={nopeIcon}
-                alt="nopeIcon"
+                src={declineIcon}
+                alt="declineIcon"
               />
-              <p className={styles.text}>Nope</p>
             </div>
             <div className={styles.Cont} onClick={HandShakeUser}>
               <img
@@ -1045,15 +1044,13 @@ const toggle=()=>{
                 src={handShakeIcon}
                 alt="handShakeIcon"
               />
-              <p className={styles.text}>Handshake</p>
             </div>
             <div className={styles.Cont} onClick={handleLikeCkick}>
               <img
                 className={styles.likehandShakeImg}
-                src={blueLikeIcon}
-                alt="blueLikeIcon"
+                src={acceptIcon}
+                alt="acceptIcon"
               />
-              <p className={styles.text}>Like</p>
             </div>
           </div>
           <div className={styles.background}></div>
