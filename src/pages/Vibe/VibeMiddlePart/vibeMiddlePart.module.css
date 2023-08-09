@@ -489,3 +489,28 @@ position: relative;
      
     }
   }
+
+  .fadedTop{
+    width: 32%;
+    height: 82%;
+    background-color: rgba(26, 30, 40, 1);
+    border-radius: 10px;
+    position: absolute;
+    z-index: 99999999;
+    overflow: hidden;
+    animation: targetTransformtop 1s forwards;
+
+  }
+
+  @keyframes targetTransformtop {
+    from {
+      transform: translateX(0%) translateY(0%);
+      opacity: 1;
+      
+    }
+    to {
+        transform: translateX(0%)  translateY(-100%);
+      opacity: 0;
+     
+    }
+  }
