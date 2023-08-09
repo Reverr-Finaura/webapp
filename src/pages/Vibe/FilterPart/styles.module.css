@@ -3,10 +3,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  font-size: 11px;
   cursor: pointer;
   border-radius: 87.273px;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 87.273px;
   border: 0.873px solid #fff;
 
@@ -26,8 +26,7 @@
   color: #fff;
   padding: 1rem 2rem;
   gap: 2rem;
-  height: 85vh;
-  overflow-y: scroll;
+  height: 83vh;
   border-radius: 16px;
   z-index: 999999999999;
 }
@@ -53,15 +52,15 @@
 }
 .filterTitle {
   font-family: Reem Kufi;
-  font-size: 24px;
+  font-size: 17px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
 .filterContent {
   display: flex;
-  margin-top: 1rem;
-  gap: 1rem;
+  margin-top: 4px;
+  gap: 11px;
   flex-wrap: wrap;
 }
 .filterItemSelected {
@@ -83,20 +82,24 @@
   justify-content: center;
 color: black;
   cursor: pointer;
+  font-size: 11px;
   border-radius: 87.273px;
   background-color: #fff;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 87.273px;
   border: 0.873px solid #fff;
 }
 .meetingCard {
+  width: 7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 16px;
   background: var(--blue, linear-gradient(97deg, #00b3ff 57.09%, #4cc9ff 100%));
-  padding: 2rem 1rem;
+  padding: 1rem 0rem;
+  height: 7rem;
+  cursor:pointer;
 }
 .meetingCardTitle{
   display: flex;
@@ -104,6 +107,9 @@ color: black;
   align-items: center;
 }
 .meetingCardalter{
+  height: 7rem;
+  width: 7rem;
+  cursor:pointer;
   background: white;
   color: black;
   display: flex;
@@ -111,9 +117,11 @@ color: black;
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  padding: 2rem 1rem;
+  padding: 1rem 0rem;
 }
 .doneBtn {
+  height:2rem;
+  font-size: 13px;
   display: flex;
   flex-direction: column;
   align-items: center;

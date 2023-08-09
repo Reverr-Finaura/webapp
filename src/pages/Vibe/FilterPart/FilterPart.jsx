@@ -310,6 +310,7 @@ const FilterPart = ({
             step={1}
             onChange={(e) => handleAge(e)}
           />
+          <p>{age}</p>
         </div>
       </div>
 

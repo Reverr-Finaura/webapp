@@ -1,4 +1,5 @@
 import styles from "./vibeMiddlePart.module.css";
+import style from "../../Upgrade/Upgrade.module.css";
 import filterIcon from "../../../images/filterIcon.svg";
 // import userProfilePucture from "../../../images/userProfilePicture.svg";
 import location from "../../../images/location.svg";
@@ -32,6 +33,7 @@ import { toast } from "react-toastify";
 import NoData from "./No Data Screen/NoData";
 import Loading from "./LoadingScreen/Loading";
 import LikesExhaust from "./LikesExhaustScreen/LikesExhaust";
+import Upgrade from "../../Upgrade/Upgrade";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -39,6 +41,7 @@ const VibeMiddlePart = () => {
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [premiumModalStatus , setPremiumModalStatus] = useState(false)
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noMoreVibeData, setNoMoreVibeData] = useState(false);
   const [swipeLimit, setSwipeLimit] = useState({
@@ -199,8 +202,16 @@ const VibeMiddlePart = () => {
     // }
   };
   const CheckisPremiumFilter = () => {
-    if (!ispremium) {
+    // if (!ispremium) {
+    //   return setFilter(true);
+    // }
+    // add An ! before ispremium to make filter modal render
+    if (ispremium) {
       return setFilter(true);
+    }
+    else{
+      return setFilter(false),SetRedo(true)
+     
     }
   };
 
@@ -466,11 +477,11 @@ const VibeMiddlePart = () => {
   console.log("filterData", filterData);
   return (
     <>
-      {/* ///Filter Screen//// */}
-      {!ispremium && filter && (
-        <>
-          <div className={styles.filtermodalback}></div>
-          <div className={styles.filtermodal}>
+  {/* ///Filter Screen//// */}
+  {!ispremium && filter && <>
+       <div className={styles.filtermodalback}>
+       </div>
+       <div className={styles.filtermodal}>
             {
               <FilterPart
                 setFilter={setFilter}
@@ -479,227 +490,213 @@ const VibeMiddlePart = () => {
               />
             }
           </div>
-        </>
-      )}
-      {(isLikesEXhaust && <LikesExhaust />) ||
-        (isLoadingData ? (
-          <Loading />
-        ) : (
+          </>}
+    {isLikesEXhaust && (<LikesExhaust />) ||  (isLoadingData ? (<Loading />) : (
+      <div
+        style={{ overflowY: !redo ? "scroll" : "hidden" }}
+        className={styles.middleContainer}
+      >
+        {/* ////Not Premium Pop-UP//// */}
+        {!ispremium && redo && (
+          <FilterRedoPopUp
+            frtext={frtext}
+            SetRedo={SetRedo}
+            setIsPremium={setIsPremium}
+            setPremiumModalStatus={setPremiumModalStatus}
+          />
+        )}
+        <div className={styles.filterContainer}>
           <div
-            style={{ overflowY: !redo ? "scroll" : "hidden" }}
-            className={styles.middleContainer}
+            onClick={() => (CheckisPremium(), setFRText("Undo"))}
+            className={styles.undoMoveCont}
           >
-            {/* ////Not Premium Pop-UP//// */}
-            {!ispremium && redo && (
-              <FilterRedoPopUp
-                frtext={frtext}
-                SetRedo={SetRedo}
-                setIsPremium={setIsPremium}
+            <div className={styles.innerUndoMove}>
+              <img
+                className={styles.undoMoveImg}
+                src={undoMoveIcon}
+                alt="undoMoveIcon"
               />
-            )}
-            <div className={styles.filterContainer}>
-              <div
-                onClick={() => (CheckisPremium(), setFRText("Undo"))}
-                className={styles.undoMoveCont}
-              >
-                <div className={styles.innerUndoMove}>
-                  <img
-                    className={styles.undoMoveImg}
-                    src={undoMoveIcon}
-                    alt="undoMoveIcon"
-                  />
-                  <p className={styles.undoMoveText}>Undo Move</p>
-                </div>
-              </div>
-              {!noMoreVibeData && (
-                <img
-                  onClick={() => (CheckisPremiumFilter(), setFRText("Filter"))}
-                  className={styles.filterIcon}
-                  src={filterIcon}
-                  alt="filterIcon"
-                />
-              )}
+              <p className={styles.undoMoveText}>Undo Move</p>
             </div>
-            {noMoreVibeData ? (
-              <NoData noMoreVibeData={noMoreVibeData} />
-            ) : (
-              <div className={styles.vibeinfo}>
-                <div className={styles.userDetailsContainer}>
-                  <div className={styles.imgContainer}>
-                    <img
-                      className={styles.userProfilePucture}
-                      src={
-                        userData[currentUserIndex].image
-                          ? userData[currentUserIndex].image
-                          : defaultImg
-                      }
-                      alt="userProfilePucture"
-                    />
-                  </div>
-                  <h2 className={styles.userName}>
-                    {userData[currentUserIndex].name}
-                  </h2>
-                  <h3 className={styles.userPosition}>
-                    {userData[currentUserIndex].designation}
-                  </h3>
-                  {userData[currentUserIndex].state ||
-                  userData[currentUserIndex].country ? (
-                    <div className={styles.locationCont}>
-                      <img
-                        className={styles.locationIcon}
-                        src={location}
-                        alt="location"
-                      />
-                      <p className={styles.location}>
-                        {userData[currentUserIndex].state}
-                        {", "}
-                        {userData[currentUserIndex].country}
-                      </p>
-                    </div>
-                  ) : null}
+          </div>
+          {!noMoreVibeData && <img
+            onClick={()=>(CheckisPremiumFilter(),setFRText("Filter"))}
+            className={styles.filterIcon}
+            src={filterIcon}
+            alt="filterIcon"
+          />}
+        </div>
+        {noMoreVibeData ? (<NoData noMoreVibeData={noMoreVibeData} />) : (
+          <div className={styles.vibeinfo}>
+            <div className={styles.userDetailsContainer}>
+              <div className={styles.imgContainer}>
+                <img
+                  className={styles.userProfilePucture}
+                  src={
+                    userData[currentUserIndex].image
+                      ? userData[currentUserIndex].image
+                      : defaultImg
+                  }
+                  alt="userProfilePucture"
+                />
+              </div>
+              <h2 className={styles.userName}>
+                {userData[currentUserIndex].name}
+              </h2>
+              <h3 className={styles.userPosition}>
+                {userData[currentUserIndex].designation}
+              </h3>
+              {userData[currentUserIndex].state ||
+              userData[currentUserIndex].country ? (
+                <div className={styles.locationCont}>
+                  <img
+                    className={styles.locationIcon}
+                    src={location}
+                    alt="location"
+                  />
+                  <p className={styles.location}>
+                    {userData[currentUserIndex].state}
+                    {", "}
+                    {userData[currentUserIndex].country}
+                  </p>
                 </div>
-                <div className={styles.details}>
-                  {userData[currentUserIndex]?.about && (
-                    <div className={styles.aboutMe}>
-                      <h2 className={styles.Heading}>About Me</h2>
-                      <p className={styles.aboutDetails}>
-                        {userData[currentUserIndex].about}
-                      </p>
-                    </div>
-                  )}
-                  {userData[currentUserIndex]?.here_for &&
-                  userData[currentUserIndex]?.here_for.length > 0 ? (
-                    <div className={styles.whyamIHere}>
-                      <h2 className={styles.Heading}>Why am i here</h2>
-                      <div className={styles.whyamIHereCont}>
-                        {userData[currentUserIndex]?.here_for.map(
-                          (item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={styles.whyamIHereItem}
-                              >
-                                <p className={styles.whyhereText}>{item}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[currentUserIndex]?.experience &&
-                  userData[currentUserIndex]?.experience.length > 0 &&
-                  userData[currentUserIndex]?.experience[0]?.designation &&
-                  userData[currentUserIndex]?.experience[0]?.company !== "" ? (
-                    <div className={styles.designation}>
-                      <h2 className={styles.Heading}>Current Designation</h2>
-                      <div className={styles.designationDetailsCont}>
-                        <h3 className={styles.designationInfo}>
-                          {userData[currentUserIndex].experience[0].designation
-                            ? userData[currentUserIndex].experience[0]
-                                .designation
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[currentUserIndex].experience[0].company
-                            ? userData[currentUserIndex].experience[0].company
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[currentUserIndex]?.education &&
-                  userData[currentUserIndex]?.education.length > 0 &&
-                  userData[currentUserIndex]?.education[0]?.institute &&
-                  userData[currentUserIndex]?.education[0]?.degree !== "" ? (
-                    <div className={styles.education}>
-                      <h2 className={styles.Heading}>Education</h2>
-                      <div className={styles.educationCont}>
-                        <h3 className={styles.educationInstitute}>
-                          {userData[currentUserIndex].education[0].institute
-                            ? userData[currentUserIndex].education[0].institute
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[currentUserIndex].education[0].degree
-                            ? userData[currentUserIndex].education[0].degree
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[currentUserIndex]?.Vibe_Data?.How_To_Meet &&
-                  userData[currentUserIndex]?.Vibe_Data?.How_To_Meet?.length >
-                    0 ? (
-                    <div className={styles.howCanWeMeet}>
-                      <h2 className={styles.Heading}>How can we meet?</h2>
-                      <div className={styles.meetingTypeCont}>
-                        {userData[currentUserIndex].Vibe_Data.How_To_Meet.map(
-                          (type, index) => {
-                            const imageURL = howToMeetImages[type];
-                            return (
-                              <div key={index} className={styles.typeContainer}>
-                                <img
-                                  className={styles.meetingTypeImg}
-                                  src={imageURL}
-                                  alt={type}
-                                />
-                                <p className={styles.meetingType}>{type}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className={styles.findMeOn}>
-                    {(userData[currentUserIndex]?.phone ||
-                      userData[currentUserIndex]?.email ||
-                      userData[currentUserIndex]?.linkedin ||
-                      userData[currentUserIndex]?.twitter) !== "" && (
-                      <>
-                        <h2 className={styles.Heading}>Find Me On</h2>
-                        <div className={styles.findmeOnWraper}>
-                          {userData[currentUserIndex].phone !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={phoneIcon} alt="phoneIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].countryCode}{" "}
-                                {userData[currentUserIndex].phone}
-                              </p>
-                            </div>
-                          )}
-                          {userData[currentUserIndex].email !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={emailIcon} alt="emailIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].email}
-                              </p>
-                            </div>
-                          )}
-                          {userData[currentUserIndex].linkedin !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={linkedinIcon} alt="linkedinIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].linkedin}
-                              </p>
-                            </div>
-                          )}
-                          {userData[currentUserIndex].twitter !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={twitterIcon} alt="twitterIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].twitter}
-                              </p>
-                            </div>
-                          )}
+              ) : null}
+            </div>
+            <div className={styles.details}>
+              {userData[currentUserIndex]?.about && (
+                <div className={styles.aboutMe}>
+                  <h2 className={styles.Heading}>About Me</h2>
+                  <p className={styles.aboutDetails}>
+                    {userData[currentUserIndex].about}
+                  </p>
+                </div>
+              )}
+              {userData[currentUserIndex]?.here_for &&
+              userData[currentUserIndex]?.here_for.length > 0 ? (
+                <div className={styles.whyamIHere}>
+                  <h2 className={styles.Heading}>Why am i here</h2>
+                  <div className={styles.whyamIHereCont}>
+                    {userData[currentUserIndex]?.here_for.map((item, index) => {
+                      return (
+                        <div key={index} className={styles.whyamIHereItem}>
+                          <p className={styles.whyhereText}>{item}</p>
                         </div>
-                      </>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+              {userData[currentUserIndex]?.experience &&
+              userData[currentUserIndex]?.experience.length > 0 &&
+              userData[currentUserIndex]?.experience[0]?.designation &&
+              userData[currentUserIndex]?.experience[0]?.company !== "" ? (
+                <div className={styles.designation}>
+                  <h2 className={styles.Heading}>Current Designation</h2>
+                  <div className={styles.designationDetailsCont}>
+                    <h3 className={styles.designationInfo}>
+                      {userData[currentUserIndex].experience[0].designation
+                        ? userData[currentUserIndex].experience[0].designation
+                        : ""}
+                    </h3>
+                    <p className={styles.designationDetails}>
+                      {userData[currentUserIndex].experience[0].company
+                        ? userData[currentUserIndex].experience[0].company
+                        : ""}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+              {userData[currentUserIndex]?.education &&
+              userData[currentUserIndex]?.education.length > 0 &&
+              userData[currentUserIndex]?.education[0]?.institute &&
+              userData[currentUserIndex]?.education[0]?.degree !== "" ? (
+                <div className={styles.education}>
+                  <h2 className={styles.Heading}>Education</h2>
+                  <div className={styles.educationCont}>
+                    <h3 className={styles.educationInstitute}>
+                      {userData[currentUserIndex].education[0].institute
+                        ? userData[currentUserIndex].education[0].institute
+                        : ""}
+                    </h3>
+                    <p className={styles.designationDetails}>
+                      {userData[currentUserIndex].education[0].degree
+                        ? userData[currentUserIndex].education[0].degree
+                        : ""}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+              {userData[currentUserIndex]?.Vibe_Data?.How_To_Meet &&
+              userData[currentUserIndex]?.Vibe_Data?.How_To_Meet?.length > 0 ? (
+                <div className={styles.howCanWeMeet}>
+                  <h2 className={styles.Heading}>How can we meet?</h2>
+                  <div className={styles.meetingTypeCont}>
+                    {userData[currentUserIndex].Vibe_Data.How_To_Meet.map(
+                      (type, index) => {
+                        const imageURL = howToMeetImages[type];
+                        return (
+                          <div key={index} className={styles.typeContainer}>
+                            <img
+                              className={styles.meetingTypeImg}
+                              src={imageURL}
+                              alt={type}
+                            />
+                            <p className={styles.meetingType}>{type}</p>
+                          </div>
+                        );
+                      }
                     )}
                   </div>
                 </div>
+              ) : null}
+              <div className={styles.findMeOn}>
+                {(userData[currentUserIndex]?.phone ||
+                  userData[currentUserIndex]?.email ||
+                  userData[currentUserIndex]?.linkedin ||
+                  userData[currentUserIndex]?.twitter) !== "" && (
+                  <>
+                    <h2 className={styles.Heading}>Find Me On</h2>
+                    <div className={styles.findmeOnWraper}>
+                      {userData[currentUserIndex].phone !== "" && (
+                        <div className={styles.findmeCont}>
+                          <img src={phoneIcon} alt="phoneIcon" />
+                          <p className={styles.findmeDetails}>
+                            {userData[currentUserIndex].countryCode}{" "}
+                            {userData[currentUserIndex].phone}
+                          </p>
+                        </div>
+                      )}
+                      {userData[currentUserIndex].email !== "" && (
+                        <div className={styles.findmeCont}>
+                          <img src={emailIcon} alt="emailIcon" />
+                          <p className={styles.findmeDetails}>
+                            {userData[currentUserIndex].email}
+                          </p>
+                        </div>
+                      )}
+                      {userData[currentUserIndex].linkedin !== "" && (
+                        <div className={styles.findmeCont}>
+                          <img src={linkedinIcon} alt="linkedinIcon" />
+                          <p className={styles.findmeDetails}>
+                            {userData[currentUserIndex].linkedin}
+                          </p>
+                        </div>
+                      )}
+                      {userData[currentUserIndex].twitter !== "" && (
+                        <div className={styles.findmeCont}>
+                          <img src={twitterIcon} alt="twitterIcon" />
+                          <p className={styles.findmeDetails}>
+                            {userData[currentUserIndex].twitter}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
-            )}
+            </div>
+          </div>
+        )}
 
             {isFadedLeft && !(userData.length - 1 == prevUserIndex) && (
               <div

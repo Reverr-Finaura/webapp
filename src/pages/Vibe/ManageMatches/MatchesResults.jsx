@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
+import NoData from "../VibeMiddlePart/No Data Screen/NoData";
 
 const MatchesResults = ({ data, ismanage, setData }) => {
   const navigate = useNavigate();
@@ -44,12 +45,13 @@ const MatchesResults = ({ data, ismanage, setData }) => {
     }
   };
   return (
+    
     <div className={style.matchesreusultmiddlecontainer}>
       {data.map((item) => (
         <div className={style.matchesresultinnercontainer}>
           <div className={style.singlematchresultcontainer} key={item.email}>
             <img
-              style={{ width: "35px", height: "35px" }}
+              style={{ width: "35px", height: "35px",borderRadius:"50%" }}
               src={item.image}
               alt="img"
             />
