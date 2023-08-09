@@ -41,6 +41,8 @@ const FilterPart = ({
   filterData,
   setfilterData,
   setFilter,
+  setFetchAgain,
+  fetchAgain
 }) => {
   const role = ["Founder", "Mentor", "Professional", "Investor"];
   const spaces = [
@@ -142,7 +144,7 @@ const FilterPart = ({
     } else {
       // If the space text is not selected, add it to the array
       setspaceSelected([...spaceSelected, spaceText]);
-      console.log("Aspace:", spaceSelected);
+      // console.log("Aspace:", spaceSelected);
     }
   };
   const handleModeClick = (spaceText) => {
@@ -165,6 +167,7 @@ const FilterPart = ({
 
     setfilterData(data);
     setFilter(false);
+    setFetchAgain(!fetchAgain);
     // setModal(false);
     // setIsPremium(false);
     // SetRedo(false);
