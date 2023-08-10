@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
+
 * {
     margin: 0px;
     padding: 0px;
@@ -12,4 +15,54 @@
     justify-content: space-between;
     padding: 40px;
     align-items: center;    
+}
+
+
+@media screen and (max-width: 640px) {
+    .vibeContainer{
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        padding-top: 10px;
+    }
+    .topSection {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .mainSection {
+        height: calc(100% - 35px);
+        width: 100%;
+    }
+    .dropDown {
+        background-color: transparent;
+        outline: none;
+        border: 1px solid white;
+        color: white;
+        border-radius: 5px;
+    }
+    .viewMyProfile {
+        background: linear-gradient(rgba(0, 179, 255, 1), rgba(76, 201, 255, 1)); 
+        -webkit-background-clip: text; 
+        background-clip: text; 
+        color: transparent; 
+        font-weight: 600;
+        text-decoration: underline;
+    }
+    .dropDown option {
+        background-color: rgba(0, 179, 255, 1);
+        color: white;
+    }
+}
+
+
+@media screen and (max-width: 360px) {
+    .dropDown {
+        width: 100px;
+    }
+    .viewMyProfile {
+        font-size: 12px;
+    }
 }

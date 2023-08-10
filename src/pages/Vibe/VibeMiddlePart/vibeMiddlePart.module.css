@@ -486,3 +486,47 @@ position: relative;
      
     }
   }
+
+
+  @media screen and (max-width: 640px) {
+    .middleContainer {
+        width: 100%;
+    }
+    .likeHandshake {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .undoMoveCont {
+        width: 120px;
+    }
+    .innerContainer{
+        padding: 10px 20px;
+    }
+    .filterContainer {
+        padding: 0px 20px;
+    }
+    .details {
+        padding: 20px 20px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+
+    .undoMoveCont {
+        width: 100px;
+    }
+    .Cont {
+        width: 50px;
+        height: 50px;
+    }
+    .likehandShakeImg {
+        width: 40px;
+    }
+    .background {
+        height: 40px;
+    }
+
+}
+
