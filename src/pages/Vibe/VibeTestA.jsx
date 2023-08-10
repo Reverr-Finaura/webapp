@@ -41,16 +41,35 @@ const VibeTestA = () => {
           </div>
             {
               activeComp === "Manage matches" ? <Matches mobile={true} manage={true} /> :
-              activeComp === "See who liked you" ? <Matches mobile={true} manage={false}/> : ""
+              activeComp === "See who liked you" ? <Matches mobile={true} manage={false}/> : 
+              activeComp === "Vibe Home" ? <VibeMiddlePart /> : 
+              activeComp === "Your matches" ? <VibeMessageMain /> : ""
             }
         </div>
         :
       
       <div className={style.vibeContainer}>
-        <VibeMessageMain />
-        {/* <LikesExhaust/> */}
-        <VibeMiddlePart />
-        <Matches />
+        {/* {screenWidth <= 640 ? (
+          <>
+          <div className={style.topSection}>
+          <select className={style.dropDown} onChange={handleSelect}>
+            <option value="vibleMiddlePart">Vibe Home</option>
+            <option value="matches">Your Matches</option>
+            <option value="manageMacthes">Manage Matches</option>
+          </select>
+          <p className={style.viewMyProfile}>View My Profile</p>
+          </div>
+          <div className={style.mainSection}>
+            {selectedSection === "matches" && <VibeMessageMain />}
+            {selectedSection === "vibleMiddlePart" && <VibeMiddlePart />}
+            {selectedSection === "manageMacthes" && <Matches />}
+          </div>
+          </>
+        ) : (<> */}
+          <VibeMessageMain />
+          <VibeMiddlePart />
+          <Matches />
+        {/* </>)} */}
       </div>
       }
     </>

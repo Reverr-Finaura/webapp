@@ -25,7 +25,8 @@ const Matches = ({mobile,manage}) => {
   const [premiumModalStatus, setPremiumModalStatus] = useState(false);
   const [matchedUser, setMatchedUsers] = useState([]);
   const userDoc = useSelector((state) => state.userDoc);
-
+  const currentLoggedInUser = useSelector((state) => state.user);
+  
   const getWhoLikeData = async () => {
     try {
       const userRef = collection(db, "Users");
@@ -34,7 +35,7 @@ const Matches = ({mobile,manage}) => {
       let whoLikedMe = [];
       usersnapshot.docs.forEach((doc) => {
         const likedBy = doc.data().liked_by;
-        if (likedBy && likedBy.includes(userDoc?.email)) {
+        if (likedBy && likedBy.includes(currentLoggedInUser?.user?.email)) {
           whoLikedMe.push(doc.data());
         }
       });

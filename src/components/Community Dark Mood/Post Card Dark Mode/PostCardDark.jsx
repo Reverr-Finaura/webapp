@@ -710,7 +710,7 @@ export default function PostCardDark({
           <div className="postImageContainer" style={{ width: "100%" }}>
             <img
               className="postImage"
-              style={{ aspectRatio: "7/3", width: "100%" }}
+              style={{ width: "100%" }}
               src={item?.image}
               alt="postImage"
             />
