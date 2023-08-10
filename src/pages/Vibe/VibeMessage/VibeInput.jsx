@@ -85,6 +85,7 @@ const VibeInput = () => {
         placeholder="Send Message..."
         value={newMsg}
         onChange={(e)=>{setNewMsg(e.target.value)}}
+        onKeyDown={(e)=>(e.key === "Enter" && handleSendMessage())}
       />
       <AiOutlineSend
         style={{ borderRadius: "30px", width: "60px", height: " 39px" }}

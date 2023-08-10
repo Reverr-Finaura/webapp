@@ -43,7 +43,7 @@ const VibeTestA = () => {
               activeComp === "Manage matches" ? <Matches mobile={true} manage={true} /> :
               activeComp === "See who liked you" ? <Matches mobile={true} manage={false}/> : 
               activeComp === "Vibe Home" ? <VibeMiddlePart /> : 
-              activeComp === "Your matches" ? <VibeMessageMain /> : ""
+              activeComp === "Your matches" ? <VibeMessageMain mobile={true} /> : ""
             }
         </div>
         :

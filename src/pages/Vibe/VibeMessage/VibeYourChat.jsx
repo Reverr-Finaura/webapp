@@ -8,7 +8,7 @@ import ChatSkeleton from "../../../components/Post Skeleton/Chat Skeleton/ChatSk
 import { db, getAllMatchedUserHavingChatWith } from "../../../firebase";
 import { updateSelectedUser, Chatshow } from "../../../features/vibeChatSlice";
 
-const VibeYourChat = ({ data, setChatSelected }) => {
+const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) => {
   const currentcUser = useSelector((state) => state.userDoc);
   const currentLoggedInUser = useSelector((state) => state.user);
   // const currentcUser={email:"mauricerana@gmail.com"}
@@ -139,9 +139,12 @@ const VibeYourChat = ({ data, setChatSelected }) => {
 
   return (
     <div className={style.Userdisplay}>
-      <div className={style.Userdisplaycapsule}>Your Messages</div>
+      {
+        !mobile && <div style={{cursor:"default",}} className={style.Userdisplaycapsule}>Your Messages</div>
+      }
+      
 
-      <div className={style.messageboxcontainer}>
+      <div onClick={()=>mobile && setMobileChatNoHeader(true)} className={style.messageboxcontainer}>
         {dummyLoading ? (
           <ChatSkeleton cards={3} />
         ) : chatUserData.length === 0 ? (

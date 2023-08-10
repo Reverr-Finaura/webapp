@@ -56,7 +56,7 @@ const data = [
   },
 ];
 
-const VibeMessageMain = () => {
+const VibeMessageMain = ({mobile}) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const chatData = useSelector((state) => state.vibeChat);
@@ -64,6 +64,7 @@ const VibeMessageMain = () => {
   const [name, setName] = useState("");
   const [profileImg, setProfileImg] = useState(defaultImg);
   const [Chatselected, setChatSelected] = useState(false);
+  const [mobilechatnoheader, setMobileChatNoHeader] = useState(false);
   const [Recive, setRecive] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -145,6 +146,9 @@ const VibeMessageMain = () => {
 
   return (
     <div className={style.RigtSidebarContainer}>
+      {
+        !mobilechatnoheader && 
+      
       <div className={style.UserdetailsHeader}>
         <div>
           <img
@@ -152,7 +156,7 @@ const VibeMessageMain = () => {
             src={profileImg}
             alt="img"
           />
-          <p>{name}</p>
+          <p style={{cursor:"default",}}>{name}</p>
         </div>
         <p
           className={style.UserdetailsHeaderPtag}
@@ -161,11 +165,12 @@ const VibeMessageMain = () => {
           View Profile &gt;
         </p>
       </div>
+}
 
       {Chatselected ? (
-        <SelectedChat setChatSelected={setChatSelected} />
+        <SelectedChat setMobileChatNoHeader={setMobileChatNoHeader} setChatSelected={setChatSelected} />
       ) : (
-        <VibeYourChat data={data} setChatSelected={setChatSelected} />
+        <VibeYourChat setMobileChatNoHeader={setMobileChatNoHeader} mobile={mobile} data={data} setChatSelected={setChatSelected} />
       )}
     </div>
   );
