@@ -487,7 +487,6 @@ position: relative;
     }
   }
 
-<<<<<<< HEAD
 
   @media screen and (max-width: 640px) {
     .middleContainer {
@@ -531,7 +530,6 @@ position: relative;
 
 }
 
-=======
   .fadedTop{
     width: 32%;
     height: 82%;
@@ -556,4 +554,3 @@ position: relative;
      
     }
   }
->>>>>>> c1f4343666ae1b0545c04ab3106a27f810b99f34
