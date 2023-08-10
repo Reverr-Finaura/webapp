@@ -17,7 +17,7 @@ const managematches = [
   { name: "jatin", designation: "ceo", image: profileimg },
 ];
 
-const Matches = () => {
+const Matches = ({mobile,manage}) => {
   const [likedMeData, setLikedMeData] = useState([]);
   const [data, setData] = useState([]);
   const [ismanage, setIsManage] = useState(false);
@@ -47,7 +47,14 @@ const Matches = () => {
 
   useEffect(() => {
     getWhoLikeData();
-  }, [userDoc]);
+    if(manage && mobile){
+      setMatchedData()
+      setIsManage(true)
+    }else if(!manage && mobile){
+      setData(likedMeData)
+       setIsManage(false)
+    }
+  }, [userDoc,manage]);
 
   const setMatchedData = async () => {
     let matched_users = userDoc?.matched_user || [];
@@ -106,6 +113,9 @@ const Matches = () => {
             </div>
           )}
 
+            {
+              !mobile ?
+            
           <div className={style.matchesHeader}>
             <div>
               <span
@@ -124,6 +134,8 @@ const Matches = () => {
               </span>
             </div>
           </div>
+          : ""
+          }
           {/* {data?.length < 1 ? <NoData matches={false}/> : */}
           {data?.length < 1 && ismanage === true ? (
             <p> No Matches Found</p>

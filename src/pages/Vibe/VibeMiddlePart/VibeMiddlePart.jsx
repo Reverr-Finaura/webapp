@@ -244,7 +244,7 @@ const VibeMiddlePart = () => {
     //   return setFilter(true);
     // }
     // add An ! before ispremium to make filter modal render
-    if (!ispremium) {
+    if (ispremium) {
       return setFilter(true);
     } else {
       return setFilter(false), SetRedo(true);
