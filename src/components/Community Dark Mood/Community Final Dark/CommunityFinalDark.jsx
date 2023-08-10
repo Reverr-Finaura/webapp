@@ -123,6 +123,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([])
+  const [imageModalStatus , setImageModalStatus]= useState(false)
 
 
   useEffect(() => {
@@ -346,6 +347,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     setTempImageURL(null);
     setSelectedVideo(null);
     setTempVideoURL(null);
+    
+    if (chooseFileRef.current) {
+      chooseFileRef.current.value = ''; // Reset input value
+    }
+    if(chooseVidoFileRef.current){
+      chooseVidoFileRef.current.value = ''; // Reset input value
+    }
+
   };
 
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -424,10 +433,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     const fileURL = e.target.files[0];
     console.log("this is image upload", fileURL);
     console.log("this is image upload", URL.createObjectURL(fileURL));
+    setImageModalStatus(true)
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
   }
+  console.log("image uploaded --", imageUpload)
+  console.log("temp image --", tempImageURL)
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
@@ -780,6 +792,32 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   return (
     <>
+
+      {imageModalStatus && tempImageURL && (
+        <div class={style.overlay}>
+          <div className={style.imageModal}>
+           
+            <div className={style.communityPostImageCont}>
+              <img
+                className={style.communityPostImage}
+                src={tempImageURL}
+                alt="postFile"
+              />
+              <div className={style.editDeleteBtn}>
+                <RxCrossCircled
+                  onClick={RemoveFile}
+                  className="delete_Btn"
+                />
+                <FiEdit
+                  onClick={chooseFile}
+                  className={style.editBtn}
+                />
+              </div>
+            </div>
+            <button className={style.imageModalSubmitebtn} onClick={()=> setImageModalStatus(false)} >Done</button>
+          </div>
+        </div>
+      )}
       {/* raaya chat boot */}
       <iframe
         src="https://www.chatbase.co/chatbot-iframe/dpblbF2UGnrFPdqMPCxWb"
