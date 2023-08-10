@@ -26,7 +26,7 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { createMatchedInMessagesDoc, db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import defaultImg from "../../../images/default-profile-pic.webp";
 import { toast } from "react-toastify";
@@ -385,6 +385,13 @@ const toggle=()=>{
           await updateDoc(otherDocRef, {
             matched_user: [...other_matched_user, userDoc?.email],
           });
+
+          await createMatchedInMessagesDoc(
+            otherDocSnap.data()?.email,
+            // "apurbar06@gmail.com",
+            docSnap.data()?.email
+            // "sivatharun2212@gmail.com"
+          );
         }
       } else {
         console.log("No such document!");
@@ -427,7 +434,6 @@ const toggle=()=>{
     const docRef = doc(db, "Users", currentLoggedInUser?.user?.email);
     try {
       const docSnap = await getDoc(docRef);
-      console.log("HIIIIII");
       let passed_email;
 
       if (!docSnap.data().passed_email) {
