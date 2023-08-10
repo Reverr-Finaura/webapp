@@ -40,9 +40,19 @@
     .menucontainer {
       position: relative;
       display: flex;
-      justify-content: start;
-      align-items: start;
+      justify-content: space-between;
+      align-items: center;
       
+    }
+    .menucontainer p{
+      font-size: 12px;
+      font-weight: 500;
+      background: -webkit-linear-gradient(#00B3FF, #4CC9FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: underline;
+      text-decoration-color: #00B3FF;
+    
     }
     
     .menutrigger {
@@ -92,10 +102,10 @@
       background: #1A1E28;
       
       position: absolute;
-      top: 30px;
-      right: 30px;
+      top: 40px;
+      right: 60px;
       z-index: 99;
-      width: 90%;
+      width: 80%;
       height: 228px;
       box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
       opacity: 0;
@@ -128,7 +138,20 @@
       padding: 20px;
       color: white;
       background-color: #1A1E28;
+   
   }
+  .menu li:last-child{
+    color: #FFF278;
+    /* background: -webkit-linear-gradient(#FFF278, #F8B533);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent; */
+  }
+  .menulgt{
+    
+    position: absolute;
+    right: 30px;
+  }
+  
   .menu li::after{
       content: "";
     position: absolute;

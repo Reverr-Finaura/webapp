@@ -15,9 +15,9 @@ const VibeMobileDropDown = ({list,activeComp,setActiveComp}) => {
       <div className={style.container}>
         <div className={style.menucontainer}>
           <button onClick={onClick} className={style.menutrigger}>
-            <span>{activeComp} <span className={style.greater}>&gt;</span></span>
-            
+            <span style={{color: activeComp === "See who liked you" && "#FFF278",border: activeComp === "See who liked you" && "1px solid #FFF278"}}>{activeComp} <span className={style.greater}>&gt;</span></span>
           </button>
+          <p>View My Profile</p>
           <div
             ref={dropdownRef}
             className={`${style.menu} ${isActive ? style.active : style.inactive}`}
@@ -27,7 +27,7 @@ const VibeMobileDropDown = ({list,activeComp,setActiveComp}) => {
               {
   
                   list?.map((item)=>(
-                      <li onClick={()=> (setActiveComp(item),onClick())} >{item}</li>
+                      <li onClick={()=> (setActiveComp(item),onClick())} >{item} <span className={style.menulgt}>&gt;</span></li>
                   ))
               }
             </ul>
