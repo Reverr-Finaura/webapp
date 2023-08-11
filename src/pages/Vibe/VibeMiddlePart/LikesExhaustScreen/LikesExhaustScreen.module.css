@@ -10,8 +10,7 @@
 
 }
 .img{
-    width: 73%;
-    height: 46%;
+    width: 80%;
     margin-top: 1rem;
 }
 .img img{
@@ -62,17 +61,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    top: 6px;
     background: linear-gradient(135deg, rgba(76, 201, 255, 0.10) 0%, rgba(83, 125, 236, 0.40) 48.96%, rgba(76, 201, 255, 0.10) 100%);
     border-radius: 19px;
     width: 2rem;
     border: 2px solid gold;
     height: 2rem;
-    right: 204px
-
 }
 .wrapperAr img{
     height: 66%;
     width: 65%;
+}
+
+.topWrapper {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 10px;
+}
+
+@media screen and (max-width: 500px) {
+    .outerCont {
+        width: 100%;
+        height: calc(100% - 40px);
+    }
 }

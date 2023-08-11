@@ -7,9 +7,12 @@ const LikesExhaust=()=>{
     return (
         <>
         <section className={styles.outerCont}>
-            <div className={styles.wrapperAr}>
-            <img src={curvearrow} alt='img' />
+            <div className={styles.topWrapper}>
+                <div className={styles.wrapperAr}>
+                <img src={curvearrow} alt='img' />
+                </div>
             </div>
+
 
             <div className={styles.img}>
                 <img src={likesImage} alt="img" />
