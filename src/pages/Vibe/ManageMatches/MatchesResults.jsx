@@ -70,6 +70,7 @@ const MatchesResults = ({ data, ismanage, setData }) => {
                   background: "none",
                   border: "2px solid #00B3FF",
                   color: "#00B3FF",
+                  cursor: "pointer",
                 }}
                 onClick={() => {
                   HandleRemoveMatchUsers(item.email);
