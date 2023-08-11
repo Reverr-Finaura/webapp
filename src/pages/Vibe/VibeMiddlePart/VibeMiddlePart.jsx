@@ -10,9 +10,9 @@ import phoneIcon from "../../../images/phoneMiniIcon.svg";
 import emailIcon from "../../../images/emailMiniIcon.svg";
 import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
 import twitterIcon from "../../../images/twitterMiniIcon.svg";
-import nopeIcon from "../../../images/nopeIcon.svg";
+import declineIcon from "../../../images/declineIcon.svg";
 import handShakeIcon from "../../../images/handshakeIcon.svg";
-import blueLikeIcon from "../../../images/bluelikeIcon.svg";
+import acceptIcon from "../../../images/acceptIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
 import FilterPart from "../FilterPart/FilterPart";
@@ -26,7 +26,7 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { createMatchedInMessagesDoc, db } from "../../../firebase";
 import { useSelector } from "react-redux";
 import defaultImg from "../../../images/default-profile-pic.webp";
 import { toast } from "react-toastify";
@@ -385,6 +385,13 @@ const toggle=()=>{
           await updateDoc(otherDocRef, {
             matched_user: [...other_matched_user, userDoc?.email],
           });
+
+          await createMatchedInMessagesDoc(
+            otherDocSnap.data()?.email,
+            // "apurbar06@gmail.com",
+            docSnap.data()?.email
+            // "sivatharun2212@gmail.com"
+          );
         }
       } else {
         console.log("No such document!");
@@ -427,7 +434,6 @@ const toggle=()=>{
     const docRef = doc(db, "Users", currentLoggedInUser?.user?.email);
     try {
       const docSnap = await getDoc(docRef);
-      console.log("HIIIIII");
       let passed_email;
 
       if (!docSnap.data().passed_email) {
@@ -1206,10 +1212,9 @@ const toggle=()=>{
             <div className={styles.Cont} onClick={handleNopeCkick}>
               <img
                 className={styles.likehandShakeImg}
-                src={nopeIcon}
-                alt="nopeIcon"
+                src={declineIcon}
+                alt="declineIcon"
               />
-              <p className={styles.text}>Nope</p>
             </div>
             <div className={styles.Cont} onClick={HandShakeUser}>
               <img
@@ -1217,15 +1222,13 @@ const toggle=()=>{
                 src={handShakeIcon}
                 alt="handShakeIcon"
               />
-              <p className={styles.text}>Handshake</p>
             </div>
             <div className={styles.Cont} onClick={handleLikeCkick}>
               <img
                 className={styles.likehandShakeImg}
-                src={blueLikeIcon}
-                alt="blueLikeIcon"
+                src={acceptIcon}
+                alt="acceptIcon"
               />
-              <p className={styles.text}>Like</p>
             </div>
           </div>
           <div className={styles.background}></div>

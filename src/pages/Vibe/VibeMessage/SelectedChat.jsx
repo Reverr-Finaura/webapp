@@ -1,12 +1,14 @@
 import React from "react";
 import style from "./VibeMessageMain.module.css";
 import profileimg from "../../../images/MentorProfileCard.webp";
+import dots from "../../../images/dots.webp";
 import SelectedChatBox from "./SelectedChatBox";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSelectedUser, Chatshow } from "../../../features/vibeChatSlice";
 import VibeInput from "./VibeInput";
+import VibeMessageDropdown from "./VibeMessageDropdown";
 
-const SelectedChat = ({ setChatSelected }) => {
+const SelectedChat = ({ setChatSelected,setMobileChatNoHeader }) => {
   const chatData = useSelector((state) => state.vibeChat);
   const dispatch = useDispatch();
 
@@ -17,6 +19,7 @@ const SelectedChat = ({ setChatSelected }) => {
           <span
             onClick={() => {
               setChatSelected(false);
+              setMobileChatNoHeader(false);
               dispatch(updateSelectedUser(null));
               dispatch(Chatshow());
             }}
@@ -30,9 +33,13 @@ const SelectedChat = ({ setChatSelected }) => {
             src={chatData.selectedUser.userImg}
             alt="img"
           />
-          <p>{chatData.selectedUser.name}</p>
+          <p style={{cursor:"default",}}>{chatData.selectedUser.name}</p>
         </div>
-        {/* <p>:</p> */}
+        <div>
+        {/* <img style={{width:"30px",height:"30px",transform:"rotate(90deg)"}} src={dots} alt="" /> */}
+        <VibeMessageDropdown/>
+        </div>
+        
       </div>
       <hr style={{ width: "100%", color: "#A7A7A7" }} />
 

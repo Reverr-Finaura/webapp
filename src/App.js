@@ -138,12 +138,13 @@ import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
 import VibeTestA from "./pages/Vibe/VibeTestA";
 // import VibeTestA from "./pages/vibe/VibeTestA";
-import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
+// import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import VibeOuter from "./pages/Vibe/Left/LeftContainer";
 
 function App() {
   const user = useSelector(selectUser);
   const newUser = useSelector(selectNewUser);
+ const onBoardingData=useSelector((state)=>state.onboarding)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -415,9 +416,9 @@ function App() {
         ></Route>
         <Route path="/discover/finance" element={<Finance />}></Route>
         <Route path="/discover/healthcare" element={<Healthcare />}></Route>
-        <Route path="/vibetestinga" element={<VibeTestA />}></Route>
-        <Route path="/vibetestingb" element={<FilterPart />}></Route>
-        <Route path="/vibe" element={<VibeOuter />}></Route>
+        <Route path="/vibetestinga" element={(onBoardingData?.vibeuser===false)?(<Navigate replace to={"/vibe"}/>):(<VibeTestA />)}></Route>
+        {/* <Route path="/vibetestingb" element={<FilterPart />}></Route> */}
+       <Route path="/vibe" element={(onBoardingData?.vibeuser===true) ?<Navigate replace to={"/vibetestinga"}/> :  <VibeOuter />}></Route>
       </Routes>
     </>
   );

@@ -33,32 +33,29 @@ const LeftContainer = () => {
 
   // console.log("onboardingData", onboardingData)
 
-  useEffect(() => {
-    if (onboardingData?.vibeuser) {
-      setvibeuser(onboardingData.vibeuser)
-    }
-  }, [onboardingData]);
+  
   console.log(onboardingData);
-
   useEffect(()=>{
-    if(onboardingData?.vibeuser==="true"){
-      navigate('/vibetestinga')
-    }
-  },[onboardingData?.vibeuser])
+if(onboardingData?.vibeuser){
+  navigate('/vibetestinga')
+}
+  },[])
 
 
-  const handleButtonClick1 = async () => {
-    const val="true"
-    dispatch(setvibeuser(val))
+  const handleButtonClick1 =async () => {
+    const open=true;
+   
+    dispatch(setvibeuser(open))
 
 
     const mydata = {
-      vibeuser: val
+      vibeuser: open
     }
     try {
       // Attempt to upload the data
       await uploadOnboardingData(mydata);
       // If data upload is successful, navigate to the next page
+      navigate('/vibetestinga')
     } catch (err) {
       console.error(err);
       // Handle the error (optional) or show an error message to the user
@@ -66,6 +63,7 @@ const LeftContainer = () => {
     }
 
   }
+  
   const uploadOnboardingData = async (data) => {
     const userEmail = user?.user?.email;
     if (!userEmail) {
@@ -82,20 +80,26 @@ const LeftContainer = () => {
       throw err; // Rethrow the error to be caught in the calling function
     }
   };
+  console.log(onboardingData?.vibeuser);
   return (
     <>
       <NavBarFinalDarkMode />
       
         <section id={styles.outerCont}>
           <div className={styles.cont_left}>
+            <div className={styles.headingCont}>
             <div className={styles.heading}>Vibe</div>
+            <div className={styles.inner_heading}>Enabling networking with a <span className={styles.swipe}>‘swipe’.</span></div>
+            </div>
+            
             <div className={styles.bottomCont}>
-              <div className={styles.inner_heading}>Enabling networking with a <span className={styles.swipe}>‘swipe’.</span></div>
+             
               <div className={styles.inner1}>Vibe is a networking tool lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Vibe is a networking tool lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </div>
 
+                <div className={styles.button} onClick={handleButtonClick1}>Start Vibing <img src={arrow} alt='img' /></div>
             </div>
-            <div className={styles.button} onClick={handleButtonClick1}>Start Vibing <img src={arrow} alt='img' /></div>
+            
 
 
           </div>

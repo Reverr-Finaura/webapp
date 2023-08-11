@@ -17,7 +17,7 @@ const managematches = [
   { name: "jatin", designation: "ceo", image: profileimg },
 ];
 
-const Matches = () => {
+const Matches = ({mobile,manage}) => {
   const [likedMeData, setLikedMeData] = useState([]);
   const [data, setData] = useState([]);
   const [ismanage, setIsManage] = useState(false);
@@ -25,7 +25,8 @@ const Matches = () => {
   const [premiumModalStatus, setPremiumModalStatus] = useState(false);
   const [matchedUser, setMatchedUsers] = useState([]);
   const userDoc = useSelector((state) => state.userDoc);
-
+  const currentLoggedInUser = useSelector((state) => state.user);
+  
   const getWhoLikeData = async () => {
     try {
       const userRef = collection(db, "Users");
@@ -34,7 +35,7 @@ const Matches = () => {
       let whoLikedMe = [];
       usersnapshot.docs.forEach((doc) => {
         const likedBy = doc.data().liked_by;
-        if (likedBy && likedBy.includes(userDoc?.email)) {
+        if (likedBy && likedBy.includes(currentLoggedInUser?.user?.email)) {
           whoLikedMe.push(doc.data());
         }
       });
@@ -47,7 +48,14 @@ const Matches = () => {
 
   useEffect(() => {
     getWhoLikeData();
-  }, [userDoc]);
+    if(manage && mobile){
+      setMatchedData()
+      setIsManage(true)
+    }else if(!manage && mobile){
+      setData(likedMeData)
+       setIsManage(false)
+    }
+  }, [userDoc,manage]);
 
   const setMatchedData = async () => {
     let matched_users = userDoc?.matched_user || [];
@@ -106,6 +114,9 @@ const Matches = () => {
             </div>
           )}
 
+            {
+              !mobile ?
+            
           <div className={style.matchesHeader}>
             <div>
               <span
@@ -124,9 +135,11 @@ const Matches = () => {
               </span>
             </div>
           </div>
+          : ""
+          }
           {/* {data?.length < 1 ? <NoData matches={false}/> : */}
           {data?.length < 1 && ismanage === true ? (
-            <p> No Matches Found</p>
+            <p style={{cursor:"default"}}> No Matches Found</p>
           ) : (
             <div className={style.matchesResultContainer}>
               <MatchesResults
