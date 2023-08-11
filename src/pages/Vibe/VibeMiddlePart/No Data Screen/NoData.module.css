@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
 .outerCont{
     width: 100%;
     flex-direction: column;
@@ -67,4 +69,14 @@
     font-weight: 400;
     line-height: normal;
     width: 13rem;
+}
+
+.refreshBtn {
+    width: 80px;
+    height: 25px;
+    background-image: linear-gradient(97deg, #00b3ff 57.09%, #4cc9ff 100%);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #003f5a;
+    border-radius: 5px;
 }

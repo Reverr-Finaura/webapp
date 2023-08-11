@@ -6,8 +6,8 @@ import Matches from "./ManageMatches/Matches";
 // import VibeMiddlePart from './VibeMiddlePart/VibeMiddlePart'
 import VibeMiddlePart from "./VibeMiddlePart/VibeMiddlePart";
 import { useSelector } from "react-redux";
-import LikesExhaust from "./VibeMiddlePart/LikesExhaustScreen/LikesExhaust";
-import NoData from "./VibeMiddlePart/No Data Screen/NoData";
+// import LikesExhaust from "./VibeMiddlePart/LikesExhaustScreen/LikesExhaust";
+// import NoData from "./VibeMiddlePart/No Data Screen/NoData";
 import VibeMessageMain from "./VibeMessage/VibeMessageMain";
 import VibeMobileDropDown from "./VibeMobileDropDown";
 

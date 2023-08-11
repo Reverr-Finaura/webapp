@@ -488,12 +488,16 @@ position: relative;
   }
 
 
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 500px) {
     .middleContainer {
         width: 100%;
     }
     .likeHandshake {
         width: 90%;
+    }
+    .middlePopUp {
+        width: 95%;
+        height: 77%;
     }
 }
 

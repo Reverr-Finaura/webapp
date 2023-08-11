@@ -11,7 +11,7 @@ import emailIcon from "../../../images/emailMiniIcon.svg";
 import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
 import twitterIcon from "../../../images/twitterMiniIcon.svg";
 import declineIcon from "../../../images/declineIcon.svg";
-import handShakeIcon from "../../../images/handshakeIcon.svg";
+import handShakeIcon from "../../../images/handShakeIcon.svg";
 import acceptIcon from "../../../images/acceptIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
@@ -79,6 +79,7 @@ const toggle=()=>{
   const getUserData = async () => {
     try {
       console.log("userDoc data fetch");
+      setIsLoadingData(true)
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
       const usersnapshot = await getDocs(userquery);
@@ -116,6 +117,9 @@ const toggle=()=>{
     getUserData();
   }, [currentLoggedInUser]);
 
+  const onRefreshClick = () => {
+    getUserData();
+  }
   const handleLikeCkick = () => {
     // if the user has no swipe remaining and the update time is not reached yet
     // then show the toast message and return
@@ -513,7 +517,7 @@ const toggle=()=>{
             alt="filterIcon"
           />}
         </div>
-        {noMoreVibeData ? (<NoData noMoreVibeData={noMoreVibeData} />) : (
+        {noMoreVibeData ? (<NoData noMoreVibeData={noMoreVibeData} handleRefresh={onRefreshClick}/>) : (
           <div className={styles.vibeinfo}>
             <div className={styles.userDetailsContainer}>
               <div className={styles.imgContainer}>
