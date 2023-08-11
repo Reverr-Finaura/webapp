@@ -586,7 +586,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
               {/* ///Vibe/// */}
               {filteredArray.includes("VIBE") ? (
-                <div className={style.hideonmobile} onClick={() => navigate("/vibe")}>
+                <div  onClick={() => navigate("/vibe")}>
                   <img src={require("../../images/Vibeicon.webp")} alt="img" />
                   <div className={style.keyproddiv}>
                     <text
