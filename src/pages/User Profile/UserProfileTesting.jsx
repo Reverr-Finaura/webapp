@@ -88,6 +88,46 @@ const UserProfileTesting = () => {
   }, [userDoc]);
 
   // console.log("userDoc", userDoc);
+const handlevibebtn=async()=>{
+    const val=false
+
+    dispatch(setUserDoc({...userDoc,vibeuser:val}))
+
+    const mydata = {
+      ...userDoc,
+      vibeuser: val
+    }
+    try {
+      // Attempt to upload the data
+      await uploadOnboardingData(mydata);
+      // If data upload is successful, navigate to the next page
+      navigate('/vibe')
+    } catch (err) {
+      console.error(err);
+      // Handle the error (optional) or show an error message to the user
+      // Don't navigate since data upload was not successful
+    }
+
+  }
+  
+  const uploadOnboardingData = async (data) => {
+    const userEmail = user?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
+
+    const docRef = doc(db, "Users", userEmail);
+
+    try {
+      // Perform a single update with all the fields to be updated
+      await setDoc(docRef, data, { merge: true });
+    } catch (err) {
+      console.error(err);
+      throw err; // Rethrow the error to be caught in the calling function
+    }
+
+  
+  };
 
   return (
     <>
@@ -195,6 +235,7 @@ const UserProfileTesting = () => {
               >
                 Edit Profile
               </button>
+              <button  onClick={handlevibebtn}>Vibe only </button>
             </div>
           </div>
           {userDoc?.userType === "Mentor" ? (
