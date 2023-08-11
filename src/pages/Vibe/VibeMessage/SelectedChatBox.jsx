@@ -11,14 +11,17 @@ const data = [
 const SelectedChatBox = () => {
   const chatData = useSelector((state) => state.vibeChat);
   const currentcUser = useSelector((state) => state.userDoc);
-  const ref = useRef();
+  const ref = useRef()
+  console.log("ref",ref);
   console.log("chatData", chatData);
 
   useEffect(() => {
-    ref.current.scrollTo({
-      top: ref.current.scrollHeight,
-      behavior: "smooth",
-    });
+    ref.current?.scrollIntoView({ behavior: "smooth",block:"end" });
+    // ref.current?.scrollIntoView({ behavior: "smooth" });
+    // ref.current.scrollTo({
+    //   top: ref?.current?.scrollHeight,
+    //   behavior: "smooth",
+    // });
   }, [chatData]);
   return (
     <section ref={ref}>
@@ -56,6 +59,7 @@ const SelectedChatBox = () => {
               padding: "10px",
               marginRight: "4px",
               marginLeft: "4px",
+              cursor:"default",
               borderRadius:
                 chat.sendBy === currentcUser.email
                   ? "16px 16px 4px 16px"

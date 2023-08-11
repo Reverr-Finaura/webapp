@@ -146,7 +146,7 @@ const Matches = ({ mobile, manage }) => {
           )}
           {/* {data?.length < 1 ? <NoData matches={false}/> : */}
           {data?.length < 1 && ismanage === true ? (
-            <p> No Matches Found</p>
+            <p style={{cursor:"default"}}> No Matches Found</p>
           ) : (
             <div className={style.matchesResultContainer}>
               <MatchesResults

@@ -88,6 +88,7 @@ const MatchesResults = ({ data, ismanage, setData }) => {
                   View Profile
                 </button>
                 <span
+                style={{cursor:"pointer"}}
                   onClick={() => {
                     HandleRemoveLikedUser();
                   }}

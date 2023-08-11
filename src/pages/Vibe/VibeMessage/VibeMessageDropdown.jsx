@@ -1,10 +1,14 @@
 import React from 'react'
-import style from "./vibe.module.css"
-import { useRef } from 'react';
 import { useState } from 'react';
+import { useRef } from 'react';
+import style from "./vibemessagedropdown.module.css"
+import dots from "../../../images/dots.webp"
 
-const VibeMobileDropDown = ({list,activeComp,setActiveComp}) => {
- 
+const list =[
+    "Media","Mute notifications","Clear chat","Report","Close chat",
+]
+
+const VibeMessageDropdown = () => {
     const dropdownRef = useRef(null);
     const [isActive, setIsActive] = useState( false);
     const onClick = () => setIsActive(!isActive);
@@ -12,15 +16,11 @@ const VibeMobileDropDown = ({list,activeComp,setActiveComp}) => {
     
   
     return (
-      <div className={style.container}>
+      <div >
         <div className={style.menucontainer}>
           <button onClick={onClick} className={style.menutrigger}>
-            <span style={{color: activeComp === "See who liked you" && "#FFF278",border: activeComp === "See who liked you" && "1px solid #FFF278"}}>{activeComp} <span className={style.greater}>&gt;</span></span>
+            <img style={{width:"30px",height:"30px",transform:"rotate(90deg)"}} src={dots} alt="" />
           </button>
-          {
-            activeComp === "Your matches" ? " " : <p>View My Profile</p>
-          }
-          
           <div
             ref={dropdownRef}
             className={`${style.menu} ${isActive ? style.active : style.inactive}`}
@@ -30,7 +30,7 @@ const VibeMobileDropDown = ({list,activeComp,setActiveComp}) => {
               {
   
                   list?.map((item)=>(
-                      <li onClick={()=> (setActiveComp(item),onClick())} >{item} <span className={style.menulgt}>&gt;</span></li>
+                      <li onClick={()=> onClick()} >{item} </li>
                   ))
               }
             </ul>
@@ -38,7 +38,6 @@ const VibeMobileDropDown = ({list,activeComp,setActiveComp}) => {
         </div>
       </div>
     );
-  
 }
 
-export default VibeMobileDropDown
+export default VibeMessageDropdown
