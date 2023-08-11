@@ -2,11 +2,11 @@
   background-color: #000c12;
   /* min-height: 100vh; */
   border-radius: 25px;
-  padding: 15px;
+  padding: 0px;
   background-color: rgba(26, 30, 40, 1);
 
-  width: 75em;
-  height: 50em;
+  width: 70em;
+  height: 40em;
 
 
 }
@@ -40,7 +40,7 @@
   font-family: "Quicksand";
   font-style: normal;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 35px;
   line-height: 30px;
   /* letter-spacing: 0.001em; */
   margin-top: 1rem;
@@ -69,7 +69,7 @@
   justify-content: center;
   align-items: baseline;
   gap: 3.5rem;
-  margin: 2rem auto;
+  margin: 10px auto;
   flex-wrap: wrap;
 }
 
@@ -82,7 +82,7 @@
   box-shadow: inset -1.57939px -3.15877px 7.89694px rgba(156, 155, 155, 0.25);
   border-radius: 16px;
   text-align: center;
-  padding: 16px 12px;
+  padding: 0px;
   /* height: 530px; */
   display: flex;
   flex-direction: column;
@@ -106,11 +106,13 @@
 .plan_card_4 {
   background: linear-gradient(91.13deg, #9765e9 12.01%, #37149a 90.49%);
 }
-.planCrossedprice{
+
+.planCrossedprice {
   text-decoration: line-through;
   font-weight: 500;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .plan_duration {
@@ -126,7 +128,7 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 15px;
   color: #ffffff;
   background-color: black;
   border-radius: 12px;
@@ -148,7 +150,8 @@
 }
 
 .plan_desc {
-  margin-top: 3rem;
+  margin-top: 1rem;
+
   text-align: start;
   padding-left: 1rem;
   /* list-style: disc; */
@@ -227,4 +230,42 @@
   .plans_card {
     width: 100%;
   }
+}
+
+@media (max-width: 500px) {
+
+
+  .upgrade_container_outer {
+    height: unset;
+    width: unset;
+    padding: 10p 15px;
+    height: 45em;
+    overflow-y: scroll
+  }
+
+
+  .plans_card {
+    margin: unset;
+    width: -webkit-fill-available;
+    margin: 8px 20px;
+    
+  }
+  .plan_card_1,
+  .plan_card_2,
+  .plan_card_3,
+  .plan_card_4 {
+  width: -webkit-fill-available;
+
+}
+.upgrade_container_main>h1 {
+
+  margin-top: 3rem;
+  
+}
+.upgrade_container_main {
+ text-align: center;
+}
+.upgrade_container_main>h1 {
+  text-align: center;
+}
 }
