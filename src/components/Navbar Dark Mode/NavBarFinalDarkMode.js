@@ -587,7 +587,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               {/* ///Vibe/// */}
               {filteredArray.includes("VIBE") ? (
                 <div className={style.hideonmobile} onClick={() => navigate("/vibe")}>
-                  <img src={require("../../images/book1.webp")} alt="img" />
+                  <img src={require("../../images/Vibeicon.webp")} alt="img" />
                   <div className={style.keyproddiv}>
                     <text
                       style={{
@@ -604,7 +604,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       }}
                       className={style.discriponmobilehide}
                     >
-                      Explore and Connect with individuals that think alike.
+                      Networking with a swipe.
                     </text>
                   </div>
                 </div>

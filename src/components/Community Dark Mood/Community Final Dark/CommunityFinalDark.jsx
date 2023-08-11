@@ -438,6 +438,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
   }
+  
   console.log("image uploaded --", imageUpload)
   console.log("temp image --", tempImageURL)
   // UPLOAD IMAGE TO FIREBASE

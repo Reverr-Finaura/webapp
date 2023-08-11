@@ -16,7 +16,6 @@ const list =["Vibe Home","Your matches","Manage matches","See who liked you"]
 const VibeTestA = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [activeComp, setActiveComp] = useState("Vibe Home")
-  console.log("width",width)
   const onboardingData = useSelector((state) => state.onboarding);
   console.log(onboardingData);
 
@@ -43,7 +42,7 @@ const VibeTestA = () => {
               activeComp === "Manage matches" ? <Matches mobile={true} manage={true} /> :
               activeComp === "See who liked you" ? <Matches mobile={true} manage={false}/> : 
               activeComp === "Vibe Home" ? <VibeMiddlePart /> : 
-              activeComp === "Your matches" ? <VibeMessageMain /> : ""
+              activeComp === "Your matches" ? <VibeMessageMain mobile={true} /> : ""
             }
         </div>
         :

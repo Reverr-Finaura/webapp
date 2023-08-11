@@ -852,3 +852,19 @@
     width: 239px;
   }
 }
+
+@media (max-width: 500px) {
+
+  .overlay {
+    align-items :baseline;
+
+  }
+  .navbarFinalUpgradeBtn{
+    margin-left: unset;
+    margin-right: unset;
+  }
+  .premiumModal {
+    top: 10%;
+
+  }
+}

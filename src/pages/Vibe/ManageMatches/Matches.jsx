@@ -17,7 +17,7 @@ const managematches = [
   { name: "jatin", designation: "ceo", image: profileimg },
 ];
 
-const Matches = ({mobile,manage}) => {
+const Matches = ({ mobile, manage }) => {
   const [likedMeData, setLikedMeData] = useState([]);
   const [data, setData] = useState([]);
   const [ismanage, setIsManage] = useState(false);
@@ -26,7 +26,7 @@ const Matches = ({mobile,manage}) => {
   const [matchedUser, setMatchedUsers] = useState([]);
   const userDoc = useSelector((state) => state.userDoc);
   const currentLoggedInUser = useSelector((state) => state.user);
-  
+
   const getWhoLikeData = async () => {
     try {
       const userRef = collection(db, "Users");
@@ -48,14 +48,14 @@ const Matches = ({mobile,manage}) => {
 
   useEffect(() => {
     getWhoLikeData();
-    if(manage && mobile){
-      setMatchedData()
-      setIsManage(true)
-    }else if(!manage && mobile){
-      setData(likedMeData)
-       setIsManage(false)
+    if (manage && mobile) {
+      setMatchedData();
+      setIsManage(true);
+    } else if (!manage && mobile) {
+      setData(likedMeData);
+      setIsManage(false);
     }
-  }, [userDoc,manage]);
+  }, [userDoc, manage]);
 
   const setMatchedData = async () => {
     let matched_users = userDoc?.matched_user || [];
@@ -114,32 +114,39 @@ const Matches = ({mobile,manage}) => {
             </div>
           )}
 
-            {
-              !mobile ?
-            
-          <div className={style.matchesHeader}>
-            <div>
-              <span
-                style={{ color: !ismanage && "black", cursor: "pointer" }}
-                className={!ismanage && style.seewholikedyou}
-                onClick={() => (setData(likedMeData), setIsManage(false))}
-              >
-                See Who Liked You
-              </span>
-              <span
-                style={{ color: ismanage && "black", cursor: "pointer" }}
-                className={ismanage && style.managematches}
-                onClick={() => (setMatchedData(), setIsManage(true))}
-              >
-                Manage Matches
-              </span>
+          {!mobile ? (
+            <div className={style.matchesHeader}>
+              <div>
+                <span
+                  style={{
+                    color: !ismanage && "black",
+                    cursor: "pointer",
+                    padding: "5px 10px",
+                  }}
+                  className={!ismanage && style.seewholikedyou}
+                  onClick={() => (setData(likedMeData), setIsManage(false))}
+                >
+                  See Who Liked You
+                </span>
+                <span
+                  style={{
+                    color: ismanage && "black",
+                    cursor: "pointer",
+                    padding: "5px 10px",
+                  }}
+                  className={ismanage && style.managematches}
+                  onClick={() => (setMatchedData(), setIsManage(true))}
+                >
+                  Manage Matches
+                </span>
+              </div>
             </div>
-          </div>
-          : ""
-          }
+          ) : (
+            ""
+          )}
           {/* {data?.length < 1 ? <NoData matches={false}/> : */}
           {data?.length < 1 && ismanage === true ? (
-            <p> No Matches Found</p>
+            <p style={{cursor:"default"}}> No Matches Found</p>
           ) : (
             <div className={style.matchesResultContainer}>
               <MatchesResults
