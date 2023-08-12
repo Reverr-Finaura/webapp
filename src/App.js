@@ -140,12 +140,14 @@ import VibeTestA from "./pages/Vibe/VibeTestA";
 // import VibeTestA from "./pages/vibe/VibeTestA";
 // import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import VibeOuter from "./pages/Vibe/Left/LeftContainer";
+import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
 
 function App() {
   const user = useSelector(selectUser);
   const newUser = useSelector(selectNewUser);
  const onBoardingData=useSelector((state)=>state.onboarding)
   const dispatch = useDispatch();
+  const userDoc = useSelector((state) => state.userDoc);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -416,9 +418,9 @@ function App() {
         ></Route>
         <Route path="/discover/finance" element={<Finance />}></Route>
         <Route path="/discover/healthcare" element={<Healthcare />}></Route>
-        <Route path="/vibe/main" element={(onBoardingData?.vibeuser===false)?(<Navigate replace to={"/vibe"}/>):(<VibeTestA />)}></Route>
-        {/* <Route path="/vibetestingb" element={<FilterPart />}></Route> */}
-       <Route path="/vibe" element={(onBoardingData?.vibeuser===true) ?<Navigate replace to={"/vibe/main"}/> :  <VibeOuter />}></Route>
+         <Route path="/vibe/main" element={(userDoc?.vibeuser!==true)?<Navigate replace to ={"/vibe"}/>:<VibeTestA />}></Route>
+        <Route path="/vibetestingb" element={<FilterPart />}></Route>
+        <Route path="/vibe" element={(userDoc?.vibeuser===true)?<Navigate replace to ={"/vibe/main"}/>:<VibeOuter />}></Route>
       </Routes>
     </>
   );
