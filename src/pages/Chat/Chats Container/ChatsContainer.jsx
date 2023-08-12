@@ -4,23 +4,34 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ChatSkeleton from "../../../components/Post Skeleton/Chat Skeleton/ChatSkeleton";
-import { db, getAllUserHavingChatWith } from "../../../firebase";
+import {
+  db,
+  getAllUserHavingChatWith,
+  getAllMatchedUserHavingChatWith,
+} from "../../../firebase";
 import styles from "./ChatContainer.module.css";
 import {
-  updateSelectedUser,
-  Chatshow,
+  updateSelectedUser as updateSelectedUserLatest,
+  Chatshow as ChatshowLatest,
 } from "../../../features/chatSlice_latest";
+import {
+  updateSelectedUser as updateSelectedUserVibe,
+  Chatshow as ChatshowVibe,
+} from "../../../features/vibeChatSlice";
 
 // const currentcUser={email:"jatin@reverrapp.com"}
 
-const ChatsContainer = ({ sorter }) => {
+const ChatsContainer = ({ sorter, isNetworkMessage, setIsNetworkMessage }) => {
   const currentcUser = useSelector((state) => state.userDoc);
+  const currentLoggedInUser = useSelector((state) => state.user);
   // const currentcUser={email:"mauricerana@gmail.com"}
   const dispatch = useDispatch();
   const [dummyLoading, setDummyLoadig] = useState(false);
   const [dummyLoading2, setDummyLoadig2] = useState(false);
   const [chatList, setChatList] = useState([]);
-  const chatData = useSelector((state) => state.chatLatest);
+  const chatData = useSelector((state) =>
+    isNetworkMessage ? state.chatLatest : state.vibeChat
+  );
   const [chatUserData, setChatUserData] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [isClicked2, setIsClicked2] = useState(false);
@@ -33,8 +44,15 @@ const ChatsContainer = ({ sorter }) => {
 
   const getAllUserChat = async () => {
     try {
+      setChatUserData([]);
+      const userEmail = currentLoggedInUser?.user?.email;
       setDummyLoadig(true);
-      await getAllUserHavingChatWith(currentcUser, setChatList);
+      if (isNetworkMessage) {
+        await getAllUserHavingChatWith(currentcUser, setChatList);
+      } else {
+        await getAllMatchedUserHavingChatWith(userEmail, setChatList);
+      }
+
       setDummyLoadig(false);
     } catch (error) {
       console.error("An error occurred:", error);
@@ -43,7 +61,7 @@ const ChatsContainer = ({ sorter }) => {
 
   useEffect(() => {
     getAllUserChat();
-  }, [currentcUser]);
+  }, [currentcUser, isNetworkMessage]);
 
   useEffect(() => {
     if (chatList.length === 0) {
@@ -144,7 +162,7 @@ const ChatsContainer = ({ sorter }) => {
         <p className={styles.noChatsMesssage}>No Chats To Display</p>
       ) : null}
 
-      {dummyLoading === false && chatUserData.length !== 0 ? (
+      {/* {dummyLoading === false && chatUserData.length !== 0 ? (
         <div className={styles.buttonsGroup}>
           <button
             className={styles.chatButton}
@@ -168,7 +186,7 @@ const ChatsContainer = ({ sorter }) => {
             New Matches
           </button>
         </div>
-      ) : null}
+      ) : null} */}
       {chatUserData.length > 0 &&
         chatUserData
           .sort((a, b) => {
@@ -182,8 +200,13 @@ const ChatsContainer = ({ sorter }) => {
                 <div
                   key={idx}
                   onClick={() => {
-                    dispatch(updateSelectedUser(data));
-                    dispatch(Chatshow());
+                    if (isNetworkMessage) {
+                      dispatch(updateSelectedUserLatest(data));
+                      dispatch(ChatshowLatest());
+                    } else {
+                      dispatch(updateSelectedUserVibe(data));
+                      dispatch(ChatshowVibe());
+                    }
                   }}
                   style={{
                     background:
