@@ -416,9 +416,9 @@ function App() {
         ></Route>
         <Route path="/discover/finance" element={<Finance />}></Route>
         <Route path="/discover/healthcare" element={<Healthcare />}></Route>
-        <Route path="/vibetestinga" element={(onBoardingData?.vibeuser===false)?(<Navigate replace to={"/vibe"}/>):(<VibeTestA />)}></Route>
+        <Route path="/vibe/main" element={(onBoardingData?.vibeuser===false)?(<Navigate replace to={"/vibe"}/>):(<VibeTestA />)}></Route>
         {/* <Route path="/vibetestingb" element={<FilterPart />}></Route> */}
-       <Route path="/vibe" element={(onBoardingData?.vibeuser===true) ?<Navigate replace to={"/vibetestinga"}/> :  <VibeOuter />}></Route>
+       <Route path="/vibe" element={(onBoardingData?.vibeuser===true) ?<Navigate replace to={"/vibe/main"}/> :  <VibeOuter />}></Route>
       </Routes>
     </>
   );

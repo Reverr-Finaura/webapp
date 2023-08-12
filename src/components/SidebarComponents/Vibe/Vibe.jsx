@@ -22,7 +22,7 @@ function Vibe({ isLoggedIn, openModal }) {
           }
         }}
       >
-        Coming soon!
+        View
       </button>
     </div>
   );

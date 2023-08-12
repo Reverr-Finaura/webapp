@@ -37,7 +37,7 @@ const LeftContainer = () => {
   console.log(onboardingData);
   useEffect(()=>{
 if(onboardingData?.vibeuser){
-  navigate('/vibetestinga')
+  navigate('/vibe/main')
 }
   },[])
 
@@ -55,7 +55,7 @@ if(onboardingData?.vibeuser){
       // Attempt to upload the data
       await uploadOnboardingData(mydata);
       // If data upload is successful, navigate to the next page
-      navigate('/vibetestinga')
+      navigate('/vibe/main')
     } catch (err) {
       console.error(err);
       // Handle the error (optional) or show an error message to the user
