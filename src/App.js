@@ -140,12 +140,14 @@ import VibeTestA from "./pages/Vibe/VibeTestA";
 // import VibeTestA from "./pages/vibe/VibeTestA";
 // import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import VibeOuter from "./pages/Vibe/Left/LeftContainer";
+import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
 
 function App() {
   const user = useSelector(selectUser);
   const newUser = useSelector(selectNewUser);
  const onBoardingData=useSelector((state)=>state.onboarding)
   const dispatch = useDispatch();
+  const userDoc = useSelector((state) => state.userDoc);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

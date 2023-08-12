@@ -612,10 +612,12 @@ const VibeMiddlePart = () => {
             )}
             <div className={styles.filterContainer}>
               <div
-                onClick={() => (CheckisPremium(), setFRText("Undo"))}
+                onClick={() => (
+                  CheckisPremium(), setFRText("Undo"), HandleUndoMove
+                )}
                 className={styles.undoMoveCont}
               >
-                <div className={styles.innerUndoMove} onClick={HandleUndoMove}>
+                <div className={styles.innerUndoMove}>
                   <img
                     className={styles.undoMoveImg}
                     src={undoMoveIcon}
