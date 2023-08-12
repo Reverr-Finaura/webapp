@@ -26,7 +26,6 @@ const initialState={
     network: [],
     sendRequests: [],
     receivedRequests: [],
-    vibeuser:"",
     swipeLimit: {swipeRemaining: 10, swipeUpdateTime: new Date().getTime() - 24 * 60 * 60 * 1000}
 }
 
@@ -114,12 +113,6 @@ state.about=action.payload;
      setHereFor: (state, action) => {
       state.here_for = action.payload;
      },
-     setvibeuser:(state,action)=>{
-      state.vibeuser=action.payload
-
-     }
-    
-
 }
 })
 
@@ -148,7 +141,7 @@ export const {
    setExpCompany,
    setHereFor,
    setName,
-   setEmail,setvibeuser
+   setEmail
 } = onboardingSlice.actions;
 export default onboardingSlice.reducer;
 
