@@ -70,6 +70,10 @@ const VibeMiddlePart = () => {
     mode: "",
   });
   const [modal, setModal] = useState(false);
+  const [recentLikedUser, setRecentLikedUser] = useState({
+    email: "",
+    where: "",
+  });
 
   const toggle = () => {
     setModal(!modal);
@@ -78,7 +82,7 @@ const VibeMiddlePart = () => {
   const getUserData = async () => {
     try {
       console.log("userDoc data fetch");
-      setIsLoadingData(true)
+      setIsLoadingData(true);
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
       const usersnapshot = await getDocs(userquery);
@@ -118,7 +122,7 @@ const VibeMiddlePart = () => {
 
   const onRefreshClick = () => {
     getUserData();
-  }
+  };
   const handleLikeCkick = () => {
     // if the user has no swipe remaining and the update time is not reached yet
     // then show the toast message and return
@@ -344,7 +348,6 @@ const VibeMiddlePart = () => {
         setIsFadedTop(false);
       }, [500]);
 
-      
       handleSwipe();
       FlushUser(userEmail);
     } catch (e) {
@@ -375,6 +378,11 @@ const VibeMiddlePart = () => {
           await updateDoc(otherDocRef, {
             liked_by: [...liked_by, userDoc?.email],
           });
+
+          setRecentLikedUser({
+            email: otherDocSnap.data().email,
+            where: "liked",
+          });
         } else {
           console.log("Already liked by this user");
           // Delete the user from the likedby array
@@ -385,6 +393,11 @@ const VibeMiddlePart = () => {
           let other_matched_user = otherDocSnap.data()?.matched_user || [];
           await updateDoc(otherDocRef, {
             matched_user: [...other_matched_user, userDoc?.email],
+          });
+
+          setRecentLikedUser({
+            email: otherDocSnap.data().email,
+            where: "matched",
           });
 
           await createMatchedInMessagesDoc(
@@ -404,8 +417,6 @@ const VibeMiddlePart = () => {
 
         likes = docSnap.data()?.likes || [];
         liked_by = docSnap.data()?.liked_by || [];
-
-        console.log("liked_by", liked_by);
 
         if (!liked_by.includes(userEmail)) {
           await updateDoc(docRef, {
@@ -467,6 +478,88 @@ const VibeMiddlePart = () => {
     // const userDocument = await getDoc(userDocumentRef);
   };
 
+  const HandleUndoMove = async () => {
+    if (recentLikedUser.where === "liked") {
+      let userEmail = recentLikedUser.email;
+
+      const docRef = doc(db, "Users", userDoc?.email);
+      const otherDocRef = doc(db, "Users", userEmail);
+
+      const docSnap = await getDoc(docRef);
+      const otherDocSnap = await getDoc(otherDocRef);
+
+      if (docSnap.exists() && otherDocSnap.exists()) {
+        let likes;
+        let liked_by;
+        let userPassedEmail;
+
+        likes = docSnap.data()?.likes || [];
+        userPassedEmail = docSnap.data()?.passed_email || [];
+
+        liked_by = otherDocSnap.data()?.liked_by || [];
+
+        if (liked_by.includes(docSnap.data().email)) {
+          liked_by = liked_by.filter((email) => email !== docSnap.data().email);
+          await updateDoc(otherDocRef, {
+            liked_by: liked_by,
+          });
+        }
+        if (likes.includes(otherDocSnap.data().email)) {
+          likes = likes.filter((email) => email !== otherDocSnap.data().email);
+          userPassedEmail = userPassedEmail.filter(
+            (email) => email !== otherDocSnap.data().email
+          );
+          await updateDoc(docRef, {
+            likes: likes,
+            passed_email: userPassedEmail,
+          });
+        }
+
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+    } else if (recentLikedUser.where === "matched") {
+      let userEmail = recentLikedUser.email;
+
+      const docRef = doc(db, "Users", userDoc?.email);
+      const otherDocRef = doc(db, "Users", userEmail);
+
+      const docSnap = await getDoc(docRef);
+      const otherDocSnap = await getDoc(otherDocRef);
+
+      if (docSnap.exists() && otherDocSnap.exists()) {
+        let loggedInUserMatchedArray;
+        let otherUserMatched;
+        let userPassedEmail;
+        loggedInUserMatchedArray = docSnap.data()?.matched_user || [];
+        otherUserMatched = otherDocSnap.data()?.matched_user || [];
+        userPassedEmail = docSnap.data()?.passed_email || [];
+
+        if (otherUserMatched.includes(docSnap.data().email)) {
+          otherUserMatched = otherUserMatched.filter(
+            (email) => email !== docSnap.data().email
+          );
+          await updateDoc(otherDocRef, {
+            matched_user: otherUserMatched,
+          });
+        }
+        if (loggedInUserMatchedArray.includes(otherDocSnap.data().email)) {
+          loggedInUserMatchedArray = loggedInUserMatchedArray.filter(
+            (email) => email !== otherDocSnap.data().email
+          );
+          userPassedEmail = userPassedEmail.filter(
+            (email) => email !== otherDocSnap.data().email
+          );
+          await updateDoc(docRef, {
+            matched_user: loggedInUserMatchedArray,
+            passed_email: userPassedEmail,
+          });
+        }
+
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+    }
+  };
+
   //   FlushUser();
   return (
     <>
@@ -522,7 +615,7 @@ const VibeMiddlePart = () => {
                 onClick={() => (CheckisPremium(), setFRText("Undo"))}
                 className={styles.undoMoveCont}
               >
-                <div className={styles.innerUndoMove}>
+                <div className={styles.innerUndoMove} onClick={HandleUndoMove}>
                   <img
                     className={styles.undoMoveImg}
                     src={undoMoveIcon}
@@ -541,7 +634,10 @@ const VibeMiddlePart = () => {
               )}
             </div>
             {noMoreVibeData ? (
-              <NoData noMoreVibeData={noMoreVibeData} handleRefresh={onRefreshClick}/>
+              <NoData
+                noMoreVibeData={noMoreVibeData}
+                handleRefresh={onRefreshClick}
+              />
             ) : (
               <div className={styles.vibeinfo}>
                 <div className={styles.userDetailsContainer}>
@@ -549,7 +645,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.userProfilePucture}
                       src={
-                        userData[currentUserIndex].image
+                        userData[currentUserIndex]?.image
                           ? userData[currentUserIndex].image
                           : defaultImg
                       }

@@ -45,17 +45,21 @@ const MatchesResults = ({ data, ismanage, setData }) => {
     }
   };
   return (
-    
     <div className={style.matchesreusultmiddlecontainer}>
       {data.map((item) => (
         <div className={style.matchesresultinnercontainer}>
           <div className={style.singlematchresultcontainer} key={item.email}>
             <img
-              style={{ width: "35px", height: "35px",borderRadius:"50%" }}
+              style={{ width: "35px", height: "35px", borderRadius: "50%" }}
               src={item.image}
               alt="img"
             />
-            <div>
+            <div
+              onClick={() => {
+                navigate(`/userprofile/${item.email}`);
+              }}
+              style={{ cursor: "pointer" }}
+            >
               <p>{item.name}</p>
               <p style={{ fontSize: "15px", color: "#A7A7A7" }}>
                 {item.designation}
@@ -88,7 +92,7 @@ const MatchesResults = ({ data, ismanage, setData }) => {
                   View Profile
                 </button>
                 <span
-                style={{cursor:"pointer"}}
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     HandleRemoveLikedUser();
                   }}
