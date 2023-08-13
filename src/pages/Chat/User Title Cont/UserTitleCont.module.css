@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
 .outerCont{
-    width: 99.2%;
+    width: 100%;
    /* border-top-right-radius: 32px;*/
     display: flex;
    align-items: center;
@@ -9,7 +9,6 @@
    height: 60px;
    font-family: 'Source Sans Pro', sans-serif;
    background:var(--bg-main, #030B18);
-   margin: 0.2rem 0.2rem;
    border-radius: 22px 22px 0px 0px;
   /* border-bottom: 1px solid #EEEEEE;*/
 }
