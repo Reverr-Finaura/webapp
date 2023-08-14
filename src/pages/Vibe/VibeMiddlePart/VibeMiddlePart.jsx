@@ -299,7 +299,7 @@ const VibeMiddlePart = () => {
   //---------------------Swipe Limit Code End---------------------//
 
   const HandShakeUser = async (userEmail) => {
-    userEmail = userData[currentUserIndex].email;
+    userEmail = userData[currentUserIndex]?.email;
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
     try {
@@ -770,10 +770,10 @@ const VibeMiddlePart = () => {
                     />
                   </div>
                   <h2 className={styles.userName}>
-                    {userData[currentUserIndex].name}
+                    {userData[currentUserIndex]?.name}
                   </h2>
                   <h3 className={styles.userPosition}>
-                    {userData[currentUserIndex].designation}
+                    {userData[currentUserIndex]?.designation}
                   </h3>
                   {userData[currentUserIndex].state ||
                   userData[currentUserIndex].country ? (
@@ -905,9 +905,14 @@ const VibeMiddlePart = () => {
                           {userData[currentUserIndex].email !== "" && (
                             <div className={styles.findmeCont}>
                               <img src={emailIcon} alt="emailIcon" />
-                              <p className={styles.findmeDetails}>
+                              <a style={{textDecoration:'none'}} href={`mailto:${userData[currentUserIndex]?.email}`}><p className={styles.findmeDetails}>
+                                {userData[currentUserIndex]?.email}
+                              </p></a>
+                              
+                              {/* </a> */}
+                              {/* <p className={styles.findmeDetails}>
                                 {userData[currentUserIndex].email}
-                              </p>
+                              </p> */}
                             </div>
                           )}
                           {userData[currentUserIndex].linkedin !== "" && (
@@ -1437,6 +1442,10 @@ const VibeMiddlePart = () => {
                           {userData[prevUserIndex].email !== "" && (
                             <div className={styles.findmeCont}>
                               <img src={emailIcon} alt="emailIcon" />
+                              {/* <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=md.aadil.shafi@gmail.com&su=Subject&body=Body%20Text"
+                               target='_blank' style={{textDecoration:'none'}}>
+                                {userData[prevUserIndex].email}
+                              </a> */}
                               <p className={styles.findmeDetails}>
                                 {userData[prevUserIndex].email}
                               </p>
