@@ -70,7 +70,7 @@ const VibeMiddlePart = () => {
     mode: "",
   });
   const [modal, setModal] = useState(false);
-  const [recentLikedUser, setRecentLikedUser] = useState({
+  const [recentPassedUser, setRecentPassedUser] = useState({
     email: "",
     where: "",
   });
@@ -299,9 +299,7 @@ const VibeMiddlePart = () => {
   //---------------------Swipe Limit Code End---------------------//
 
   const HandShakeUser = async (userEmail) => {
-    console.log("HandShakeUser");
     userEmail = userData[currentUserIndex].email;
-    console.log("userEmail", userEmail);
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
     try {
@@ -334,6 +332,13 @@ const VibeMiddlePart = () => {
         await updateDoc(otherDocRef, {
           superliked_by: [...superliked_by, userDoc?.email],
         });
+
+        setRecentPassedUser({
+          email: otherDocSnap.data().email,
+          where: "superliked",
+        });
+
+        FlushUser(userEmail);
       } else {
         console.log("No such document!");
       }
@@ -357,6 +362,10 @@ const VibeMiddlePart = () => {
 
   const NopeUser = async (userEmail) => {
     await FlushUser(userEmail);
+    setRecentPassedUser({
+      email: userEmail,
+      where: "passed",
+    });
   };
 
   const LikeUser = async (userEmail) => {
@@ -379,7 +388,7 @@ const VibeMiddlePart = () => {
             liked_by: [...liked_by, userDoc?.email],
           });
 
-          setRecentLikedUser({
+          setRecentPassedUser({
             email: otherDocSnap.data().email,
             where: "liked",
           });
@@ -395,7 +404,7 @@ const VibeMiddlePart = () => {
             matched_user: [...other_matched_user, userDoc?.email],
           });
 
-          setRecentLikedUser({
+          setRecentPassedUser({
             email: otherDocSnap.data().email,
             where: "matched",
           });
@@ -478,9 +487,107 @@ const VibeMiddlePart = () => {
     // const userDocument = await getDoc(userDocumentRef);
   };
 
-  const HandleUndoMove = async () => {
-    if (recentLikedUser.where === "liked") {
-      let userEmail = recentLikedUser.email;
+  const HandleUndoSuperLikeMove = async () => {
+    let userEmail = recentPassedUser?.email;
+
+    const docRef = doc(db, "Users", userDoc?.email);
+    const otherDocRef = doc(db, "Users", userEmail);
+
+    const docSnap = await getDoc(docRef);
+    const otherDocSnap = await getDoc(otherDocRef);
+
+    if (docSnap.exists() && otherDocSnap.exists()) {
+      let superlikes;
+      let superliked_by;
+      let userPassedEmail;
+
+      superlikes = docSnap.data()?.superlikes || [];
+      userPassedEmail = docSnap.data()?.passed_email || [];
+
+      superliked_by = otherDocSnap.data()?.superliked_by || [];
+
+      if (superliked_by.includes(docSnap.data().email)) {
+        superliked_by = superliked_by.filter(
+          (email) => email !== docSnap.data().email
+        );
+        await updateDoc(otherDocRef, {
+          superliked_by: superliked_by,
+        });
+      }
+
+      if (userPassedEmail.includes(userEmail)) {
+        userPassedEmail = userPassedEmail.filter(
+          (email) => email !== userEmail
+        );
+        await updateDoc(docRef, {
+          passed_email: userPassedEmail,
+        });
+      }
+
+      if (superlikes.includes(userEmail)) {
+        superlikes = superlikes.filter((email) => email !== userEmail);
+        await updateDoc(docRef, {
+          superlikes: superlikes,
+        });
+      }
+
+      setPrevUserIndex(currentUserIndex);
+      setIsFadedTop(true);
+
+      if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+      setTimeout(() => {
+        setIsFadedTop(false);
+      }, [500]);
+
+      // handleSwipe();
+    } else {
+      console.log("No such document!");
+    }
+  };
+
+  const HandleUndoPassMove = async () => {
+    let userEmail = recentPassedUser?.email;
+
+    const docRef = doc(db, "Users", userDoc?.email);
+    const otherDocRef = doc(db, "Users", userEmail);
+
+    const docSnap = await getDoc(docRef);
+    const otherDocSnap = await getDoc(otherDocRef);
+
+    if (docSnap.exists() && otherDocSnap.exists()) {
+      let passed_email;
+
+      passed_email = docSnap.data()?.passed_email || [];
+
+      if (passed_email.includes(userEmail)) {
+        passed_email = passed_email.filter((email) => email !== userEmail);
+        await updateDoc(docRef, {
+          passed_email: passed_email,
+        });
+      }
+
+      setPrevUserIndex(currentUserIndex);
+      setIsFadedTop(true);
+
+      if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+      setTimeout(() => {
+        setIsFadedTop(false);
+      }, [500]);
+
+      // handleSwipe();
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+  const HandleUndo = async () => {
+    if (recentPassedUser.where === "liked") {
+      console.log("Undoing like move");
+      let userEmail = recentPassedUser.email;
 
       const docRef = doc(db, "Users", userDoc?.email);
       const otherDocRef = doc(db, "Users", userEmail);
@@ -515,10 +622,14 @@ const VibeMiddlePart = () => {
           });
         }
 
-        setCurrentUserIndex(currentUserIndex - 1);
+        if(currentUserIndex <= userData.length - 1 && currentUserIndex > 0){
+          setCurrentUserIndex(currentUserIndex - 1);
+
+        }
+
       }
-    } else if (recentLikedUser.where === "matched") {
-      let userEmail = recentLikedUser.email;
+    } else if (recentPassedUser.where === "matched") {
+      let userEmail = recentPassedUser.email;
 
       const docRef = doc(db, "Users", userDoc?.email);
       const otherDocRef = doc(db, "Users", userEmail);
@@ -557,6 +668,10 @@ const VibeMiddlePart = () => {
 
         setCurrentUserIndex(currentUserIndex - 1);
       }
+    } else if (recentPassedUser.where === "superliked") {
+      HandleUndoSuperLikeMove();
+    }else if (recentPassedUser.where === "passed") {
+      HandleUndoPassMove();
     }
   };
 
@@ -613,7 +728,7 @@ const VibeMiddlePart = () => {
             <div className={styles.filterContainer}>
               <div
                 onClick={() => (
-                  CheckisPremium(), setFRText("Undo"), HandleUndoMove
+                  CheckisPremium(), setFRText("Undo"), HandleUndo()
                 )}
                 className={styles.undoMoveCont}
               >
