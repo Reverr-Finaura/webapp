@@ -218,7 +218,7 @@
 
 @media (max-width: 1210px) {
   .plans_card {
-    width: 70%;
+    width: -webkit-fill-available;
   }
 
   .plan_tnc {
