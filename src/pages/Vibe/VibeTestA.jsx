@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 // import NoData from "./VibeMiddlePart/No Data Screen/NoData";
 import VibeMessageMain from "./VibeMessage/VibeMessageMain";
 import VibeMobileDropDown from "./VibeMobileDropDown";
+import MatchedUserScreen from "./VibeMiddlePart/matchedUserScreen/MatchedUserScreen";
 
 
 const list =["Vibe Home","Your matches","Manage matches","See who liked you"]
