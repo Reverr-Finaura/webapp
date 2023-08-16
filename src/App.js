@@ -143,6 +143,8 @@ import VibeOuter from "./pages/vibe/Left/LeftContainer";
 import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import CreateEvent from "./pages/Events/EventsCreate/CreateEvent";
 import EventsSuccess from "./pages/Events/EventsSuccess/EventsSuccess";
+import SpeakerProfile from './pages/Speaker/SpeakerProfile';
+
 
 function App() {
   const user = useSelector(selectUser);
@@ -425,6 +427,7 @@ function App() {
         <Route path="/vibe" element={(userDoc?.vibeuser===true)?<Navigate replace to ={"/vibe/main"}/>:<VibeOuter />}></Route>
         <Route path="/event/createevent" element={<CreateEvent />}></Route>
         <Route path="/event/eventsuccess" element={<EventsSuccess />}></Route>
+        <Route path="/speaker" element={<SpeakerProfile />}></Route>
       </Routes>
     </>
   );
