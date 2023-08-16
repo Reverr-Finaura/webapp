@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../../../firebase";
-import { setUserDoc, setvibeuser } from '../../../features/onboardingSlice';
+import {  setVibeUser,setUserDoc } from '../../../features/userDocSlice';
 
 import styles from './LeftContainer.module.css'
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
@@ -27,35 +27,39 @@ import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 const LeftContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [open,setOpen]=useState(false);
   
   const user = useSelector((state) => state.user);
-  const onboardingData = useSelector((state) => state.onboarding);
+  const userDoc = useSelector((state) => state.userDoc);
 
   // console.log("onboardingData", onboardingData)
 
   
-  console.log(onboardingData);
+  console.log("userDoc-",userDoc);
+
   useEffect(()=>{
-if(onboardingData?.vibeuser){
-  navigate('/vibetestinga')
-}
-  },[])
+  if(userDoc?.vibeuser){
+    setOpen(userDoc?.vibeuser)
+  }
+  },[userDoc])
 
 
   const handleButtonClick1 =async () => {
-    const open=true;
+    const val=true
    
-    dispatch(setvibeuser(open))
+    dispatch(setUserDoc({...userDoc,vibeuser:val}))
+    
 
 
-    const mydata = {
-      vibeuser: open
+  const mydata = {
+      ...userDoc,
+      vibeuser: val
     }
     try {
       // Attempt to upload the data
       await uploadOnboardingData(mydata);
       // If data upload is successful, navigate to the next page
-      navigate('/vibetestinga')
+      navigate('/vibe/main')
     } catch (err) {
       console.error(err);
       // Handle the error (optional) or show an error message to the user
@@ -79,8 +83,11 @@ if(onboardingData?.vibeuser){
       console.error(err);
       throw err; // Rethrow the error to be caught in the calling function
     }
+
+  
   };
-  console.log(onboardingData?.vibeuser);
+
+  console.log("userDoc Vibeuser:",userDoc?.Vibeuser);
   return (
     <>
       <NavBarFinalDarkMode />

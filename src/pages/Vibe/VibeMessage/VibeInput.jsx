@@ -88,7 +88,7 @@ const VibeInput = () => {
         onKeyDown={(e)=>(e.key === "Enter" && handleSendMessage())}
       />
       <AiOutlineSend
-        style={{ borderRadius: "30px", width: "60px", height: " 39px" }}
+        style={{ borderRadius: "30px", }}
         className={styles.sendMessageBtn}
         onClick={handleSendMessage}
       />

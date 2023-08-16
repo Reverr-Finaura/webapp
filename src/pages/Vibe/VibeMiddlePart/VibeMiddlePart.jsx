@@ -75,6 +75,10 @@ const VibeMiddlePart = () => {
     mode: "",
   });
   const [modal, setModal] = useState(false);
+  const [recentPassedUser, setRecentPassedUser] = useState({
+    email: "",
+    where: "",
+  });
 
   const toggle = () => {
     setModal(!modal);
@@ -83,7 +87,7 @@ const VibeMiddlePart = () => {
   const getUserData = async () => {
     try {
       console.log("userDoc data fetch");
-      setIsLoadingData(true)
+      setIsLoadingData(true);
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
       const usersnapshot = await getDocs(userquery);
@@ -330,9 +334,7 @@ const VibeMiddlePart = () => {
   //---------------------Swipe Limit Code End---------------------//
 
   const HandShakeUser = async (userEmail) => {
-    console.log("HandShakeUser");
-    userEmail = userData[currentUserIndex].email;
-    console.log("userEmail", userEmail);
+    userEmail = userData[currentUserIndex]?.email;
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
     try {
@@ -365,6 +367,13 @@ const VibeMiddlePart = () => {
         await updateDoc(otherDocRef, {
           superliked_by: [...superliked_by, userDoc?.email],
         });
+
+        setRecentPassedUser({
+          email: otherDocSnap.data().email,
+          where: "superliked",
+        });
+
+        FlushUser(userEmail);
       } else {
         console.log("No such document!");
       }
@@ -379,7 +388,6 @@ const VibeMiddlePart = () => {
         setIsFadedTop(false);
       }, [500]);
 
-      
       handleSwipe();
       FlushUser(userEmail);
     } catch (e) {
@@ -389,6 +397,10 @@ const VibeMiddlePart = () => {
 
   const NopeUser = async (userEmail) => {
     await FlushUser(userEmail);
+    setRecentPassedUser({
+      email: userEmail,
+      where: "passed",
+    });
   };
 
   const LikeUser = async (userEmail) => {
@@ -410,6 +422,11 @@ const VibeMiddlePart = () => {
           await updateDoc(otherDocRef, {
             liked_by: [...liked_by, currentLoggedInUser?.user?.email],
           });
+
+          setRecentPassedUser({
+            email: otherDocSnap.data().email,
+            where: "liked",
+          });
         } else {
           console.log("Already liked by this user");
           // Delete the user from the likedby array
@@ -423,6 +440,10 @@ const VibeMiddlePart = () => {
           });
 
           showMatchedUser(userData[currentUserIndex].email)
+          setRecentPassedUser({
+            email: otherDocSnap.data().email,
+            where: "matched",
+          });
 
           await createMatchedInMessagesDoc(
             otherDocSnap.data()?.email,
@@ -441,8 +462,6 @@ const VibeMiddlePart = () => {
 
         likes = docSnap.data()?.likes || [];
         liked_by = docSnap.data()?.liked_by || [];
-
-        console.log("liked_by", liked_by);
 
         if (!liked_by.includes(userEmail)) {
           await updateDoc(docRef, {
@@ -504,6 +523,194 @@ const VibeMiddlePart = () => {
     // const userDocument = await getDoc(userDocumentRef);
   };
 
+  const HandleUndoSuperLikeMove = async () => {
+    let userEmail = recentPassedUser?.email;
+
+    const docRef = doc(db, "Users", userDoc?.email);
+    const otherDocRef = doc(db, "Users", userEmail);
+
+    const docSnap = await getDoc(docRef);
+    const otherDocSnap = await getDoc(otherDocRef);
+
+    if (docSnap.exists() && otherDocSnap.exists()) {
+      let superlikes;
+      let superliked_by;
+      let userPassedEmail;
+
+      superlikes = docSnap.data()?.superlikes || [];
+      userPassedEmail = docSnap.data()?.passed_email || [];
+
+      superliked_by = otherDocSnap.data()?.superliked_by || [];
+
+      if (superliked_by.includes(docSnap.data().email)) {
+        superliked_by = superliked_by.filter(
+          (email) => email !== docSnap.data().email
+        );
+        await updateDoc(otherDocRef, {
+          superliked_by: superliked_by,
+        });
+      }
+
+      if (userPassedEmail.includes(userEmail)) {
+        userPassedEmail = userPassedEmail.filter(
+          (email) => email !== userEmail
+        );
+        await updateDoc(docRef, {
+          passed_email: userPassedEmail,
+        });
+      }
+
+      if (superlikes.includes(userEmail)) {
+        superlikes = superlikes.filter((email) => email !== userEmail);
+        await updateDoc(docRef, {
+          superlikes: superlikes,
+        });
+      }
+
+      setPrevUserIndex(currentUserIndex);
+      setIsFadedTop(true);
+
+      if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+      setTimeout(() => {
+        setIsFadedTop(false);
+      }, [500]);
+
+      // handleSwipe();
+    } else {
+      console.log("No such document!");
+    }
+  };
+
+  const HandleUndoPassMove = async () => {
+    let userEmail = recentPassedUser?.email;
+
+    const docRef = doc(db, "Users", userDoc?.email);
+    const otherDocRef = doc(db, "Users", userEmail);
+
+    const docSnap = await getDoc(docRef);
+    const otherDocSnap = await getDoc(otherDocRef);
+
+    if (docSnap.exists() && otherDocSnap.exists()) {
+      let passed_email;
+
+      passed_email = docSnap.data()?.passed_email || [];
+
+      if (passed_email.includes(userEmail)) {
+        passed_email = passed_email.filter((email) => email !== userEmail);
+        await updateDoc(docRef, {
+          passed_email: passed_email,
+        });
+      }
+
+      setPrevUserIndex(currentUserIndex);
+      setIsFadedTop(true);
+
+      if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+      setTimeout(() => {
+        setIsFadedTop(false);
+      }, [500]);
+
+      // handleSwipe();
+    } else {
+      console.log("No such document!");
+    }
+  }
+
+  const HandleUndo = async () => {
+    if (recentPassedUser.where === "liked") {
+      console.log("Undoing like move");
+      let userEmail = recentPassedUser.email;
+
+      const docRef = doc(db, "Users", userDoc?.email);
+      const otherDocRef = doc(db, "Users", userEmail);
+
+      const docSnap = await getDoc(docRef);
+      const otherDocSnap = await getDoc(otherDocRef);
+
+      if (docSnap.exists() && otherDocSnap.exists()) {
+        let likes;
+        let liked_by;
+        let userPassedEmail;
+
+        likes = docSnap.data()?.likes || [];
+        userPassedEmail = docSnap.data()?.passed_email || [];
+
+        liked_by = otherDocSnap.data()?.liked_by || [];
+
+        if (liked_by.includes(docSnap.data().email)) {
+          liked_by = liked_by.filter((email) => email !== docSnap.data().email);
+          await updateDoc(otherDocRef, {
+            liked_by: liked_by,
+          });
+        }
+        if (likes.includes(otherDocSnap.data().email)) {
+          likes = likes.filter((email) => email !== otherDocSnap.data().email);
+          userPassedEmail = userPassedEmail.filter(
+            (email) => email !== otherDocSnap.data().email
+          );
+          await updateDoc(docRef, {
+            likes: likes,
+            passed_email: userPassedEmail,
+          });
+        }
+
+        if(currentUserIndex <= userData.length - 1 && currentUserIndex > 0){
+          setCurrentUserIndex(currentUserIndex - 1);
+
+        }
+
+      }
+    } else if (recentPassedUser.where === "matched") {
+      let userEmail = recentPassedUser.email;
+
+      const docRef = doc(db, "Users", userDoc?.email);
+      const otherDocRef = doc(db, "Users", userEmail);
+
+      const docSnap = await getDoc(docRef);
+      const otherDocSnap = await getDoc(otherDocRef);
+
+      if (docSnap.exists() && otherDocSnap.exists()) {
+        let loggedInUserMatchedArray;
+        let otherUserMatched;
+        let userPassedEmail;
+        loggedInUserMatchedArray = docSnap.data()?.matched_user || [];
+        otherUserMatched = otherDocSnap.data()?.matched_user || [];
+        userPassedEmail = docSnap.data()?.passed_email || [];
+
+        if (otherUserMatched.includes(docSnap.data().email)) {
+          otherUserMatched = otherUserMatched.filter(
+            (email) => email !== docSnap.data().email
+          );
+          await updateDoc(otherDocRef, {
+            matched_user: otherUserMatched,
+          });
+        }
+        if (loggedInUserMatchedArray.includes(otherDocSnap.data().email)) {
+          loggedInUserMatchedArray = loggedInUserMatchedArray.filter(
+            (email) => email !== otherDocSnap.data().email
+          );
+          userPassedEmail = userPassedEmail.filter(
+            (email) => email !== otherDocSnap.data().email
+          );
+          await updateDoc(docRef, {
+            matched_user: loggedInUserMatchedArray,
+            passed_email: userPassedEmail,
+          });
+        }
+
+        setCurrentUserIndex(currentUserIndex - 1);
+      }
+    } else if (recentPassedUser.where === "superliked") {
+      HandleUndoSuperLikeMove();
+    }else if (recentPassedUser.where === "passed") {
+      HandleUndoPassMove();
+    }
+  };
+
   //   FlushUser();
   return (
     <>
@@ -559,7 +766,9 @@ const VibeMiddlePart = () => {
             )}
             <div className={styles.filterContainer}>
               <div
-                onClick={() => (CheckisPremium(), setFRText("Undo"))}
+                onClick={() => (
+                  CheckisPremium(), setFRText("Undo"), HandleUndo()
+                )}
                 className={styles.undoMoveCont}
               >
                 <div className={styles.innerUndoMove}>
@@ -581,7 +790,10 @@ const VibeMiddlePart = () => {
               )}
             </div>
             {noMoreVibeData ? (
-              <NoData noMoreVibeData={noMoreVibeData} handleRefresh={onRefreshClick}/>
+              <NoData
+                noMoreVibeData={noMoreVibeData}
+                handleRefresh={onRefreshClick}
+              />
             ) : (
               <div className={styles.vibeinfo}>
                 <div className={styles.userDetailsContainer}>
@@ -589,7 +801,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.userProfilePucture}
                       src={
-                        userData[currentUserIndex].image
+                        userData[currentUserIndex]?.image
                           ? userData[currentUserIndex].image
                           : defaultImg
                       }
@@ -597,10 +809,10 @@ const VibeMiddlePart = () => {
                     />
                   </div>
                   <h2 className={styles.userName}>
-                    {userData[currentUserIndex].name}
+                    {userData[currentUserIndex]?.name}
                   </h2>
                   <h3 className={styles.userPosition}>
-                    {userData[currentUserIndex].designation}
+                    {userData[currentUserIndex]?.designation}
                   </h3>
                   {userData[currentUserIndex].state ||
                   userData[currentUserIndex].country ? (
@@ -732,9 +944,14 @@ const VibeMiddlePart = () => {
                           {userData[currentUserIndex].email !== "" && (
                             <div className={styles.findmeCont}>
                               <img src={emailIcon} alt="emailIcon" />
-                              <p className={styles.findmeDetails}>
+                              <a style={{textDecoration:'none'}} href={`mailto:${userData[currentUserIndex]?.email}`}><p className={styles.findmeDetails}>
+                                {userData[currentUserIndex]?.email}
+                              </p></a>
+                              
+                              {/* </a> */}
+                              {/* <p className={styles.findmeDetails}>
                                 {userData[currentUserIndex].email}
-                              </p>
+                              </p> */}
                             </div>
                           )}
                           {userData[currentUserIndex].linkedin !== "" && (
@@ -1264,6 +1481,10 @@ const VibeMiddlePart = () => {
                           {userData[prevUserIndex].email !== "" && (
                             <div className={styles.findmeCont}>
                               <img src={emailIcon} alt="emailIcon" />
+                              {/* <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=md.aadil.shafi@gmail.com&su=Subject&body=Body%20Text"
+                               target='_blank' style={{textDecoration:'none'}}>
+                                {userData[prevUserIndex].email}
+                              </a> */}
                               <p className={styles.findmeDetails}>
                                 {userData[prevUserIndex].email}
                               </p>

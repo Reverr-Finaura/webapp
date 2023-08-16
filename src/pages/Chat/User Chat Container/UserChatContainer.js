@@ -2,8 +2,10 @@ import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./UserChatContainer.module.css";
 
-const UserChatContainer = () => {
-  const chatData = useSelector((state) => state.chatLatest);
+const UserChatContainer = ({ isNetworkMessage, setIsNetworkMessage }) => {
+  const chatData = useSelector((state) =>
+    isNetworkMessage ? state.chatLatest : state.vibeChat
+  );
   const ref = useRef();
   const currentcUser = useSelector((state) => state.userDoc);
   useEffect(() => {

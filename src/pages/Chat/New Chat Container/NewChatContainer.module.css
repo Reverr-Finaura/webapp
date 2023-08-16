@@ -2,9 +2,9 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding-top: 18px;
+    padding-left: 10px;
     border-bottom-right-radius: 1px;
-    height: 45px;
     /* border-top:1.6px solid #EEEEEE; */
     position: relative;
     border-top: 1px solid #EEEEEE;

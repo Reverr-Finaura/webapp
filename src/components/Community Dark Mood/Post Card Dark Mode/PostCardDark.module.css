@@ -14,7 +14,7 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
   /* margin-bottom: 3em;*/
- 
+
 }
 
 .postDivideLine_community {
@@ -91,10 +91,10 @@
   font-size: 16px;
 
   color: var(--white, #FFF);
-font-size: 14px;
-font-family: Poppins;
-font-weight: 500;
-letter-spacing: 0.42px;
+  font-size: 14px;
+  font-family: Poppins;
+  font-weight: 500;
+  letter-spacing: 0.42px;
 }
 
 .threeDotsMainCont {
@@ -150,7 +150,7 @@ letter-spacing: 0.42px;
   flex-direction: column;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   z-index: 20;
-  
+
   background-color: #1a1e28;
 
 }
@@ -171,7 +171,7 @@ letter-spacing: 0.42px;
   margin: auto;
   cursor: pointer;
   color: white;
- /* color: var(--main-text);*/
+  /* color: var(--main-text);*/
 }
 
 .postImageContainer {
@@ -388,22 +388,24 @@ letter-spacing: 0.42px;
 }
 
 #postCommentContainerExpanded {
-   padding-left: 0.5rem;
+  padding-left: 0.5rem;
   font-size: 18px;
   border: 1px solid rgba(42, 114, 222, 0.92);
   padding-bottom: 0;
   margin-bottom: 0;
 
   width: -webkit-fill-available;
-    height: 30px;
-    border-radius: 50px;
-    background: var(--white, #FFF);
-    color: var(--black, #000);
-    font-size: 16px;
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  height: 30px;
+  border-radius: 50px;
+  background: var(--white, #FFF);
+  color: var(--black, #000);
+  font-size: 16px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  height: 47px !important;
+
 }
 
 #postCommentContainerExpanded::placeholder {
@@ -418,13 +420,16 @@ letter-spacing: 0.42px;
 }
 
 /* user type */
-.typeImg{
+.typeImg {
   width: 14px;
   margin-right: 4px;
 }
 
 
-.founder,.mentor,.investor,.professional{
+.founder,
+.mentor,
+.investor,
+.professional {
   border-radius: 10px;
   padding: 0px 12px;
   text-align: center;
@@ -438,22 +443,26 @@ letter-spacing: 0.42px;
   position: relative;
   top: -3px;
 }
-.founder{
+
+.founder {
   color: rgba(255, 199, 108, 1);
   border: 2px solid rgba(255, 199, 108, 1);
 
 }
-.mentor{
+
+.mentor {
   border: 2px solid rgba(173, 39, 237, 1);
   color: rgba(173, 39, 237, 1);
 
 }
-.investor{
+
+.investor {
   border: 2px solid rgba(145, 135, 255, 1);
   color: rgba(145, 135, 255, 1);
 
 }
-.professional{
+
+.professional {
   border: 2px solid rgba(51, 234, 245, 1);
   color: rgba(51, 234, 245, 1);
 
@@ -480,7 +489,8 @@ letter-spacing: 0.42px;
   width: 92%;
   padding-right: 16px;
 }
-.rightArrowImg{
+
+.rightArrowImg {
   height: 51px;
   position: absolute;
   top: 13px;
@@ -515,15 +525,16 @@ letter-spacing: 0.42px;
   height: 30px;
   border-radius: 50%;
 }
-.commentedByComment{
-  color:#fff;
+
+.commentedByComment {
+  color: #fff;
   margin-left: 45px;
 }
 
 .commentedBy {
   margin-right: 1rem;
   font-weight: 600;
-  color:"#fff"
+  color: "#fff"
 }
 
 .commentedByAndComment {
@@ -577,7 +588,7 @@ letter-spacing: 0.42px;
   align-items: center;
   justify-content: center;
   border-radius: 7px;
-  color: white; 
+  color: white;
   background-color: #1a1e28;
   width: 100%;
   height: 20rem;
@@ -593,97 +604,134 @@ letter-spacing: 0.42px;
 }
 
 @media screen and (max-width: 500px) {
-  .postIconsText{
+  .postIconsText {
     display: none;
   }
-  .timeSpan{
+
+  .timeSpan {
     display: none;
-   }
-   
-   
-  .postAuthorName{
-      font-size: 15px
-  }
-  .postAuthorDesignation{
-      font-size: 12px
-  }
-  .postUploadDateContainer{
-      font-size:12px
-  }
-  .postLikesContainerLikeIcon{
-      font-size: 22px
   }
 
-  .commentPostIconn{
-      font-size: 22px !important
+
+  .postAuthorName {
+    font-size: 15px
   }
 
-  .postText{
-      font-size: .8rem !important
+  .postAuthorDesignation {
+    font-size: 12px
   }
+
+  .postUploadDateContainer {
+    font-size: 12px
+  }
+
+  .postLikesContainerLikeIcon {
+    font-size: 22px
+  }
+
+  .commentPostIconn {
+    font-size: 22px !important
+  }
+
+  .postText {
+    font-size: .8rem !important
+  }
+
   .middleSection {
-      margin-top: 120px
-
+    margin-top: 120px
   }
-  .postLikesAndCommentContainer h3{
+
+  .postLikesAndCommentContainer h3 {
     font-size: 10px;
-  } 
-  .postLikesContainer{
-    margin: 0px 4px 0px 4px
-
   }
 
-.postCommentContainer{ margin: 0px 4px 0px 4px}
-.postSednLinkContainer{ margin: 0px 4px 0px 4px}
-} 
-@media (max-width: 350px ){
-  .founder,.mentor,.investor,.professional{
-    font-size: 10px;  
-    
+  .postLikesContainer {
+    margin: 0px 4px 0px 4px
+  }
+
+  .postCommentContainer {
+    margin: 0px 4px 0px 4px
+  }
+
+  .postSednLinkContainer {
+    margin: 0px 4px 0px 4px
+  }
+
+  .rightArrowImg {
+    top: 13px;
+    right: 13px;
+    width: 20.1%;
+  }
+
+  #postCommentContainer{
+    width: 88% !important;
+  }
+  #postCommentContainerExpanded{
+    height: 47px !important;
+    width: 90%;
+ }
+}
+
+@media (max-width: 350px) {
+
+  .founder,
+  .mentor,
+  .investor,
+  .professional {
+    font-size: 10px;
+
     font-weight: 400;
     margin-left: 5px;
-   
+
   }
 
 }
 
 @media (max-width: 310px) {
-  .PostCardContainer{
-    padding:10px;
-    }
-    .postLikesContainerLikeIconn{
+  .PostCardContainer {
+    padding: 10px;
+  }
+
+  .postLikesContainerLikeIconn {
     font-size: 17px;
-    margin-right:0px
-    }
-    .postLikesAndCommentContainer{
-      font-size: 8px;
-    }
-    .commentPostIconn{
-      width: 20px;
-      margin-right: 0px !important;
-    }
-    .postSendIcon{
-      width: 17px;
+    margin-right: 0px
+  }
+
+  .postLikesAndCommentContainer {
+    font-size: 8px;
+  }
+
+  .commentPostIconn {
+    width: 20px;
+    margin-right: 0px !important;
+  }
+
+  .postSendIcon {
+    width: 17px;
     height: 28px;
     display: flex;
     align-items: center;
-    }
-    .postSendLinkContainer img{
-      font-size: 17px ;
-    }
-    .postCommentContainer img{
-      width: 17px !important; 
-    }
-    .postLikesAndCommentContainer{
-      font-size: 8px;
-    }
-    .postLikesContainerLikeIconn{
+  }
 
-    }
-    .postLikesContainerLikedIconn{
-      font-size: 17px;
-    }
-    .commentContainer{
-      margin-right: 0px !important;
-    }
+  .postSendLinkContainer img {
+    font-size: 17px;
+  }
+
+  .postCommentContainer img {
+    width: 17px !important;
+  }
+
+  .postLikesAndCommentContainer {
+    font-size: 8px;
+  }
+
+  .postLikesContainerLikeIconn {}
+
+  .postLikesContainerLikedIconn {
+    font-size: 17px;
+  }
+
+  .commentContainer {
+    margin-right: 0px !important;
+  }
 }
