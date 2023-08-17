@@ -11,7 +11,7 @@ import emailIcon from "../../../images/emailMiniIcon.svg";
 import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
 import twitterIcon from "../../../images/twitterMiniIcon.svg";
 import declineIcon from "../../../images/declineIcon.svg";
-import handShakeIcon from "../../../images/handShakeIcon.svg";
+import handShakeIcon from "../../../images/handshakeIcon.svg";
 import acceptIcon from "../../../images/acceptIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
