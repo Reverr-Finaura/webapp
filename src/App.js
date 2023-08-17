@@ -141,6 +141,8 @@ import VibeTestA from "./pages/Vibe/VibeTestA";
 // import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import VibeOuter from "./pages/Vibe/Left/LeftContainer";
 import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
+import HiringForm from "./pages/job posting/HiringForm";
+import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 
 function App() {
   const user = useSelector(selectUser);
@@ -421,6 +423,8 @@ function App() {
          <Route path="/vibe/main" element={(userDoc?.vibeuser!==true)?<Navigate replace to ={"/vibe"}/>:<VibeTestA />}></Route>
         <Route path="/vibetestingb" element={<FilterPart />}></Route>
         <Route path="/vibe" element={(userDoc?.vibeuser===true)?<Navigate replace to ={"/vibe/main"}/>:<VibeOuter />}></Route>
+        <Route path="/hiringMainScreen" element={<HiringMainScreen/>}></Route>
+        <Route path="/hiringForm" element={<HiringForm/>}></Route>
       </Routes>
     </>
   );
