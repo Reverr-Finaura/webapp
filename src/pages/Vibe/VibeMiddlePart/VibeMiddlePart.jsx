@@ -25,6 +25,7 @@ import {
   getDocs,
   query,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { createMatchedInMessagesDoc, db } from "../../../firebase";
 import { useSelector } from "react-redux";
@@ -34,6 +35,8 @@ import NoData from "./No Data Screen/NoData";
 import Loading from "./LoadingScreen/Loading";
 import LikesExhaust from "./LikesExhaustScreen/LikesExhaust";
 import Upgrade from "../../Upgrade/Upgrade";
+import MatchedUserScreen from "./matchedUserScreen/MatchedUserScreen";
+import { useSwipeable } from "react-swipeable";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -51,6 +54,10 @@ const VibeMiddlePart = () => {
   const [loadingSwipeData, setLoadingSwipeData] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isLikesEXhaust, setIsLikesEXhaust] = useState(false);
+  const [isMatchedUser, setIsMatchedUser] = useState(false);
+  const [matchedUser, setMatchedUser] = useState(null);
+
+
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const howToMeetImages = {
@@ -104,10 +111,12 @@ const VibeMiddlePart = () => {
           !likedByCurrentUser.includes(doc.data().email) &&
           !fleshedByCurrentUser.includes(doc.data().email) &&
           !matchedUsers.includes(doc.data().email) &&
-          doc.data().vibeuser === "true"
+          doc.data().vibeuser === true
       );
       console.log("filteredDocs", filteredDocs);
-      const fetchedUserData = filteredDocs.map((doc) => doc.data());
+      const fetchedUserData = filteredDocs.map((doc) => 
+      doc.data()).filter((userDocument) => 
+      userDocument.name && userDocument.about && userDocument.email);
       setNoMoreVibeData(fetchedUserData.length === 0);
       setUserData(fetchedUserData);
       setIsLoadingData(false);
@@ -122,7 +131,51 @@ const VibeMiddlePart = () => {
 
   const onRefreshClick = () => {
     getUserData();
-  };
+  }
+
+
+  const handleKeepSwiping = () => {
+    setIsMatchedUser(false)
+  }
+
+  const showMatchedUser = async(email) => {
+    const userRef = doc(db, "Users", currentLoggedInUser?.user?.email);
+    let isdisplayed = false;
+    const unsubscribe = onSnapshot(userRef, async (snapshot) => {
+      const matchedUsers = snapshot.data().matched_user;
+      console.log("MATCHEDUSERS", matchedUsers);
+      if(!isdisplayed && matchedUsers.includes(email)){
+        setIsMatchedUser(true)
+        const userDocRef = doc(db, "Users", email);
+        const matchedUserDoc = await getDoc(userDocRef);
+        console.log("MATCHEDUSERDOC", matchedUserDoc.data());
+        const matchedUserData = {
+          currentUserData: snapshot.data(),
+          matchedUserData: matchedUserDoc.data(),
+        }
+        setMatchedUser(matchedUserData)
+        console.log("MATCHEDUSERDATA", matchedUserData);
+        isdisplayed = true;
+        unsubscribe();
+      }
+    });
+  }
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      console.log('Swiped left!');
+      handleNopeCkick();
+    },
+    onSwipedRight: () => {
+      console.log('Swiped right!');
+      handleLikeCkick();
+    },
+    trackMouse: true,
+    trackTouch: true,
+    touchEventOptions: { passive: true },
+  })
+
+
   const handleLikeCkick = () => {
     // if the user has no swipe remaining and the update time is not reached yet
     // then show the toast message and return
@@ -369,7 +422,7 @@ const VibeMiddlePart = () => {
   };
 
   const LikeUser = async (userEmail) => {
-    const docRef = doc(db, "Users", userDoc?.email);
+    const docRef = doc(db, "Users", currentLoggedInUser?.user?.email);
     const otherDocRef = doc(db, "Users", userEmail);
 
     try {
@@ -383,9 +436,9 @@ const VibeMiddlePart = () => {
         likes = otherDocSnap.data()?.likes || [];
         liked_by = otherDocSnap.data()?.liked_by || [];
 
-        if (!likes.includes(userDoc?.email)) {
+        if (!likes.includes(currentLoggedInUser?.user?.email)) {
           await updateDoc(otherDocRef, {
-            liked_by: [...liked_by, userDoc?.email],
+            liked_by: [...liked_by, currentLoggedInUser?.user?.email],
           });
 
           setRecentPassedUser({
@@ -395,15 +448,16 @@ const VibeMiddlePart = () => {
         } else {
           console.log("Already liked by this user");
           // Delete the user from the likedby array
-          likes = likes.filter((email) => email !== userDoc?.email);
+          likes = likes.filter((email) => email !== currentLoggedInUser?.user?.email);
           await updateDoc(otherDocRef, {
             likes: [...likes],
           });
           let other_matched_user = otherDocSnap.data()?.matched_user || [];
           await updateDoc(otherDocRef, {
-            matched_user: [...other_matched_user, userDoc?.email],
+            matched_user: [...other_matched_user, currentLoggedInUser?.user?.email],
           });
 
+          showMatchedUser(userData[currentUserIndex].email)
           setRecentPassedUser({
             email: otherDocSnap.data().email,
             where: "matched",
@@ -675,6 +729,12 @@ const VibeMiddlePart = () => {
     }
   };
 
+
+
+
+
+
+  console.log("handlers :::", handlers);
   //   FlushUser();
   return (
     <>
@@ -708,8 +768,11 @@ const VibeMiddlePart = () => {
           </div>
         </>
       )}
-      {(isLikesEXhaust && <LikesExhaust />) ||
-        (isLoadingData ? (
+      {isLikesEXhaust ? (
+      <LikesExhaust />
+      ) : isMatchedUser ? (
+      <MatchedUserScreen matchedUser={matchedUser} handleKeepSwiping={handleKeepSwiping}/>
+      ) : (isLoadingData ? (
           <Loading />
         ) : (
           <div
@@ -756,7 +819,12 @@ const VibeMiddlePart = () => {
                 handleRefresh={onRefreshClick}
               />
             ) : (
-              <div className={styles.vibeinfo}>
+              <div {...handlers} 
+              onClick={() => console.log("Click event triggered")} 
+              onTouchStart={() => console.log("Touch start")}
+              onTouchMove={() => console.log("Touch move")}
+              onTouchEnd={() => console.log("Touch end")}
+              className={styles.vibeinfo}>
                 <div className={styles.userDetailsContainer}>
                   <div className={styles.imgContainer}>
                     <img
@@ -1500,7 +1568,6 @@ const VibeMiddlePart = () => {
                     />
                   </div>
                 </div>
-                <div className={styles.background}></div>
               </div>
             )}
           </div>

@@ -465,7 +465,7 @@ const User = () => {
           <div
             className={styles.profileHeader}
             style={{ cursor: "pointer" }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
           >
             <img src="/images/profileArrowLeft.svg" alt="back" />
             <p>User Profile</p>

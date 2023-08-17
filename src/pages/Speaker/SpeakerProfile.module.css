@@ -1,0 +1,201 @@
+.outer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:8rem;
+}
+.profile{
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: capitalize;
+    font-size: 18px;
+}
+.outerCont{
+    width: 46%;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+}
+.section1{
+    display: flex;
+    gap: 18px;
+    background: var(--bg-primary-blue, #0C1631);
+    height: 195px;
+    border-radius: 20px;
+
+}
+.imgCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgCont img{
+    height: 67%;
+    width: 82%;
+    margin-left: 1rem;
+}
+.infoCont{
+    display: flex;
+    flex-direction: column;
+     justify-content: center;
+    gap: 9px;
+}
+.name{
+    color: var(--white, #FFF);
+    font-family: Poppins;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.infoCont p{
+    color: var(--white-gray, #D4D4D4);
+    font-family: Poppins;
+    font-size: 13.333px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.4px;
+}
+.location{
+    color: var(--white-gray, #D4D4D4);
+    font-family: Poppins;
+    font-size: 13.333px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.4px;
+}
+.button{
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+    display: flex;
+    align-items: center;
+    border-radius: 27px;
+    justify-content: center;
+    width: 8rem;
+    height: 32px;
+    gap: 10px;
+    color: var(--black, #000);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.16px;
+}
+.iconsCont{
+    flex: 1;
+    margin-left: 18rem;
+    display: flex;
+    /* justify-content: space-between; */
+    height: 17px;
+    gap: 13px;
+    margin-top: 39px;
+}
+.aboutsec{
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--bg-primary-blue, #0C1631);
+    border-radius: 20px;
+}
+.heading{
+    font-family: Poppins;
+font-size: 21.333px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+letter-spacing: 0.64px;
+background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+}
+.aboutsec p{
+   width: 84%;
+   color:white
+}
+.connectbtn{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 13px;
+}
+.videocall{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--white, #FFF);
+    gap: 5px;
+    border-radius: 33px;
+    width: 19%;
+    height: 37px;
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.32px;
+}
+.videocall img{
+    height: 42%;
+    width: 11%;
+}
+.message{
+    border: 2px solid blue;
+    border-radius: 25px;
+    width: 19%;
+    /* text-align: center; */
+    height: 37px;
+    padding-left: 48px;
+    padding-top: 4px;
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.edusec{
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: var(--bg-primary-blue, #0C1631);
+    border-radius: 20px;
+}
+.contactsec{
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary-blue, #0C1631);
+    border-radius: 20px;
+}
+.contactInfo{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 5px;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--white-gray, #D4D4D4);
+    padding: 5px;
+}
+.contactInfo img{
+    width: 2%;
+}
+li{
+    color: var(--white-gray, #D4D4D4);
+    font-size: 11px;
+}
+ul{
+    list-style-type: disc;
+    padding:23px;
+}
