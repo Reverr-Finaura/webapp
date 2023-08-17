@@ -36,6 +36,7 @@ import Loading from "./LoadingScreen/Loading";
 import LikesExhaust from "./LikesExhaustScreen/LikesExhaust";
 import Upgrade from "../../Upgrade/Upgrade";
 import MatchedUserScreen from "./matchedUserScreen/MatchedUserScreen";
+import { useSwipeable } from "react-swipeable";
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -55,6 +56,7 @@ const VibeMiddlePart = () => {
   const [isLikesEXhaust, setIsLikesEXhaust] = useState(false);
   const [isMatchedUser, setIsMatchedUser] = useState(false);
   const [matchedUser, setMatchedUser] = useState(null);
+
 
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
@@ -108,11 +110,13 @@ const VibeMiddlePart = () => {
           doc.data().email !== currentLoggedInUser?.user?.email &&
           !likedByCurrentUser.includes(doc.data().email) &&
           !fleshedByCurrentUser.includes(doc.data().email) &&
-          // !matchedUsers.includes(doc.data().email) &&
+          !matchedUsers.includes(doc.data().email) &&
           doc.data().vibeuser === true
       );
       console.log("filteredDocs", filteredDocs);
-      const fetchedUserData = filteredDocs.map((doc) => doc.data());
+      const fetchedUserData = filteredDocs.map((doc) => 
+      doc.data()).filter((userDocument) => 
+      userDocument.name && userDocument.about && userDocument.email);
       setNoMoreVibeData(fetchedUserData.length === 0);
       setUserData(fetchedUserData);
       setIsLoadingData(false);
@@ -156,6 +160,20 @@ const VibeMiddlePart = () => {
       }
     });
   }
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      console.log('Swiped left!');
+      handleNopeCkick();
+    },
+    onSwipedRight: () => {
+      console.log('Swiped right!');
+      handleLikeCkick();
+    },
+    trackMouse: true,
+    trackTouch: true,
+    touchEventOptions: { passive: true },
+  })
 
 
   const handleLikeCkick = () => {
@@ -711,6 +729,12 @@ const VibeMiddlePart = () => {
     }
   };
 
+
+
+
+
+
+  console.log("handlers :::", handlers);
   //   FlushUser();
   return (
     <>
@@ -795,7 +819,12 @@ const VibeMiddlePart = () => {
                 handleRefresh={onRefreshClick}
               />
             ) : (
-              <div className={styles.vibeinfo}>
+              <div {...handlers} 
+              onClick={() => console.log("Click event triggered")} 
+              onTouchStart={() => console.log("Touch start")}
+              onTouchMove={() => console.log("Touch move")}
+              onTouchEnd={() => console.log("Touch end")}
+              className={styles.vibeinfo}>
                 <div className={styles.userDetailsContainer}>
                   <div className={styles.imgContainer}>
                     <img
