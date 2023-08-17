@@ -1,17 +1,18 @@
 import React from 'react'
 import styles from './SpeakerProfile.module.css'
-import Image1 from '../../images/IMAGE1.png'
-import location from '../../images/location_outline.png'
-import plus from '../../images/plus.png'
-import call from '../../images/call.png'
-import gmail from '../../images/gmail.png'
-import linkedin from '../../images/linkedin.png'
-import videocall from '../../images/video-call.png'
-import facebook from '../../images/facebook.png'
-import twitter from '../../images/twitter.png'
-import insta from '../../images/instagram.png'
-import arrow from '../../images/arrowMark.svg';
-import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import NavBarFinalDarkMode from '../../components/Navbar Dark Mode/NavBarFinalDarkMode';
+// import Image1 from '../../images/IMAGE1.png'
+// import location from '../../images/location_outline.png'
+// import plus from '../../images/plus.png'
+// import call from '../../images/call.png'
+// import gmail from '../../images/gmail.png'
+// import linkedin from '../../images/linkedin.png'
+// import videocall from '../../images/video-call.png'
+// import facebook from '../../images/facebook.png'
+// import twitter from '../../images/twitter.png'
+// import insta from '../../images/instagram.png'
+// import arrow from '../../images/arrowMark.svg';
+// import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 
 
@@ -20,7 +21,7 @@ const SpeakerProfile = () => {
     return (
         <>
         <NavBarFinalDarkMode />
-            <div className={styles.outer}>
+            {/* <div className={styles.outer}>
                 <div className={styles.outerCont}>
                     <div className={styles.profile}>
                         <img src={arrow} alt="img"/>
@@ -105,7 +106,7 @@ const SpeakerProfile = () => {
                     </div>
                 </div>
 
-            </div>
+            </div> */}
 
         </>
     )
