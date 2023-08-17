@@ -136,13 +136,15 @@ import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
 import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
-import VibeTestA from "./pages/vibe/VibeTestA";
+import VibeTestA from "./pages/Vibe/VibeTestA";
 // import VibeTestA from "./pages/vibe/VibeTestA";
 // import FilterPart from "./pages/vibe/FilterPart/FilterPart";
-import VibeOuter from "./pages/vibe/Left/LeftContainer";
-import FilterPart from "./pages/vibe/FilterPart/FilterPart";
+import VibeOuter from "./pages/Vibe/Left/LeftContainer";
+import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
 import CreateEvent from "./pages/Events/EventsCreate/CreateEvent";
 import EventsSuccess from "./pages/Events/EventsSuccess/EventsSuccess";
+import SpeakerProfile from './pages/Speaker/SpeakerProfile';
+
 
 function App() {
   const user = useSelector(selectUser);
@@ -425,6 +427,7 @@ function App() {
         <Route path="/vibe" element={(userDoc?.vibeuser===true)?<Navigate replace to ={"/vibe/main"}/>:<VibeOuter />}></Route>
         <Route path="/event/createevent" element={<CreateEvent />}></Route>
         <Route path="/event/eventsuccess" element={<EventsSuccess />}></Route>
+        <Route path="/speaker" element={<SpeakerProfile />}></Route>
       </Routes>
     </>
   );
