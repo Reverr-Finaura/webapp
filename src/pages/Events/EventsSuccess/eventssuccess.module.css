@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.EventsContainer {
+    width: 100vw;
+    height: calc(100vh - 102px);
+    display: flex;
+    /* justify-content: space-evenly; */
+    
+    /* margin: auto auto; */
+    margin-top: 90px;
+    
+   justify-content: center;
+    align-items: center;
+  }
+
+  .EventsInnerContainer{
+    width: 70%;
+    height: 75%;
+    background: #0C1631;
+    border-radius:36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 10px; */
+  }
+
+  .left{
+    width: 50%;
+    position: relative;
+  }
+  .left img{
+    width: 400px;
+  }
+  .left img:last-of-type{
+    left: 0;
+    position: absolute;
+  }
+
+  .right{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .right p:first-of-type{
+    max-width: 400px;
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .right span{
+    color: #00B3FF;
+  }
+
+  .btncontainer{
+    display: flex;
+    gap: 40px;
+  }
+
+  .btn1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    border:1px solid #00B3FF;
+    width: 180px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    background: -webkit-linear-gradient(#00B3FF, #4CC9FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+  .btn2{
+    width: 140px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 40px;
+    background:linear-gradient(to right, #00B3FF,#4CC9FF) ;
+    cursor: pointer;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+  }
+ 

@@ -35,7 +35,9 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     overflow-y: scroll;
+    user-select: none;
     /* position: relative; */
 }
 
@@ -292,7 +294,7 @@
 }
 
 .likeHandshake {
-    width: 33%;
+    width: 25%;
     position: fixed;
     bottom: 60px;
     display: flex;
@@ -300,10 +302,12 @@
 }
 
 .innerContainer {
-    padding: 20px 40px;
-    width: 90%;
+    background-color: rgba(3, 11, 24, 1);
+    padding: 0px;
+    width: 275px;
+    border-radius: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .likehandShakeImg {
@@ -493,11 +497,18 @@ position: relative;
         width: 100%;
     }
     .likeHandshake {
-        width: 90%;
+        width: 240px;
     }
     .middlePopUp {
         width: 95%;
         height: 77%;
+    }
+    .Cont {
+        width: 60px;
+        height: 60px;
+    }
+    .innerContainer{
+        padding: 5px 5px;
     }
 }
 
@@ -505,15 +516,14 @@ position: relative;
     .undoMoveCont {
         width: 120px;
     }
-    .innerContainer{
-        padding: 10px 20px;
-    }
+
     .filterContainer {
         padding: 0px 20px;
     }
     .details {
         padding: 20px 20px;
     }
+
 }
 
 @media screen and (max-width: 330px) {
@@ -522,16 +532,15 @@ position: relative;
         width: 100px;
     }
     .Cont {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
     }
     .likehandShakeImg {
-        width: 40px;
+        width: 90%;
     }
     .background {
         height: 40px;
     }
-
 }
 
   .fadedTop{
