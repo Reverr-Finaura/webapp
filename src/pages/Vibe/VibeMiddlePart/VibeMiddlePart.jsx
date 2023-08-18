@@ -136,14 +136,9 @@ const VibeMiddlePart = () => {
   };
 
   const handleKeepSwiping = () => {
-<<<<<<< HEAD
     setIsMatchedUser(false)
     window.location.reload();
   }
-=======
-    setIsMatchedUser(false);
-  };
->>>>>>> d7ce780552fd5c0d0e924974c1d1394e6e6c8f83
 
   const showMatchedUser = async (email) => {
     const userRef = doc(db, "Users", currentLoggedInUser?.user?.email);
