@@ -11,7 +11,7 @@ import emailIcon from "../../../images/emailMiniIcon.svg";
 import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
 import twitterIcon from "../../../images/twitterMiniIcon.svg";
 import declineIcon from "../../../images/declineIcon.svg";
-import handShakeIcon from "../../../images/handShakeIcon.svg";
+import handShakeIcon from "../../../images/handshakeIcon.svg";
 import acceptIcon from "../../../images/acceptIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
@@ -38,6 +38,7 @@ import Upgrade from "../../Upgrade/Upgrade";
 import MatchedUserScreen from "./matchedUserScreen/MatchedUserScreen";
 import { useSwipeable } from "react-swipeable";
 
+
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
@@ -50,6 +51,10 @@ const VibeMiddlePart = () => {
   const [swipeLimit, setSwipeLimit] = useState({
     swipeRemaining: 10,
     swipeUpdateTime: null,
+  });
+  const [superlikelimit, setSuperlikeLimit] = useState({
+    superlikeUpdateTime: 1,
+    superlikecount: null,
   });
   const [loadingSwipeData, setLoadingSwipeData] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -84,6 +89,12 @@ const VibeMiddlePart = () => {
   const toggle = () => {
     setModal(!modal);
   };
+
+  // console.log( "dateformat",new Date().getTime() - 24 * 60 * 60 * 1000);
+  // let dada =new Date().getTime() + 168 * 60 * 60 * 1000;
+  // let dada2 =new Date().getTime(1692267846885) ;
+  // console.log( "dateformat2",new Date(dada));
+  // console.log( "dateformat3",new Date(1692965762214));
 
   const getUserData = async () => {
     try {
@@ -280,6 +291,7 @@ const VibeMiddlePart = () => {
           } else {
             // If swipeLimit field is not present, create it with initial values
             const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
+            
             // await setDoc(docRef, data, { merge: true });
             await setDoc(
               docRef,
@@ -303,6 +315,7 @@ const VibeMiddlePart = () => {
 
     fetchSwipeLimit();
   }, [currentLoggedInUser]);
+
 
   const handleSwipe = async () => {
     // i have still some swipe remaining and the update time is not reached yet
@@ -355,7 +368,133 @@ const VibeMiddlePart = () => {
   };
   //---------------------Swipe Limit Code End---------------------//
 
+     ////handle superlike count///
+
+     useEffect(() => {
+      // Fetch the initial superlike data from Firebase or create it if not present
+      const fetchsuperlike = async () => {
+        const userEmail = currentLoggedInUser?.user?.email;
+        if (!userEmail) {
+          throw new Error("User email not available");
+        }
+        try {
+          const docRef = doc(db, "Users", userEmail);
+          // console.log("docRef", docRef);
+          const docSnapshot = await getDoc(docRef);
+  
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            // console.log("data", data);
+            if (data?.superlike) {
+              setSuperlikeLimit(data.superlike);
+              console.log(data.superlike);
+              
+            } else {
+              // If superlike field is not present, create it with initial values
+              const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
+              
+              await setDoc(
+                docRef,
+                {
+                  superlike: { superlikecount: 1, superlikeUpdateTime: updateTime },
+                },
+                { merge: true }
+              );
+              setSuperlikeLimit({ superlikecount: 1, superlikeUpdateTime: updateTime });
+            }
+          } else {
+            console.log("No such document!");
+          }
+  
+         
+        } catch (error) {
+          console.error("Error fetching swipeLimit data:", error);
+       
+        }
+      };
+  
+      fetchsuperlike();
+      // handleSuperlike()
+      if (
+        superlikelimit.superlikecount === 0 &&
+        superlikelimit.superlikeUpdateTime > new Date().getTime()
+      ){
+        handleSuperlike()
+      }
+    }, [currentLoggedInUser]);
+  // console.log(superlikelimit);
+
+  const handleSuperlike = async () => {
+   
+    // i have still superlike remaining and the update time is not reached yet
+    if (
+      superlikelimit?.superlikecount > 0 &&
+      superlikelimit?.superlikeUpdateTime > new Date().getTime()
+    ) {
+      // User has remaining swipes, decrease swipeRemaining by 1
+      const newSuperlikeRemaining = superlikelimit.superlikecount - 1;
+      setSuperlikeLimit((prevState) => ({
+        ...prevState,
+        superlikecount: newSuperlikeRemaining,
+      }));
+      await updateSuperlikeLimit({
+        superlikecount: newSuperlikeRemaining,
+        superlikeUpdateTime: superlikelimit.superlikeUpdateTime,
+      });
+    } else {
+      // If superlikeUpdateTime is already passed, reset superlikeRemaining to 1 and update superlikeUpdateTime
+      if (superlikelimit.superlikeUpdateTime < new Date().getTime()) {
+        console.log("super like time update");
+        if(userDoc?.premiumData?.subscriptionPlan){
+          setSuperlikeLimit((prevState) => ({
+            ...prevState,
+            superlikecount: 1,
+            superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
+          }));
+          // setIsLikesEXhaust(false);
+          await updateSuperlikeLimit({
+            superlikecount: 1,
+            superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
+          });
+        } else{
+          setSuperlikeLimit((prevState) => ({
+            ...prevState,
+            superlikecount: 1,
+            superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
+          }));
+          // setIsLikesEXhaust(false);
+          await updateSuperlikeLimit({
+            superlikecount: 1,
+            superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
+          });
+        }
+
+
+        }
+         else {
+        console.log("wait for superlikeUpdateTime");
+      }
+    }
+  };
+
+  const updateSuperlikeLimit = async (newSwipeLimit) => {
+    const userEmail = currentLoggedInUser?.user?.email;
+    if (!userEmail) {
+      throw new Error("User email not available");
+    }
+    try {
+      await updateDoc(doc(db, "Users", userEmail), {
+        superlike: newSwipeLimit,
+      });
+    } catch (error) {
+      console.error("Error updating swipeLimit on Firebase:", error);
+    }
+  };
+
+    //superlike count end///
+
   const HandShakeUser = async (userEmail) => {
+    
     userEmail = userData[currentUserIndex]?.email;
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
@@ -412,6 +551,7 @@ const VibeMiddlePart = () => {
         setIsFadedTop(false);
       }, [500]);
 
+      handleSuperlike();
       handleSwipe();
       FlushUser(userEmail);
     } catch (e) {
@@ -740,6 +880,12 @@ const VibeMiddlePart = () => {
 
   console.log("handlers :::", handlers);
   //   FlushUser();
+
+
+
+
+
+
   return (
     <>
       {premiumModalStatus ? (
@@ -1545,7 +1691,7 @@ const VibeMiddlePart = () => {
                     alt="declineIcon"
                   />
                 </div>
-                <div className={styles.Cont} onClick={HandShakeUser}>
+                <div style={{pointerEvents:superlikelimit.superlikecount === 0 && "none",opacity:superlikelimit.superlikecount === 0 && "0.4"}} className={styles.Cont} onClick={HandShakeUser}>
                   <img
                     className={styles.likehandShakeImg}
                     src={handShakeIcon}
