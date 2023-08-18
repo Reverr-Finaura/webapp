@@ -57,7 +57,6 @@ const VibeMiddlePart = () => {
   const [isMatchedUser, setIsMatchedUser] = useState(false);
   const [matchedUser, setMatchedUser] = useState(null);
 
-
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const howToMeetImages = {
@@ -114,9 +113,12 @@ const VibeMiddlePart = () => {
           doc.data().vibeuser === true
       );
       console.log("filteredDocs", filteredDocs);
-      const fetchedUserData = filteredDocs.map((doc) => 
-      doc.data()).filter((userDocument) => 
-      userDocument.name && userDocument.about && userDocument.email);
+      const fetchedUserData = filteredDocs
+        .map((doc) => doc.data())
+        .filter(
+          (userDocument) =>
+            userDocument.name && userDocument.about && userDocument.email
+        );
       setNoMoreVibeData(fetchedUserData.length === 0);
       setUserData(fetchedUserData);
       setIsLoadingData(false);
@@ -131,50 +133,48 @@ const VibeMiddlePart = () => {
 
   const onRefreshClick = () => {
     getUserData();
-  }
-
+  };
 
   const handleKeepSwiping = () => {
-    setIsMatchedUser(false)
-  }
+    setIsMatchedUser(false);
+  };
 
-  const showMatchedUser = async(email) => {
+  const showMatchedUser = async (email) => {
     const userRef = doc(db, "Users", currentLoggedInUser?.user?.email);
     let isdisplayed = false;
     const unsubscribe = onSnapshot(userRef, async (snapshot) => {
       const matchedUsers = snapshot.data().matched_user;
       console.log("MATCHEDUSERS", matchedUsers);
-      if(!isdisplayed && matchedUsers.includes(email)){
-        setIsMatchedUser(true)
+      if (!isdisplayed && matchedUsers.includes(email)) {
+        setIsMatchedUser(true);
         const userDocRef = doc(db, "Users", email);
         const matchedUserDoc = await getDoc(userDocRef);
         console.log("MATCHEDUSERDOC", matchedUserDoc.data());
         const matchedUserData = {
           currentUserData: snapshot.data(),
           matchedUserData: matchedUserDoc.data(),
-        }
-        setMatchedUser(matchedUserData)
+        };
+        setMatchedUser(matchedUserData);
         console.log("MATCHEDUSERDATA", matchedUserData);
         isdisplayed = true;
         unsubscribe();
       }
     });
-  }
+  };
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      console.log('Swiped left!');
+      console.log("Swiped left!");
       handleNopeCkick();
     },
     onSwipedRight: () => {
-      console.log('Swiped right!');
+      console.log("Swiped right!");
       handleLikeCkick();
     },
     trackMouse: true,
     trackTouch: true,
     touchEventOptions: { passive: true },
-  })
-
+  });
 
   const handleLikeCkick = () => {
     // if the user has no swipe remaining and the update time is not reached yet
@@ -237,15 +237,18 @@ const VibeMiddlePart = () => {
     //   return SetRedo(true);
     // }
   };
-  const CheckisPremiumFilter = () => {
+  const OpenFilter = () => {
     // if (!ispremium) {
     //   return setFilter(true);
     // }
     // add An ! before ispremium to make filter modal render
-    if (ispremium) {
-      return setFilter(true);
-    } else {
-      return setFilter(false), SetRedo(true);
+    // if (ispremium) {
+    //   return setFilter(true);
+    // } else {
+    //   return setFilter(false), SetRedo(true);
+    // }
+    if (filter === false) {
+      setFilter(!filter);
     }
   };
 
@@ -401,6 +404,8 @@ const VibeMiddlePart = () => {
       if (currentUserIndex < userData.length - 1) {
         // console.log(userData);
         setCurrentUserIndex(currentUserIndex + 1);
+      }else{
+        setNoMoreVibeData(true);
       }
       setTimeout(() => {
         setIsFadedTop(false);
@@ -448,16 +453,21 @@ const VibeMiddlePart = () => {
         } else {
           console.log("Already liked by this user");
           // Delete the user from the likedby array
-          likes = likes.filter((email) => email !== currentLoggedInUser?.user?.email);
+          likes = likes.filter(
+            (email) => email !== currentLoggedInUser?.user?.email
+          );
           await updateDoc(otherDocRef, {
             likes: [...likes],
           });
           let other_matched_user = otherDocSnap.data()?.matched_user || [];
           await updateDoc(otherDocRef, {
-            matched_user: [...other_matched_user, currentLoggedInUser?.user?.email],
+            matched_user: [
+              ...other_matched_user,
+              currentLoggedInUser?.user?.email,
+            ],
           });
 
-          showMatchedUser(userData[currentUserIndex].email)
+          showMatchedUser(userData[currentUserIndex].email);
           setRecentPassedUser({
             email: otherDocSnap.data().email,
             where: "matched",
@@ -636,7 +646,7 @@ const VibeMiddlePart = () => {
     } else {
       console.log("No such document!");
     }
-  }
+  };
 
   const HandleUndo = async () => {
     if (recentPassedUser.where === "liked") {
@@ -676,11 +686,9 @@ const VibeMiddlePart = () => {
           });
         }
 
-        if(currentUserIndex <= userData.length - 1 && currentUserIndex > 0){
+        if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
           setCurrentUserIndex(currentUserIndex - 1);
-
         }
-
       }
     } else if (recentPassedUser.where === "matched") {
       let userEmail = recentPassedUser.email;
@@ -724,15 +732,10 @@ const VibeMiddlePart = () => {
       }
     } else if (recentPassedUser.where === "superliked") {
       HandleUndoSuperLikeMove();
-    }else if (recentPassedUser.where === "passed") {
+    } else if (recentPassedUser.where === "passed") {
       HandleUndoPassMove();
     }
   };
-
-
-
-
-
 
   console.log("handlers :::", handlers);
   //   FlushUser();
@@ -769,809 +772,797 @@ const VibeMiddlePart = () => {
         </>
       )}
       {isLikesEXhaust ? (
-      <LikesExhaust />
+        <LikesExhaust />
       ) : isMatchedUser ? (
-      <MatchedUserScreen matchedUser={matchedUser} handleKeepSwiping={handleKeepSwiping}/>
-      ) : (isLoadingData ? (
-          <Loading />
-        ) : (
-          <div
-            style={{ overflowY: !redo ? "scroll" : "hidden" }}
-            className={styles.middleContainer}
-          >
-            {/* ////Not Premium Pop-UP//// */}
-            {!ispremium && redo && (
-              <FilterRedoPopUp
-                frtext={frtext}
-                SetRedo={SetRedo}
-                setIsPremium={setIsPremium}
-                setPremiumModalStatus={setPremiumModalStatus}
+        <MatchedUserScreen
+          matchedUser={matchedUser}
+          handleKeepSwiping={handleKeepSwiping}
+        />
+      ) : isLoadingData ? (
+        <Loading />
+      ) : (
+        <div
+          style={{ overflowY: !redo ? "scroll" : "hidden" }}
+          className={styles.middleContainer}
+        >
+          {/* ////Not Premium Pop-UP//// */}
+          {!ispremium && redo && (
+            <FilterRedoPopUp
+              frtext={frtext}
+              SetRedo={SetRedo}
+              setIsPremium={setIsPremium}
+              setPremiumModalStatus={setPremiumModalStatus}
+            />
+          )}
+          <div className={styles.filterContainer}>
+            <div
+              onClick={() => (
+                CheckisPremium(), setFRText("Undo"), HandleUndo()
+              )}
+              className={styles.undoMoveCont}
+            >
+              <div className={styles.innerUndoMove}>
+                <img
+                  className={styles.undoMoveImg}
+                  src={undoMoveIcon}
+                  alt="undoMoveIcon"
+                />
+                <p className={styles.undoMoveText}>Undo Move</p>
+              </div>
+            </div>
+            {!noMoreVibeData && (
+              <img
+                onClick={() => (OpenFilter(), setFRText("Filter"))}
+                className={styles.filterIcon}
+                src={filterIcon}
+                alt="filterIcon"
               />
             )}
-            <div className={styles.filterContainer}>
-              <div
-                onClick={() => (
-                  CheckisPremium(), setFRText("Undo"), HandleUndo()
-                )}
-                className={styles.undoMoveCont}
-              >
-                <div className={styles.innerUndoMove}>
-                  <img
-                    className={styles.undoMoveImg}
-                    src={undoMoveIcon}
-                    alt="undoMoveIcon"
-                  />
-                  <p className={styles.undoMoveText}>Undo Move</p>
-                </div>
-              </div>
-              {!noMoreVibeData && (
-                <img
-                  onClick={() => (CheckisPremiumFilter(), setFRText("Filter"))}
-                  className={styles.filterIcon}
-                  src={filterIcon}
-                  alt="filterIcon"
-                />
-              )}
-            </div>
-            {noMoreVibeData ? (
-              <NoData
-                noMoreVibeData={noMoreVibeData}
-                handleRefresh={onRefreshClick}
-              />
-            ) : (
-              <div {...handlers} 
-              onClick={() => console.log("Click event triggered")} 
+          </div>
+          {noMoreVibeData ? (
+            <NoData
+              noMoreVibeData={noMoreVibeData}
+              handleRefresh={onRefreshClick}
+            />
+          ) : (
+            <div
+              {...handlers}
+              onClick={() => console.log("Click event triggered")}
               onTouchStart={() => console.log("Touch start")}
               onTouchMove={() => console.log("Touch move")}
               onTouchEnd={() => console.log("Touch end")}
-              className={styles.vibeinfo}>
-                <div className={styles.userDetailsContainer}>
-                  <div className={styles.imgContainer}>
-                    <img
-                      className={styles.userProfilePucture}
-                      src={
-                        userData[currentUserIndex]?.image
-                          ? userData[currentUserIndex].image
-                          : defaultImg
-                      }
-                      alt="userProfilePucture"
-                    />
-                  </div>
-                  <h2 className={styles.userName}>
-                    {userData[currentUserIndex]?.name}
-                  </h2>
-                  <h3 className={styles.userPosition}>
-                    {userData[currentUserIndex]?.designation}
-                  </h3>
-                  {userData[currentUserIndex].state ||
-                  userData[currentUserIndex].country ? (
-                    <div className={styles.locationCont}>
-                      <img
-                        className={styles.locationIcon}
-                        src={location}
-                        alt="location"
-                      />
-                      <p className={styles.location}>
-                        {userData[currentUserIndex].state}
-                        {", "}
-                        {userData[currentUserIndex].country}
-                      </p>
-                    </div>
-                  ) : null}
+              className={styles.vibeinfo}
+            >
+              <div className={styles.userDetailsContainer}>
+                <div className={styles.imgContainer}>
+                  <img
+                    className={styles.userProfilePucture}
+                    src={
+                      userData[currentUserIndex]?.image
+                        ? userData[currentUserIndex].image
+                        : defaultImg
+                    }
+                    alt="userProfilePucture"
+                  />
                 </div>
-                <div className={styles.details}>
-                  {userData[currentUserIndex]?.about && (
-                    <div className={styles.aboutMe}>
-                      <h2 className={styles.Heading}>About Me</h2>
-                      <p className={styles.aboutDetails}>
-                        {userData[currentUserIndex].about}
+                <h2 className={styles.userName}>
+                  {userData[currentUserIndex]?.name}
+                </h2>
+                <h3 className={styles.userPosition}>
+                  {userData[currentUserIndex]?.designation}
+                </h3>
+                {userData[currentUserIndex].state ||
+                userData[currentUserIndex].country ? (
+                  <div className={styles.locationCont}>
+                    <img
+                      className={styles.locationIcon}
+                      src={location}
+                      alt="location"
+                    />
+                    <p className={styles.location}>
+                      {userData[currentUserIndex].state}
+                      {", "}
+                      {userData[currentUserIndex].country}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+              <div className={styles.details}>
+                {userData[currentUserIndex]?.about && (
+                  <div className={styles.aboutMe}>
+                    <h2 className={styles.Heading}>About Me</h2>
+                    <p className={styles.aboutDetails}>
+                      {userData[currentUserIndex].about}
+                    </p>
+                  </div>
+                )}
+                {userData[currentUserIndex]?.here_for &&
+                userData[currentUserIndex]?.here_for.length > 0 ? (
+                  <div className={styles.whyamIHere}>
+                    <h2 className={styles.Heading}>Why am i here</h2>
+                    <div className={styles.whyamIHereCont}>
+                      {userData[currentUserIndex]?.here_for.map(
+                        (item, index) => {
+                          return (
+                            <div key={index} className={styles.whyamIHereItem}>
+                              <p className={styles.whyhereText}>{item}</p>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+                {userData[currentUserIndex]?.experience &&
+                userData[currentUserIndex]?.experience.length > 0 &&
+                userData[currentUserIndex]?.experience[0]?.designation &&
+                userData[currentUserIndex]?.experience[0]?.company !== "" ? (
+                  <div className={styles.designation}>
+                    <h2 className={styles.Heading}>Current Designation</h2>
+                    <div className={styles.designationDetailsCont}>
+                      <h3 className={styles.designationInfo}>
+                        {userData[currentUserIndex].experience[0].designation
+                          ? userData[currentUserIndex].experience[0].designation
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[currentUserIndex].experience[0].company
+                          ? userData[currentUserIndex].experience[0].company
+                          : ""}
                       </p>
                     </div>
-                  )}
-                  {userData[currentUserIndex]?.here_for &&
-                  userData[currentUserIndex]?.here_for.length > 0 ? (
-                    <div className={styles.whyamIHere}>
-                      <h2 className={styles.Heading}>Why am i here</h2>
-                      <div className={styles.whyamIHereCont}>
-                        {userData[currentUserIndex]?.here_for.map(
-                          (item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={styles.whyamIHereItem}
-                              >
-                                <p className={styles.whyhereText}>{item}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
+                  </div>
+                ) : null}
+                {userData[currentUserIndex]?.education &&
+                userData[currentUserIndex]?.education.length > 0 &&
+                userData[currentUserIndex]?.education[0]?.institute &&
+                userData[currentUserIndex]?.education[0]?.degree !== "" ? (
+                  <div className={styles.education}>
+                    <h2 className={styles.Heading}>Education</h2>
+                    <div className={styles.educationCont}>
+                      <h3 className={styles.educationInstitute}>
+                        {userData[currentUserIndex].education[0].institute
+                          ? userData[currentUserIndex].education[0].institute
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[currentUserIndex].education[0].degree
+                          ? userData[currentUserIndex].education[0].degree
+                          : ""}
+                      </p>
                     </div>
-                  ) : null}
-                  {userData[currentUserIndex]?.experience &&
-                  userData[currentUserIndex]?.experience.length > 0 &&
-                  userData[currentUserIndex]?.experience[0]?.designation &&
-                  userData[currentUserIndex]?.experience[0]?.company !== "" ? (
-                    <div className={styles.designation}>
-                      <h2 className={styles.Heading}>Current Designation</h2>
-                      <div className={styles.designationDetailsCont}>
-                        <h3 className={styles.designationInfo}>
-                          {userData[currentUserIndex].experience[0].designation
-                            ? userData[currentUserIndex].experience[0]
-                                .designation
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[currentUserIndex].experience[0].company
-                            ? userData[currentUserIndex].experience[0].company
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[currentUserIndex]?.education &&
-                  userData[currentUserIndex]?.education.length > 0 &&
-                  userData[currentUserIndex]?.education[0]?.institute &&
-                  userData[currentUserIndex]?.education[0]?.degree !== "" ? (
-                    <div className={styles.education}>
-                      <h2 className={styles.Heading}>Education</h2>
-                      <div className={styles.educationCont}>
-                        <h3 className={styles.educationInstitute}>
-                          {userData[currentUserIndex].education[0].institute
-                            ? userData[currentUserIndex].education[0].institute
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[currentUserIndex].education[0].degree
-                            ? userData[currentUserIndex].education[0].degree
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[currentUserIndex]?.Vibe_Data?.How_To_Meet &&
-                  userData[currentUserIndex]?.Vibe_Data?.How_To_Meet?.length >
-                    0 ? (
-                    <div className={styles.howCanWeMeet}>
-                      <h2 className={styles.Heading}>How can we meet?</h2>
-                      <div className={styles.meetingTypeCont}>
-                        {userData[currentUserIndex].Vibe_Data.How_To_Meet.map(
-                          (type, index) => {
-                            const imageURL = howToMeetImages[type];
-                            return (
-                              <div key={index} className={styles.typeContainer}>
-                                <img
-                                  className={styles.meetingTypeImg}
-                                  src={imageURL}
-                                  alt={type}
-                                />
-                                <p className={styles.meetingType}>{type}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className={styles.findMeOn}>
-                    {(userData[currentUserIndex]?.phone ||
-                      userData[currentUserIndex]?.email ||
-                      userData[currentUserIndex]?.linkedin ||
-                      userData[currentUserIndex]?.twitter) !== "" && (
-                      <>
-                        <h2 className={styles.Heading}>Find Me On</h2>
-                        <div className={styles.findmeOnWraper}>
-                          {userData[currentUserIndex].phone !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={phoneIcon} alt="phoneIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].countryCode}{" "}
-                                {userData[currentUserIndex].phone}
-                              </p>
+                  </div>
+                ) : null}
+                {userData[currentUserIndex]?.Vibe_Data?.How_To_Meet &&
+                userData[currentUserIndex]?.Vibe_Data?.How_To_Meet?.length >
+                  0 ? (
+                  <div className={styles.howCanWeMeet}>
+                    <h2 className={styles.Heading}>How can we meet?</h2>
+                    <div className={styles.meetingTypeCont}>
+                      {userData[currentUserIndex].Vibe_Data.How_To_Meet.map(
+                        (type, index) => {
+                          const imageURL = howToMeetImages[type];
+                          return (
+                            <div key={index} className={styles.typeContainer}>
+                              <img
+                                className={styles.meetingTypeImg}
+                                src={imageURL}
+                                alt={type}
+                              />
+                              <p className={styles.meetingType}>{type}</p>
                             </div>
-                          )}
-                          {userData[currentUserIndex].email !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={emailIcon} alt="emailIcon" />
-                              <a style={{textDecoration:'none'}} href={`mailto:${userData[currentUserIndex]?.email}`}><p className={styles.findmeDetails}>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+                <div className={styles.findMeOn}>
+                  {(userData[currentUserIndex]?.phone ||
+                    userData[currentUserIndex]?.email ||
+                    userData[currentUserIndex]?.linkedin ||
+                    userData[currentUserIndex]?.twitter) !== "" && (
+                    <>
+                      <h2 className={styles.Heading}>Find Me On</h2>
+                      <div className={styles.findmeOnWraper}>
+                        {userData[currentUserIndex].phone !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={phoneIcon} alt="phoneIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[currentUserIndex].countryCode}{" "}
+                              {userData[currentUserIndex].phone}
+                            </p>
+                          </div>
+                        )}
+                        {userData[currentUserIndex].email !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={emailIcon} alt="emailIcon" />
+                            <a
+                              style={{ textDecoration: "none" }}
+                              href={`mailto:${userData[currentUserIndex]?.email}`}
+                            >
+                              <p className={styles.findmeDetails}>
                                 {userData[currentUserIndex]?.email}
-                              </p></a>
-                              
-                              {/* </a> */}
-                              {/* <p className={styles.findmeDetails}>
+                              </p>
+                            </a>
+
+                            {/* </a> */}
+                            {/* <p className={styles.findmeDetails}>
                                 {userData[currentUserIndex].email}
                               </p> */}
-                            </div>
-                          )}
-                          {userData[currentUserIndex].linkedin !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={linkedinIcon} alt="linkedinIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].linkedin}
-                              </p>
-                            </div>
-                          )}
-                          {userData[currentUserIndex].twitter !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={twitterIcon} alt="twitterIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[currentUserIndex].twitter}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </div>
+                          </div>
+                        )}
+                        {userData[currentUserIndex].linkedin !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[currentUserIndex].linkedin}
+                            </p>
+                          </div>
+                        )}
+                        {userData[currentUserIndex].twitter !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={twitterIcon} alt="twitterIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[currentUserIndex].twitter}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
-            {isFadedLeft && userData && (
-              <div className={styles.fadedLeft}>
-                <div className={styles.userDetailsContainer}>
-                  <div className={styles.imgContainer}>
-                    <img
-                      className={styles.userProfilePucture}
-                      src={
-                        userData[prevUserIndex].image
-                          ? userData[prevUserIndex].image
-                          : defaultImg
-                      }
-                      alt="userProfilePucture"
-                    />
-                  </div>
-                  <h2 className={styles.userName}>
-                    {userData[prevUserIndex].name}
-                  </h2>
-                  <h3 className={styles.userPosition}>
-                    {userData[prevUserIndex].designation}
-                  </h3>
-                  {userData[prevUserIndex].state ||
-                  userData[prevUserIndex].country ? (
-                    <div className={styles.locationCont}>
-                      <img
-                        className={styles.locationIcon}
-                        src={location}
-                        alt="location"
-                      />
-                      <p className={styles.location}>
-                        {userData[prevUserIndex].state}
-                        {", "}
-                        {userData[prevUserIndex].country}
-                      </p>
-                    </div>
-                  ) : null}
+          {isFadedLeft && userData && (
+            <div className={styles.fadedLeft}>
+              <div className={styles.userDetailsContainer}>
+                <div className={styles.imgContainer}>
+                  <img
+                    className={styles.userProfilePucture}
+                    src={
+                      userData[prevUserIndex].image
+                        ? userData[prevUserIndex].image
+                        : defaultImg
+                    }
+                    alt="userProfilePucture"
+                  />
                 </div>
-                <div className={styles.details}>
-                  {userData[prevUserIndex]?.about && (
-                    <div className={styles.aboutMe}>
-                      <h2 className={styles.Heading}>About Me</h2>
-                      <p className={styles.aboutDetails}>
-                        {userData[prevUserIndex].about}
+                <h2 className={styles.userName}>
+                  {userData[prevUserIndex].name}
+                </h2>
+                <h3 className={styles.userPosition}>
+                  {userData[prevUserIndex].designation}
+                </h3>
+                {userData[prevUserIndex].state ||
+                userData[prevUserIndex].country ? (
+                  <div className={styles.locationCont}>
+                    <img
+                      className={styles.locationIcon}
+                      src={location}
+                      alt="location"
+                    />
+                    <p className={styles.location}>
+                      {userData[prevUserIndex].state}
+                      {", "}
+                      {userData[prevUserIndex].country}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+              <div className={styles.details}>
+                {userData[prevUserIndex]?.about && (
+                  <div className={styles.aboutMe}>
+                    <h2 className={styles.Heading}>About Me</h2>
+                    <p className={styles.aboutDetails}>
+                      {userData[prevUserIndex].about}
+                    </p>
+                  </div>
+                )}
+                {userData[prevUserIndex]?.here_for &&
+                userData[prevUserIndex]?.here_for.length > 0 ? (
+                  <div className={styles.whyamIHere}>
+                    <h2 className={styles.Heading}>Why am i here</h2>
+                    <div className={styles.whyamIHereCont}>
+                      {userData[prevUserIndex]?.here_for.map((item, index) => {
+                        return (
+                          <div key={index} className={styles.whyamIHereItem}>
+                            <p className={styles.whyhereText}>{item}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.experience &&
+                userData[prevUserIndex]?.experience.length > 0 &&
+                userData[prevUserIndex]?.experience[0]?.designation &&
+                userData[prevUserIndex]?.experience[0]?.company !== "" ? (
+                  <div className={styles.designation}>
+                    <h2 className={styles.Heading}>Current Designation</h2>
+                    <div className={styles.designationDetailsCont}>
+                      <h3 className={styles.designationInfo}>
+                        {userData[prevUserIndex].experience[0].designation
+                          ? userData[prevUserIndex].experience[0].designation
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[prevUserIndex].experience[0].company
+                          ? userData[prevUserIndex].experience[0].company
+                          : ""}
                       </p>
                     </div>
-                  )}
-                  {userData[prevUserIndex]?.here_for &&
-                  userData[prevUserIndex]?.here_for.length > 0 ? (
-                    <div className={styles.whyamIHere}>
-                      <h2 className={styles.Heading}>Why am i here</h2>
-                      <div className={styles.whyamIHereCont}>
-                        {userData[prevUserIndex]?.here_for.map(
-                          (item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={styles.whyamIHereItem}
-                              >
-                                <p className={styles.whyhereText}>{item}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.experience &&
-                  userData[prevUserIndex]?.experience.length > 0 &&
-                  userData[prevUserIndex]?.experience[0]?.designation &&
-                  userData[prevUserIndex]?.experience[0]?.company !== "" ? (
-                    <div className={styles.designation}>
-                      <h2 className={styles.Heading}>Current Designation</h2>
-                      <div className={styles.designationDetailsCont}>
-                        <h3 className={styles.designationInfo}>
-                          {userData[prevUserIndex].experience[0].designation
-                            ? userData[prevUserIndex].experience[0].designation
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[prevUserIndex].experience[0].company
-                            ? userData[prevUserIndex].experience[0].company
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.education &&
-                  userData[prevUserIndex]?.education.length > 0 &&
-                  userData[prevUserIndex]?.education[0]?.institute &&
-                  userData[prevUserIndex]?.education[0]?.degree !== "" ? (
-                    <div className={styles.education}>
-                      <h2 className={styles.Heading}>Education</h2>
-                      <div className={styles.educationCont}>
-                        <h3 className={styles.educationInstitute}>
-                          {userData[prevUserIndex].education[0].institute
-                            ? userData[prevUserIndex].education[0].institute
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[prevUserIndex].education[0].degree
-                            ? userData[prevUserIndex].education[0].degree
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.Vibe_Data?.How_To_Meet &&
-                  userData[prevUserIndex]?.Vibe_Data?.How_To_Meet?.length >
-                    0 ? (
-                    <div className={styles.howCanWeMeet}>
-                      <h2 className={styles.Heading}>How can we meet?</h2>
-                      <div className={styles.meetingTypeCont}>
-                        {userData[prevUserIndex].Vibe_Data.How_To_Meet.map(
-                          (type, index) => {
-                            const imageURL = howToMeetImages[type];
-                            return (
-                              <div key={index} className={styles.typeContainer}>
-                                <img
-                                  className={styles.meetingTypeImg}
-                                  src={imageURL}
-                                  alt={type}
-                                />
-                                <p className={styles.meetingType}>{type}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className={styles.findMeOn}>
-                    {(userData[prevUserIndex]?.phone ||
-                      userData[prevUserIndex]?.email ||
-                      userData[prevUserIndex]?.linkedin ||
-                      userData[prevUserIndex]?.twitter) !== "" && (
-                      <>
-                        <h2 className={styles.Heading}>Find Me On</h2>
-                        <div className={styles.findmeOnWraper}>
-                          {userData[prevUserIndex].phone !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={phoneIcon} alt="phoneIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].countryCode}{" "}
-                                {userData[prevUserIndex].phone}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].email !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={emailIcon} alt="emailIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].email}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].linkedin !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={linkedinIcon} alt="linkedinIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].linkedin}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].twitter !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={twitterIcon} alt="twitterIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].twitter}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
                   </div>
+                ) : null}
+                {userData[prevUserIndex]?.education &&
+                userData[prevUserIndex]?.education.length > 0 &&
+                userData[prevUserIndex]?.education[0]?.institute &&
+                userData[prevUserIndex]?.education[0]?.degree !== "" ? (
+                  <div className={styles.education}>
+                    <h2 className={styles.Heading}>Education</h2>
+                    <div className={styles.educationCont}>
+                      <h3 className={styles.educationInstitute}>
+                        {userData[prevUserIndex].education[0].institute
+                          ? userData[prevUserIndex].education[0].institute
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[prevUserIndex].education[0].degree
+                          ? userData[prevUserIndex].education[0].degree
+                          : ""}
+                      </p>
+                    </div>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.Vibe_Data?.How_To_Meet &&
+                userData[prevUserIndex]?.Vibe_Data?.How_To_Meet?.length > 0 ? (
+                  <div className={styles.howCanWeMeet}>
+                    <h2 className={styles.Heading}>How can we meet?</h2>
+                    <div className={styles.meetingTypeCont}>
+                      {userData[prevUserIndex].Vibe_Data.How_To_Meet.map(
+                        (type, index) => {
+                          const imageURL = howToMeetImages[type];
+                          return (
+                            <div key={index} className={styles.typeContainer}>
+                              <img
+                                className={styles.meetingTypeImg}
+                                src={imageURL}
+                                alt={type}
+                              />
+                              <p className={styles.meetingType}>{type}</p>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+                <div className={styles.findMeOn}>
+                  {(userData[prevUserIndex]?.phone ||
+                    userData[prevUserIndex]?.email ||
+                    userData[prevUserIndex]?.linkedin ||
+                    userData[prevUserIndex]?.twitter) !== "" && (
+                    <>
+                      <h2 className={styles.Heading}>Find Me On</h2>
+                      <div className={styles.findmeOnWraper}>
+                        {userData[prevUserIndex].phone !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={phoneIcon} alt="phoneIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].countryCode}{" "}
+                              {userData[prevUserIndex].phone}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].email !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={emailIcon} alt="emailIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].email}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].linkedin !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].linkedin}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].twitter !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={twitterIcon} alt="twitterIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].twitter}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-            )}
-            {isFadedRight && userData && (
-              <div className={styles.fadedRight}>
-                <div className={styles.userDetailsContainer}>
-                  <div className={styles.imgContainer}>
-                    <img
-                      className={styles.userProfilePucture}
-                      src={
-                        userData[prevUserIndex].image
-                          ? userData[prevUserIndex].image
-                          : defaultImg
-                      }
-                      alt="userProfilePucture"
-                    />
-                  </div>
-                  <h2 className={styles.userName}>
-                    {userData[prevUserIndex].name}
-                  </h2>
-                  <h3 className={styles.userPosition}>
-                    {userData[prevUserIndex].designation}
-                  </h3>
-                  {userData[prevUserIndex].state ||
-                  userData[prevUserIndex].country ? (
-                    <div className={styles.locationCont}>
-                      <img
-                        className={styles.locationIcon}
-                        src={location}
-                        alt="location"
-                      />
-                      <p className={styles.location}>
-                        {userData[prevUserIndex].state}
-                        {", "}
-                        {userData[prevUserIndex].country}
-                      </p>
-                    </div>
-                  ) : null}
+            </div>
+          )}
+          {isFadedRight && userData && (
+            <div className={styles.fadedRight}>
+              <div className={styles.userDetailsContainer}>
+                <div className={styles.imgContainer}>
+                  <img
+                    className={styles.userProfilePucture}
+                    src={
+                      userData[prevUserIndex].image
+                        ? userData[prevUserIndex].image
+                        : defaultImg
+                    }
+                    alt="userProfilePucture"
+                  />
                 </div>
-                <div className={styles.details}>
-                  {userData[prevUserIndex]?.about && (
-                    <div className={styles.aboutMe}>
-                      <h2 className={styles.Heading}>About Me</h2>
-                      <p className={styles.aboutDetails}>
-                        {userData[prevUserIndex].about}
+                <h2 className={styles.userName}>
+                  {userData[prevUserIndex].name}
+                </h2>
+                <h3 className={styles.userPosition}>
+                  {userData[prevUserIndex].designation}
+                </h3>
+                {userData[prevUserIndex].state ||
+                userData[prevUserIndex].country ? (
+                  <div className={styles.locationCont}>
+                    <img
+                      className={styles.locationIcon}
+                      src={location}
+                      alt="location"
+                    />
+                    <p className={styles.location}>
+                      {userData[prevUserIndex].state}
+                      {", "}
+                      {userData[prevUserIndex].country}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+              <div className={styles.details}>
+                {userData[prevUserIndex]?.about && (
+                  <div className={styles.aboutMe}>
+                    <h2 className={styles.Heading}>About Me</h2>
+                    <p className={styles.aboutDetails}>
+                      {userData[prevUserIndex].about}
+                    </p>
+                  </div>
+                )}
+                {userData[prevUserIndex]?.here_for &&
+                userData[prevUserIndex]?.here_for.length > 0 ? (
+                  <div className={styles.whyamIHere}>
+                    <h2 className={styles.Heading}>Why am i here</h2>
+                    <div className={styles.whyamIHereCont}>
+                      {userData[prevUserIndex]?.here_for.map((item, index) => {
+                        return (
+                          <div key={index} className={styles.whyamIHereItem}>
+                            <p className={styles.whyhereText}>{item}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.experience &&
+                userData[prevUserIndex]?.experience.length > 0 &&
+                userData[prevUserIndex]?.experience[0]?.designation &&
+                userData[prevUserIndex]?.experience[0]?.company !== "" ? (
+                  <div className={styles.designation}>
+                    <h2 className={styles.Heading}>Current Designation</h2>
+                    <div className={styles.designationDetailsCont}>
+                      <h3 className={styles.designationInfo}>
+                        {userData[prevUserIndex].experience[0].designation
+                          ? userData[prevUserIndex].experience[0].designation
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[prevUserIndex].experience[0].company
+                          ? userData[prevUserIndex].experience[0].company
+                          : ""}
                       </p>
                     </div>
-                  )}
-                  {userData[prevUserIndex]?.here_for &&
-                  userData[prevUserIndex]?.here_for.length > 0 ? (
-                    <div className={styles.whyamIHere}>
-                      <h2 className={styles.Heading}>Why am i here</h2>
-                      <div className={styles.whyamIHereCont}>
-                        {userData[prevUserIndex]?.here_for.map(
-                          (item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={styles.whyamIHereItem}
-                              >
-                                <p className={styles.whyhereText}>{item}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.experience &&
-                  userData[prevUserIndex]?.experience.length > 0 &&
-                  userData[prevUserIndex]?.experience[0]?.designation &&
-                  userData[prevUserIndex]?.experience[0]?.company !== "" ? (
-                    <div className={styles.designation}>
-                      <h2 className={styles.Heading}>Current Designation</h2>
-                      <div className={styles.designationDetailsCont}>
-                        <h3 className={styles.designationInfo}>
-                          {userData[prevUserIndex].experience[0].designation
-                            ? userData[prevUserIndex].experience[0].designation
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[prevUserIndex].experience[0].company
-                            ? userData[prevUserIndex].experience[0].company
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.education &&
-                  userData[prevUserIndex]?.education.length > 0 &&
-                  userData[prevUserIndex]?.education[0]?.institute &&
-                  userData[prevUserIndex]?.education[0]?.degree !== "" ? (
-                    <div className={styles.education}>
-                      <h2 className={styles.Heading}>Education</h2>
-                      <div className={styles.educationCont}>
-                        <h3 className={styles.educationInstitute}>
-                          {userData[prevUserIndex].education[0].institute
-                            ? userData[prevUserIndex].education[0].institute
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[prevUserIndex].education[0].degree
-                            ? userData[prevUserIndex].education[0].degree
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.Vibe_Data?.How_To_Meet &&
-                  userData[prevUserIndex]?.Vibe_Data?.How_To_Meet?.length >
-                    0 ? (
-                    <div className={styles.howCanWeMeet}>
-                      <h2 className={styles.Heading}>How can we meet?</h2>
-                      <div className={styles.meetingTypeCont}>
-                        {userData[prevUserIndex].Vibe_Data.How_To_Meet.map(
-                          (type, index) => {
-                            const imageURL = howToMeetImages[type];
-                            return (
-                              <div key={index} className={styles.typeContainer}>
-                                <img
-                                  className={styles.meetingTypeImg}
-                                  src={imageURL}
-                                  alt={type}
-                                />
-                                <p className={styles.meetingType}>{type}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className={styles.findMeOn}>
-                    {(userData[prevUserIndex]?.phone ||
-                      userData[prevUserIndex]?.email ||
-                      userData[prevUserIndex]?.linkedin ||
-                      userData[prevUserIndex]?.twitter) !== "" && (
-                      <>
-                        <h2 className={styles.Heading}>Find Me On</h2>
-                        <div className={styles.findmeOnWraper}>
-                          {userData[prevUserIndex].phone !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={phoneIcon} alt="phoneIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].countryCode}{" "}
-                                {userData[prevUserIndex].phone}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].email !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={emailIcon} alt="emailIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].email}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].linkedin !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={linkedinIcon} alt="linkedinIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].linkedin}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].twitter !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={twitterIcon} alt="twitterIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].twitter}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
                   </div>
+                ) : null}
+                {userData[prevUserIndex]?.education &&
+                userData[prevUserIndex]?.education.length > 0 &&
+                userData[prevUserIndex]?.education[0]?.institute &&
+                userData[prevUserIndex]?.education[0]?.degree !== "" ? (
+                  <div className={styles.education}>
+                    <h2 className={styles.Heading}>Education</h2>
+                    <div className={styles.educationCont}>
+                      <h3 className={styles.educationInstitute}>
+                        {userData[prevUserIndex].education[0].institute
+                          ? userData[prevUserIndex].education[0].institute
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[prevUserIndex].education[0].degree
+                          ? userData[prevUserIndex].education[0].degree
+                          : ""}
+                      </p>
+                    </div>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.Vibe_Data?.How_To_Meet &&
+                userData[prevUserIndex]?.Vibe_Data?.How_To_Meet?.length > 0 ? (
+                  <div className={styles.howCanWeMeet}>
+                    <h2 className={styles.Heading}>How can we meet?</h2>
+                    <div className={styles.meetingTypeCont}>
+                      {userData[prevUserIndex].Vibe_Data.How_To_Meet.map(
+                        (type, index) => {
+                          const imageURL = howToMeetImages[type];
+                          return (
+                            <div key={index} className={styles.typeContainer}>
+                              <img
+                                className={styles.meetingTypeImg}
+                                src={imageURL}
+                                alt={type}
+                              />
+                              <p className={styles.meetingType}>{type}</p>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+                <div className={styles.findMeOn}>
+                  {(userData[prevUserIndex]?.phone ||
+                    userData[prevUserIndex]?.email ||
+                    userData[prevUserIndex]?.linkedin ||
+                    userData[prevUserIndex]?.twitter) !== "" && (
+                    <>
+                      <h2 className={styles.Heading}>Find Me On</h2>
+                      <div className={styles.findmeOnWraper}>
+                        {userData[prevUserIndex].phone !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={phoneIcon} alt="phoneIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].countryCode}{" "}
+                              {userData[prevUserIndex].phone}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].email !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={emailIcon} alt="emailIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].email}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].linkedin !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].linkedin}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].twitter !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={twitterIcon} alt="twitterIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].twitter}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-            )}
-            {isFadedTop && userData && (
-              <div className={styles.fadedTop}>
-                <div className={styles.userDetailsContainer}>
-                  <div className={styles.imgContainer}>
-                    <img
-                      className={styles.userProfilePucture}
-                      src={
-                        userData[prevUserIndex].image
-                          ? userData[prevUserIndex].image
-                          : defaultImg
-                      }
-                      alt="userProfilePucture"
-                    />
-                  </div>
-                  <h2 className={styles.userName}>
-                    {userData[prevUserIndex].name}
-                  </h2>
-                  <h3 className={styles.userPosition}>
-                    {userData[prevUserIndex].designation}
-                  </h3>
-                  {userData[prevUserIndex].state ||
-                  userData[prevUserIndex].country ? (
-                    <div className={styles.locationCont}>
-                      <img
-                        className={styles.locationIcon}
-                        src={location}
-                        alt="location"
-                      />
-                      <p className={styles.location}>
-                        {userData[prevUserIndex].state}
-                        {", "}
-                        {userData[prevUserIndex].country}
-                      </p>
-                    </div>
-                  ) : null}
+            </div>
+          )}
+          {isFadedTop && userData && (
+            <div className={styles.fadedTop}>
+              <div className={styles.userDetailsContainer}>
+                <div className={styles.imgContainer}>
+                  <img
+                    className={styles.userProfilePucture}
+                    src={
+                      userData[prevUserIndex].image
+                        ? userData[prevUserIndex].image
+                        : defaultImg
+                    }
+                    alt="userProfilePucture"
+                  />
                 </div>
-                <div className={styles.details}>
-                  {userData[prevUserIndex]?.about && (
-                    <div className={styles.aboutMe}>
-                      <h2 className={styles.Heading}>About Me</h2>
-                      <p className={styles.aboutDetails}>
-                        {userData[prevUserIndex].about}
+                <h2 className={styles.userName}>
+                  {userData[prevUserIndex].name}
+                </h2>
+                <h3 className={styles.userPosition}>
+                  {userData[prevUserIndex].designation}
+                </h3>
+                {userData[prevUserIndex].state ||
+                userData[prevUserIndex].country ? (
+                  <div className={styles.locationCont}>
+                    <img
+                      className={styles.locationIcon}
+                      src={location}
+                      alt="location"
+                    />
+                    <p className={styles.location}>
+                      {userData[prevUserIndex].state}
+                      {", "}
+                      {userData[prevUserIndex].country}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+              <div className={styles.details}>
+                {userData[prevUserIndex]?.about && (
+                  <div className={styles.aboutMe}>
+                    <h2 className={styles.Heading}>About Me</h2>
+                    <p className={styles.aboutDetails}>
+                      {userData[prevUserIndex].about}
+                    </p>
+                  </div>
+                )}
+                {userData[prevUserIndex]?.here_for &&
+                userData[prevUserIndex]?.here_for.length > 0 ? (
+                  <div className={styles.whyamIHere}>
+                    <h2 className={styles.Heading}>Why am i here</h2>
+                    <div className={styles.whyamIHereCont}>
+                      {userData[prevUserIndex]?.here_for.map((item, index) => {
+                        return (
+                          <div key={index} className={styles.whyamIHereItem}>
+                            <p className={styles.whyhereText}>{item}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.experience &&
+                userData[prevUserIndex]?.experience.length > 0 &&
+                userData[prevUserIndex]?.experience[0]?.designation &&
+                userData[prevUserIndex]?.experience[0]?.company !== "" ? (
+                  <div className={styles.designation}>
+                    <h2 className={styles.Heading}>Current Designation</h2>
+                    <div className={styles.designationDetailsCont}>
+                      <h3 className={styles.designationInfo}>
+                        {userData[prevUserIndex].experience[0].designation
+                          ? userData[prevUserIndex].experience[0].designation
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[prevUserIndex].experience[0].company
+                          ? userData[prevUserIndex].experience[0].company
+                          : ""}
                       </p>
                     </div>
-                  )}
-                  {userData[prevUserIndex]?.here_for &&
-                  userData[prevUserIndex]?.here_for.length > 0 ? (
-                    <div className={styles.whyamIHere}>
-                      <h2 className={styles.Heading}>Why am i here</h2>
-                      <div className={styles.whyamIHereCont}>
-                        {userData[prevUserIndex]?.here_for.map(
-                          (item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={styles.whyamIHereItem}
-                              >
-                                <p className={styles.whyhereText}>{item}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.education &&
+                userData[prevUserIndex]?.education.length > 0 &&
+                userData[prevUserIndex]?.education[0]?.institute &&
+                userData[prevUserIndex]?.education[0]?.degree !== "" ? (
+                  <div className={styles.education}>
+                    <h2 className={styles.Heading}>Education</h2>
+                    <div className={styles.educationCont}>
+                      <h3 className={styles.educationInstitute}>
+                        {userData[prevUserIndex].education[0].institute
+                          ? userData[prevUserIndex].education[0].institute
+                          : ""}
+                      </h3>
+                      <p className={styles.designationDetails}>
+                        {userData[prevUserIndex].education[0].degree
+                          ? userData[prevUserIndex].education[0].degree
+                          : ""}
+                      </p>
                     </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.experience &&
-                  userData[prevUserIndex]?.experience.length > 0 &&
-                  userData[prevUserIndex]?.experience[0]?.designation &&
-                  userData[prevUserIndex]?.experience[0]?.company !== "" ? (
-                    <div className={styles.designation}>
-                      <h2 className={styles.Heading}>Current Designation</h2>
-                      <div className={styles.designationDetailsCont}>
-                        <h3 className={styles.designationInfo}>
-                          {userData[prevUserIndex].experience[0].designation
-                            ? userData[prevUserIndex].experience[0].designation
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[prevUserIndex].experience[0].company
-                            ? userData[prevUserIndex].experience[0].company
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.education &&
-                  userData[prevUserIndex]?.education.length > 0 &&
-                  userData[prevUserIndex]?.education[0]?.institute &&
-                  userData[prevUserIndex]?.education[0]?.degree !== "" ? (
-                    <div className={styles.education}>
-                      <h2 className={styles.Heading}>Education</h2>
-                      <div className={styles.educationCont}>
-                        <h3 className={styles.educationInstitute}>
-                          {userData[prevUserIndex].education[0].institute
-                            ? userData[prevUserIndex].education[0].institute
-                            : ""}
-                        </h3>
-                        <p className={styles.designationDetails}>
-                          {userData[prevUserIndex].education[0].degree
-                            ? userData[prevUserIndex].education[0].degree
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-                  {userData[prevUserIndex]?.Vibe_Data?.How_To_Meet &&
-                  userData[prevUserIndex]?.Vibe_Data?.How_To_Meet?.length >
-                    0 ? (
-                    <div className={styles.howCanWeMeet}>
-                      <h2 className={styles.Heading}>How can we meet?</h2>
-                      <div className={styles.meetingTypeCont}>
-                        {userData[prevUserIndex].Vibe_Data.How_To_Meet.map(
-                          (type, index) => {
-                            const imageURL = howToMeetImages[type];
-                            return (
-                              <div key={index} className={styles.typeContainer}>
-                                <img
-                                  className={styles.meetingTypeImg}
-                                  src={imageURL}
-                                  alt={type}
-                                />
-                                <p className={styles.meetingType}>{type}</p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    </div>
-                  ) : null}
-                  <div className={styles.findMeOn}>
-                    {(userData[prevUserIndex]?.phone ||
-                      userData[prevUserIndex]?.email ||
-                      userData[prevUserIndex]?.linkedin ||
-                      userData[prevUserIndex]?.twitter) !== "" && (
-                      <>
-                        <h2 className={styles.Heading}>Find Me On</h2>
-                        <div className={styles.findmeOnWraper}>
-                          {userData[prevUserIndex].phone !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={phoneIcon} alt="phoneIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].countryCode}{" "}
-                                {userData[prevUserIndex].phone}
-                              </p>
+                  </div>
+                ) : null}
+                {userData[prevUserIndex]?.Vibe_Data?.How_To_Meet &&
+                userData[prevUserIndex]?.Vibe_Data?.How_To_Meet?.length > 0 ? (
+                  <div className={styles.howCanWeMeet}>
+                    <h2 className={styles.Heading}>How can we meet?</h2>
+                    <div className={styles.meetingTypeCont}>
+                      {userData[prevUserIndex].Vibe_Data.How_To_Meet.map(
+                        (type, index) => {
+                          const imageURL = howToMeetImages[type];
+                          return (
+                            <div key={index} className={styles.typeContainer}>
+                              <img
+                                className={styles.meetingTypeImg}
+                                src={imageURL}
+                                alt={type}
+                              />
+                              <p className={styles.meetingType}>{type}</p>
                             </div>
-                          )}
-                          {userData[prevUserIndex].email !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={emailIcon} alt="emailIcon" />
-                              {/* <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=md.aadil.shafi@gmail.com&su=Subject&body=Body%20Text"
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+                <div className={styles.findMeOn}>
+                  {(userData[prevUserIndex]?.phone ||
+                    userData[prevUserIndex]?.email ||
+                    userData[prevUserIndex]?.linkedin ||
+                    userData[prevUserIndex]?.twitter) !== "" && (
+                    <>
+                      <h2 className={styles.Heading}>Find Me On</h2>
+                      <div className={styles.findmeOnWraper}>
+                        {userData[prevUserIndex].phone !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={phoneIcon} alt="phoneIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].countryCode}{" "}
+                              {userData[prevUserIndex].phone}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].email !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={emailIcon} alt="emailIcon" />
+                            {/* <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=md.aadil.shafi@gmail.com&su=Subject&body=Body%20Text"
                                target='_blank' style={{textDecoration:'none'}}>
                                 {userData[prevUserIndex].email}
                               </a> */}
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].email}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].linkedin !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={linkedinIcon} alt="linkedinIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].linkedin}
-                              </p>
-                            </div>
-                          )}
-                          {userData[prevUserIndex].twitter !== "" && (
-                            <div className={styles.findmeCont}>
-                              <img src={twitterIcon} alt="twitterIcon" />
-                              <p className={styles.findmeDetails}>
-                                {userData[prevUserIndex].twitter}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </div>
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].email}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].linkedin !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].linkedin}
+                            </p>
+                          </div>
+                        )}
+                        {userData[prevUserIndex].twitter !== "" && (
+                          <div className={styles.findmeCont}>
+                            <img src={twitterIcon} alt="twitterIcon" />
+                            <p className={styles.findmeDetails}>
+                              {userData[prevUserIndex].twitter}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
-            {!noMoreVibeData && (
-              <div className={styles.likeHandshake}>
-                <div className={styles.innerContainer}>
-                  <div className={styles.Cont} onClick={handleNopeCkick}>
-                    <img
-                      className={styles.likehandShakeImg}
-                      src={declineIcon}
-                      alt="declineIcon"
-                    />
-                  </div>
-                  <div className={styles.Cont} onClick={HandShakeUser}>
-                    <img
-                      className={styles.likehandShakeImg}
-                      src={handShakeIcon}
-                      alt="handShakeIcon"
-                    />
-                  </div>
-                  <div className={styles.Cont} onClick={handleLikeCkick}>
-                    <img
-                      className={styles.likehandShakeImg}
-                      src={acceptIcon}
-                      alt="acceptIcon"
-                    />
-                  </div>
+          {!noMoreVibeData && (
+            <div className={styles.likeHandshake}>
+              <div className={styles.innerContainer}>
+                <div className={styles.Cont} onClick={handleNopeCkick}>
+                  <img
+                    className={styles.likehandShakeImg}
+                    src={declineIcon}
+                    alt="declineIcon"
+                  />
+                </div>
+                <div className={styles.Cont} onClick={HandShakeUser}>
+                  <img
+                    className={styles.likehandShakeImg}
+                    src={handShakeIcon}
+                    alt="handShakeIcon"
+                  />
+                </div>
+                <div className={styles.Cont} onClick={handleLikeCkick}>
+                  <img
+                    className={styles.likehandShakeImg}
+                    src={acceptIcon}
+                    alt="acceptIcon"
+                  />
                 </div>
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

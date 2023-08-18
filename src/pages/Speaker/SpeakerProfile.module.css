@@ -1,11 +1,12 @@
-.outer{
+.outer {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top:8rem;
+    margin-top: 8rem;
 }
-.profile{
+
+.profile {
     color: white;
     display: flex;
     align-items: center;
@@ -13,7 +14,8 @@
     text-transform: capitalize;
     font-size: 18px;
 }
-.outerCont{
+
+.outerCont {
     width: 46%;
     display: flex;
     /* align-items: center; */
@@ -21,7 +23,8 @@
     gap: 10px;
     flex-direction: column;
 }
-.section1{
+
+.section1 {
     display: flex;
     gap: 18px;
     background: var(--bg-primary-blue, #0C1631);
@@ -29,23 +32,27 @@
     border-radius: 20px;
 
 }
-.imgCont{
+
+.imgCont {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.imgCont img{
+
+.imgCont img {
     height: 67%;
     width: 82%;
     margin-left: 1rem;
 }
-.infoCont{
+
+.infoCont {
     display: flex;
     flex-direction: column;
-     justify-content: center;
+    justify-content: center;
     gap: 9px;
 }
-.name{
+
+.name {
     color: var(--white, #FFF);
     font-family: Poppins;
     font-size: 22px;
@@ -53,7 +60,8 @@
     font-weight: 600;
     line-height: normal;
 }
-.infoCont p{
+
+.infoCont p {
     color: var(--white-gray, #D4D4D4);
     font-family: Poppins;
     font-size: 13.333px;
@@ -62,7 +70,8 @@
     line-height: normal;
     letter-spacing: 0.4px;
 }
-.location{
+
+.location {
     color: var(--white-gray, #D4D4D4);
     font-family: Poppins;
     font-size: 13.333px;
@@ -70,14 +79,19 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.4px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 5px;
 }
-.button{
+
+.button {
     background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
     display: flex;
     align-items: center;
     border-radius: 27px;
     justify-content: center;
-    width: 8rem;
+    width: 87%;
     height: 32px;
     gap: 10px;
     color: var(--black, #000);
@@ -89,16 +103,17 @@
     line-height: normal;
     letter-spacing: 0.16px;
 }
-.iconsCont{
-    flex: 1;
-    margin-left: 18rem;
+
+.iconsCont {
+    flex: 0.8;
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: flex-end;
     height: 17px;
     gap: 13px;
-    margin-top: 39px;
+    margin-top: 44px;
 }
-.aboutsec{
+
+.aboutsec {
     padding: 32px;
     display: flex;
     flex-direction: column;
@@ -106,64 +121,74 @@
     background: var(--bg-primary-blue, #0C1631);
     border-radius: 20px;
 }
-.heading{
+
+.heading {
     font-family: Poppins;
-font-size: 21.333px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-letter-spacing: 0.64px;
-background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+    font-size: 21.333px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.64px;
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
 }
-.aboutsec p{
-   width: 84%;
-   color:white
+
+.aboutsec p {
+    width: 91%;
+    color: white
 }
-.connectbtn{
+
+.connectbtn {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 13px;
+    width: 99%;
 }
-.videocall{
+
+.videocall {
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--white, #FFF);
     gap: 5px;
     border-radius: 33px;
-    width: 19%;
+    width: 25%;
     height: 37px;
     color: #000;
     font-family: Poppins;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.32px;
 }
-.videocall img{
-    height: 42%;
+
+.videocall img {
+    height: 38%;
     width: 11%;
 }
-.message{
+
+.message {
     border: 2px solid blue;
     border-radius: 25px;
-    width: 19%;
+    width: 25%;
     /* text-align: center; */
     height: 37px;
-    padding-left: 48px;
-    padding-top: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
     background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
-.edusec{
+
+.edusec {
     padding: 32px;
     display: flex;
     flex-direction: column;
@@ -171,14 +196,16 @@ background-clip: text;
     background: var(--bg-primary-blue, #0C1631);
     border-radius: 20px;
 }
-.contactsec{
+
+.contactsec {
     padding: 32px;
     display: flex;
     flex-direction: column;
     background: var(--bg-primary-blue, #0C1631);
     border-radius: 20px;
 }
-.contactInfo{
+
+.contactInfo {
     display: flex;
     /* justify-content: center; */
     align-items: center;
@@ -188,14 +215,168 @@ background-clip: text;
     color: var(--white-gray, #D4D4D4);
     padding: 5px;
 }
-.contactInfo img{
-    width: 2%;
+
+.contactInfo img {
+    width: 4%;
 }
-li{
+
+li {
     color: var(--white-gray, #D4D4D4);
     font-size: 11px;
 }
-ul{
+
+ul {
     list-style-type: disc;
-    padding:23px;
+    padding: 23px;
+}
+@media(min-width:901px) and (max-width:1170px) {
+    .iconsCont{
+        height: 13px;
+        gap: 10px;
+    }
+    .name{
+        font-size: 16px;
+    }
+    .location{
+        font-size: 11.33px;
+
+    }
+    .infoCont p{
+        font-size: 11.33px;
+    }
+    .infoCont{
+        width: 30%;
+    }
+    .button{
+        width: 75%;
+    }
+    .aboutsec p{
+        font-size: 13px;
+    }
+    .videocall{
+        font-size: 13px;
+        gap: 4px;
+        width: 29%;
+    }
+    .connectbtn{
+        width: 100%;
+    }
+    .message{
+        font-size: 13px;
+        width: 29%;
+    }
+    .button{
+        gap: 6px;
+        font-size: 13px;
+    }
+    .imgCont img{
+        height: 61%;
+    }
+    .heading{
+        font-size: 18.333px;
+    }
+    .contactInfo img {
+        width: 4%;
+    }
+    
+}
+@media(min-width:701px) and  (max-width:900px){
+    .section1{
+        height:161px
+    }
+    .imgCont img{
+        height: 62%;
+        width: 79%;
+    }
+    .name{
+        font-size: 14px;
+    }
+    .infoCont p{
+        font-size: 9.333px;
+    }
+    .location{
+        font-size: 9.333px;
+    }
+    .button{
+        height: 25px;
+        gap: 4px;
+        font-size: 10px;
+        width: 75%;
+    }
+    .iconsCont{
+        height: 9px;
+        margin-top: 35px;
+        gap: 7px;
+    }
+    .heading{
+        font-size: 16.333px;
+    }
+    .aboutsec p{
+        font-size: 11px;
+    }
+    .videocall{
+        font-size: 10px;
+        gap: 4px;
+        height: 32px;
+        width: 29%;
+    }
+    .message{
+        font-size: 10px;
+        height: 32px;
+        width: 29%;
+    }
+    .contactInfo img {
+        width: 6%;
+    }
+
+}
+@media(max-width:700px){
+    .section1{
+    height:143px
+}
+    .imgCont img{
+        height: 58%;
+        width: 79%;
+    }
+    .name{
+        font-size: 12px;
+    }
+    .infoCont p{
+        font-size: 8.333px;
+    }
+    .location{
+        font-size: 8.333px;
+    }
+    .button{
+        height: 23px;
+        gap: 3px;
+        font-size: 8px;
+        width: 70%;
+    }
+    .iconsCont{
+        height: 8px;
+        margin-top: 28px;
+        gap: 5px;
+    }
+    .heading{
+        font-size: 14.333px;
+    }
+    .aboutsec p{
+        font-size: 9px;
+    }
+    .videocall{
+        font-size: 8px;
+        gap: 4px;
+        height: 32px;
+        width: 29%;
+    }
+    .message{
+        font-size: 8px;
+        height: 32px;
+        width: 29%;
+    }
+    .contactInfo img {
+        width: 7%;
+    }
+
 }

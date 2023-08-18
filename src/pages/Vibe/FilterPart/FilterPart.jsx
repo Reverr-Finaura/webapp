@@ -42,7 +42,7 @@ const FilterPart = ({
   setfilterData,
   setFilter,
   setFetchAgain,
-  fetchAgain
+  fetchAgain,
 }) => {
   const role = ["Founder", "Mentor", "Professional", "Investor"];
   const spaces = [
@@ -225,7 +225,6 @@ const FilterPart = ({
     setAge(value);
   };
 
-
   return (
     <div className={styles.filterWrapper}>
       {/* <div className={styles.filter}>
@@ -370,12 +369,12 @@ const FilterPart = ({
             Done
           </div>
           <div
-            onClick={() => (
+            onClick={() =>
               // setIsPremium(false),
               // SetRedo(false),
               // setModal(!modal),
-              setFilter(false), navigate("/vibetestinga")
-            )}
+              setFilter(false)
+            }
             className={styles.filterItem}
           >
             Cancel
