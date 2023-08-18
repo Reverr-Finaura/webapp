@@ -404,6 +404,8 @@ const VibeMiddlePart = () => {
       if (currentUserIndex < userData.length - 1) {
         // console.log(userData);
         setCurrentUserIndex(currentUserIndex + 1);
+      }else{
+        setNoMoreVibeData(true);
       }
       setTimeout(() => {
         setIsFadedTop(false);
