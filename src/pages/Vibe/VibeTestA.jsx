@@ -138,8 +138,8 @@ const VibeTestA = () => {
           </>
         ) : (<> */}
           <VibeMessageMain />
-          <VibeMiddlePart />
-          <Matches />
+          <VibeMiddlePart  />
+          <Matches isPremium={isPremium}  />
           {/* </>)} */}
         </div>
       )}

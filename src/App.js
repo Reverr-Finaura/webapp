@@ -145,6 +145,7 @@ import CreateEvent from "./pages/Events/EventsCreate/CreateEvent";
 import EventsSuccess from "./pages/Events/EventsSuccess/EventsSuccess";
 import EventsForm from "./pages/Events/EventsForm/EventsForm";
 import SpeakerProfile from './pages/Speaker/SpeakerProfile';
+import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
@@ -436,6 +437,7 @@ function App() {
         <Route path="/event/createevent" element={<CreateEvent />}></Route>
         <Route path="/event/eventsuccess" element={<EventsSuccess />}></Route>
         <Route path="/event/eventform" element={<EventsForm />}></Route>
+        <Route path="/event/eventmain" element={<EventsMainPage />}></Route>
         <Route path="/speaker" element={<SpeakerProfile />}></Route>
       </Routes>
     </>
