@@ -4,6 +4,7 @@ const initialState = {
   user: null,
   userSpace:[],
   userData: {},
+  isPremium:false
 };
 
 export const userSlice = createSlice({
@@ -22,11 +23,14 @@ export const userSlice = createSlice({
     },
     setUserSpace: (state,action)=>{
          state.userSpace= action.payload;
+    },
+    setPremium: (state,action)=>{
+        state.isPremium =action.payload
     }
   },
 });
 
-export const { login, logout, setUserData,setUserSpace } = userSlice.actions;
+export const { login, logout, setUserData,setUserSpace,setPremium } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer;

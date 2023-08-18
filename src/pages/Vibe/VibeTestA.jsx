@@ -12,6 +12,8 @@ import VibeMessageMain from "./VibeMessage/VibeMessageMain";
 import VibeMobileDropDown from "./VibeMobileDropDown";
 import MatchedUserScreen from "./VibeMiddlePart/matchedUserScreen/MatchedUserScreen";
 import { current } from "@reduxjs/toolkit";
+import { setPremium } from "../../features/userSlice";
+import { useDispatch } from "react-redux";
 
 const list = [
   "Vibe Home",
@@ -28,6 +30,8 @@ const VibeTestA = () => {
   const [isPremium, setIsPremium] = useState(false);
 
   const userDoc = useSelector((state) => state.userDoc);
+  const ispremium = useSelector((state) => state.user.isPremium)
+  const dispatch = useDispatch();
 
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -50,40 +54,45 @@ const VibeTestA = () => {
 
       const premiumStartDate = premiumData.premiumStartDate;
       console.log("this is the premiumdata ---------", premiumData)
-  
-    
+
+
 
       switch (premiumData.subscriptionPlan) {
         case "onemonth":
 
-          if(currentDate <= premiumStartDate + oneMonthInseconds){
+          if (currentDate <= premiumStartDate + oneMonthInseconds) {
             console.log("premium members")
             setIsPremium(true);
+            dispatch(setPremium(true))
           }
 
           break;
         case "threemonths":
 
-          if(currentDate <= premiumStartDate + threeMonthsInseconds){
+          if (currentDate <= premiumStartDate + threeMonthsInseconds) {
             setIsPremium(true);
+            dispatch(setPremium(true))
+
           }
           break;
         case "sixmonths":
-          if(currentDate <= premiumStartDate + sixMonthsInseconds){
+          if (currentDate <= premiumStartDate + sixMonthsInseconds) {
             console.log("premium members")
             setIsPremium(true);
+            dispatch(setPremium(true))
           }
           break;
         default:
           setIsPremium(false);
+          dispatch(setPremium(false))
           break;
       }
-     
-      
+
+
     }
     checkPremiumStatus();
   }, []);
-  console.log("premium status",isPremium)
+  console.log("premium status", isPremium)
   console.log(userDoc);
   return (
     <>

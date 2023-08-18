@@ -148,6 +148,7 @@ import SpeakerProfile from './pages/Speaker/SpeakerProfile';
 
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
+import AppliedJob from "./pages/job posting/AppliedJob";
 
 function App() {
   const user = useSelector(selectUser);
@@ -430,6 +431,7 @@ function App() {
         <Route path="/vibe" element={(userDoc?.vibeuser===true)?<Navigate replace to ={"/vibe/main"}/>:<VibeOuter />}></Route>
         <Route path="/hiringMainScreen" element={<HiringMainScreen/>}></Route>
         <Route path="/hiringForm" element={<HiringForm/>}></Route>
+        <Route path="/appliedjob" element={<AppliedJob/>}></Route>
 
         <Route path="/event/createevent" element={<CreateEvent />}></Route>
         <Route path="/event/eventsuccess" element={<EventsSuccess />}></Route>

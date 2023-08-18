@@ -7,7 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import { signOut } from "firebase/auth";
 import { auth, createNetworkInMessagesDoc, db } from "../../firebase";
-import { logout, selectUser } from "../../features/userSlice";
+import { logout, selectUser ,setPremium} from "../../features/userSlice";
 import { remove } from "../../features/newUserSlice";
 import { removeUserDoc, setUserDoc } from "../../features/userDocSlice";
 import { removeUserFundingDoc } from "../../features/userFundingDocSlice";
@@ -59,6 +59,7 @@ import defaultImg from "../../images/default-profile-pic.webp";
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
+  const isPremium = useSelector((state)=> state.user.isPremium)
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [userImage, setUserImage] = useState("");
   const [isSettingButtonClick, setIsSettingbuttonClick] = useState(false);
@@ -78,6 +79,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [premiumModalStatus , setPremiumModalStatus] = useState(false)
 
   const userType = useSelector((state) => state.onboarding.userType);
+  console.log("this is ispremium---",isPremium)
+  
 
   const [userTypeLower, setUserTypeLower] = useState("individual");
   // const state = useSelector((state) => state);
@@ -929,7 +932,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
             </div>
 
-            {!userDoc.hasUpgrade && (
+            {  !isPremium && !userDoc.hasUpgrade && (
             <button
               className={style.navbarFinalUpgradeBtn}
               onClick={() => setPremiumModalStatus(true)}
