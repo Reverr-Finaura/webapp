@@ -136,15 +136,16 @@ import MentorEditProfile from "./pages/MentorProfile/MentorEditProfile";
 import MentorProfileid from "./pages/MentorProfile/MentorProfileid";
 import FundingPageNew from "./pages/Funding page new/FundingPageNew";
 import MentorDashBoard from "./pages/MentorDashboard/MentorDashBoard";
-import VibeTestA from "./pages/Vibe/VibeTestA";
+import VibeTestA from "./pages/vibe/VibeTestA";
 // import VibeTestA from "./pages/vibe/VibeTestA";
 // import FilterPart from "./pages/vibe/FilterPart/FilterPart";
-import VibeOuter from "./pages/Vibe/Left/LeftContainer";
-import FilterPart from "./pages/Vibe/FilterPart/FilterPart";
+import VibeOuter from "./pages/vibe/Left/LeftContainer";
+import FilterPart from "./pages/vibe/FilterPart/FilterPart";
 import CreateEvent from "./pages/Events/EventsCreate/CreateEvent";
 import EventsSuccess from "./pages/Events/EventsSuccess/EventsSuccess";
 import EventsForm from "./pages/Events/EventsForm/EventsForm";
 import SpeakerProfile from './pages/Speaker/SpeakerProfile';
+import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
@@ -434,6 +435,7 @@ function App() {
         <Route path="/event/createevent" element={<CreateEvent />}></Route>
         <Route path="/event/eventsuccess" element={<EventsSuccess />}></Route>
         <Route path="/event/eventform" element={<EventsForm />}></Route>
+        <Route path="/event/eventmain" element={<EventsMainPage />}></Route>
         <Route path="/speaker" element={<SpeakerProfile />}></Route>
       </Routes>
     </>

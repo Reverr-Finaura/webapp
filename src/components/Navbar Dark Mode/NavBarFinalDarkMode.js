@@ -764,9 +764,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   <img
                     style={{ color: "white" }}
                     src={mentordashboardicon}
-                    className={style.navbarIconsImg}
+                    className={style.navbarDashboardIcon}
                   />
-                  <p className={style.navbarIconsName}>Dashboard</p>
+                  <p className={style.navbarDashboardText}>Dashboard</p>
                   {/* <NavLink className="navlinks" to="/discover">
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
