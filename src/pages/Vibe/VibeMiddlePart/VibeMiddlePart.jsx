@@ -90,11 +90,45 @@ const VibeMiddlePart = () => {
     setModal(!modal);
   };
 
-  // console.log( "dateformat",new Date().getTime() - 24 * 60 * 60 * 1000);
-  // let dada =new Date().getTime() + 168 * 60 * 60 * 1000;
-  // let dada2 =new Date().getTime(1692267846885) ;
-  // console.log( "dateformat2",new Date(dada));
-  // console.log( "dateformat3",new Date(1692965762214));
+  console.log("preeee", ispremium)
+
+  useEffect(() => {
+    function checkPremiumStatus() {
+      const oneMonthInseconds = 30 * 24 * 60 * 60;
+      const threeMonthsInseconds = 3 * oneMonthInseconds;
+      const sixMonthsInseconds = 6 * oneMonthInseconds;
+
+      // let isPremium = false;
+      const premiumData = userDoc?.premiumData;
+      const currentDate = new Date().getTime() / 1000;
+      if (!premiumData) return;
+
+      const premiumStartDate = premiumData.premiumStartDate;
+
+      switch (premiumData.subscriptionPlan) {
+        case "onemonth":
+          if (currentDate <= premiumStartDate + oneMonthInseconds) {
+            setIsPremium(true);
+          }
+
+          break;
+        case "threemonths":
+          if (currentDate <= premiumStartDate + threeMonthsInseconds) {
+            setIsPremium(true);
+          }
+          break;
+        case "sixmonths":
+          if (currentDate <= premiumStartDate + sixMonthsInseconds) {
+            setIsPremium(true);
+          }
+          break;
+        default:
+          setIsPremium(false);
+          break;
+      }
+    }
+    checkPremiumStatus();
+  }, [userDoc]);
 
   const getUserData = async () => {
     try {
@@ -192,6 +226,7 @@ const VibeMiddlePart = () => {
     // if the user has no swipe remaining and the update time is not reached yet
     // then show the toast message and return
     if (
+      !ispremium &&
       swipeLimit.swipeRemaining === 0 &&
       swipeLimit.swipeUpdateTime > new Date().getTime()
     ) {
@@ -283,7 +318,7 @@ const VibeMiddlePart = () => {
           // console.log("data", data);
           if (data.swipeLimit) {
             setSwipeLimit(data.swipeLimit);
-            if (data.swipeLimit.swipeRemaining === 0) {
+            if (!ispremium && data.swipeLimit.swipeRemaining === 0) {
               setIsLikesEXhaust(true);
             } else {
               setIsLikesEXhaust(false);
@@ -334,8 +369,8 @@ const VibeMiddlePart = () => {
         swipeUpdateTime: swipeLimit.swipeUpdateTime,
       });
     } else {
-      // If swipeUpdateTime is already passed, reset swipeRemaining to 10 and update swipeUpdateTime
-      if (swipeLimit.swipeUpdateTime < new Date().getTime()) {
+      // If the user is premium swipeUpdateTime is already passed, reset swipeRemaining to 10 and update swipeUpdateTime
+      if (ispremium || (swipeLimit.swipeUpdateTime < new Date().getTime())) {
         console.log("it't time to reset");
         setSwipeLimit((prevState) => ({
           ...prevState,
@@ -511,9 +546,11 @@ const VibeMiddlePart = () => {
           superlikes = docSnap.data().superlikes;
         }
 
-        await updateDoc(docRef, {
-          superlikes: [...superlikes, userEmail],
-        });
+        if (!superlikes.includes(userEmail)) {
+          await updateDoc(docRef, {
+            superlikes: [...superlikes, userEmail],
+          });
+        }
       }
 
       if (otherDocSnap.exists()) {
@@ -525,9 +562,11 @@ const VibeMiddlePart = () => {
           superliked_by = otherDocSnap.data().superliked_by;
         }
 
-        await updateDoc(otherDocRef, {
-          superliked_by: [...superliked_by, userDoc?.email],
-        });
+        if (!superliked_by.includes(userDoc?.email)) {
+          await updateDoc(otherDocRef, {
+            superliked_by: [...superliked_by, userDoc?.email],
+          });
+        }
 
         setRecentPassedUser({
           email: otherDocSnap.data().email,
@@ -544,7 +583,7 @@ const VibeMiddlePart = () => {
       if (currentUserIndex < userData.length - 1) {
         // console.log(userData);
         setCurrentUserIndex(currentUserIndex + 1);
-      }else{
+      } else {
         setNoMoreVibeData(true);
       }
       setTimeout(() => {
@@ -583,9 +622,12 @@ const VibeMiddlePart = () => {
         liked_by = otherDocSnap.data()?.liked_by || [];
 
         if (!likes.includes(currentLoggedInUser?.user?.email)) {
-          await updateDoc(otherDocRef, {
-            liked_by: [...liked_by, currentLoggedInUser?.user?.email],
-          });
+          // to avoid duplicacy of likes
+          if (!liked_by.includes(currentLoggedInUser?.user?.email)) {
+            await updateDoc(otherDocRef, {
+              liked_by: [...liked_by, currentLoggedInUser?.user?.email],
+            });
+          }
 
           setRecentPassedUser({
             email: otherDocSnap.data().email,
@@ -633,9 +675,12 @@ const VibeMiddlePart = () => {
         liked_by = docSnap.data()?.liked_by || [];
 
         if (!liked_by.includes(userEmail)) {
-          await updateDoc(docRef, {
-            likes: [...likes, userEmail],
-          });
+          if (!likes.includes(userEmail)) {
+            // to avoid duplicacy of likes
+            await updateDoc(docRef, {
+              likes: [...likes, userEmail],
+            });
+          }
         } else {
           console.log("Already liked this user");
           // Delete the user from the likedby array
@@ -649,9 +694,7 @@ const VibeMiddlePart = () => {
           });
           await createMatchedInMessagesDoc(
             otherDocSnap.data()?.email,
-            // "apurbar06@gmail.com",
             docSnap.data()?.email
-            // "sivatharun2212@gmail.com"
           );
         }
       }

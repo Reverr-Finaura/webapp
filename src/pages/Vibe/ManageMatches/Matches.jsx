@@ -17,7 +17,7 @@ const managematches = [
   { name: "jatin", designation: "ceo", image: profileimg },
 ];
 
-const Matches = ({ mobile, manage }) => {
+const Matches = ({ mobile, manage,isPremium }) => {
   const [likedMeData, setLikedMeData] = useState([]);
   const [data, setData] = useState([]);
   const [ismanage, setIsManage] = useState(false);
@@ -81,6 +81,7 @@ const Matches = ({ mobile, manage }) => {
       console.error("Error fetching user data:", error);
     }
   };
+  console.log("premium",isPremium)
 
   return (
     <>
@@ -102,7 +103,7 @@ const Matches = ({ mobile, manage }) => {
 
       <div className={style.MatchesContainer}>
         <div className={style.MatchesInnerContainer}>
-          {ispremium && !ismanage && (
+          {!isPremium&& (
             <div className={style.NotPremium}>
               <p>
                 Upgrade to <span style={{ color: "#00B3FF" }}> Premium </span>{" "}
@@ -150,7 +151,7 @@ const Matches = ({ mobile, manage }) => {
           ) : (
             <div className={style.matchesResultContainer}>
               <MatchesResults
-                ispremium={ispremium}
+                isPremium={isPremium}
                 ismanage={ismanage}
                 data={data}
                 setData={setData}
