@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import style from "./eventsform.module.css"
 import NavBarFinalDarkMode from '../../../components/Navbar Dark Mode/NavBarFinalDarkMode'
 import userprofilepic from "../../../images/userProfilePicture.svg"
+import { useNavigate } from 'react-router-dom'
 
 const EventsForm = () => {
-    const ref = useRef();
+    const navigate = useNavigate()
   return (
     <>
     <NavBarFinalDarkMode />
@@ -162,7 +163,7 @@ const EventsForm = () => {
                                
                                 <div className={style.btncontainer}>
                 <div className={style.btn1}>Cancel</div>
-                <div className={style.btn2}>Create event</div>
+                <div onClick={()=>navigate("/event/eventsuccess")} className={style.btn2}>Create event</div>
             </div>
                                 
                             </div>
