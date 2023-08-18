@@ -39,38 +39,51 @@ const VibeTestA = () => {
 
   useEffect(() => {
     function checkPremiumStatus() {
-      const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000;
-      const threeMonthsInMilliseconds = 3 * oneMonthInMilliseconds;
-      const sixMonthsInMilliseconds = 6 * oneMonthInMilliseconds;
+      const oneMonthInseconds = 30 * 24 * 60 * 60;
+      const threeMonthsInseconds = 3 * oneMonthInseconds;
+      const sixMonthsInseconds = 6 * oneMonthInseconds;
 
-      let isPremium = false;
+      // let isPremium = false;
       const premiumData = userDoc?.premiumData;
-      const currentDate = new Date().getTime();
+      const currentDate = new Date().getTime() / 1000;
       if (!premiumData) return;
 
       const premiumStartDate = premiumData.premiumStartDate;
+      console.log("this is the premiumdata ---------", premiumData)
+  
+    
 
       switch (premiumData.subscriptionPlan) {
         case "onemonth":
-          isPremium = currentDate <= premiumStartDate + oneMonthInMilliseconds;
+
+          if(currentDate <= premiumStartDate + oneMonthInseconds){
+            console.log("premium members")
+            setIsPremium(true);
+          }
+
           break;
         case "threemonths":
-          isPremium =
-            currentDate <= premiumStartDate + threeMonthsInMilliseconds;
+
+          if(currentDate <= premiumStartDate + threeMonthsInseconds){
+            setIsPremium(true);
+          }
           break;
         case "sixmonths":
-          isPremium = currentDate <= premiumStartDate + sixMonthsInMilliseconds;
+          if(currentDate <= premiumStartDate + sixMonthsInseconds){
+            console.log("premium members")
+            setIsPremium(true);
+          }
           break;
         default:
-          isPremium = false;
+          setIsPremium(false);
           break;
       }
-
-      setIsPremium(isPremium);
+     
+      
     }
     checkPremiumStatus();
   }, []);
-
+  console.log("premium status",isPremium)
   console.log(userDoc);
   return (
     <>
