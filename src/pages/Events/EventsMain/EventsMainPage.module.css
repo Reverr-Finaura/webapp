@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.mainContainer {
+    width: 100vw;
+    margin-top: 102px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+
+
+.bannerCont {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+.bannerImg {
+    width: 100%;
+}
+
+.aboutEvent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+.header {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heading {
+    background: linear-gradient(rgba(0, 179, 255, 1), rgba(76, 201, 255, 1)); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    color: transparent;
+    font-size: 30px;
+}
+
+.attendNow {
+    background-color: rgba(167, 167, 167, 1);
+    width: 180px;
+    height: 100%;
+    border-radius: 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    outline: none;
+}
+
+.aboutInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.aboutText {
+    width: 50%;
+    color: white;
+}
+
+.dateCont {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.dateText {
+    color: white;
+    font-weight: 600;
+}
+
+
+.typeCont {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+
+.typeText {
+    color: white;
+    font-weight: 600;
+}
+
+
+.modeCont {
+    background-color: transparent;
+    width: 80px;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode{
+    color: white;
+}
+
+.technologiesCont {
+display: flex;
+justify-content: flex-start;
+gap: 10px;
+}
+
+.tech {
+    background-color: rgba(26, 30, 40, 1);
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.techTxt {
+    color: white;
+}
+
+.timelineMain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.daysCont {
+    display: flex;
+}
+
+.days {
+    background-color: rgba(26, 30, 40, 1);
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 20px;
+}
+
+.activeDay {
+    padding: 5px 10px;
+    background-image: linear-gradient(rgba(0, 179, 255, 1), rgba(76, 201, 255, 1));
+    border-radius: 20px;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.day {
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.timeLineCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sectionCont{
+    display: flex;
+    min-height: 50px;
+}
+
+.timeStamp {
+    width: 150px;
+}
+
+.time {
+    color: white;
+}
+
+.lineCont {
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.roundPoint {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+
+}
+
+
+.line {
+    width: 2px;
+    height: calc(100% - 12px);
+    background-color: white;
+}
+
+.timelineDetails{
+    width: calc(100% - 162px);
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px 20px 60px ;
+    
+}
+
+
+.title{
+    overflow-wrap: break-word;
+    color: white;
+}
+
+.description {
+    overflow-wrap: break-word;
+    color: white;
+}
+
+.locationMain{
+    
+}
