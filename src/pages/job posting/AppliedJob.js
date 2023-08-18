@@ -43,9 +43,30 @@ export default function AppliedJob() {
           <p className={style.status}>Applied</p>
           <button className={style.review}>Review Application</button>
         </div>
+        <div className={style.row}>
+          <p className={style.companyName}>Infotech Pvt.LTD</p>
+          <p className={style.profile}>Digital Marketing</p>
+          <p className={style.applieddate}>28/07/2023</p>
+          <p className={style.status}>Applied</p>
+          <button className={style.review}>Review Application</button>
+        </div>
+        <div className={style.row}>
+          <p className={style.companyName}>Infotech Pvt.LTD</p>
+          <p className={style.profile}>Digital Marketing</p>
+          <p className={style.applieddate}>28/07/2023</p>
+          <p className={style.status}>Applied</p>
+          <button className={style.review}>Review Application</button>
+        </div>
+        <div className={style.row}>
+          <p className={style.companyName}>Infotech Pvt.LTD</p>
+          <p className={style.profile}>Digital Marketing</p>
+          <p className={style.applieddate}>28/07/2023</p>
+          <p className={style.status}>Applied</p>
+          <button className={style.review}>Review Application</button>
+        </div>
       </div>
       <div className={style.jobRecommendation}>
-        <h3>More Jobs Recommendations For you</h3>
+        <h3 className={style.jobHeading}>More Jobs Recommendations For you</h3>
         <p className={style.para}>Based on your pofile and search history</p>
         <div className={style.jobs}>
           <div className={style.card}>
