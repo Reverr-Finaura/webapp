@@ -45,6 +45,7 @@ const VibeMiddlePart = () => {
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [storeUserData, setStoreUserData] = useState([]);
   const [premiumModalStatus, setPremiumModalStatus] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noMoreVibeData, setNoMoreVibeData] = useState(false);
@@ -167,10 +168,44 @@ const VibeMiddlePart = () => {
       console.error(error.message);
     }
   };
+  
+  console.log("this is the fetched user Data",userData)
+  // filted userData
+
+  useEffect(()=>{
+     
+    let filteredUserData=[]
+    setStoreUserData(userData)
+    if(userData){
+
+      // if the filtered data is empty or undefined, it will concidered to be ture
+      filteredUserData = storeUserData.filter((user) => {
+        // Check if at least one condition matches
+        const filtered = (!filterData.roles || user.roles === filterData.roles) && (!filterData.mode || user.mode === filterData.mode) && (!filterData.age || user.agePref === filterData.age) && (!filterData.cities || user.city === filterData.cities ) && (filterData.spaces.length === 0 ||
+        filterData.spaces.some((space) => user.userSpace.includes(space))) ;
+
+    
+        return  filtered ;
+      });
+      console.log("hey, this is the filtered user you were looking for!-- filteredUserData",filteredUserData)
+      
+    }   
+    if(filteredUserData.length > 0){
+      setUserData(filteredUserData)
+
+    }
+    else{
+      getUserData();
+    }
+    console.log("hey, this is the filtered user you were looking for!-- userData",userData)
+       
+
+  },[filterData])
+
 
   useEffect(() => {
     getUserData();
-  }, [currentLoggedInUser, filterData]);
+  }, [currentLoggedInUser]);
 
   const onRefreshClick = () => {
     getUserData();
@@ -293,6 +328,7 @@ const VibeMiddlePart = () => {
     if (filter === false) {
       setFilter(!filter);
     }
+   
   };
 
   //---------------------Swipe Limit Code Start---------------------//
@@ -921,11 +957,7 @@ const VibeMiddlePart = () => {
   //   FlushUser();
 
 
-
-
-
-
-  return (
+ return (
     <>
       {premiumModalStatus ? (
         <div class={styles.overlay}>
