@@ -1,0 +1,114 @@
+.outerCont {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 18px;
+    padding-left: 10px;
+    border-bottom-right-radius: 1px;
+    /* border-top:1.6px solid #EEEEEE; */
+    position: relative;
+    border-top: 1px solid #EEEEEE;
+}
+
+.tempImgCont {
+    width: 170px;
+    height: 170px;
+    z-index: 0;
+    position: absolute;
+    top: -180px;
+    border-radius: 15px;
+    background-color: #dadada;
+    box-shadow: 0px 4px 24px 2px #0000001a;
+}
+
+.crossIcon {
+    z-index: 2;
+    position: absolute;
+    font-size: 1.5rem;
+    right: 0;
+    cursor: pointer;
+
+}
+
+.tempImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.attachmentIcon {
+    cursor: pointer;
+    color: black;
+    transform: rotate(-46deg);
+
+}
+
+.textInp {
+    padding-left: 1%;
+    margin-left: 1rem;
+    background: #FAFAFA;
+    border-radius: 12px;
+    width: 150%;
+    padding: 0.5rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 16px;
+    color: black;
+
+}
+
+.emoji {
+    display: none;
+    font-size: 25px;
+    position: absolute;
+    left: 42px;
+    color: black;
+
+}
+
+.textInp::placeholder {
+    color: rgba(0, 0, 0, 0.45);
+    position: relative;
+    left: 50px;
+}
+
+.textInp:focus {
+    outline: none;
+}
+
+.sendMessageBtn {
+    width: 60px;
+    height: 39px;
+    padding: 10px;
+    border: none;
+    color: rgb(16, 16, 16);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: #47c8ff;
+    position: relative;
+    right: 39px;
+}
+
+.wrapperEmoji {
+    width: 4rem;
+    height: 2rem;
+    background-color: #2C2F38;
+    display: flex;
+    border-radius: 22px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width:500px) {
+    .outerCont{
+        margin-top: 1rem;
+    }
+    .sendMessageBtn{
+        right: 33px;
+    }
+    
+}

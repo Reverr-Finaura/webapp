@@ -1,0 +1,287 @@
+.block{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+    margin-top: 16em;
+    position: relative;
+}
+.appliedjobs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: -webkit-fill-available;
+
+
+}
+.row{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: var(--bg-secondary-gray, #1A1E28);
+    width: 90%;
+    margin-bottom: 1.5em;
+    padding: 25px 0px;
+    border-radius: 10px;
+
+}
+.companyName{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+
+}
+.profile{
+    color: var(--white-gray, #D4D4D4);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+
+}
+.applieddate{
+    color: #FFF;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.024px;
+
+}
+.status{
+    display: flex;
+    padding: 8px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 100px;
+    background: #AAA9F5;
+    color: #000;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+}
+.review{
+    display: inline-flex;
+    padding: 8px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50px;
+    /* background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%)); */
+    background-clip: text;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    background-color: unset;
+    border: 2px solid #11b7ff;
+    color: #11b7ff;
+
+
+}
+.heading{
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: -webkit-fill-available;
+    font-family: Poppins;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background: linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1em;
+    width: 71%;
+    position: relative;
+    left: 4%;
+
+
+}
+.backbtn{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    position: absolute;
+    position: absolute;
+    top: -4em;
+    left: 35px;
+    cursor: pointer;
+}
+.card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35em;
+    height: 180px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: var(--bg-primary-blue, #0C1631);
+    padding: 20px;
+    width: fit-content;
+    margin-right: 15px;
+
+}
+.card img{
+    width: 140px;
+}
+.card .right{
+    display: flex;
+    justify-content: cetner;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    justify-content: space-around;
+    height: -webkit-fill-available;
+    margin-left: 30px;
+
+
+}
+.upperpart{
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+
+}
+.lowerpart{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.lowerpart div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.companyPosition{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+}
+.companyidentity{
+    color: var(--white-gray, #D4D4D4);
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+.upperright p{
+    text-align: right;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+.lowerleft{
+    width: 380px;
+    height: 40px;
+    border-radius: 100px;
+    background: var(--linear-3, linear-gradient(135deg, rgba(76, 201, 255, 0.06) 0%, rgba(83, 125, 236, 0.24) 48.96%, rgba(76, 201, 255, 0.06) 100%));
+    padding: 0px 10px;
+    margin: 0px 10px 0px 0px;
+    position: relative;
+    right: 16px;
+
+}
+.applynow{
+    display: inline-flex;
+    height: 38px;
+    padding: 5.449px 30.98px;
+    justify-content: center;
+    align-items: center;
+    gap: 9.388px;
+    flex-shrink: 0;
+    border-radius: 81.929px;
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+    border: none;
+    color: var(--black, #000);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.32px;
+ 
+}
+
+.jobHeading{
+    font-family: Poppins;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+width: 90%;
+
+}
+.para{
+    color: var(--white-gray, #D4D4D4);
+    text-align: left;
+    font-family: Poppins;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+   width: 90%;
+    margin-bottom: 2em;
+
+}
+.jobRecommendation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 6em;
+
+}
+.jobs{
+    display: flex;
+    width: 90%;
+  overflow-x: scroll;
+  margin-bottom: 5em;
+
+}
+.jobs::-webkit-scrollbar {
+    display: none; /* Hide the scroll bar */
+  }
+  
