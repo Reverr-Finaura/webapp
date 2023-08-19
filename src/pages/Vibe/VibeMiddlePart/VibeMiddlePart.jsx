@@ -11,7 +11,7 @@ import emailIcon from "../../../images/emailMiniIcon.svg";
 import linkedinIcon from "../../../images/linkedinMiniIcon.svg";
 import twitterIcon from "../../../images/twitterMiniIcon.svg";
 import declineIcon from "../../../images/declineIcon.svg";
-import handShakeIcon from "../../../images/handShakeIcon.svg";
+import handShakeIcon from "../../../images/handshakeIcon.svg";
 import acceptIcon from "../../../images/acceptIcon.svg";
 import undoMoveIcon from "../../../images/undoMoveIcon.svg";
 import FilterRedoPopUp from "../vibemiddleparta/FilterRedoPopUp";
@@ -127,7 +127,7 @@ const VibeMiddlePart = () => {
 
   const getUserData = async () => {
     try {
-      console.log("userDoc data fetch");
+      console.log("filter data:", filterData);
       setIsLoadingData(true);
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
@@ -138,11 +138,8 @@ const VibeMiddlePart = () => {
       const userDocData = userDocsnapshot.data();
 
       const likedByCurrentUser = userDocData?.likes || [];
-      console.log("likedByCurrentUser", likedByCurrentUser);
       const fleshedByCurrentUser = userDocData?.passed_email || [];
-      console.log("fleshedByCurrentUser", fleshedByCurrentUser);
       const matchedUsers = userDocData?.matched_user || [];
-      console.log("matchedUsers", matchedUsers);
 
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
@@ -152,7 +149,6 @@ const VibeMiddlePart = () => {
           !matchedUsers.includes(doc.data().email) &&
           doc.data().vibeuser === true
       );
-      console.log("filteredDocs", filteredDocs);
       const fetchedUserData = filteredDocs
         .map((doc) => doc.data())
         .filter(
@@ -169,7 +165,7 @@ const VibeMiddlePart = () => {
 
   useEffect(() => {
     getUserData();
-  }, [currentLoggedInUser]);
+  }, [currentLoggedInUser, filterData]);
 
   const onRefreshClick = () => {
     getUserData();
@@ -807,12 +803,13 @@ const VibeMiddlePart = () => {
         ""
       )}
       {/* ///Filter Screen//// */}
-      {!ispremium && filter && (
+      {filter ? (
         <>
           <div className={styles.filtermodalback}></div>
           <div className={styles.filtermodal}>
             {
               <FilterPart
+                ispremium={ispremium}
                 setFilter={setFilter}
                 filterData={filterData}
                 setfilterData={setfilterData}
@@ -820,7 +817,7 @@ const VibeMiddlePart = () => {
             }
           </div>
         </>
-      )}
+      ) : null}
       {isLikesEXhaust ? (
         <LikesExhaust />
       ) : isMatchedUser ? (
