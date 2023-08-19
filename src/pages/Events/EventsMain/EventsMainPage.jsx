@@ -4,6 +4,8 @@ import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFina
 import eventsBannerImg from "../../../images/eventsBannerImg.svg";
 import eventsDateIcon from "../../../images/eventsDateIcon.svg";
 import eventsTypeIcon from "../../../images/eventsTypeIcon.svg";
+import eventsMapImage from "../../../images/eventMapImg.svg";
+import defaultImg from "../../../images/default-profile-pic.webp";
 
 
 const data = {
@@ -53,7 +55,30 @@ const data = {
     ],
         day2: [],
     },
-    location: {}
+    locationImg: eventsMapImage,
+    location: {
+        venue: "Dr. T.P Ganesan Auditorium",
+        venueHall: "Mini Hall 2"
+    },
+    address: {
+        a1: "SRM Institute of Science and Technology",
+        a2: "Potheri, SRM Nagar",
+        a3: "Kattankulathur",
+        city: "Chennai- 603203",
+        state: "Tamil Nadu",
+    },
+    hostedBy: [
+        {
+            userImg: defaultImg,
+            userName: "Jatin Khurana",
+            userDesignation: "CEO, Reverr",
+        },
+        {
+            userImg: defaultImg,
+            userName: "Vashist Agarwalla",
+            userDesignation: "Club Lead",
+        },
+    ]
 }
 
 
@@ -138,7 +163,47 @@ const EventsMainPage = () => {
             )}
         </div>
         <div className={styles.locationMain}>
-
+            <div className={styles.locationDetailsCont}>
+                <div className={styles.header}>
+                    <h1 className={styles.heading}>Location</h1>
+                </div>
+                <div className={styles.location}>
+                    <div className={styles.venue}>
+                        {data.location.venue}
+                    </div>
+                    <div className={styles.venueHall}>
+                        {data.location.venueHall}
+                    </div>
+                    <div className={styles.addressCont}>
+                        <p className={styles.address}>{data.address.a1}</p>
+                        <p className={styles.address}>{data.address.a2}</p>
+                        <p className={styles.address}>{data.address.a3}</p>
+                        <p className={styles.address}>{data.address.city}</p>
+                        <p className={styles.address}>{data.address.state}</p>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.mapCont}>
+                <img className={styles.mapImg} src={data.locationImg} alt="locationImg" />
+            </div>
+        </div>
+        <div className={styles.hostedByMain}>
+            <div className={styles.header}>
+                <h1 className={styles.heading}>Hosted By:</h1>
+            </div>
+            <div className={styles.usersCont}>
+                {data.hostedBy.map((user, index) => {
+                    return (<div key={index} className={styles.userCont}>
+                                <div className={styles.profileCont}>
+                                    <img className={styles.profileImg} src={user.userImg} alt="userImg" />
+                                </div>
+                                <div className={styles.userInfo}>
+                                    <p className={styles.name}>{user.userName}</p>
+                                    <p className={styles.designation}>{user.userDesignation}</p>
+                                </div>
+                        </div>)
+                })}
+            </div>
         </div>
     </section>
     </>)

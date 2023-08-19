@@ -828,10 +828,6 @@ const VibeMiddlePart = () => {
           ) : (
             <div
               {...handlers}
-              onClick={() => console.log("Click event triggered")}
-              onTouchStart={() => console.log("Touch start")}
-              onTouchMove={() => console.log("Touch move")}
-              onTouchEnd={() => console.log("Touch end")}
               className={styles.vibeinfo}
             >
               <div className={styles.userDetailsContainer}>
