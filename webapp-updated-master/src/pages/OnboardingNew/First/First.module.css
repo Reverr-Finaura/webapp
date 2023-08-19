@@ -1,0 +1,345 @@
+.container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  background-color: #030b18;
+}
+
+.navbarBrandLogoImgCont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  margin-left: 50px;
+  margin-top: 25px;
+  flex-direction: column;
+}
+
+.navbarFinalBrandLogoImg {
+  cursor: pointer;
+  width: 70px;
+}
+
+.reverrHeadingSpan {
+  display: flex;
+  justify-content: center;
+}
+
+.reverrHeading {
+  font-size: 14px;
+  font-family: Lora;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.352px;
+  color: #3ec5ff;
+}
+
+.mainContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftComponent {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.heading {
+  font-size: 40px;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.subHeading {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.spaceContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Two columns with equal width */
+  grid-gap: 20px; /* Spacing between columns and rows */
+  grid-auto-flow: row; /* Fill div elements row-wise */
+  margin-top: 15px;
+  margin-bottom: 35px;
+}
+
+.spaceItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  width: 6rem;
+  height: 6.5rem;
+  border-radius: 10px;
+  background-color: #0c1631;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #00B3FF; 
+}
+
+.spaceItem > text {
+  font-size: 10px;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.spaceItem > img {
+  width: 45px;
+  height: 45px;
+}
+
+.buttonDiv {
+  display: flex;
+  width: 100%;
+}
+
+.nextButton {
+  padding: 10px 50px;
+  border-radius: 25px;
+  background: linear-gradient(to right, #00b3ff, #4cc9ff);
+  cursor: pointer;
+  font-weight: 700;
+  color: #000000;
+}
+
+
+.mainImage {
+  height: 80vh;
+}
+
+.hiddenOnMobile {
+  display: flex;
+  position: absolute;
+  right: 50px;
+}
+
+@media (max-width: 430px) {
+  .navbarBrandLogoImgCont {
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+  .navbarFinalBrandLogoImg {
+    width: 50px;
+  }
+  .container {
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 6rem;
+    box-sizing: border-box;
+  }
+  .heading {
+    font-size: 0.8rem;
+  }
+  .subHeading {
+    font-size: 0.6rem;
+  }
+  .leftComponent {
+    align-items: center;
+    width: 100vw;
+    margin-left: 0;
+  }
+  .spaceContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+  }
+
+  .spaceItem {
+    width: 50px;
+    height: 50px;
+  }
+
+  .spaceItem > img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .spaceItem > text {
+    font-size: 0.5rem;
+  }
+
+  .buttonDiv {
+    justify-content: center;
+    margin-bottom: 12rem;
+  }
+  .hiddenOnMobile {
+    display: none;
+  }
+}
+@media (max-width:1300px){
+  
+  .container{
+    width: -webkit-fill-available;
+    height: 100vh;
+  }
+  .mainContent{
+    width: -webkit-fill-available;
+    margin-top: 5rem;
+  }
+ .leftComponent{
+  width: -webkit-fill-available;
+    height: 44rem;
+ }
+ .heading{
+  width: 65%;
+  font-size: 35px;
+ }
+ .subHeading{
+  width: 52%;
+  font-size: 12px;
+ }
+ .spaceItem{
+  width: 84%;
+ }
+ .spaceItem > img {
+  width: 82%;
+ }
+ .spaceItem text{
+  font-size: 60%;
+ }
+ .spaceContainer{
+  width: 81%;
+    height: 67%;
+ }
+ .nextButton{
+  margin-top: 1rem;
+ }
+ .mainImage{
+  display: none;
+ }
+}
+@media (min-width:930px) and (max-width:1010px) {
+  .spaceItem{
+    width: 107%;
+  }
+  .spaceContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin-bottom: 12px;
+  }
+  .heading{
+    width: 65%;
+    font-size: 35px;
+   }
+   .subHeading{
+    width: 52%;
+    font-size: 12px;
+   }
+  
+}
+@media(min-width:851px) and (max-width:930px)  {
+  .spaceItem{
+    width: 107%;
+  }
+  .spaceContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1r;
+    margin-bottom: 12px;
+  }
+  .heading{
+    width: 65%;
+    font-size: 35px;
+   }
+   .subHeading{
+    width: 52%;
+    font-size: 12px;
+   }
+  
+}
+@media(min-width:761px) and (max-width:850px)  {
+  .spaceItem{
+    width: 107%;
+  }
+  .spaceContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr   ;
+    margin-bottom: 12px;
+    width: 88%;
+  }
+  .heading{
+    width: 65%;
+    font-size: 35px;
+   }
+   .subHeading{
+    width: 58%;
+    font-size: 12px;
+   }
+  
+}
+@media (min-width:681px) and (max-width:760px)  {
+  .spaceItem{
+    width: 107%;
+  }
+  .spaceContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr   ;
+    margin-bottom: 12px;
+    width: 88%;
+  }
+  .heading{
+    font-size: 30px;
+  }
+  .subHeading{
+    font-size: 11px;
+  }
+  
+}
+@media (min-width:561px) and (max-width:680px)  {
+  .spaceItem{
+    width: 94%;
+    height: fit-content;
+  }
+  .spaceContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr   ;
+    margin-bottom: 12px;
+    width: 87%;
+    height: 73%;
+  grid-gap: 11px;
+  }
+  .heading{
+    font-size: 30px;
+    width: 82%;
+  }
+  .subHeading{
+    font-size: 11px;
+    width: 82%;
+  }
+  .spaceItem img{
+    width: 62%;
+    height: 38px;
+  }
+  
+}
+@media (min-width:430px) and (max-width:560px)  {
+  .spaceItem{
+    width: 73%;
+    height: fit-content;
+  }
+  .spaceContainer{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr   ;
+    margin-bottom: 12px;
+    width: 91%;
+    height: 73%;
+  grid-gap: 1px;
+  }
+  .heading{
+    width:87%;
+    font-size: 25px;
+  }
+  .subHeading{
+    width: 84%;
+    font-size: 8px;
+  }
+  .spaceItem img{
+    width: 62%;
+    height: 38px;
+  }
+
+.spaceItem text{
+  font-size: 56%;
+}
+}
+

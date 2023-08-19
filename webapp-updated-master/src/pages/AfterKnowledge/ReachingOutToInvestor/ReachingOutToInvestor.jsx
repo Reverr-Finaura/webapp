@@ -1,0 +1,68 @@
+import React, { useEffect, useState } from "react";
+import CourseContent from "../../../components/After knowledge/Course content/CourseContent";
+import CourseIntro from "../../../components/After knowledge/Course Intro/CourseIntro";
+import CourseReview from "../../../components/After knowledge/Course review/CourseReview";
+import Hero from "../../../components/After knowledge/Hero-section/Hero";
+import Header from "../../../components/Header/Header";
+import Footer from "../../Footer/Footer";
+import styles from "./Knowledge.module.css";
+import Sidebar from "../../../components/Sidebar/Sidebar";
+import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
+import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
+import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
+import NavBarFinal from "../../../components/Navbar/NavBarFinal";
+import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import {useNavigate} from 'react-router-dom'
+import image from "../../../images/arrowMark.svg"
+
+const ReachingOutToInvestor = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const navigate=useNavigate();
+
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+  const courseDetails = {
+    title: "REACHING OUT TO INVESTOR",
+    para: "Find out who angel investors are, why they invest in early-stage firms, and how to contact them. Discover how to use your connections with angel investors to advance your firm.",
+  };
+  return (
+    <>
+      <NavBarFinalDarkMode />
+      <div className={styles.buttonWrapper}>
+    <img className={styles.arrowClass} src={image} alt="img" />
+    <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
+  </div> 
+      <div className={styles.knowledge}>
+        {/* <KnowledgeNavbar /> */}
+        <div className={styles.body}>
+          {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
+          <div className={styles.content}>
+            <Hero imgUrl="ReachingOutToInvestor.webp" />
+            <CourseIntro
+              courseDetails={courseDetails}
+              url="/reaching-out-to-investor-slides"
+            />
+            <CourseContent
+              points={[
+                "Why family is not smart money?",
+                "What are the places to lookout for investors for?",
+                "What are the requirements in order to win over an investor?",
+              ]}
+              imgUrl="reachingOut2.webp"
+            />
+            {/* <CourseReview /> */}
+          </div>
+        </div>
+      </div>
+      {/* <Footer /> */}
+    </>
+  );
+};
+
+export default ReachingOutToInvestor;
