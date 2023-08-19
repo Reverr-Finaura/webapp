@@ -1,0 +1,24 @@
+
+.people{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2%;
+    margin-top: 10%;
+}
+
+
+
+@media screen and (max-width: 560px) {
+    .people-card{
+        display: flex;
+        justify-content: center;
+    }
+    .people-section {
+        width: 100%;
+    }
+    .people-card-container {
+        width: 100%;
+    }
+}
+

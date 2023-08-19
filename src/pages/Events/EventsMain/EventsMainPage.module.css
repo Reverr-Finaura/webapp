@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 30px;
+    gap: 50px;
 }
 
 
@@ -64,6 +64,7 @@
     font-weight: 600;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 
 .aboutInfo {
@@ -234,5 +235,109 @@ gap: 10px;
 }
 
 .locationMain{
-    
+    width: 100%;
+    display: flex;
+}
+
+.locationDetailsCont {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.location {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.venue {
+    width: 250px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    color: white;
+    background-color: rgba(26, 30, 40, 1);
+}
+
+.venueHall {
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    color: white;
+    background-color: rgba(26, 30, 40, 1);
+}
+
+
+
+.address {
+    color: white;
+}
+
+
+.mapCont {
+    width: 60%;
+}
+
+.mapImg {
+    width: 100%;
+}
+
+.hostedByMain {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.usersCont{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.userCont{
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.profileCont {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.profileImg {
+    width: 100%;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.name {
+    color: white;
+    font-size: 15px;
+}
+
+.designation{
+    color: white;
+    font-size: 10px;
+}
+
+.attendNow:hover{
+    background-image: linear-gradient(rgba(0, 179, 255, 1), rgba(76, 201, 255, 1));
+    color: black;
 }
