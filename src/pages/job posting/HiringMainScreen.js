@@ -7,7 +7,7 @@ export default function HiringMainScreen(){
     return(
         <>
         <NavBarFinalDarkMode/>
-        <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"10%"}}>
+        <div className={style.upperBlock} style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"3%"}}>
 
         <div className={style.block}>
             <div className={style.leftPart}>

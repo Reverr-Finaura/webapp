@@ -1,6 +1,6 @@
 .block{
     width: 80%;
-    height: 32em;
+    height: 75%;
     background: var(--bg-primary-blue, #0C1631);
     display: flex;
     justify-content: space-between;
@@ -8,6 +8,9 @@
     padding: 15px 35px;
     border-radius: 10px;
 
+}
+.upperBlock{
+    height: 100vh;
 }
 .btn{
     display: flex;
