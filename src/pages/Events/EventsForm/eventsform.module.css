@@ -183,7 +183,7 @@
     width: 200px;
   }
 
-  select {
+  .select {
     /* Reset Select */
     appearance: none;
     outline: 10px red;
