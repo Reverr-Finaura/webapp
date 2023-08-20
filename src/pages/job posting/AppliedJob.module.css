@@ -130,6 +130,31 @@
     left: 35px;
     cursor: pointer;
 }
+.lowerleft p{
+    color: var(--white-gray, #D4D4D4);
+font-family: Poppins;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 8px;
+
+}
+.details{
+    background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+cursor: pointer;
+text-decoration: underline;
+}
+.smallicon{
+    width: 13px !important;
+}
 .card{
     display: flex;
     justify-content: space-between;
