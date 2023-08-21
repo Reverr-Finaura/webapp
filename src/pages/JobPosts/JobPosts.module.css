@@ -9,7 +9,7 @@
 .leftSidebar {
   width: 23%;
   margin-top: 10em;
-  padding: 0 30px 30px 30px;    /* top, right, buttom, left */
+  padding: 0 30px 30px 30px; /* top, right, buttom, left */
   border-radius: 15px;
   overflow-y: auto;
 }
@@ -48,7 +48,7 @@
 
 .rightSidebar {
   width: 25%;
-  padding:30px 30px;
+  padding: 30px 30px;
   border-radius: 15px;
   overflow-y: auto;
   padding-right: 50px;
@@ -66,11 +66,10 @@
   background-color: transparent;
 }
 
-
 .filterContainer {
   padding: 20px;
   border-radius: 15px;
-  background-color: #1A1E28;
+  background-color: #1a1e28;
 }
 
 .filterHeader {
@@ -83,7 +82,7 @@
 
 .filterHeaderText {
   font-size: 16px;
-  color: #00B3FF;
+  color: #00b3ff;
 }
 
 .filterHeaderImage {
@@ -133,7 +132,7 @@
   height: 30px;
   border-radius: 15px;
   margin-top: 20px;
-  background: linear-gradient(to right, #00B3FF, #4CC9FF);
+  background: linear-gradient(to right, #00b3ff, #4cc9ff);
   cursor: pointer;
   font-weight: 700;
   font-size: 15px;
@@ -151,7 +150,7 @@
   height: 45px;
   font-size: 15px;
   border-radius: 8px;
-  background-color: #1A1E28;
+  background-color: #1a1e28;
   border: none;
   outline: none;
   padding-left: 18px;
@@ -184,10 +183,10 @@
 }
 
 .option {
-  padding: 5px 10px;   
+  padding: 5px 10px;
   border-radius: 15px;
   border: 1px solid #ffffff;
-  background-color: #1A1E28;
+  background-color: #1a1e28;
   font-size: 12px;
   color: #ffffff;
   cursor: pointer;
@@ -201,7 +200,6 @@
 .deselectOptionButton {
   margin-left: 10px;
   cursor: pointer;
-
 }
 
 .recomendedJobs {
@@ -212,27 +210,99 @@
 
 .recomendedJobs > text {
   font-size: 22px;
-  color: #00B3FF;
+  color: #00b3ff;
   margin-bottom: 10px;
 }
 
-.recomendedJobRow {
+.recomendedJobs > span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #00b3ff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+.highChanceJobs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.highChanceJobs > text:nth-child(1) {
+  font-size: 22px;
+  color: #00b3ff;
+}
+
+.highChanceJobs > text:nth-child(2) {
+  font-size: 15px;
+  color: #fff278;
+  margin-bottom: 10px;
+}
+
+.highChanceJobs > span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #fff278;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+.highChanceJobs > span > img {
+  margin-left: 5px;
+  height: 15px;
+}
+
+.moreJobs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.moreJobs > text:nth-child(1) {
+  font-size: 22px;
+  color: #00b3ff;
+}
+
+.moreJobs > text:nth-child(2) {
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.moreJobs > span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #00b3ff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+.jobRow {
   position: relative;
   display: flex;
   flex-direction: row;
   border-radius: 10px;
   margin-bottom: 10px;
-  background-color: #0C1631;
+  background-color: #0c1631;
 }
 
-.recomendedJobRow > img {
+.jobRow > img {
   padding: 15px;
-  height: 120px;
-  width: 120px;
+  height: 130px;
+  width: 130px;
   border-radius: 20px;
 }
 
-.recomendedJobRow > div {
+.jobRow > div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -240,76 +310,105 @@
   padding: 15px;
 }
 
-.recomendedJobRowTopDiv {
+.jobRowTopDiv {
   display: flex;
   width: 100%;
   justify-content: space-between;
   flex-direction: row;
 }
 
-.recomendedJobRowTopDiv > div:nth-child(1) {
+.jobRowTopDiv > div:nth-child(1) {
   display: flex;
   flex-direction: column;
 }
 
-.recomendedJobRowTopDiv > div:nth-child(1) > text:nth-child(1) {
+.jobRowTopDiv > div:nth-child(1) > text:nth-child(1) {
   color: #ffffff;
   font-size: 14px;
 }
 
-.recomendedJobRowTopDiv > div:nth-child(1) > text:nth-child(2) {
-  color: #A7A7A7;
+.jobRowTopDiv > div:nth-child(1) > text:nth-child(2) {
+  color: #a7a7a7;
   font-size: 10px;
 }
 
-.recomendedJobRowTopDiv > div:nth-child(2) {
+.jobRowTopDiv > div:nth-child(2) {
   display: flex;
   flex-direction: row;
 }
 
-.recomendedJobRowTopDiv > div:nth-child(2) > text {
-  color: #00B3FF;
+.jobRowTopDiv > div:nth-child(2) > text {
+  display: flex;
+  align-items: flex-start;
+  color: #00b3ff;
   font-size: 12px;
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
-.recomendedJobRowTopDiv > div:nth-child(2) > img {
+.jobRowTopDiv > div:nth-child(2) > text > img {
+  height: 15px;
+}
+
+.jobRowTopDiv > div:nth-child(2) > img {
   height: 20px;
+  margin-left: 15px;
 }
 
-.recomendedJobRowButtomDiv {
+.jobRowButtomDiv {
   display: flex;
   width: 100%;
   justify-content: space-between;
   flex-direction: row;
 }
 
-.recomendedJobRowButtomDiv > div:nth-child(1) {
+.jobRowButtomDiv > div:nth-child(1) {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   height: 30px;
   width: 100%;
   border-radius: 30px;
-  background-color: #4CC9FF;
+  background-color: #1b2b56;
 }
 
-.recomendedJobRow > button {
-  position: absolute;
-  width: 70px;
-  height: 22px;
+.jobRowButtomDiv > div:nth-child(1) > div {
+  display: flex;
+  flex-direction: row;
+}
+
+.jobRowButtomDiv > div:nth-child(1) > div > text {
+  display: flex;
+  align-items: center;
+  color: #d4d4d4;
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+.jobRowButtomDiv > div:nth-child(1) > div > text > img {
+  height: 15px;
+}
+
+.jobRowButtomDiv > div:nth-child(1) > span {
+  display: flex;
+  align-items: center;
+  color: #00b3ff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+.jobRowButtomDiv > button {
+  width: 100px;
+  height: 30px;
   border-radius: 15px;
-  right: 2%;
-  bottom: 10%;
+  margin-left: 10px;
   background: linear-gradient(to right, #00b3ff, #4cc9ff);
   cursor: pointer;
   font-weight: 500;
   font-size: 10px;
   color: #000000;
 }
-
-
-
-
 
 /* @media screen and (max-width: 500px) {
    .rightSidebar{
