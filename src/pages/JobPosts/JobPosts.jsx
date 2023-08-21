@@ -13,6 +13,9 @@ import briefcase from "../../images/briefcase.svg";
 import timer from "../../images/timer1.svg";
 import lock from "../../images/lock1.svg";
 import bookmark from "../../images/lucide_bookmark.svg";
+import firstline from "../../images/firstline.svg";
+import resume from "../../images/documenttext.svg";
+import settings from "../../images/setting.svg";
 
 function JobPosts() {
   const suggestedSearchOptions = [
@@ -292,9 +295,43 @@ function JobPosts() {
 
         {/* -----------right part starts------------------ */}
         <div className={styles.rightSidebar} style={{ marginTop: "10em" }}>
-          {/* <NoAppoinments />
-
-          <ArticleComponent /> */}
+          <div className={styles.rightButtonsContainer}>
+            <div>
+              <text>
+                <img src={firstline} alt="img" />
+                &nbsp; All Job Posts
+              </text>
+              <span>&gt;</span>
+            </div>
+            <div>
+              <text>
+                <img src={bookmark} alt="img" />
+                &nbsp; Saved Jobs
+              </text>
+              <span>&gt;</span>
+            </div>
+            <div>
+              <text>
+                <img src={briefcase} alt="img" />
+                &nbsp; Applied Jobs
+              </text>
+              <span>&gt;</span>
+            </div>
+            <div>
+              <text>
+                <img src={resume} alt="img" />
+                &nbsp; Resume Builder
+              </text>
+              <span>&gt;</span>
+            </div>
+            <div>
+              <text>
+                <img src={settings} alt="img" />
+                &nbsp; Settings
+              </text>
+              <span>&gt;</span>
+            </div>
+          </div>
         </div>
         {/* -----------right part ends------------------ */}
       </div>

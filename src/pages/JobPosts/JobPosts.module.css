@@ -48,10 +48,9 @@
 
 .rightSidebar {
   width: 25%;
-  padding: 30px 30px;
+  padding: 0 30px 30px 30px; /* top, right, buttom, left */
   border-radius: 15px;
   overflow-y: auto;
-  padding-right: 50px;
 }
 
 .rightSidebar::-webkit-scrollbar {
@@ -408,6 +407,37 @@
   font-weight: 500;
   font-size: 10px;
   color: #000000;
+}
+
+.rightButtonsContainer {
+  color: #D4D4D4;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #1a1e28;
+}
+
+.rightButtonsContainer > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.rightButtonsContainer > div > text {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.rightButtonsContainer > div > text > img {
+  height: 15px;
+  margin-right: 5px;
+}
+
+.rightButtonsContainer > div:hover {
+  filter: brightness(100%) sepia(100%) saturate(10000%) hue-rotate(140deg);
 }
 
 /* @media screen and (max-width: 500px) {
