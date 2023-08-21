@@ -475,7 +475,7 @@ const VibeMiddlePart = () => {
   
          
         } catch (error) {
-          console.error("Error fetching swipeLimit data:", error);
+          console.error("Error fetching superlike data:", error);
        
         }
       };
@@ -483,13 +483,22 @@ const VibeMiddlePart = () => {
       fetchsuperlike();
       // handleSuperlike()
       if (
-        superlikelimit.superlikecount === 0 &&
-        superlikelimit.superlikeUpdateTime > new Date().getTime()
+        superlikelimit?.superlikecount === 0 &&
+        superlikelimit?.superlikeUpdateTime > new Date().getTime()
       ){
         handleSuperlike()
       }
     }, [currentLoggedInUser]);
   // console.log(superlikelimit);
+  useEffect(() => {
+    if (
+      superlikelimit?.superlikecount === 0 &&
+      superlikelimit?.superlikeUpdateTime < new Date().getTime()
+    ){
+      handleSuperlike()
+    }
+  }, [])
+  
 
   const handleSuperlike = async () => {
    
