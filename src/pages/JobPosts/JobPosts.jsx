@@ -8,7 +8,10 @@ import NoAppoinments from "../../components/SidebarComponents/NoAppoinments/NoAp
 import filter from "../../images/jobFilter.svg";
 import searchIcon from "../../images/Searchicon.svg";
 import GetPremium from "../../components/SidebarComponents/GetPremium/GetPremium";
-import peopleGroup from "../../images/profile2user.svg";
+import location from "../../images/location1.svg";
+import briefcase from "../../images/briefcase.svg";
+import timer from "../../images/timer1.svg";
+import lock from "../../images/lock1.svg";
 import bookmark from "../../images/lucide_bookmark.svg";
 
 function JobPosts() {
@@ -22,24 +25,27 @@ function JobPosts() {
     "Edtech Marketing",
   ];
 
-  const items = [
+  const jobsArray = [
     {
-      date: "23rd June, 2023",
-      eventName: "Event Name",
-      location: "Lucknow, India",
-      attending: 123,
+      companyName: "Company A",
+      companyAddress: "123 Main St, Delhi",
+      postedTime: "2 hours ago",
+      location: "Delhi, India",
+      jobType: "Onsite",
     },
     {
-      date: "23rd June, 2023",
-      eventName: "Event Name",
-      location: "Lucknow, India",
-      attending: 123,
+      companyName: "Company B",
+      companyAddress: "456 Elm St, Mumbai",
+      postedTime: "1 day ago",
+      location: "Delhi, India",
+      jobType: "Remote",
     },
     {
-      date: "23rd June, 2023",
-      eventName: "Event Name",
-      location: "Lucknow, India",
-      attending: 123,
+      companyName: "Company C",
+      companyAddress: "789 Oak St, Bangalore",
+      postedTime: "3 days ago",
+      location: "Delhi, India",
+      jobType: "Onsite",
     },
   ];
 
@@ -157,49 +163,129 @@ function JobPosts() {
 
           <div className={styles.recomendedJobs}>
             <text>Recommended For You</text>
-            {items.map((item, index) => (
-              <div className={styles.recomendedJobRow} key={index}>
+            {jobsArray.map((job, index) => (
+              <div className={styles.jobRow} key={index}>
                 <img src={require("../../images/recomenjob.png")} alt="img" />
                 <div>
-                  <div className={styles.recomendedJobRowTopDiv}>
+                  <div className={styles.jobRowTopDiv}>
                     <div>
-                      <text>Company Name</text>
-                      <text>Company Address</text>
+                      <text>{job.companyName}</text>
+                      <text>{job.companyAddress}</text>
                     </div>
                     <div>
-                      <text>2 hours ago</text>
+                      <text>
+                        <img src={timer} alt="img" />
+                        &nbsp; {job.postedTime}
+                      </text>
                       <img src={bookmark} alt="img" />
                     </div>
                   </div>
-                  <div className={styles.recomendedJobRowButtomDiv}>
+                  <div className={styles.jobRowButtomDiv}>
                     <div>
-                      {/* <text
-                        style={{ color: "#A7A7A7", fontSize: 8, marginTop: 5 }}
-                      >
-                        <img
-                          src={peopleGroup}
-                          alt="img"
-                          style={{ width: 8, height: 8, display: "inline" }}
-                        />
-                        &nbsp; {item.attending} people attending
-                      </text> */}
+                      <div>
+                        <text>
+                          <img src={location} alt="img" />
+                          &nbsp; {job.location}
+                        </text>
+                        <text>
+                          <img src={briefcase} alt="img" />
+                          &nbsp; {job.jobType}
+                        </text>
+                      </div>
+                      <span>View Details</span>
                     </div>
+                    <button>Apply Now</button>
                   </div>
                 </div>
-                {/* <button
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    return openModal();
-                  } else {
-                    //normal code
-                    console.log("user logged!");
-                  }
-                }}
-                >
-                  Register
-                </button> */}
               </div>
             ))}
+            <span>View More</span>
+          </div>
+
+          <div className={styles.highChanceJobs}>
+            <text>Apply for jobs with high chances of getting hired</text>
+            <text>PREMIUM FEATURE</text>
+            {jobsArray.map((job, index) => (
+              <div className={styles.jobRow} key={index}>
+                <img src={require("../../images/recomenjob.png")} alt="img" />
+                <div>
+                  <div className={styles.jobRowTopDiv}>
+                    <div>
+                      <text>{job.companyName}</text>
+                      <text>{job.companyAddress}</text>
+                    </div>
+                    <div>
+                      <text>
+                        <img src={timer} alt="img" />
+                        &nbsp; {job.postedTime}
+                      </text>
+                      <img src={bookmark} alt="img" />
+                    </div>
+                  </div>
+                  <div className={styles.jobRowButtomDiv}>
+                    <div>
+                      <div>
+                        <text>
+                          <img src={location} alt="img" />
+                          &nbsp; {job.location}
+                        </text>
+                        <text>
+                          <img src={briefcase} alt="img" />
+                          &nbsp; {job.jobType}
+                        </text>
+                      </div>
+                      <span>View Details</span>
+                    </div>
+                    <button>Apply Now</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <span>
+              View More <img src={lock} alt="img" />
+            </span>
+          </div>
+
+          <div className={styles.moreJobs}>
+            <text>More Jobs For You</text>
+            <text>Based on your profile and search history</text>
+            {jobsArray.map((job, index) => (
+              <div className={styles.jobRow} key={index}>
+                <img src={require("../../images/recomenjob.png")} alt="img" />
+                <div>
+                  <div className={styles.jobRowTopDiv}>
+                    <div>
+                      <text>{job.companyName}</text>
+                      <text>{job.companyAddress}</text>
+                    </div>
+                    <div>
+                      <text>
+                        <img src={timer} alt="img" />
+                        &nbsp; {job.postedTime}
+                      </text>
+                      <img src={bookmark} alt="img" />
+                    </div>
+                  </div>
+                  <div className={styles.jobRowButtomDiv}>
+                    <div>
+                      <div>
+                        <text>
+                          <img src={location} alt="img" />
+                          &nbsp; {job.location}
+                        </text>
+                        <text>
+                          <img src={briefcase} alt="img" />
+                          &nbsp; {job.jobType}
+                        </text>
+                      </div>
+                      <span>View Details</span>
+                    </div>
+                    <button>Apply Now</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <span>View More</span>
           </div>
         </div>
         {/* -----------middle part ends------------------ */}

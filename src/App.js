@@ -150,6 +150,7 @@ import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 import AppliedJob from "./pages/job posting/AppliedJob";
+import JobPosts from "./pages/JobPosts/JobPosts";
 
 function App() {
   const user = useSelector(selectUser);
@@ -433,6 +434,7 @@ function App() {
         <Route path="/hiringMainScreen" element={<HiringMainScreen/>}></Route>
         <Route path="/hiringForm" element={<HiringForm/>}></Route>
         <Route path="/appliedjob" element={<AppliedJob/>}></Route>
+        <Route path="/job-posts" element={<JobPosts />}></Route>
 
         <Route path="/event/createevent" element={<CreateEvent />}></Route>
         <Route path="/event/eventsuccess" element={<EventsSuccess />}></Route>
