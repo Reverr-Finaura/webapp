@@ -38,6 +38,7 @@ const FilterPart = ({
   setIsPremium,
   modal,
   setModal,
+  ispremium,
   filterData,
   setfilterData,
   setFilter,
@@ -167,7 +168,8 @@ const FilterPart = ({
 
     setfilterData(data);
     setFilter(false);
-    setFetchAgain(!fetchAgain);
+    // setFetchAgain(!fetchAgain);
+
     // setModal(false);
     // setIsPremium(false);
     // SetRedo(false);
@@ -252,7 +254,11 @@ const FilterPart = ({
                   rolesSelected === item ? styles.filterItem : styles.rolealter
                 }
                 key={index}
-                onClick={() => handleRolesClick(item)}
+                onClick={() =>
+                  ispremium
+                    ? handleRolesClick(item)
+                    : toast("Upgrate to premium to access this feature")
+                }
               >
                 {item}
               </div>
@@ -355,7 +361,11 @@ const FilterPart = ({
             <input
               type="text"
               placeholder="City"
-              onChange={(e) => handleLocationClick(e)}
+              onChange={(e) =>
+                ispremium
+                  ? handleLocationClick(e)
+                  : toast("Upgrate to premium to access this feature")
+              }
               value={citiesSelected}
             />
           </div>

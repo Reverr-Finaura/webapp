@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.724b37ce.css",
-    "main.js": "/static/js/main.32b6308d.js",
+    "main.css": "/static/css/main.8224f98b.css",
+    "main.js": "/static/js/main.5e6452a7.js",
     "static/media/illustration.svg": "/static/media/illustration.19635081d007bb47015e1ef6f9599be3.svg",
     "static/media/gradient.png": "/static/media/gradient.03c21bd4411e65df944b.png",
     "static/media/mentorsUnavailable.svg": "/static/media/mentorsUnavailable.4e04e0bf9eda2434adfc354fb787ee64.svg",
@@ -45,6 +45,8 @@
     "static/media/Collaborate.webp": "/static/media/Collaborate.d24ff4ccef118ee5d442.webp",
     "static/media/Group.webp": "/static/media/Group.76875bdd7c37bb963110.webp",
     "static/media/Arranging Files.png": "/static/media/Arranging Files.da2fd747d7a86b4bdd75.png",
+    "static/media/IMAGE1.png": "/static/media/IMAGE1.48f0bcc3075a1fef279f.png",
+    "static/media/recomenjob.png": "/static/media/recomenjob.951f90c7e3640089da98.png",
     "static/media/createevent1.webp": "/static/media/createevent1.17a6551c7ac664e09ab6.webp",
     "static/media/Q and A about loan.svg": "/static/media/Q and A about loan.0f1b36cd1b063461b77fdbd2c4d49bba.svg",
     "static/media/peoplediscussion.webp": "/static/media/peoplediscussion.5ebe599406bb8494c81c.webp",
@@ -149,6 +151,7 @@
     "static/media/Layer 2.svg": "/static/media/Layer 2.ec634ce680a1132c855e80ac60f1c37d.svg",
     "static/media/rulepen.webp": "/static/media/rulepen.429026f85830a59266e5.webp",
     "static/media/Vibeicon.webp": "/static/media/Vibeicon.9d7151ec81e9cb7f91c5.webp",
+    "static/media/lock1.svg": "/static/media/lock1.4f970de318a8b79b0abf4fa3a3ff27ae.svg",
     "static/media/Pulse-1s-200px.svg": "/static/media/Pulse-1s-200px.36853d114ba58c66e32d8a88f3de1b91.svg",
     "static/media/book1.webp": "/static/media/book1.9b9f392fafde0be91841.webp",
     "static/media/securityuser.webp": "/static/media/securityuser.635e61f4e5f4b9412aa3.webp",
@@ -169,6 +172,10 @@
     "static/media/new-dark-mode-logo.webp": "/static/media/new-dark-mode-logo.5052d32c7e119f5c528f.webp",
     "static/media/location.svg": "/static/media/location.2bcd38a215574ac9988c321a5ca4a1a4.svg",
     "static/media/Group 6267336.svg": "/static/media/Group 6267336.41842a3c1f5f4fd8097cf657bf145838.svg",
+    "static/media/briefcase.svg": "/static/media/briefcase.7a89fe7ac1ae4716cd59ea9261044e3f.svg",
+    "static/media/jobFilter.svg": "/static/media/jobFilter.c0ee2cd8d83375bd18b4e090eef29906.svg",
+    "static/media/timer1.svg": "/static/media/timer1.178aab0a7983546543919421f1672d79.svg",
+    "static/media/location1.svg": "/static/media/location1.ce3a67305785cea8b2689b8e13160b4c.svg",
     "static/media/evaArrowIosDownwardFill2.svg": "/static/media/evaArrowIosDownwardFill2.cb2fdfe870fe2bf8abd1c4ac0b625aca.svg",
     "static/media/declineIcon.svg": "/static/media/declineIcon.576aafc52a2d485683d7727bbdee53f3.svg",
     "static/media/linkedinMiniIcon.svg": "/static/media/linkedinMiniIcon.c950cc3d5b8e558f4ec9e4e20a28c4a3.svg",
@@ -180,6 +187,7 @@
     "static/media/rocket.webp": "/static/media/rocket.5ab8ce10f3da1ca68a63.webp",
     "static/media/cil_education.webp": "/static/media/cil_education.a98d94e1d40e5bcb92d1.webp",
     "static/media/mdi_event-note.svg": "/static/media/mdi_event-note.700c8864f1bccf7bcad616e5bf629f7e.svg",
+    "static/media/firstline.svg": "/static/media/firstline.12979c4251f507b9b2eb91faafd99332.svg",
     "static/media/Vector (1).webp": "/static/media/Vector (1).13dbeaffd930a854e5f0.webp",
     "static/media/acceptIcon.svg": "/static/media/acceptIcon.67dde813e575e60cdb189c605718f19c.svg",
     "static/media/linkedinImage.svg": "/static/media/linkedinImage.ada11cda991129bc91b79d2c7cee1066.svg",
@@ -190,11 +198,14 @@
     "static/media/twitterMiniIcon.svg": "/static/media/twitterMiniIcon.b8ff0dd015a3b783a722b7f5405c9708.svg",
     "static/media/funding-light.webp": "/static/media/funding-light.bd7430a0736ea711934f.webp",
     "static/media/iconamoon_arrow-up-2.svg": "/static/media/iconamoon_arrow-up-2.ad659d1dc12e2153ec04c5730416411e.svg",
+    "static/media/documenttext.svg": "/static/media/documenttext.da576738368f7ed08e38e5f2c4caee3a.svg",
     "static/media/userIcon.webp": "/static/media/userIcon.2e1ca227f7c774d6dcff.webp",
     "static/media/Search.svg": "/static/media/Search.fd51a352ec285f944c331e5f4cb85d42.svg",
+    "static/media/lucide_bookmark.svg": "/static/media/lucide_bookmark.6842acfc74b9fad0647889d3ccbb8706.svg",
     "static/media/PPT iconVector.svg": "/static/media/PPT iconVector.a0131fb78e7655bdc221733113bede5a.svg",
     "static/media/Play.webp": "/static/media/Play.46a937f1bf75858875cf.webp",
     "static/media/know-light.webp": "/static/media/know-light.2680428f2b53a7004c65.webp",
+    "static/media/Searchicon.svg": "/static/media/Searchicon.1222adfdf0d38a78129cfe74f1db7983.svg",
     "static/media/startup-light.webp": "/static/media/startup-light.23879399034576b30525.webp",
     "static/media/dash-dark.webp": "/static/media/dash-dark.224df3d6680679dff737.webp",
     "static/media/white-outline-eye.webp": "/static/media/white-outline-eye.92b58157863621fa12e8.webp",
@@ -210,11 +221,11 @@
     "static/media/bx_log-out-white.webp": "/static/media/bx_log-out-white.447a0ccaaec25d692ce9.webp",
     "static/media/dash-light.webp": "/static/media/dash-light.f6ff8f702436e60452aa.webp",
     "static/media/know-dark.webp": "/static/media/know-dark.d7fd0cfb3e18feb704d9.webp",
-    "main.724b37ce.css.map": "/static/css/main.724b37ce.css.map",
-    "main.32b6308d.js.map": "/static/js/main.32b6308d.js.map"
+    "main.8224f98b.css.map": "/static/css/main.8224f98b.css.map",
+    "main.5e6452a7.js.map": "/static/js/main.5e6452a7.js.map"
   },
   "entrypoints": [
-    "static/css/main.724b37ce.css",
-    "static/js/main.32b6308d.js"
+    "static/css/main.8224f98b.css",
+    "static/js/main.5e6452a7.js"
   ]
 }

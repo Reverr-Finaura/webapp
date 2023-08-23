@@ -45,6 +45,7 @@ const VibeMiddlePart = () => {
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [storeUserData, setStoreUserData] = useState([]);
   const [premiumModalStatus, setPremiumModalStatus] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noMoreVibeData, setNoMoreVibeData] = useState(false);
@@ -132,7 +133,7 @@ const VibeMiddlePart = () => {
 
   const getUserData = async () => {
     try {
-      console.log("userDoc data fetch");
+      console.log("filter data:", filterData);
       setIsLoadingData(true);
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
@@ -143,11 +144,8 @@ const VibeMiddlePart = () => {
       const userDocData = userDocsnapshot.data();
 
       const likedByCurrentUser = userDocData?.likes || [];
-      console.log("likedByCurrentUser", likedByCurrentUser);
       const fleshedByCurrentUser = userDocData?.passed_email || [];
-      console.log("fleshedByCurrentUser", fleshedByCurrentUser);
       const matchedUsers = userDocData?.matched_user || [];
-      console.log("matchedUsers", matchedUsers);
 
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
@@ -157,7 +155,6 @@ const VibeMiddlePart = () => {
           !matchedUsers.includes(doc.data().email) &&
           doc.data().vibeuser === true
       );
-      console.log("filteredDocs", filteredDocs);
       const fetchedUserData = filteredDocs
         .map((doc) => doc.data())
         .filter(
@@ -171,6 +168,40 @@ const VibeMiddlePart = () => {
       console.error(error.message);
     }
   };
+  
+  console.log("this is the fetched user Data",userData)
+  // filted userData
+
+  useEffect(()=>{
+     
+    let filteredUserData=[]
+    setStoreUserData(userData)
+    if(userData){
+
+      // if the filtered data is empty or undefined, it will concidered to be ture
+      filteredUserData = storeUserData.filter((user) => {
+        // Check if at least one condition matches
+        const filtered = (!filterData.roles || user.roles === filterData.roles) && (!filterData.mode || user.mode === filterData.mode) && (!filterData.age || user.agePref === filterData.age) && (!filterData.cities || user.city === filterData.cities ) && (filterData.spaces.length === 0 ||
+        filterData.spaces.some((space) => user.userSpace.includes(space))) ;
+
+    
+        return  filtered ;
+      });
+      console.log("hey, this is the filtered user you were looking for!-- filteredUserData",filteredUserData)
+      
+    }   
+    if(filteredUserData.length > 0){
+      setUserData(filteredUserData)
+
+    }
+    else{
+      getUserData();
+    }
+    console.log("hey, this is the filtered user you were looking for!-- userData",userData)
+       
+
+  },[filterData])
+
 
   useEffect(() => {
     getUserData();
@@ -297,6 +328,7 @@ const VibeMiddlePart = () => {
     if (filter === false) {
       setFilter(!filter);
     }
+   
   };
 
   //---------------------Swipe Limit Code Start---------------------//
@@ -443,7 +475,7 @@ const VibeMiddlePart = () => {
   
          
         } catch (error) {
-          console.error("Error fetching swipeLimit data:", error);
+          console.error("Error fetching superlike data:", error);
        
         }
       };
@@ -451,13 +483,22 @@ const VibeMiddlePart = () => {
       fetchsuperlike();
       // handleSuperlike()
       if (
-        superlikelimit.superlikecount === 0 &&
-        superlikelimit.superlikeUpdateTime > new Date().getTime()
+        superlikelimit?.superlikecount === 0 &&
+        superlikelimit?.superlikeUpdateTime > new Date().getTime()
       ){
         handleSuperlike()
       }
     }, [currentLoggedInUser]);
   // console.log(superlikelimit);
+  useEffect(() => {
+    if (
+      superlikelimit?.superlikecount === 0 &&
+      superlikelimit?.superlikeUpdateTime < new Date().getTime()
+    ){
+      handleSuperlike()
+    }
+  }, [])
+  
 
   const handleSuperlike = async () => {
    
@@ -925,11 +966,7 @@ const VibeMiddlePart = () => {
   //   FlushUser();
 
 
-
-
-
-
-  return (
+ return (
     <>
       {premiumModalStatus ? (
         <div class={styles.overlay}>
@@ -947,12 +984,13 @@ const VibeMiddlePart = () => {
         ""
       )}
       {/* ///Filter Screen//// */}
-      {!ispremium && filter && (
+      {filter ? (
         <>
           <div className={styles.filtermodalback}></div>
           <div className={styles.filtermodal}>
             {
               <FilterPart
+                ispremium={ispremium}
                 setFilter={setFilter}
                 filterData={filterData}
                 setfilterData={setfilterData}
@@ -960,7 +998,7 @@ const VibeMiddlePart = () => {
             }
           </div>
         </>
-      )}
+      ) : null}
       {isLikesEXhaust ? (
         <LikesExhaust />
       ) : isMatchedUser ? (

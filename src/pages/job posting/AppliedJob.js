@@ -1,6 +1,8 @@
 import style from "./AppliedJob.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import demo from "../../images/demo-company.png"
+import location from "../../images/location.png"
+import briefcase from "../../images/briefcase.png"
 
 export default function AppliedJob() {
   return (
@@ -69,6 +71,7 @@ export default function AppliedJob() {
         <h3 className={style.jobHeading}>More Jobs Recommendations For you</h3>
         <p className={style.para}>Based on your pofile and search history</p>
         <div className={style.jobs}>
+          
           <div className={style.card}>
             <div className={style.left}>
               <img src={demo} />
@@ -88,10 +91,10 @@ export default function AppliedJob() {
               <div className={style.lowerpart}>
                      <div className={style.lowerleft}>
                         <div>
-                            <p>Delhi,India</p>
-                            <p>On-site</p>
+                            <p> <img className={style.smallicon} src={location}/>Delhi,India</p>
+                            <p>  <img  className={style.smallicon}  src={briefcase}/>On-site</p>
                         </div>
-                        <p>View Details</p>
+                        <p className={style.details}>View Details</p>
                      </div>
                      <button className={style.applynow}>Apply Now</button>
                </div>
@@ -118,10 +121,10 @@ export default function AppliedJob() {
               <div className={style.lowerpart}>
                      <div className={style.lowerleft}>
                         <div>
-                            <p>Delhi,India</p>
-                            <p>On-site</p>
+                            <p> <img className={style.smallicon} src={location}/>Delhi,India</p>
+                            <p>  <img  className={style.smallicon}  src={briefcase}/>On-site</p>
                         </div>
-                        <p>View Details</p>
+                        <p className={style.details}>View Details</p>
                      </div>
                      <button className={style.applynow}>Apply Now</button>
                </div>
@@ -148,10 +151,10 @@ export default function AppliedJob() {
               <div className={style.lowerpart}>
                      <div className={style.lowerleft}>
                         <div>
-                            <p>Delhi,India</p>
-                            <p>On-site</p>
+                            <p> <img className={style.smallicon} src={location}/>Delhi,India</p>
+                            <p>  <img  className={style.smallicon}  src={briefcase}/>On-site</p>
                         </div>
-                        <p>View Details</p>
+                        <p className={style.details}>View Details</p>
                      </div>
                      <button className={style.applynow}>Apply Now</button>
                </div>
@@ -159,6 +162,7 @@ export default function AppliedJob() {
             </div>
 
           </div>
+          
         </div>
       </div>
     </div>
