@@ -25,6 +25,7 @@ import NoAppoinments from "../components/SidebarComponents/NoAppoinments/NoAppoi
 function Test() {
   const [userTypeLower, setUserTypeLower] = useState("individual");
   const userDoc = useSelector((state) => state.userDoc);
+  const isPremium = useSelector((state) => state.user.isPremium)
   const appoinments = useSelector(
     (state) => state.userDoc.Appointement_request
   );
@@ -183,7 +184,7 @@ function Test() {
           <div style={{ marginTop: 50 }}></div>
           {/* <Journey /> */}
           <div style={{ marginTop: 50 }}></div>
-          {/* <GetPremium /> */}
+          {!isPremium ? <GetPremium /> : null}
           <div style={{ marginTop: 50 }}></div>
         </div>
 

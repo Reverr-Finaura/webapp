@@ -59,7 +59,7 @@ import defaultImg from "../../images/default-profile-pic.webp";
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
-  const isPremium = useSelector((state)=> state.user.isPremium)
+  const [isPremium, setIsPremium] = useState(false);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [userImage, setUserImage] = useState("");
   const [isSettingButtonClick, setIsSettingbuttonClick] = useState(false);
@@ -91,7 +91,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   };
   const [notificationOpen, setNotificationOpen] = useState(false);
 
-  // code for product modal start
+  // ==============code for product modal start===================
   useEffect(() => {
     if (userDoc.userType !== undefined && userDoc.userType !== "") {
       setUserTypeLower(userDoc.userType.toLowerCase());
@@ -150,9 +150,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     };
   }, [isProductModalOpen]);
 
-  // code for product modal end
+  // =====================code for product modal end=====================
 
-  // Start functionality for search bar
+  // ================Start functionality for search bar==================
   async function fetchUserDataFromFirebase(type) {
     const userDataRef = collection(db, "Users");
     let q;
@@ -200,7 +200,55 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
       setsearchResult(filteredData);
     }
   };
-  // End functionality for search bar
+  // =====================End functionality for search bar===================
+
+
+  // =============Start functionality for premium status check===============
+  useEffect(() => {
+    function checkPremiumStatus() {
+      const oneMonthInseconds = 30 * 24 * 60 * 60;
+      const threeMonthsInseconds = 3 * oneMonthInseconds;
+      const sixMonthsInseconds = 6 * oneMonthInseconds;
+
+      const premiumData = userDoc?.premiumData;
+      const currentDate = new Date().getTime() / 1000;
+      if (!premiumData) return;
+
+      const premiumStartDate = premiumData.premiumStartDate;
+
+
+      switch (premiumData.subscriptionPlan) {
+        case "onemonth":
+          if (currentDate <= premiumStartDate + oneMonthInseconds) {
+            console.log("premium members")
+            setIsPremium(true);
+            dispatch(setPremium(true))
+          }
+          break;
+        case "threemonths":
+          if (currentDate <= premiumStartDate + threeMonthsInseconds) {
+            setIsPremium(true);
+            dispatch(setPremium(true))
+          }
+          break;
+        case "sixmonths":
+          if (currentDate <= premiumStartDate + sixMonthsInseconds) {
+            console.log("premium members")
+            setIsPremium(true);
+            dispatch(setPremium(true))
+          }
+          break;
+        default:
+          setIsPremium(false);
+          dispatch(setPremium(false))
+          break;
+      }
+    }
+    checkPremiumStatus();
+  }, [userDoc]);
+  // =============End functionality for premium status check===============
+
+
 
   // CHECK FOR USER PHOTO
   useEffect(() => {

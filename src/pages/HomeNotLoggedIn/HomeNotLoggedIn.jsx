@@ -96,7 +96,7 @@ function HomeNotLoggedIn() {
           <div style={{ marginTop: 50 }}></div>
           <Journey isLoggedIn={false} openModal={openModal} />
           <div style={{ marginTop: 50 }}></div>
-          {/* <GetPremium /> */}
+          <GetPremium />
           <div style={{ marginTop: 50 }}></div>
         </div>
 
