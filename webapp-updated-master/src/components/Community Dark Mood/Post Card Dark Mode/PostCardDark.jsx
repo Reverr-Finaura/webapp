@@ -675,9 +675,17 @@ export default function PostCardDark({
             <h3 className={style.postText}>
               {showMorePostTextClick ? (
                 // Display all strings in item.text, each on a new line
-                item?.text.map((textItem, index) => (
+                <>
+                {item?.text.map((textItem, index) => (
                   <div key={index}>{textItem}</div>
-                ))
+                ))}
+                  <span
+                    style={{ color: "#00b2ff", cursor: "pointer" }}
+                    onClick={() => setShowMorePostTextClick(false)}
+                    className={style.morePostTextButto}
+                  >
+                    ...show less
+                  </span>{" "}                </>
               ) : (
                 // Display the first three strings in item.text with "continue" link
                 <>

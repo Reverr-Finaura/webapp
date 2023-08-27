@@ -147,7 +147,7 @@ import EventsForm from "./pages/Events/EventsForm/EventsForm";
 import SpeakerProfile from './pages/Speaker/SpeakerProfile';
 import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 
-import HiringForm from "./pages/job posting/HiringForm";
+import HiringForm from "./pages/job posting/HiringForm";l
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 import AppliedJob from "./pages/job posting/AppliedJob";
 import JobPosts from "./pages/JobPosts/JobPosts";
