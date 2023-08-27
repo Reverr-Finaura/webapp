@@ -12,6 +12,7 @@ import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const UserEditProfileTesting = () => {
   const navigate = useNavigate();
@@ -535,7 +536,11 @@ const UserEditProfileTesting = () => {
                       src="/images/basil_cross-solid.svg"
                       alt="Cross_Icon"
                       onClick={() => {
-                        removeSpace(item);
+                        if (formData.userSpace.length > 1) {
+                          removeSpace(item);
+                        } else {
+                          toast.error("Atleast one space is required");
+                        }
                       }}
                     />
                   </button>

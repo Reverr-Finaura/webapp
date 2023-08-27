@@ -88,28 +88,27 @@ const UserProfileTesting = () => {
   }, [userDoc]);
 
   // console.log("userDoc", userDoc);
-const handlevibebtn=async()=>{
-    const val=false
+  const handlevibebtn = async () => {
+    const val = false;
 
-    dispatch(setUserDoc({...userDoc,vibeuser:val}))
+    dispatch(setUserDoc({ ...userDoc, vibeuser: val }));
 
     const mydata = {
       ...userDoc,
-      vibeuser: val
-    }
+      vibeuser: val,
+    };
     try {
       // Attempt to upload the data
       await uploadOnboardingData(mydata);
       // If data upload is successful, navigate to the next page
-      navigate('/vibe')
+      navigate("/vibe");
     } catch (err) {
       console.error(err);
       // Handle the error (optional) or show an error message to the user
       // Don't navigate since data upload was not successful
     }
+  };
 
-  }
-  
   const uploadOnboardingData = async (data) => {
     const userEmail = user?.user?.email;
     if (!userEmail) {
@@ -125,9 +124,12 @@ const handlevibebtn=async()=>{
       console.error(err);
       throw err; // Rethrow the error to be caught in the calling function
     }
-
-  
   };
+
+  function isValidURL(url) {
+    const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/;
+    return urlPattern.test(url);
+  }
 
   return (
     <>
@@ -235,7 +237,7 @@ const handlevibebtn=async()=>{
               >
                 Edit Profile
               </button>
-              <button  onClick={handlevibebtn}>Vibe only </button>
+              <button onClick={handlevibebtn}>Vibe only </button>
             </div>
           </div>
           {userDoc?.userType === "Mentor" ? (
@@ -271,7 +273,9 @@ const handlevibebtn=async()=>{
           <div className={styles.profileContent}>
             <div className={styles.aboutMe}>
               <p>About Me</p>
-              <p>{userDoc?.about ? userDoc.about.slice(0,1000) : "Add your Bio"}</p>
+              <p>
+                {userDoc?.about ? userDoc.about.slice(0, 1000) : "Add your Bio"}
+              </p>
             </div>
             <div className={styles.aboutMe}>
               <p>Current Designation</p>
@@ -355,19 +359,79 @@ const handlevibebtn=async()=>{
               <p>Social Handles</p>
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
-                <p>
+                <p
+                  onClick={() => {
+                    if (userDoc?.linkedin && isValidURL(userDoc?.linkedin)) {
+                      window.open(userDoc.linkedin, "_blank");
+                    }
+                  }}
+                  style={{
+                    cursor:
+                      userDoc?.linkedin && isValidURL(userDoc?.linkedin)
+                        ? "pointer"
+                        : "default",
+                    color:
+                      userDoc?.linkedin && isValidURL(userDoc.linkedin)
+                        ? "#109cdc"
+                        : "inherit",
+                  }}
+                >
                   {userDoc?.linkedin ? userDoc.linkedin : "Add your linkedin"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/devicon_facebook.svg" alt="fb" />
-                <p>
-                  {userDoc?.facebookLink ? userDoc.facebookLink : "Add your facebook"}
+                <p
+                  onClick={() => {
+                    if (
+                      userDoc?.facebookLink &&
+                      isValidURL(userDoc?.facebookLink)
+                    ) {
+                      window.open(userDoc.facebookLink, "_blank");
+                    }
+                  }}
+                  style={{
+                    cursor:
+                      userDoc?.facebookLink && isValidURL(userDoc?.facebookLink)
+                        ? "pointer"
+                        : "default",
+                    color:
+                      userDoc?.facebookLink && isValidURL(userDoc.facebookLink)
+                        ? "#109cdc"
+                        : "inherit",
+                  }}
+                >
+                  {userDoc?.facebookLink
+                    ? userDoc.facebookLink
+                    : "Add your facebook"}
                 </p>
               </div>
               <div className={styles.contactItem}>
                 <img src="/images/skill-icons_twitter.svg" alt="Linkedin" />
-                <p>{userDoc?.twitterLink ? userDoc.twitterLink : "Add your twitter"}</p>
+                <p
+                  onClick={() => {
+                    if (
+                      userDoc?.twitterLink &&
+                      isValidURL(userDoc?.twitterLink)
+                    ) {
+                      window.open(userDoc.twitterLink, "_blank");
+                    }
+                  }}
+                  style={{
+                    cursor:
+                      userDoc?.twitterLink && isValidURL(userDoc?.twitterLink)
+                        ? "pointer"
+                        : "default",
+                    color:
+                      userDoc?.twitterLink && isValidURL(userDoc.twitterLink)
+                        ? "#109cdc"
+                        : "inherit",
+                  }}
+                >
+                  {userDoc?.twitterLink
+                    ? userDoc.twitterLink
+                    : "Add your twitter"}
+                </p>
               </div>
             </div>
           </div>
