@@ -157,7 +157,7 @@ const ProfileSummary = () => {
       ) : (
         <button
           className={styles.addSpaceButton}
-          onClick={() => console.log("add spaces clicked")}
+          onClick={() => navigate("/editprofile")}
         >
           Add Space
         </button>

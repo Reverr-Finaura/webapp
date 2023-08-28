@@ -330,8 +330,10 @@ const User = () => {
       // -----------------------------------------------------------------------------
 
       //------------ Create respective Docs for sending and receiving messages ------------------
-      const currentUserType = currentLoggedInUserDoc?.userType?.toLowerCase() ?? "not_mentor";
-      const otherUserType = otherUserDoc?.userType?.toLowerCase() ?? "not_mentor";   // in case userType is not present in the doc, set it to "not_mentor"
+      const currentUserType =
+        currentLoggedInUserDoc?.userType?.toLowerCase() ?? "not_mentor";
+      const otherUserType =
+        otherUserDoc?.userType?.toLowerCase() ?? "not_mentor"; // in case userType is not present in the doc, set it to "not_mentor"
 
       if (
         (currentUserType === "mentor" && otherUserType === "mentor") ||
@@ -455,6 +457,11 @@ const User = () => {
       toast(error.message);
     }
   };
+
+  function isValidURL(url) {
+    const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/;
+    return urlPattern.test(url);
+  }
 
   return (
     <>
@@ -782,22 +789,91 @@ const User = () => {
           <div className={styles.profileContact}>
             <div className={styles.contact}>
               <p>Social Handles</p>
-              {otherUserDoc?.linlkedin && (
+              {otherUserDoc?.linkedin && (
                 <div className={styles.contactItem}>
                   <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
-                  <p>{otherUserDoc?.linlkedin}</p>
+                  <p
+                    onClick={() => {
+                      if (
+                        otherUserDoc?.linkedin &&
+                        isValidURL(otherUserDoc?.linkedin)
+                      ) {
+                        window.open(otherUserDoc.linkedin, "_blank");
+                      }
+                    }}
+                    style={{
+                      cursor:
+                        otherUserDoc?.linkedin &&
+                        isValidURL(otherUserDoc?.linkedin)
+                          ? "pointer"
+                          : "default",
+                      color:
+                        otherUserDoc?.linkedin &&
+                        isValidURL(otherUserDoc.linkedin)
+                          ? "#109cdc"
+                          : "inherit",
+                    }}
+                  >
+                    {otherUserDoc?.linkedin}
+                  </p>
                 </div>
               )}
-              {otherUserDoc?.facebook && (
+              {otherUserDoc?.facebookLink && (
                 <div className={styles.contactItem}>
-                  <img src="/images/fbIcon.png" alt="Linkedin" />
-                  <p>{otherUserDoc?.facebook}</p>
+                  <img src="/images/devicon_facebook.svg" alt="Linkedin" />
+                  <p
+                    onClick={() => {
+                      if (
+                        otherUserDoc?.facebookLink &&
+                        isValidURL(otherUserDoc?.facebookLink)
+                      ) {
+                        window.open(otherUserDoc.facebookLink, "_blank");
+                      }
+                    }}
+                    style={{
+                      cursor:
+                        otherUserDoc?.facebookLink &&
+                        isValidURL(otherUserDoc?.facebookLink)
+                          ? "pointer"
+                          : "default",
+                      color:
+                        otherUserDoc?.facebookLink &&
+                        isValidURL(otherUserDoc.facebookLink)
+                          ? "#109cdc"
+                          : "inherit",
+                    }}
+                  >
+                    {otherUserDoc?.facebookLink}
+                  </p>
                 </div>
               )}
               {otherUserDoc?.twitter && (
                 <div className={styles.contactItem}>
-                  <img src="/images/twitter.svg" alt="Linkedin" />
-                  <p>{otherUserDoc?.twitter}</p>
+                  <img src="/images/skill-icons_twitter.svg" alt="Linkedin" />
+                  <p
+                    onClick={() => {
+                      if (
+                        otherUserDoc?.twitterLink &&
+                        isValidURL(otherUserDoc?.twitterLink)
+                      ) {
+                        window.open(otherUserDoc.twitterLink, "_blank");
+                      }
+                    }}
+                    style={{
+                      cursor:
+                        otherUserDoc?.twitterLink &&
+                        isValidURL(otherUserDoc?.twitterLink)
+                          ? "pointer"
+                          : "default",
+                      color:
+                        otherUserDoc?.twitterLink &&
+                        isValidURL(otherUserDoc.twitterLink)
+                          ? "#109cdc"
+                          : "inherit",
+                    }}
+                  >
+                    {otherUserDoc?.twitter}
+                  </p>
                 </div>
               )}
             </div>
