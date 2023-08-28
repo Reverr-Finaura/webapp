@@ -1663,7 +1663,8 @@ body::-webkit-scrollbar {
   }
 
   #postTextContainerExpanded {
-    width:-webkit-fill-available;
+    width: unset;
+    font-size:13px;
   }
 
   .sortOptionBigContainer {
