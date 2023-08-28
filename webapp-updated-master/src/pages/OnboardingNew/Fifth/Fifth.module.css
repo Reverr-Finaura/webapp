@@ -161,7 +161,7 @@
 
   .leftComponent {
     align-items: center;
-    width: 100vw;
+    width: 100%;
     margin-left: 0;
   }
   .mainContent {
@@ -174,9 +174,7 @@
     font-size: 0.6rem;
   }
   .objectiveContainer {
-    display: flex;
-    flex-wrap: wrap;
-    /* grid-template-columns: 1fr 1fr 1fr 1fr;  */
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
   }
 
   .objectiveCard {
@@ -209,7 +207,7 @@
 
 .skipButton {
   padding: 5px 25px;
-  margin-right: 10px;
+  margin-right: 0px;
   font-size: 0.8rem;
 }
 
@@ -217,6 +215,31 @@
     display: none;
   }
 }
+
+
+@media screen and (max-width: 350px){
+  .objectiveContainer{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 300px){
+  .leftButton{
+    width: 70px;
+    padding: 5px 17px;
+  }
+  .rightButton{
+    width: 70px;
+    padding: 5px 17px;
+  }
+  .skipButton{
+    width: 60px;
+    padding: 5px 17px;
+  }
+}
+
+
+
 @media (min-width:871px) and (max-width:1000px) {
   .container{
     width: -webkit-fill-available;
