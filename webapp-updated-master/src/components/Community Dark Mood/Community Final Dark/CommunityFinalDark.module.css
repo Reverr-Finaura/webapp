@@ -1773,6 +1773,7 @@ body::-webkit-scrollbar {
     font-size: 10px;
     width: 105px;
     border: 0.2px solid #fff;
+    flex: unset !important;
 
   }
   .postAssetsIconMaindiv{
