@@ -1663,7 +1663,8 @@ body::-webkit-scrollbar {
   }
 
   #postTextContainerExpanded {
-    width:-webkit-fill-available;
+    width: unset;
+    font-size:13px;
   }
 
   .sortOptionBigContainer {
@@ -1772,6 +1773,7 @@ body::-webkit-scrollbar {
     font-size: 10px;
     width: 105px;
     border: 0.2px solid #fff;
+    flex: unset !important;
 
   }
   .postAssetsIconMaindiv{
