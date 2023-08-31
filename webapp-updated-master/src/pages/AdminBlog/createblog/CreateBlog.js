@@ -1,63 +1,83 @@
 import { useState } from "react";
-// import { dateGenerator } from "../../../utils/dategenerator";
-// import { uidGenerator } from "../../../utils/uidgenerator";
-import {  uploadMedia } from "../../../firebase";
-import styles from"./createblog.module.css";
+import { dateGenerator } from "../../../Utils/dategenerator";
+import { uidGenerator } from "../../../Utils/uidgenerator";
+import { addBlogInDatabase, uploadBlogMedia } from "../../../firebase";
+import styles from "./createblog.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import ReactQuill, { Quill } from "react-quill";
+import ImageUploader from "quill-image-uploader";
+import ImageResize from "quill-image-resize-module-react";
+import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
+import "quill-image-uploader/dist/quill.imageUploader.min.css";
+
+Quill.register("modules/imageUploader", ImageUploader);
+Quill.register("modules/imageResize", ImageResize);
+
+const modules = {
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["blockquote"],
+      // ["blockquote", "code-block"],
+      [{ image: "customImageHandler" }],
+      ["video", "link"],
+      [{ color: [] }, { background: [] }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ align: [] }],
+      [{ script: "sub" }, { script: "super" }],
+      ["clean"],
+    ],
+  },
+  imageUploader: {
+    upload: async (file) => {
+      try {
+        const imgUrl = await uploadBlogMedia(file);
+        return imgUrl;
+      } catch (error) {
+        // Handle any errors that occur during the upload.
+        console.error("Error uploading image:", error);
+        throw error; // Rethrow the error to reject the promise
+      }
+    },
+  },
+  imageResize: {
+    parchment: Quill.import("parchment"),
+    modules: ["Resize", "DisplaySize"],
+  },
+};
 
 const CreateBlog = () => {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
-  const [imgFile, setImgFile] = useState(null);
-  const [textContent, setTextContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const dateGenerator = () => {
-    const date = new Date();
-    const newDate = date.toLocaleString("en-US", {
-      day: "numeric",
-      year: "numeric",
-      month: "long",
-    });
-  
-    return newDate;
-  };
-  
-  const uidGenerator = (length = 20) => {
-    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let uid = "";
-    for (let i = 0; i < length; i++) {
-      uid += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-  
-    return uid;
-  };
-
-  
-  
+  const [value, setValue] = useState("");
 
   const onAddPostHandler = async () => {
     setIsLoading(true);
-    const img = await uploadMedia(imgFile, "Images/reverrBlogImages");
     let uid = uidGenerator();
     let publishedOn = dateGenerator();
 
     const blogData = {
       author: author,
       heading: title,
-      body: textContent,
-      image: { imageName: imgFile.name, imageUrl: img },
+      body: value,
       publishedOn: publishedOn,
       id: uid,
     };
-    // await addBlogInDatabase(uid, blogData);
+    await addBlogInDatabase(uid, blogData);
     setIsLoading(false);
     setAuthor("");
     setTitle("");
-    setTextContent("");
+    setValue("");
     toast.success("Post Added Successfully !", { position: "bottom-left" });
   };
+
   return (
     <>
       <div className={styles.Main_CreateBlog_Container}>
@@ -72,19 +92,9 @@ const CreateBlog = () => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="title"
           />
-
-          <input
-            type="file"
-            onChange={(e) => {
-              if (e.target.files[0]) {
-                setImgFile(e.target.files[0]);
-              }
-            }}
-          />
-
           <button
             onClick={async () => {
-              if (author && title && textContent) {
+              if (author && title && value) {
                 onAddPostHandler();
               } else {
                 toast.error("Fields can't be empty !", {
@@ -96,14 +106,20 @@ const CreateBlog = () => {
             {isLoading ? "Uploading..." : " Add Post"}
           </button>
         </div>
-        <div className={styles.Blog_TextContent}>
-          <textarea
-            value={textContent}
-            onChange={(e) => setTextContent(e.target.value)}
-            placeholder="Do not think ! Just write it "
-            rows="18"
-          />
-        </div>
+
+        <ReactQuill
+          className={styles.editor}
+          theme="snow"
+          value={value}
+          onChange={setValue}
+          modules={modules}
+        />
+        {/* <ReactQuill
+          className={styles.preview}
+          value={value}
+          readOnly={true}
+          theme={"bubble"}
+        /> */}
       </div>
       <ToastContainer />
     </>

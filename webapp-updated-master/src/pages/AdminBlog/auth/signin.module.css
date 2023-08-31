@@ -19,19 +19,22 @@
     border-radius: 3px;
   }
   
-  .SignIn_Container input,
+  /* .SignIn_Container input,
   p {
-    /* width: 100%; */
     width: 80%;
     margin: 0.5rem;
-  }
+  } */
   
   .SignIn_Container p {
+    width: 80%;
+    margin: 0.5rem;
     text-align: center;
     font-size: large;
     font-weight: 300;
   }
   .SignIn_Container input {
+    width: 80%;
+    margin: 0.5rem;
     border: 1px solid grey;
     padding: 1rem;
     border-radius: 4px;
