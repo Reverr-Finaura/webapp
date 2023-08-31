@@ -12,6 +12,7 @@ const ProtectedRoute = ({ children }) => {
   if(storedBlogUser === null){
     return <Navigate to="/blogsignin" replace />;
   }
+  return children
 };
 
 export default ProtectedRoute;
