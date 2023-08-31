@@ -13,52 +13,57 @@
 .infiniteScrollOuterDiv::-webkit-scrollbar {
   display: none;
 }
-.imageModal{
+
+.imageModal {
   position: relative;
-    z-index: 99999999999;
-    background-color:#0c1631;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    flex-direction: column;
-    height: 50%;
-    width: 85%;
+  z-index: 99999999999;
+  background-color: #0c1631;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  flex-direction: column;
+  height: 50%;
+  width: 85%;
 }
+
 .overlay {
-  position: fixed; /* Positioning and size */
+  position: fixed;
+  /* Positioning and size */
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(128,128,128,0.5); /* color */
+  background-color: rgba(128, 128, 128, 0.5);
+  /* color */
   z-index: 9999999999;
   background: rgba(0, 0, 0, 0.60);
   backdrop-filter: blur(2.5px);
   display: flex;
   justify-content: center;
   align-items: center;
- 
-}
-.imageModalSubmitebtn{
-      /* margin-left: auto; */
-      background: #2a72de;
-      border-radius: 10px;
-      padding: 2px 16px;
-      font-family: "Poppins";
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      color: white;
-      border: none;
-      /* background-color: #cccccc; */
-      
-    position: absolute;
-    bottom: 18px;
-    right: 50px;
-    cursor: pointer;
 
-     
+}
+
+.imageModalSubmitebtn {
+  /* margin-left: auto; */
+  background: #2a72de;
+  border-radius: 10px;
+  padding: 2px 16px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+  border: none;
+  /* background-color: #cccccc; */
+
+  position: absolute;
+  bottom: 18px;
+  right: 50px;
+  cursor: pointer;
+
+
 }
 
 
@@ -139,9 +144,9 @@
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: #FFF;
-font-size: 28px;
-font-family: Reem Kufi;
-font-weight: 700;
+  font-size: 28px;
+  font-family: Reem Kufi;
+  font-weight: 700;
 }
 
 .postUploaddSquareCont {
@@ -169,12 +174,12 @@ font-weight: 700;
 
 .communityUploadContUserImage {
   border-radius: 25px;
-    margin-top: 0.8rem;
-    margin-right: 1rem;
-      width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    object-fit: cover;
+  margin-top: 0.8rem;
+  margin-right: 1rem;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  object-fit: cover;
 }
 
 .textAreaUploadContainer {
@@ -250,7 +255,7 @@ font-weight: 700;
   color: #ffffff;
 }
 
-.userSpaceSelect{
+.userSpaceSelect {
   padding: 8px;
   font-size: 14px;
   border: 1px solid #fff;
@@ -260,13 +265,15 @@ font-weight: 700;
   /* border: none; */
   color: #fff;
 }
-.userSpaceOption{
+
+.userSpaceOption {
   padding: 4px;
-   font-size: 14px;
- }
- .userSpaceOption:checked{
-    background-color: #ccc;
- }
+  font-size: 14px;
+}
+
+.userSpaceOption:checked {
+  background-color: #ccc;
+}
 
 /* SORT POST SECTION */
 
@@ -461,16 +468,17 @@ font-weight: 700;
   width: -webkit-fill-available !important;
 }
 
-.ArrowImgAfterTextArea{
-  
-    display: flex;
-    position: absolute;
-    right: 0px !important;
-    top: 15px;
-    cursor: pointer;
-    height: 40px;
-  
+.ArrowImgAfterTextArea {
+
+  display: flex;
+  position: absolute;
+  right: 0px !important;
+  top: 15px;
+  cursor: pointer;
+  height: 40px;
+
 }
+
 .playButton {
   display: inline-block;
   width: 51px;
@@ -488,13 +496,16 @@ font-weight: 700;
 }
 
 .playButton:hover {
-  background-color: #e0e0e0; /* Darker background color on hover */
-  transform: scale(1.1); /* Slightly scale up on hover for a subtle effect */
+  background-color: #e0e0e0;
+  /* Darker background color on hover */
+  transform: scale(1.1);
+  /* Slightly scale up on hover for a subtle effect */
   color: #030b18;
 }
 
 .playButton:focus {
-  outline: none; /* Remove focus outline */
+  outline: none;
+  /* Remove focus outline */
 }
 
 #postTextContainer::placeholder {
@@ -601,8 +612,9 @@ font-weight: 700;
   cursor: pointer;
   position: unset !important;
 }
-.disabledPostIconButton{
-    /* margin-left: auto; */
+
+.disabledPostIconButton {
+  /* margin-left: auto; */
   background: #2a72de;
   border-radius: 10px;
   padding: 2px 16px;
@@ -612,7 +624,7 @@ font-weight: 700;
   font-size: 18px;
   color: white;
   border: none;
-  
+
   /* background-color: #cccccc; */
   cursor: not-allowed;
 }
@@ -653,27 +665,28 @@ font-weight: 700;
   width: 90%;
   display: flex;
 }
-.spaceTag{
+
+.spaceTag {
   border: 2px solid #fff;
-    width: max-content;
-    padding: 3px 21px;
-    border-radius: 28px;
-    margin: 6px 0px 20px 10px;
-    color: #fff;
+  width: max-content;
+  padding: 3px 21px;
+  border-radius: 28px;
+  margin: 6px 0px 20px 10px;
+  color: #fff;
 }
 
 .communityPostImageCont {
   width: 98%;
- padding-left: 0.5rem;
- border: none;
- border-bottom: 0;
- border-top: 0;
- margin-top: -10px;
- display: flex;
- justify-content: center;
- /* gap: 1rem; */
- height: 296px;
- position: relative;
+  padding-left: 0.5rem;
+  border: none;
+  border-bottom: 0;
+  border-top: 0;
+  margin-top: -10px;
+  display: flex;
+  justify-content: center;
+  /* gap: 1rem; */
+  height: 296px;
+  position: relative;
 
 }
 
@@ -796,7 +809,7 @@ font-weight: 700;
   position: absolute;
 }
 
-.clsBtn{
+.clsBtn {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -1041,16 +1054,19 @@ body::-webkit-scrollbar {
   color: #ffffff;
   font-weight: 200;
 }
-.communityNavbarBlockNav{
+
+.communityNavbarBlockNav {
   cursor: pointer;
 }
-.activeNav{
+
+.activeNav {
   border-bottom: 3px solid #16b9ff;
   padding-bottom: 5px;
-  
+
 }
-.activeNavHeading{
-  color:#16b9ff ;
+
+.activeNavHeading {
+  color: #16b9ff;
 }
 
 
@@ -1114,11 +1130,12 @@ body::-webkit-scrollbar {
 
 }
 
-.spaceMenuDataActive{
-   background-color: #ffffff;
+.spaceMenuDataActive {
+  background-color: #ffffff;
 }
-.spaceMenuDataParaActive{
-   color: black;
+
+.spaceMenuDataParaActive {
+  color: black;
 }
 
 .spaceModalHeading {
@@ -1131,13 +1148,15 @@ body::-webkit-scrollbar {
 }
 
 .spaceMenuInput {}
-.spaceDoneCloseBtn{
-    display: flex;
-    align-items: center;
-    margin-top: 3em;
- 
+
+.spaceDoneCloseBtn {
+  display: flex;
+  align-items: center;
+  margin-top: 3em;
+
 }
-.spaceCloseBtn{
+
+.spaceCloseBtn {
   border-radius: 87.273px;
   background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
   display: flex;
@@ -1156,7 +1175,8 @@ body::-webkit-scrollbar {
   outline: none;
   border: none;
 }
-.spaceDoneBtn{
+
+.spaceDoneBtn {
   border-radius: 87.273px;
   background: var(--blue, linear-gradient(97deg, #00B3FF 57.09%, #4CC9FF 100%));
   display: flex;
@@ -1177,11 +1197,12 @@ body::-webkit-scrollbar {
   outline: none;
   border: none;
 }
+
 .spaceSectionButton {
 
   padding: 5px 20px;
   border-radius: 48px;
-    border: none;
+  border: none;
   color: #030B18;
   font-size: 18px;
   font-family: Poppins;
@@ -1199,7 +1220,8 @@ body::-webkit-scrollbar {
   align-items: center;
 
 }
-.spaceSectionButtonImg{
+
+.spaceSectionButtonImg {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1208,37 +1230,31 @@ body::-webkit-scrollbar {
 
 
 @media (max-width: 1470px) {
+
   /* For Icons , Images,video */
-  .reverrCommunityUploadContainerrr{
+  .reverrCommunityUploadContainerrr {
     position: relative;
-    right:3px;
+    right: 3px;
 
   }
-  .icon_text{
-  }
+
+  .icon_text {}
 
   /* ****** */
   /* Next two components are the parent of text area and img*/
-  .navbarUploadPostOuterBoxContainer{
-    
-   
+  .navbarUploadPostOuterBoxContainer {}
 
-  }
-  .UploadPostOuterBoxContainerNotExpanded{
-   
-   
-
-  }
+  .UploadPostOuterBoxContainerNotExpanded {}
 
   /* ***************** */
-  .postAssetsIconMain{
-    
+  .postAssetsIconMain {
+
     /* margin-left: 59px; */
     gap: unset;
-    
+
   }
 
-  .ArrowImgAfterTextArea{
+  .ArrowImgAfterTextArea {
     right: 65px;
 
   }
@@ -1247,11 +1263,12 @@ body::-webkit-scrollbar {
   #postTextContainer {
     height: 38px;
     width: 70%;
-   
+
   }
+
   #postTextContainerExpanded {
     height: fit-content;
-  
+
     width: 92.5%;
     padding-left: 0.5rem;
     font-size: 18px;
@@ -1261,242 +1278,246 @@ body::-webkit-scrollbar {
     margin-bottom: 0;
     padding-bottom: 0;
     border: none;
-  
+
     background-color: #1a1e28;
     color: #fff;
     margin-bottom: 30px;
   }
+
   .uploadPostIconButton {
     /* margin-left: auto; */
     position: absolute;
-    
-    
+
+
   }
-  .postAssetsIconMaindiv{
+
+  .postAssetsIconMaindiv {
     font-size: 12px;
     cursor: pointer;
     border: 2px solid #fff;
     padding: 6px 10px 6px 10px;
 
   }
-  .userSpaceSelect{
+
+  .userSpaceSelect {
     font-size: 12px;
-    width:unset;
+    width: unset;
   }
 }
-  @media (max-width: 1335px) {
-    /* For Icons , Images,video */
-    .reverrCommunityUploadContainerrr{
-      position: relative;
-      right:0px;
-      
 
-  
-    }
-    .icon_text{
-    }
-  
-    /* ****** */
-    /* Next two components are the parent of text area and img*/
-    .navbarUploadPostOuterBoxContainer{
-      
-     
-  
-    }
-    .UploadPostOuterBoxContainerNotExpanded{
-     
-    }
-  
-    /* ***************** */
-    .postAssetsIconMain{
-      
-      display: flex;
-      flex-wrap: wrap;
+@media (max-width: 1335px) {
 
-    }
-  
-     .ArrowImgAfterTextArea{
-      right: 10px;
-  
-    }
-  
-  
-    #postTextContainer {
-      height: 38px;
-      width: 70%;
-     
-    }
-    #postTextContainer::placeholder {
-      color: var(--main-text);
-      white-space: pre-wrap;
-    }
-    
-    #postTextContainerExpanded::placeholder {
-      color: var(--main-text);
-      white-space: pre-wrap;
-    }
-    #postTextContainerExpanded {
-      height: fit-content;
-    
-      width:-webkit-fill-available;
-      padding-left: 0.5rem;
-      font-size: 18px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border: none;
-    
-      background-color: #1a1e28;
-      color: #fff;
-      margin-bottom: 30px;
-    }
-    .uploadPostIconButton {
-    /*position: relative;
-    right: 50px;
-    top: -5px;*/
-    margin-left: 0%;
-    background: #2a72de;
-    border-radius: 10px;
-    padding: 2px 16px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 99999;
-   }
+  /* For Icons , Images,video */
+  .reverrCommunityUploadContainerrr {
+    position: relative;
+    right: 0px;
+
+
+
   }
-  @media (max-width: 1090px) {
-    /* For Icons , Images,video */
-    .reverrCommunityUploadContainerrr{
-      position: relative;
-      right:-3px;
-      
 
-  
-    }
-    .icon_text{
-    }
-  
-    /* ****** */
-    /* Next two components are the parent of text area and img*/
-    .navbarUploadPostOuterBoxContainer{
-      
-     
-  
-    }
-    .UploadPostOuterBoxContainerNotExpanded{
-     
-    }
-  
-    /* ***************** */
-    .postAssetsIconMain{
-     
-      display: flex;
-      flex-wrap: wrap;
+  .icon_text {}
 
-    }
-  
-     .ArrowImgAfterTextArea{
-      right: 10px;
-      height: 30px;
-  
-    }
-  
-  
-    #postTextContainer {
-      height: 30px;
-      width: 60%;
-     
-    }
-    #postTextContainer::placeholder {
-      color: var(--main-text);
-      white-space: pre-wrap;
-    }
-    
-    #postTextContainerExpanded::placeholder {
-      color: var(--main-text);
-      white-space: pre-wrap;
-    }
-    #postTextContainerExpanded {
-      height: fit-content;
-    
-      width: 92.5%;
-      padding-left: 0.5rem;
-      font-size: 18px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border: none;
-    
-      background-color: #1a1e28;
-      color: #fff;
-      margin-bottom: 30px;
-    }
-    .uploadPostIconButton {
-    /*position: relative;
-    right: 50px;
-    top: -5px;*/
-    margin-left: 0%;
-    background: #2a72de;
-    border-radius: 10px;
-    padding: 2px 16px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 99999;
-   }
-  }
-@media (max-width:1120px) {
-  .userRow{
+  /* ****** */
+  /* Next two components are the parent of text area and img*/
+  .navbarUploadPostOuterBoxContainer {}
+
+  .UploadPostOuterBoxContainerNotExpanded {}
+
+  /* ***************** */
+  .postAssetsIconMain {
+
+    display: flex;
     flex-wrap: wrap;
 
   }
-  
-}
-  
-  /* #communityNewsSection {
-    width: 34.5%;
-  } */
-  #Article_and_Event {
-    width: 18%;
+
+  .ArrowImgAfterTextArea {
+    right: 10px;
+
   }
 
-  /* #communityFinalPage {
+
+  #postTextContainer {
+    height: 38px;
+    width: 70%;
+
+  }
+
+  #postTextContainer::placeholder {
+    color: var(--main-text);
+    white-space: pre-wrap;
+  }
+
+  #postTextContainerExpanded::placeholder {
+    color: var(--main-text);
+    white-space: pre-wrap;
+  }
+
+  #postTextContainerExpanded {
+    height: fit-content;
+
+    width: -webkit-fill-available;
+    padding-left: 0.5rem;
+    font-size: 18px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+
+    background-color: #1a1e28;
+    color: #fff;
+    margin-bottom: 30px;
+  }
+
+  .uploadPostIconButton {
+    /*position: relative;
+    right: 50px;
+    top: -5px;*/
+    margin-left: 0%;
+    background: #2a72de;
+    border-radius: 10px;
+    padding: 2px 16px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 99999;
+  }
+}
+
+@media (max-width: 1090px) {
+
+  /* For Icons , Images,video */
+  .reverrCommunityUploadContainerrr {
+    position: relative;
+    right: -3px;
+
+
+
+  }
+
+  .icon_text {}
+
+  /* ****** */
+  /* Next two components are the parent of text area and img*/
+  .navbarUploadPostOuterBoxContainer {}
+
+  .UploadPostOuterBoxContainerNotExpanded {}
+
+  /* ***************** */
+  .postAssetsIconMain {
+
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+
+  .ArrowImgAfterTextArea {
+    right: 10px;
+    height: 30px;
+
+  }
+
+
+  #postTextContainer {
+    height: 30px;
+    width: 60%;
+
+  }
+
+  #postTextContainer::placeholder {
+    color: var(--main-text);
+    white-space: pre-wrap;
+  }
+
+  #postTextContainerExpanded::placeholder {
+    color: var(--main-text);
+    white-space: pre-wrap;
+  }
+
+  #postTextContainerExpanded {
+    height: fit-content;
+
+    width: 92.5%;
+    padding-left: 0.5rem;
+    font-size: 18px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+
+    background-color: #1a1e28;
+    color: #fff;
+    margin-bottom: 30px;
+  }
+
+  .uploadPostIconButton {
+    /*position: relative;
+    right: 50px;
+    top: -5px;*/
+    margin-left: 0%;
+    background: #2a72de;
+    border-radius: 10px;
+    padding: 2px 16px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 99999;
+  }
+}
+
+@media (max-width:1120px) {
+  .userRow {
+    flex-wrap: wrap;
+
+  }
+
+}
+
+/* #communityNewsSection {
+    width: 34.5%;
+  } */
+#Article_and_Event {
+  width: 18%;
+}
+
+/* #communityFinalPage {
     margin-left: calc(100vw - 96.5%);
     width: 48%;
   } */
 
-  .commentPostIconn {
-    font-size: 1.5rem !important;
-  }
+.commentPostIconn {
+  font-size: 1.5rem !important;
+}
 
-  .postLikeCountText {
-    font-size: 0.9rem !important;
-  }
+.postLikeCountText {
+  font-size: 0.9rem !important;
+}
 
-  .postLikesContainerLikeIconn {
-    font-size: 1.5rem !important;
-    align-self: flex-end;
-  }
+.postLikesContainerLikeIconn {
+  font-size: 1.5rem !important;
+  align-self: flex-end;
+}
 
-  .postLikesContainer {
-    align-items: center;
-  }
+.postLikesContainer {
+  align-items: center;
+}
 
-  .postSendText {
-    font-size: 0.9rem !important;
-  }
+.postSendText {
+  font-size: 0.9rem !important;
+}
 
 
 @media (max-width: 1240px) {
@@ -1664,7 +1685,7 @@ body::-webkit-scrollbar {
 
   #postTextContainerExpanded {
     width: unset;
-    font-size:13px;
+    font-size: 13px;
   }
 
   .sortOptionBigContainer {
@@ -1748,35 +1769,41 @@ body::-webkit-scrollbar {
     height: 40px;
   }
 }
+
 @media (max-width: 500px) {
 
-  .postAssetsIconMain{
+  .postAssetsIconMain {
     width: -webkit-fill-available;
     position: unset;
     margin: 2px 2px;
     gap: unset;
-  
+
 
   }
-  .assest_icon{
+
+  .assest_icon {
     font-size: 18px;
   }
-  .disabledPostIconButton{
+
+  .disabledPostIconButton {
     font-size: 15px;
 
   }
-  .uploadPostIconButton{
+
+  .uploadPostIconButton {
     font-size: 15px;
     position: inherit;
   }
-  .userSpaceSelect{
+
+  .userSpaceSelect {
     font-size: 10px;
     width: 105px;
     border: 0.2px solid #fff;
     flex: unset !important;
 
   }
-  .postAssetsIconMaindiv{
+
+  .postAssetsIconMaindiv {
     padding: 3px 10px 3px 10px;
     font-size: 10px;
     border: 1px solid #fff;
@@ -1785,62 +1812,97 @@ body::-webkit-scrollbar {
     padding: 0px;
 
   }
-  .ArrowImgAfterTextArea{
+
+  .ArrowImgAfterTextArea {
     right: -3px;
     height: 35px;
 
   }
-  #postTextContainer{
+
+  #postTextContainer {
     height: 37px;
-    width: -webkit-fill-available  !important;
+    width: -webkit-fill-available !important;
 
   }
-  .communityNavbarBlock{
+
+  .communityNavbarBlock {
     padding: 8px
   }
-  .communityNavHeading{
+
+  .communityNavHeading {
     font-size: 15px;
     font-weight: 200;
 
- }
- .activeNavHeading{
-  font-size: 15px;
-  font-weight: 200;
-  
- }
- #communityFinalPage{
-  padding: 0px;
-  width: -webkit-fill-available;
-
- }
- .icon_text{
-  display: none;
- }
- .spaceSectionButton{
-  bottom: 22px;
-  left: 12px;
-     font-size: 12px;
-  padding: 2px 13px;
- }
- .spaceTag{
-  border: 1px solid #fff;
-  width: max-content;
-  padding: 0px 18px;
-  border-radius: 28px;
-  margin: 6px 0px 20px 10px;
-  color: #fff;
-  font-size: 15px;
- }
-}
-
-@media (max-width: 310px ){
-
-  .uploadPostContainerrrrSection{
-  padding: 10px
-   
   }
-  #postTextContainer{
-  width: 70% !important;
+
+  .activeNavHeading {
+    font-size: 15px;
+    font-weight: 200;
+
+  }
+
+  #communityFinalPage {
+    padding: 0px;
+    width: -webkit-fill-available;
+
+  }
+
+  .icon_text {
+    display: none;
+  }
+
+  .spaceSectionButton {
+    bottom: 22px;
+    left: 12px;
+    font-size: 12px;
+    padding: 2px 13px;
+  }
+
+  .spaceTag {
+    border: 1px solid #fff;
+    width: max-content;
+    padding: 0px 18px;
+    border-radius: 28px;
+    margin: 6px 0px 20px 10px;
+    color: #fff;
+    font-size: 15px;
   }
 }
-  
+
+@media (max-width: 400px) {
+
+#postTextContainer {
+
+  width: -webkit-fill-available !important;
+  font-size: 10px;
+   padding-top: 10px;
+
+}
+}
+
+
+@media (max-width: 380px) {
+
+  .uploadPostContainerrrrSection {
+    padding: 10px
+  }
+
+  #postTextContainer {
+
+    width: -webkit-fill-available !important;
+    font-size: 10px;
+
+    padding-right: 24%;
+    padding-top: 5px;
+
+  }
+}
+
+@media (max-width: 310px) {
+
+
+  #postTextContainer {
+
+    font-size: 7px;
+  }
+}
