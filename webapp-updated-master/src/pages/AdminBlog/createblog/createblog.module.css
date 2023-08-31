@@ -1,3 +1,17 @@
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+}
+.Main_CreateBlog_Container {
+  background-color: white;
+  height: 100%;
+}
+
 .Blog_Form {
   display: flex;
   justify-content: space-around;
@@ -43,9 +57,11 @@
 .Blog_TextContent {
   display: flex;
   justify-content: center;
+  height: 550px;
 }
 
 .Blog_TextContent textarea {
+  height: calc(100% - 32px);
   flex: 1;
   margin: 1rem;
   padding: 2rem;
