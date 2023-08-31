@@ -150,6 +150,7 @@ import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 import AppliedJob from "./pages/job posting/AppliedJob";
+import CreateBlog from "./pages/AdminBlog/createblog/CreateBlog";
 
 //admin-blogs 
 
@@ -228,6 +229,7 @@ function App() {
             <Route path="enterotp" element={<EnterOtpUpdated />}></Route>
           </>
         ) : null}
+        <Route path="/blog" element={<CreateBlog />}></Route>
         <Route path="/onboarding-first" element={<First />}></Route>
         <Route path="/onboarding-second" element={<Second />}></Route>
         <Route path="/onboarding-third" element={<Third />}></Route>

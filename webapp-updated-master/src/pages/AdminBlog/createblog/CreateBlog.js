@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { dateGenerator } from "../../../Utils/dategenerator";
-import { uidGenerator } from "../../../Utils/uidgenerator";
-import { addBlogInDatabase, uploadBlogMedia } from "../../../firebase";
-import styles from "./createblog.module.css";
+// import { dateGenerator } from "../../../utils/dategenerator";
+// import { uidGenerator } from "../../../utils/uidgenerator";
+import {  uploadMedia } from "../../../firebase";
+import styles from"./createblog.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,9 +13,33 @@ const CreateBlog = () => {
   const [textContent, setTextContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const dateGenerator = () => {
+    const date = new Date();
+    const newDate = date.toLocaleString("en-US", {
+      day: "numeric",
+      year: "numeric",
+      month: "long",
+    });
+  
+    return newDate;
+  };
+  
+  const uidGenerator = (length = 20) => {
+    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let uid = "";
+    for (let i = 0; i < length; i++) {
+      uid += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+  
+    return uid;
+  };
+
+  
+  
+
   const onAddPostHandler = async () => {
     setIsLoading(true);
-    const img = await uploadBlogMedia(imgFile);
+    const img = await uploadMedia(imgFile, "Images/reverrBlogImages");
     let uid = uidGenerator();
     let publishedOn = dateGenerator();
 
@@ -27,7 +51,7 @@ const CreateBlog = () => {
       publishedOn: publishedOn,
       id: uid,
     };
-    await addBlogInDatabase(uid, blogData);
+    // await addBlogInDatabase(uid, blogData);
     setIsLoading(false);
     setAuthor("");
     setTitle("");
