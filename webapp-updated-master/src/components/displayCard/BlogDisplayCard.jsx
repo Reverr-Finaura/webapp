@@ -4,16 +4,19 @@ import { useDispatch } from "react-redux";
 import { deleteBlog } from "../../features/createBlogSlice";
 import { deleteBlogInDatabse, deleteMedia } from "../../firebase";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
+
 const BlogDisplayCard = ({ data }) => {
-  const { heading, body, image, author, id, publishedOn } = data;
-  const { imageName, imageUrl } = image;
+  const { heading, body, author, id, publishedOn } = data;
+  // const { imageName, imageUrl } = image;
   const dispatch = useDispatch();
 
   return (
     <div className={styles.Main_CardContainer}>
-      <div className={styles.Card_ImgContainer}>
+      {/* <div className={styles.Card_ImgContainer}>
         <img src={imageUrl} alt="blog-img" />
-      </div>
+      </div> */}
       <div className={styles.Card_HeadingContainer}>
         <div className={styles.Card_Heading}>
           <h1>{heading}</h1>
@@ -26,14 +29,17 @@ const BlogDisplayCard = ({ data }) => {
                 console.log(id);
                 deleteBlogInDatabse(id);
                 dispatch(deleteBlog(id));
-                deleteMedia(imageName);
+                // deleteMedia(imageName);
               }}
             />
           </h2>
         </div>
       </div>
       <div className={styles.Card_ContentContainer}>
-        <p>{body}</p>
+        <p>
+        <ReactQuill value={body} readOnly={true} theme={"bubble"} />
+        </p>
+        {/* <p>{body}</p> */}
       </div>
       <div className={styles.Card_CreditContainer}>
         <cite>

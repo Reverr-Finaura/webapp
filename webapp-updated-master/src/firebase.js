@@ -444,7 +444,6 @@ export const sendNotification = async (toemail, fromemail, messaage) => {
 
 // blog firebase operations
 
-
 // Fetch Admins Data
 export const getAdminsFromDatabase = async () => {
   try {
@@ -466,7 +465,7 @@ export const getBlogsFromDatabase = async () => {
   try {
     let blogs = [];
     await (
-      await getDocs(collection(db, `Blogs`))
+      await getDocs(collection(db, `Blogs2`))
     ).forEach((doc) => {
       blogs.push({ ...doc.data() });
     });
@@ -478,10 +477,9 @@ export const getBlogsFromDatabase = async () => {
 
 
 // addDocs
-
 export const addBlogInDatabase = async (bid, data) => {
   try {
-    return await setDoc(doc(db, "Blogs", bid), data);
+    return await setDoc(doc(db, "Blogs2", bid), data);
   } catch (err) {
     console.log("Err: ", err);
   }
@@ -489,10 +487,9 @@ export const addBlogInDatabase = async (bid, data) => {
 
 
 // deleteDocs
-
 export const deleteBlogInDatabse = async (bid) => {
   try {
-    return await deleteDoc(doc(db, "Blogs", bid));
+    return await deleteDoc(doc(db, "Blogs2", bid));
   } catch (err) {
     console.log("Err: ", err);
   }
