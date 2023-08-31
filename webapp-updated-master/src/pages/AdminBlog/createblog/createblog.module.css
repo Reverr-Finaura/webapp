@@ -63,9 +63,11 @@
 .Blog_TextContent {
   display: flex;
   justify-content: center;
+  height: 550px;
 }
 
 .Blog_TextContent textarea {
+  height: calc(100% - 32px);
   flex: 1;
   margin: 1rem;
   padding: 2rem;

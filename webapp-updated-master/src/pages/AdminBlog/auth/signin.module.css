@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: white;
   }
   
   .SignIn_Container {
@@ -42,8 +43,10 @@
   
   .SingIn_Btn {
     width: 50%;
+    height: 2.5rem;
     cursor: pointer;
-    font-weight: 300;
+    border-radius: 4px;
+    font-weight: 600;
     border: 1px solid grey;
   }
   

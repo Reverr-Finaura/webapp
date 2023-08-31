@@ -34,9 +34,9 @@ const BlogDashboard = () => {
             <h1 style={{ color: "grey" }}>Admin</h1>
             <h3>{blogUser !== null ? blogUser.blogUser : "User"}</h3>
             <Link to="/create-blog">
-              <button>Create Post</button>
+              <button className={styles.createPost}>Create Post</button>
             </Link>
-            <button onClick={() => dispatch(logout())}>Logout</button>
+            <button className={styles.logout} onClick={() => dispatch(logout())}>Logout</button>
           </div>
           <div className={styles.R_Container}>
             {isLoading ? (
