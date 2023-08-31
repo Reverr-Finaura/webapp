@@ -150,7 +150,6 @@ import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 import AppliedJob from "./pages/job posting/AppliedJob";
-import CreateBlog from "./pages/AdminBlog/createblog/CreateBlog";
 
 //admin-blogs 
 
