@@ -10,11 +10,21 @@ function Patch({ isLoggedIn, openModal }) {
   const blogUser = useSelector((state) => state.blogUser);
   console.log("blogUSER", blogUser);
   const navigate = useNavigate();
-  let storedBlogUser;
-  useEffect(()=> {
-    storedBlogUser = localStorage.getItem("blogUser")
-    console.log("BLLogusER", storedBlogUser);
-  }, [])
+
+  const handleComingsoonClick = () => {
+    if (!isLoggedIn) {
+      return openModal();
+    } else {
+      //normal code
+      console.log("user logged!");
+    };
+    const storedBlogUser = localStorage.getItem("blogUser");
+    if(storedBlogUser !== null){
+      navigate("/blogdashboard");
+    }else{
+      navigate("/blogsignin");
+    }
+  }
   return (
     <div className={styles.container}>
       {/* <img src={vibeImg} alt="img" />
@@ -46,19 +56,7 @@ function Patch({ isLoggedIn, openModal }) {
         One-on-One Networking
       </text>
       <button
-        onClick={() => {
-          if (!isLoggedIn) {
-            return openModal();
-          } else {
-            //normal code
-            console.log("user logged!");
-          };
-          if(storedBlogUser !== null){
-            navigate("/blogdashboard");
-          }else{
-            navigate("/blogsignin");
-          }
-        }}
+        onClick={handleComingsoonClick}
       >
         Coming Soon!
       </button>
