@@ -11,8 +11,10 @@ import { HourglassSplit } from "react-bootstrap-icons";
 const BlogDashboard = () => {
   const dispatch = useDispatch();
   const blogUser = useSelector((state) => state.blogUser);
+  const storedBlogUser = localStorage.getItem("blogUser");
   const blogs = useSelector((state) => state.blogs);
   const [isLoading, setIsLoading] = useState(true);
+  console.log("BLOGUSER", blogUser);
   const getBlogs = async () => {
     const results = await getBlogsFromDatabase();
     if (results.length) {
@@ -32,11 +34,14 @@ const BlogDashboard = () => {
         <div className={styles.Dashboard_Container}>
           <div className={styles.L_Container}>
             <h1 style={{ color: "grey" }}>Admin</h1>
-            <h3>{blogUser !== null ? blogUser.blogUser : "User"}</h3>
+            <h3>{blogUser !== null ? (blogUser.blogUser || storedBlogUser) : "User"}</h3>
             <Link to="/create-blog">
               <button className={styles.createPost}>Create Post</button>
             </Link>
-            <button className={styles.logout} onClick={() => dispatch(logout())}>Logout</button>
+            <button className={styles.logout} onClick={() => {
+                dispatch(logout());
+                localStorage.removeItem("blogUser");
+            }}>Logout</button>
           </div>
           <div className={styles.R_Container}>
             {isLoading ? (

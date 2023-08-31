@@ -15,6 +15,7 @@ const SignIn = () => {
   const blogUser = useSelector((state) => state.blogUser);
 
   const getAdmin = async () => {
+    console.log("BLOGuser :",blogUser);
     const results = await getAdminsFromDatabase();
     if (results.length) {
       setAdmins([...results]);
@@ -35,9 +36,8 @@ const SignIn = () => {
       if (filteredAdmin.length) {
         dispatch(login(email));
         console.log("loged in");
-        console.log("blogUser :",blogUser);
-        
         navigate("/blogdashboard");
+        localStorage.setItem("blogUser", JSON.stringify(email));
       } else {
         toast.error("Please enter a valid email or password !", {
           autoClose: 2000,
