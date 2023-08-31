@@ -7,6 +7,7 @@ import {
   getFirestore,
   onSnapshot,
   serverTimestamp,
+  deleteDoc
 } from "firebase/firestore";
 import {
   doc,
@@ -24,6 +25,7 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
+  deleteObject
 } from "firebase/storage";
 import { current } from "@reduxjs/toolkit";
 
@@ -436,3 +438,83 @@ export const sendNotification = async (toemail, fromemail, messaage) => {
     console.log(error);
   }
 };
+
+
+
+
+// blog firebase operations
+
+
+// Fetch Admins Data
+export const getAdminsFromDatabase = async () => {
+  try {
+    let Admins = [];
+    await (
+      await getDocs(collection(db, `Admin`))
+    ).forEach((doc) => {
+      Admins.push({ ...doc.data() });
+    });
+    console.log(Admins)
+    return Admins;
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+// getDocs
+export const getBlogsFromDatabase = async () => {
+  try {
+    let blogs = [];
+    await (
+      await getDocs(collection(db, `Blogs`))
+    ).forEach((doc) => {
+      blogs.push({ ...doc.data() });
+    });
+    return blogs;
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+
+// addDocs
+
+export const addBlogInDatabase = async (bid, data) => {
+  try {
+    return await setDoc(doc(db, "Blogs", bid), data);
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+
+// deleteDocs
+
+export const deleteBlogInDatabse = async (bid) => {
+  try {
+    return await deleteDoc(doc(db, "Blogs", bid));
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+
+// Storage
+export const uploadBlogMedia = async (img) => {
+  try {
+    await uploadBytesResumable(
+      ref(storage, `Images/reverrBlogImages/${img.name}`),
+      img
+    );
+    const getImg = await ref(storage, `Images/reverrBlogImages/${img.name}`);
+    const imgLink = await getDownloadURL(getImg);
+    return imgLink;
+  } catch (err) {
+    console.log("Err: ", err);
+  }
+};
+
+export const deleteMedia = (imgName) => {
+  deleteObject(ref(storage, `Images/reverrBlogImages/${imgName}`));
+};
+

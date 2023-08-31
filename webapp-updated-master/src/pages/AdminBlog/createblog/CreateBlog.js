@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { dateGenerator } from "../../utils/dategenerator";
-import { uidGenerator } from "../../utils/uidgenerator";
-import { addBlogInDatabase, uploadMedia } from "../../firebase/firebase";
-import "./createblog.css";
+import { dateGenerator } from "../../../Utils/dategenerator";
+import { uidGenerator } from "../../../Utils/uidgenerator";
+import { addBlogInDatabase, uploadBlogMedia } from "../../../firebase";
+import styles from "./createblog.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,7 +15,7 @@ const CreateBlog = () => {
 
   const onAddPostHandler = async () => {
     setIsLoading(true);
-    const img = await uploadMedia(imgFile);
+    const img = await uploadBlogMedia(imgFile);
     let uid = uidGenerator();
     let publishedOn = dateGenerator();
 
@@ -36,8 +36,8 @@ const CreateBlog = () => {
   };
   return (
     <>
-      <div className="Main_CreateBlog_Container">
-        <div className="Blog_Form">
+      <div className={styles.Main_CreateBlog_Container}>
+        <div className={styles.Blog_Form}>
           <input
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
@@ -72,7 +72,7 @@ const CreateBlog = () => {
             {isLoading ? "Uploading..." : " Add Post"}
           </button>
         </div>
-        <div className="Blog_TextContent">
+        <div className={styles.Blog_TextContent}>
           <textarea
             value={textContent}
             onChange={(e) => setTextContent(e.target.value)}
