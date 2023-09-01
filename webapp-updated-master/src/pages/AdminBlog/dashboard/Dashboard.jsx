@@ -1,7 +1,7 @@
 import BlogDisplayCard from "../../../components/displayCard/BlogDisplayCard";
 import { useDispatch, useSelector } from "react-redux";
 import styles from  "./dashboard.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { logout } from "../../../features/blogUserSlice";
 import { setBlogs } from "../../../features/createBlogSlice";
 import { getBlogsFromDatabase } from "../../../firebase";
@@ -10,6 +10,7 @@ import { HourglassSplit } from "react-bootstrap-icons";
 
 const BlogDashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const blogUser = useSelector((state) => state.blogUser);
   const storedBlogUser = localStorage.getItem("blogUser");
   const blogs = useSelector((state) => state.blogs);
@@ -26,6 +27,12 @@ const BlogDashboard = () => {
   useEffect(() => {
     getBlogs();
     console.log('blogUser state after login:', blogUser);
+    const isBlogUser = localStorage.getItem("blogUser");
+    if(isBlogUser){
+      return;
+    }else{
+      navigate("/blogsignin")
+    }
   }, []);
 
   return (

@@ -6,7 +6,6 @@ const ProtectedRoute = ({ children }) => {
   if (blogUser.blogUser === null) {
     return <Navigate to="/blogsignin" replace />;
   }
-  
 
   return children;
 };
