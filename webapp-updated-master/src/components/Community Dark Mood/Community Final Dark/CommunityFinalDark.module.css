@@ -1869,6 +1869,18 @@ body::-webkit-scrollbar {
   }
 }
 
+@media (max-width: 413px) {
+
+  #postTextContainer {
+
+    font-size: 13px;
+
+    padding-right: 10%;
+    padding-top: 5px;
+
+  }
+}
+
 @media (max-width: 400px) {
 
 #postTextContainer {
@@ -1879,6 +1891,7 @@ body::-webkit-scrollbar {
 
 }
 }
+
 
 
 @media (max-width: 380px) {
@@ -1904,5 +1917,6 @@ body::-webkit-scrollbar {
   #postTextContainer {
 
     font-size: 7px;
+    padding-top: 10px;
   }
 }
