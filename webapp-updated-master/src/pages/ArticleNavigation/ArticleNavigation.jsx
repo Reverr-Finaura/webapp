@@ -6,7 +6,9 @@ import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import image from '../../images/arrowMark.svg'
-
+import { Trash } from "react-bootstrap-icons";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
 
 const ArticleNavigation = () => {
     const [info, setinfo] = useState('');
@@ -18,7 +20,7 @@ const ArticleNavigation = () => {
 
     useEffect(() => {
         async function fetchUserDocFromFirebase() {
-            const userDataRef = collection(db, "Blogs");
+            const userDataRef = collection(db, "Blogs2");
             const q = query(userDataRef);
             const querySnapshot = await getDocs(q);
 
@@ -32,7 +34,8 @@ const ArticleNavigation = () => {
     console.log(info);
    
 
-                    
+             
+    
 
 
     return (<>
@@ -45,21 +48,40 @@ const ArticleNavigation = () => {
         {loading ? (
             <p>Loading..</p>) :
             (
-                <div className={styles.container}>
-                    <div className={styles.headingCont}>
-                        <h1 className={styles.h1Heading}>{info.heading}</h1>
-                    </div>
-                    <div className={styles.imageCont}>
-                        <img className={styles.image} src={info?.image?.imageUrl} alt="img" />
-                    </div>
-                    
-                        { showAll ?<div> <p className={styles.lowerText}>{info.body}</p> <a className={styles.acont} onClick={()=>setshowAll(!showAll)}>Read less</a></div>:
-                       <div> <p className={styles.lowerText}>{info.body.substring(0,1400).concat('...')}</p> <a className={styles.acont}  onClick={()=>setshowAll(!showAll)}>Read more</a></div>
-                    
-            }
-    
-                </div>
-                                    
+                <div className={styles.Main_CardContainer}>
+      {/* <div className={styles.Card_ImgContainer}>
+        <img src={imageUrl} alt="blog-img" />
+      </div> */}
+      <div className={styles.Card_HeadingContainer}>
+        <div className={styles.Card_Heading}>
+          <h1 className={styles.blogHeading}>{info.heading}</h1>
+        </div>
+        <div className={styles.Card_Actions}>
+          <h2>
+            <Trash
+              title="Click to delete"
+              onClick={() => {
+                console.log(id);
+                deleteBlogInDatabse(id);
+                dispatch(deleteBlog(id));
+                // deleteMedia(imageName);
+              }}
+            />
+          </h2>
+        </div>
+      </div>
+      <div className={styles.Card_ContentContainer}>
+        <p>
+        <ReactQuill value={info.body} readOnly={true} theme={"bubble"} />
+        </p>
+        {/* <p>{body}</p> */}
+      </div>
+      <div className={styles.Card_CreditContainer}>
+        <cite className={styles.authorInfo}>
+          {info.author} | {info.publishedOn}
+        </cite>
+      </div>
+    </div>        
             )
         }
         </section>

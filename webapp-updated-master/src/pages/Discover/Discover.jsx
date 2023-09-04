@@ -163,7 +163,7 @@ const Discover = () => {
 
 
 
-console.log(randomEvents)
+console.log(":",randomEvents)
 
 
   return (
