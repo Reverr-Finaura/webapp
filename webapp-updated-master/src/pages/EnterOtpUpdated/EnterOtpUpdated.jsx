@@ -185,9 +185,11 @@ function EnterOtpUpdated() {
           </div>
           <form className={styles.otpForm} onSubmit={checkOtp}>
             <div className={styles.otpInputs}>
+             
               <input
+               
                 maxLength={1}
-                type="text"
+                type="number"
                 value={firstDigit}
                 onChange={(e) => {
                   setFirstDigit(e.target.value);
@@ -199,7 +201,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="text"
+                type="number"
                 value={secondDigit}
                 onChange={(e) => {
                   setSecondDigit(e.target.value);
@@ -211,7 +213,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="text"
+                type="number"
                 value={thirdDigit}
                 onChange={(e) => {
                   setThirdDigit(e.target.value);
@@ -223,7 +225,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="text"
+                type="number"
                 value={fourthDigit}
                 onChange={(e) => {
                   setFourthDigit(e.target.value);
@@ -235,7 +237,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="text"
+                type="number"
                 value={fifthDigit}
                 onChange={(e) => {
                   setFifthDigit(e.target.value);
@@ -247,7 +249,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="text"
+                type="number"
                 value={sixthDigit}
                 onChange={(e) => setSixthDigit(e.target.value)}
                 ref={sixthDigitRef}
