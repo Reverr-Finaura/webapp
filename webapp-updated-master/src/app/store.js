@@ -13,8 +13,7 @@ import userFundingDocReducer from "../features/userFundingDocSlice";
 import themeSliceReducer from "../features/themeSlice";
 import onboardingSliceReducer from "../features/onboardingSlice";
 import countryCodeReducer from "../features/countryCodeSlice";
-import blogsReducer from "../features/createBlogSlice";
-import blogUserSlice from "../features/blogUserSlice";
+
 
 export const store = configureStore({
   reducer: {
@@ -32,7 +31,5 @@ export const store = configureStore({
     themeColor:themeSliceReducer,
     onboarding:onboardingSliceReducer,
     countryCode:countryCodeReducer,
-    blogs: blogsReducer,
-    blogUser: blogUserSlice,
   },
 });

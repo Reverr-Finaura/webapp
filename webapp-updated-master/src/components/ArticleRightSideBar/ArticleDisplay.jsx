@@ -64,6 +64,7 @@ import './ArticleDisplay.css';
 const ArticleDisplay = (props) => {
   console.log(props.description);
   const htmlContent = props.description;
+  
   const extractText = (htmlString) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");

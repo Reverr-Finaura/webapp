@@ -1,15 +1,9 @@
 import React, { useEffect } from "react";
 import styles from "./Patch.module.css";
-import { useNavigate } from "react-router-dom";
-
-import { useSelector } from "react-redux";
 
 
 function Patch({ isLoggedIn, openModal }) {
 
-  const blogUser = useSelector((state) => state.blogUser);
-  console.log("blogUSER", blogUser);
-  const navigate = useNavigate();
 
   const handleComingsoonClick = () => {
     if (!isLoggedIn) {
@@ -18,12 +12,6 @@ function Patch({ isLoggedIn, openModal }) {
       //normal code
       console.log("user logged!");
     };
-    const storedBlogUser = localStorage.getItem("blogUser");
-    if(storedBlogUser !== null){
-      navigate("/blogdashboard");
-    }else{
-      navigate("/blogsignin");
-    }
   }
   return (
     <div className={styles.container}>

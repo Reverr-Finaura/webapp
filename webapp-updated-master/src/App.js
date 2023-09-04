@@ -150,11 +150,8 @@ import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 import AppliedJob from "./pages/job posting/AppliedJob";
-//admin-blogs imports
-import SignIn from "./pages/AdminBlog/auth/Signin";
-import BlogDashboard from "./pages/AdminBlog/dashboard/Dashboard";
-import CreateBlog from "./pages/AdminBlog/createblog/CreateBlog";
-import ProtectedRoute from "./ProtectedRoute";
+
+
 
 
 
@@ -226,7 +223,6 @@ function App() {
             <Route path="enterotp" element={<EnterOtpUpdated />}></Route>
           </>
         ) : null}
-        <Route path="/blog" element={<CreateBlog />}></Route>
         <Route path="/onboarding-first" element={<First />}></Route>
         <Route path="/onboarding-second" element={<Second />}></Route>
         <Route path="/onboarding-third" element={<Third />}></Route>
@@ -447,26 +443,6 @@ function App() {
         <Route path="/event/eventform" element={<EventsForm />}></Route>
         <Route path="/event/eventmain" element={<EventsMainPage />}></Route>
         <Route path="/speaker" element={<SpeakerProfile />}></Route>
-
-        {/* admin-blogs routes */}
-        <Route path="/blogsignin" element={<SignIn />} />
-        <Route
-          path="/blogdashboard"
-          element={
-            <ProtectedRoute>
-              <BlogDashboard />
-            </ProtectedRoute>
-            }
-          />
-
-        <Route
-            path="/create-blog"
-            element={
-                  <ProtectedRoute>
-                    <CreateBlog />
-                  </ProtectedRoute>
-                }
-          />
       </Routes>
     </>
   );
