@@ -695,7 +695,7 @@ function Auth() {
                 onChange={(e) => setMobile(e.target.value)}
                 value={mobile}
                 type="text"
-                placeholder="Your Phone Number"
+                placeholder="phone number"
                 required
               />
               <CountryCodePicker />
@@ -745,7 +745,7 @@ function Auth() {
           <p className={styles.links}>
             Already have an account?{" "}
             <Link className={styles.linkk} to="/login">
-              Login Here
+              Sign in
             </Link>
           </p>
           <div className={styles.links}>

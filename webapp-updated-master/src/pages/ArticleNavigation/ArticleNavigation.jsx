@@ -62,8 +62,8 @@ const ArticleNavigation = () => {
               title="Click to delete"
               onClick={() => {
                 console.log(id);
-                deleteBlogInDatabse(id);
-                dispatch(deleteBlog(id));
+                // deleteBlogInDatabse(id);
+                // dispatch(deleteBlog(id));
                 // deleteMedia(imageName);
               }}
             />
