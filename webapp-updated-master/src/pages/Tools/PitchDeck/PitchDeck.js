@@ -103,6 +103,8 @@ import './PitchDeck.module.css'
 import {GrView} from "react-icons/gr"
 import {FiArrowUpRight, FiDownload} from "react-icons/fi"
 import { useNavigate } from 'react-router-dom'
+import showButtonIcon from "../../../images/showButtonIcon.svg";
+import downloadButtonIcon from "../../../images/downloadButtonIcon.svg";
 
 const PitchDeck = ({pptList,dataFilter,setDataFilter,contWidth}) => {
   const navigate=useNavigate()
@@ -159,8 +161,8 @@ console.log(pptList);
 
 
           <div className={styles.btnCont}>
-            <button onClick={() => {navigate(`/pptTemplates/${ppt.id}`);}} className={styles.viewBtn}>Show</button>
-            <button className={styles.download} onClick={() => { handleDownload(ppt.link);}}> Download </button>
+            <button onClick={() => {navigate(`/pptTemplates/${ppt.id}`);}} className={styles.viewBtn}><img className={styles.buttonIcon} src={showButtonIcon} alt='showButtonIcon'/> Show</button>
+            <button className={styles.download} onClick={() => { handleDownload(ppt.link);}}><img className={styles.buttonIcon} src={downloadButtonIcon} alt='downloadButtonIcon'/> Download </button>
             {/* <FiDownload onClick={() => {
               handleDownload(ppt.link);
             }} className={styles.icon}/>

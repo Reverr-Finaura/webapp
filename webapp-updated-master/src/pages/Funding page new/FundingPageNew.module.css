@@ -20,7 +20,7 @@
 .whatIs {
     font-size: 3rem;
     color: white;
-
+    font-family: "Reem Kufi";
   }
 
   .sectionContainer h1 span {
@@ -29,11 +29,13 @@
 
 .sectionContainer p {
   color: white;
+  font-family: "Poppins";
 }
 
 .getStarted {
   color: white;
-    font-size: 30px;
+  font-size: 30px;
+  font-family: "Reem Kufi";
 }
 
 .cardsContainer {
@@ -43,31 +45,55 @@
 
 .Card {
     width: 220px;
-    /* height: 300px; */
+    height: 260px;
     border-radius: 15px;
     background: rgb(0,179,255);
     background: linear-gradient(90deg, rgba(0,179,255,0.8715861344537815) 0%, rgba(76,201,255,1) 70%);    display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;  
     padding: 2rem 1rem;  
     gap: 25px;
     cursor: pointer;
+    position: relative;
+    box-shadow: 0px 0px 12px 0px rgba(76, 201, 255, 0.25);
 }
 
+
+.Card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(17, 44, 78, 0.144);
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.Card:hover::before {
+  background: rgba(255, 255, 255, 0.11); 
+}
 .Card h2 {
     color: white;
+    font-family: "Reem Kufi";
 } 
 
 .Card p {
     color: white;
     font-size: 15px;
+    font-family: "Poppins";
 }
-
-.Card img {
-    width: 100px;
+.fundingImg {
+  width: 90px;
 }
-
+.startUpImg {
+  width: 80px;
+}
+.findInvestorImg {
+  width: 150px;
+}
 /* Mobile Devices (up to 767px) */
 @media screen and (max-width: 767px) {
   .sectionContainer {

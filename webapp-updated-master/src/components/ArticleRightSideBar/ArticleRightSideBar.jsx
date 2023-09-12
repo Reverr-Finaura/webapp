@@ -103,12 +103,15 @@ import ArticleDisplay from './ArticleDisplay'
 import { collection, doc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+const filters = ["Featured", "Accounting", "Business", "Consulting", "Gaming", "Entrepeneurship", "Finance", "Healthcare"]
 
 const ArticleRightSideBar = (props) => {
+
   const [users, setUsers] = useState([]);
   const [randomArticles, setrandomArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [activeFilter, setActiveFilter] = useState(filters[0]);
+  
   const navigate = useNavigate()
   useEffect(() => {
     async function fetchUsers() {
@@ -163,20 +166,27 @@ console.log("random articles",randomArticles);
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="articlerightsidecontainer">
-          <div onClick={()=>navigate(`/discover/${randomArticles[0]?.id}`)} className="firstarticlebox" style={{width:"350px",display:"flex",flexDirection:"column",alignItems:"center"}}>
-            <img style={{height:"200px",width:"300px",padding:"20px"}} src={extractImg(randomArticles[0]?.body)} alt="" />
-            <p style={{textAlign:"center",color:"#fff",fontSize:"25px",fontWeight:"bold",padding:"20px"}}>{randomArticles[0]?.heading}</p>
-          </div>
-          <div className="secondarticlecontainer" style={{width:"600px",paddingRight:"40px"}}>
-          {
-        randomArticles && randomArticles.slice(1, 4).map((article) => {
-          return (<div onClick={()=>navigate(`/discover/${article?.id}`)} className='allCards' style={{ display: 'flex', flexDirection: 'column' }}>
-            <ArticleDisplay title={article.heading}  description={article.body} />
-          </div>
-        )})}
-        </div>
-        </div>
+        <>
+                <div className="articlesFilters">
+                    {filters.map((item) => {
+                      return <div key={item} onClick={() => setActiveFilter(item)} className={`articleItem ${activeFilter === item ? "activeFilter" : ""}`}>{item}</div>
+                      })}
+                </div>
+                <div className="articlerightsidecontainer">
+                  <div onClick={()=>navigate(`/discover/${randomArticles[0]?.id}`)} className="firstarticlebox" style={{width:"350px",display:"flex",flexDirection:"column",alignItems:"center"}}>
+                    <img style={{height:"200px",width:"300px",padding:"20px"}} src={extractImg(randomArticles[0]?.body)} alt="" />
+                    <p style={{textAlign:"center",color:"#fff",fontSize:"25px",fontWeight:"bold",padding:"20px"}}>{randomArticles[0]?.heading}</p>
+                  </div>
+                  <div className="rightMiniArticles">
+                  {
+                randomArticles && randomArticles.slice(1, 4).map((article) => {
+                  return (<div onClick={()=>navigate(`/discover/${article?.id}`)} className='allCards' style={{ display: 'flex', flexDirection: 'column' }}>
+                    <ArticleDisplay title={article.heading}  description={article.body} />
+                  </div>
+                )})}
+                  </div>
+                </div>
+        </>
       )}
     </div>
   );

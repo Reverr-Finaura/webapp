@@ -56,10 +56,10 @@ const ProfileCardTesting = ({ mentor, handleCopyURL }) => {
       <div className={styles.cardRightContent}>
         <div className={styles.rightCardMain}>
           <p className={styles.mentorAbout}>{mentor?.about.slice(0, 80)}...
-          <button
+          {/* <button
           className={styles.readMoreBtn}
           onClick={() => navigate(`/userprofile/${mentor?.email}`)}
-          >Read more</button>
+          >Read more</button> */}
           </p>
           
           <div className={styles.CardProfilekills}>
