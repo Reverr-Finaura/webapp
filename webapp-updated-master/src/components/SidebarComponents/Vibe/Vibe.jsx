@@ -13,6 +13,7 @@ function Vibe({ isLoggedIn, openModal }) {
     <div className={styles.container}>
       <img src={vibeImg} alt="img" />
       <button
+       style={{fontFamily: "Reem Kufi"}}
         onClick={() => {
           navigate('/vibe');
           if (!isLoggedIn) {
