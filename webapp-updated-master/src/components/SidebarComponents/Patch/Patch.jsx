@@ -26,6 +26,7 @@ function Patch({ isLoggedIn, openModal }) {
       />
       <text
         style={{
+          fontFamily: "Reem Kufi",
           marginTop: 10,
           fontSize: 25,
           fontWeight: 700,
@@ -36,6 +37,7 @@ function Patch({ isLoggedIn, openModal }) {
       </text>
       <text
         style={{
+          fontFamily: "Reem Kufi",
           fontSize: 12,
           fontWeight: 700,
           color: "#FFFFFF",
@@ -44,6 +46,7 @@ function Patch({ isLoggedIn, openModal }) {
         One-on-One Networking
       </text>
       <button
+        style={{fontFamily: "Reem Kufi",}}
         onClick={handleComingsoonClick}
       >
         Coming Soon!

@@ -123,7 +123,7 @@ function Mentors({ isLoggedIn, openModal }) {
                   }
                 }}
               >
-                Connect
+                Schedule
               </button>
             </div>
             <div className={styles.divider}></div>

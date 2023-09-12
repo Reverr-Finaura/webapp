@@ -723,11 +723,11 @@ function SignupAuthUpdated() {
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
-                  style={{ color: "black" }}
+                  style={{ color: "black",    paddingLeft: "100px" }}
                   className={styles.inputPhoneNumber}
                   value={mobile}
                   type="number"
-                  placeholder="Your Phone Number"
+                  placeholder="Phone Number"
                   required
                   onChange={handleInputNumberChange}
                 />
@@ -804,7 +804,7 @@ function SignupAuthUpdated() {
           <p className={styles.links}>
             Already have an account?{" "}
             <Link className={styles.linkk} to="/login">
-              Login Here
+              Sign in
             </Link>
           </p>
           {/* <div className={styles.links}>

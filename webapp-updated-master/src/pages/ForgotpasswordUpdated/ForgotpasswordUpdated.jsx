@@ -291,10 +291,10 @@ function ForgotpasswordUpdated() {
               >
                 Forgot Password?
               </text>
-              <text style={{ fontSize: 12, color: "#ffffff" }}>
+              <text style={{ fontSize: 12, color: "#ffffff", fontFamily: "Reem-Kufi" }}>
                 Enter the email address associated with your account
               </text>
-              <text style={{ fontSize: 12, color: "#ffffff" }}>
+              <text style={{ fontSize: 12, color: "#ffffff",fontFamily: "Reem-Kufi" }}>
                 and we’ll send you a link to change your password.
               </text>
               <div className={styles.textInput}>

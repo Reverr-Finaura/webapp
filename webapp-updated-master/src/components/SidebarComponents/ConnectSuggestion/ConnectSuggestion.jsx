@@ -94,7 +94,7 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
                   <text
                     style={{
                       fontSize: 14,
-                      color: "#00b3ff",
+                      color: "#FFF",
                       display: "-webkit-box",
                       WebkitLineClamp: 1,
                       WebkitBoxOrient: "vertical",
@@ -107,7 +107,7 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
                   <text
                     style={{
                       fontSize: 10,
-                      color: "#ffffff",
+                      color: "gray",
                       display: "-webkit-box",
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",

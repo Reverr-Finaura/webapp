@@ -33,7 +33,7 @@ import mentordashboardicon from "../../images/radix-icons_dashboard.svg";
 import userIcon from "../../images/userIcon.webp";
 import settingIcon from "../../images/Vector (3).webp";
 import ReverrLightIcon from "../../images/Reverr Light.webp";
-import ReverrDarkIcon from "../../images/new-dark-mode-logo.webp";
+import ReverrDarkIcon from "../../images/new-dark-mode-logo.png";
 import {
   AiFillBell,
   AiFillSetting,
@@ -709,9 +709,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             src={ReverrDarkIcon}
             alt="brand-logo"
           />
-          <span className={style.reverrHeadingSpan}>
+          {/* <span className={style.reverrHeadingSpan}>
             <p className={style.reverrHeading}>Reverr</p>
-          </span>
+          </span> */}
         </div>
 
         {window.innerWidth >= 540 && (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Second.module.css";
-import ReverrDarkIcon from "../../../images/new-dark-mode-logo.webp";
+import ReverrDarkIcon from "../../../images/new-dark-mode-logo.png";
 import { useNavigate } from "react-router-dom";
 import { setRole } from "../../../features/onboardingSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -104,9 +104,7 @@ function Second() {
           src={ReverrDarkIcon}
           alt="brand-logo"
         />
-        <span className={styles.reverrHeadingSpan}>
-          <p className={styles.reverrHeading}>Reverr</p>
-        </span>
+       
       </div>
       <div className={styles.mainContent}>
         <div className={styles.leftComponent}>
