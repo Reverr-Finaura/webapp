@@ -39,7 +39,7 @@ function InvestorFinder({ isLoggedIn, openModal }) {
           }
         }}
       >
-        Raise Funds
+        Investor Finder
       </button>
     </div>
   );
