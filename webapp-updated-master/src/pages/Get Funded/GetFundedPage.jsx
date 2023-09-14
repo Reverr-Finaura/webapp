@@ -251,7 +251,7 @@ const GetFundedPage = () => {
                 onChange={handleGetFundedInputChange}
                 type="text"
                 name="Name"
-                label={"Your Name*"}
+                label={"Your Name"}
                 placeholder="Enter here"
                 value={getFundedInput.Name}
               />
@@ -261,7 +261,7 @@ const GetFundedPage = () => {
                   onChange={handleGetFundedInputChange}
                   type="text"
                   name="Email"
-                  label="Email Address*"
+                  label="Email Address"
                   placeholder="xyz@gmail.com"
                   value={getFundedInput.Email}
                 />
@@ -270,7 +270,7 @@ const GetFundedPage = () => {
                   onChange={handleGetFundedInputChange}
                   type="text"
                   name="Phone"
-                  label="Contact No*"
+                  label="Contact No"
                   placeholder="+91 -"
                   value={getFundedInput.Phone}
                 />
@@ -281,7 +281,7 @@ const GetFundedPage = () => {
                   onChange={handleGetFundedInputChange}
                   type="text"
                   name="StartUpName"
-                  label="Start-Up Name*"
+                  label="Start-Up Name"
                   placeholder="Enter here"
                   value={getFundedInput.StartUpName}
                 />
@@ -297,7 +297,7 @@ const GetFundedPage = () => {
               </div>
               {/* </div> */}
 
-              <label className="uploadPitchLabel">Pitch Deck*</label>
+              <label className="uploadPitchLabel">Pitch Deck</label>
               <div className="uploadPitchDeckContainer">
                 <div
                   className="form-file-upload"
@@ -334,20 +334,20 @@ const GetFundedPage = () => {
                   )}
                 </div>
               </div>
-            </div>
-            <div className="btn_flex_div">
+              <div className="btn_flex_div">
               <button
                 onClick={applyForGetFunded}
                 className="getFundedPageApplyButton"
               >
-                Apply Now
+                submit
               </button>
-              <button
+              {/* <button
                 onClick={() => navigate("/start-up")}
                 className="getFundingPage_CheckYourScoreCont_btn"
               >
                 Check Your Score
-              </button>
+              </button> */}
+            </div>
             </div>
           </div>
         </div>

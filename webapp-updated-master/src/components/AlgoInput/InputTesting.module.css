@@ -22,7 +22,7 @@
   outline: none;
   /* width: 100%; */
   background: #f2f2f2;
-  color: #000;
+  color: gray;
   border-radius: 5px;
 }
 .input input[type="text"],

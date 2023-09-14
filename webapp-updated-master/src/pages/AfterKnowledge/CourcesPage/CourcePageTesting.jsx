@@ -21,13 +21,14 @@ const CourcePageTesting = () => {
           <div className="rateing">
             {/* <img src="./images/Star.svg" alt="" height={20} width={120} /> */}
             <span className="star">
-              <img src="/images/star.webp" alt="" />
-              <img src="/images/star.webp" alt="" />
-              <img src="/images/star.webp" alt="" />
-              <img src="/images/star.webp" alt="" />
+              <img src="/images/star.webp" alt="star" />
+              <img src="/images/star.webp" alt="star" />
+              <img src="/images/star.webp" alt="star" />
+              <img src="/images/star.webp" alt="star" />
+              <img src="/images/star.webp" alt="star" />
             </span>
             <span className="space">4.8</span>
-            <text className="rat"> 1,980 s ratings | 97%</text>
+            <text className="rat"> 1,980 ratings |</text><span className="ratingPer">97%</span>
           </div>
           <p className="sub">
             Is it worthwhile to pursue your fresh startup idea? Let's
@@ -64,7 +65,8 @@ const CourcePageTesting = () => {
       <div className="sec">
         <div className="aboutsyllabus">
           <div className="tab">
-            <text className="about">About</text>
+            <div className="aboutTitle">About <div className="underline"></div></div>
+            <div className="syllabusTitle">Syllabus</div>
           </div>
           <div>
             <p className="bout">

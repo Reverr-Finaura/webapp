@@ -56,6 +56,7 @@ import emailjs from "@emailjs/browser";
 import axios from "axios";
 import NotificationCard from "./NotificationCard";
 import defaultImg from "../../images/default-profile-pic.webp";
+import noNotificationsImg from "../../images/noNotificationsImg.svg";
 
 const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const user = useSelector((state) => state.user);
@@ -971,7 +972,14 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                             </div>
                           </>
                         ) : (
-                          <h4>No notification till Now !</h4>
+                          <>
+                            <h4>Notifications</h4>
+                            <div className={style.imgCont}>
+                            <img src={noNotificationsImg} alt="noNotificationsImg" />
+                            </div>
+                            <p>You don’t have any notifications right now. 
+                                  Come back later.</p>
+                          </>
                         )}
                       </div>
                     </>

@@ -120,7 +120,7 @@
 .getFundingPageForm input {
   width: 100%;
   margin: auto;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   padding: 1rem 2rem;
   background-color: #fff;
   border: none;
@@ -163,7 +163,11 @@
   margin-left: 1rem;
   margin-bottom: 0.6rem;
 }
-
+.uploadPitchLabel::after{
+  content: "*";
+  color: red;
+  margin-left: 4px;
+}
 .upload-label-main {
   height: 80%;
   width: 60%;
@@ -251,14 +255,13 @@
 
 .btn_flex_div {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .getFundedPageApplyButton {
-  background: #2a72de;
+  background-image: linear-gradient(rgba(0, 179, 255, 1), rgba(76, 201, 255, 1));
   box-shadow: 0px 3.14294px 14px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  color: #fff;
+  color: rgba(0, 0, 0, 1);
   border: none;
 }
 
@@ -266,10 +269,10 @@
   padding: 0.5rem 2rem;
   cursor: pointer;
   box-shadow: 0px 3.14294px 14px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  border-radius: 25px;
   font-size: 18px;
-  font-weight: 700;
-  margin: 2rem auto;
+  font-weight: 500;
+  margin: 25px 15px;
   outline: none;
 }
 .getFundingPage_CheckYourScoreCont_btn {

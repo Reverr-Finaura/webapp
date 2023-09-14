@@ -15,13 +15,18 @@
 }
 
 .title {
+  background: linear-gradient( rgba(0, 179, 255, 1), rgba(76, 201, 255, 1)); 
+  -webkit-background-clip: text; 
+  background-clip: text; 
+  color: transparent; 
+  font-weight: 600;
   font-style: normal;
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 36px;
   letter-spacing: 0.01em;
-  color: #5b89ce;
   text-transform: capitalize;
+  font-family: "Reem Kufi";
 }
 
 .docCont {
@@ -56,7 +61,7 @@
   /* background: #F8F8F8; */
   background-color: rgba(26, 30, 40, 1);
 
-  border: 0.370588px solid #b0b0b0;
+  /* border: 0.370588px solid #b0b0b0; */
   border-radius: 12px;
   padding: 1rem;
   display: flex;

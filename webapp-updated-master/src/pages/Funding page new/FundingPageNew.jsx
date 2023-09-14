@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./FundingPageNew.module.css";
 import fundingForm from "../../images/fundingForm.webp";
 import startupScore from "../../images/startupScore.webp";
+import findInvestor from "../../images/findInvestor.svg";
+
 
 const FundingPageNew = () => {
   const navigate = useNavigate();
@@ -41,12 +43,19 @@ const FundingPageNew = () => {
             Choose to <span>get started</span>
           </h1>
           <div className={styles.cardsContainer}>
+          <div className={styles.Card}>
+              <div className={styles.cardText}>
+                <h2>Find Investors</h2>
+                <p>Find investors matched just for you!</p>
+              </div>
+              <img className={styles.findInvestorImg} src={findInvestor} alt="findInvestor" />
+            </div>
             <div onClick={() => navigate("/start-up")} className={styles.Card}>
               <div className={styles.cardText}>
                 <h2>Start-Up Score</h2>
                 <p>Get an analysed score for your startup.</p>
               </div>
-              <img src={startupScore} alt="startupScore" />
+              <img className={styles.startUpImg} src={startupScore} alt="startupScore" />
             </div>
             <div
               onClick={() => navigate("/funding-form")}
@@ -56,7 +65,7 @@ const FundingPageNew = () => {
                 <h2>Funding Form</h2>
                 <p>Fill up the funding form to apply for funds.</p>
               </div>
-              <img src={fundingForm} alt="fundingForm" />
+              <img className={styles.fundingImg} src={fundingForm} alt="fundingForm" />
             </div>
           </div>
         </div>
