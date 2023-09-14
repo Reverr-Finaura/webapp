@@ -379,6 +379,7 @@ export const SendMessage = async (
         createdAt: timestmp,
         sendBy: currentcUser.email,
         imgMsg: imgLink,
+        read: false
       }),
     });
 
@@ -393,12 +394,37 @@ export const SendMessage = async (
         createdAt: timestmp,
         sendBy: currentcUser.email,
         imgMsg: imgLink,
+        read: false
       }),
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+export const updatereadmessage = async(
+  currentcUser,
+  sendTo,
+)=>{
+  const senderRef = doc(db, "Messages", currentcUser.email);
+  const furtherSenderRef = doc(senderRef, "Matched", sendTo)
+  const chatdoc = await getDoc(furtherSenderRef)
+  console.log("fufnsda",chatdoc.data());
+  try {
+    let updatedmessges = chatdoc.data().messages.map(m=> {
+      console.log("mmmmm",m);
+      if(m.read === false){
+        m.read = true
+      }
+      return m
+    })
+    await updateDoc(furtherSenderRef, {
+      messages: updatedmessges
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const ReciveMessage = async (currentcUser, sendTo, setmsg, bucket) => {
   try {
