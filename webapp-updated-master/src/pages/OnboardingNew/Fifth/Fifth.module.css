@@ -80,12 +80,24 @@
   border-radius: 10px;
   background-color: #0c1631;
   cursor: pointer;
+  position: relative;
 }
 
 .selected {
   background-color: #00B3FF; 
 }
-
+.selectObj {
+  display: none;
+}
+.nonSelected {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.699);
+  border-radius: 10px;
+}
 .objectiveCard > text {
   font-size: 10px;
   color: #ffffff;
@@ -129,6 +141,7 @@
   border-color: #00b3ff;
   background: transparent;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .mainImage {

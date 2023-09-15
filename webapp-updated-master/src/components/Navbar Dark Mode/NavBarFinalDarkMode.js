@@ -3,7 +3,7 @@ import style from "./NavbarFinalDarkMode.module.css";
 import products from "../../assets/Products/products";
 import { useDispatch, useSelector } from "react-redux";
 import { selectChat, showChat } from "../../features/chatSlice";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import { signOut } from "firebase/auth";
 import { auth, createNetworkInMessagesDoc, db } from "../../firebase";
@@ -79,6 +79,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [openHam, setOpenham] = useState(false);
   const [premiumModalStatus , setPremiumModalStatus] = useState(false)
 
+
+  const location = useLocation();
   const userType = useSelector((state) => state.onboarding.userType);
   console.log("this is ispremium---",isPremium)
   
@@ -796,8 +798,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   isLoggedIn ? navigate("/") : navigate("/gallery")
                 }
               >
-                <BiHomeAlt className={style.navbarIconsImg} />
-                <p className={style.navbarIconsName}>Home</p>
+                <BiHomeAlt className={`${style.navbarIconsImg} ${location.pathname === "/community" ? style.activeScreen : ""}`} />
+                <p className={`${style.navbarIconsName} ${location.pathname === "/community" ? style.activeScreen : ""}`}>Home</p>
               </div>
               {/* //////// */}
               {isLoggedIn &&
@@ -818,7 +820,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={mentordashboardicon}
                     className={style.navbarDashboardIcon}
                   />
-                  <p className={style.navbarDashboardText}>Dashboard</p>
+                  <p className={`${style.navbarDashboardText} ${location.pathname === "/dashboard" ? style.activeScreen : ""}`}>Dashboard</p>
                   {/* <NavLink className="navlinks" to="/discover">
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
@@ -855,8 +857,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     }
                   }}
                 >
-                  <AiOutlineGlobal className={style.navbarIconsImg} />
-                  <p className={style.navbarIconsName}>Discover</p>
+                  <AiOutlineGlobal className={`${style.navbarIconsImg} ${location.pathname === "/discover" ? style.activeScreen : ""}`}  />
+                  <p className={`${style.navbarIconsName} ${location.pathname === "/discover" ? style.activeScreen : ""}`}>Discover</p>
                   {/* <NavLink className="navlinks" to="/discover">
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
@@ -872,8 +874,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     }
                   }}
                 >
-                  <AiOutlineGlobal className={style.navbarIconsImg} />
-                  <p className={style.navbarIconsName}>Discover</p>
+                  <AiOutlineGlobal className={`${style.navbarIconsImg} ${location.pathname === "/discover" ? style.activeScreen : ""}`}  />
+                  <p className={`${style.navbarIconsName} ${location.pathname === "/discover" ? style.activeScreen : ""}`}>Discover</p>
                   {/* <NavLink className="navlinks" to="/discover">
               <p className={style.navbarIconsName}>Discover</p>
             </NavLink> */}
@@ -910,8 +912,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     onClick={toggleProductModal}
                     ref={buttonRef}
                   >
-                    <HiOutlineTemplate className={style.navbarIconsImg} />
-                    <p className={style.navbarIconsName}>Products</p>
+                    <HiOutlineTemplate className={`${style.navbarIconsImg} ${isProductModalOpen ? style.activeScreen : ""}`}  />
+                    <p className={`${style.navbarIconsName} ${isProductModalOpen ? style.activeScreen : ""}`}>Products &#9662;</p>
                   </div>
                 ) : null
               ) : null}
@@ -920,8 +922,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   className={style.navbarIconsImgName}
                   onClick={() => navigate("/messages")}
                 >
-                  <AiOutlineMessage className={style.navbarIconsImg} />
-                  <p className={style.navbarIconsName}>Messages</p>
+                  <AiOutlineMessage className={`${style.navbarIconsImg} ${location.pathname === "/messages" ? style.activeScreen : ""}`}  />
+                  <p className={`${style.navbarIconsName} ${location.pathname === "/messages" ? style.activeScreen : ""}`}>Messages</p>
                 </div>
               ) : null}
               {isLoggedIn ? (
@@ -929,8 +931,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   onClick={() => setNotificationOpen(!notificationOpen)}
                   className={style.navbarIconsImgName}
                 >
-                  <MdOutlineNotifications className={style.navbarIconsImg} />
-                  <p className={style.navbarIconsName}>Notifications</p>
+                  <MdOutlineNotifications className={`${style.navbarIconsImg} ${notificationOpen ? style.activeScreen : ""}`}  />
+                  <p className={`${style.navbarIconsName} ${notificationOpen ? style.activeScreen : ""}`}>Notifications</p>
                   {notificationOpen && (
                     <>
                       {/* ///aa// */}

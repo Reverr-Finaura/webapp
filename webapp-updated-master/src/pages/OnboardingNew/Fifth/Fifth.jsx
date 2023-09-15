@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setHereFor } from "../../../features/onboardingSlice";
 import { db } from "../../../firebase";
 import { setDoc, doc } from "firebase/firestore";
+import toast, { Toaster } from "react-hot-toast";
 
 function Fifth() {
   const navigate = useNavigate();
@@ -16,13 +17,17 @@ function Fifth() {
   const [Here_for, setHere_for] = useState([]);
 
   const handleHereForClick = (spaceText) => {
-    if (Here_for.includes(spaceText)) {
-      // If the objective text is already selected, remove it from the array
-      setHere_for(Here_for.filter((text) => text !== spaceText));
-    } else {
-      // If the space text is not selected, add it to the array
-      setHere_for([...Here_for, spaceText]);
-    }
+      if (Here_for.includes(spaceText)) {
+        // If the objective text is already selected, remove it from the array
+        setHere_for(Here_for.filter((text) => text !== spaceText));
+      } else {
+        // If the space text is not selected, add it to the array
+        if(Here_for.length <= 4){
+        setHere_for([...Here_for, spaceText]);
+      }else{
+        toast.error("you have already selected five options!")
+      }
+      }
   };
 
   // Function to handle the "Next" button click
@@ -103,7 +108,8 @@ function Fifth() {
   ];
   console.log(Here_for);
 
-  return (
+  return (<>
+        <Toaster reverseOrder={false} />
     <div className={styles.container}>
       <div
         onClick={() => navigate("/")}
@@ -134,6 +140,8 @@ function Fifth() {
               >
                 <img src={objective.imageSrc} alt="img" />
                 <text>{objective.text}</text>
+                {!Here_for.includes(objective.text) && <div className={Here_for.length <= 4  ? styles.selectObj : styles.nonSelected}>
+                </div>}
               </div>
             ))}
           </div>
@@ -173,7 +181,7 @@ function Fifth() {
           />
         </div>
       </div>
-    </div>
+    </div></>
   );
 }
 

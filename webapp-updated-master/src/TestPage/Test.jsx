@@ -135,7 +135,7 @@ function Test() {
           {/* <div style={{ marginTop: 50 }}></div> */}
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
-          <ConnectSuggestion />
+          {/* <ConnectSuggestion /> */}
           {products[userTypeLower]?products[userTypeLower]?.includes("VIBE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
