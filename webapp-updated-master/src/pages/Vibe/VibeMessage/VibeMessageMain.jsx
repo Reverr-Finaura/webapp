@@ -87,7 +87,7 @@ const VibeMessageMain = ({mobile}) => {
 
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
-        // console.log("111", data)
+        console.log("111", data)
         setName(data.name);
         data.image !== undefined && data.image !== ""
           ? setProfileImg(data.image)
@@ -137,7 +137,7 @@ const VibeMessageMain = ({mobile}) => {
         finalReceive.push({
           ...c,
           createdAt:
-            c.createdAt.seconds !== "" ? c.createdAt.seconds * 1000 : "",
+            c?.createdAt?.seconds !== "" ? c.createdAt?.seconds * 1000 : "",
         });
       });
       dispatch(updateSelectedUserData(finalReceive));

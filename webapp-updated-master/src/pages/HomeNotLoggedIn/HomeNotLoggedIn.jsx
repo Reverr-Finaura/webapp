@@ -86,7 +86,7 @@ function HomeNotLoggedIn() {
         <div className={styles.leftSidebar} style={{ marginTop: "10em" }}>
           {/* <ProfileSummary />
           <div style={{ marginTop: 50 }}></div> */}
-          <ConnectSuggestion isLoggedIn={false} openModal={openModal} />
+          {/* <ConnectSuggestion isLoggedIn={false} openModal={openModal} /> */}
           <div style={{ marginTop: 50 }}></div>
           <Vibe isLoggedIn={false} openModal={openModal} />
           <div style={{ marginTop: 50 }}></div>
@@ -120,7 +120,7 @@ function HomeNotLoggedIn() {
           {/* <div style={{ marginTop: 50 }}></div>
           <Events isLoggedIn={false} openModal={openModal} /> */}
           <div style={{ marginTop: 50 }}></div>
-          <Mentors isLoggedIn={false} openModal={openModal} />
+          {/* <Mentors isLoggedIn={false} openModal={openModal} /> */}
         </div>
       </div>
     </>

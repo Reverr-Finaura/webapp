@@ -27,6 +27,8 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
   const handleClick2 = () => {
     setIsClicked2(!isClicked2);
   };
+  console.log("chatlist",chatUserData);
+  console.log( new Date(1694697491000));
 
   const getAllUserChat = async () => {
     try {
@@ -55,6 +57,7 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
         const docRef = doc(db, "Users", list.id);
         const docSnap = await getDoc(docRef);
         if (docSnap.data())
+        // console.log("docsnap",docSnap.data());
           setChatUserData((prev) => {
             return [
               ...new Set([
@@ -68,13 +71,13 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
                   userImg: docSnap.data().image,
                   latestMessage: list?.messages[list?.messages?.length - 1].msg,
                   sendAT:
-                    list.messages[list.messages.length - 1].createdAt !== ""
-                      ? list?.messages[list?.messages?.length - 1].createdAt
-                          .seconds * 1000
+                    list?.messages[list?.messages?.length - 1].createdAt !== ""
+                      ? list?.messages[list?.messages?.length - 1].createdAt?.seconds * 1000
                       : "",
                   latestMessageSenderId:
                     list?.messages[list?.messages?.length - 1].sendBy,
                   imgMsg: list?.messages[list?.messages?.length - 1].image,
+                  read: list?.messages[list?.messages?.length - 1].read,
                 },
               ]),
             ];
@@ -96,6 +99,7 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
                       .seconds * 1000
                   : "",
               imgMsg: newList?.messages[newList?.messages?.length - 1].image,
+              read: newList?.messages[newList?.messages?.length - 1].read,
             });
           } else {
             return;
@@ -155,6 +159,7 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
 
         {!dummyLoading && chatUserData.length !== 0
           ? chatUserData.map((item, key) => (
+            
               <div
                 onClick={() => {
                   setChatSelected(true);
@@ -164,16 +169,18 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
                 className={style.singlemessageboxcontainer}
                 key={key}
               >
-                <img src={item.userImg} alt="img" />
-                <div>
-                  <p>{item.name}</p>
-                  <p style={{ fontSize: "15px", color: "#A7A7A7" }}>
-                    {item.latestMessageSenderId ===
-                    currentLoggedInUser?.user?.email
+                <img src={item?.userImg} alt="img" />
+                <div style={{width:"100%"}}>
+                  <div style={{width:"90%",display:"flex",justifyContent:"space-between"}}>
+                  <p>{item?.name}</p>
+                  <p style={{fontSize:"9px",color:"#A7A7A7"}}>{`${new Date(item?.sendAT).toLocaleDateString()}`}</p>
+                  </div>
+                  
+                  <p style={{ fontSize: "15px", color: `${item?.latestMessageSenderId !== currentLoggedInUser?.user?.email && item?.read === false ? "white" : "#A7A7A7"}` }}>
+                    {item?.latestMessageSenderId === currentLoggedInUser?.user?.email
                       ? "Me: "
                       : " "}
-                    {item.latestMessage !== ""
-                      ? item.latestMessage.slice(0, 35)
+                    {item?.latestMessage !== ""  ? item?.latestMessage?.slice(0, 35)
                       : ""}
                     ...
                   </p>
