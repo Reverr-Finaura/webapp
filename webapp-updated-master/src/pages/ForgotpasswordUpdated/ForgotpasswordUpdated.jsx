@@ -312,7 +312,7 @@ function ForgotpasswordUpdated() {
                 onClick={sendOtp}
                 disabled={loading}
               >
-                Send OTP
+                Send Reset Link
               </button>
               <div
                 style={{ marginTop: 5, display: "flex", alignSelf: "center" }}

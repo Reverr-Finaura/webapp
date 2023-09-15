@@ -13,6 +13,12 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
 }
+.passwordStrength{
+  color: #ee3131;
+  font-size: 13px;
+  text-align: left;
+  margin-bottom: 3em;
+}
 
 .leftCont {
   /* width: 49%; */

@@ -56,6 +56,7 @@ function SignupAuthUpdated() {
   const [linkedinProfileUrl, setLinkedinProfileUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordStrengthpara, setPasswordStrengthpara] = useState(false)
 
   //LINKEDIN LOGIN
   const getUserDataFromLinkedin = async (code) => {
@@ -723,7 +724,7 @@ function SignupAuthUpdated() {
             <div className={styles.phoneEmailBlock}>
               <div className={styles.inputPhoneContainer}>
                 <input
-                  style={{ color: "black",    paddingLeft: "100px" }}
+                  style={{ color: "black", paddingLeft: "100px" }}
                   className={styles.inputPhoneNumber}
                   value={mobile}
                   type="number"
@@ -735,7 +736,7 @@ function SignupAuthUpdated() {
               </div>
             </div>
 
-            <div className={styles.passwordBlock}>
+            <div className={styles.passwordBlock} onClick={() => setPasswordStrengthpara(true)}>
               <div style={{ position: "relative" }}>
                 <input
                   className={styles.input}
@@ -769,6 +770,17 @@ function SignupAuthUpdated() {
                 </button>
               </div>
             </div>
+            {passwordStrengthpara && <div className={styles.passwordStrength}>
+
+              <p style={{marginBottom:"10px"}}>password strength: </p>
+              <ul>
+                <li>Aim for at least 8 characters, but longer is better.</li>
+                <li>Use a combination of uppercase , lowercase , numbers, and special characters (e.g., !, @, #, $, %).</li>
+                <li>Avoid using easily guessable words like "password," "123456,", etc</li>
+
+              </ul>
+
+            </div>}
 
             <button
               disabled={loading}

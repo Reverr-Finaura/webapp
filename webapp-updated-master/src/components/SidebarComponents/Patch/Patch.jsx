@@ -14,7 +14,7 @@ function Patch({ isLoggedIn, openModal }) {
     };
   }
   return (
-    <div className={styles.container}>
+    <div className={styles.container}   onClick={handleComingsoonClick} style={{cursor:"pointer"}}>
       {/* <img src={vibeImg} alt="img" />
       <button onClick={() => console.log("vibe clicked")}>
         Explore VIBE &nbsp;&gt;
@@ -47,7 +47,7 @@ function Patch({ isLoggedIn, openModal }) {
       </text>
       <button
         style={{fontFamily: "Reem Kufi",}}
-        onClick={handleComingsoonClick}
+      
       >
         Coming Soon!
       </button>
