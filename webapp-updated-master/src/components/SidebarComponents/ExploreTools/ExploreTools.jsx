@@ -22,6 +22,7 @@ function ExploreTools({ isLoggedIn, openModal }) {
         alt="img"
       />
       <button
+      style={{fontFamily: "Reem Kufi",}}
         onClick={() => {
           if (!isLoggedIn) {
             return openModal();
