@@ -269,9 +269,10 @@ text{
 .amountToPay {
   /* margin-top: 1rem; */
   display: flex;
-  width: 10rem;
+  width: 12rem;
   padding: 0.4rem 1rem;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   border-radius: 50px;
   border: 2px solid var(--white, #fff);
 }
