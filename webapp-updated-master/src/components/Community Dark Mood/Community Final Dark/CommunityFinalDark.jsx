@@ -1496,7 +1496,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             postId={item.id}
                             postsDataWithUserDoc={postsDataWithUserDoc}
                           />
-                          <DiscoverPerfectTools
+                           <FeaturedSuggestions
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                           />
@@ -1520,7 +1520,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             postId={item.id}
                             postsDataWithUserDoc={postsDataWithUserDoc}
                           />
-                          <FeaturedSuggestions
+                          <DiscoverPerfectTools
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                           />

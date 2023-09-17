@@ -271,7 +271,8 @@ text{
   display: flex;
   width: fit-content;
   padding: 0.4rem 1rem;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   border-radius: 50px;
   border: 2px solid var(--white, #fff);
 }

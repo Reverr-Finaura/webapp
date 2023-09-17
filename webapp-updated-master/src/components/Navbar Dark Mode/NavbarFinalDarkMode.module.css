@@ -149,7 +149,9 @@
 .navbarIconsImg {
   font-size: 22px;
 }
-
+.activeScreen{
+  color: rgba(0, 179, 255, 1);
+}
 .navbarIconsName {
 
 
