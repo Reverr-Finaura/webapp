@@ -386,7 +386,7 @@ const LoginTesting = () => {
           >
             Welcome to <span>Reverr</span>.
           </div>
-          <form onSubmit={onSubmit} className={styles.form}>x``
+          <form onSubmit={onSubmit} className={styles.form}>
             <div>
               <label htmlFor="email" className={styles.label}>
                 Email
@@ -438,6 +438,10 @@ const LoginTesting = () => {
               </span>
               Continue with Google{" "}
             </button> */}
+            <div className={styles.newUser}>
+              {/* <span>Don't remember password?&nbsp;&nbsp;&nbsp;</span> */}
+              <Link to="/otp-login">Login with OTP</Link>
+            </div>
             <div className={styles.newUser}>
               <span>New to Reverr?&nbsp;&nbsp;&nbsp;</span>
               <Link to="/signup">Sign Up</Link>

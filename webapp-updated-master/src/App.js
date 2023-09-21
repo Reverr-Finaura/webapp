@@ -150,6 +150,7 @@ import EventsMainPage from "./pages/Events/EventsMain/EventsMainPage";
 import HiringForm from "./pages/job posting/HiringForm";
 import HiringMainScreen from "./pages/job posting/HiringMainScreen";
 import AppliedJob from "./pages/job posting/AppliedJob";
+import LoginWithOtpFirst from "./pages/LoginWithOTP/LoginWithOtpFirst";
 
 
 
@@ -205,6 +206,7 @@ function App() {
             <Route path="/" element={<LoginTesting />} />
             <Route path="/signup" element={<SignupAuthUpdated />}></Route>
             <Route path="/login" element={<LoginTesting />} />
+            <Route path="/otp-login" element={<LoginWithOtpFirst />} />
             <Route path="/gallery" element={<HomeNotLoggedIn />}></Route>
             <Route path="/onboarding-first" element={<First />}></Route>
             <Route path="/onboarding-second" element={<Second />}></Route>
@@ -215,6 +217,7 @@ function App() {
           </>
         )}
         {/* <Route path="/login-test" element={<LoginTesting />}/> */}
+        <Route path="/otp-login" element={<LoginWithOtpFirst />} />
         <Route path="/forgot-password" element={<ForgotpasswordUpdated />} />
         <Route path="/forgotemail" element={<ForgotEmail />} />
         <Route path="/password-reset" element={<PasswordReset />} />
