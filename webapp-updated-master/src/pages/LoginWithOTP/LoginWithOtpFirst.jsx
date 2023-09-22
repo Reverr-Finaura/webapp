@@ -149,10 +149,12 @@ function LoginWithOtpFirst() {
   };
 
   const sendOTPByPhone = async () => {
+    
     let tempData = metaData.filter((item) => {
       return item.phone === email;
     })[0];
-    if (tempData.length === 0) {
+    console.log("phone1111111", tempData)
+    if (tempData === undefined) {
       toast.error("Phone number not registered yet");
       return;
     }
@@ -196,7 +198,7 @@ function LoginWithOtpFirst() {
       const data = await axios.post("https://server.reverr.io/sendSmsCode", {
         to: email,
         code: selectedCountry.dialCode.slice(1),
-        message: `Your Change Password OTP is ${otp}`,
+        message: `Your Login OTP is ${otp}`,
       });
       if (data.data.status) {
         toast.success(data.data.message);
@@ -258,19 +260,19 @@ function LoginWithOtpFirst() {
                 className={styles.hiddenOnMobile}
                 style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
               >
-                Enter Your Email
+                Enter Email or Phone
               </text>
               <text style={{ fontSize: 12, color: "#ffffff", fontFamily: "Reem-Kufi" }}>
-                Enter the email address associated with your account
+                Enter the email address or phone number associated with your account
               </text>
               <text style={{ fontSize: 12, color: "#ffffff",fontFamily: "Reem-Kufi" }}>
                 and we’ll send you an OTP to login.
               </text>
               <div className={styles.textInput}>
-                <text style={{ fontSize: 10, color: "#ffffff" }}>Email</text>
+                <text style={{ fontSize: 10, color: "#ffffff" }}>Email or Phone</text>
                 <input
                   type="email"
-                  placeholder="johnsmith@gmail.com"
+                  placeholder="type..."
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   required
