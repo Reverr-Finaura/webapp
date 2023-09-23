@@ -153,7 +153,6 @@ function LoginWithOtpFirst() {
     let tempData = metaData.filter((item) => {
       return item.phone === email;
     })[0];
-    console.log("phone1111111", tempData)
     if (tempData === undefined) {
       toast.error("Phone number not registered yet");
       return;
@@ -239,6 +238,7 @@ function LoginWithOtpFirst() {
         <LoginWithOtpSecond
           propOtp={tempOtp}
           tempUserData={tempUserData}
+          email={email}
         />
       ) : (
         <>

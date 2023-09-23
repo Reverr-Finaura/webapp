@@ -19,10 +19,12 @@ import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdate
 import { doc, getDoc } from "firebase/firestore";
 import { login, setUserData } from "../../features/userSlice";
 import { setUserDoc } from "../../features/userDocSlice";
+import axios from "axios";
 
-function LoginWithOtpSecond({ propOtp, tempUserData }) {
+function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const selectedCountry = useSelector((state) => state.countryCode);
 
   const [enteredOtp, setEnteredotp] = useState("");
   const [firstDigit, setFirstDigit] = useState("");
@@ -123,6 +125,11 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
   };
 
   const resendOtp = () => {
+    if (/^\d+$/.test(email)) {
+      resendOTPByPhone();
+      return;
+    }
+
     function generate(n) {
       var add = 1,
         max = 12 - add;
@@ -173,6 +180,46 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
     setSeconds(0);
   };
 
+  const resendOTPByPhone = async () => {
+    function generate(n) {
+      var add = 1,
+        max = 12 - add;
+      if (n > max) {
+        return generate(max) + generate(n - max);
+      }
+      max = Math.pow(10, n + add);
+      var min = max / 10;
+      var number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      return ("" + number).substring(add);
+    }
+    const otp = generate(6);
+    setNewOTP(otp);
+
+    try {
+      const data = await axios.post("https://server.reverr.io/sendSmsCode", {
+        to: email,
+        code: selectedCountry.dialCode.slice(1),
+        message: `Your Login OTP is ${otp}`,
+      });
+      if (data.data.status) {
+        toast.success("New OTP has been sent to your phone number");
+        // toast.success(data.data.message);
+      }
+    } catch (error) {
+      //   console.log("err", error);
+      toast.error(error?.response?.data?.message);
+    }
+    setMinutes(3);
+    setSeconds(0);
+  };
+
+  const handleKeyDown = (e, currentRef, previousRef) => {
+    if (e.key === 'Backspace' && currentRef.current.value === '') {
+      previousRef.current.focus();
+    }
+  };
+
   return (
     <div>
       <>
@@ -208,6 +255,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
                       secondDigitRef.current.focus();
                     }
                   }}
+                  onKeyDown={(e) => handleKeyDown(e, firstDigitRef, null)}
                   ref={firstDigitRef}
                 />
                 <input
@@ -220,6 +268,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
                       thirdDigitRef.current.focus();
                     }
                   }}
+                  onKeyDown={(e) => handleKeyDown(e, secondDigitRef, firstDigitRef)}
                   ref={secondDigitRef}
                 />
                 <input
@@ -232,6 +281,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
                       fourthDigitRef.current.focus();
                     }
                   }}
+                  onKeyDown={(e) => handleKeyDown(e, thirdDigitRef, secondDigitRef)}
                   ref={thirdDigitRef}
                 />
                 <input
@@ -244,6 +294,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
                       fifthDigitRef.current.focus();
                     }
                   }}
+                  onKeyDown={(e) => handleKeyDown(e, fourthDigitRef, thirdDigitRef)}
                   ref={fourthDigitRef}
                 />
                 <input
@@ -256,6 +307,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
                       sixthDigitRef.current.focus();
                     }
                   }}
+                  onKeyDown={(e) => handleKeyDown(e, fifthDigitRef, fourthDigitRef)}
                   ref={fifthDigitRef}
                 />
                 <input
@@ -263,6 +315,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData }) {
                   type="text"
                   value={sixthDigit}
                   onChange={(e) => setSixthDigit(e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(e, sixthDigitRef, fifthDigitRef)}
                   ref={sixthDigitRef}
                 />
               </div>
