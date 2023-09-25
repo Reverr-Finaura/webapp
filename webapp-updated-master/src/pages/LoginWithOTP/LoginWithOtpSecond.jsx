@@ -255,7 +255,6 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
                       secondDigitRef.current.focus();
                     }
                   }}
-                  onKeyDown={(e) => handleKeyDown(e, firstDigitRef, null)}
                   ref={firstDigitRef}
                 />
                 <input
