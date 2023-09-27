@@ -36,7 +36,7 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-top: 2rem;
 }
 .rightCont img {
-  width: 35rem;
+  width: 34rem;
 }
 
 .brandLogoCont {
@@ -152,7 +152,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #030b18;
   border: 2px solid #ffffff;
   border-radius: 23px;
-  width: 48%;
+  width: 46%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -188,9 +188,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .form {
   display: flex;
   flex-direction: column;
-  margin-top: 1.7rem;
+  /* margin-top: 1.7rem; */
   /* width: -webkit-fill-available; */
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   justify-content: center;
   align-items: baseline;
   text-align: center;

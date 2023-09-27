@@ -12,11 +12,20 @@ import { login, setUserData } from "../../features/userSlice";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import axios from "axios";
 import useQuery from "../../Utils/useQuery";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { setName } from "../../features/onboardingSlice";
+import { create } from "../../features/newUserSlice";
 
 const LoginTesting = () => {
   const selectedCountry = useSelector((state) => state.countryCode);
@@ -38,6 +47,8 @@ const LoginTesting = () => {
   const linkedinLoginError = queryy.get("error");
   const [isLogginInUsingLinkedIn, setIsLogginInUsingLinkedIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const onboardingData = useSelector((state) => state.onboarding);
+  const [userType, setUserType] = useState("individual");
 
   //LINKEDIN LOGIN
   const getUserDataFromLinkedin = async (code) => {
@@ -165,15 +176,59 @@ const LoginTesting = () => {
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then(async (userCredential) => {
-        dispatch(
-          login({
-            email: auth.currentUser.email,
-            uid: auth.currentUser.uid,
-            displayName: auth.currentUser.displayName,
-            profilePic: auth.currentUser.photoURL,
-          })
-        );
+      // .then(async (userCredential) => {
+      //   dispatch(
+      //     login({
+      //       email: auth.currentUser.email,
+      //       uid: auth.currentUser.uid,
+      //       displayName: auth.currentUser.displayName,
+      //       profilePic: auth.currentUser.photoURL,
+      //     })
+      //   );
+      // })
+      .then(async () => {
+        const docRef = doc(db, "Users", auth.currentUser.email);
+        try {
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            console.log("docSnap  exist");
+            dispatch(
+              login({
+                email: auth.currentUser.email,
+                uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                profilePic: auth.currentUser.photoURL,
+              })
+            );
+            navigate("/community");
+          } else {
+            console.log("User document does not exist.");
+            dispatch(
+              create({
+                email: auth.currentUser.email,
+                uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                profilePic: auth.currentUser.photoURL,
+                userType: userType,
+                loginType: "google",
+              })
+            );
+            dispatch(setEmail(auth.currentUser.email));
+            dispatch(setName(auth.currentUser.displayName));
+
+            const onboardingDataSoFar = {
+              ...onboardingData,
+              name: auth.currentUser.displayName,
+              email: auth.currentUser.email,
+            };
+            // Perform a single update with all the fields to be updated
+            await setDoc(docRef, onboardingDataSoFar, { merge: true });
+            navigate("/onboarding-first");
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
       })
       .catch((error) => {
         alert(error);
@@ -181,7 +236,7 @@ const LoginTesting = () => {
   };
 
   const onSubmit = (e) => {
-    console.log('Login');
+    console.log("Login");
     e.preventDefault();
     if (/^\d+$/.test(email)) {
       loginPhone();
@@ -356,12 +411,12 @@ const LoginTesting = () => {
   };
   // userDoc.Vibe_Data.How_To_Meet - []
   const handleTogglePassword = (event) => {
-    event.preventDefault()
-    console.log(showPassword)
+    event.preventDefault();
+    console.log(showPassword);
     setShowPassword(!showPassword);
   };
 
-  console.log("Set Show Password",showPassword);
+  console.log("Set Show Password", showPassword);
   return (
     <>
       <NavBarFinalDarkMode isLoggedIn={false} />
@@ -413,10 +468,10 @@ const LoginTesting = () => {
               <span
                 className={styles.toggleButton}
                 // onClick={handleTogglePassword}
-                onClick={(e)=>{
+                onClick={(e) => {
                   console.log("TEsting");
-                  e.preventDefault()
-                  setShowPassword(!showPassword)
+                  e.preventDefault();
+                  setShowPassword(!showPassword);
                 }}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -428,7 +483,7 @@ const LoginTesting = () => {
             <button type="submit">Login</button>
           </form>
           <div className={styles.leftBottom}>
-            {/* <button onClick={signInWithGoogle} className={styles.googleBtn}>
+            <button onClick={signInWithGoogle} className={styles.googleBtn}>
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
@@ -437,7 +492,7 @@ const LoginTesting = () => {
                 />
               </span>
               Continue with Google{" "}
-            </button> */}
+            </button>
             <div className={styles.newUser}>
               {/* <span>Don't remember password?&nbsp;&nbsp;&nbsp;</span> */}
               <Link to="/otp-login">Login with OTP</Link>

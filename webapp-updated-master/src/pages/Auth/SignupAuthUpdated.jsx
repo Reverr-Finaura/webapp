@@ -16,7 +16,14 @@ import {
   setPassword,
   setcountryCode,
 } from "../../features/onboardingSlice";
-import { collection, getDocs, query, getDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  getDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import axios from "axios";
 import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker";
 import useQuery from "../../Utils/useQuery";
@@ -35,7 +42,7 @@ function SignupAuthUpdated() {
 
   const selectedCountry = useSelector((state) => state.countryCode);
   const navigate = useNavigate();
-  const [userType, setUserType] = useState("FOUNDER");
+  const [userType, setUserType] = useState("individual");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -56,7 +63,8 @@ function SignupAuthUpdated() {
   const [linkedinProfileUrl, setLinkedinProfileUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passwordStrengthpara, setPasswordStrengthpara] = useState(false)
+  const [passwordStrengthpara, setPasswordStrengthpara] = useState(false);
+  const onboardingData = useSelector((state) => state.onboarding);
 
   //LINKEDIN LOGIN
   const getUserDataFromLinkedin = async (code) => {
@@ -142,7 +150,7 @@ function SignupAuthUpdated() {
     navigate("/onboardingGeneralInfoScreen");
   };
 
-  const signInWithGoogle = () => {
+  const signUpWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((userCredential) => {
         dispatch(
@@ -155,23 +163,40 @@ function SignupAuthUpdated() {
             loginType: "google",
           })
         );
+        dispatch(setEmail(auth.currentUser.email));
+        dispatch(setName(auth.currentUser.displayName));
       })
       .then(async () => {
+        const onboardingDataSoFar = {
+          ...onboardingData,
+          name: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+        };
+
         const docRef = doc(db, "Users", auth.currentUser.email);
-
         try {
-          const docSnap = await getDoc(docRef);
-
-          if (docSnap.exists()) {
-            console.log("docSnap  exist");
-            navigate("/dashboard");
-          } else {
-            console.log("User document does not exist.");
-            navigate("/onboardingGeneralInfoScreen");
-          }
-        } catch (error) {
-          console.log(error.message);
+          // Perform a single update with all the fields to be updated
+          await setDoc(docRef, onboardingDataSoFar, { merge: true });
+          console.log("Document successfully written!")
+          navigate("/onboarding-first");
+        } catch (err) {
+          console.error(err);
+          throw err; // Rethrow the error to be caught in the calling function
         }
+
+        // try {
+        //   const docSnap = await getDoc(docRef);
+
+        //   if (docSnap.exists()) {
+        //     console.log("docSnap  exist");
+        //     navigate("/dashboard");
+        //   } else {
+        //     console.log("User document does not exist.");
+        //     navigate("/onboardingGeneralInfoScreen");
+        //   }
+        // } catch (error) {
+        //   console.log(error.message);
+        // }
       })
       .catch((error) => {
         alert(error);
@@ -275,9 +300,7 @@ function SignupAuthUpdated() {
       console.log(emailSuccess, mobileSuccess);
 
       if (emailSuccess && mobileSuccess) {
-        toast.success(
-          "An OTP have been sent to your email and mobile number"
-        );
+        toast.success("An OTP have been sent to your email and mobile number");
         setTimeout(() => {
           navigate("/enterotp");
           setLoading(false);
@@ -296,7 +319,7 @@ function SignupAuthUpdated() {
         }, 3000);
       } else {
         toast.error("Both email and mobile OTPs failed to send");
-        setLoading(false)
+        setLoading(false);
       }
 
       // emailjs
@@ -736,7 +759,10 @@ function SignupAuthUpdated() {
               </div>
             </div>
 
-            <div className={styles.passwordBlock} onClick={() => setPasswordStrengthpara(true)}>
+            <div
+              className={styles.passwordBlock}
+              onClick={() => setPasswordStrengthpara(true)}
+            >
               <div style={{ position: "relative" }}>
                 <input
                   className={styles.input}
@@ -770,17 +796,22 @@ function SignupAuthUpdated() {
                 </button>
               </div>
             </div>
-            {passwordStrengthpara && <div className={styles.passwordStrength}>
-
-              <p style={{marginBottom:"10px"}}>password strength: </p>
-              <ul>
-                <li>Aim for at least 8 characters, but longer is better.</li>
-                <li>Use a combination of uppercase , lowercase , numbers, and special characters (e.g., !, @, #, $, %).</li>
-                <li>Avoid using easily guessable words like "password," "123456,", etc</li>
-
-              </ul>
-
-            </div>}
+            {passwordStrengthpara && (
+              <div className={styles.passwordStrength}>
+                <p style={{ marginBottom: "10px" }}>password strength: </p>
+                <ul>
+                  <li>Aim for at least 8 characters, but longer is better.</li>
+                  <li>
+                    Use a combination of uppercase , lowercase , numbers, and
+                    special characters (e.g., !, @, #, $, %).
+                  </li>
+                  <li>
+                    Avoid using easily guessable words like "password,"
+                    "123456,", etc
+                  </li>
+                </ul>
+              </div>
+            )}
 
             <button
               disabled={loading}
@@ -801,8 +832,8 @@ function SignupAuthUpdated() {
             {/* <p className={styles.orText}>-OR-</p> */}
           </form>
 
-          {/* <div className={styles.optionButtonCont}>
-            <button onClick={signInWithGoogle} className={styles.googleBtn}>
+          <div className={styles.optionButtonCont}>
+            <button onClick={signUpWithGoogle} className={styles.googleBtn}>
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
@@ -812,7 +843,7 @@ function SignupAuthUpdated() {
               </span>
               Sign up with google{" "}
             </button>
-          </div> */}
+          </div>
           <p className={styles.links}>
             Already have an account?{" "}
             <Link className={styles.linkk} to="/login">
