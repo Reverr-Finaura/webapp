@@ -217,6 +217,7 @@ function App() {
           </>
         )}
         {/* <Route path="/login-test" element={<LoginTesting />}/> */}
+        <Route path="/signup" element={<SignupAuthUpdated />}></Route>
         <Route path="/otp-login" element={<LoginWithOtpFirst />} />
         <Route path="/forgot-password" element={<ForgotpasswordUpdated />} />
         <Route path="/forgotemail" element={<ForgotEmail />} />
