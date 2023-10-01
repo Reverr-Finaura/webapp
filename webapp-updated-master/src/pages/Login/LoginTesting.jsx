@@ -490,8 +490,8 @@ const LoginTesting = () => {
                   src="/images/gIcon.png"
                   alt="gICon"
                 />
+                Continue with Google{" "}
               </span>
-              Continue with Google{" "}
             </button>
             <div className={styles.newUser}>
               {/* <span>Don't remember password?&nbsp;&nbsp;&nbsp;</span> */}
