@@ -179,7 +179,7 @@ function App() {
   //         try {
   //           const existingUser = await fetchSignInMethodsForEmail(auth, email);
   //           if (existingUser.length === 0) {
-  //             await createUserWithEmailAndPassword(auth,email, password);
+  //             await createUserWithEmailAndPassword(auth, email, password);
   //             console.log(`User created: ${email}`);
   //             userCount++;
   //           } else {
@@ -194,7 +194,6 @@ function App() {
   //     } catch (error) {
   //       console.error('Error retrieving user data from Firestore:', error);
   //     }
-
   //   };
   //   createUserAccount();
   // }, []);
