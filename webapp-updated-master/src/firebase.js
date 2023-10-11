@@ -7,7 +7,7 @@ import {
   getFirestore,
   onSnapshot,
   serverTimestamp,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
 import {
   doc,
@@ -25,19 +25,19 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
-  deleteObject
+  deleteObject,
 } from "firebase/storage";
 import { current } from "@reduxjs/toolkit";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyBe_7JYNBINJITC1HGbaLxgg3f7yZ0aud4",
+  authDomain: "dsquare-242c3.firebaseapp.com",
+  databaseURL: "https://dsquare-242c3-default-rtdb.firebaseio.com",
+  projectId: "dsquare-242c3",
+  storageBucket: "dsquare-242c3.appspot.com",
+  messagingSenderId: "103281255621",
+  appId: "1:103281255621:web:c97b1cdbd53ad43ed1fcac",
+  measurementId: "G-WS41LSXFKR",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -206,7 +206,7 @@ export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
       bucket: "Matched",
     }));
     setList(matchedData);
-    console.log("matched", matchedData)
+    console.log("matched", matchedData);
   } catch (error) {
     // Handle error fetching from the 'f' collection (Matched)
     console.error("Error fetching from 'f' collection:", error);
@@ -293,7 +293,6 @@ export const getAllUserHavingChatWith = async (currentcUser, setList) => {
 
   //   setList(dummyList);
   // });
-
 };
 
 export const createNetworkInMessagesDoc = async (userId, senderId) => {
@@ -368,7 +367,7 @@ export const SendMessage = async (
     furtherReceiverRef = doc(receiverRef, "Networks", currentcUser.email);
   } else if (bucket === "Matched") {
     furtherReceiverRef = doc(receiverRef, "Matched", currentcUser.email);
-  } 
+  }
 
   let timestmp = Timestamp.now();
 
@@ -379,7 +378,7 @@ export const SendMessage = async (
         createdAt: timestmp,
         sendBy: currentcUser.email,
         imgMsg: imgLink,
-        read: false
+        read: false,
       }),
     });
 
@@ -394,7 +393,7 @@ export const SendMessage = async (
         createdAt: timestmp,
         sendBy: currentcUser.email,
         imgMsg: imgLink,
-        read: false
+        read: false,
       }),
     });
   } catch (error) {
@@ -402,36 +401,32 @@ export const SendMessage = async (
   }
 };
 
-export const updatereadmessage = async(
-  currentcUser,
-  sendTo,
-)=>{
+export const updatereadmessage = async (currentcUser, sendTo) => {
   const senderRef = doc(db, "Messages", currentcUser.email);
-  const furtherSenderRef = doc(senderRef, "Matched", sendTo)
-  const chatdoc = await getDoc(furtherSenderRef)
-  console.log("fufnsda",chatdoc.data());
+  const furtherSenderRef = doc(senderRef, "Matched", sendTo);
+  const chatdoc = await getDoc(furtherSenderRef);
+  console.log("fufnsda", chatdoc.data());
   try {
-    let updatedmessges = chatdoc.data().messages.map(m=> {
-      console.log("mmmmm",m);
-      if(m.read === false){
-        m.read = true
+    let updatedmessges = chatdoc.data().messages.map((m) => {
+      console.log("mmmmm", m);
+      if (m.read === false) {
+        m.read = true;
       }
-      return m
-    })
+      return m;
+    });
     await updateDoc(furtherSenderRef, {
-      messages: updatedmessges
+      messages: updatedmessges,
     });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const ReciveMessage = async (currentcUser, sendTo, setmsg, bucket) => {
   try {
-    console.log(currentcUser.email, sendTo, bucket)
+    console.log(currentcUser.email, sendTo, bucket);
     const docRef = doc(db, "Messages", currentcUser.email);
     const furtherdocRef = collection(docRef, bucket);
-    
 
     onSnapshot(furtherdocRef, (snapshot) => {
       snapshot.docs.forEach((doc) => {
@@ -464,5 +459,3 @@ export const sendNotification = async (toemail, fromemail, messaage) => {
     console.log(error);
   }
 };
-
-
