@@ -42,7 +42,7 @@ export default function PostCardDark({
   isLoggedIn,
   openModal,
   postId,
-  postsDataWithUserDoc
+  postsDataWithUserDoc,
 }) {
   const userDoc = useSelector((state) => state.userDoc);
   const [isThreeDotsClicked, setIsThreeDotsClicked] = useState(false);
@@ -70,7 +70,6 @@ export default function PostCardDark({
   const navigate = useNavigate();
   const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  
 
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
@@ -82,8 +81,6 @@ export default function PostCardDark({
         const data = docSnapshot.data();
         setPostComments(data.comments);
         setPostDetail(data);
-
-
 
         // // data.map((event) => {
         // getUserDocByRef(data.postedby).then((res) => {
@@ -471,7 +468,7 @@ export default function PostCardDark({
     toast("reported post");
   }
   // fetching the post user type
-  useEffect(() => { });
+  useEffect(() => {});
 
   //GET TIME OF POST
   useEffect(() => {
@@ -509,7 +506,7 @@ export default function PostCardDark({
               objectFit: "cover",
             }}
             src={postedByUserDoc?.image ? postedByUserDoc?.image : defaultImg}
-            alt=""
+            alt=''
           />
           <div className={style.postAuthorNameAndDesignationCont}>
             <div
@@ -539,64 +536,75 @@ export default function PostCardDark({
               >
                 {postedByUserDoc?.name ? postedByUserDoc?.name : " "}
               </h3>
-              <div className="postAuthorType">
-                {   postsDataWithUserDoc.length >= 1 && 
-                 (() => {
-                  const foundPost = postsDataWithUserDoc.find((post) => post.id === postId);
-                  // console.log("this is foundpost ---- ",foundPost )
-                  switch (foundPost?.postedby?.userType) {
-                    case "founder":
-                      return (
-                        <div className={style.founder}>
-                          {" "}
-                          <img className={style.typeImg} src={founder} />{" "}
-                          Founder
-                        </div>
-                      );
-                    case "mentor":
-                      return (
-                        <div className={style.mentor}>
-                          {" "}
-                          <img className={style.typeImg} src={mentor} /> Mentor
-                        </div>
-                      );
-                    case "investor":
-                      return (
-                        <div className={style.investor}>
-                          {" "}
-                          <img className={style.typeImg} src={investor} />{" "}
-                          Investor
-                        </div>
-                      );
-                    case "professionals":
-                      return (
-                        <div className={style.professional}>
-                          {" "}
-                          <img className={style.typeImg} src={pro} />
-                          Professional
-                        </div>
-                      );
-                    default:
-                      return null;
-                  }
-                })()
-              }
-                
+              <div className='postAuthorType'>
+                {postsDataWithUserDoc.length >= 1 &&
+                  (() => {
+                    const foundPost = postsDataWithUserDoc.find(
+                      (post) => post.id === postId
+                    );
+                    // console.log("this is foundpost ---- ",foundPost )
+                    switch (foundPost?.postedby?.userType) {
+                      case "founder":
+                        return (
+                          <div className={style.founder}>
+                            {" "}
+                            <img
+                              className={style.typeImg}
+                              src={founder}
+                              alt=''
+                            />{" "}
+                            Founder
+                          </div>
+                        );
+                      case "mentor":
+                        return (
+                          <div className={style.mentor}>
+                            {" "}
+                            <img
+                              className={style.typeImg}
+                              src={mentor}
+                              alt=''
+                            />{" "}
+                            Mentor
+                          </div>
+                        );
+                      case "investor":
+                        return (
+                          <div className={style.investor}>
+                            {" "}
+                            <img
+                              className={style.typeImg}
+                              src={investor}
+                              alt=''
+                            />{" "}
+                            Investor
+                          </div>
+                        );
+                      case "professionals":
+                        return (
+                          <div className={style.professional}>
+                            {" "}
+                            <img className={style.typeImg} src={pro} alt='' />
+                            Professional
+                          </div>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
               </div>
             </div>
 
             <p className={style.postAuthorDesignation}>
-              {postedByUserDoc?.designation
-                ? postedByUserDoc?.designation
-                : ""}
+              {postedByUserDoc?.designation ? postedByUserDoc?.designation : ""}
             </p>
           </div>
 
           <div className={style.postUploadDateContainer}>
             <ReactTimeAgo
               className={style.timeSpan}
-              date={item?.createdAt?.seconds * 1000}
-              locale="en-US"
+              date={item?.createdAt?._seconds * 1000}
+              locale='en-US'
             />
             {/* {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)} */}
 
@@ -625,7 +633,7 @@ export default function PostCardDark({
                     }
                   >
                     {user?.user?.email === item?.postedby?.id ? (
-                      <a
+                      <div
                         style={{
                           textDecoration: "none",
                           color: "black",
@@ -642,8 +650,26 @@ export default function PostCardDark({
                         >
                           Edit Post
                         </div>
-                      </a>
-                    ) : null}
+                      </div>
+                    ) : // <a
+                    //   style={{
+                    //     textDecoration: "none",
+                    //     color: "black",
+                    //     margin: "auto",
+                    //     color: "#fff",
+                    //   }}
+                    // >
+                    //   <div
+                    //     onClick={() => {
+                    //       handleEditPostButtonClick(item, item.id);
+                    //       setIsThreeDotsClicked(false);
+                    //     }}
+                    //     className={style.threeDotsEditPostOptio}
+                    //   >
+                    //     Edit Post
+                    //   </div>
+                    // </a>
+                    null}
 
                     {user?.user?.email === item?.postedby?.id ? (
                       <div
@@ -670,77 +696,77 @@ export default function PostCardDark({
         </div>
         <div className={style.postDivideLine_community}></div>
         <div className={style.postTextContainer}>
-
-          {Array.isArray(item.text) ? (item?.text.length > 3 ? (
-            <h3 className={style.postText}>
-              {showMorePostTextClick ? (
-                // Display all strings in item.text, each on a new line
-                <>
+          {Array.isArray(item.text) ? (
+            item?.text.length > 3 ? (
+              <h3 className={style.postText}>
+                {showMorePostTextClick ? (
+                  // Display all strings in item.text, each on a new line
+                  <>
+                    {item?.text.map((textItem, index) => (
+                      <div key={index}>{textItem}</div>
+                    ))}
+                    <span
+                      style={{ color: "#00b2ff", cursor: "pointer" }}
+                      onClick={() => setShowMorePostTextClick(false)}
+                      className={style.morePostTextButto}
+                    >
+                      ...show less
+                    </span>{" "}
+                  </>
+                ) : (
+                  // Display the first three strings in item.text with "continue" link
+                  <>
+                    {item?.text.slice(0, 3).map((textItem, index) => (
+                      <div key={index}>{textItem}</div>
+                    ))}
+                    <span
+                      style={{ color: "#00b2ff", cursor: "pointer" }}
+                      onClick={() => setShowMorePostTextClick(true)}
+                      className={style.morePostTextButto}
+                    >
+                      ...continue
+                    </span>{" "}
+                  </>
+                )}
+              </h3>
+            ) : (
+              <h3 className={style.postText}>
                 {item?.text.map((textItem, index) => (
                   <div key={index}>{textItem}</div>
                 ))}
-                  <span
-                    style={{ color: "#00b2ff", cursor: "pointer" }}
-                    onClick={() => setShowMorePostTextClick(false)}
-                    className={style.morePostTextButto}
-                  >
-                    ...show less
-                  </span>{" "}                </>
-              ) : (
-                // Display the first three strings in item.text with "continue" link
-                <>
-                  {item?.text.slice(0, 3).map((textItem, index) => (
-                    <div key={index}>{textItem}</div>
-                  ))}
-                  <span
-                    style={{ color: "#00b2ff", cursor: "pointer" }}
-                    onClick={() => setShowMorePostTextClick(true)}
-                    className={style.morePostTextButto}
-                  >
-                    ...continue
-                  </span>{" "}
-                </>
-              )}
-            </h3>
+              </h3>
+            )
           ) : (
-            <h3 className={style.postText}>
-              {item?.text.map((textItem, index) => (
-                <div key={index}>{textItem}</div>
-              ))}
-            </h3>
-          )) : (<h3 className={style.postText}>
-            {item?.text}
-          </h3>)}
-
-
+            <h3 className={style.postText}>{item?.text}</h3>
+          )}
         </div>
         {item?.image ? (
-          <div className="postImageContainer" style={{ width: "100%" }}>
+          <div className='postImageContainer' style={{ width: "100%" }}>
             <img
-              className="postImage"
+              className='postImage'
               style={{ width: "100%" }}
               src={item?.image}
-              alt="postImage"
+              alt='postImage'
             />
           </div>
         ) : null}
         {item?.video ? (
-          <div className="postImageContainer" style={{ width: "100%" }}>
+          <div className='postImageContainer' style={{ width: "100%" }}>
             <video
               //  id="videoPlayer"
-              id="my-video"
+              id='my-video'
               style={{ aspectRatio: "7/3", width: "100%", height: "49em" }}
               src={item?.video}
-              alt="postVideo"
-              muted="muted"
-              autoplay="autoplay"
-              className="video-js"
+              alt='postVideo'
+              muted='muted'
+              autoplay='autoplay'
+              className='video-js'
               controls
-              preload="auto"
-              width="640"
-              height="264"
-              poster="MY_VIDEO_POSTER.jpg"
-              data-setup="{}"
+              preload='auto'
+              width='640'
+              height='264'
+              poster='MY_VIDEO_POSTER.jpg'
+              data-setup='{}'
             ></video>
             {/* <button onClick={handlePlayVideo} className="playButton">
               {isPlaying ? "Pause" : "Play"}
@@ -751,7 +777,12 @@ export default function PostCardDark({
         <div className={style.postDivideLine_community}></div>
         <div className={style.postLikesAndCommentContainer}>
           <div
-            style={{ display: "flex", alignItems: "center", width: "100 %", justifyContent: "space-evenly" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "100 %",
+              justifyContent: "space-evenly",
+            }}
           >
             <div
               onClick={() => {
@@ -771,7 +802,8 @@ export default function PostCardDark({
               </div>
 
               <h3 style={{ cursor: "pointer" }} className={style.postLikeCount}>
-                {postDetail?.likes.length} <span className={style.postIconsText}>Like</span>
+                {postDetail?.likes.length}{" "}
+                <span className={style.postIconsText}>Like</span>
               </h3>
             </div>
 
@@ -790,7 +822,7 @@ export default function PostCardDark({
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
                 <img
                   src={commentIcon}
-                  alt="img"
+                  alt='img'
                   className={style.commentPostIconn}
                 />
 
@@ -798,7 +830,8 @@ export default function PostCardDark({
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
-                {postDetail?.comments.length} <span className={style.postIconsText}>Comment</span>
+                {postDetail?.comments.length}{" "}
+                <span className={style.postIconsText}>Comment</span>
               </h3>
             </div>
 
@@ -812,7 +845,7 @@ export default function PostCardDark({
               }}
               className={style.postSendLinkContainer}
             >
-              <div className="postSendCont">
+              <div className='postSendCont'>
                 <div className={style.postSendIcon}>
                   {/* <img style={{width:"100%",height:"100%"}} src="./images/paper-plane.png" alt="sendIcon" /> */}
                   <RiShareForwardLine style={{ fontSize: "1.8rem" }} />
@@ -820,8 +853,9 @@ export default function PostCardDark({
                 <h3
                   style={{ cursor: "pointer" }}
                   className={style.postCommentCount}
-                > <span className={style.postIconsText}>Share</span>
-
+                >
+                  {" "}
+                  <span className={style.postIconsText}>Share</span>
                 </h3>
               </div>
             </div>
@@ -829,7 +863,7 @@ export default function PostCardDark({
             <div className={style.postCommentContainer}>
               <div className={style.commentContainer}>
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
-                <img src={eyeIcon} />
+                <img src={eyeIcon} alt='' />
 
                 {/* 
                 <FaBullseye
@@ -865,25 +899,25 @@ export default function PostCardDark({
       <section className={style.newCommentOnPostSection}>
         {editCommentButtonIsClick ? (
           <section className={style.uploadPostContainerrrrSection}>
-            <div className="newCommentContainerrrr">
+            <div className='newCommentContainerrrr'>
               <img
-                className="community-newComment-cont-userImage"
+                className='community-newComment-cont-userImage'
                 src={
                   userDoc?.image
                     ? userDoc.image
                     : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                 }
-                alt="userImage"
+                alt='userImage'
               />
-              <div className="textAreaUploadContainer">
+              <div className='textAreaUploadContainer'>
                 <div>
                   <textarea
                     autoFocus
                     onChange={(e) => setNewEdittedComment(e.target.value)}
-                    name="newEditComment"
+                    name='newEditComment'
                     id={style.postCommentContainerExpanded}
-                    rows="3"
-                    placeholder="Share Your Thoughts"
+                    rows='3'
+                    placeholder='Share Your Thoughts'
                     value={newEdittedComment}
                   ></textarea>
                   <div
@@ -891,7 +925,7 @@ export default function PostCardDark({
                   >
                     <button
                       onClick={() => handleEditCommentonPost(item, item.id)}
-                      className="uploadPostIconButton"
+                      className='uploadPostIconButton'
                     >
                       Edit
                     </button>
@@ -905,7 +939,7 @@ export default function PostCardDark({
             style={{ display: commentIconClick ? "" : "none" }}
             className={style.uploadPostContainerrrrSection}
           >
-            <div className="newCommentContainerrrr">
+            <div className='newCommentContainerrrr'>
               <img
                 className={style.communityNewCommentContUserImage}
                 src={
@@ -913,7 +947,7 @@ export default function PostCardDark({
                     ? userDoc.image
                     : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                 }
-                alt="userImage"
+                alt='userImage'
               />
               <div
                 style={{ position: "relative", width: "85%" }}
@@ -926,14 +960,14 @@ export default function PostCardDark({
                     setNewCommentTextAreaClick(true);
                   }}
                   onChange={(e) => setNewComment(e.target.value)}
-                  name="newComment"
+                  name='newComment'
                   id={
                     newCommentTextAreaClick
                       ? style.postCommentContainerExpanded
                       : style.postCommentContainer
                   }
-                  rows="3"
-                  placeholder="Share Your Thoughts"
+                  rows='3'
+                  placeholder='Share Your Thoughts'
                   value={newComment}
                 ></textarea>
                 {newCommentTextAreaClick ? (
@@ -942,9 +976,9 @@ export default function PostCardDark({
                       handleNewCommentonPost(item, item.id);
                       setCommentNotificationDatainFirebase(item);
                     }}
-                    class={style.rightArrowImg}
+                    className={style.rightArrowImg}
                     src={rightArrow}
-                    alt="rightArrow"
+                    alt='rightArrow'
                   />
                 ) : null}
 
@@ -953,9 +987,9 @@ export default function PostCardDark({
                     handleNewCommentonPost(item, item.id);
                     setCommentNotificationDatainFirebase(item);
                   }}
-                  class={style.rightArrowImg}
+                  className={style.rightArrowImg}
                   src={rightArrow}
-                  alt="rightArrow"
+                  alt='rightArrow'
                 />
 
                 <GrAddCircle
@@ -985,23 +1019,23 @@ export default function PostCardDark({
             {postDetail?.comments?.map((list) => {
               return (
                 <>
-                  <div className="commentedByAndComment" key={list.commentid}>
-                    <div className="commented-by-and-edit-cont">
+                  <div className='commentedByAndComment' key={list.commentid}>
+                    <div className='commented-by-and-edit-cont'>
                       <img
-                        className="commentedUserImage"
+                        className='commentedUserImage'
                         src={
                           commentedByUserDoc?.filter((it) => {
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
                             ? // The ternary operator starts here
-                            commentedByUserDoc?.filter((it) => {
-                              return it.email === list?.commentedby?.id;
-                            })[0]?.image
+                              commentedByUserDoc?.filter((it) => {
+                                return it.email === list?.commentedby?.id;
+                              })[0]?.image
                             : defaultImg
                         }
-                        alt="CommentedUserPhoto"
+                        alt='CommentedUserPhoto'
                       />
-                      <p className="commented-by">
+                      <p className='commented-by'>
                         {
                           commentedByUserDoc?.filter((it) => {
                             return it.email === list?.commentedby?.id;
@@ -1011,7 +1045,7 @@ export default function PostCardDark({
 
                       {list?.commentedby?.id === user?.user?.email ? (
                         <TfiMoreAlt
-                          className="threeDotsPost commentThreeDotsPost"
+                          className='threeDotsPost commentThreeDotsPost'
                           onClick={() => {
                             setIsCommentThreeDotsClicked((current) => !current);
                             setThreeDotsClickCommentId(list?.commentid);
@@ -1021,10 +1055,10 @@ export default function PostCardDark({
                       {/* <img onClick={()=>{setIsCommentThreeDotsClicked(current=>!current);setThreeDotsClickCommentId(list?.commentid)}} className='threeDotsPost commentThreeDotsPost' src="./images/dots.png" alt="3dots" /> */}
 
                       {isCommentThreeDotsClicked &&
-                        list?.commentedby?.id === user?.user?.email &&
-                        threeDotsClickCommentId === list?.commentid ? (
+                      list?.commentedby?.id === user?.user?.email &&
+                      threeDotsClickCommentId === list?.commentid ? (
                         <>
-                          <div className="threeDotsOptions commentThreeDotsOption">
+                          <div className='threeDotsOptions commentThreeDotsOption'>
                             <a
                               style={{
                                 textDecoration: "none",
@@ -1038,7 +1072,7 @@ export default function PostCardDark({
                                   handleEditCommentClick(list.commentid, list);
                                   setIsCommentThreeDotsClicked(false);
                                 }}
-                                className="threeDotsEditPostOption"
+                                className='threeDotsEditPostOption'
                               >
                                 Edit
                               </div>
@@ -1052,7 +1086,7 @@ export default function PostCardDark({
                                   item.id
                                 )
                               }
-                              className="threeDotsDeletePostOption"
+                              className='threeDotsDeletePostOption'
                             >
                               Delete
                             </div>
@@ -1060,7 +1094,7 @@ export default function PostCardDark({
                         </>
                       ) : null}
                     </div>
-                    <p className="commented-by-comment">{list.comment}</p>
+                    <p className='commented-by-comment'>{list.comment}</p>
                   </div>
                 </>
               );
@@ -1074,5 +1108,5 @@ export default function PostCardDark({
 
 PostCardDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => { },
+  openModal: () => {},
 };

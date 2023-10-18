@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import EventCard from '../../components/EventCard/EventCard'
+import EventCard from "../../components/EventCard/EventCard";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 
 const DiscoverEvents = () => {
-
-
-
-
-
   const [users, setUsers] = useState([]);
   const [randomArticles, setrandomArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +22,7 @@ const DiscoverEvents = () => {
         //   docData.hasOwnProperty("imageUrl") &&
         //   docData.imageUrl.trim() !== ""
         // )
-        .map(doc => doc.data());
+        .map((doc) => doc.data());
       setUsers(filteredUsers);
       setLoading(false);
     }
@@ -53,51 +48,45 @@ const DiscoverEvents = () => {
     }
   }, [users]);
 
-
-
-
-
-
-
-
-
-
-
-
-
   return (
-    <section className='events-section'> 
+    <section className='events-section'>
+      {/* Events */}
+      <div className='events'>
+        <h3 style={{ color: "white", display: "flex", marginLeft: "20px" }}>
+          {" "}
+          Suggested <span style={{ color: "blue" }}> Events </span>{" "}
+        </h3>
+        <button
+          type='button'
+          className='explore-btn'
+          style={{ float: "right", display: "flex", marginLeft: "1000px" }}
+        >
+          Explore Events
+        </button>
+      </div>
 
+      <button
+        type='button'
+        className='event-btn'
+        style={{ marginLeft: "20px" }}
+      >
+        Upcoming
+      </button>
+      <button type='button' className='event-btn'>
+        Ongoing
+      </button>
 
-    {/* Events */}
-    <div className='events'>
-            <h3 style={{color:'white', display:'flex', marginLeft:'20px'}}> Suggested <span style={{color:'blue'}}> Events </span> </h3>
-            <button type="button" className="explore-btn" style={{float:'right', display:'flex', marginLeft:'1000px', }}>Explore Events</button>
-    </div>  
+      <div className='event-card'>
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+      </div>
+    </section>
+  );
+};
 
-            <button type="button" className="event-btn"style={{marginLeft:'20px'}}>Upcoming</button>  
-            <button type="button" className="event-btn" >Ongoing</button>  
-
-            <div className='event-card'>
-                <EventCard/>
-                <EventCard/>
-                <EventCard/>
-                <EventCard/>
-            </div>
-            </section>
-  )
-}
-
-export default DiscoverEvents
-
-
-
-
-
-
-
-
-
+export default DiscoverEvents;
 
 // import React from 'react';
 // import EventCard from '../../components/EventCard/EventCard';
@@ -127,12 +116,6 @@ export default DiscoverEvents
 // };
 
 // export default DiscoverEvents;
-
-
-
-
-
-
 
 // import React from 'react';
 // import EventCard from '../../components/EventCard/EventCard';
@@ -164,15 +147,6 @@ export default DiscoverEvents
 // };
 
 // export default DiscoverEvents;
-
-
-
-
-
-
-
-
-
 
 // import React from 'react';
 // import EventCard from '../../components/EventCard/EventCard';

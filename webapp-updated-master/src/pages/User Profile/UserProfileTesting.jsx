@@ -133,7 +133,7 @@ const UserProfileTesting = () => {
 
   return (
     <>
-      <Toaster position="bottom-left" reverseOrder={false} />
+      <Toaster position='bottom-left' reverseOrder={false} />
       <NavBarFinalDarkMode />
       <div className={styles.profileWrapper}>
         <div className={styles.profileContainer}>
@@ -142,7 +142,7 @@ const UserProfileTesting = () => {
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/")}
           >
-            <img src="/images/profileArrowLeft.svg" alt="back" />
+            <img src='/images/profileArrowLeft.svg' alt='back' />
             <p>My Profile</p>
           </div>
           <div className={styles.profileUser}>
@@ -155,7 +155,7 @@ const UserProfileTesting = () => {
                     ? userDoc.image
                     : DefaultDP
                 }
-                alt="Linkedin"
+                alt='Linkedin'
               />
             </div>
             <div className={styles.profileInfo}>
@@ -172,8 +172,8 @@ const UserProfileTesting = () => {
                 {userDoc?.email ? (
                   <>
                     <img
-                      src="/images/logos_google-gmail.svg"
-                      alt="Email"
+                      src='/images/logos_google-gmail.svg'
+                      alt='Email'
                       onClick={() => {
                         navigator.clipboard.writeText(userDoc.email);
                         toast.success("Email copied to clipboard");
@@ -186,8 +186,8 @@ const UserProfileTesting = () => {
                 {userDoc.linkedin || userDoc.linlkedin ? (
                   <>
                     <img
-                      src="/images/skill-icons_linkedin.svg"
-                      alt="Linkedin"
+                      src='/images/skill-icons_linkedin.svg'
+                      alt='Linkedin'
                       onClick={() => {
                         navigator.clipboard.writeText(
                           userDoc.linkedin || userDoc.linlkedin
@@ -211,8 +211,8 @@ const UserProfileTesting = () => {
               </div>
               <div className={styles.profileLocation}>
                 <img
-                  src="/images/basil_location-outline.svg"
-                  alt="ProfileImage"
+                  src='/images/basil_location-outline.svg'
+                  alt='ProfileImage'
                 />
                 <p>
                   {userDoc?.state
@@ -324,9 +324,9 @@ const UserProfileTesting = () => {
               <div className={styles.educationInfo}>
                 <ul>
                   {userDoc?.experience ? (
-                    userDoc.experience.map((item) => {
+                    userDoc.experience.map((item, index) => {
                       return (
-                        <li>
+                        <li key={index}>
                           {item.designation ? item.designation : null} at{" "}
                           {item.company ? item.company : null}{" "}
                           <span style={{ fontSize: "14px", color: "gray" }}>
@@ -358,7 +358,7 @@ const UserProfileTesting = () => {
             <div className={styles.contact}>
               <p>Social Handles</p>
               <div className={styles.contactItem}>
-                <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
+                <img src='/images/skill-icons_linkedin.svg' alt='Linkedin' />
                 <p
                   onClick={() => {
                     if (userDoc?.linkedin && isValidURL(userDoc?.linkedin)) {
@@ -380,7 +380,7 @@ const UserProfileTesting = () => {
                 </p>
               </div>
               <div className={styles.contactItem}>
-                <img src="/images/devicon_facebook.svg" alt="fb" />
+                <img src='/images/devicon_facebook.svg' alt='fb' />
                 <p
                   onClick={() => {
                     if (
@@ -407,7 +407,7 @@ const UserProfileTesting = () => {
                 </p>
               </div>
               <div className={styles.contactItem}>
-                <img src="/images/skill-icons_twitter.svg" alt="Linkedin" />
+                <img src='/images/skill-icons_twitter.svg' alt='Linkedin' />
                 <p
                   onClick={() => {
                     if (

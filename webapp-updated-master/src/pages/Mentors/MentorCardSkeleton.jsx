@@ -8,9 +8,9 @@ const MentorCardSkeleton = ({ cards }) => {
     .fill(0)
     .map((item, index) => {
       return (
-        <>
-          <SkeletonTheme baseColor="rgb(0, 12, 31)" highlightColor="grey">
-            <div className={styles.card} key={index}>
+        <React.Fragment key={index}>
+          <SkeletonTheme baseColor='rgb(0, 12, 31)' highlightColor='grey'>
+            <div className={styles.card}>
               <div className={styles.cardTop}>
                 <Skeleton
                   className={styles.cardTopUserImage}
@@ -40,7 +40,7 @@ const MentorCardSkeleton = ({ cards }) => {
               </div>
             </div>
           </SkeletonTheme>
-        </>
+        </React.Fragment>
       );
     });
 };

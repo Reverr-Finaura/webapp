@@ -122,9 +122,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postUploadStatus, setPostUploadStatus] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPostLoading, setIsPostLoading] = useState(true);
-  const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([])
-  const [imageModalStatus , setImageModalStatus]= useState(false)
-
+  const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([]);
+  const [imageModalStatus, setImageModalStatus] = useState(false);
 
   useEffect(() => {
     const fetchUserInformation = async () => {
@@ -134,16 +133,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           return { ...item, postedby: userData }; // Create a new object with updated user data
         })
       );
-      setPostsDataWithUserDoc(updatedPostsData)
-
+      setPostsDataWithUserDoc(updatedPostsData);
     };
 
-    fetchUserInformation()
+    fetchUserInformation();
+  }, [postsData]);
 
-  }, [postsData])
-
-  console.log("postsDateWithUserDoc ----", postsDataWithUserDoc)
-  console.log("this is the postsData----", postsData)
+  console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
+  console.log("this is the postsData----", postsData);
 
   //FETCH LATEST NEWS
   const options = {
@@ -347,14 +344,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     setTempImageURL(null);
     setSelectedVideo(null);
     setTempVideoURL(null);
-    
-    if (chooseFileRef.current) {
-      chooseFileRef.current.value = ''; // Reset input value
-    }
-    if(chooseVidoFileRef.current){
-      chooseVidoFileRef.current.value = ''; // Reset input value
-    }
 
+    if (chooseFileRef.current) {
+      chooseFileRef.current.value = ""; // Reset input value
+    }
+    if (chooseVidoFileRef.current) {
+      chooseVidoFileRef.current.value = ""; // Reset input value
+    }
   };
 
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -433,14 +429,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     const fileURL = e.target.files[0];
     console.log("this is image upload", fileURL);
     console.log("this is image upload", URL.createObjectURL(fileURL));
-    setImageModalStatus(true)
+    setImageModalStatus(true);
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
   }
-  
-  console.log("image uploaded --", imageUpload)
-  console.log("temp image --", tempImageURL)
+
+  console.log("image uploaded --", imageUpload);
+  console.log("temp image --", tempImageURL);
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
@@ -538,7 +534,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         });
       }
 
-
       newPostId.push(timeId);
 
       updateUserDatabase(newPostId);
@@ -567,7 +562,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   // HANDLE EDIT POST BUTTON CLICK
   const handleEditPostButtonClick = (item, itemId) => {
     setEditPostButtonClick(true);
-    let result = (item.text).join('\n')
+    let result = item.text.join("\n");
     // console.log("item.text ---- ",item.text)
     // console.log("item.text ---- result ",result)
 
@@ -613,7 +608,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   const EditPostInDatabase = async (imageURLL) => {
     const postRef = doc(db, "Posts", editPostId);
-    console.log("newEditText just after into database", newEditText)
+    console.log("newEditText just after into database", newEditText);
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
 
@@ -781,50 +776,50 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   useEffect(() => {
-    console.log("postSpaceData", postSpaceData[0])
-    if ((newPostText || tempImageURL) && postSpaceData.length == 1 && postSpaceData[0]) {
+    console.log("postSpaceData", postSpaceData[0]);
+    if (
+      (newPostText || tempImageURL) &&
+      postSpaceData.length == 1 &&
+      postSpaceData[0]
+    ) {
       setPostUploadStatus(true);
-    }
-    else {
-
+    } else {
       setPostUploadStatus(false);
     }
   }, [newPostText, tempImageURL, postSpaceData]);
 
   return (
     <>
-
       {imageModalStatus && tempImageURL && (
-        <div class={style.overlay}>
+        <div className={style.overlay}>
           <div className={style.imageModal}>
-           
             <div className={style.communityPostImageCont}>
               <img
                 className={style.communityPostImage}
                 src={tempImageURL}
-                alt="postFile"
+                alt='postFile'
               />
               <div className={style.editDeleteBtn}>
-                <RxCrossCircled
-                  onClick={RemoveFile}
-                  className="delete_Btn"
-                />
-                <FiEdit
-                  onClick={chooseFile}
-                  className={style.editBtn}
-                />
+                <RxCrossCircled onClick={RemoveFile} className='delete_Btn' />
+                <FiEdit onClick={chooseFile} className={style.editBtn} />
               </div>
             </div>
-            <button className={style.imageModalSubmitebtn} onClick={()=> setImageModalStatus(false)} >Done</button>
+            <button
+              className={style.imageModalSubmitebtn}
+              onClick={() => setImageModalStatus(false)}
+            >
+              Done
+            </button>
           </div>
         </div>
       )}
       {/* raaya chat boot */}
       <iframe
-        src="https://www.chatbase.co/chatbot-iframe/dpblbF2UGnrFPdqMPCxWb"
-        width="100%"
+        title='chat-bot'
+        src='https://www.chatbase.co/chatbot-iframe/dpblbF2UGnrFPdqMPCxWb'
+        width='100%'
         style={{ height: "100%", minHeight: "700px", display: "none" }}
-        frameborder="0"
+        frameBorder='0'
       ></iframe>
 
       {/* userSpace modal */}
@@ -840,7 +835,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       >
         <span className={style.spaceSectionButtonImg}>
           {" "}
-          <img src={darkSparkle} />
+          <img src={darkSparkle} alt='' />
         </span>
         Change your Space
       </button>
@@ -860,10 +855,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     return (
                       <div
                         key={index}
-                        className={`${style.spaceMenuData} ${activeIndex.includes(index)
-                          ? style.spaceMenuDataActive
-                          : ""
-                          }`}
+                        className={`${style.spaceMenuData} ${
+                          activeIndex.includes(index)
+                            ? style.spaceMenuDataActive
+                            : ""
+                        }`}
                         onClick={(event) =>
                           handleSpaceMenuDataClick(
                             index,
@@ -873,10 +869,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       >
                         <p
-                          className={`${style.spaceMenuDataPara} ${activeIndex.includes(index)
-                            ? style.spaceMenuDataParaActive
-                            : ""
-                            }`}
+                          className={`${style.spaceMenuDataPara} ${
+                            activeIndex.includes(index)
+                              ? style.spaceMenuDataParaActive
+                              : ""
+                          }`}
                         >
                           {space}
                         </p>
@@ -940,67 +937,67 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           <input
             onChange={onImageChange}
             ref={chooseFileRef}
-            type="file"
-            accept="image/*"
+            type='file'
+            accept='image/*'
             hidden
             className={style.postImageUpload}
           />
           <input
             onChange={onVideoChange}
             ref={chooseVidoFileRef}
-            type="file"
-            accept="video/*"
+            type='file'
+            accept='video/*'
             hidden
             className={style.postImageUpload}
           />
 
           {/* NAVBAR POST BUTTON CLICK SECTION */}
           {navbarPostButtonClick ? (
-            <section className="editPostContainerrrr">
+            <section className='editPostContainerrrr'>
               <ToastContainer />
-              <div className="editPostContainer-edit-container">
+              <div className='editPostContainer-edit-container'>
                 <div
                   onClick={() => {
                     setNavbarPostButtonClick(false);
                     setTempImageURL(null);
                     setImageUpload(null);
                   }}
-                  className="closeContainerButton"
+                  className='closeContainerButton'
                 >
                   X
                 </div>
                 <section className={style.uploadPostContainerrrrSection}>
-                  <div className="EdituploadPostContainerrrr">
+                  <div className='EdituploadPostContainerrrr'>
                     <img
-                      className="community-upload-cont-userImage"
+                      className='community-upload-cont-userImage'
                       src={
                         userDoc?.image ? userDoc.image : defaultImg
                         // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                       }
-                      alt="userImage"
+                      alt='userImage'
                     />
-                    <div className="textAreaUploadContainer">
+                    <div className='textAreaUploadContainer'>
                       <div className={style.navbarUploadPostOuterBoxContainer}>
                         <textarea
-                          className="navbarUploadPostContainerTextArea"
+                          className='navbarUploadPostContainerTextArea'
                           onChange={(e) => setNewPostText(e.target.value)}
-                          name="postText"
-                          id="postTextContainerExpanded"
-                          rows="3"
+                          name='postText'
+                          id='postTextContainerExpanded'
+                          rows='3'
                           value={newPostText}
-                          placeholder="What Would You Like To Post?"
+                          placeholder='What Would You Like To Post?'
                         ></textarea>
                         {tempImageURL ? (
-                          <div className="edit-communityPostImage-cont">
+                          <div className='edit-communityPostImage-cont'>
                             <img
-                              className="edit-communityPostImage"
+                              className='edit-communityPostImage'
                               src={tempImageURL}
-                              alt="postFile"
+                              alt='postFile'
                             />
                             <div className={style.editDeleteBtn}>
                               <RxCrossCircled
                                 onClick={RemoveFile}
-                                className="delete_Btn"
+                                className='delete_Btn'
                               />
                               <FiEdit
                                 onClick={chooseFile}
@@ -1012,7 +1009,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
                         {/* { && } */}
 
-                        <div className="addImageandUploadPostIcon">
+                        <div className='addImageandUploadPostIcon'>
                           {/* <img
                             onClick={chooseFile}
                             className="addImageInCommunityIcon"
@@ -1021,13 +1018,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             alt="addImageIcon"
                           /> */}
                           <MdOutlineAddPhotoAlternate
-                            className="addImageInCommunityReactIcon"
+                            className='addImageInCommunityReactIcon'
                             onClick={chooseFile}
                           />
 
                           <button
                             onClick={uploadImageToFireBase}
-                            className="uploadPostIconButton"
+                            className='uploadPostIconButton'
                           >
                             Post
                           </button>
@@ -1043,30 +1040,30 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
           {editPostButtonClick ? (
             <>
-              <section className="editPostContainerrrr">
+              <section className='editPostContainerrrr'>
                 <ToastContainer />
-                <div className="editPostContainer-edit-container">
+                <div className='editPostContainer-edit-container'>
                   <div
                     onClick={() => {
                       setEditPostButtonClick(false);
                       setTempImageURL(null);
                       setImageUpload(null);
                     }}
-                    className="closeContainerButton"
+                    className='closeContainerButton'
                   >
                     X
                   </div>
                   <section className={style.uploadPostContainerrrrSection}>
-                    <div className="EdituploadPostContainerrrr">
+                    <div className='EdituploadPostContainerrrr'>
                       <img
-                        className="community-upload-cont-userImage"
+                        className='community-upload-cont-userImage'
                         src={
                           userDoc?.image ? userDoc.image : defaultImg
                           //  "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                         }
-                        alt="userImage"
+                        alt='userImage'
                       />
-                      <div className="textAreaUploadContainer">
+                      <div className='textAreaUploadContainer'>
                         <div
                           className={style.navbarUploadPostOuterBoxContainer}
                         >
@@ -1074,30 +1071,33 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             onChange={(e) => {
                               {
                                 const newValue = e.target.value;
-                                const newLinesArray = newValue.split('\n');
+                                const newLinesArray = newValue.split("\n");
                                 setNewEditText(newLinesArray);
-                                console.log("newEditText on textArea", newEditText);
-                              };
+                                console.log(
+                                  "newEditText on textArea",
+                                  newEditText
+                                );
+                              }
                             }}
-                            name="postText"
-                            className="editOldPostTextArea"
-                            id="postTextContainerExpanded"
-                            rows="3"
-                            value={newEditText.join('\n')}
-                            placeholder="What Would You Like To Edit?"
+                            name='postText'
+                            className='editOldPostTextArea'
+                            id='postTextContainerExpanded'
+                            rows='3'
+                            value={newEditText.join("\n")}
+                            placeholder='What Would You Like To Edit?'
                           ></textarea>
                           {tempImageURL ? (
-                            <div className="edit-communityPostImage-cont">
-                              <div className="editImageOverLayContainerImageContainer">
-                                <div className="editImageOverLayContainer"></div>
+                            <div className='edit-communityPostImage-cont'>
+                              <div className='editImageOverLayContainerImageContainer'>
+                                <div className='editImageOverLayContainer'></div>
                                 <img
-                                  className="edit-communityPostImage"
+                                  className='edit-communityPostImage'
                                   src={tempImageURL}
-                                  alt="postFile"
+                                  alt='postFile'
                                 />
                                 <button
                                   onClick={chooseFile}
-                                  className="changePhotoIconButton"
+                                  className='changePhotoIconButton'
                                 >
                                   Change
                                 </button>
@@ -1105,12 +1105,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             </div>
                           ) : null}
 
-                          <div className="addImageandUploadPostIcon">
+                          <div className='addImageandUploadPostIcon'>
                             {/* <img onClick={chooseFile} className='addImageInCommunityIcon' src="./images/add-image-icon.png" alt="addImageIcon" /> */}
 
                             <button
                               onClick={EditPost}
-                              className="uploadPostIconButton"
+                              className='uploadPostIconButton'
                             >
                               Save Changes
                             </button>
@@ -1126,7 +1126,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
           {/* UPLOAD NEW POST SECTION */}
           <div className={style.reverrCommunityUploadContainerrr}>
-            <div className="reverrCommunityHeadingAndPostUploadIcon">
+            <div className='reverrCommunityHeadingAndPostUploadIcon'>
               <div>
                 {isLoggedIn ? (
                   <h2 className={style.reverrCommunityHeading}>
@@ -1156,8 +1156,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
             </div>
 
             <section
-              className={style.uploadPostContainerrrrSection}
-              ClassName={style.uploadPostContainerrrrSectionBoxShadow}
+              // className={style.uploadPostContainerrrrSection}
+              // ClassName={style.uploadPostContainerrrrSectionBoxShadow}
+              className={`${style.uploadPostContainerrrrSection} ${style.uploadPostContainerrrrSectionBoxShadow}`}
             >
               <div className={style.uploadPostContainerrrr}>
                 <img
@@ -1166,13 +1167,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     !isLoggedIn
                       ? defaultImg
                       : userDoc?.image
-                        ? userDoc.image
-                        : defaultImg
+                      ? userDoc.image
+                      : defaultImg
                     // : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
-                  alt="userImage"
+                  alt='userImage'
                 />
-                <div className="textAreaUploadContainer">
+                <div className='textAreaUploadContainer'>
                   <div
                     className={
                       textAreaIsClick
@@ -1190,15 +1191,15 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       }}
                       onChange={(e) => setNewPostText(e.target.value)}
-                      name="postText"
+                      name='postText'
                       id={
                         textAreaIsClick
                           ? style.postTextContainerExpanded
                           : style.postTextContainer
                       }
-                      rows="3"
+                      rows='3'
                       value={newPostText}
-                      placeholder="What Would You Like To Post?"
+                      placeholder='What Would You Like To Post?'
                     ></textarea>
 
                     {textAreaIsClick ? (
@@ -1216,8 +1217,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     {!textAreaIsClick ? (
                       <img
                         className={style.ArrowImgAfterTextArea}
-                        src="./images/right-arraow-bg-blue.webp"
-                        alt="img"
+                        src='./images/right-arraow-bg-blue.webp'
+                        alt='img'
                         onClick={() => {
                           if (!isLoggedIn) {
                             return openModal();
@@ -1233,12 +1234,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         <img
                           className={style.communityPostImage}
                           src={tempImageURL}
-                          alt="postFile"
+                          alt='postFile'
                         />
                         <div className={style.editDeleteBtn}>
                           <RxCrossCircled
                             onClick={RemoveFile}
-                            className="delete_Btn"
+                            className='delete_Btn'
                           />
                           <FiEdit
                             onClick={chooseFile}
@@ -1257,17 +1258,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             width: "-webkit-fill-available",
                             height: "-webkit-fill-available",
                           }}
-                          id="my-video"
-                          alt="postVideo"
-                          muted="muted"
-                          autoplay="autoplay"
-                          className="video-js"
+                          id='my-video'
+                          alt='postVideo'
+                          muted='muted'
+                          autoplay='autoplay'
+                          className='video-js'
                           controls
-                          preload="auto"
-                          width="640"
-                          height="264"
-                          poster="MY_VIDEO_POSTER.jpg"
-                          data-setup="{}"
+                          preload='auto'
+                          width='640'
+                          height='264'
+                          poster='MY_VIDEO_POSTER.jpg'
+                          data-setup='{}'
                         ></video>
                         {/* <button
                           onClick={handlePlayVideo}
@@ -1278,7 +1279,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         <div className={style.editDeleteBtn}>
                           <RxCrossCircled
                             onClick={RemoveFile}
-                            className="delete_Btn"
+                            className='delete_Btn'
                           />
                           <FiEdit
                             onClick={chooseFile}
@@ -1349,9 +1350,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       }}
                       onChange={handleOptionChange}
-                    // disabled={!isLoggedIn}
+                      // disabled={!isLoggedIn}
                     >
-                      <option className={style.userSpaceOption} value="">
+                      <option className={style.userSpaceOption} value=''>
                         Select Spaces
                       </option>
                       {currentUserDoc?.userSpace?.map((item) => {
@@ -1372,12 +1373,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         } else {
                           if ((tempImageURL && newPostText) || tempImageURL) {
                             uploadImageToFireBase();
-                          } else if ((tempVideoURL && newPostText) || tempVideoURL) {
+                          } else if (
+                            (tempVideoURL && newPostText) ||
+                            tempVideoURL
+                          ) {
                             uploadVideoToFireBase();
-                          }
-                          else {
+                          } else {
                             uploadImageToFireBase();
-
                           }
                         }
                       }}
@@ -1460,7 +1462,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
               {mySpaceStatus ? (
                 // myfeed posts-container
-                <section className="posts-containerr">
+                <section className='posts-containerr'>
                   {isPostLoading &&
                     displayPosts.length === 0 &&
                     sortOptionSelected.whose !== "People You Follow" && (
@@ -1469,7 +1471,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                    sortOptionSelected.whose === "People You Follow" ? (
+                  sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1496,7 +1498,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             postId={item.id}
                             postsDataWithUserDoc={postsDataWithUserDoc}
                           />
-                           <FeaturedSuggestions
+                          <FeaturedSuggestions
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                           />
@@ -1576,7 +1578,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 </section>
               ) : (
                 // what's hot posts-container
-                <section className="posts-containerr">
+                <section className='posts-containerr'>
                   {isPostLoading &&
                     displayPosts.length === 0 &&
                     sortOptionSelected.whose !== "People You Follow" && (
@@ -1585,7 +1587,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       </div>
                     )}
                   {userDoc?.network?.length === 0 &&
-                    sortOptionSelected.whose === "People You Follow" ? (
+                  sortOptionSelected.whose === "People You Follow" ? (
                     <>
                       <NoFollowingCard
                         setSortOptionSelected={setSortOptionSelected}
@@ -1640,7 +1642,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
 CommunityFinalDark.defaultProps = {
   isLoggedIn: true,
-  openModal: () => { },
+  openModal: () => {},
 };
 
 export default CommunityFinalDark;

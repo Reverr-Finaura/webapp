@@ -120,15 +120,23 @@ function SignupAuthUpdated() {
   }, [linkedinLoginError]);
 
   //CHECK FOR META DATA
+  let nameDoc = "emailPhone";
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
-      const userDataRef = collection(db, "meta");
-      const q = query(userDataRef);
-      const querySnapshot = await getDocs(q);
+      // const userDataRef = collection(db, "meta");
+      // const q = query(userDataRef);
+      // const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        setMetaData(doc.data().emailPhone);
-      });
+      // querySnapshot.forEach((doc) => {
+      //   setMetaData(doc.data().emailPhone);
+      // });
+      const collectionRef = collection(db, "meta");
+      const docRef = doc(collectionRef, nameDoc);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        setMetaData({ ...docSnapshot.data() });
+      }
     }
     fetchUserDocFromFirebase();
   }, []);
@@ -177,7 +185,7 @@ function SignupAuthUpdated() {
         try {
           // Perform a single update with all the fields to be updated
           await setDoc(docRef, onboardingDataSoFar, { merge: true });
-          console.log("Document successfully written!")
+          console.log("Document successfully written!");
           navigate("/onboarding-first");
         } catch (err) {
           console.error(err);
@@ -212,7 +220,7 @@ function SignupAuthUpdated() {
       return;
     }
     if (password === confirmPassword) {
-      const data = metaData.filter((item) => {
+      const data = metaData?.emailPhone.filter((item) => {
         return item.phone === mobile;
       });
       if (data.length > 0) {
@@ -676,8 +684,8 @@ function SignupAuthUpdated() {
                         setLinkedinProfileUrl(e.target.value);
                       }}
                       value={linkedinProfileUrl}
-                      type="text"
-                      placeholder="Enter Linkedin Profile Url"
+                      type='text'
+                      placeholder='Enter Linkedin Profile Url'
                     />
                     <button
                       onClick={checkLinkedinProfieUrlAndProcced}
@@ -704,7 +712,7 @@ function SignupAuthUpdated() {
             <h1 className={styles.leftContHeading}>
               Create your <span style={{ color: "#4bc8fe" }}>account.</span>
             </h1>
-            <img src={require("../../images/signupmobile.webp")} alt="img" />
+            <img src={require("../../images/signupmobile.webp")} alt='img' />
           </div>
         </div>
 
@@ -723,8 +731,8 @@ function SignupAuthUpdated() {
               className={styles.input}
               onChange={(e) => setFirstName(e.target.value)}
               value={firstName}
-              type="text"
-              placeholder="Name"
+              type='text'
+              placeholder='Name'
               required
             />
             {/* <input
@@ -740,8 +748,8 @@ function SignupAuthUpdated() {
               className={styles.input}
               onChange={(e) => setEmails(e.target.value)}
               value={email}
-              type="email"
-              placeholder="Your E-Mail"
+              type='email'
+              placeholder='Your E-Mail'
               required
             />
             <div className={styles.phoneEmailBlock}>
@@ -750,8 +758,8 @@ function SignupAuthUpdated() {
                   style={{ color: "black", paddingLeft: "100px" }}
                   className={styles.inputPhoneNumber}
                   value={mobile}
-                  type="number"
-                  placeholder="Phone Number"
+                  type='number'
+                  placeholder='Phone Number'
                   required
                   onChange={handleInputNumberChange}
                 />
@@ -769,7 +777,7 @@ function SignupAuthUpdated() {
                   onChange={(e) => setPass(e.target.value)}
                   value={password}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter a password"
+                  placeholder='Enter a password'
                   required
                 />
                 <button
@@ -785,7 +793,7 @@ function SignupAuthUpdated() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   value={confirmPassword}
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm Password"
+                  placeholder='Confirm Password'
                   required
                 />
                 <button
@@ -817,13 +825,13 @@ function SignupAuthUpdated() {
               disabled={loading}
               style={{ cursor: loading ? "default" : "" }}
               className={styles.Button}
-              type="submit"
+              type='submit'
             >
               {loading ? (
                 <img
                   className={styles.loaderr}
-                  src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                  alt="loader"
+                  src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                  alt='loader'
                 />
               ) : (
                 "Sign Up"
@@ -837,8 +845,8 @@ function SignupAuthUpdated() {
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
-                  src="/images/icons8-google-48 1.png"
-                  alt="gICon"
+                  src='/images/icons8-google-48 1.png'
+                  alt='gICon'
                 />
               </span>
               Sign up with google{" "}
@@ -846,7 +854,7 @@ function SignupAuthUpdated() {
           </div>
           <p className={styles.links}>
             Already have an account?{" "}
-            <Link className={styles.linkk} to="/login">
+            <Link className={styles.linkk} to='/'>
               Sign in
             </Link>
           </p>
@@ -868,7 +876,7 @@ function SignupAuthUpdated() {
         </div>
         <div className={styles.hiddenOnMobile}>
           <div className={styles.rightCont}>
-            <img src={rightPic} />
+            <img src={rightPic} alt='' />
           </div>
         </div>
       </section>

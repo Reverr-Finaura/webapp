@@ -8,23 +8,21 @@ code {
 }
 
 .dark-theme {
-  --navbar-clr: linear-gradient(
-    157.59deg,
-    #2f2f2f 0%,
-    #2f2f2f 13.08%,
-    #373737 24.6%,
-    #3e3e3e 42.39%,
-    #4e4e4e 56%,
-    #525252 70.13%,
-    #5d5d5d 82.69%,
-    #656565 91.17%,
-    #737373 100.49%
-  );
-  --bg-dark-blue:#030b18;
-  --bg-light-blue:  #0c1631;
+  --navbar-clr: linear-gradient(157.59deg,
+      #2f2f2f 0%,
+      #2f2f2f 13.08%,
+      #373737 24.6%,
+      #3e3e3e 42.39%,
+      #4e4e4e 56%,
+      #525252 70.13%,
+      #5d5d5d 82.69%,
+      #656565 91.17%,
+      #737373 100.49%);
+  --bg-dark-blue: #030b18;
+  --bg-light-blue: #0c1631;
   --sidebar-hover: #494949;
   --main-text: white;
-  --blue-text:#00b2ff; 
+  --blue-text: #00b2ff;
   --sub-text: #ffffffe6;
   --bg-clr: #373737;
   /* --bg-clr: linear-gradient(
@@ -70,17 +68,16 @@ code {
     #737373 100.49%
   ); */
 }
+
 .light-theme {
-  --navbar-clr: linear-gradient(
-    157.59deg,
-    #ffffff 0%,
-    #d9e4f4 37.68%,
-    #c7daf5 43.96%,
-    #d0e0f8 55.48%,
-    #dde9fc 64.37%,
-    #e3eefd 75.37%,
-    #e9f2ff 100.49%
-  );
+  --navbar-clr: linear-gradient(157.59deg,
+      #ffffff 0%,
+      #d9e4f4 37.68%,
+      #c7daf5 43.96%,
+      #d0e0f8 55.48%,
+      #dde9fc 64.37%,
+      #e3eefd 75.37%,
+      #e9f2ff 100.49%);
   --sidebar-hover: #ebf0fe;
   --bg-small-card: #fafcff;
   --main-text: #202020;
@@ -115,6 +112,7 @@ code {
   --btnNewColorTheme: #2a72de;
   --dashbaord-btn-text: #2a72de;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -163,14 +161,17 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
-.menu label{
+
+.menu label {
   margin-right: 27px;
 }
-.menu p{
+
+.menu p {
   margin-top: 10px;
 
 }
-.modal-content button{
+
+.modal-content button {
   background-color: #2a72de;
   color: white;
   padding: 5px 20px;
@@ -180,8 +181,22 @@ body {
   cursor: pointer;
   margin-top: 10px;
 }
+
 .modal-content button:hover {
   background-color: #1757a8;
 }
 
 
+
+/* // carousel scss  */
+.react-multiple-carousel__arrow--left {
+  left: 0 !important;
+}
+
+.react-multiple-carousel__arrow--right {
+  right: 0 !important;
+}
+
+.react-multi-carousel-track {
+  margin-left: 55px;
+}

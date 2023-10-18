@@ -138,11 +138,10 @@ import { collection, doc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import styles from "./Suggestion.css";
 import { useSelector } from "react-redux";
-const DiscoverSuggestions = ({heading,colorheading}) => {
+const DiscoverSuggestions = ({ heading, colorheading }) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
-  
 
   //FETCH USER DATA FROM FIREBASE
   useEffect(() => {
@@ -196,27 +195,29 @@ const DiscoverSuggestions = ({heading,colorheading}) => {
     const modifiedArray = shuffleArray(userArray);
     setUser(modifiedArray.slice(0, length));
   };
-  
 
   return (
-    <section className="suggest-section">
+    <section className='suggest-section'>
       {/* Suggestions */}
-      <div className="alignsuggestion">
-        <div className="people-suggest">
-          <h3 className="hpeoplesuggest" style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}>
+      <div className='alignsuggestion'>
+        <div className='people-suggest'>
+          <h3
+            className='hpeoplesuggest'
+            style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}
+          >
             {" "}
-            <span style={{color:"#00B3FF"}}>{colorheading}</span>
+            <span style={{ color: "#00B3FF" }}>{colorheading}</span>
             {heading}
-            {/* More Suggestions */}
-            {" "}
+            {/* More Suggestions */}{" "}
           </h3>
           {/* <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"80px",cursor:"pointer"}}>See all</p> */}
         </div>
 
-        <div className="people-card">
+        <div className='people-card'>
           {randomUsers.length === 8 &&
-            randomUsers.map((user) => (
-              <div key={user.id}>
+            randomUsers.map((user, index) => (
+              // <div key={user.id}>
+              <div key={index}>
                 <ProfileCard
                   email={user.email}
                   name={user.name}

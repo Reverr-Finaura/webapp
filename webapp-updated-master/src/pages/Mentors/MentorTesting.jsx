@@ -162,13 +162,13 @@ const MentorTesting = () => {
           {/* --------------------Header---------------------- */}
           <div className={styles.header}>
             <div>
-              Find the best <span>Mentors</span>
+              Find the best <span style={{ marginLeft: "5px" }}>Mentors</span>
             </div>
             <div className={styles.search}>
               <input
-                type="text"
+                type='text'
                 onChange={searchInputHandler}
-                placeholder="Search a mentor..."
+                placeholder='Search a mentor...'
               />
               {/* <button
               type="button"
@@ -184,14 +184,14 @@ const MentorTesting = () => {
             >
               <img src={SearchIcon} alt="SearchIcon" />
             </button> */}
-              <img src={SearchIcon} alt="SearchIcon" />
+              <img src={SearchIcon} alt='SearchIcon' />
               {searchResult && (
                 <div className={styles.searchResult}>
-                  <text
+                  <p
                     style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}
                   >
                     Search Results
-                  </text>
+                  </p>
                   {searchResult.map((item, index) => (
                     <div
                       onClick={() => navigate(`/userprofile/${item.email}`)}
@@ -204,10 +204,10 @@ const MentorTesting = () => {
                               ? item.image
                               : require("../../images/userIcon.png")
                           }
-                          alt="img"
+                          alt='img'
                         />
                         <div>
-                          <text
+                          <p
                             style={{
                               fontSize: 14,
                               color: "#000000",
@@ -219,8 +219,8 @@ const MentorTesting = () => {
                             }}
                           >
                             {item?.name}
-                          </text>
-                          <text
+                          </p>
+                          <p
                             style={{
                               fontSize: 10,
                               color: "#1A1E28",
@@ -232,7 +232,7 @@ const MentorTesting = () => {
                             }}
                           >
                             {item?.designation}
-                          </text>
+                          </p>
                         </div>
                       </div>
                       <div className={styles.divider}></div>
@@ -250,7 +250,7 @@ const MentorTesting = () => {
             <p>Featured Mentors</p>
             <div className={styles.slider}>
               <Carousel
-                containerClass="react-multi-carousel-list-padding-40-px"
+                containerClass='react-multi-carousel-list-padding-40-px'
                 responsive={responsive}
                 swipeable={true}
                 draggable={true}
@@ -261,7 +261,7 @@ const MentorTesting = () => {
                 // autoPlay={true}
                 autoPlaySpeed={3000}
                 keyBoardControl={true}
-                customTransition="transform 300ms ease-in-out"
+                customTransition='transform 300ms ease-in-out'
               >
                 {featuredMentors.length > 0 ? (
                   featuredMentors.map((item, idx) => {
@@ -310,7 +310,7 @@ const MentorTesting = () => {
           {/* ---------------Category Content End------------------ */}
         </div>
       </div>
-      <Toaster position="bottom-left" />
+      <Toaster position='bottom-left' />
     </>
   );
 };

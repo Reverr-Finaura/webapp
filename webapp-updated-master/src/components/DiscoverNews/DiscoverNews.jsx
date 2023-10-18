@@ -1,11 +1,9 @@
 // import React from 'react'
 // import NewsCard from '../../components/NewsCard/NewsCard'
 
-
 // const DiscoverNews = () => {
 //   return (
-//     <section className='news-section'> 
-
+//     <section className='news-section'>
 
 //     {/* News */}
 //     <div className='news'>
@@ -24,11 +22,8 @@
 
 // export default DiscoverNews
 
-
-
-
-import NewsCard from '../../components/NewsCard/NewsCard'
-import React, { useEffect, useState } from 'react'
+import NewsCard from "../../components/NewsCard/NewsCard";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./News.css";
 
@@ -43,7 +38,6 @@ import styles from "./News.css";
 //     }
 // }
 
-
 //     async componentDidMount() {
 //         let url = "https://api.tvmaze.com/search/shows?q=all";
 //         let data = await fetch(url);
@@ -54,18 +48,14 @@ import styles from "./News.css";
 //         });
 //       }
 
-
 //   render() {
 //     return (
-//       <section className='news-section'> 
-
+//       <section className='news-section'>
 
 //       {/* News */}
 //       <div className='news'>
 //               <h3 style={{color:'white', marginTop:'10px'}}> Trending <span style={{color:'blue'}}>News</span> </h3>
 //       </div>
-  
-  
 
 //       <div className='container my-3'>
 //   <h1>Shows</h1>
@@ -90,22 +80,19 @@ import styles from "./News.css";
 //   </div>
 // </div>
 
-
 //           {/* <div className='news-container'>
 //               <NewsCard/>
 //               <NewsCard/>
 //               <NewsCard/>
 //               <NewsCard/>
 //           </div> */}
-  
+
 //       </section>
 //     )
 //   }
 // }
 
 // export default DiscoverNews
-
-
 
 // const DiscoverNews = () => {
 //   const [newsData, setNewsData] = useState();
@@ -136,11 +123,9 @@ import styles from "./News.css";
 //   }, []);
 
 // console.log(newsData)
-  
 
 //   return (
-//     <section className='news-section'> 
-
+//     <section className='news-section'>
 
 //     {/* News */}
 //     <div className='news'>
@@ -151,30 +136,17 @@ import styles from "./News.css";
 //       return(
 //           <div className='news-container' key={news.url}>
 //             <NewsCard title={news.name} url={news.url} imgUrl={news?.image?.thumbnail?.contentUrl} time={news.datePublished}/>
-//           </div> 
+//           </div>
 //         )
 //       }
 //     )
 //   }
-
-
-
 
 //     </section>
 //   )
 // }
 
 // export default DiscoverNews
-
-
-
-
-
-
-
-
-
-
 
 const DiscoverNews = () => {
   const [newsData, setNewsData] = useState();
@@ -204,56 +176,53 @@ const DiscoverNews = () => {
     }
   }
 
-console.log(newsData)
+  console.log(newsData);
 
   const getTimeDifferenceInHours = (newsDate) => {
     const now = new Date();
     const news = new Date(newsDate);
-    console.log(now)
-    console.log(news)
+    console.log(now);
+    console.log(news);
     var differenceInMinutes = Math.abs(now - news) / 60;
     var differenceInHours = Math.floor(differenceInMinutes / 60);
 
-  
     return differenceInHours;
   };
 
-
-
-
   return (
-    <section className='news-section'> 
+    <section className='news-section'>
+      {/* News */}
+      <div className='news'>
+        <h3 style={{ color: "white", marginTop: "10px", marginLeft: "12px" }}>
+          {" "}
+          Trending News{" "}
+        </h3>
+      </div>
 
-
-    {/* News */}
-    <div className='news'>
-            <h3 style={{color:'white', marginTop:'10px', marginLeft:'12px'}}> Trending News </h3>
-    </div>
-
-    <div className='align'>
-    {/* style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}} */}
-  <div className='row' >
-    
-    { newsData && newsData.slice(0,6).map( (news) => {
-        return(
-          <div className='allCards' style={{display:'flex', flexDirection:'row'}}>
-            <NewsCard title={news.name} url={news.url} imgUrl={news?.image?.thumbnail?.contentUrl} time={news.datePublished.slice(0,10)}/>
-          </div>
-
-          )
-        
-        }
-      )
-    }
-
-  </div>
-  </div>
-
-
-
-
+      <div className='align'>
+        {/* style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}} */}
+        <div className='row'>
+          {newsData &&
+            newsData.slice(0, 6).map((news, index) => {
+              return (
+                <div
+                  className='allCards'
+                  style={{ display: "flex", flexDirection: "row" }}
+                  key={index}
+                >
+                  <NewsCard
+                    title={news.name}
+                    url={news.url}
+                    imgUrl={news?.image?.thumbnail?.contentUrl}
+                    time={news.datePublished.slice(0, 10)}
+                  />
+                </div>
+              );
+            })}
+        </div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default DiscoverNews
+export default DiscoverNews;

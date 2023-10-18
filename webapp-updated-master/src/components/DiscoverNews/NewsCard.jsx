@@ -1,6 +1,6 @@
-import './NewsCard.css'
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import "./NewsCard.css";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // export class NewsCard extends Component {
 //   render() {
@@ -24,30 +24,31 @@ import { Link } from 'react-router-dom';
 
 // export default NewsCard
 
-
 const NewsCard = (props) => {
   // let {title, url} = this.props;
 
-
-    
-
   return (
     <>
-      <div className='news-box' >
+      <div className='news-box'>
         <div className='newsimg'>
-          <img src={props.imgUrl} alt="newsImg" style={{height:'110px', width:'110px'}}/>
+          <img
+            src={props.imgUrl}
+            alt='newsImg'
+            style={{ height: "110px", width: "110px" }}
+          />
         </div>
-          <div className='news-details'>
-            <p className='newsdate'>{props.time}</p>
-            <h4 style={{color:'white'}}>{props.title}</h4>
-            <div className='newslink'>
-            <a className='newsCardanchor' href={props.url}>Read More</a>
-            </div>
+        <div className='news-details'>
+          <p className='newsdate'>{props.time}</p>
+          <h4 style={{ color: "white" }}>{props.title}</h4>
+          <div className='newslink'>
+            <a className='newsCardanchor' href={props.url}>
+              Read More
+            </a>
           </div>
-
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default NewsCard
+export default NewsCard;

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import eye from "../../../images/eye.svg";
-import postsIcon from "../../../images/galleryedit.svg"
+import postsIcon from "../../../images/galleryedit.svg";
 import people from "../../../images/people.svg";
 import setting from "../../../images/setting.svg";
 import edit from "../../../images/edit.svg";
 import styles from "./ProfileSummary.module.css";
 import defaultImg from "../../../images/default-profile-pic.webp";
-
 
 const ProfileSummary = () => {
   const [profileCompletionProgress, setProfileCompletionProgress] = useState(0);
@@ -65,22 +64,20 @@ const ProfileSummary = () => {
         <div className={styles.user}>
           <img
             src={
-              userDoc?.image
-                ? userDoc.image
-                : defaultImg
-                // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+              userDoc?.image ? userDoc.image : defaultImg
+              // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
             }
             className={styles.profileImage}
-            style={{objectFit:"cover"}}
-            alt="img"
+            style={{ objectFit: "cover" }}
+            alt='img'
           />
           <div className={styles.userDetails}>
-            <text
+            <p
               style={{ textTransform: "capitalize" }}
               className={styles.nameText}
             >
               {userDoc?.name}
-            </text>
+            </p>
             <text className={styles.positionText}>{userDoc?.designation}</text>
           </div>
         </div>
@@ -94,26 +91,26 @@ const ProfileSummary = () => {
 
       <div className={styles.postConnectionRow}>
         <div className={styles.post}>
-          <img className={styles.postImage} src={postsIcon} alt="postsIcon" />
-          <text className={styles.postText}>
+          <img className={styles.postImage} src={postsIcon} alt='postsIcon' />
+          <p className={styles.postText}>
             {userDoc?.posts ? userDoc.posts.length : 0} Posts
-            </text>
+          </p>
         </div>
         <div className={styles.connection}>
-          <img className={styles.connectionImage} src={people} alt="eye" />
-          <text className={styles.connectionText}>
+          <img className={styles.connectionImage} src={people} alt='eye' />
+          <p className={styles.connectionText}>
             {userDoc?.network ? userDoc.network.length : 0} connections
-          </text>
+          </p>
         </div>
       </div>
 
       <div className={styles.space}>
-        <text className={styles.spaceText}>SPACES</text>
+        <p className={styles.spaceText}>SPACES</p>
         <img
           className={styles.spaceImage}
           onClick={() => navigate("/editprofile")}
           src={edit}
-          alt="img"
+          alt='img'
         />
       </div>
 
@@ -122,7 +119,7 @@ const ProfileSummary = () => {
           <div className={styles.spacesRow}>
             {userDoc.userSpace.slice(0, 2).map((item, index) => (
               <div key={index} className={styles.spacesRowDiv}>
-                <text className={styles.spacesRowText}>{item}</text>
+                <p className={styles.spacesRowText}>{item}</p>
               </div>
             ))}
           </div>
@@ -130,7 +127,7 @@ const ProfileSummary = () => {
             <div className={styles.spacesRow}>
               {userDoc.userSpace.slice(2, 4).map((item, index) => (
                 <div key={index} className={styles.spacesRowDiv}>
-                  <text className={styles.spacesRowText}>{item}</text>
+                  <p className={styles.spacesRowText}>{item}</p>
                 </div>
               ))}
             </div>
@@ -139,7 +136,7 @@ const ProfileSummary = () => {
             <div className={styles.spacesRow}>
               {userDoc.userSpace.slice(4, 6).map((item, index) => (
                 <div key={index} className={styles.spacesRowDiv}>
-                  <text className={styles.spacesRowText}>{item}</text>
+                  <p className={styles.spacesRowText}>{item}</p>
                 </div>
               ))}
             </div>
@@ -148,7 +145,7 @@ const ProfileSummary = () => {
             <div className={styles.spacesRow}>
               {userDoc.userSpace.slice(6, 8).map((item, index) => (
                 <div key={index} className={styles.spacesRowDiv}>
-                  <text className={styles.spacesRowText}>{item}</text>
+                  <p className={styles.spacesRowText}>{item}</p>
                 </div>
               ))}
             </div>
@@ -166,7 +163,7 @@ const ProfileSummary = () => {
       {profileCompletionProgress === 100 ? null : (
         <div className={styles.progressbar}>
           <div style={{ width: `${profileCompletionProgress}%` }}></div>
-          <text>{profileCompletionProgress}% is completed</text>
+          <p>{profileCompletionProgress}% is completed</p>
         </div>
       )}
 

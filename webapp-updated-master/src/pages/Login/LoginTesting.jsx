@@ -137,15 +137,23 @@ const LoginTesting = () => {
   }, [linkedinLoginError]);
 
   //CHECK FOR META DATA
+  let nameDoc = "emailPhone";
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
-      const userDataRef = collection(db, "meta");
-      const q = query(userDataRef);
-      const querySnapshot = await getDocs(q);
+      // const userDataRef = collection(db, "meta");
+      // const q = query(userDataRef);
+      // const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        setMetaData(doc.data().emailPhone);
-      });
+      // querySnapshot.forEach((doc) => {
+      //   setMetaData(doc.data().emailPhone);
+      // });
+      const collectionRef = collection(db, "meta");
+      const docRef = doc(collectionRef, nameDoc);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        setMetaData({ ...docSnapshot.data() });
+      }
     }
     fetchUserDocFromFirebase();
   }, []);
@@ -261,6 +269,7 @@ const LoginTesting = () => {
       .then(() => {
         toast.success("Sucessfully logged in");
         // navigate("/dashboard");
+        navigate("/community");
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -268,7 +277,7 @@ const LoginTesting = () => {
       });
   };
   const loginPhone = () => {
-    let tempData = metaData.filter((item) => {
+    let tempData = metaData?.emailPhone.filter((item) => {
       return item.phone === email;
     });
     if (tempData.length === 0) {
@@ -319,7 +328,7 @@ const LoginTesting = () => {
       setLoading(false);
       return;
     }
-    let tempData = metaData.filter((item) => {
+    let tempData = metaData?.emailPhone.filter((item) => {
       return item.phone === mobileNumber;
     });
     if (tempData.length === 0) {
@@ -430,7 +439,7 @@ const LoginTesting = () => {
               {/* <img className={styles.hiddenOnMobile} src="/images/login_Image.png" alt="LoginImg" /> */}
               <img
                 src={require("../../images/loginmobile.webp")}
-                alt="LoginImg"
+                alt='LoginImg'
               />
             </div>
           </div>
@@ -443,26 +452,26 @@ const LoginTesting = () => {
           </div>
           <form onSubmit={onSubmit} className={styles.form}>
             <div>
-              <label htmlFor="email" className={styles.label}>
+              <label htmlFor='email' className={styles.label}>
                 Email
               </label>
               <input
-                id="email"
+                id='email'
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                type="email"
-                placeholder="Your E-Mail"
+                type='email'
+                placeholder='Your E-Mail'
               />
             </div>
             <div style={{ position: "relative" }}>
-              <label htmlFor="password" className={styles.label}>
+              <label htmlFor='password' className={styles.label}>
                 Password
               </label>
               <input
-                id="password"
+                id='password'
                 type={showPassword ? "text" : "password"}
                 value={password}
-                placeholder="Enter a password"
+                placeholder='Enter a password'
                 onChange={(e) => setPassword(e.target.value)}
               />
               <span
@@ -478,35 +487,35 @@ const LoginTesting = () => {
               </span>
             </div>
             <div className={styles.forgotPassword}>
-              <Link to="/forgot-password">Forgot Password?</Link>
+              <Link to='/forgot-password'>Forgot Password?</Link>
             </div>
-            <button type="submit">Login</button>
+            <button type='submit'>Login</button>
           </form>
           <div className={styles.leftBottom}>
             <button onClick={signInWithGoogle} className={styles.googleBtn}>
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
-                  src="/images/gIcon.png"
-                  alt="gICon"
+                  src='/images/gIcon.png'
+                  alt='gICon'
                 />
                 Continue with Google{" "}
               </span>
             </button>
             <div className={styles.newUser}>
               {/* <span>Don't remember password?&nbsp;&nbsp;&nbsp;</span> */}
-              <Link to="/otp-login">Login with OTP</Link>
+              <Link to='/otp-login'>Login with OTP</Link>
             </div>
             <div className={styles.newUser}>
               <span>New to Reverr?&nbsp;&nbsp;&nbsp;</span>
-              <Link to="/signup">Sign Up</Link>
+              <Link to='/signup'>Sign Up</Link>
             </div>
           </div>
         </div>
         <div className={styles.hiddenOnMobile}>
           <div className={styles.headerImage}>
             <div className={styles.rightImage}>
-              <img src="/images/login_Image.webp" alt="LoginImg" />
+              <img src='/images/login_Image.webp' alt='LoginImg' />
             </div>
           </div>
         </div>

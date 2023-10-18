@@ -78,14 +78,15 @@ function Article({ isLoggedIn, openModal }) {
         <p>Loading...</p>
       ) : (
         randomArticles &&
-        randomArticles.slice(0, 3).map((article) => (
+        randomArticles.slice(0, 3).map((article, index) => (
           <div
             className={styles.card}
+            key={index}
             onClick={() => navigate(`/discover/${article.id}`)}
           >
             <img
               src={article.image.imageUrl}
-              alt="img"
+              alt='img'
               className={styles.articleImage}
             />
             <div className={styles.articledetails}>
