@@ -298,7 +298,6 @@ function SignupAuthUpdated() {
           }
         );
         console.log(mobileResponse);
-
         mobileSuccess = mobileResponse.status === 200;
       } catch (error) {
         console.log(error.message);

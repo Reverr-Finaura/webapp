@@ -12,27 +12,25 @@ import Footer from "../Footer/Footer";
 import { toast } from "react-hot-toast";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import otpPhoto from "../../images/otp-picture.webp";
-import { doc,updateDoc,arrayUnion, setDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-
 
 function EnterOtpUpdated() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [enteredOtp, setEnteredotp] = useState("");
-  const [firstDigit, setFirstDigit] = useState("");
-  const [secondDigit, setSecondDigit] = useState("");
-  const [thirdDigit, setThirdDigit] = useState("");
-  const [fourthDigit, setFourthDigit] = useState("");
-  const [fifthDigit, setFifthDigit] = useState("");
-  const [sixthDigit, setSixthDigit] = useState("");
-  const firstDigitRef = useRef(null);
-  const secondDigitRef = useRef(null);
-  const thirdDigitRef = useRef(null);
-  const fourthDigitRef = useRef(null);
-  const fifthDigitRef = useRef(null);
-  const sixthDigitRef = useRef(null);
+  // const [enteredOtp, setEnteredotp] = useState("");
+  // const [firstDigit, setFirstDigit] = useState("");
+  // const [secondDigit, setSecondDigit] = useState("");
+  // const [thirdDigit, setThirdDigit] = useState("");
+  // const [fourthDigit, setFourthDigit] = useState("");
+  // const [fifthDigit, setFifthDigit] = useState("");
+  // const [sixthDigit, setSixthDigit] = useState("");
+  // const firstDigitRef = useRef(null);
+  // const secondDigitRef = useRef(null);
+  // const thirdDigitRef = useRef(null);
+  // const fourthDigitRef = useRef(null);
+  // const fifthDigitRef = useRef(null);
+  // const sixthDigitRef = useRef(null);
   const newUser = useSelector(selectNewUser);
   const onboardingData = useSelector((state) => state.onboarding);
   const [minutes, setMinutes] = useState(3);
@@ -59,36 +57,76 @@ function EnterOtpUpdated() {
     };
   }, [seconds]);
 
-  useEffect(() => {
-    const enteredDigits =
-      firstDigit +
-      secondDigit +
-      thirdDigit +
-      fourthDigit +
-      fifthDigit +
-      sixthDigit;
-    setEnteredotp(enteredDigits);
-  }, [
-    firstDigit,
-    secondDigit,
-    thirdDigit,
-    fourthDigit,
-    fifthDigit,
-    sixthDigit,
-  ]);
+  const [newotp, setNewotp] = useState({
+    0: "",
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+  });
+
+  const inputRef = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+  const handleInputChange = (index, value) => {
+    const newVerifyNumber = { ...newotp, [index]: value };
+    setNewotp(newVerifyNumber);
+    if (value === "" && index > 0) {
+      inputRef[index - 1].current?.focus();
+    } else if (value.length === 1 && index < 5) {
+      inputRef[index + 1].current?.focus();
+    }
+  };
+
+  // useEffect(() => {
+  //   const enteredDigits =
+  //     firstDigit +
+  //     secondDigit +
+  //     thirdDigit +
+  //     fourthDigit +
+  //     fifthDigit +
+  //     sixthDigit;
+  //   setEnteredotp(enteredDigits);
+  // }, [
+  //   firstDigit,
+  //   secondDigit,
+  //   thirdDigit,
+  //   fourthDigit,
+  //   fifthDigit,
+  //   sixthDigit,
+  // ]);
 
   const checkOtp = async (e) => {
     e.preventDefault();
-    console.log(enteredOtp);
-    if (newUser.otp === enteredOtp) {
-      try{
-        await createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
-        await updateDoc(doc(db,"meta","emailPhone"),{emailPhone:arrayUnion({email:newUser.email,phone:newUser.phone})});
+    const verify = Object.values(newotp).join("");
+    if (verify.length !== 6) {
+      toast.error("Please Enter all 6 value");
+    }
+    console.log(verify);
+    if (newUser.otp === verify) {
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          newUser.email,
+          newUser.password
+        );
+        await updateDoc(doc(db, "meta", "emailPhone"), {
+          emailPhone: arrayUnion({
+            email: newUser.email,
+            phone: newUser.phone,
+          }),
+        });
         // Attempt to upload the data
         await uploadOnboardingData();
         dispatch(create({ newUser }));
         navigate("/onboarding-first");
-      }catch(error){
+      } catch (error) {
         console.log(error.message);
         toast.error(error.message);
       }
@@ -106,9 +144,9 @@ function EnterOtpUpdated() {
     const onboardingDataSoFar = {
       ...onboardingData,
     };
-  
+
     const docRef = doc(db, "Users", userEmail);
-  
+
     try {
       // Perform a single update with all the fields to be updated
       await setDoc(docRef, onboardingDataSoFar, { merge: true });
@@ -168,11 +206,11 @@ function EnterOtpUpdated() {
 
       <div className={styles.otp}>
         <div className={styles.hiddenOnDesktop}>
-          <div className="rightPart">
+          <div className='rightPart'>
             <div className={styles.getStarted}>
               <h1>Enter Verification Code</h1>
             </div>
-            <img className={styles.otpRightImg} src={otpPhoto} />
+            <img className={styles.otpRightImg} src={otpPhoto} alt='' />
           </div>
         </div>
 
@@ -184,12 +222,10 @@ function EnterOtpUpdated() {
             <p>Enter the OTP sent to your given Email Id.</p>
           </div>
           <form className={styles.otpForm} onSubmit={checkOtp}>
-            <div className={styles.otpInputs}>
-             
+            {/* <div className={styles.otpInputs}>
               <input
-               
                 maxLength={1}
-                type="number"
+                type='number'
                 value={firstDigit}
                 onChange={(e) => {
                   setFirstDigit(e.target.value);
@@ -201,7 +237,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="number"
+                type='number'
                 value={secondDigit}
                 onChange={(e) => {
                   setSecondDigit(e.target.value);
@@ -213,7 +249,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="number"
+                type='number'
                 value={thirdDigit}
                 onChange={(e) => {
                   setThirdDigit(e.target.value);
@@ -225,7 +261,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="number"
+                type='number'
                 value={fourthDigit}
                 onChange={(e) => {
                   setFourthDigit(e.target.value);
@@ -237,7 +273,7 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="number"
+                type='number'
                 value={fifthDigit}
                 onChange={(e) => {
                   setFifthDigit(e.target.value);
@@ -249,11 +285,30 @@ function EnterOtpUpdated() {
               />
               <input
                 maxLength={1}
-                type="number"
+                type='number'
                 value={sixthDigit}
                 onChange={(e) => setSixthDigit(e.target.value)}
                 ref={sixthDigitRef}
               />
+            </div> */}
+            <div className={styles.otpInputs}>
+              {Object.keys(newotp).map((key, index) => (
+                <input
+                  type='number'
+                  key={key}
+                  ref={inputRef[index]}
+                  placeholder=''
+                  maxLength={1}
+                  value={newotp[key]}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                  onInput={(e) => {
+                    if (e.target.value.length > 1) {
+                      e.target.value = e.target.value.slice(0, 1);
+                      handleInputChange(index, e.target.value);
+                    }
+                  }}
+                />
+              ))}
             </div>
             {seconds > 0 || minutes > 0 ? (
               <p className={styles.otp_timer}>
@@ -265,7 +320,7 @@ function EnterOtpUpdated() {
             )}
 
             <div className={styles.buttonWrap}>
-              <Button className={styles.verifyBtn} type="submit">
+              <Button className={styles.verifyBtn} type='submit'>
                 Verify
               </Button>
               <h3
@@ -280,8 +335,8 @@ function EnterOtpUpdated() {
         </div>
 
         <div className={styles.hiddenOnMobile}>
-          <div className="rightPart">
-            <img className={styles.otpRightImg} src={otpPhoto} />
+          <div className='rightPart'>
+            <img className={styles.otpRightImg} src={otpPhoto} alt='' />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
 import { create, modify, selectNewUser } from "../../features/newUserSlice";
@@ -14,7 +14,6 @@ import { toast } from "react-hot-toast";
 function EnterOtp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [enteredOtp, setEnteredotp] = useState("");
   const [firstDigit, setFirstDigit] = useState("");
   const [secondDigit, setSecondDigit] = useState("");
@@ -67,9 +66,7 @@ function EnterOtp() {
 
   const checkOtp = (e) => {
     e.preventDefault();
-
     console.log(enteredOtp);
-
     if (newUser.otp === enteredOtp) {
       createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
         .then(() => {
@@ -151,37 +148,37 @@ function EnterOtp() {
           <div className={styles.otpInputs}>
             <input
               maxLength={1}
-              type="text"
+              type='text'
               value={firstDigit}
               onChange={(e) => setFirstDigit(e.target.value)}
             />
             <input
               maxLength={1}
-              type="text"
+              type='text'
               value={secondDigit}
               onChange={(e) => setSecondDigit(e.target.value)}
             />
             <input
               maxLength={1}
-              type="text"
+              type='text'
               value={thirdDigit}
               onChange={(e) => setThirdDigit(e.target.value)}
             />
             <input
               maxLength={1}
-              type="text"
+              type='text'
               value={fourthDigit}
               onChange={(e) => setFourthDigit(e.target.value)}
             />
             <input
               maxLength={1}
-              type="text"
+              type='text'
               value={fifthDigit}
               onChange={(e) => setFifthDigit(e.target.value)}
             />
             <input
               maxLength={1}
-              type="text"
+              type='text'
               value={sixthDigit}
               onChange={(e) => setSixthDigit(e.target.value)}
             />
@@ -202,7 +199,7 @@ function EnterOtp() {
           >
             Resend OTP
           </button>
-          <Button type="submit">Move Ahead</Button>
+          <Button type='submit'>Move Ahead</Button>
         </form>
       </div>
       <Footer />

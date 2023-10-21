@@ -190,13 +190,18 @@ body {
 
 /* // carousel scss  */
 .react-multiple-carousel__arrow--left {
-  left: 0 !important;
+  left: 15px !important;
 }
 
 .react-multiple-carousel__arrow--right {
-  right: 0 !important;
+  right: 15px !important;
+}
+
+.react-multi-carousel-item {
+  /* width: 36rem !important; */
 }
 
 .react-multi-carousel-track {
-  margin-left: 55px;
+  /* margin-left: 55px; */
+  /* gap: 30px; */
 }
