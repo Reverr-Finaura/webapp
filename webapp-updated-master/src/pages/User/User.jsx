@@ -20,8 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
-// import toast, { Toaster } from "react-hot-toast";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const User = () => {
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ const User = () => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const [otherUserDoc, setOtherUserDoc] = useState();
   const [currentLoggedInUserDoc, setCurrentLoggedInUserDoc] = useState();
-  //   const [userDoc,setUserDoc]=useState([])
   const userFundingDoc = useSelector((state) => state.userFundingDoc);
   const [hasUserProfile, setHasUserProfile] = useState(true);
   const [userDocId, setUserDocId] = useState([]);
@@ -39,7 +37,7 @@ const User = () => {
 
   // console.log("currentLoggedInUser", currentLoggedInUser);
   // console.log("currentLoggedInUserDoc", currentLoggedInUserDoc);
-  // console.log("otherUserDoc", otherUserDoc);
+  console.log("otherUserDoc", otherUserDoc);
 
   // CHECK FOR USER DOC DATA
   useEffect(() => {
@@ -462,6 +460,14 @@ const User = () => {
     const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/;
     return urlPattern.test(url);
   }
+  const emailToId = (email) => {
+    var id = "";
+    for (var i = 0; i < email.length; i++) {
+      if (email[i] === "@") break;
+      id += email[i];
+    }
+    return id;
+  };
 
   return (
     <>
@@ -474,7 +480,7 @@ const User = () => {
             style={{ cursor: "pointer" }}
             onClick={() => navigate(-1)}
           >
-            <img src="/images/profileArrowLeft.svg" alt="back" />
+            <img src='/images/profileArrowLeft.svg' alt='back' />
             <p>User Profile</p>
           </div>
           <div className={styles.profileUser}>
@@ -487,7 +493,7 @@ const User = () => {
                     ? otherUserDoc.image
                     : DefaultDP
                 }
-                alt="ProfileImage"
+                alt='ProfileImage'
               />
             </div>
             <div className={styles.profileInfo}>
@@ -503,8 +509,8 @@ const User = () => {
                 {otherUserDoc?.email ? (
                   <>
                     <img
-                      src="/images/logos_google-gmail.svg"
-                      alt="Email"
+                      src='/images/logos_google-gmail.svg'
+                      alt='Email'
                       onClick={() => {
                         navigator.clipboard.writeText(otherUserDoc?.email);
                         toast.success("Email copied to clipboard");
@@ -517,8 +523,8 @@ const User = () => {
                 {otherUserDoc?.linkedin || otherUserDoc?.linlkedin ? (
                   <>
                     <img
-                      src="/images/skill-icons_linkedin.svg"
-                      alt="Linkedin"
+                      src='/images/skill-icons_linkedin.svg'
+                      alt='Linkedin'
                       onClick={() => {
                         navigator.clipboard.writeText(
                           otherUserDoc?.linkedin || otherUserDoc?.linlkedin
@@ -544,8 +550,8 @@ const User = () => {
               </div>
               <div className={styles.profileLocation}>
                 <img
-                  src="/images/basil_location-outline.svg"
-                  alt="ProfileImage"
+                  src='/images/basil_location-outline.svg'
+                  alt='ProfileImage'
                 />
                 <p>
                   {otherUserDoc?.state
@@ -648,6 +654,21 @@ const User = () => {
                   disabled={isLoading}
                 >
                   Unfollow
+                </button>
+              ) : null}
+              {otherUserDoc && otherUserDoc?.userType === "Mentor" ? (
+                <button
+                  className='shedule-container-btn'
+                  onClick={() => {
+                    navigate(
+                      `/schedule/${emailToId(otherUserDoc.email)}/${emailToId(
+                        currentLoggedInUser.user.email
+                      )}`
+                    );
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  Scheduled Meeting {otherUserDoc.userType}
                 </button>
               ) : null}
             </div>
@@ -791,7 +812,7 @@ const User = () => {
               <p>Social Handles</p>
               {otherUserDoc?.linkedin && (
                 <div className={styles.contactItem}>
-                  <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
+                  <img src='/images/skill-icons_linkedin.svg' alt='Linkedin' />
                   <p
                     onClick={() => {
                       if (
@@ -820,7 +841,7 @@ const User = () => {
               )}
               {otherUserDoc?.facebookLink && (
                 <div className={styles.contactItem}>
-                  <img src="/images/devicon_facebook.svg" alt="Linkedin" />
+                  <img src='/images/devicon_facebook.svg' alt='Linkedin' />
                   <p
                     onClick={() => {
                       if (
@@ -849,7 +870,7 @@ const User = () => {
               )}
               {otherUserDoc?.twitter && (
                 <div className={styles.contactItem}>
-                  <img src="/images/skill-icons_twitter.svg" alt="Linkedin" />
+                  <img src='/images/skill-icons_twitter.svg' alt='Linkedin' />
                   <p
                     onClick={() => {
                       if (

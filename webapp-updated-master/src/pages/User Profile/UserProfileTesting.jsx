@@ -114,9 +114,7 @@ const UserProfileTesting = () => {
     if (!userEmail) {
       throw new Error("User email not available");
     }
-
     const docRef = doc(db, "Users", userEmail);
-
     try {
       // Perform a single update with all the fields to be updated
       await setDoc(docRef, data, { merge: true });
@@ -130,6 +128,14 @@ const UserProfileTesting = () => {
     const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/;
     return urlPattern.test(url);
   }
+  const emailToId = (email) => {
+    var id = "";
+    for (var i = 0; i < email.length; i++) {
+      if (email[i] === "@") break;
+      id += email[i];
+    }
+    return id;
+  };
 
   return (
     <>

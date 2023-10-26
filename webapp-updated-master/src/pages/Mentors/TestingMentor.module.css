@@ -479,3 +479,40 @@ text {
   }
 
 }
+
+.mainSilder {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+.newSilder {
+  width: calc(100% - 50px);
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.newSilder::-webkit-scrollbar {
+  width: 1px;
+}
+
+
+.listindex {
+  display: flex;
+  gap: 20px;
+}
+
+.leftSilderArrow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+
+.rightSilderArrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+}

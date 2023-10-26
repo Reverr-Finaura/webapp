@@ -6,8 +6,8 @@ import "../../components/TimePicker/TimePicker.css";
 import "../../components/Clock/Clock.css";
 import { InlineWidget, useCalendlyEventListener } from "react-calendly";
 import "animate.css";
-import { db } from "../../firebase";
-import { collection, getDocs, query } from "firebase/firestore";
+import { db, getUserFromDatabase } from "../../firebase";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 
 import { useParams } from "react-router-dom";
 import PaymentMentorMeetingSchedule from "../../components/Payment For Mentor Meeting Schedule/PaymentMentorMeetingSchedule";
@@ -15,9 +15,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import userDocSlice from "../../features/userDocSlice";
+import { selectUser } from "../../features/userSlice";
+import { useSelector } from "react-redux";
 
 function ScheduleTesting() {
-  // const user = useSelector(selectUser);
+  const user = useSelector(selectUser);
   const { id, userEmail } = useParams();
   const [mentorArray, setMentorArray] = useState([]);
   const [tempUserArray, setTempUserArray] = useState([]);
@@ -76,14 +78,14 @@ function ScheduleTesting() {
     });
   }, [mentorArray]);
 
-  useEffect(() => {
-    tempUserArray.forEach((m) => {
-      var temp = emailToId(m.email);
-      if (temp == userEmail) {
-        setCurrentUser({ ...m });
-      }
-    });
-  }, [tempUserArray]);
+  // useEffect(() => {
+  //   tempUserArray.forEach((m) => {
+  //     var temp = emailToId(m.email);
+  //     if (temp === userEmail) {
+  //       setCurrentUser({ ...m });
+  //     }
+  //   });
+  // }, [tempUserArray]);
 
   useCalendlyEventListener({
     // onProfilePageViewed: () => console.log("onProfilePageViewed"),
@@ -111,6 +113,14 @@ function ScheduleTesting() {
   // console.log("currentUser", currentUser);
   // console.log("currentMentor", currentMentor);
   // console.log("Mentor", mentorArray);
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const docRef = doc(db, "Users", user?.email);
+      const docSnap = await getDoc(docRef);
+      setCurrentUser(docSnap.data());
+    };
+    getCurrentUser();
+  }, []);
 
   const prefill = {
     email: currentUser?.email,
@@ -118,6 +128,7 @@ function ScheduleTesting() {
     guests: [currentMentor?.email],
     date: new Date(Date.now() + 86400000),
   };
+  // console.log(prefill);
 
   return (
     <>

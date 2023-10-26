@@ -14,6 +14,8 @@ import ToolsSkeleton from "../../components/Post Skeleton/Tools Skeleton/ToolsSk
 import PostSkeleton from "../../components/Post Skeleton/PostSkeleton";
 import MentorCardSkeleton from "./MentorCardSkeleton";
 import { toast, Toaster } from "react-hot-toast";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { useRef } from "react";
 
 const MentorTesting = () => {
   // const responsive = {
@@ -41,7 +43,7 @@ const MentorTesting = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 2,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -171,6 +173,14 @@ const MentorTesting = () => {
     }
   };
   // End functionality for search bar
+  const slideLeft = () => {
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft - 300;
+  };
+  const slideRight = () => {
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft + 300;
+  };
 
   return (
     <>
@@ -266,7 +276,41 @@ const MentorTesting = () => {
 
           <div className={styles.sliderContainer}>
             <p>Featured Mentors</p>
-            <div className={styles.slider}>
+            <div className={styles.mainSilder}>
+              <div className={styles.leftSilderArrow} onClick={slideLeft}>
+                <AiOutlineLeft />
+              </div>
+              <div className={styles.newSilder} id='slider'>
+                <div className={styles.listindex}>
+                  {featuredMentors.length > 0 ? (
+                    featuredMentors.map((item, idx) => {
+                      return (
+                        <ProfileCardTesting
+                          key={idx}
+                          mentor={item}
+                          handleCopyURL={() => {
+                            if (item?.linkedin) {
+                              navigator.clipboard.writeText(item.linkedin);
+                              window.open(item.linkedin, "_blank");
+                            } else {
+                              toast.error("No linkedin profile found");
+                            }
+                          }}
+                        />
+                      );
+                    })
+                  ) : (
+                    <div className={styles.skeletonLoadingCont}>
+                      <MentorCardSkeleton cards={3} />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className={styles.rightSilderArrow} onClick={slideRight}>
+                <AiOutlineRight />
+              </div>
+            </div>
+            {/* <div className={styles.slider}>
               <Carousel
                 // containerClass='react-multi-carousel-list-padding-40-px'
                 containerClass='container-padding-bottom'
@@ -304,15 +348,15 @@ const MentorTesting = () => {
                   <div className={styles.skeletonLoadingCont}>
                     <MentorCardSkeleton cards={3} />
                   </div>
-                )}
-                {/* {featuredMentors.map((item, idx) => {
+                )} */}
+            {/* {featuredMentors.map((item, idx) => {
                 return <ProfileCardTesting key={idx} mentor={item} />;
               })} */}
-                {/* <div className={styles.skeletonLoadingCont}>
+            {/* <div className={styles.skeletonLoadingCont}>
                 {featuredMentors.length == 0 && <ToolsSkeleton cards={2} />}
               </div> */}
-              </Carousel>
-            </div>
+            {/* </Carousel>
+            </div> */}
           </div>
           {/* ---------------Carousel End-------------------------------------- */}
 

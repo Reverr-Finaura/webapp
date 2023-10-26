@@ -189,19 +189,19 @@ body {
 
 
 /* // carousel scss  */
-.react-multiple-carousel__arrow--left {
+/* .react-multiple-carousel__arrow--left {
   left: 15px !important;
 }
 
 .react-multiple-carousel__arrow--right {
   right: 15px !important;
-}
+} */
 
-.react-multi-carousel-item {
-  /* width: 36rem !important; */
+/* .react-multi-carousel-item {
+  width: 36rem !important;
 }
 
 .react-multi-carousel-track {
-  /* margin-left: 55px; */
-  /* gap: 30px; */
-}
+  margin-left: 55px;
+  gap: 30px;
+} */

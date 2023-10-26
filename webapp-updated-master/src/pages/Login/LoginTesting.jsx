@@ -239,7 +239,7 @@ const LoginTesting = () => {
         }
       })
       .catch((error) => {
-        alert(error);
+        toast.error(error);
       });
   };
 
@@ -273,7 +273,7 @@ const LoginTesting = () => {
       })
       .catch((error) => {
         const errorMessage = error.message;
-        alert(errorMessage);
+        toast.error(errorMessage);
       });
   };
   const loginPhone = () => {
@@ -305,7 +305,7 @@ const LoginTesting = () => {
       })
       .catch((error) => {
         const errorMessage = error.message;
-        alert(errorMessage);
+        toast.error(errorMessage);
       });
   };
   function generate(n) {

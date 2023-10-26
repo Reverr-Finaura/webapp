@@ -5,6 +5,7 @@ import styles from "./PaymentMentorMeetingSchedule.module.css";
 import CashfreeDropInCont from "../Cashfree Dropin Container/CashfreeDropInCont";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const PaymentMentorMeetingSchedule = ({
   userDocc,
@@ -12,6 +13,7 @@ const PaymentMentorMeetingSchedule = ({
   setPaymentModeOn,
   setPaymentMade,
 }) => {
+  const navigate = useNavigate();
   const [mentorPlanPrice, setMentorPlanPrice] = useState();
   const [sessionIdTokken, setSessionIdTokken] = useState(null);
 
@@ -122,6 +124,11 @@ const PaymentMentorMeetingSchedule = ({
         toast.error(err.message);
       });
   };
+  const paymentModeHandler = (e) => {
+    e.preventDefault();
+    setPaymentModeOn(false);
+    navigate(window.location.pathname);
+  };
 
   return (
     <>
@@ -142,11 +149,13 @@ const PaymentMentorMeetingSchedule = ({
             <div className={styles.makePaymentContainer}>
               <div
                 className={styles.cross}
-                onClick={() => {
-                  setPaymentModeOn(false);
-                }}
+                // onClick={() => {
+                //   setPaymentModeOn(false);
+                //   // window.reload;
+                // }}
+                onClick={paymentModeHandler}
               >
-                <img src="/images/basil_cross-solid.svg" />
+                <img src='/images/basil_cross-solid.svg' alt='\' />
               </div>
               <h1 className={styles.makePaymentContainerHeading}>
                 Make Payment
