@@ -57,6 +57,7 @@ export const getUserFromDatabase = async (email) => {
 };
 
 export const getUserDocByRef = async (DocumentReference) => {
+  // const docRef = doc(db, "Users", DocumentReference);
   const userDocSnapshot = await getDoc(DocumentReference);
   return userDocSnapshot.data();
 };

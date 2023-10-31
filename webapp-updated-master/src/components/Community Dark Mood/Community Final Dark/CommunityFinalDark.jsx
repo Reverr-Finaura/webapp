@@ -246,7 +246,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         })
       );
 
-      // console.log("this is the filtered post ", postsData);
+      console.log("this is the filtered post community dark", postData);
 
       let postDataAllLikesLength = 0;
       postsData.map((post) => {

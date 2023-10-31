@@ -1,36 +1,36 @@
-import { deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../../firebase";
+import { db, getUserFromDatabase } from "../../../firebase";
 import style from "./PostCardDark.module.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { getUserDocByRef } from "../../../firebase";
-import LikeIcon from "../../Like And Liked Icon/LikeIcon";
-import LikedIcon from "../../Like And Liked Icon/LikeIcon";
+// import LikeIcon from "../../Like And Liked Icon/LikeIcon";
+// import LikedIcon from "../../Like And Liked Icon/LikeIcon";
 // import commentIcon from "../../images/postCommentIcon.png";
-import { FaComments, FaRegCommentDots, FaBullseye } from "react-icons/fa";
+// import { FaComments, FaRegCommentDots, FaBullseye } from "react-icons/fa";
 import { RiShareForwardFill, RiShareForwardLine } from "react-icons/ri";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { AiOutlineHeart, AiTwotoneLike } from "react-icons/ai";
-import { AiOutlineLike } from "react-icons/ai";
+// import { AiOutlineLike } from "react-icons/ai";
 import { GrAddCircle } from "react-icons/gr";
-import { FiSend } from "react-icons/fi";
-import { BiCommentDots } from "react-icons/bi";
+// import { FiSend } from "react-icons/fi";
+// import { BiCommentDots } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+// import { BsBookmark } from "react-icons/bs";
 import eyeIcon from "../../../images/white-outline-eye.webp";
 import commentIcon from "../../../images/white-outline-comment.webp";
 import rightArrow from "../../../images/right-arraow-bg-blue.webp";
 import defaultImg from "../../../images/default-profile-pic.webp";
 import ReactTimeAgo from "react-time-ago";
-import founder from "../../../images/rocket.webp";
-import investor from "../../../images/investor.webp";
-import mentor from "../../../images/mentor.webp";
-import pro from "../../../images/professional.webp";
-import video from "video.js";
+import founder from "../../../images/badges/Founder- badge.png";
+import investor from "../../../images/badges/Investor - badge.png";
+import mentor from "../../../images/badges/Mentor - badge.png";
+import pro from "../../../images/badges/Pofessional - badge.png";
+// import video from "video.js";
 
 export default function PostCardDark({
   postsData,
@@ -44,6 +44,7 @@ export default function PostCardDark({
   postId,
   postsDataWithUserDoc,
 }) {
+  const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const [isThreeDotsClicked, setIsThreeDotsClicked] = useState(false);
   const [isCommentThreeDotsClicked, setIsCommentThreeDotsClicked] =
@@ -55,7 +56,6 @@ export default function PostCardDark({
   const [newEdittedComment, setNewEdittedComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null);
   const [threeDotsClickCommentId, setThreeDotsClickCommentId] = useState(null);
-  const user = useSelector((state) => state.user);
 
   const [postedByUserDoc, setPostedByUserDoc] = useState({
     notificationList: [],
@@ -73,7 +73,6 @@ export default function PostCardDark({
 
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
-
     try {
       const docSnapshot = await getDoc(postRef);
       if (docSnapshot.exists()) {
@@ -101,6 +100,17 @@ export default function PostCardDark({
   useEffect(() => {
     fetchPostData();
   }, []);
+
+  // const [userDocPostedBy, setUserDocPostedBy] = useState();
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const data = await getUserFromDatabase(
+  //       item?.postedby?._path?.segments[1]
+  //     );
+  //     setUserDocPostedBy(data);
+  //   };
+  //   getData();
+  // }, []);
 
   //CHECK IF POST LIKES CONTAIN USER OR NOT
   const getLikedPostIdFromFirebase = async (id, items) => {
@@ -394,7 +404,8 @@ export default function PostCardDark({
 
   useEffect(() => {
     if (item?.postedby) {
-      getUserDocByRef(item?.postedby).then((res) => {
+      // getUserDocByRef(item?.postedby?._path?.segments[1]).then((res) => {
+      getUserFromDatabase(item?.postedby?._path?.segments[1]).then((res) => {
         setPostedByUserDoc((prev) => {
           return {
             ...prev,
@@ -407,10 +418,12 @@ export default function PostCardDark({
       });
     }
   }, [item]);
+  console.log(postedByUserDoc);
 
   useEffect(() => {
     if (userDoc) {
-      getUserDocByRef(item?.postedby).then((res) => {
+      // getUserDocByRef(item?.postedby?._path?.segments[1]).then((res) => {
+      getUserFromDatabase(item?.postedby?._path?.segments[1]).then((res) => {
         setPostedByUserDoc((prev) => {
           return {
             ...prev,
@@ -427,14 +440,35 @@ export default function PostCardDark({
   //GET USER DATA FROM REFERENCE LINK WHO HAS COMMENTED
 
   useEffect(() => {
-    item.comments.map((event) => {
-      getUserDocByRef(event.commentedby).then((res) => {
-        setCommentedByUserDoc((prev) => {
-          return [...prev, res];
+    item.comments.map(async (event) => {
+      await getUserDocByRef(event?.commentedby)
+        .then((res) => {
+          setCommentedByUserDoc((prev) => {
+            return [...prev, res];
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching user document:", error);
         });
-      });
     });
   }, [item]);
+  // console.log(commentedByUserDoc);
+
+  const [commentedUserDoc, setCommentedUserDoc] = useState([]);
+
+  useEffect(() => {
+    Promise.all(
+      item.comments.map((event) => getUserDocByRef(event.commentedby))
+    )
+      .then((results) => {
+        console.log(results);
+        setCommentedUserDoc(results);
+      })
+      .catch((error) => {
+        console.error("Error fetching user documents:", error);
+      });
+  }, [item]);
+  // console.log("Coment By user", postId, commentedUserDoc);
 
   // for video play and pause
   const handlePlayVideo = () => {
@@ -474,6 +508,8 @@ export default function PostCardDark({
   useEffect(() => {
     setPostTime(new Date(item?.createdAt.seconds * 1000));
   }, [item]);
+  console.log(postedByUserDoc);
+  console.log(postsDataWithUserDoc);
 
   return (
     <>
@@ -508,15 +544,56 @@ export default function PostCardDark({
             src={postedByUserDoc?.image ? postedByUserDoc?.image : defaultImg}
             alt=''
           />
+          {/* <img
+            onClick={() => {
+              if (!isLoggedIn) {
+                return openModal();
+              } else {
+                // setPostsAuthorIsClick(true);
+                // setPostsAuthorInfo(postedByUserDoc);
+                if (userDocPostedBy?.email === user?.user?.email) {
+                  navigate("/userprofile");
+                } else if (!userDocPostedBy?.email) {
+                  return console.log("empty");
+                } else {
+                  navigate(`/userprofile/${userDocPostedBy?.email}`);
+                }
+              }
+            }}
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              marginRight: "1rem",
+              objectFit: "cover",
+            }}
+            src={userDocPostedBy?.image ? userDocPostedBy?.image : defaultImg}
+            alt=''
+          /> */}
           <div className={style.postAuthorNameAndDesignationCont}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                gap: "10px",
               }}
             >
               <h3
+                // onClick={() => {
+                //   if (!isLoggedIn) {
+                //     return openModal();
+                //   } else {
+                //     // setPostsAuthorIsClick(true);
+                //     // setPostsAuthorInfo(postedByUserDoc);
+                //     if (userDocPostedBy?.email === user?.user?.email) {
+                //       navigate("/userprofile");
+                //     } else if (!userDocPostedBy?.email) {
+                //       return console.log("empty");
+                //     } else {
+                //       navigate(`/userprofile/${userDocPostedBy?.email}`);
+                //     }
+                //   }
+                // }}
                 onClick={() => {
                   if (!isLoggedIn) {
                     return openModal();
@@ -535,14 +612,53 @@ export default function PostCardDark({
                 className={style.postAuthorName}
               >
                 {postedByUserDoc?.name ? postedByUserDoc?.name : " "}
+                {/* {userDocPostedBy?.name ? userDocPostedBy?.name : " "} */}
               </h3>
               <div className='postAuthorType'>
-                {postsDataWithUserDoc.length >= 1 &&
+                {postedByUserDoc &&
+                  (() => {
+                    switch (postedByUserDoc?.userType) {
+                      case "founder":
+                        return (
+                          // <div className={style.founder}>
+                          <img className={style.typeImg} src={founder} alt='' />
+                          // Founder
+                          // </div>
+                        );
+                      case "mentor":
+                        return (
+                          // <div className={style.mentor}>
+                          <img className={style.typeImg} src={mentor} alt='' />
+                          // Mentor
+                          // </div>
+                        );
+                      case "investor":
+                        return (
+                          // <div className={style.investor}>
+                          <img
+                            className={style.typeImg}
+                            src={investor}
+                            alt=''
+                          />
+                          // Investor
+                          // </div>
+                        );
+                      case "professionals":
+                        return (
+                          // <div className={style.professional}>
+                          <img className={style.typeImg} src={pro} alt='' />
+                          // Professional
+                          // </div>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
+                {/* {postsDataWithUserDoc.length >= 1 &&
                   (() => {
                     const foundPost = postsDataWithUserDoc.find(
                       (post) => post.id === postId
                     );
-                    // console.log("this is foundpost ---- ",foundPost )
                     switch (foundPost?.postedby?.userType) {
                       case "founder":
                         return (
@@ -591,7 +707,7 @@ export default function PostCardDark({
                       default:
                         return null;
                     }
-                  })()}
+                  })()} */}
               </div>
             </div>
 
@@ -1016,10 +1132,10 @@ export default function PostCardDark({
                 : style.oldCommentSectionNothing
             }
           >
-            {postDetail?.comments?.map((list) => {
+            {postDetail?.comments?.map((list, index) => {
               return (
                 <>
-                  <div className='commentedByAndComment' key={list.commentid}>
+                  <div className='commentedByAndComment' key={index}>
                     <div className='commented-by-and-edit-cont'>
                       <img
                         className='commentedUserImage'
