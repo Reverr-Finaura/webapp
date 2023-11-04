@@ -440,34 +440,45 @@ export default function PostCardDark({
   //GET USER DATA FROM REFERENCE LINK WHO HAS COMMENTED
 
   useEffect(() => {
+    // item.comments.map(async (event) => {
+    //   await getUserDocByRef(event?.commentedby)
+    //     .then((res) => {
+    //       setCommentedByUserDoc((prev) => {
+    //         return [...prev, res];
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error fetching user document:", error);
+    //       console.error("Data causing the error:", event?.commentedby);
+    //     });
+    // });
     item.comments.map(async (event) => {
-      await getUserDocByRef(event?.commentedby)
-        .then((res) => {
-          setCommentedByUserDoc((prev) => {
-            return [...prev, res];
-          });
-        })
-        .catch((error) => {
-          console.error("Error fetching user document:", error);
+      try {
+        const res = await getUserDocByRef(event?.commentedby);
+        setCommentedByUserDoc((prev) => {
+          return [...prev, res];
         });
+      } catch (error) {
+        console.error("Error fetching user document:", error);
+      }
     });
   }, [item]);
   // console.log(commentedByUserDoc);
 
   const [commentedUserDoc, setCommentedUserDoc] = useState([]);
 
-  useEffect(() => {
-    Promise.all(
-      item.comments.map((event) => getUserDocByRef(event.commentedby))
-    )
-      .then((results) => {
-        console.log(results);
-        setCommentedUserDoc(results);
-      })
-      .catch((error) => {
-        console.error("Error fetching user documents:", error);
-      });
-  }, [item]);
+  // useEffect(() => {
+  //   Promise.all(
+  //     item.comments.map((event) => getUserDocByRef(event.commentedby))
+  //   )
+  //     .then((results) => {
+  //       console.log(results);
+  //       setCommentedUserDoc(results);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching user documents:", error);
+  //     });
+  // }, [item]);
   // console.log("Coment By user", postId, commentedUserDoc);
 
   // for video play and pause

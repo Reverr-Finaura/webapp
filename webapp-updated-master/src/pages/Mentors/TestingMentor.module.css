@@ -156,7 +156,8 @@
   background: var(--bg-primary-blue, #0c1631);
   margin: 1rem 0rem;
   display: flex;
-  width: 36rem;
+  /* width: 36rem; */
+  width: 39rem;
   height: 21rem;
   font-size: 1rem;
   padding: 1.5rem 0rem;

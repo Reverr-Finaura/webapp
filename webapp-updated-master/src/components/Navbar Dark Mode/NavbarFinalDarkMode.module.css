@@ -62,19 +62,21 @@
 }
 
 .overlay {
-  position: fixed; /* Positioning and size */
+  position: fixed;
+  /* Positioning and size */
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(128,128,128,0.5); /* color */
+  background-color: rgba(128, 128, 128, 0.5);
+  /* color */
   z-index: 9999999999;
   background: rgba(0, 0, 0, 0.60);
   backdrop-filter: blur(7.5px);
   display: flex;
   justify-content: center;
   align-items: center;
- 
+
 }
 
 .navbarIconsImgName {
@@ -106,12 +108,14 @@
   padding: 20px 50px;
 
 }
+
 .imgCont {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .notificationHeading {
   color: #FFF;
   font-size: 24px;
@@ -149,9 +153,11 @@
 .navbarIconsImg {
   font-size: 22px;
 }
-.activeScreen{
+
+.activeScreen {
   color: rgba(0, 179, 255, 1);
 }
+
 .navbarIconsName {
 
 
@@ -406,9 +412,12 @@
 }
 
 .navbarfinaluserImage {
-  width: 47px;
-  height: 47px;
+  width: 50px;
+  height: 45px;
   border-radius: 50%;
+  /* width: 47px;
+  height: 47px;
+  border-radius: 50%; */
   cursor: pointer;
   object-fit: cover;
   /* margin-right: 3rem; */
@@ -609,11 +618,13 @@
   right: 30px;
   position: absolute;
 }
-@media screen and (max-width:1050px){
-  .hideonmobile{
+
+@media screen and (max-width:1050px) {
+  .hideonmobile {
     display: none !important;
   }
 }
+
 @media screen and (max-width:1250px) {
   .hamburgermenu {
     display: flex;
@@ -871,13 +882,15 @@
 @media (max-width: 500px) {
 
   .overlay {
-    align-items :baseline;
+    align-items: baseline;
 
   }
-  .navbarFinalUpgradeBtn{
+
+  .navbarFinalUpgradeBtn {
     margin-left: unset;
     margin-right: unset;
   }
+
   .premiumModal {
     top: 10%;
 

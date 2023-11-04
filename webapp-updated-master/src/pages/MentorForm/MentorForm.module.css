@@ -42,7 +42,7 @@ html {
   color: #202020;
 }
 
-.personal_details > label > img {
+.personal_details>label>img {
   height: 8rem;
   cursor: pointer;
 }
@@ -71,7 +71,7 @@ textarea {
   border: 2px solid #2a72de;
   border-radius: 8px;
   outline: none;
-  padding: 0.4rem 1rem;
+  padding: 0.55rem 1rem;
   font-size: 24px;
   resize: none;
   width: 95%;
@@ -90,7 +90,7 @@ textarea {
   margin-bottom: 5rem;
 }
 
-.social_icons > a > img {
+.social_icons>a>img {
   height: 3rem;
   margin-right: 2rem;
   background-color: #fff;
@@ -112,7 +112,7 @@ textarea {
   margin-bottom: 5rem;
 }
 
-.yesno_btns > button {
+.yesno_btns>button {
   border: none;
   outline: none;
   background: #0077b7;
@@ -153,15 +153,18 @@ textarea {
 .form__heading {
   font-size: 35px;
 }
+
 .heading {
   font-size: 25px;
   opacity: 0.75;
 }
+
 .social__flex {
   display: flex;
   justify-content: space-around;
   padding: 10px;
 }
+
 .social__icons {
   padding-right: 20px;
 }
@@ -186,6 +189,7 @@ textarea {
   .logo {
     height: 4rem;
   }
+
   .heading {
     font-size: 35px;
   }
@@ -193,22 +197,26 @@ textarea {
   .sub_heading {
     font-size: 28px;
   }
+
   .input_flex {
     display: block;
   }
+
   .input,
   textarea,
   .select {
     font-size: 16px;
   }
-  .social_icons > a > img {
+
+  .social_icons>a>img {
     height: 2rem;
   }
+
   .add_btn {
     height: 2rem;
   }
 
-  .yesno_btns > button,
+  .yesno_btns>button,
   .next_btn {
     font-size: 18px;
   }
@@ -223,6 +231,7 @@ textarea {
 }
 
 @media (max-width: 425px) {
+
   .personal_details,
   .education_details,
   .professional_details,
@@ -230,16 +239,20 @@ textarea {
   .startup_details {
     width: 80%;
   }
+
   .social_icons {
     display: block;
   }
-  .social_icons > a > img {
+
+  .social_icons>a>img {
     margin-bottom: 1rem;
   }
+
   .yesno_btns {
     display: block;
   }
-  .yesno_btns > button {
+
+  .yesno_btns>button {
     margin-bottom: 5%;
   }
 }
