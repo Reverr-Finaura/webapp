@@ -454,32 +454,36 @@ export default function PostCardDark({
     // });
     item.comments.map(async (event) => {
       try {
+        console.log(event?.commentedby);
         const res = await getUserDocByRef(event?.commentedby);
         setCommentedByUserDoc((prev) => {
           return [...prev, res];
         });
       } catch (error) {
-        console.error("Error fetching user document:", error);
+        console.log("Error fetching user document:", error);
       }
     });
   }, [item]);
-  // console.log(commentedByUserDoc);
-
-  const [commentedUserDoc, setCommentedUserDoc] = useState([]);
 
   // useEffect(() => {
-  //   Promise.all(
-  //     item.comments.map((event) => getUserDocByRef(event.commentedby))
-  //   )
-  //     .then((results) => {
-  //       console.log(results);
-  //       setCommentedUserDoc(results);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching user documents:", error);
+  //   const fetchCommentedUserDocs = async () => {
+  //     const userDocPromises = item.comments.map(async (event) => {
+  //       try {
+  //         const res = await getUserDocByRef(event?.commentedby);
+  //         return res;
+  //       } catch (error) {
+  //         console.log("Error fetching user document:", error);
+  //         return null;
+  //       }
   //     });
+  //     const userDocs = (await Promise.all(userDocPromises)).filter(
+  //       (doc) => doc
+  //     );
+  //     setCommentedByUserDoc(userDocs);
+  //   };
+
+  //   fetchCommentedUserDocs();
   // }, [item]);
-  // console.log("Coment By user", postId, commentedUserDoc);
 
   // for video play and pause
   const handlePlayVideo = () => {

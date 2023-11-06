@@ -7,12 +7,12 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import { signOut } from "firebase/auth";
 import { auth, createNetworkInMessagesDoc, db } from "../../firebase";
-import { logout, selectUser ,setPremium} from "../../features/userSlice";
+import { logout, selectUser, setPremium } from "../../features/userSlice";
 import { remove } from "../../features/newUserSlice";
 import { removeUserDoc, setUserDoc } from "../../features/userDocSlice";
 import { removeUserFundingDoc } from "../../features/userFundingDocSlice";
 import { ToastContainer, toast } from "react-toastify";
-import Upgrade from "../../pages/Upgrade/Upgrade"
+import Upgrade from "../../pages/Upgrade/Upgrade";
 import "react-toastify/dist/ReactToastify.css";
 import {
   collection,
@@ -77,13 +77,11 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
-  const [premiumModalStatus , setPremiumModalStatus] = useState(false)
-
+  const [premiumModalStatus, setPremiumModalStatus] = useState(false);
 
   const location = useLocation();
   const userType = useSelector((state) => state.onboarding.userType);
-  console.log("this is ispremium---",isPremium)
-  
+  console.log("this is ispremium---", isPremium);
 
   const [userTypeLower, setUserTypeLower] = useState("individual");
   // const state = useSelector((state) => state);
@@ -106,7 +104,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     "FUNDING-APPLY",
     // "STARTUP SCORE",
     "KNOWLEDGE",
-    "VIBE"
+    "VIBE",
   ];
   const filteredArray = elementsToCheck.filter((element) =>
     products[userTypeLower].includes(element)
@@ -205,7 +203,6 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   };
   // =====================End functionality for search bar===================
 
-
   // =============Start functionality for premium status check===============
   useEffect(() => {
     function checkPremiumStatus() {
@@ -219,39 +216,36 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
       const premiumStartDate = premiumData.premiumStartDate;
 
-
       switch (premiumData.subscriptionPlan) {
         case "onemonth":
           if (currentDate <= premiumStartDate + oneMonthInseconds) {
-            console.log("premium members")
+            console.log("premium members");
             setIsPremium(true);
-            dispatch(setPremium(true))
+            dispatch(setPremium(true));
           }
           break;
         case "threemonths":
           if (currentDate <= premiumStartDate + threeMonthsInseconds) {
             setIsPremium(true);
-            dispatch(setPremium(true))
+            dispatch(setPremium(true));
           }
           break;
         case "sixmonths":
           if (currentDate <= premiumStartDate + sixMonthsInseconds) {
-            console.log("premium members")
+            console.log("premium members");
             setIsPremium(true);
-            dispatch(setPremium(true))
+            dispatch(setPremium(true));
           }
           break;
         default:
           setIsPremium(false);
-          dispatch(setPremium(false))
+          dispatch(setPremium(false));
           break;
       }
     }
     checkPremiumStatus();
   }, [userDoc]);
   // =============End functionality for premium status check===============
-
-
 
   // CHECK FOR USER PHOTO
   useEffect(() => {
@@ -518,17 +512,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   // console.log("userDoc", userDoc.posts);
   // console.log("notificationLisst", notificationList);
   return (
-    <> 
-    {premiumModalStatus ? (
-      <div class={style.overlay}>
-      <div className={style.premiumModal}>
-        <div onClick={()=> setPremiumModalStatus(false)} className={style.closebtnModal}>
-          close
+    <>
+      {premiumModalStatus ? (
+        <div class={style.overlay}>
+          <div className={style.premiumModal}>
+            <div
+              onClick={() => setPremiumModalStatus(false)}
+              className={style.closebtnModal}
+            >
+              close
+            </div>
+            <Upgrade />
+          </div>
         </div>
-        <Upgrade/>
-      </div>
-      </div>
-    ): ''}
+      ) : (
+        ""
+      )}
       {isProductModalOpen ? (
         <div className={style.productModalCont}>
           <div className={style.productModal} ref={modalRef}>
@@ -536,7 +535,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             <div className={style.productContainer}>
               {filteredArray.includes("TOOLS") ? (
                 <div onClick={() => navigate("/tools")}>
-                  <img src={require("../../images/rulepen.webp")} alt="img" />
+                  <img src={require("../../images/rulepen.webp")} alt='img' />
                   <div className={style.keyproddiv}>
                     <text
                       style={{
@@ -563,7 +562,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <div onClick={() => navigate("/mentors")}>
                   <img
                     src={require("../../images/securityuser.webp")}
-                    alt="img"
+                    alt='img'
                   />
                   <div className={style.keyproddiv}>
                     <text
@@ -589,7 +588,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
               {filteredArray.includes("KNOWLEDGE") ? (
                 <div onClick={() => navigate("/knowledge")}>
-                  <img src={require("../../images/book1.webp")} alt="img" />
+                  <img src={require("../../images/book1.webp")} alt='img' />
                   <div className={style.keyproddiv}>
                     <text
                       style={{
@@ -615,7 +614,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <div onClick={() => navigate("/funding-page")}>
                   <img
                     src={require("../../images/currencyusd.webp")}
-                    alt="img"
+                    alt='img'
                   />
                   <div className={style.keyproddiv}>
                     <text
@@ -640,8 +639,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
               {/* ///Vibe/// */}
               {filteredArray.includes("VIBE") ? (
-                <div  onClick={() => navigate("/vibe")}>
-                  <img src={require("../../images/Vibeicon.webp")} alt="img" />
+                <div onClick={() => navigate("/vibe")}>
+                  <img src={require("../../images/Vibeicon.webp")} alt='img' />
                   <div className={style.keyproddiv}>
                     <text
                       style={{
@@ -668,7 +667,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <div onClick={() => navigate("/start-up")}>
                   <img
                     src={require("../../images/moneyreveive.webp")}
-                    alt="img"
+                    alt='img'
                   />
                   <div className={style.keyproddiv}>
                     <text
@@ -709,7 +708,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
           <img
             className={style.navbarFinalBrandLogoImg}
             src={ReverrDarkIcon}
-            alt="brand-logo"
+            alt='brand-logo'
           />
           {/* <span className={style.reverrHeadingSpan}>
             <p className={style.reverrHeading}>Reverr</p>
@@ -722,7 +721,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             <input
               className={style.navbarSearchInput}
               onChange={searchInputHandler}
-              placeholder="Search"
+              placeholder='Search'
             />
             {searchResult && (
               <div className={style.navbarSearchResult}>
@@ -746,7 +745,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                             ? item.image
                             : require("../../images/userIcon.webp")
                         }
-                        alt="img"
+                        alt='img'
                       />
                       <div>
                         <text
@@ -798,8 +797,18 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   isLoggedIn ? navigate("/") : navigate("/gallery")
                 }
               >
-                <BiHomeAlt className={`${style.navbarIconsImg} ${location.pathname === "/community" ? style.activeScreen : ""}`} />
-                <p className={`${style.navbarIconsName} ${location.pathname === "/community" ? style.activeScreen : ""}`}>Home</p>
+                <BiHomeAlt
+                  className={`${style.navbarIconsImg} ${
+                    location.pathname === "/community" ? style.activeScreen : ""
+                  }`}
+                />
+                <p
+                  className={`${style.navbarIconsName} ${
+                    location.pathname === "/community" ? style.activeScreen : ""
+                  }`}
+                >
+                  Home
+                </p>
               </div>
               {/* //////// */}
               {isLoggedIn &&
@@ -820,7 +829,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     src={mentordashboardicon}
                     className={style.navbarDashboardIcon}
                   />
-                  <p className={`${style.navbarDashboardText} ${location.pathname === "/dashboard" ? style.activeScreen : ""}`}>Dashboard</p>
+                  <p
+                    className={`${style.navbarDashboardText} ${
+                      location.pathname === "/dashboard"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  >
+                    Dashboard
+                  </p>
                   {/* <NavLink className="navlinks" to="/discover">
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
@@ -857,8 +874,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     }
                   }}
                 >
-                  <AiOutlineGlobal className={`${style.navbarIconsImg} ${location.pathname === "/discover" ? style.activeScreen : ""}`}  />
-                  <p className={`${style.navbarIconsName} ${location.pathname === "/discover" ? style.activeScreen : ""}`}>Discover</p>
+                  <AiOutlineGlobal
+                    className={`${style.navbarIconsImg} ${
+                      location.pathname === "/discover"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  />
+                  <p
+                    className={`${style.navbarIconsName} ${
+                      location.pathname === "/discover"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  >
+                    Discover
+                  </p>
                   {/* <NavLink className="navlinks" to="/discover">
                 <p className={style.navbarIconsName}>Discover</p>
               </NavLink> */}
@@ -874,8 +905,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     }
                   }}
                 >
-                  <AiOutlineGlobal className={`${style.navbarIconsImg} ${location.pathname === "/discover" ? style.activeScreen : ""}`}  />
-                  <p className={`${style.navbarIconsName} ${location.pathname === "/discover" ? style.activeScreen : ""}`}>Discover</p>
+                  <AiOutlineGlobal
+                    className={`${style.navbarIconsImg} ${
+                      location.pathname === "/discover"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  />
+                  <p
+                    className={`${style.navbarIconsName} ${
+                      location.pathname === "/discover"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  >
+                    Discover
+                  </p>
                   {/* <NavLink className="navlinks" to="/discover">
               <p className={style.navbarIconsName}>Discover</p>
             </NavLink> */}
@@ -912,8 +957,18 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     onClick={toggleProductModal}
                     ref={buttonRef}
                   >
-                    <HiOutlineTemplate className={`${style.navbarIconsImg} ${isProductModalOpen ? style.activeScreen : ""}`}  />
-                    <p className={`${style.navbarIconsName} ${isProductModalOpen ? style.activeScreen : ""}`}>Products &#9662;</p>
+                    <HiOutlineTemplate
+                      className={`${style.navbarIconsImg} ${
+                        isProductModalOpen ? style.activeScreen : ""
+                      }`}
+                    />
+                    <p
+                      className={`${style.navbarIconsName} ${
+                        isProductModalOpen ? style.activeScreen : ""
+                      }`}
+                    >
+                      Products &#9662;
+                    </p>
                   </div>
                 ) : null
               ) : null}
@@ -922,8 +977,22 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   className={style.navbarIconsImgName}
                   onClick={() => navigate("/messages")}
                 >
-                  <AiOutlineMessage className={`${style.navbarIconsImg} ${location.pathname === "/messages" ? style.activeScreen : ""}`}  />
-                  <p className={`${style.navbarIconsName} ${location.pathname === "/messages" ? style.activeScreen : ""}`}>Messages</p>
+                  <AiOutlineMessage
+                    className={`${style.navbarIconsImg} ${
+                      location.pathname === "/messages"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  />
+                  <p
+                    className={`${style.navbarIconsName} ${
+                      location.pathname === "/messages"
+                        ? style.activeScreen
+                        : ""
+                    }`}
+                  >
+                    Messages
+                  </p>
                 </div>
               ) : null}
               {isLoggedIn ? (
@@ -931,8 +1000,18 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   onClick={() => setNotificationOpen(!notificationOpen)}
                   className={style.navbarIconsImgName}
                 >
-                  <MdOutlineNotifications className={`${style.navbarIconsImg} ${notificationOpen ? style.activeScreen : ""}`}  />
-                  <p className={`${style.navbarIconsName} ${notificationOpen ? style.activeScreen : ""}`}>Notifications</p>
+                  <MdOutlineNotifications
+                    className={`${style.navbarIconsImg} ${
+                      notificationOpen ? style.activeScreen : ""
+                    }`}
+                  />
+                  <p
+                    className={`${style.navbarIconsName} ${
+                      notificationOpen ? style.activeScreen : ""
+                    }`}
+                  >
+                    Notifications
+                  </p>
                   {notificationOpen && (
                     <>
                       {/* ///aa// */}
@@ -941,7 +1020,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                           <div
                             className={style.closeBtn}
                             onClick={() => {
-                              notificationOpen(true);
+                              setNotificationOpen(true);
                             }}
                           >
                             {" "}
@@ -977,10 +1056,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                           <>
                             <h4>Notifications</h4>
                             <div className={style.imgCont}>
-                            <img src={noNotificationsImg} alt="noNotificationsImg" />
+                              <img
+                                src={noNotificationsImg}
+                                alt='noNotificationsImg'
+                              />
                             </div>
-                            <p>You don’t have any notifications right now. 
-                                  Come back later.</p>
+                            <p>
+                              You don’t have any notifications right now. Come
+                              back later.
+                            </p>
                           </>
                         )}
                       </div>
@@ -990,18 +1074,18 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
               ) : null}
             </div>
 
-            {  !isPremium && !userDoc.hasUpgrade && (
-            <button
-              className={style.navbarFinalUpgradeBtn}
-              onClick={() => setPremiumModalStatus(true)}
-            >
-              Get Premium
-            </button>
-          )}
+            {!isPremium && !userDoc.hasUpgrade && (
+              <button
+                className={style.navbarFinalUpgradeBtn}
+                onClick={() => setPremiumModalStatus(true)}
+              >
+                Get Premium
+              </button>
+            )}
 
             <div
               onClick={() => setRequestsbuttonClick((current) => !current)}
-              className="navbar-topp-social-icon navbar_noOuterContCSS"
+              className='navbar-topp-social-icon navbar_noOuterContCSS'
             >
               {/* <AiFillBell
               className={
@@ -1013,10 +1097,10 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             /> */}
 
               {isRequestsButtonClick ? (
-                <div className="notifiction-dropdown-cont">
+                <div className='notifiction-dropdown-cont'>
                   {userDoc?.receivedRequests?.length === 0 &&
                   userDoc?.notification?.length === 0 ? (
-                    <p className="notifiction-dropdown-Request-Cont">
+                    <p className='notifiction-dropdown-Request-Cont'>
                       No New Notification
                     </p>
                   ) : null}
@@ -1024,21 +1108,21 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     return (
                       <>
                         <p
-                          className="notifiction-dropdown-Request-Cont"
+                          className='notifiction-dropdown-Request-Cont'
                           key={item}
                         >
                           <span style={{ height: "fit-content" }}>
                             <img
-                              className="notifiction-dropdown-Request-image"
+                              className='notifiction-dropdown-Request-image'
                               src={
                                 notificationList?.filter((e) => {
                                   return e.id === item;
                                 })[0]?.image
                               }
-                              alt="requestUsrImg"
+                              alt='requestUsrImg'
                             />
                           </span>
-                          <span className="notifiction-dropdown-Request-name">
+                          <span className='notifiction-dropdown-Request-name'>
                             {
                               notificationList?.filter((e) => {
                                 return e.id === item;
@@ -1048,7 +1132,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                           has accepted your follow request
                           <span
                             onClick={() => handleDeleteNotification(item)}
-                            className="notifiction-dropdown-Request-reject"
+                            className='notifiction-dropdown-Request-reject'
                           >
                             ❌
                           </span>
@@ -1060,21 +1144,21 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     return (
                       <>
                         <p
-                          className="notifiction-dropdown-Request-Cont"
+                          className='notifiction-dropdown-Request-Cont'
                           key={item}
                         >
                           <span style={{ height: "fit-content" }}>
                             <img
-                              className="notifiction-dropdown-Request-image"
+                              className='notifiction-dropdown-Request-image'
                               src={
                                 userDocList?.filter((e) => {
                                   return e.id === item;
                                 })[0]?.image
                               }
-                              alt="requestUsrImg"
+                              alt='requestUsrImg'
                             />
                           </span>
-                          <span className="notifiction-dropdown-Request-name">
+                          <span className='notifiction-dropdown-Request-name'>
                             {
                               userDocList?.filter((e) => {
                                 return e.id === item;
@@ -1084,13 +1168,13 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                           wants to follow you{" "}
                           <span
                             onClick={() => handleAcceptFollowRequest(item)}
-                            className="notifiction-dropdown-Request-accept"
+                            className='notifiction-dropdown-Request-accept'
                           >
                             ✅
                           </span>
                           <span
                             onClick={() => handleRejectFollowRequest(item)}
-                            className="notifiction-dropdown-Request-reject"
+                            className='notifiction-dropdown-Request-reject'
                           >
                             ❌
                           </span>
@@ -1107,7 +1191,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   onClick={() => navigate("/userprofile")}
                   className={style.navbarfinaluserImage}
                   src={userImage ? userImage : defaultImg}
-                  alt="userimg"
+                  alt='userimg'
                 />
                 {/* <div className="navbar-topp-social-icon">
           <FaUserAlt className="nabar-final-userProfile-Icon" onClick={() => navigate("/userprofile")}/>
@@ -1115,16 +1199,16 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
                 <div
                   onClick={() => setIsSettingbuttonClick((current) => !current)}
-                  className="navbar-topp-social-icon setting-social-icon-cont navbar_noOuterContCSS"
+                  className='navbar-topp-social-icon setting-social-icon-cont navbar_noOuterContCSS'
                 >
                   {/* <AiFillSetting className="nabar-final-setting-Icon"/> */}
-                  <MdOutlineKeyboardArrowDown className="nabar-final-setting-Icon" />
+                  <MdOutlineKeyboardArrowDown className='nabar-final-setting-Icon' />
 
                   {isSettingButtonClick ? (
                     <div className={style.settingDropdownCont}>
                       <button
                         onClick={() => navigate("/userprofile")}
-                        className="setting-dropdown-button"
+                        className='setting-dropdown-button'
                       >
                         My Profile
                       </button>
@@ -1175,7 +1259,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                                   })
                             : () => navigate("/login")
                         }
-                        className="setting-dropdown-button"
+                        className='setting-dropdown-button'
                       >
                         Logout
                       </button>

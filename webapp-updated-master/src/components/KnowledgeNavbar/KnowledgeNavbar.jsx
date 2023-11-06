@@ -18,7 +18,7 @@ function KnowledgeNavbar() {
   const chat = useSelector(selectChat);
   const [phnOptionsVisible, setPhnOptionsVisible] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const theme=useSelector((state)=>state.themeColor)
+  const theme = useSelector((state) => state.themeColor);
   const updateWidth = () => {
     setWidth(window.innerWidth);
   };
@@ -30,22 +30,37 @@ function KnowledgeNavbar() {
 
   return (
     <>
-      <navbar className={styles.navbar}>
+      <nav className={styles.navbar}>
         <MenuIcon
           onClick={() => dispatch(phnSidebarVisible())}
           className={styles.menuIcon}
         />
-        <Link onClick={()=>dispatch(phnSidebarInvisible())} to={"/"} style={{ textDecoration: "none" }}>
+        <Link
+          onClick={() => dispatch(phnSidebarInvisible())}
+          to={"/"}
+          style={{ textDecoration: "none" }}
+        >
           <div
             className={styles.logo}
             onClick={() => setPhnOptionsVisible(!phnOptionsVisible)}
           >
             <img
-              src={theme==="light-theme"?"/images/Reverr Black 1.png":"/images/reaver-logo.svg"}
-              alt="logo"
+              src={
+                theme === "light-theme"
+                  ? "/images/Reverr Black 1.png"
+                  : "/images/reaver-logo.svg"
+              }
+              alt='logo'
               style={{ marginTop: "5px", width: "80px" }}
             />
-            <p style={{ color: theme==="light-theme"?"black":"white", fontSize: "18px" }}>REVERR</p>
+            <p
+              style={{
+                color: theme === "light-theme" ? "black" : "white",
+                fontSize: "18px",
+              }}
+            >
+              REVERR
+            </p>
           </div>
         </Link>
         <div className={styles.options}>
@@ -58,13 +73,20 @@ function KnowledgeNavbar() {
         <div>
           <img src="./images/calender.svg" alt="" />
         </div> */}
-          <div style={{cursor:"pointer"}}
-            onClick={() => {navigate("/messages")}}
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/messages");
+            }}
           >
-            <img src="./images/chat.svg" alt="" />
+            <img src='./images/chat.svg' alt='' />
           </div>
-          <div style={{cursor:"pointer"}}>
-            <img onClick={() => navigate("/userprofile")} src="./images/profile.svg" alt="" />
+          <div style={{ cursor: "pointer" }}>
+            <img
+              onClick={() => navigate("/userprofile")}
+              src='./images/profile.svg'
+              alt=''
+            />
           </div>
         </div>
         <div
@@ -83,14 +105,25 @@ function KnowledgeNavbar() {
           <img src="./images/calender.svg" alt="" />
         </div> */}
           <div>
-            <img onClick={() => {navigate("/messages")}} style={{cursor:"pointer"}} src="./images/chat.svg" alt="" />
+            <img
+              onClick={() => {
+                navigate("/messages");
+              }}
+              style={{ cursor: "pointer" }}
+              src='./images/chat.svg'
+              alt=''
+            />
           </div>
           <div>
-            <img style={{cursor:"pointer"}} onClick={() => navigate("/userprofile")} src="./images/profile.svg" alt="" />
+            <img
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/userprofile")}
+              src='./images/profile.svg'
+              alt=''
+            />
           </div>
         </div>
-      </navbar>
-
+      </nav>
     </>
   );
 }

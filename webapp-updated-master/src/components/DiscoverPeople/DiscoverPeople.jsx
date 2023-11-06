@@ -132,25 +132,33 @@ const DiscoverPeople = () => {
   // }, [users]);
 
   return (
-    <section className="people-section">
+    <section className='people-section'>
       {/* People */}
 
-      <div className="aling">
-        <div className="people">
+      <div className='aling'>
+        <div className='people'>
           <h3
-            className="discover-headings"
-            style={{ color: "white", marginLeft: "20px", marginTop: "15px" ,fontFamily:"Reem Kufi"}}
+            className='discover-headings'
+            style={{
+              color: "white",
+              marginLeft: "20px",
+              marginTop: "15px",
+              fontFamily: "Reem Kufi",
+            }}
           >
             {" "}
-            <span style={{ color: "#00B3FF" , fontFamily:"Reem Kufi"}}>People</span> you May Know
+            <span style={{ color: "#00B3FF", fontFamily: "Reem Kufi" }}>
+              People
+            </span>{" "}
+            you May Know
           </h3>
           {/* <p style={{color:"#00B3FF",textDecoration:"underline",marginRight:"40px",cursor:"pointer"}}>See all</p> */}
         </div>
 
-        <div className="people-card">
+        <div className='people-card'>
           {randomUsers.length === 8 &&
-            randomUsers.map((user) => (
-              <div className="people-card-container" key={user.id}>
+            randomUsers.map((user, index) => (
+              <div className='people-card-container' key={index}>
                 <ProfileCard
                   email={user.email}
                   name={user.name}

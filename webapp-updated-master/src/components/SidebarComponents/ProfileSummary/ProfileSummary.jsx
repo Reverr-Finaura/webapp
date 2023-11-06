@@ -78,7 +78,7 @@ const ProfileSummary = () => {
             >
               {userDoc?.name}
             </p>
-            <text className={styles.positionText}>{userDoc?.designation}</text>
+            <p className={styles.positionText}>{userDoc?.designation}</p>
           </div>
         </div>
         {/* <button

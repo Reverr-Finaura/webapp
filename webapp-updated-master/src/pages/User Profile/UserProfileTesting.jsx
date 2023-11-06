@@ -295,9 +295,11 @@ const UserProfileTesting = () => {
               <p>How can we connect?</p>
               <div style={{ flexDirection: "column" }}>
                 {userDoc?.Vibe_Data?.How_To_Meet
-                  ? userDoc.Vibe_Data.How_To_Meet.map((item) => {
+                  ? userDoc.Vibe_Data.How_To_Meet.map((item, index) => {
                       return (
-                        <button style={{ marginRight: "25px" }}>{item}</button>
+                        <button style={{ marginRight: "25px" }} key={index}>
+                          {item}
+                        </button>
                       );
                     })
                   : "Update your How to connect"}
@@ -310,9 +312,9 @@ const UserProfileTesting = () => {
               <div className={styles.educationInfo}>
                 <ul>
                   {userDoc?.education ? (
-                    userDoc.education.map((item) => {
+                    userDoc.education.map((item, index) => {
                       return (
-                        <li>
+                        <li key={index}>
                           {item.degree ? item.degree : null},{" "}
                           {item.institute ? item.institute : null}{" "}
                           {item.year ? item.year : null}
@@ -351,9 +353,11 @@ const UserProfileTesting = () => {
               <p>I am here to</p>
               <div className={styles.experienceBtn}>
                 {userDoc?.userReason
-                  ? userDoc.userReason.map((item) => {
+                  ? userDoc.userReason.map((item, index) => {
                       return (
-                        <button className={styles.iamhereforbtn}>{item}</button>
+                        <button key={index} className={styles.iamhereforbtn}>
+                          {item}
+                        </button>
                       );
                     })
                   : "Update your i am here to"}

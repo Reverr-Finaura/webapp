@@ -111,6 +111,7 @@
 
 .UploadPostOuterBoxContainerNotExpanded {
   border: none;
+  width: 98%;
 }
 
 .reverrCommunityUploadContainerrr {
@@ -1883,13 +1884,13 @@ body::-webkit-scrollbar {
 
 @media (max-width: 400px) {
 
-#postTextContainer {
+  #postTextContainer {
 
-  width: -webkit-fill-available !important;
-  font-size: 10px;
-   padding-top: 10px;
+    width: -webkit-fill-available !important;
+    font-size: 10px;
+    padding-top: 10px;
 
-}
+  }
 }
 
 

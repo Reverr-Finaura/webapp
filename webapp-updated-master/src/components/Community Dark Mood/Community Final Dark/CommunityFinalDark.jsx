@@ -18,7 +18,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { getUserDocByRef } from "../../../firebase";
+import { getUserDocByRef, getUserFromDatabase } from "../../../firebase";
 import { db, storage } from "../../../firebase";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
@@ -125,15 +125,38 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([]);
   const [imageModalStatus, setImageModalStatus] = useState(false);
 
+  // useEffect(() => {
+  //   const fetchUserInformation = async () => {
+  //     const updatedPostsData = await Promise.all(
+  //       postsData.map(async (item) => {
+  //         const userData = await getUserDocByRef(item.postedby);
+  //         return { ...item, postedby: userData }; // Create a new object with updated user data
+  //       })
+  //     );
+  //       setPostsDataWithUserDoc(parsedObject);
+  //   };
+
+  //   fetchUserInformation();
+  // }, [postsData]);
   useEffect(() => {
     const fetchUserInformation = async () => {
-      const updatedPostsData = await Promise.all(
-        postsData.map(async (item) => {
-          const userData = await getUserDocByRef(item.postedby);
-          return { ...item, postedby: userData }; // Create a new object with updated user data
-        })
-      );
-      setPostsDataWithUserDoc(updatedPostsData);
+      try {
+        const updatedPostsData = await Promise.all(
+          postsData.map(async (item) => {
+            console.log(item.postedby);
+            const userData = await getUserFromDatabase(
+              item.postedby._path.segments[1]
+            );
+            console.log(userData);
+            return { ...item, postedby: userData };
+          })
+        );
+        // console.log(updatedPostsData);
+        const parsedObject = JSON.parse(JSON.stringify(updatedPostsData));
+        setPostsDataWithUserDoc(parsedObject);
+      } catch (error) {
+        console.error("Error while fetching user information:", error);
+      }
     };
 
     fetchUserInformation();
@@ -1355,11 +1378,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       <option className={style.userSpaceOption} value=''>
                         Select Spaces
                       </option>
-                      {currentUserDoc?.userSpace?.map((item) => {
+                      {currentUserDoc?.userSpace?.map((item, index) => {
                         return (
                           <option
                             className={style.userSpaceOption}
                             value={item}
+                            key={index}
                           >
                             {item}
                           </option>

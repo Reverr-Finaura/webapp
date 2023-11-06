@@ -5,22 +5,21 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const DocSkeleton = ({ cards }) => {
   const [width, setWidth] = useState(window.innerWidth);
- useEffect(() => {
-    setWidth(window.innerWidth)
-  
-  }, [window.innerWidth])
-  
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, [window.innerWidth]);
+
   return Array(cards)
     .fill(0)
     .map((item, index) => {
       return (
-        <>
-          <SkeletonTheme baseColor="#e6e4e4dc" highlightColor="grey">
-            <div className={styles.card} key={index}>
+        <React.Fragment key={index}>
+          <SkeletonTheme baseColor='#e6e4e4dc' highlightColor='grey'>
+            <div className={styles.card}>
               <div className={styles.cardTop}>
                 <Skeleton
                   className={styles.cardTopUserImage}
-                  width={`${width <= 450 ? 340 : 547 } `}
+                  width={`${width <= 450 ? 340 : 547} `}
                   height={200}
                 />
               </div>
@@ -46,7 +45,7 @@ const DocSkeleton = ({ cards }) => {
               </div>
             </div>
           </SkeletonTheme>
-        </>
+        </React.Fragment>
       );
     });
 };
