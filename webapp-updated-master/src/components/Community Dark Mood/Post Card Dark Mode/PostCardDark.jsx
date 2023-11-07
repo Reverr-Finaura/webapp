@@ -454,7 +454,6 @@ export default function PostCardDark({
     // });
     item.comments.map(async (event) => {
       try {
-        console.log(event?.commentedby);
         const res = await getUserDocByRef(event?.commentedby);
         setCommentedByUserDoc((prev) => {
           return [...prev, res];
@@ -732,11 +731,13 @@ export default function PostCardDark({
           </div>
 
           <div className={style.postUploadDateContainer}>
-            <ReactTimeAgo
-              className={style.timeSpan}
-              date={item?.createdAt?._seconds * 1000}
-              locale='en-US'
-            />
+            {item?.createdAt?._seconds && (
+              <ReactTimeAgo
+                className={style.timeSpan}
+                date={item?.createdAt?._seconds * 1000}
+                locale='en-US'
+              />
+            )}
             {/* {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)} */}
 
             {/* MORE OPTION CONT */}
@@ -1149,8 +1150,8 @@ export default function PostCardDark({
           >
             {postDetail?.comments?.map((list, index) => {
               return (
-                <>
-                  <div className='commentedByAndComment' key={index}>
+                <React.Fragment key={index}>
+                  <div className='commentedByAndComment'>
                     <div className='commented-by-and-edit-cont'>
                       <img
                         className='commentedUserImage'
@@ -1227,7 +1228,7 @@ export default function PostCardDark({
                     </div>
                     <p className='commented-by-comment'>{list.comment}</p>
                   </div>
-                </>
+                </React.Fragment>
               );
             })}
           </section>

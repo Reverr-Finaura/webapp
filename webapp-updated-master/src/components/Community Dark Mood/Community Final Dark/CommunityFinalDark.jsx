@@ -1506,7 +1506,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   {spaceFilteredPost.map((item, index) => {
                     if (index === 3) {
                       return (
-                        <>
+                        <React.Fragment key={index}>
                           <PostCardDark
                             postsData={postsData}
                             setPostsData={setPostsData}
@@ -1526,11 +1526,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                           />
-                        </>
+                        </React.Fragment>
                       );
                     } else if (index === 7) {
                       return (
-                        <>
+                        <React.Fragment key={index}>
                           <PostCardDark
                             postsData={postsData}
                             setPostsData={setPostsData}
@@ -1550,11 +1550,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                           />
-                        </>
+                        </React.Fragment>
                       );
                     } else if (index === 11) {
                       return (
-                        <>
+                        <React.Fragment key={index}>
                           <PostCardDark
                             postsData={postsData}
                             setPostsData={setPostsData}
@@ -1574,23 +1574,27 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                           />
-                        </>
+                        </React.Fragment>
                       );
                     } else {
                       return (
-                        <PostCardDark
-                          postsData={postsData}
-                          setPostsData={setPostsData}
-                          item={item}
-                          key={index}
-                          handleEditPostButtonClick={handleEditPostButtonClick}
-                          setPostsAuthorIsClick={setPostsAuthorIsClick}
-                          setPostsAuthorInfo={setPostsAuthorInfo}
-                          isLoggedIn={isLoggedIn}
-                          openModal={openModal}
-                          postId={item.id}
-                          postsDataWithUserDoc={postsDataWithUserDoc}
-                        />
+                        <React.Fragment key={index}>
+                          <PostCardDark
+                            postsData={postsData}
+                            setPostsData={setPostsData}
+                            item={item}
+                            key={index}
+                            handleEditPostButtonClick={
+                              handleEditPostButtonClick
+                            }
+                            setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            setPostsAuthorInfo={setPostsAuthorInfo}
+                            isLoggedIn={isLoggedIn}
+                            openModal={openModal}
+                            postId={item.id}
+                            postsDataWithUserDoc={postsDataWithUserDoc}
+                          />
+                        </React.Fragment>
                       );
                     }
                   })}
