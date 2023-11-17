@@ -46,63 +46,65 @@ const MatchesResults = ({ data, ismanage, setData }) => {
   };
   return (
     <div className={style.matchesreusultmiddlecontainer}>
-      {data.map((item) => (
-        <div className={style.matchesresultinnercontainer}>
-          <div className={style.singlematchresultcontainer} key={item.email}>
-            <img
-              style={{ width: "35px", height: "35px", borderRadius: "50%" }}
-              src={item.image}
-              alt="img"
-            />
-            <div
-              onClick={() => {
-                navigate(`/userprofile/${item.email}`);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              <p>{item.name}</p>
-              <p style={{ fontSize: "15px", color: "#A7A7A7" }}>
-                {item.designation}
-              </p>
+      {data.map((item, index) => (
+        <React.Fragment key={index}>
+          <div className={style.matchesresultinnercontainer}>
+            <div className={style.singlematchresultcontainer}>
+              <img
+                style={{ width: "35px", height: "35px", borderRadius: "50%" }}
+                src={item.image}
+                alt='img'
+              />
+              <div
+                onClick={() => {
+                  navigate(`/userprofile/${item.email}`);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <p>{item.name}</p>
+                <p style={{ fontSize: "15px", color: "#A7A7A7" }}>
+                  {item.designation}
+                </p>
+              </div>
+            </div>
+
+            <div className={style.buttonContainer}>
+              {ismanage ? (
+                <button
+                  style={{
+                    background: "none",
+                    border: "2px solid #00B3FF",
+                    color: "#00B3FF",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    HandleRemoveMatchUsers(item.email);
+                  }}
+                >
+                  Remove
+                </button>
+              ) : (
+                <div>
+                  <button
+                    onClick={() => {
+                      navigate(`/userprofile/${item?.email}`);
+                    }}
+                  >
+                    View Profile
+                  </button>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      HandleRemoveLikedUser();
+                    }}
+                  >
+                    x
+                  </span>
+                </div>
+              )}
             </div>
           </div>
-
-          <div className={style.buttonContainer}>
-            {ismanage ? (
-              <button
-                style={{
-                  background: "none",
-                  border: "2px solid #00B3FF",
-                  color: "#00B3FF",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  HandleRemoveMatchUsers(item.email);
-                }}
-              >
-                Remove
-              </button>
-            ) : (
-              <div>
-                <button
-                  onClick={() => {
-                    navigate(`/userprofile/${item?.email}`);
-                  }}
-                >
-                  View Profile
-                </button>
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    HandleRemoveLikedUser();
-                  }}
-                >
-                  x
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );

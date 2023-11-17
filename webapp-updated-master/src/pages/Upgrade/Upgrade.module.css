@@ -67,7 +67,7 @@
 .plans_card {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  /* align-items: baseline; */
   gap: 3.5rem;
   margin: 10px auto;
   flex-wrap: wrap;
@@ -248,24 +248,28 @@
     margin: unset;
     width: -webkit-fill-available;
     margin: 8px 20px;
-    
+
   }
+
   .plan_card_1,
   .plan_card_2,
   .plan_card_3,
   .plan_card_4 {
-  width: -webkit-fill-available;
+    width: -webkit-fill-available;
 
-}
-.upgrade_container_main>h1 {
+  }
 
-  margin-top: 3rem;
-  
-}
-.upgrade_container_main {
- text-align: center;
-}
-.upgrade_container_main>h1 {
-  text-align: center;
-}
+  .upgrade_container_main>h1 {
+
+    margin-top: 3rem;
+
+  }
+
+  .upgrade_container_main {
+    text-align: center;
+  }
+
+  .upgrade_container_main>h1 {
+    text-align: center;
+  }
 }

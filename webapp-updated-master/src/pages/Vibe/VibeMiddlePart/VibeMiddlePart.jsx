@@ -1,5 +1,4 @@
 import styles from "./vibeMiddlePart.module.css";
-import style from "../../Upgrade/Upgrade.module.css";
 import filterIcon from "../../../images/filterIcon.svg";
 // import userProfilePucture from "../../../images/userProfilePicture.svg";
 import location from "../../../images/location.svg";
@@ -37,7 +36,6 @@ import LikesExhaust from "./LikesExhaustScreen/LikesExhaust";
 import Upgrade from "../../Upgrade/Upgrade";
 import MatchedUserScreen from "./matchedUserScreen/MatchedUserScreen";
 import { useSwipeable } from "react-swipeable";
-
 
 const VibeMiddlePart = () => {
   const [ispremium, setIsPremium] = useState(false);
@@ -90,7 +88,7 @@ const VibeMiddlePart = () => {
     setModal(!modal);
   };
 
-  console.log("preeee", ispremium)
+  console.log("preeee", ispremium);
 
   useEffect(() => {
     function checkPremiumStatus() {
@@ -181,9 +179,9 @@ const VibeMiddlePart = () => {
   };
 
   const handleKeepSwiping = () => {
-    setIsMatchedUser(false)
+    setIsMatchedUser(false);
     window.location.reload();
-  }
+  };
 
   const showMatchedUser = async (email) => {
     const userRef = doc(db, "Users", currentLoggedInUser?.user?.email);
@@ -326,7 +324,7 @@ const VibeMiddlePart = () => {
           } else {
             // If swipeLimit field is not present, create it with initial values
             const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
-            
+
             // await setDoc(docRef, data, { merge: true });
             await setDoc(
               docRef,
@@ -351,7 +349,6 @@ const VibeMiddlePart = () => {
     fetchSwipeLimit();
   }, [currentLoggedInUser]);
 
-
   const handleSwipe = async () => {
     // i have still some swipe remaining and the update time is not reached yet
     if (
@@ -370,7 +367,7 @@ const VibeMiddlePart = () => {
       });
     } else {
       // If the user is premium swipeUpdateTime is already passed, reset swipeRemaining to 10 and update swipeUpdateTime
-      if (ispremium || (swipeLimit.swipeUpdateTime < new Date().getTime())) {
+      if (ispremium || swipeLimit.swipeUpdateTime < new Date().getTime()) {
         console.log("it't time to reset");
         setSwipeLimit((prevState) => ({
           ...prevState,
@@ -403,64 +400,65 @@ const VibeMiddlePart = () => {
   };
   //---------------------Swipe Limit Code End---------------------//
 
-     ////handle superlike count///
+  ////handle superlike count///
 
-     useEffect(() => {
-      // Fetch the initial superlike data from Firebase or create it if not present
-      const fetchsuperlike = async () => {
-        const userEmail = currentLoggedInUser?.user?.email;
-        if (!userEmail) {
-          throw new Error("User email not available");
-        }
-        try {
-          const docRef = doc(db, "Users", userEmail);
-          // console.log("docRef", docRef);
-          const docSnapshot = await getDoc(docRef);
-  
-          if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            // console.log("data", data);
-            if (data?.superlike) {
-              setSuperlikeLimit(data.superlike);
-              console.log(data.superlike);
-              
-            } else {
-              // If superlike field is not present, create it with initial values
-              const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
-              
-              await setDoc(
-                docRef,
-                {
-                  superlike: { superlikecount: 1, superlikeUpdateTime: updateTime },
-                },
-                { merge: true }
-              );
-              setSuperlikeLimit({ superlikecount: 1, superlikeUpdateTime: updateTime });
-            }
-          } else {
-            console.log("No such document!");
-          }
-  
-         
-        } catch (error) {
-          console.error("Error fetching swipeLimit data:", error);
-       
-        }
-      };
-  
-      fetchsuperlike();
-      // handleSuperlike()
-      if (
-        superlikelimit.superlikecount === 0 &&
-        superlikelimit.superlikeUpdateTime > new Date().getTime()
-      ){
-        handleSuperlike()
+  useEffect(() => {
+    // Fetch the initial superlike data from Firebase or create it if not present
+    const fetchsuperlike = async () => {
+      const userEmail = currentLoggedInUser?.user?.email;
+      if (!userEmail) {
+        throw new Error("User email not available");
       }
-    }, [currentLoggedInUser]);
+      try {
+        const docRef = doc(db, "Users", userEmail);
+        // console.log("docRef", docRef);
+        const docSnapshot = await getDoc(docRef);
+
+        if (docSnapshot.exists()) {
+          const data = docSnapshot.data();
+          // console.log("data", data);
+          if (data?.superlike) {
+            setSuperlikeLimit(data.superlike);
+            console.log(data.superlike);
+          } else {
+            // If superlike field is not present, create it with initial values
+            const updateTime = new Date().getTime() - 24 * 60 * 60 * 1000;
+
+            await setDoc(
+              docRef,
+              {
+                superlike: {
+                  superlikecount: 1,
+                  superlikeUpdateTime: updateTime,
+                },
+              },
+              { merge: true }
+            );
+            setSuperlikeLimit({
+              superlikecount: 1,
+              superlikeUpdateTime: updateTime,
+            });
+          }
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching swipeLimit data:", error);
+      }
+    };
+
+    fetchsuperlike();
+    // handleSuperlike()
+    if (
+      superlikelimit.superlikecount === 0 &&
+      superlikelimit.superlikeUpdateTime > new Date().getTime()
+    ) {
+      handleSuperlike();
+    }
+  }, [currentLoggedInUser]);
   // console.log(superlikelimit);
 
   const handleSuperlike = async () => {
-   
     // i have still superlike remaining and the update time is not reached yet
     if (
       superlikelimit?.superlikecount > 0 &&
@@ -480,7 +478,7 @@ const VibeMiddlePart = () => {
       // If superlikeUpdateTime is already passed, reset superlikeRemaining to 1 and update superlikeUpdateTime
       if (superlikelimit.superlikeUpdateTime < new Date().getTime()) {
         console.log("super like time update");
-        if(userDoc?.premiumData?.subscriptionPlan){
+        if (userDoc?.premiumData?.subscriptionPlan) {
           setSuperlikeLimit((prevState) => ({
             ...prevState,
             superlikecount: 1,
@@ -491,7 +489,7 @@ const VibeMiddlePart = () => {
             superlikecount: 1,
             superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
           });
-        } else{
+        } else {
           setSuperlikeLimit((prevState) => ({
             ...prevState,
             superlikecount: 1,
@@ -503,10 +501,7 @@ const VibeMiddlePart = () => {
             superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
           });
         }
-
-
-        }
-         else {
+      } else {
         console.log("wait for superlikeUpdateTime");
       }
     }
@@ -526,10 +521,9 @@ const VibeMiddlePart = () => {
     }
   };
 
-    //superlike count end///
+  //superlike count end///
 
   const HandShakeUser = async (userEmail) => {
-    
     userEmail = userData[currentUserIndex]?.email;
     const docRef = doc(db, "Users", userDoc?.email);
     const otherDocRef = doc(db, "Users", userEmail);
@@ -924,11 +918,6 @@ const VibeMiddlePart = () => {
   console.log("handlers :::", handlers);
   //   FlushUser();
 
-
-
-
-
-
   return (
     <>
       {premiumModalStatus ? (
@@ -995,7 +984,7 @@ const VibeMiddlePart = () => {
                 <img
                   className={styles.undoMoveImg}
                   src={undoMoveIcon}
-                  alt="undoMoveIcon"
+                  alt='undoMoveIcon'
                 />
                 <p className={styles.undoMoveText}>Undo Move</p>
               </div>
@@ -1005,7 +994,7 @@ const VibeMiddlePart = () => {
                 onClick={() => (OpenFilter(), setFRText("Filter"))}
                 className={styles.filterIcon}
                 src={filterIcon}
-                alt="filterIcon"
+                alt='filterIcon'
               />
             )}
           </div>
@@ -1032,7 +1021,7 @@ const VibeMiddlePart = () => {
                         ? userData[currentUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1047,7 +1036,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[currentUserIndex].state}
@@ -1157,7 +1146,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[currentUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[currentUserIndex].countryCode}{" "}
                               {userData[currentUserIndex].phone}
@@ -1166,7 +1155,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[currentUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             <a
                               style={{ textDecoration: "none" }}
                               href={`mailto:${userData[currentUserIndex]?.email}`}
@@ -1184,7 +1173,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[currentUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[currentUserIndex].linkedin}
                             </p>
@@ -1192,7 +1181,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[currentUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[currentUserIndex].twitter}
                             </p>
@@ -1217,7 +1206,7 @@ const VibeMiddlePart = () => {
                         ? userData[prevUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1232,7 +1221,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[prevUserIndex].state}
@@ -1339,7 +1328,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[prevUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].countryCode}{" "}
                               {userData[prevUserIndex].phone}
@@ -1348,7 +1337,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].email}
                             </p>
@@ -1356,7 +1345,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].linkedin}
                             </p>
@@ -1364,7 +1353,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].twitter}
                             </p>
@@ -1388,7 +1377,7 @@ const VibeMiddlePart = () => {
                         ? userData[prevUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1403,7 +1392,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[prevUserIndex].state}
@@ -1510,7 +1499,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[prevUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].countryCode}{" "}
                               {userData[prevUserIndex].phone}
@@ -1519,7 +1508,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].email}
                             </p>
@@ -1527,7 +1516,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].linkedin}
                             </p>
@@ -1535,7 +1524,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].twitter}
                             </p>
@@ -1559,7 +1548,7 @@ const VibeMiddlePart = () => {
                         ? userData[prevUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1574,7 +1563,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[prevUserIndex].state}
@@ -1681,7 +1670,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[prevUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].countryCode}{" "}
                               {userData[prevUserIndex].phone}
@@ -1690,7 +1679,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             {/* <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=md.aadil.shafi@gmail.com&su=Subject&body=Body%20Text"
                                target='_blank' style={{textDecoration:'none'}}>
                                 {userData[prevUserIndex].email}
@@ -1702,7 +1691,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].linkedin}
                             </p>
@@ -1710,7 +1699,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].twitter}
                             </p>
@@ -1731,21 +1720,29 @@ const VibeMiddlePart = () => {
                   <img
                     className={styles.likehandShakeImg}
                     src={declineIcon}
-                    alt="declineIcon"
+                    alt='declineIcon'
                   />
                 </div>
-                <div style={{pointerEvents:superlikelimit.superlikecount === 0 && "none",opacity:superlikelimit.superlikecount === 0 && "0.4"}} className={styles.Cont} onClick={HandShakeUser}>
+                <div
+                  style={{
+                    pointerEvents:
+                      superlikelimit.superlikecount === 0 && "none",
+                    opacity: superlikelimit.superlikecount === 0 && "0.4",
+                  }}
+                  className={styles.Cont}
+                  onClick={HandShakeUser}
+                >
                   <img
                     className={styles.likehandShakeImg}
                     src={handShakeIcon}
-                    alt="handShakeIcon"
+                    alt='handShakeIcon'
                   />
                 </div>
                 <div className={styles.Cont} onClick={handleLikeCkick}>
                   <img
                     className={styles.likehandShakeImg}
                     src={acceptIcon}
-                    alt="acceptIcon"
+                    alt='acceptIcon'
                   />
                 </div>
               </div>

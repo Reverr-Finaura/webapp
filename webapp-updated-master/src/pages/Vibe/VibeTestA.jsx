@@ -26,11 +26,9 @@ const VibeTestA = () => {
   const [activeComp, setActiveComp] = useState("Vibe Home");
   const onboardingData = useSelector((state) => state.onboarding);
   console.log(onboardingData);
-
   const [isPremium, setIsPremium] = useState(false);
-
   const userDoc = useSelector((state) => state.userDoc);
-  const ispremium = useSelector((state) => state.user.isPremium)
+  const ispremium = useSelector((state) => state.user.isPremium);
   const dispatch = useDispatch();
 
   const updateWidth = () => {
@@ -53,46 +51,39 @@ const VibeTestA = () => {
       if (!premiumData) return;
 
       const premiumStartDate = premiumData.premiumStartDate;
-      console.log("this is the premiumdata ---------", premiumData)
-
-
+      console.log("this is the premiumdata ---------", premiumData);
 
       switch (premiumData.subscriptionPlan) {
         case "onemonth":
-
           if (currentDate <= premiumStartDate + oneMonthInseconds) {
-            console.log("premium members")
+            console.log("premium members");
             setIsPremium(true);
-            dispatch(setPremium(true))
+            dispatch(setPremium(true));
           }
 
           break;
         case "threemonths":
-
           if (currentDate <= premiumStartDate + threeMonthsInseconds) {
             setIsPremium(true);
-            dispatch(setPremium(true))
-
+            dispatch(setPremium(true));
           }
           break;
         case "sixmonths":
           if (currentDate <= premiumStartDate + sixMonthsInseconds) {
-            console.log("premium members")
+            console.log("premium members");
             setIsPremium(true);
-            dispatch(setPremium(true))
+            dispatch(setPremium(true));
           }
           break;
         default:
           setIsPremium(false);
-          dispatch(setPremium(false))
+          dispatch(setPremium(false));
           break;
       }
-
-
     }
     checkPremiumStatus();
   }, []);
-  console.log("premium status", isPremium)
+  console.log("premium status", isPremium);
   console.log(userDoc);
   return (
     <>
@@ -138,8 +129,8 @@ const VibeTestA = () => {
           </>
         ) : (<> */}
           <VibeMessageMain />
-          <VibeMiddlePart  />
-          <Matches isPremium={isPremium}  />
+          <VibeMiddlePart />
+          <Matches isPremium={isPremium} />
           {/* </>)} */}
         </div>
       )}

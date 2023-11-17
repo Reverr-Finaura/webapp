@@ -17,7 +17,7 @@ const managematches = [
   { name: "jatin", designation: "ceo", image: profileimg },
 ];
 
-const Matches = ({ mobile, manage,isPremium }) => {
+const Matches = ({ mobile, manage, isPremium }) => {
   const [likedMeData, setLikedMeData] = useState([]);
   const [data, setData] = useState([]);
   const [ismanage, setIsManage] = useState(false);
@@ -45,6 +45,7 @@ const Matches = ({ mobile, manage,isPremium }) => {
       console.error(error.message);
     }
   };
+  console.log(data);
 
   useEffect(() => {
     getWhoLikeData();
@@ -81,7 +82,7 @@ const Matches = ({ mobile, manage,isPremium }) => {
       console.error("Error fetching user data:", error);
     }
   };
-  console.log("premium",isPremium)
+  console.log("premium", isPremium);
 
   return (
     <>
@@ -103,7 +104,7 @@ const Matches = ({ mobile, manage,isPremium }) => {
 
       <div className={style.MatchesContainer}>
         <div className={style.MatchesInnerContainer}>
-          {!isPremium&& (
+          {/* {!isPremium && (
             <div className={style.NotPremium}>
               <p>
                 Upgrade to <span style={{ color: "#00B3FF" }}> Premium </span>{" "}
@@ -113,7 +114,7 @@ const Matches = ({ mobile, manage,isPremium }) => {
                 Get Premium
               </button>
             </div>
-          )}
+          )} */}
 
           {!mobile ? (
             <div className={style.matchesHeader}>
@@ -147,7 +148,7 @@ const Matches = ({ mobile, manage,isPremium }) => {
           )}
           {/* {data?.length < 1 ? <NoData matches={false}/> : */}
           {data?.length < 1 && ismanage === true ? (
-            <p style={{cursor:"default"}}> No Matches Found</p>
+            <p style={{ cursor: "default" }}> No Matches Found</p>
           ) : (
             <div className={style.matchesResultContainer}>
               <MatchesResults

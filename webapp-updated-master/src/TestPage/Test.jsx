@@ -19,13 +19,13 @@ import FeaturedMentors from "../components/DynamicComponents/FeaturedMentors/Fea
 import CommunityFinalDark from "../components/Community Dark Mood/Community Final Dark/CommunityFinalDark";
 import NavBarFinalDarkMode from "../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import Patch from "../components/SidebarComponents/Patch/Patch";
-import ArticleComponent from "../components/SidebarComponents/ArticleComponent/Article"
+import ArticleComponent from "../components/SidebarComponents/ArticleComponent/Article";
 import NoAppoinments from "../components/SidebarComponents/NoAppoinments/NoAppoinments";
 
 function Test() {
   const [userTypeLower, setUserTypeLower] = useState("individual");
   const userDoc = useSelector((state) => state.userDoc);
-  const isPremium = useSelector((state) => state.user.isPremium)
+  const isPremium = useSelector((state) => state.user.isPremium);
   const appoinments = useSelector(
     (state) => state.userDoc.Appointement_request
   );
@@ -136,46 +136,54 @@ function Test() {
           <ProfileSummary />
           <div style={{ marginTop: 50 }}></div>
           {/* <ConnectSuggestion /> */}
-          {products[userTypeLower]?products[userTypeLower]?.includes("VIBE") ? (
-            <>
-              <div style={{ marginTop: 50 }}></div>
-              <Vibe />
-            </>
-          ) : null :products["individual"].includes("VIBE") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("VIBE") ? (
+              <>
+                <div style={{ marginTop: 50 }}></div>
+                <Vibe />
+              </>
+            ) : null
+          ) : products["individual"].includes("VIBE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Vibe />
             </>
           ) : null}
-          {products[userTypeLower]?products[userTypeLower]?.includes("PATCH") ? (
-            <>
-              <div style={{ marginTop: 50 }}></div>
-              <Patch />
-            </>
-          ) : null : products["individual"].includes("PATCH") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("PATCH") ? (
+              <>
+                <div style={{ marginTop: 50 }}></div>
+                <Patch />
+              </>
+            ) : null
+          ) : products["individual"].includes("PATCH") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Patch />
             </>
           ) : null}
-          {products[userTypeLower]?products[userTypeLower]?.includes("TOOLS") ? (
-            <>
-              <div style={{ marginTop: 50 }}></div>
-              <ExploreTools />
-            </>
-          ) : null:products["individual"].includes("TOOLS") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("TOOLS") ? (
+              <>
+                <div style={{ marginTop: 50 }}></div>
+                <ExploreTools />
+              </>
+            ) : null
+          ) : products["individual"].includes("TOOLS") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <ExploreTools />
             </>
           ) : null}
 
-          {products[userTypeLower]?products[userTypeLower]?.includes("KNOWLEDGE") ? (
-            <>
-              <div style={{ marginTop: 50 }}></div>
-              <Journey />
-            </>
-          ) : null:products["individual"].includes("KNOWLEDGE") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("KNOWLEDGE") ? (
+              <>
+                <div style={{ marginTop: 50 }}></div>
+                <Journey />
+              </>
+            ) : null
+          ) : products["individual"].includes("KNOWLEDGE") ? (
             <>
               <div style={{ marginTop: 50 }}></div>
               <Journey />
@@ -200,63 +208,70 @@ function Test() {
         </div>
 
         <div className={styles.rightSidebar} style={{ marginTop: "10em" }}>
-          
           {appoinments?.length ? (
             <>
               <Appoinments />
               {/* <div style={{ marginTop: 50 }}></div> */}
             </>
-          ) : 
+          ) : (
             <>
               <NoAppoinments />
               <div style={{ marginTop: 50 }}></div>
             </>
-          }
-          {products[userTypeLower]?products[userTypeLower]?.includes("NEWS & ARTICLES") ? (
-            <>
-              <TrendingNews />
-              {/* <div style={{ marginTop: 50 }}></div> */}
-            </>
-          ) : null:products["individual"].includes("NEWS & ARTICLES") ? (
+          )}
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("NEWS & ARTICLES") ? (
+              <>
+                <TrendingNews />
+                {/* <div style={{ marginTop: 50 }}></div> */}
+              </>
+            ) : null
+          ) : products["individual"].includes("NEWS & ARTICLES") ? (
             <>
               <TrendingNews />
               {/* <div style={{ marginTop: 50 }}></div> */}
             </>
           ) : null}
-          {products[userTypeLower]?products[userTypeLower]?.includes("INVESTOR FINDER") ? (
-            <>
-              <InvestorFinder />
-              {/* <div style={{ marginTop: 50 }}></div> */}
-            </>
-          ) : null:products["individual"].includes("INVESTOR FINDER") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("INVESTOR FINDER") ? (
+              <>
+                <InvestorFinder />
+                {/* <div style={{ marginTop: 50 }}></div> */}
+              </>
+            ) : null
+          ) : products["individual"].includes("INVESTOR FINDER") ? (
             <>
               <InvestorFinder />
               <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userTypeLower]?products[userTypeLower]?.includes("EVENTS") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("EVENTS") ? (
+              <>
+                {/* <Events /> */}
+                <div style={{ marginTop: 50 }}></div>
+              </>
+            ) : null
+          ) : products["individual"].includes("EVENTS") ? (
             <>
               {/* <Events /> */}
-          <div style={{ marginTop: 50 }}></div>
-            </>
-          ) : null:products["individual"].includes("EVENTS") ? (
-            <>
-              {/* <Events /> */}
-          <div style={{ marginTop: 50 }}></div>
+              <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-          {products[userTypeLower]?products[userTypeLower]?.includes("MENTOR") ? (
+          {products[userTypeLower] ? (
+            products[userTypeLower]?.includes("MENTOR") ? (
+              <>
+                <Mentors />
+                <div style={{ marginTop: 50 }}></div>
+              </>
+            ) : null
+          ) : products["individual"].includes("MENTOR") ? (
             <>
               <Mentors />
-          <div style={{ marginTop: 50 }}></div>
-            </>
-          ) : null:products["individual"].includes("MENTOR") ? (
-            <>
-              <Mentors />
-          <div style={{ marginTop: 50 }}></div>
+              <div style={{ marginTop: 50 }}></div>
             </>
           ) : null}
-        <ArticleComponent />
+          <ArticleComponent />
         </div>
       </div>
     </>
