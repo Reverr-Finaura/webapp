@@ -863,6 +863,9 @@ const VibeMiddlePart = () => {
             passed_email: userPassedEmail,
           });
         }
+        console.log("Updated Likes:", likes);
+        console.log("Updated Passed Email:", userPassedEmail);
+        console.log("Updated Current User Index:", currentUserIndex);
 
         if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
           setCurrentUserIndex(currentUserIndex - 1);
@@ -905,7 +908,6 @@ const VibeMiddlePart = () => {
             passed_email: userPassedEmail,
           });
         }
-
         setCurrentUserIndex(currentUserIndex - 1);
       }
     } else if (recentPassedUser.where === "superliked") {
