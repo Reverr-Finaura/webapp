@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./matches.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import NoData from "../VibeMiddlePart/No Data Screen/NoData";
 
 const MatchesResults = ({ data, ismanage, setData }) => {
   const navigate = useNavigate();
@@ -77,9 +76,7 @@ const MatchesResults = ({ data, ismanage, setData }) => {
                     color: "#00B3FF",
                     cursor: "pointer",
                   }}
-                  onClick={() => {
-                    HandleRemoveMatchUsers(item.email);
-                  }}
+                  onClick={() => HandleRemoveMatchUsers(item?.email)}
                 >
                   Remove
                 </button>
@@ -92,14 +89,12 @@ const MatchesResults = ({ data, ismanage, setData }) => {
                   >
                     View Profile
                   </button>
-                  <span
+                  {/* <span
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      HandleRemoveLikedUser();
-                    }}
+                    onClick={() => HandleRemoveLikedUser(item?.email)}
                   >
                     x
-                  </span>
+                  </span> */}
                 </div>
               )}
             </div>

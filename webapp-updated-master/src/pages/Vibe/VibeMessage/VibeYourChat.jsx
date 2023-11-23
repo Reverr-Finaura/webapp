@@ -8,7 +8,12 @@ import ChatSkeleton from "../../../components/Post Skeleton/Chat Skeleton/ChatSk
 import { db, getAllMatchedUserHavingChatWith } from "../../../firebase";
 import { updateSelectedUser, Chatshow } from "../../../features/vibeChatSlice";
 
-const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) => {
+const VibeYourChat = ({
+  data,
+  setChatSelected,
+  mobile,
+  setMobileChatNoHeader,
+}) => {
   const currentcUser = useSelector((state) => state.userDoc);
   const currentLoggedInUser = useSelector((state) => state.user);
   // const currentcUser={email:"mauricerana@gmail.com"}
@@ -27,8 +32,8 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
   const handleClick2 = () => {
     setIsClicked2(!isClicked2);
   };
-  console.log("chatlist",chatUserData);
-  console.log( new Date(1694697491000));
+  console.log("chatlist", chatUserData);
+  console.log(new Date(1694697491000));
 
   const getAllUserChat = async () => {
     try {
@@ -57,7 +62,7 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
         const docRef = doc(db, "Users", list.id);
         const docSnap = await getDoc(docRef);
         if (docSnap.data())
-        // console.log("docsnap",docSnap.data());
+          // console.log("docsnap",docSnap.data());
           setChatUserData((prev) => {
             return [
               ...new Set([
@@ -72,7 +77,8 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
                   latestMessage: list?.messages[list?.messages?.length - 1].msg,
                   sendAT:
                     list?.messages[list?.messages?.length - 1].createdAt !== ""
-                      ? list?.messages[list?.messages?.length - 1].createdAt?.seconds * 1000
+                      ? list?.messages[list?.messages?.length - 1].createdAt
+                          ?.seconds * 1000
                       : "",
                   latestMessageSenderId:
                     list?.messages[list?.messages?.length - 1].sendBy,
@@ -143,12 +149,16 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
 
   return (
     <div className={style.Userdisplay}>
-      {
-        !mobile && <div style={{cursor:"default",}} className={style.Userdisplaycapsule}>Your Messages</div>
-      }
-      
+      {!mobile && (
+        <div style={{ cursor: "default" }} className={style.Userdisplaycapsule}>
+          Your Messages
+        </div>
+      )}
 
-      <div onClick={()=>mobile && setMobileChatNoHeader(true)} className={style.messageboxcontainer}>
+      <div
+        onClick={() => mobile && setMobileChatNoHeader(true)}
+        className={style.messageboxcontainer}
+      >
         {dummyLoading ? (
           <ChatSkeleton cards={3} />
         ) : chatUserData.length === 0 ? (
@@ -159,7 +169,6 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
 
         {!dummyLoading && chatUserData.length !== 0
           ? chatUserData.map((item, key) => (
-            
               <div
                 onClick={() => {
                   setChatSelected(true);
@@ -169,18 +178,39 @@ const VibeYourChat = ({ data, setChatSelected,mobile,setMobileChatNoHeader }) =>
                 className={style.singlemessageboxcontainer}
                 key={key}
               >
-                <img src={item?.userImg} alt="img" />
-                <div style={{width:"100%"}}>
-                  <div style={{width:"90%",display:"flex",justifyContent:"space-between"}}>
-                  <p>{item?.name}</p>
-                  <p style={{fontSize:"9px",color:"#A7A7A7"}}>{`${new Date(item?.sendAT).toLocaleDateString()}`}</p>
+                <img src={item?.userImg} alt='img' />
+                <div style={{ width: "100%" }}>
+                  <div
+                    style={{
+                      width: "90%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <p>{item?.name}</p>
+                    <p
+                      style={{ fontSize: "9px", color: "#A7A7A7" }}
+                    >{`${new Date(item?.sendAT).toLocaleDateString()}`}</p>
                   </div>
-                  
-                  <p style={{ fontSize: "15px", color: `${item?.latestMessageSenderId !== currentLoggedInUser?.user?.email && item?.read === false ? "white" : "#A7A7A7"}` }}>
-                    {item?.latestMessageSenderId === currentLoggedInUser?.user?.email
+
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      color: `${
+                        item?.latestMessageSenderId !==
+                          currentLoggedInUser?.user?.email &&
+                        item?.read === false
+                          ? "white"
+                          : "#A7A7A7"
+                      }`,
+                    }}
+                  >
+                    {item?.latestMessageSenderId ===
+                    currentLoggedInUser?.user?.email
                       ? "Me: "
                       : " "}
-                    {item?.latestMessage !== ""  ? item?.latestMessage?.slice(0, 35)
+                    {item?.latestMessage !== ""
+                      ? item?.latestMessage?.slice(0, 35)
                       : ""}
                     ...
                   </p>

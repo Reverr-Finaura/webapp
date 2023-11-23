@@ -108,7 +108,6 @@ const VibeMiddlePart = () => {
           if (currentDate <= premiumStartDate + oneMonthInseconds) {
             setIsPremium(true);
           }
-
           break;
         case "threemonths":
           if (currentDate <= premiumStartDate + threeMonthsInseconds) {
@@ -717,12 +716,12 @@ const VibeMiddlePart = () => {
         });
       }
 
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
+      // if (docSnap.exists()) {
+      //   console.log("Document data:", docSnap.data());
+      // } else {
+      //   // doc.data() will be undefined in this case
+      //   console.log("No such document!");
+      // }
     } catch (e) {
       console.log("Error getting document:", e);
     }
@@ -827,93 +826,98 @@ const VibeMiddlePart = () => {
   };
 
   const HandleUndo = async () => {
-    if (recentPassedUser.where === "liked") {
-      console.log("Undoing like move");
-      let userEmail = recentPassedUser.email;
+    if (ispremium) {
+      if (recentPassedUser.where === "liked") {
+        console.log("Undoing like move");
+        let userEmail = recentPassedUser.email;
 
-      const docRef = doc(db, "Users", userDoc?.email);
-      const otherDocRef = doc(db, "Users", userEmail);
+        const docRef = doc(db, "Users", userDoc?.email);
+        const otherDocRef = doc(db, "Users", userEmail);
 
-      const docSnap = await getDoc(docRef);
-      const otherDocSnap = await getDoc(otherDocRef);
+        const docSnap = await getDoc(docRef);
+        const otherDocSnap = await getDoc(otherDocRef);
 
-      if (docSnap.exists() && otherDocSnap.exists()) {
-        let likes;
-        let liked_by;
-        let userPassedEmail;
+        if (docSnap.exists() && otherDocSnap.exists()) {
+          let likes;
+          let liked_by;
+          let userPassedEmail;
 
-        likes = docSnap.data()?.likes || [];
-        userPassedEmail = docSnap.data()?.passed_email || [];
+          likes = docSnap.data()?.likes || [];
+          userPassedEmail = docSnap.data()?.passed_email || [];
+          liked_by = otherDocSnap.data()?.liked_by || [];
 
-        liked_by = otherDocSnap.data()?.liked_by || [];
+          if (liked_by.includes(docSnap.data().email)) {
+            liked_by = liked_by.filter(
+              (email) => email !== docSnap.data().email
+            );
+            await updateDoc(otherDocRef, {
+              liked_by: liked_by,
+            });
+          }
+          if (likes.includes(otherDocSnap.data().email)) {
+            likes = likes.filter(
+              (email) => email !== otherDocSnap.data().email
+            );
+            userPassedEmail = userPassedEmail.filter(
+              (email) => email !== otherDocSnap.data().email
+            );
+            await updateDoc(docRef, {
+              likes: likes,
+              passed_email: userPassedEmail,
+            });
+          }
+          console.log("Updated Likes:", likes);
+          console.log("Updated Passed Email:", userPassedEmail);
+          console.log("Updated Current User Index:", currentUserIndex);
 
-        if (liked_by.includes(docSnap.data().email)) {
-          liked_by = liked_by.filter((email) => email !== docSnap.data().email);
-          await updateDoc(otherDocRef, {
-            liked_by: liked_by,
-          });
+          if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
+            setCurrentUserIndex(currentUserIndex - 1);
+          }
         }
-        if (likes.includes(otherDocSnap.data().email)) {
-          likes = likes.filter((email) => email !== otherDocSnap.data().email);
-          userPassedEmail = userPassedEmail.filter(
-            (email) => email !== otherDocSnap.data().email
-          );
-          await updateDoc(docRef, {
-            likes: likes,
-            passed_email: userPassedEmail,
-          });
-        }
-        console.log("Updated Likes:", likes);
-        console.log("Updated Passed Email:", userPassedEmail);
-        console.log("Updated Current User Index:", currentUserIndex);
+      } else if (recentPassedUser.where === "matched") {
+        let userEmail = recentPassedUser.email;
 
-        if (currentUserIndex <= userData.length - 1 && currentUserIndex > 0) {
+        const docRef = doc(db, "Users", userDoc?.email);
+        const otherDocRef = doc(db, "Users", userEmail);
+
+        const docSnap = await getDoc(docRef);
+        const otherDocSnap = await getDoc(otherDocRef);
+
+        if (docSnap.exists() && otherDocSnap.exists()) {
+          let loggedInUserMatchedArray;
+          let otherUserMatched;
+          let userPassedEmail;
+          loggedInUserMatchedArray = docSnap.data()?.matched_user || [];
+          otherUserMatched = otherDocSnap.data()?.matched_user || [];
+          userPassedEmail = docSnap.data()?.passed_email || [];
+
+          if (otherUserMatched.includes(docSnap.data().email)) {
+            otherUserMatched = otherUserMatched.filter(
+              (email) => email !== docSnap.data().email
+            );
+            await updateDoc(otherDocRef, {
+              matched_user: otherUserMatched,
+            });
+          }
+          if (loggedInUserMatchedArray.includes(otherDocSnap.data().email)) {
+            loggedInUserMatchedArray = loggedInUserMatchedArray.filter(
+              (email) => email !== otherDocSnap.data().email
+            );
+            userPassedEmail = userPassedEmail.filter(
+              (email) => email !== otherDocSnap.data().email
+            );
+            await updateDoc(docRef, {
+              matched_user: loggedInUserMatchedArray,
+              passed_email: userPassedEmail,
+            });
+          }
           setCurrentUserIndex(currentUserIndex - 1);
         }
+      } else if (recentPassedUser.where === "superliked") {
+        HandleUndoSuperLikeMove();
+      } else if (recentPassedUser.where === "passed") {
+        HandleUndoPassMove();
       }
-    } else if (recentPassedUser.where === "matched") {
-      let userEmail = recentPassedUser.email;
-
-      const docRef = doc(db, "Users", userDoc?.email);
-      const otherDocRef = doc(db, "Users", userEmail);
-
-      const docSnap = await getDoc(docRef);
-      const otherDocSnap = await getDoc(otherDocRef);
-
-      if (docSnap.exists() && otherDocSnap.exists()) {
-        let loggedInUserMatchedArray;
-        let otherUserMatched;
-        let userPassedEmail;
-        loggedInUserMatchedArray = docSnap.data()?.matched_user || [];
-        otherUserMatched = otherDocSnap.data()?.matched_user || [];
-        userPassedEmail = docSnap.data()?.passed_email || [];
-
-        if (otherUserMatched.includes(docSnap.data().email)) {
-          otherUserMatched = otherUserMatched.filter(
-            (email) => email !== docSnap.data().email
-          );
-          await updateDoc(otherDocRef, {
-            matched_user: otherUserMatched,
-          });
-        }
-        if (loggedInUserMatchedArray.includes(otherDocSnap.data().email)) {
-          loggedInUserMatchedArray = loggedInUserMatchedArray.filter(
-            (email) => email !== otherDocSnap.data().email
-          );
-          userPassedEmail = userPassedEmail.filter(
-            (email) => email !== otherDocSnap.data().email
-          );
-          await updateDoc(docRef, {
-            matched_user: loggedInUserMatchedArray,
-            passed_email: userPassedEmail,
-          });
-        }
-        setCurrentUserIndex(currentUserIndex - 1);
-      }
-    } else if (recentPassedUser.where === "superliked") {
-      HandleUndoSuperLikeMove();
-    } else if (recentPassedUser.where === "passed") {
-      HandleUndoPassMove();
     }
   };
 

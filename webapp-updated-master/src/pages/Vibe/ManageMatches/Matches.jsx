@@ -45,6 +45,7 @@ const Matches = ({ mobile, manage, isPremium }) => {
       console.error(error.message);
     }
   };
+  console.log(data);
 
   useEffect(() => {
     getWhoLikeData();
