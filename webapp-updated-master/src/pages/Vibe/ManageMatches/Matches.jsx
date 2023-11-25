@@ -4,9 +4,9 @@ import MatchesResults from "./MatchesResults";
 import Upgrade from "../../Upgrade/Upgrade";
 import profileimg from "../../../images/MentorProfileCard.webp";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
-import { db, getUserFromDatabase } from "../../../firebase";
+import { db } from "../../../firebase";
 import { useSelector } from "react-redux";
-import NoData from "../VibeMiddlePart/No Data Screen/NoData";
+// import NoData from "../VibeMiddlePart/No Data Screen/NoData";
 
 const managematches = [
   { name: "Shachin", designation: "Super CEO", image: profileimg },

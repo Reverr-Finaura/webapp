@@ -8,7 +8,38 @@ import { db } from "../../../firebase";
 const MatchesResults = ({ data, ismanage, setData }) => {
   const navigate = useNavigate();
   const userDoc = useSelector((state) => state.userDoc);
-  const HandleRemoveLikedUser = () => {};
+
+  const HandleRemoveLikedUser = async (otherUserEmail) => {
+    try {
+      const otherDocRef = doc(db, "Users", otherUserEmail);
+      const docRef = doc(db, "Users", userDoc?.email);
+      const docSnap = await getDoc(docRef);
+      const otherDocSnap = await getDoc(otherDocRef);
+
+      if (docSnap.exists() && otherDocSnap.exists()) {
+        let userLikedBy = docSnap.data().likedBy || [];
+        let otherLike = otherDocSnap.data().likes || [];
+
+        userLikedBy = userLikedBy.filter((user) => user !== otherUserEmail);
+        otherLike = otherLike.filter((user) => user !== userDoc?.email);
+
+        await docRef.update({
+          likedBy: userLikedBy,
+        });
+
+        await otherDocRef.update({
+          likes: otherLike,
+        });
+
+        const newMatchedUsers = data.filter(
+          (user) => user.email !== otherUserEmail
+        );
+        setData(newMatchedUsers);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const HandleRemoveMatchUsers = async (otherUserEmail) => {
     try {
@@ -89,12 +120,12 @@ const MatchesResults = ({ data, ismanage, setData }) => {
                   >
                     View Profile
                   </button>
-                  {/* <span
+                  <span
                     style={{ cursor: "pointer" }}
                     onClick={() => HandleRemoveLikedUser(item?.email)}
                   >
                     x
-                  </span> */}
+                  </span>
                 </div>
               )}
             </div>
