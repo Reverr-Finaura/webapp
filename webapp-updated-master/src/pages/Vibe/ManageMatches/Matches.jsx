@@ -34,7 +34,7 @@ const Matches = ({ mobile, manage, isPremium }) => {
       const usersnapshot = await getDocs(userQuery);
       let whoLikedMe = [];
       usersnapshot.docs.forEach((doc) => {
-        const likedBy = doc.data().liked_by;
+        const likedBy = doc.data().likes;
         if (likedBy && likedBy.includes(currentLoggedInUser?.user?.email)) {
           whoLikedMe.push(doc.data());
         }
