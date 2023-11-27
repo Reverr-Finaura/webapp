@@ -2,7 +2,7 @@ import React from "react";
 import style from "./matches.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 const MatchesResults = ({ data, ismanage, setData }) => {
@@ -23,13 +23,14 @@ const MatchesResults = ({ data, ismanage, setData }) => {
         userLikedBy = userLikedBy.filter((user) => user !== otherUserEmail);
         otherLike = otherLike.filter((user) => user !== userDoc?.email);
 
-        await docRef.update({
-          likedBy: userLikedBy,
-        });
-
-        await otherDocRef.update({
-          likes: otherLike,
-        });
+        await updateDoc(docRef, { likedBy: userLikedBy });
+        // await docRef.update({
+        //   likedBy: userLikedBy,
+        // });
+        await updateDoc(otherDocRef, { likes: otherLike });
+        // await otherDocRef.update({
+        //   likes: otherLike,
+        // });
 
         const newMatchedUsers = data.filter(
           (user) => user.email !== otherUserEmail
@@ -57,14 +58,14 @@ const MatchesResults = ({ data, ismanage, setData }) => {
           (user) => user !== userDoc?.email
         );
 
-        await docRef.update({
-          matched_user: matched_users,
-        });
-
-        await otherDocRef.update({
-          matched_user: other_matched_users,
-        });
-
+        await updateDoc(docRef, { matched_user: matched_users });
+        // await docRef.update({
+        //   matched_user: matched_users,
+        // });
+        await updateDoc(otherDocRef, { matched_user: other_matched_users });
+        // await otherDocRef.update({
+        //   matched_user: other_matched_users,
+        // });
         const newMatchedUsers = data.filter(
           (user) => user.email !== otherUserEmail
         );

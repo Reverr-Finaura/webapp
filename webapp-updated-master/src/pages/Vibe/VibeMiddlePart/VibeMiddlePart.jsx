@@ -43,6 +43,7 @@ const VibeMiddlePart = () => {
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [list, setList] = useState([]);
   const [premiumModalStatus, setPremiumModalStatus] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noMoreVibeData, setNoMoreVibeData] = useState(false);
@@ -154,7 +155,7 @@ const VibeMiddlePart = () => {
           !matchedUsers.includes(doc.data().email) &&
           doc.data().vibeuser === true
       );
-      console.log("filteredDocs", filteredDocs);
+      // console.log("filteredDocs", filteredDocs);
       const fetchedUserData = filteredDocs
         .map((doc) => doc.data())
         .filter(
@@ -162,7 +163,8 @@ const VibeMiddlePart = () => {
             userDocument.name && userDocument.about && userDocument.email
         );
       setNoMoreVibeData(fetchedUserData.length === 0);
-      setUserData(fetchedUserData);
+      setList(fetchedUserData);
+      // setUserData(fetchedUserData);
       setIsLoadingData(false);
     } catch (error) {
       console.error(error.message);
@@ -172,6 +174,31 @@ const VibeMiddlePart = () => {
   useEffect(() => {
     getUserData();
   }, [currentLoggedInUser]);
+
+  useEffect(() => {
+    const filterSection = () => {
+      let filteredList = [...list];
+      if (filterData.roles) {
+        filteredList = filteredList.filter(
+          (user) => user.userType === filterData.roles
+        );
+      }
+
+      if (filterData.spaces.length > 0) {
+        filteredList = filteredList.filter((user) =>
+          filterData.userSpace.includes(user.space)
+        );
+      }
+      setUserData(filteredList);
+      setNoMoreVibeData(filteredList.length === 0);
+    };
+
+    if (Object.values(filterData).some((value) => value !== "")) {
+      filterSection();
+    } else {
+      setUserData(list);
+    }
+  }, [filterData]);
 
   const onRefreshClick = () => {
     getUserData();
@@ -455,7 +482,6 @@ const VibeMiddlePart = () => {
       handleSuperlike();
     }
   }, [currentLoggedInUser]);
-  // console.log(superlikelimit);
 
   const handleSuperlike = async () => {
     // i have still superlike remaining and the update time is not reached yet
@@ -921,7 +947,7 @@ const VibeMiddlePart = () => {
     }
   };
 
-  console.log("handlers :::", handlers);
+  // console.log("handlers :::", handlers);
   //   FlushUser();
 
   return (
@@ -1036,8 +1062,8 @@ const VibeMiddlePart = () => {
                 <h3 className={styles.userPosition}>
                   {userData[currentUserIndex]?.designation}
                 </h3>
-                {userData[currentUserIndex].state ||
-                userData[currentUserIndex].country ? (
+                {userData[currentUserIndex]?.state ||
+                userData[currentUserIndex]?.country ? (
                   <div className={styles.locationCont}>
                     <img
                       className={styles.locationIcon}
@@ -1045,9 +1071,9 @@ const VibeMiddlePart = () => {
                       alt='location'
                     />
                     <p className={styles.location}>
-                      {userData[currentUserIndex].state}
+                      {userData[currentUserIndex]?.state}
                       {", "}
-                      {userData[currentUserIndex].country}
+                      {userData[currentUserIndex]?.country}
                     </p>
                   </div>
                 ) : null}
@@ -1150,16 +1176,16 @@ const VibeMiddlePart = () => {
                     <>
                       <h2 className={styles.Heading}>Find Me On</h2>
                       <div className={styles.findmeOnWraper}>
-                        {userData[currentUserIndex].phone !== "" && (
+                        {userData[currentUserIndex]?.phone !== "" && (
                           <div className={styles.findmeCont}>
                             <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
-                              {userData[currentUserIndex].countryCode}{" "}
-                              {userData[currentUserIndex].phone}
+                              {userData[currentUserIndex]?.countryCode}{" "}
+                              {userData[currentUserIndex]?.phone}
                             </p>
                           </div>
                         )}
-                        {userData[currentUserIndex].email !== "" && (
+                        {userData[currentUserIndex]?.email !== "" && (
                           <div className={styles.findmeCont}>
                             <img src={emailIcon} alt='emailIcon' />
                             <a
@@ -1177,19 +1203,19 @@ const VibeMiddlePart = () => {
                               </p> */}
                           </div>
                         )}
-                        {userData[currentUserIndex].linkedin !== "" && (
+                        {userData[currentUserIndex]?.linkedin !== "" && (
                           <div className={styles.findmeCont}>
                             <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
-                              {userData[currentUserIndex].linkedin}
+                              {userData[currentUserIndex]?.linkedin}
                             </p>
                           </div>
                         )}
-                        {userData[currentUserIndex].twitter !== "" && (
+                        {userData[currentUserIndex]?.twitter !== "" && (
                           <div className={styles.findmeCont}>
                             <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
-                              {userData[currentUserIndex].twitter}
+                              {userData[currentUserIndex]?.twitter}
                             </p>
                           </div>
                         )}

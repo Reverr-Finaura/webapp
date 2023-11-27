@@ -166,8 +166,9 @@ const FilterPart = ({
     };
 
     setfilterData(data);
-    setFilter(false);
-    setFetchAgain(!fetchAgain);
+    setFilter(true);
+    // setFilter(false);
+    // setFetchAgain(!fetchAgain);
     // setModal(false);
     // setIsPremium(false);
     // SetRedo(false);
@@ -303,12 +304,12 @@ const FilterPart = ({
         <div className={styles.filterTitle}>Age Preference</div>
         <div className={styles.filterContent}>
           <input
-            type="range"
-            min="0"
-            max="100"
+            type='range'
+            min='0'
+            max='100'
             value={age}
             className={styles.slider}
-            id="myRange"
+            id='myRange'
             step={1}
             onChange={(e) => handleAge(e)}
           />
@@ -336,7 +337,7 @@ const FilterPart = ({
                   <img
                     style={{ width: "80px", height: "80px" }}
                     src={videoCall}
-                    alt=""
+                    alt=''
                   />
                   {item}
                 </div>
@@ -353,8 +354,8 @@ const FilterPart = ({
           <div> Select your preferred cities:</div>
           <div>
             <input
-              type="text"
-              placeholder="City"
+              type='text'
+              placeholder='City'
               onChange={(e) => handleLocationClick(e)}
               value={citiesSelected}
             />
