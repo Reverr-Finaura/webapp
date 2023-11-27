@@ -149,7 +149,7 @@ const UserProfileTesting = () => {
             onClick={() => navigate("/")}
           >
             <img src='/images/profileArrowLeft.svg' alt='back' />
-            <p>My Profile</p>
+            <p>My Profile </p>
           </div>
           <div className={styles.profileUser}>
             <div className={styles.profileBackground}></div>
@@ -349,20 +349,22 @@ const UserProfileTesting = () => {
                 </ul>
               </div>
             </div>
-            <div className={styles.experienceConnect}>
-              <p>I am here to</p>
-              <div className={styles.experienceBtn}>
-                {userDoc?.userReason
-                  ? userDoc.userReason.map((item, index) => {
-                      return (
-                        <button key={index} className={styles.iamhereforbtn}>
-                          {item}
-                        </button>
-                      );
-                    })
-                  : "Update your i am here to"}
+            {userDoc?.userReason && userDoc?.userReason.length > 0 && (
+              <div className={styles.experienceConnect}>
+                <p>I am here to</p>
+                <div className={styles.experienceBtn}>
+                  {userDoc?.userReason
+                    ? userDoc.userReason.map((item, index) => {
+                        return (
+                          <button key={index} className={styles.iamhereforbtn}>
+                            {item}
+                          </button>
+                        );
+                      })
+                    : "Update your i am here to"}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className={styles.profileContact}>
             <div className={styles.contact}>

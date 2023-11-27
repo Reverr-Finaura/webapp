@@ -104,6 +104,12 @@ const UserEditProfileTesting = () => {
 
   useEffect(() => {
     if (userDoc) {
+      if (userDoc.experience) {
+        setWorkCount(userDoc.experience.length);
+      }
+      if (userDoc.education) {
+        setEducationCount(userDoc.education.length);
+      }
       setFormData((prev) => {
         return {
           ...prev,
@@ -358,13 +364,13 @@ const UserEditProfileTesting = () => {
       <div className={styles.editContainer}>
         <div className={styles.editHeader}>
           <img
-            src="/images/profileArrowLeft.svg"
-            alt="Linkedin"
+            src='/images/profileArrowLeft.svg'
+            alt='Linkedin'
             onClick={() => {
               navigate("/userProfile");
             }}
           />
-          <p>Edit Profile</p>
+          <p>Edit Profile Ashutoh</p>
         </div>
         <div className={styles.profileImage}>
           {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}
@@ -374,14 +380,14 @@ const UserEditProfileTesting = () => {
                 ? formData.image
                 : DefaultDP
             }
-            alt="User_Image"
+            alt='User_Image'
           />
-          <label htmlFor="file" className={styles.fileLabel}>
+          <label htmlFor='file' className={styles.fileLabel}>
             <span className={styles.plusIcon}>+</span>
             <input
-              type="file"
-              id="file"
-              accept="image/*"
+              type='file'
+              id='file'
+              accept='image/*'
               onChange={handleImageChange}
             />
           </label>
@@ -397,74 +403,74 @@ const UserEditProfileTesting = () => {
         <div className={styles.profileContent}>
           <div className={styles.personalTitle}>
             <p>Personal details</p>
-            <div className="form-container">
+            <div className='form-container'>
               <form>
-                <div className="form-row">
-                  <label htmlFor="name">Full Name</label>
+                <div className='form-row'>
+                  <label htmlFor='name'>Full Name</label>
                   <input
-                    type="text"
-                    id="name"
-                    name="name"
+                    type='text'
+                    id='name'
+                    name='name'
                     value={formData?.name}
                     onChange={handleChange}
-                    placeholder="Enter your full name"
+                    placeholder='Enter your full name'
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="email">Email ID</label>
+                <div className='form-row'>
+                  <label htmlFor='email'>Email ID</label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
+                    type='email'
+                    id='email'
+                    name='email'
                     value={formData.email}
-                    placeholder="Enter your email ID"
+                    placeholder='Enter your email ID'
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="dob">Date Of Birth</label>
+                <div className='form-row'>
+                  <label htmlFor='dob'>Date Of Birth</label>
                   <input
-                    type="date"
-                    id="dob"
-                    name="dob"
+                    type='date'
+                    id='dob'
+                    name='dob'
                     value={formData.dob}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="phone">Phone number</label>
+                <div className='form-row'>
+                  <label htmlFor='phone'>Phone number</label>
                   <input
-                    type="text"
-                    id="phone"
-                    name="phone"
+                    type='text'
+                    id='phone'
+                    name='phone'
                     value={formData.phone}
-                    placeholder="Enter your phone number"
+                    placeholder='Enter your phone number'
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="state">State</label>
+                <div className='form-row'>
+                  <label htmlFor='state'>State</label>
                   <input
-                    type="text"
-                    id="state"
+                    type='text'
+                    id='state'
                     value={formData.state}
-                    name="state"
-                    placeholder="Enter your state"
+                    name='state'
+                    placeholder='Enter your state'
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="country">Country</label>
+                <div className='form-row'>
+                  <label htmlFor='country'>Country</label>
                   <input
-                    type="text"
-                    id="country"
-                    name="country"
-                    placeholder="Enter your country"
+                    type='text'
+                    id='country'
+                    name='country'
+                    placeholder='Enter your country'
                     value={formData.country}
                     onChange={handleChange}
                     required
@@ -477,36 +483,36 @@ const UserEditProfileTesting = () => {
         <div className={styles.pwdWrapper}>
           <div className={styles.contact}>
             <p>Change Password</p>
-            <div className="formContainer">
+            <div className='formContainer'>
               <form>
-                <div className="form-row">
-                  <label htmlFor="currentPassword">Current Password</label>
+                <div className='form-row'>
+                  <label htmlFor='currentPassword'>Current Password</label>
                   <input
-                    type="password"
-                    id="currentPassword"
+                    type='password'
+                    id='currentPassword'
                     value={currentPassword}
-                    placeholder="Enter your current password"
+                    placeholder='Enter your current password'
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="newPassword">New Password</label>
+                <div className='form-row'>
+                  <label htmlFor='newPassword'>New Password</label>
                   <input
-                    type="password"
-                    id="newPassword"
+                    type='password'
+                    id='newPassword'
                     value={newPassword}
-                    placeholder="Enter your new password"
+                    placeholder='Enter your new password'
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
+                <div className='form-row'>
+                  <label htmlFor='confirmPassword'>Confirm Password</label>
                   <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm your new password"
+                    type='password'
+                    id='confirmPassword'
+                    placeholder='Confirm your new password'
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
@@ -533,8 +539,8 @@ const UserEditProfileTesting = () => {
                   <button key={index}>
                     {item}
                     <img
-                      src="/images/basil_cross-solid.svg"
-                      alt="Cross_Icon"
+                      src='/images/basil_cross-solid.svg'
+                      alt='Cross_Icon'
                       onClick={() => {
                         if (formData.userSpace.length > 1) {
                           removeSpace(item);
@@ -596,37 +602,37 @@ const UserEditProfileTesting = () => {
             <div className={styles.professionalContent}>
               <p>Professional Details</p>
               <form>
-                <div className="form-row">
-                  <label htmlFor="designation">Designation</label>
+                <div className='form-row'>
+                  <label htmlFor='designation'>Designation</label>
                   <input
-                    type="text"
-                    id="designation"
+                    type='text'
+                    id='designation'
                     value={formData?.designation}
-                    name="designation"
-                    placeholder="Enter your designation"
+                    name='designation'
+                    placeholder='Enter your designation'
                     onChange={handleChange}
                     required
                   />
-                  <label htmlFor="company">Company</label>
+                  <label htmlFor='company'>Company</label>
                   <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    placeholder="Enter your company"
+                    type='text'
+                    id='company'
+                    name='company'
+                    placeholder='Enter your company'
                     value={formData?.company}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className="form-row">
-                  <label htmlFor="about">About:</label>
+                <div className='form-row'>
+                  <label htmlFor='about'>About:</label>
                   <textarea
-                    id="about"
-                    name="about"
-                    placeholder="Enter about yourself"
+                    id='about'
+                    name='about'
+                    placeholder='Enter about yourself'
                     value={formData?.about}
                     onChange={handleChange}
-                    className="about"
+                    className='about'
                   />
                 </div>
               </form>
@@ -639,8 +645,8 @@ const UserEditProfileTesting = () => {
                         <button className={styles.selectedButton} key={idx}>
                           {item}
                           <img
-                            src="/images/basil_cross-solid.svg"
-                            alt="Cross_Icon"
+                            src='/images/basil_cross-solid.svg'
+                            alt='Cross_Icon'
                             onClick={() => {
                               removeReason(item);
                             }}
@@ -682,35 +688,35 @@ const UserEditProfileTesting = () => {
               </div>
               {Array.from({ length: workCount }, (_, index) => (
                 <form key={index}>
-                  <div className="form-row">
-                    <label htmlFor="work_designation">Designation</label>
+                  <div className='form-row'>
+                    <label htmlFor='work_designation'>Designation</label>
                     <input
-                      type="text"
-                      id="work_designation"
-                      name="designation"
-                      placeholder="designation"
+                      type='text'
+                      id='work_designation'
+                      name='designation'
+                      placeholder='designation'
                       value={formData?.experience?.[index]?.designation || ""}
                       onChange={(e) => {
                         handleWorkChange(e, index);
                       }}
                     />
-                    <label htmlFor="work_company">Company</label>
+                    <label htmlFor='work_company'>Company</label>
                     <input
-                      type="text"
-                      id="work_company"
-                      name="company"
-                      placeholder="company"
+                      type='text'
+                      id='work_company'
+                      name='company'
+                      placeholder='company'
                       value={formData?.experience?.[index]?.company || ""}
                       onChange={(e) => {
                         handleWorkChange(e, index);
                       }}
                     />
-                    <label htmlFor="tenure">Tenure</label>
+                    <label htmlFor='tenure'>Tenure</label>
                     <input
-                      type="text"
-                      id="tenure"
-                      name="tenure"
-                      placeholder="tenure"
+                      type='text'
+                      id='tenure'
+                      name='tenure'
+                      placeholder='tenure'
                       value={formData?.experience?.[index]?.tenure || ""}
                       onChange={(e) => {
                         handleWorkChange(e, index);
@@ -727,9 +733,9 @@ const UserEditProfileTesting = () => {
                       onClick={() => {
                         handleWorkRemove(index);
                       }}
-                      src="
-                    /images/basil_cross-solid.svg"
-                      alt="Cross_Icon"
+                      src='
+                    /images/basil_cross-solid.svg'
+                      alt='Cross_Icon'
                     />
                   </div>
                 </form>
@@ -750,35 +756,35 @@ const UserEditProfileTesting = () => {
               </div>
               {Array.from({ length: educationCount }, (_, index) => (
                 <form key={index}>
-                  <div className="form-row">
-                    <label htmlFor="institute">Name of Institute</label>
+                  <div className='form-row'>
+                    <label htmlFor='institute'>Name of Institute</label>
                     <input
-                      type="text"
-                      id="institute"
-                      name="institute"
-                      placeholder="institute"
+                      type='text'
+                      id='institute'
+                      name='institute'
+                      placeholder='institute'
                       value={formData?.education?.[index]?.institute || ""}
                       onChange={(e) => {
                         handleEducationChange(e, index);
                       }}
                     />
-                    <label htmlFor="degree">Degree</label>
+                    <label htmlFor='degree'>Degree</label>
                     <input
-                      type="text"
-                      id="degree"
-                      name="degree"
-                      placeholder="degree"
+                      type='text'
+                      id='degree'
+                      name='degree'
+                      placeholder='degree'
                       value={formData?.education?.[index]?.degree || ""}
                       onChange={(e) => {
                         handleEducationChange(e, index);
                       }}
                     />
-                    <label htmlFor="graduating">Graduating Year</label>
+                    <label htmlFor='graduating'>Graduating Year</label>
                     <input
-                      type="text"
-                      id="graduating"
-                      name="graduating"
-                      placeholder="graduating"
+                      type='text'
+                      id='graduating'
+                      name='graduating'
+                      placeholder='graduating'
                       value={formData?.education?.[index]?.graduating || ""}
                       onChange={(e) => {
                         handleEducationChange(e, index);
@@ -795,9 +801,9 @@ const UserEditProfileTesting = () => {
                       onClick={() => {
                         handleEducationRemove(index);
                       }}
-                      src="
-                    /images/basil_cross-solid.svg"
-                      alt="Cross_Icon"
+                      src='
+                    /images/basil_cross-solid.svg'
+                      alt='Cross_Icon'
                     />
                   </div>
                 </form>
@@ -811,39 +817,39 @@ const UserEditProfileTesting = () => {
                 {/* <button>Add New</button> */}
               </div>
               <form>
-                <div className="form-row">
-                  <img src="/images/skill-icons_linkedin.svg" alt="Linkedin" />
+                <div className='form-row'>
+                  <img src='/images/skill-icons_linkedin.svg' alt='Linkedin' />
 
                   <input
-                    type="text"
-                    id="linkedinLink"
-                    name="linkedin"
-                    placeholder="Enter your linkedin link"
+                    type='text'
+                    id='linkedinLink'
+                    name='linkedin'
+                    placeholder='Enter your linkedin link'
                     value={formData?.linkedin}
                     onChange={handleChange}
                   />
                   {/* <button>Edit</button> */}
                 </div>
-                <div className="form-row">
-                  <img src="/images/devicon_facebook.svg" alt="Facebook" />
+                <div className='form-row'>
+                  <img src='/images/devicon_facebook.svg' alt='Facebook' />
 
                   <input
-                    type="text"
-                    id="facebookLink"
-                    name="facebookLink"
-                    placeholder="Enter your facebook link"
+                    type='text'
+                    id='facebookLink'
+                    name='facebookLink'
+                    placeholder='Enter your facebook link'
                     value={formData?.facebookLink}
                     onChange={handleChange}
                   />
                   {/* <button>Edit</button> */}
                 </div>
-                <div className="form-row">
-                  <img src="/images/skill-icons_twitter.svg" alt="Twitter" />
+                <div className='form-row'>
+                  <img src='/images/skill-icons_twitter.svg' alt='Twitter' />
                   <input
-                    type="text"
-                    id="twitterLink"
-                    name="twitterLink"
-                    placeholder="Enter your twitter link"
+                    type='text'
+                    id='twitterLink'
+                    name='twitterLink'
+                    placeholder='Enter your twitter link'
                     value={formData?.twitterLink}
                     onChange={handleChange}
                   />

@@ -104,63 +104,63 @@ const UserProfile = () => {
             </>
           )}
 
-          <section id="userProfilePage">
-            <div className="user-profile-page-user-info">
-              <h1 className="user-profile-page-user-info-title">MY PROFILE</h1>
+          <section id='userProfilePage'>
+            <div className='user-profile-page-user-info'>
+              <h1 className='user-profile-page-user-info-title'>MY PROFILE</h1>
               <img
-                className="user-profile-page-user-info-img"
+                className='user-profile-page-user-info-img'
                 src={
                   userDoc?.image
                     ? userDoc.image
                     : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                 }
-                alt="user-profile-img"
+                alt='user-profile-img'
               />
 
               <button
-                className="user-edit-profile-button"
+                className='user-edit-profile-button'
                 onClick={() => navigate("/user-edit-profile")}
               >
                 Edit Profile
               </button>
             </div>
 
-            <div className="user-general-info">
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">Name</p>
-                <p className="user-general-info-user">{userDoc?.name}</p>
+            <div className='user-general-info'>
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>Name</p>
+                <p className='user-general-info-user'>{userDoc?.name}</p>
               </div>
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">Phone Number</p>
-                <p className="user-general-info-user">{userDoc?.phone}</p>
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>Phone Number</p>
+                <p className='user-general-info-user'>{userDoc?.phone}</p>
               </div>
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">Date Of Birth</p>
-                <p className="user-general-info-user">{userDoc?.dob}</p>
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>Date Of Birth</p>
+                <p className='user-general-info-user'>{userDoc?.dob}</p>
               </div>
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">Gender</p>
-                <p className="user-general-info-user">{userDoc?.gender}</p>
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>Gender</p>
+                <p className='user-general-info-user'>{userDoc?.gender}</p>
               </div>
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">State</p>
-                <p className="user-general-info-user">{userDoc?.state}</p>
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>State</p>
+                <p className='user-general-info-user'>{userDoc?.state}</p>
               </div>
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">Country</p>
-                <p className="user-general-info-user">{userDoc?.country}</p>
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>Country</p>
+                <p className='user-general-info-user'>{userDoc?.country}</p>
               </div>
-              <div className="user-general-info-user-cont">
-                <p className="user-general-info-user-name">Designation</p>
-                <p className="user-general-info-user">
+              <div className='user-general-info-user-cont'>
+                <p className='user-general-info-user-name'>Designation</p>
+                <p className='user-general-info-user'>
                   {userDoc?.designation === ""
                     ? "Not Available"
                     : userDoc?.designation}
                 </p>
               </div>
-              <div className="user-general-info-user-cont user-general-profile-about-cont">
-                <p className="user-general-info-user-name">About</p>
-                <p className="user-general-info-user user-general-profile-about-cont-user-name">
+              <div className='user-general-info-user-cont user-general-profile-about-cont'>
+                <p className='user-general-info-user-name'>About</p>
+                <p className='user-general-info-user user-general-profile-about-cont-user-name'>
                   {userDoc?.about === "" ? "Not Available" : userDoc?.about}{" "}
                 </p>
               </div>
@@ -192,30 +192,30 @@ const UserProfile = () => {
     </section> */}
 
             {userDoc?.experience?.length !== 0 && (
-              <section className="user-experience-info">
-                <h3 className="user-experience-info-title">Experience</h3>
+              <section className='user-experience-info'>
+                <h3 className='user-experience-info-title'>Experience</h3>
 
                 {userDoc?.experience?.length === 0 ? (
-                  <p className="no-social-link-avai-msg">
+                  <p className='no-social-link-avai-msg'>
                     No Experience Details Available
                   </p>
                 ) : null}
-                <div className="user-experience-info-experince">
+                <div className='user-experience-info-experince'>
                   {userDoc?.experience?.map((item) => {
                     return (
                       <>
-                        <div className="user-experience-info-company-role">
-                          <h3 className="user-experience-info-company-role-company-name">
+                        <div className='user-experience-info-company-role'>
+                          <h3 className='user-experience-info-company-role-company-name'>
                             {item.previousOrCurrentOrganisation}
                           </h3>
                           <ul>
-                            <li className="user-experience-info-company-role-job-profile">
+                            <li className='user-experience-info-company-role-job-profile'>
                               {item.designation}
                             </li>
-                            <li className="user-experience-info-company-role-job-profile">
+                            <li className='user-experience-info-company-role-job-profile'>
                               {item.yourRole}
                             </li>
-                            <li className="user-experience-info-company-role-job-profile">
+                            <li className='user-experience-info-company-role-job-profile'>
                               {item.durationOfYears}
                             </li>
                           </ul>
@@ -228,25 +228,25 @@ const UserProfile = () => {
             )}
 
             {userDoc?.education?.length !== 0 && (
-              <section className="user-education-info">
-                <h4 className="user-education-info-title">Education</h4>
+              <section className='user-education-info'>
+                <h4 className='user-education-info-title'>Education</h4>
                 {userDoc?.education?.length === 0 ? (
-                  <p className="no-social-link-avai-msg">
+                  <p className='no-social-link-avai-msg'>
                     No Education Details Available
                   </p>
                 ) : null}
-                <div className="user-education-info-degree-cont">
+                <div className='user-education-info-degree-cont'>
                   {userDoc?.education?.map((item) => {
                     return (
                       <>
-                        <div className="user-education-info-specific-degree">
-                          <p className="user-education-info-institute-name">
+                        <div className='user-education-info-specific-degree'>
+                          <p className='user-education-info-institute-name'>
                             {item.schoolOrCollege}
                           </p>
-                          <p className="user-education-info-institute-degree">
+                          <p className='user-education-info-institute-degree'>
                             {item.degree}
                           </p>
-                          <p className="user-education-info-institute-time-period">
+                          <p className='user-education-info-institute-time-period'>
                             {item.startingDate}-{item.lastDate}
                           </p>
                         </div>
@@ -261,53 +261,53 @@ const UserProfile = () => {
               userDoc?.facebookLink !== "" ||
               userDoc?.twitterLink !== "" ||
               (userDoc?.linkedinLink !== "" && (
-                <section className="user-how-can-we-meet-info">
-                  <h3 className="user-how-can-we-meet-title">
+                <section className='user-how-can-we-meet-info'>
+                  <h3 className='user-how-can-we-meet-title'>
                     How Can We Meet
                   </h3>
                   {userDoc?.instagramLink === "" &&
                   userDoc?.facebookLink === "" &&
                   userDoc?.twitterLink === "" &&
                   userDoc?.linkedinLink === "" ? (
-                    <p className="no-social-link-avai-msg">
+                    <p className='no-social-link-avai-msg'>
                       No Social Link Available
                     </p>
                   ) : null}
-                  <div className="user-how-can-we-meet-social-icon-cont">
+                  <div className='user-how-can-we-meet-social-icon-cont'>
                     {userDoc?.instagramLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={userDoc?.instagramLink}>
-                          <img src="./images/instaIcon.svg" alt="social-icon" />
+                          <img src='./images/instaIcon.svg' alt='social-icon' />
                         </a>
                       </div>
                     )}
 
                     {userDoc?.facebookLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={userDoc?.facebookLink}>
                           <img
-                            src="./images/faceBookIcon.svg"
-                            alt="social-icon"
+                            src='./images/faceBookIcon.svg'
+                            alt='social-icon'
                           />
                         </a>
                       </div>
                     )}
                     {userDoc?.twitterLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={userDoc?.twitterLink}>
                           <img
-                            src="./images/twitterIcon.svg"
-                            alt="social-icon"
+                            src='./images/twitterIcon.svg'
+                            alt='social-icon'
                           />
                         </a>
                       </div>
                     )}
                     {userDoc?.linkedinLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={userDoc?.linkedinLink}>
                           <img
-                            src="./images/linkedinIcon.svg"
-                            alt="social-icon"
+                            src='./images/linkedinIcon.svg'
+                            alt='social-icon'
                           />
                         </a>
                       </div>
