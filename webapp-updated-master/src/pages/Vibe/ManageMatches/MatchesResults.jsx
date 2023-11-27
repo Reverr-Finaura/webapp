@@ -17,21 +17,12 @@ const MatchesResults = ({ data, ismanage, setData }) => {
       const otherDocSnap = await getDoc(otherDocRef);
 
       if (docSnap.exists() && otherDocSnap.exists()) {
-        let userLikedBy = docSnap.data().likedBy || [];
+        let userLikedBy = docSnap.data().liked_by || [];
         let otherLike = otherDocSnap.data().likes || [];
-
         userLikedBy = userLikedBy.filter((user) => user !== otherUserEmail);
         otherLike = otherLike.filter((user) => user !== userDoc?.email);
-
-        await updateDoc(docRef, { likedBy: userLikedBy });
-        // await docRef.update({
-        //   likedBy: userLikedBy,
-        // });
+        await updateDoc(docRef, { liked_by: userLikedBy });
         await updateDoc(otherDocRef, { likes: otherLike });
-        // await otherDocRef.update({
-        //   likes: otherLike,
-        // });
-
         const newMatchedUsers = data.filter(
           (user) => user.email !== otherUserEmail
         );
@@ -57,15 +48,8 @@ const MatchesResults = ({ data, ismanage, setData }) => {
         other_matched_users = other_matched_users.filter(
           (user) => user !== userDoc?.email
         );
-
         await updateDoc(docRef, { matched_user: matched_users });
-        // await docRef.update({
-        //   matched_user: matched_users,
-        // });
         await updateDoc(otherDocRef, { matched_user: other_matched_users });
-        // await otherDocRef.update({
-        //   matched_user: other_matched_users,
-        // });
         const newMatchedUsers = data.filter(
           (user) => user.email !== otherUserEmail
         );

@@ -162,7 +162,7 @@ const VibeMiddlePart = () => {
           (userDocument) =>
             userDocument.name && userDocument.about && userDocument.email
         );
-      setNoMoreVibeData(fetchedUserData.length === 0);
+      // setNoMoreVibeData(fetchedUserData.length === 0);
       setList(fetchedUserData);
       // setUserData(fetchedUserData);
       setIsLoadingData(false);
@@ -175,33 +175,44 @@ const VibeMiddlePart = () => {
     getUserData();
   }, [currentLoggedInUser]);
 
+  const filterSection = () => {
+    let filteredList = [...list];
+    if (filterData.roles) {
+      filteredList = filteredList.filter(
+        (user) => user.userType === filterData.roles
+      );
+    }
+    if (filterData.spaces.length > 0) {
+      filteredList = filteredList.filter((user) =>
+        filterData.userSpace.includes(user.space)
+      );
+    }
+    setUserData(filteredList);
+    setNoMoreVibeData(filteredList.length === 0);
+    console.log("Lorem ipsum dolor sit amet, consectetur");
+  };
+
+  const clearFilterData = () => {
+    let filteredList = [...list];
+    setUserData(filteredList);
+  };
   useEffect(() => {
-    const filterSection = () => {
-      let filteredList = [...list];
-      if (filterData.roles) {
-        filteredList = filteredList.filter(
-          (user) => user.userType === filterData.roles
-        );
-      }
-
-      if (filterData.spaces.length > 0) {
-        filteredList = filteredList.filter((user) =>
-          filterData.userSpace.includes(user.space)
-        );
-      }
-      setUserData(filteredList);
-      setNoMoreVibeData(filteredList.length === 0);
-    };
-
     if (Object.values(filterData).some((value) => value !== "")) {
       filterSection();
     } else {
-      setUserData(list);
+      clearFilterData();
     }
-  }, [filterData]);
+  }, [
+    filterData,
+    filterData.roles,
+    filterData.spaces.length,
+    filterData.userSpace,
+    list,
+  ]);
 
   const onRefreshClick = () => {
     getUserData();
+    filterSection();
   };
 
   const handleKeepSwiping = () => {
@@ -322,6 +333,7 @@ const VibeMiddlePart = () => {
       setFilter(!filter);
     }
   };
+  console.log(filter);
 
   //---------------------Swipe Limit Code Start---------------------//
   useEffect(() => {
@@ -946,10 +958,6 @@ const VibeMiddlePart = () => {
       }
     }
   };
-
-  // console.log("handlers :::", handlers);
-  //   FlushUser();
-
   return (
     <>
       {premiumModalStatus ? (
@@ -968,7 +976,7 @@ const VibeMiddlePart = () => {
         ""
       )}
       {/* ///Filter Screen//// */}
-      {!ispremium && filter && (
+      {ispremium && filter && (
         <>
           <div className={styles.filtermodalback}></div>
           <div className={styles.filtermodal}>
@@ -1016,18 +1024,20 @@ const VibeMiddlePart = () => {
                 <img
                   className={styles.undoMoveImg}
                   src={undoMoveIcon}
-                  alt="undoMoveIcon"
+                  alt='undoMoveIcon'
                 />
                 <p className={styles.undoMoveText}>Undo Move</p>
               </div>
             </div>
             {!noMoreVibeData && (
-              <img
-                onClick={() => (OpenFilter(), setFRText("Filter"))}
-                className={styles.filterIcon}
-                src={filterIcon}
-                alt="filterIcon"
-              />
+              <>
+                <img
+                  onClick={() => (OpenFilter(), setFRText("Filter"))}
+                  className={styles.filterIcon}
+                  src={filterIcon}
+                  alt='filterIcon'
+                />
+              </>
             )}
           </div>
           {noMoreVibeData ? (
@@ -1053,7 +1063,7 @@ const VibeMiddlePart = () => {
                         ? userData[currentUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1068,7 +1078,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[currentUserIndex]?.state}
@@ -1178,7 +1188,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[currentUserIndex]?.phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[currentUserIndex]?.countryCode}{" "}
                               {userData[currentUserIndex]?.phone}
@@ -1187,7 +1197,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[currentUserIndex]?.email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             <a
                               style={{ textDecoration: "none" }}
                               href={`mailto:${userData[currentUserIndex]?.email}`}
@@ -1205,7 +1215,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[currentUserIndex]?.linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[currentUserIndex]?.linkedin}
                             </p>
@@ -1213,7 +1223,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[currentUserIndex]?.twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[currentUserIndex]?.twitter}
                             </p>
@@ -1238,7 +1248,7 @@ const VibeMiddlePart = () => {
                         ? userData[prevUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1253,7 +1263,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[prevUserIndex].state}
@@ -1360,7 +1370,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[prevUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].countryCode}{" "}
                               {userData[prevUserIndex].phone}
@@ -1369,7 +1379,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].email}
                             </p>
@@ -1377,7 +1387,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].linkedin}
                             </p>
@@ -1385,7 +1395,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].twitter}
                             </p>
@@ -1409,7 +1419,7 @@ const VibeMiddlePart = () => {
                         ? userData[prevUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1424,7 +1434,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[prevUserIndex].state}
@@ -1531,7 +1541,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[prevUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].countryCode}{" "}
                               {userData[prevUserIndex].phone}
@@ -1540,7 +1550,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].email}
                             </p>
@@ -1548,7 +1558,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].linkedin}
                             </p>
@@ -1556,7 +1566,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].twitter}
                             </p>
@@ -1580,7 +1590,7 @@ const VibeMiddlePart = () => {
                         ? userData[prevUserIndex].image
                         : defaultImg
                     }
-                    alt="userProfilePucture"
+                    alt='userProfilePucture'
                   />
                 </div>
                 <h2 className={styles.userName}>
@@ -1595,7 +1605,7 @@ const VibeMiddlePart = () => {
                     <img
                       className={styles.locationIcon}
                       src={location}
-                      alt="location"
+                      alt='location'
                     />
                     <p className={styles.location}>
                       {userData[prevUserIndex].state}
@@ -1702,7 +1712,7 @@ const VibeMiddlePart = () => {
                       <div className={styles.findmeOnWraper}>
                         {userData[prevUserIndex].phone !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={phoneIcon} alt="phoneIcon" />
+                            <img src={phoneIcon} alt='phoneIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].countryCode}{" "}
                               {userData[prevUserIndex].phone}
@@ -1711,7 +1721,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].email !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={emailIcon} alt="emailIcon" />
+                            <img src={emailIcon} alt='emailIcon' />
                             {/* <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=md.aadil.shafi@gmail.com&su=Subject&body=Body%20Text"
                                target='_blank' style={{textDecoration:'none'}}>
                                 {userData[prevUserIndex].email}
@@ -1723,7 +1733,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].linkedin !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={linkedinIcon} alt="linkedinIcon" />
+                            <img src={linkedinIcon} alt='linkedinIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].linkedin}
                             </p>
@@ -1731,7 +1741,7 @@ const VibeMiddlePart = () => {
                         )}
                         {userData[prevUserIndex].twitter !== "" && (
                           <div className={styles.findmeCont}>
-                            <img src={twitterIcon} alt="twitterIcon" />
+                            <img src={twitterIcon} alt='twitterIcon' />
                             <p className={styles.findmeDetails}>
                               {userData[prevUserIndex].twitter}
                             </p>
@@ -1752,7 +1762,7 @@ const VibeMiddlePart = () => {
                   <img
                     className={styles.likehandShakeImg}
                     src={declineIcon}
-                    alt="declineIcon"
+                    alt='declineIcon'
                   />
                 </div>
                 <div
@@ -1767,14 +1777,14 @@ const VibeMiddlePart = () => {
                   <img
                     className={styles.likehandShakeImg}
                     src={handShakeIcon}
-                    alt="handShakeIcon"
+                    alt='handShakeIcon'
                   />
                 </div>
                 <div className={styles.Cont} onClick={handleLikeCkick}>
                   <img
                     className={styles.likehandShakeImg}
                     src={acceptIcon}
-                    alt="acceptIcon"
+                    alt='acceptIcon'
                   />
                 </div>
               </div>

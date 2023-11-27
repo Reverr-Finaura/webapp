@@ -44,7 +44,8 @@ const FilterPart = ({
   setFetchAgain,
   fetchAgain,
 }) => {
-  const role = ["Founder", "Mentor", "Professional", "Investor"];
+  // const role = ["Founder", "Mentor", "Professional", "Investor"];
+  const role = ["founder", "mentor", "professional", "investor"];
   const spaces = [
     "FinTech",
     "Visual Design",
@@ -166,8 +167,8 @@ const FilterPart = ({
     };
 
     setfilterData(data);
-    setFilter(true);
-    // setFilter(false);
+    // setFilter(true);
+    setFilter(false);
     // setFetchAgain(!fetchAgain);
     // setModal(false);
     // setIsPremium(false);
@@ -253,6 +254,9 @@ const FilterPart = ({
                   rolesSelected === item ? styles.filterItem : styles.rolealter
                 }
                 key={index}
+                style={{
+                  textTransform: "capitalize",
+                }}
                 onClick={() => handleRolesClick(item)}
               >
                 {item}
