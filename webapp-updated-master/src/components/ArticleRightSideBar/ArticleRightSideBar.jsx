@@ -101,7 +101,7 @@ const ArticleRightSideBar = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchUsers() {
-      const mentorsRef = collection(db, "Blogs2");
+      const mentorsRef = collection(db, "Blogs");
       const q = query(mentorsRef);
       const querySnapshot = await getDocs(q);
       const filteredUsers = querySnapshot.docs
@@ -133,6 +133,7 @@ const ArticleRightSideBar = (props) => {
         }
 
         setrandomArticles(randomArticlesArr);
+        console.log(randomArticlesArr);
       };
 
       getrandomArticles();
@@ -177,11 +178,12 @@ const ArticleRightSideBar = (props) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <img
                 style={{ height: "200px", width: "300px", padding: "20px" }}
-                src={extractImg(randomArticles[0]?.body)}
+                src={randomArticles[0]?.image.imageUrl}
                 alt=''
               />
               <p
@@ -209,6 +211,7 @@ const ArticleRightSideBar = (props) => {
                       <ArticleDisplay
                         title={article.heading}
                         description={article.body}
+                        articleImg={article.image}
                       />
                     </div>
                   );

@@ -56,7 +56,11 @@ const data = [
   },
 ];
 
-const VibeMessageMain = ({ mobile }) => {
+const VibeMessageMain = ({
+  mobile,
+  updateUserVibeChat,
+  setUpdateUserVibeChat,
+}) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const chatData = useSelector((state) => state.vibeChat);
@@ -151,7 +155,10 @@ const VibeMessageMain = ({ mobile }) => {
           <div>
             <img
               className={style.UserdetailsHeaderImg}
-              src={profileImg}
+              src={
+                profileImg ||
+                "/static/media/default-profile-pic.3ad98a37176f047b65bd.png"
+              }
               alt='img'
             />
             <p style={{ cursor: "default" }}>{name}</p>
@@ -176,6 +183,8 @@ const VibeMessageMain = ({ mobile }) => {
           mobile={mobile}
           data={data}
           setChatSelected={setChatSelected}
+          updateUserVibeChat={updateUserVibeChat}
+          setUpdateUserVibeChat={setUpdateUserVibeChat}
         />
       )}
     </div>

@@ -10,7 +10,6 @@ import { toast, Toaster } from "react-hot-toast";
 import mentorsUnavailableImg from "../../images/mentorsUnavailable.svg";
 import mentorsTextImg from "../../images/mentorsText.svg";
 
-
 const MentorSearch = () => {
   const navigate = useNavigate();
   const { category } = useParams();
@@ -27,11 +26,6 @@ const MentorSearch = () => {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
           });
-
-          // var {email} =doc._document.data.value.mapValue.fields;
-          // console.log(email.stringValue);
-          // doc.data().id=email;
-          // console.log(doc.data());
         }
       });
     }
@@ -91,7 +85,7 @@ const MentorSearch = () => {
   }, [mentorArray, category]);
   // console.log(category);
   // console.log(mentorArray);
-  console.log("searchresultsssssssss",searchResult);
+  console.log("searchresultsssssssss", searchResult);
 
   return (
     <>
@@ -101,7 +95,7 @@ const MentorSearch = () => {
           <p>
             <img
               src={Arrow}
-              alt="NavigateArrow"
+              alt='NavigateArrow'
               onClick={() => {
                 navigate("/mentors");
               }}
@@ -110,21 +104,40 @@ const MentorSearch = () => {
           </p>
         </div>
         <div className={styles.searchResultContainer}>
-          {searchResult.length !== 0 ? (searchResult?.map((item, idx) => {
-            return <ProfileCardTesting key={idx} mentor={item} handleCopyURL={() => {
-              if(item?.linkedin){
-                navigator.clipboard.writeText(item.linkedin)
-                toast.success("successfully copied to clipboard");
-              }
-            }} />;
-          })) : (<div className={styles.noMentorContainer}>
-            <img src={mentorsUnavailableImg} alt="mentorsUnavailableImg" className={styles.noMentorImg} />
-            <img src={mentorsTextImg} alt="mentorsTextImg" className={styles.noMentorTxt}  />
-          </div>)
-        }
+          {searchResult.length !== 0 ? (
+            searchResult?.map((item, idx) => {
+              return (
+                <ProfileCardTesting
+                  key={idx}
+                  mentor={item}
+                  handleCopyURL={() => {
+                    if (item?.linkedin) {
+                      navigator.clipboard.writeText(item.linkedin);
+                      window.open(item.linkedin, "_blank");
+                    } else {
+                      toast.error("No linkedin profile found");
+                    }
+                  }}
+                />
+              );
+            })
+          ) : (
+            <div className={styles.noMentorContainer}>
+              <img
+                src={mentorsUnavailableImg}
+                alt='mentorsUnavailableImg'
+                className={styles.noMentorImg}
+              />
+              <img
+                src={mentorsTextImg}
+                alt='mentorsTextImg'
+                className={styles.noMentorTxt}
+              />
+            </div>
+          )}
         </div>
       </div>
-      <Toaster position="bottom-left" />
+      <Toaster position='bottom-left' />
     </>
   );
 };

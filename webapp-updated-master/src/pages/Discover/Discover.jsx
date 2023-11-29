@@ -9,7 +9,6 @@
 // import DiscoverNews from '../../components/DiscoverNews/DiscoverNews'
 // import ArticleRightSideBar from '../../components/ArticleRightSideBar/ArticleRightSideBar'
 
-
 // const Discover = () => {
 
 //   const [newsData, setNewsData] = useState([]);
@@ -17,14 +16,11 @@
 //   return (
 //     <>
 //     <div className='container-1'>
-        
+
 //         <NavBarFinalDarkMode/>
 //         <DiscoverPeople/>
 //         <DiscoverEvents/>
 //         <DiscoverSuggestions/>
-
-
-
 
 // {/* Articles */}
 //         <div className='article'>
@@ -42,48 +38,32 @@
 
 //         </div>
 
-
 //         {<DiscoverNews />}
 
-
 //     </div>
-    
+
 //     </>
 //   )
 // }
 
 // export default Discover
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useEffect } from 'react';
-import NavBarFinalDarkMode from '../../components/Navbar Dark Mode/NavBarFinalDarkMode';
-import './Discover.css';
-import ArticlesLeftSideBar from '../../components/ArticlesLeftSideBar/ArticlesLeftSideBar';
-import DiscoverPeople from '../../components/DiscoverPeople/DiscoverPeople';
-import DiscoverEvents from '../../components/DiscoverEvents/DiscoverEvents';
-import DiscoverSuggestions from '../../components/DiscoverSuggestions/DiscoverSuggestions';
-import DiscoverNews from '../../components/DiscoverNews/DiscoverNews';
-import ArticleRightSideBar from '../../components/ArticleRightSideBar/ArticleRightSideBar';
+import React, { useState, useEffect } from "react";
+import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import "./Discover.css";
+import ArticlesLeftSideBar from "../../components/ArticlesLeftSideBar/ArticlesLeftSideBar";
+import DiscoverPeople from "../../components/DiscoverPeople/DiscoverPeople";
+import DiscoverEvents from "../../components/DiscoverEvents/DiscoverEvents";
+import DiscoverSuggestions from "../../components/DiscoverSuggestions/DiscoverSuggestions";
+import DiscoverNews from "../../components/DiscoverNews/DiscoverNews";
+import ArticleRightSideBar from "../../components/ArticleRightSideBar/ArticleRightSideBar";
 import axios from "axios";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
-import Vibe from '../../components/SidebarComponents/Vibe/Vibe';
-import Patch from '../../components/SidebarComponents/Patch/Patch';
+import Vibe from "../../components/SidebarComponents/Vibe/Vibe";
+import Patch from "../../components/SidebarComponents/Patch/Patch";
 
 const Discover = () => {
-
   // News
   const [newsData, setNewsData] = useState([]);
 
@@ -94,12 +74,12 @@ const Discover = () => {
   const getNews = async () => {
     try {
       const options = {
-        method: 'GET',
-        url: 'https://api.bing.microsoft.com/v7.0/news/search',
-        params: { q: 'startup', safeSearch: 'Off', textFormat: 'Raw' },
+        method: "GET",
+        url: "https://api.bing.microsoft.com/v7.0/news/search",
+        params: { q: "startup", safeSearch: "Off", textFormat: "Raw" },
         headers: {
-          'Content-Type': 'application/json',
-          'Ocp-Apim-Subscription-Key': 'd7e17be6d66f494ea9c6cddf39825060',
+          "Content-Type": "application/json",
+          "Ocp-Apim-Subscription-Key": "d7e17be6d66f494ea9c6cddf39825060",
         },
       };
 
@@ -109,12 +89,6 @@ const Discover = () => {
       console.log(error);
     }
   };
-
-
-
-
-
-
 
   // Events
   const [users, setUsers] = useState([]);
@@ -135,7 +109,7 @@ const Discover = () => {
         //   docData.hasOwnProperty("imageUrl") &&
         //   docData.imageUrl.trim() !== ""
         // )
-        .map(doc => doc.data());
+        .map((doc) => doc.data());
       setUsers(filteredUsers);
       setLoading(false);
     }
@@ -161,57 +135,52 @@ const Discover = () => {
     }
   }, [users]);
 
-
-
-console.log(":",randomEvents)
-
+  console.log(":", randomEvents);
 
   return (
     <>
       <div className='container-1'>
         <NavBarFinalDarkMode />
 
-      <div className='' style={{display:"flex",height:"100vh"}}>
+        <div className='' style={{ display: "flex", height: "100vh" }}>
+          <div style={{ position: "fixed" }}>
+            <div className='discoversidebarcontainer'>
+              <Vibe />
+              <Patch />
+            </div>
+          </div>
+          <div className='discoverrightside'>
+            <DiscoverPeople />
+            {randomEvents.length > 0 && <DiscoverEvents />}
 
-     
-        <div style={{position:"fixed"}}>
-        <div className='discoversidebarcontainer' >
-        <Vibe  />
-        <Patch />
-        </div>
-        </div>
-        <div className='discoverrightside' >
-        
-        <DiscoverPeople />
-        { randomEvents.length>0 && <DiscoverEvents />}
-        
-        
-        {/* Articles */}
-        <div className='article'>
-          <h3 style={{ color: 'white', marginTop: '10px', marginLeft:'5%' }}>
-           <span style={{color:"#00B3FF"}}>Articles</span>  for you
-          </h3>
-        </div>
-      <div className='align'>
-     
-        <div className='article-container'>
-          {/* <ArticlesLeftSideBar /> */}
-          <div className='right-container'>
-            {/* <NavLink exact to="/discover/featured"> */}
-            <ArticleRightSideBar title='featured' />
-            {/* </NavLink> */}
+            {/* Articles */}
+            <div className='article'>
+              <h3
+                style={{ color: "white", marginTop: "10px", marginLeft: "5%" }}
+              >
+                <span style={{ color: "#00B3FF" }}>Articles</span> for you
+              </h3>
+            </div>
+            <div className='align'>
+              <div className='article-container'>
+                {/* <ArticlesLeftSideBar /> */}
+                <div className='right-container'>
+                  {/* <NavLink exact to="/discover/featured"> */}
+                  <ArticleRightSideBar title='featured' />
+                  {/* </NavLink> */}
+                </div>
+              </div>
+            </div>
+            <DiscoverSuggestions heading={"More Suggestions"} />
+            {/* Conditionally render DiscoverNews */}
+            {newsData.length >= 4 && <DiscoverNews />}
+            {/* <DiscoverNews /> */}
+            <DiscoverSuggestions
+              colorheading={"People"}
+              heading={" you may know from Reverr"}
+            />
           </div>
         </div>
-      
-      </div>
-          <DiscoverSuggestions heading={"More Suggestions"} />
-        {/* Conditionally render DiscoverNews */}
-        {newsData.length >= 4 && <DiscoverNews />}
-        {/* <DiscoverNews /> */}
-        <DiscoverSuggestions colorheading={"People"} heading={" you may know from Reverr"} />
-      </div>
-      </div>
-
       </div>
     </>
   );

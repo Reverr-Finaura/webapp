@@ -326,7 +326,26 @@ const LoginTesting = () => {
         navigate("/community");
       })
       .catch((error) => {
-        toast.error("Invalied credentials");
+        var errorCode = error.code;
+        // toast.error(errorMessage);
+        switch (error.code) {
+          case "auth/user-not-found":
+            toast.error("User not found. Please check your email or sign up.");
+            return;
+          case "auth/invalid-email":
+            toast.error("Invalid email address. Please enter a valid email.");
+            return;
+          case "auth/wrong-password":
+            toast.error("Incorrect password. Please try again.");
+            return;
+          case "auth/invalid-login-credentials":
+            toast.error("Invalid Login Credentials");
+            return;
+          default:
+            errorCode = errorCode.substring(5);
+            toast.error(errorCode.charAt(0).toUpperCase() + errorCode.slice(1));
+            return;
+        }
       });
   };
   const loginPhone = () => {
@@ -357,8 +376,26 @@ const LoginTesting = () => {
         navigate("/dashboard");
       })
       .catch((error) => {
-        const errorMessage = error.message;
-        toast.error(errorMessage);
+        var errorCode = error.code;
+        // toast.error(errorMessage);
+        switch (error.code) {
+          case "auth/user-not-found":
+            toast.error("User not found. Please check your email or sign up.");
+            return;
+          case "auth/invalid-email":
+            toast.error("Invalid email address. Please enter a valid email.");
+            return;
+          case "auth/wrong-password":
+            toast.error("Incorrect password. Please try again.");
+            return;
+          case "auth/invalid-login-credentials":
+            toast.error("Invalid Login Credentials");
+            return;
+          default:
+            errorCode = errorCode.substring(5);
+            toast.error(errorCode.charAt(0).toUpperCase() + errorCode.slice(1));
+            return;
+        }
       });
   };
   // function generate(n) {

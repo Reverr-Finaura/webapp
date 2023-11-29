@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import {
   Timestamp,
   arrayUnion,
+  deleteDoc,
   getFirestore,
   onSnapshot,
   serverTimestamp,
@@ -184,6 +185,19 @@ export const createMatchedInMessagesDoc = async (userId, senderId) => {
     await setDoc(furtherSenderRef, {
       messages: [{ createdAt: "", msg: "", sendBy: "" }],
     });
+  } catch (error) {
+    console.log(error.messages);
+  }
+};
+export const deleteMatchedInMessagesDoc = async (userId, senderId) => {
+  const userRef = doc(db, "Messages", userId);
+  const furtherUserRef = doc(userRef, "Matched", senderId);
+  const senderRef = doc(db, "Messages", senderId);
+  const furtherSenderRef = doc(senderRef, "Matched", userId);
+
+  try {
+    await deleteDoc(furtherUserRef);
+    await deleteDoc(furtherSenderRef);
   } catch (error) {
     console.log(error.messages);
   }

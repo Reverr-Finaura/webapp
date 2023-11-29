@@ -13,8 +13,10 @@ const VibeYourChat = ({
   setChatSelected,
   mobile,
   setMobileChatNoHeader,
+  updateUserVibeChat,
+  setUpdateUserVibeChat,
 }) => {
-  const currentcUser = useSelector((state) => state.userDoc);
+  // const currentcUser = useSelector((state) => state.userDoc);
   const currentLoggedInUser = useSelector((state) => state.user);
   // const currentcUser={email:"mauricerana@gmail.com"}
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ const VibeYourChat = ({
       setDummyLoadig(true);
       await getAllMatchedUserHavingChatWith(userEmail, setChatList);
       setDummyLoadig(false);
+      setUpdateUserVibeChat(false);
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -51,13 +54,23 @@ const VibeYourChat = ({
   }, [currentLoggedInUser]);
 
   useEffect(() => {
+    console.log("New fectching");
+    if (updateUserVibeChat) {
+      console.log("New fectching inside");
+      getAllUserChat();
+    }
+  }, [updateUserVibeChat]);
+
+  useEffect(() => {
     setDataPreprocessing(true);
     if (chatList.length === 0) {
+      setChatUserData([]);
       setDummyLoadig2(false);
       return;
     }
 
     if (chatUserData.length === 0) {
+      console.log("setting chat user data");
       chatList.map(async (list, idx) => {
         const docRef = doc(db, "Users", list.id);
         const docSnap = await getDoc(docRef);
@@ -130,7 +143,6 @@ const VibeYourChat = ({
       setChatUserData(finaluserChatArr);
     }
     setDataPreprocessing(false);
-    // console.log("chat data is1:", chatUserData);
   }, [chatList]);
 
   function customSort(a, b) {
@@ -178,7 +190,13 @@ const VibeYourChat = ({
                 className={style.singlemessageboxcontainer}
                 key={key}
               >
-                <img src={item?.userImg} alt='img' />
+                <img
+                  src={
+                    item?.userImg ||
+                    "/static/media/default-profile-pic.3ad98a37176f047b65bd.png"
+                  }
+                  alt='img'
+                />
                 <div style={{ width: "100%" }}>
                   <div
                     style={{

@@ -1,4 +1,7 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  fetchSignInMethodsForEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
@@ -124,15 +127,20 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   //     toast.error("Please check the entered OTP");
   //   }
   // };
+  console.log(propOtp);
 
-  const checkOtp = (e) => {
+  const checkOtp = async (e) => {
     e.preventDefault();
-    console.log(enteredOtp);
     if (
       ((newOTP === "" && propOtp === enteredOtp) ||
         (newOTP !== "" && newOTP === enteredOtp)) &&
       (seconds > 0 || minutes > 0)
     ) {
+      const existingUser = await fetchSignInMethodsForEmail(
+        auth,
+        tempUserData.email
+      );
+      console.log(existingUser);
       signInWithEmailAndPassword(
         auth,
         tempUserData?.email,
@@ -155,7 +163,29 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
           navigate("/community");
         })
         .catch((error) => {
-          toast.error("Unable to login");
+          var errorCode = error.code;
+          switch (error.code) {
+            case "auth/user-not-found":
+              toast.error(
+                "User not found. Please check your email or sign up."
+              );
+              return;
+            case "auth/invalid-email":
+              toast.error("Invalid email address. Please enter a valid email.");
+              return;
+            case "auth/wrong-password":
+              toast.error("Incorrect password. Please try again.");
+              return;
+            case "auth/invalid-login-credentials":
+              toast.error("Invalid Login Credentials");
+              return;
+            default:
+              errorCode = errorCode.substring(5);
+              toast.error(
+                errorCode.charAt(0).toUpperCase() + errorCode.slice(1)
+              );
+              return;
+          }
         });
     } else if (seconds <= 0 && minutes <= 0) {
       toast.error("OTP expired");

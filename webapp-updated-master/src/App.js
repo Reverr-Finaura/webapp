@@ -153,10 +153,10 @@ import AppliedJob from "./pages/job posting/AppliedJob";
 import LoginWithOtpFirst from "./pages/LoginWithOTP/LoginWithOtpFirst";
 
 function App() {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const newUser = useSelector(selectNewUser);
   // const onBoardingData = useSelector((state) => state.onboarding);
-  const dispatch = useDispatch();
   const userDoc = useSelector((state) => state.userDoc);
 
   useEffect(() => {

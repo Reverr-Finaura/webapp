@@ -25,7 +25,7 @@ function LoginWithOtpFirst() {
   const [seconds, setSeconds] = useState(0);
   const [showCodePicker, setShowCodePicker] = useState(false);
   const [metaData, setMetaData] = useState([]);
-  // console.log("tempotp", tempOtp);
+  console.log("tempotp", tempOtp);
   // const [password, setPass] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
   // const [newOtp, setNewOtp] = useState("");

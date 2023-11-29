@@ -215,7 +215,10 @@ const ChatsContainer = ({ sorter, isNetworkMessage, setIsNetworkMessage }) => {
                 >
                   <img
                     className={styles.chatImg}
-                    src={data.userImg}
+                    src={
+                      data.userImg ||
+                      "/static/media/default-profile-pic.3ad98a37176f047b65bd.png"
+                    }
                     alt='chatImg'
                   />
                   <div className={styles.userCont}>

@@ -56,7 +56,10 @@ const SelectedChat = ({ setChatSelected, setMobileChatNoHeader }) => {
           </span>
           <img
             className={style.UserdetailsHeaderImg}
-            src={chatData.selectedUser.userImg}
+            src={
+              chatData.selectedUser.userImg ||
+              "/static/media/default-profile-pic.3ad98a37176f047b65bd.png"
+            }
             alt='img'
           />
           <p style={{ cursor: "default" }}>{chatData.selectedUser.name}</p>

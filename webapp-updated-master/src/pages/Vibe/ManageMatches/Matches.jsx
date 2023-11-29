@@ -17,7 +17,13 @@ const managematches = [
   { name: "jatin", designation: "ceo", image: profileimg },
 ];
 
-const Matches = ({ mobile, manage, isPremium }) => {
+const Matches = ({
+  mobile,
+  manage,
+  isPremium,
+  updateUserVibeChat,
+  setUpdateUserVibeChat,
+}) => {
   const [likedMeData, setLikedMeData] = useState([]);
   const [data, setData] = useState([]);
   const [ismanage, setIsManage] = useState(false);
@@ -156,6 +162,8 @@ const Matches = ({ mobile, manage, isPremium }) => {
                 ismanage={ismanage}
                 data={data}
                 setData={setData}
+                updateUserVibeChat={updateUserVibeChat}
+                setUpdateUserVibeChat={setUpdateUserVibeChat}
               />
             </div>
           )}

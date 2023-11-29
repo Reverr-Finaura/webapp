@@ -3,9 +3,15 @@ import style from "./matches.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db, deleteMatchedInMessagesDoc } from "../../../firebase";
 
-const MatchesResults = ({ data, ismanage, setData }) => {
+const MatchesResults = ({
+  data,
+  ismanage,
+  setData,
+  updateUserVibeChat,
+  setUpdateUserVibeChat,
+}) => {
   const navigate = useNavigate();
   const userDoc = useSelector((state) => state.userDoc);
 
@@ -35,6 +41,7 @@ const MatchesResults = ({ data, ismanage, setData }) => {
 
   const HandleRemoveMatchUsers = async (otherUserEmail) => {
     try {
+      console.log("inside handleRemoveMatch");
       const otherDocRef = doc(db, "Users", otherUserEmail);
       const docRef = doc(db, "Users", userDoc?.email);
       const docSnap = await getDoc(docRef);
@@ -50,10 +57,12 @@ const MatchesResults = ({ data, ismanage, setData }) => {
         );
         await updateDoc(docRef, { matched_user: matched_users });
         await updateDoc(otherDocRef, { matched_user: other_matched_users });
+        await deleteMatchedInMessagesDoc(userDoc?.email, otherUserEmail);
         const newMatchedUsers = data.filter(
           (user) => user.email !== otherUserEmail
         );
         setData(newMatchedUsers);
+        setUpdateUserVibeChat(true);
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -67,7 +76,10 @@ const MatchesResults = ({ data, ismanage, setData }) => {
             <div className={style.singlematchresultcontainer}>
               <img
                 style={{ width: "35px", height: "35px", borderRadius: "50%" }}
-                src={item.image}
+                src={
+                  item.image ||
+                  "/static/media/default-profile-pic.3ad98a37176f047b65bd.png"
+                }
                 alt='img'
               />
               <div

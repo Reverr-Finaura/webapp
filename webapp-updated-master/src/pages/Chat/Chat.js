@@ -6,10 +6,10 @@ import MessagesCont from "./Messages/MessagesCont";
 import SelectedUserCont from "./Selected User Container/SelectedUserCont";
 import { updateSelectedUserData as updateSelectedUserDataLatest } from "../../features/chatSlice_latest";
 import { updateSelectedUserData as updateSelectedUserDataVibe } from "../../features/vibeChatSlice";
-import SidebarFinal from "../../components/Sidebar Final/SidebarFinal";
-import NavBarFinal from "../../components/Navbar/NavBarFinal";
-import KnowledgeNavbar from "../../components/KnowledgeNavbar/KnowledgeNavbar";
-import PhnSidebar from "../../components/PhnSidebar/PhnSidebar";
+// import SidebarFinal from "../../components/Sidebar Final/SidebarFinal";
+// import NavBarFinal from "../../components/Navbar/NavBarFinal";
+// import KnowledgeNavbar from "../../components/KnowledgeNavbar/KnowledgeNavbar";
+// import PhnSidebar from "../../components/PhnSidebar/PhnSidebar";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const Chat = () => {

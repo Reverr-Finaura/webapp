@@ -28,8 +28,10 @@ const VibeTestA = () => {
   console.log(onboardingData);
   const [isPremium, setIsPremium] = useState(false);
   const userDoc = useSelector((state) => state.userDoc);
-  const ispremium = useSelector((state) => state.user.isPremium);
+  // const ispremium = useSelector((state) => state.user.isPremium);
   const dispatch = useDispatch();
+
+  const [updateUserVibeChat, setUpdateUserVibeChat] = useState(false);
 
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -83,8 +85,8 @@ const VibeTestA = () => {
     }
     checkPremiumStatus();
   }, []);
-  console.log("premium status", isPremium);
-  console.log(userDoc);
+  // console.log("premium status", isPremium);
+  // console.log(userDoc);
   return (
     <>
       <NavBarFinalDarkMode />
@@ -128,9 +130,16 @@ const VibeTestA = () => {
           </div>
           </>
         ) : (<> */}
-          <VibeMessageMain />
+          <VibeMessageMain
+            updateUserVibeChat={updateUserVibeChat}
+            setUpdateUserVibeChat={setUpdateUserVibeChat}
+          />
           <VibeMiddlePart />
-          <Matches isPremium={isPremium} />
+          <Matches
+            isPremium={isPremium}
+            updateUserVibeChat={updateUserVibeChat}
+            setUpdateUserVibeChat={setUpdateUserVibeChat}
+          />
           {/* </>)} */}
         </div>
       )}
