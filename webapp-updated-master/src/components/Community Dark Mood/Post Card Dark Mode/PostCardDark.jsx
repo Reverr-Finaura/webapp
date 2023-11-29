@@ -37,12 +37,12 @@ export default function PostCardDark({
   setPostsData,
   item,
   handleEditPostButtonClick,
-  setPostsAuthorIsClick,
-  setPostsAuthorInfo,
   isLoggedIn,
   openModal,
   postId,
-  postsDataWithUserDoc,
+  // setPostsAuthorIsClick,
+  // setPostsAuthorInfo,
+  // postsDataWithUserDoc,
 }) {
   const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
@@ -101,10 +101,10 @@ export default function PostCardDark({
     fetchPostData();
   }, []);
 
-  // const [userDocPostedBy, setUserDocPostedBy] = useState();
+  // const [userDocPostedBy, setUserDocPostedBy] = useState({});
   // useEffect(() => {
   //   const getData = async () => {
-  //     const data = await getUserFromDatabase(
+  //     const data = await getUserDocByRef(
   //       item?.postedby?._path?.segments[1]
   //     );
   //     setUserDocPostedBy(data);
@@ -114,7 +114,6 @@ export default function PostCardDark({
 
   //CHECK IF POST LIKES CONTAIN USER OR NOT
   const getLikedPostIdFromFirebase = async (id, items) => {
-    // console.log("post details--- ", postDetail);
     const isLiked = postDetail.likes.includes(user?.user?.email);
     let newLikeArray;
 
@@ -403,9 +402,22 @@ export default function PostCardDark({
   //GET USER DATA FROM REFERENCE LINK WHO HAS POSTED
 
   useEffect(() => {
-    if (item?.postedby) {
-      // getUserDocByRef(item?.postedby?._path?.segments[1]).then((res) => {
-      getUserFromDatabase(item?.postedby?._path?.segments[1]).then((res) => {
+    if (item.postedby._path.segments) {
+      getUserFromDatabase(
+        item?.postedby?._path?.segments[item.postedby._path.segments.length - 1]
+      ).then((res) => {
+        setPostedByUserDoc((prev) => {
+          return {
+            ...prev,
+            ...res,
+            notificationList: res?.notificationList
+              ? [...prev?.notificationList, ...res?.notificationList]
+              : prev?.notificationList,
+          };
+        });
+      });
+    } else {
+      getUserDocByRef(item?.postedby).then((res) => {
         setPostedByUserDoc((prev) => {
           return {
             ...prev,
@@ -418,40 +430,27 @@ export default function PostCardDark({
       });
     }
   }, [item]);
-  console.log(postedByUserDoc);
 
-  useEffect(() => {
-    if (userDoc) {
-      // getUserDocByRef(item?.postedby?._path?.segments[1]).then((res) => {
-      getUserFromDatabase(item?.postedby?._path?.segments[1]).then((res) => {
-        setPostedByUserDoc((prev) => {
-          return {
-            ...prev,
-            ...res,
-            notificationList: res?.notificationList
-              ? [...prev?.notificationList, ...res?.notificationList]
-              : prev?.notificationList,
-          };
-        });
-      });
-    }
-  }, [userDoc]);
+  // useEffect(() => {
+  //   if (userDoc) {
+  //     // getUserDocByRef(item?.postedby?._path?.segments[1]).then((res) => {
+  //     getUserFromDatabase(item?.postedby?._path?.segments[1]).then((res) => {
+  //       setPostedByUserDoc((prev) => {
+  //         return {
+  //           ...prev,
+  //           ...res,
+  //           notificationList: res?.notificationList
+  //             ? [...prev?.notificationList, ...res?.notificationList]
+  //             : prev?.notificationList,
+  //         };
+  //       });
+  //     });
+  //   }
+  // }, [userDoc]);
 
   //GET USER DATA FROM REFERENCE LINK WHO HAS COMMENTED
 
   useEffect(() => {
-    // item.comments.map(async (event) => {
-    //   await getUserDocByRef(event?.commentedby)
-    //     .then((res) => {
-    //       setCommentedByUserDoc((prev) => {
-    //         return [...prev, res];
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error fetching user document:", error);
-    //       console.error("Data causing the error:", event?.commentedby);
-    //     });
-    // });
     item.comments.map(async (event) => {
       try {
         const res = await getUserDocByRef(event?.commentedby);
@@ -522,8 +521,6 @@ export default function PostCardDark({
   useEffect(() => {
     setPostTime(new Date(item?.createdAt.seconds * 1000));
   }, [item]);
-  console.log(postedByUserDoc);
-  console.log(postsDataWithUserDoc);
 
   return (
     <>
@@ -668,60 +665,6 @@ export default function PostCardDark({
                         return null;
                     }
                   })()}
-                {/* {postsDataWithUserDoc.length >= 1 &&
-                  (() => {
-                    const foundPost = postsDataWithUserDoc.find(
-                      (post) => post.id === postId
-                    );
-                    switch (foundPost?.postedby?.userType) {
-                      case "founder":
-                        return (
-                          <div className={style.founder}>
-                            {" "}
-                            <img
-                              className={style.typeImg}
-                              src={founder}
-                              alt=''
-                            />{" "}
-                            Founder
-                          </div>
-                        );
-                      case "mentor":
-                        return (
-                          <div className={style.mentor}>
-                            {" "}
-                            <img
-                              className={style.typeImg}
-                              src={mentor}
-                              alt=''
-                            />{" "}
-                            Mentor
-                          </div>
-                        );
-                      case "investor":
-                        return (
-                          <div className={style.investor}>
-                            {" "}
-                            <img
-                              className={style.typeImg}
-                              src={investor}
-                              alt=''
-                            />{" "}
-                            Investor
-                          </div>
-                        );
-                      case "professionals":
-                        return (
-                          <div className={style.professional}>
-                            {" "}
-                            <img className={style.typeImg} src={pro} alt='' />
-                            Professional
-                          </div>
-                        );
-                      default:
-                        return null;
-                    }
-                  })()} */}
               </div>
             </div>
 
@@ -1031,7 +974,7 @@ export default function PostCardDark({
       <section className={style.newCommentOnPostSection}>
         {editCommentButtonIsClick ? (
           <section className={style.uploadPostContainerrrrSection}>
-            <div className='newCommentContainerrrr'>
+            <div className={style.newCommentContainerrrr}>
               <img
                 className='community-newComment-cont-userImage'
                 src={
@@ -1041,27 +984,25 @@ export default function PostCardDark({
                 }
                 alt='userImage'
               />
-              <div className='textAreaUploadContainer'>
-                <div>
-                  <textarea
-                    autoFocus
-                    onChange={(e) => setNewEdittedComment(e.target.value)}
-                    name='newEditComment'
-                    id={style.postCommentContainerExpanded}
-                    rows='3'
-                    placeholder='Share Your Thoughts'
-                    value={newEdittedComment}
-                  ></textarea>
-                  <div
-                    className={`${style.addImageandUploadPostIcon} ${style.newCommentAddImageAndUpload}`}
+              <div className={style.textAreaUploadContainer}>
+                <textarea
+                  autoFocus
+                  onChange={(e) => setNewEdittedComment(e.target.value)}
+                  name={style.newEditComment}
+                  id={style.postCommentContainerExpanded}
+                  rows='3'
+                  placeholder='Share Your Thoughts'
+                  value={newEdittedComment}
+                ></textarea>
+                <div
+                  className={`${style.addImageandUploadPostIcon} ${style.newCommentAddImageAndUpload}`}
+                >
+                  <button
+                    onClick={() => handleEditCommentonPost(item, item.id)}
+                    className={`${style.newCommentAddImageAndUpload} ${style.uploadPostIconButton}`}
                   >
-                    <button
-                      onClick={() => handleEditCommentonPost(item, item.id)}
-                      className='uploadPostIconButton'
-                    >
-                      Edit
-                    </button>
-                  </div>
+                    Edit
+                  </button>
                 </div>
               </div>
             </div>
@@ -1071,7 +1012,7 @@ export default function PostCardDark({
             style={{ display: commentIconClick ? "" : "none" }}
             className={style.uploadPostContainerrrrSection}
           >
-            <div className='newCommentContainerrrr'>
+            <div className={style.newCommentContainerrrr}>
               <img
                 className={style.communityNewCommentContUserImage}
                 src={
@@ -1085,6 +1026,16 @@ export default function PostCardDark({
                 style={{ position: "relative", width: "85%" }}
                 className={style.textAreaUploadContainer}
               >
+                <GrAddCircle
+                  onClick={() =>
+                    setNewCommentTextAreaClick((current) => !current)
+                  }
+                  className={
+                    newCommentTextAreaClick
+                      ? style.expandTextAreaIconExpanded
+                      : style.expandTextAreaIcon
+                  }
+                />
                 <textarea
                   autoFocus
                   className={item?.id}
@@ -1122,17 +1073,6 @@ export default function PostCardDark({
                   className={style.rightArrowImg}
                   src={rightArrow}
                   alt='rightArrow'
-                />
-
-                <GrAddCircle
-                  onClick={() =>
-                    setNewCommentTextAreaClick((current) => !current)
-                  }
-                  className={
-                    newCommentTextAreaClick
-                      ? "expandTextAreaIconExpanded"
-                      : "expandTextAreaIcon"
-                  }
                 />
               </div>
             </div>

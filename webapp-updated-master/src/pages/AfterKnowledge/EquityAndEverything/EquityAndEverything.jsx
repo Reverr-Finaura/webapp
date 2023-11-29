@@ -3,12 +3,10 @@ import CourseContent from "../../../components/After knowledge/Course content/Co
 import CourseIntro from "../../../components/After knowledge/Course Intro/CourseIntro";
 import CourseReview from "../../../components/After knowledge/Course review/CourseReview";
 import Hero from "../../../components/After knowledge/Hero-section/Hero";
-import Header from "../../../components/Header/Header";
 import Footer from "../../Footer/Footer";
 import styles from "./Knowledge.module.css";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-
 
 const EquityAndEverything = () => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -32,15 +30,15 @@ const EquityAndEverything = () => {
       <div className={styles.knowledge}>
         <KnowledgeNavbar />
         <div className={styles.body}>
-        <Sidebar isVisible={width >= 600 ? true : false} />
+          <Sidebar isVisible={width >= 600 ? true : false} />
           <div className={styles.content}>
-          <Hero
-            imgUrl="equity.svg"
-            // heading="Idea validation and elevator pitch"
-          />
-          <CourseIntro courseDetails={courseDetails} />
-          <CourseContent imgUrl="equity2.svg" />
-          <CourseReview />
+            <Hero
+              imgUrl='equity.svg'
+              // heading="Idea validation and elevator pitch"
+            />
+            <CourseIntro courseDetails={courseDetails} />
+            <CourseContent imgUrl='equity2.svg' />
+            <CourseReview />
           </div>
         </div>
       </div>

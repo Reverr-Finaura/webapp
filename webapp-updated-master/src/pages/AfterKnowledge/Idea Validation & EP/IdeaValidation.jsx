@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CourseContent from "../../../components/After knowledge/Course content/CourseContent";
 import CourseIntro from "../../../components/After knowledge/Course Intro/CourseIntro";
-import CourseReview from "../../../components/After knowledge/Course review/CourseReview";
 import Hero from "../../../components/After knowledge/Hero-section/Hero";
-import Header from "../../../components/Header/Header";
-import Footer from "../../Footer/Footer";
-import Sidebar from "../../../components/Sidebar/Sidebar";
 import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
 import styles from "./Knowledge.module.css";
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
@@ -29,20 +25,38 @@ const IdeaValidation = () => {
   };
 
   return (
-    <> {width>=600?<><SidebarFinal /><NavbarFinal /></>:<><PhnSidebar />
-    <KnowledgeNavbar /></>}
+    <>
+      {" "}
+      {width >= 600 ? (
+        <>
+          <SidebarFinal />
+          <NavbarFinal />
+        </>
+      ) : (
+        <>
+          <PhnSidebar />
+          <KnowledgeNavbar />
+        </>
+      )}
       <div className={styles.knowledge}>
         {/* <KnowledgeNavbar /> */}
         <div className={styles.body}>
-        {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
+          {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
-          <Hero imgUrl="ideavalidation.webp" />
-          <CourseIntro
-            courseDetails={courseDetails}
-            url="/idea-validation-slides"
-          />
-          <CourseContent points={["What is Fundraising and why is it important?","What are the different means to raise funds?","What is the role of a pitchdeck in fundraising?"]} imgUrl="image 29.svg" />
-          {/* <CourseReview /> */}
+            <Hero imgUrl='ideavalidation.webp' />
+            <CourseIntro
+              courseDetails={courseDetails}
+              url='/idea-validation-slides'
+            />
+            <CourseContent
+              points={[
+                "What is Fundraising and why is it important?",
+                "What are the different means to raise funds?",
+                "What is the role of a pitchdeck in fundraising?",
+              ]}
+              imgUrl='image 29.svg'
+            />
+            {/* <CourseReview /> */}
           </div>
         </div>
       </div>

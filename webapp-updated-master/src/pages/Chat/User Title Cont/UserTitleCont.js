@@ -23,7 +23,7 @@ const UserTitleCont = ({ isNetworkMessage, setIsNetworkMessage }) => {
       <img
         className={styles.userImg}
         src={chatData.selectedUser.userImg}
-        alt="userImg"
+        alt='userImg'
       />
 
       <div className={styles.userNameNStatus}>
@@ -31,8 +31,9 @@ const UserTitleCont = ({ isNetworkMessage, setIsNetworkMessage }) => {
         {/* <p className={styles.userStatus}>Online</p> */}
       </div>
 
-      <BiDotsVerticalRounded className={styles.infoIcon} />
+      {/* <BiDotsVerticalRounded className={styles.infoIcon} /> */}
       <AiOutlineClose
+        className={styles.infoIcon}
         onClick={() => {
           if (isNetworkMessage) {
             dispatch(updateSelectedUserLatest(null));

@@ -10,6 +10,7 @@ import ReactTimeAgo from "react-time-ago";
 export default function NotificationCard({ item }) {
   const navigate = useNavigate();
   const [user, setUser] = useState();
+  console.log(item);
 
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
@@ -46,7 +47,7 @@ export default function NotificationCard({ item }) {
             navigate(`/userprofile/${item.user}`);
             window.scrollTo(0, 0);
           }}
-          alt="profile"
+          alt='profile'
         />
       </div>
 
@@ -106,9 +107,11 @@ export default function NotificationCard({ item }) {
             textAlign: "center",
             fontSize: "10px",
           }}
-          className="timep"
+          className='timep'
         >
-          <ReactTimeAgo date={item?.time?.seconds * 1000} locale="en-US" />
+          {item?.time?._seconds && (
+            <ReactTimeAgo date={item?.time?._seconds * 1000} locale='en-US' />
+          )}
         </p>
       </div>
     </div>

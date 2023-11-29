@@ -304,7 +304,7 @@ const FilterPart = ({
       </div> */}
       {/* --------------------Age Preference---------------- */}
       {/* IT IS LINE RANGE INPUT */}
-      <div className={styles.filter}>
+      {/* <div className={styles.filter}>
         <div className={styles.filterTitle}>Age Preference</div>
         <div className={styles.filterContent}>
           <input
@@ -319,7 +319,7 @@ const FilterPart = ({
           />
           <p>{age}</p>
         </div>
-      </div>
+      </div> */}
 
       {/* --------------Type Of Meeting?-------------- */}
       <div className={styles.filter}>

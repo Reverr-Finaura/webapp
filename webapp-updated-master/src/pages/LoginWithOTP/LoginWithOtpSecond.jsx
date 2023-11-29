@@ -1,25 +1,22 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
-import { create, modify, selectNewUser } from "../../features/newUserSlice";
 import { auth, db } from "../../firebase";
 import styles from "./LoginWithOtpSecond.module.css";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import Footer from "../Footer/Footer";
-import { ToastContainer, toast } from "react-toastify";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import otpPhoto from "../../images/otp-picture.webp";
-import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdated";
 import { doc, getDoc } from "firebase/firestore";
 import { login, setUserData } from "../../features/userSlice";
-import { setUserDoc } from "../../features/userDocSlice";
 import axios from "axios";
+import { toast } from "react-toastify";
+// import Header from "../../components/Header/Header";
+// import Footer from "../Footer/Footer";
+// import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdated";
+// import { create, modify, selectNewUser } from "../../features/newUserSlice";
+// import { setUserDoc } from "../../features/userDocSlice";
 
 function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   const dispatch = useDispatch();
@@ -39,10 +36,8 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   const fourthDigitRef = useRef(null);
   const fifthDigitRef = useRef(null);
   const sixthDigitRef = useRef(null);
-  const newUser = useSelector(selectNewUser);
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
-  const [otpMatched, setOtpMatched] = useState(false);
   const [newOTP, setNewOTP] = useState("");
 
   useEffect(() => {
@@ -84,39 +79,84 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
     sixthDigit,
   ]);
 
+  // const checkOtp = (e) => {
+  //   e.preventDefault();
+
+  //   if (
+  //     ((newOTP === "" && propOtp === enteredOtp) ||
+  //       (newOTP !== "" && propOtp === enteredOtp)) &&
+  //     // (newOTP !== "" && newOTP === enteredOtp)) &&
+  //     (seconds > 0 || minutes > 0)
+  //   ) {
+  //     console.log("enteredOTP");
+  //     // setOtpMatched(true);
+  //     signInWithEmailAndPassword(
+  //       auth,
+  //       tempUserData.email,
+  //       tempUserData.password
+  //     )
+  //       .then(async (userCredential) => {
+  //         const docRef = doc(db, "Users", auth.currentUser.email);
+  //         await getDoc(docRef).then((doc) => {
+  //           console.log(doc);
+  //           dispatch(setUserData(doc.data()));
+  //           dispatch(
+  //             login({
+  //               email: auth.currentUser.email,
+  //               uid: auth.currentUser.uid,
+  //               displayName: auth.currentUser.displayName,
+  //               profilePic: auth.currentUser.photoURL,
+  //             })
+  //           );
+  //         });
+  //       })
+  //       .then(() => {
+  //         toast.success("Sucessfully logged in");
+  //         navigate("/community");
+  //       })
+  //       .catch((error) => {
+  //         const errorMessage = error.message;
+  //         toast.error("Unable to login ");
+  //       });
+  //   } else if (seconds <= 0 && minutes <= 0) {
+  //     toast.error("OTP expired");
+  //   } else {
+  //     toast.error("Please check the entered OTP");
+  //   }
+  // };
+
   const checkOtp = (e) => {
     e.preventDefault();
-
+    console.log(enteredOtp);
     if (
       ((newOTP === "" && propOtp === enteredOtp) ||
         (newOTP !== "" && newOTP === enteredOtp)) &&
       (seconds > 0 || minutes > 0)
     ) {
-      // setOtpMatched(true);
-      signInWithEmailAndPassword(auth, tempUserData.email, tempUserData.password)
-      .then(async (userCredential) => {
-        // console.log(auth.currentUser.email, email);
-        const docRef = doc(db, "Users", auth.currentUser.email);
-        const docSnap = await getDoc(docRef).then((doc) => {
-          dispatch(setUserData(doc.data()));
-          dispatch(
-            login({
-              email: auth.currentUser.email,
-              uid: auth.currentUser.uid,
-              displayName: auth.currentUser.displayName,
-              profilePic: auth.currentUser.photoURL,
-            })
-          );
+      signInWithEmailAndPassword(
+        auth,
+        tempUserData?.email,
+        tempUserData?.password
+      )
+        .then(async (userCredential) => {
+          const docRef = doc(db, "Users", auth.currentUser.email);
+          await getDoc(docRef).then((doc) => {
+            dispatch(setUserData(doc.data()));
+            dispatch(
+              login({
+                email: auth.currentUser.email,
+                uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                profilePic: auth.currentUser.photoURL,
+              })
+            );
+          });
+          toast.success("Successfully logged in");
+          navigate("/community");
+        })
+        .catch((error) => {
+          toast.error("Unable to login");
         });
-      })
-      .then(() => {
-        toast.success("Sucessfully logged in");
-        navigate("/community");
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        alert(errorMessage);
-      });
     } else if (seconds <= 0 && minutes <= 0) {
       toast.error("OTP expired");
     } else {
@@ -173,7 +213,6 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
         toast.success("New OTP has been sent to your e-mail");
       })
       .catch((error) => {
-        // console.log(error);
         toast.error(error.message);
       });
     setMinutes(3);
@@ -215,7 +254,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   };
 
   const handleKeyDown = (e, currentRef, previousRef) => {
-    if (e.key === 'Backspace' && currentRef.current.value === '') {
+    if (e.key === "Backspace" && currentRef.current.value === "") {
       previousRef.current.focus();
     }
   };
@@ -226,11 +265,11 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
         <NavBarFinalDarkMode isLoggedIn={false} />
         <div className={styles.otp}>
           <div className={styles.hiddenOnDesktop}>
-            <div className="rightPart">
+            <div className='rightPart'>
               <div className={styles.getStarted}>
                 <h1>Enter Verification Code</h1>
               </div>
-              <img className={styles.otpRightImg} src={otpPhoto} alt="img" />
+              <img className={styles.otpRightImg} src={otpPhoto} alt='img' />
             </div>
           </div>
 
@@ -247,7 +286,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
               <div className={styles.otpInputs}>
                 <input
                   maxLength={1}
-                  type="text"
+                  type='text'
                   value={firstDigit}
                   onChange={(e) => {
                     setFirstDigit(e.target.value);
@@ -259,7 +298,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
                 />
                 <input
                   maxLength={1}
-                  type="text"
+                  type='text'
                   value={secondDigit}
                   onChange={(e) => {
                     setSecondDigit(e.target.value);
@@ -267,12 +306,14 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
                       thirdDigitRef.current.focus();
                     }
                   }}
-                  onKeyDown={(e) => handleKeyDown(e, secondDigitRef, firstDigitRef)}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, secondDigitRef, firstDigitRef)
+                  }
                   ref={secondDigitRef}
                 />
                 <input
                   maxLength={1}
-                  type="text"
+                  type='text'
                   value={thirdDigit}
                   onChange={(e) => {
                     setThirdDigit(e.target.value);
@@ -280,12 +321,14 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
                       fourthDigitRef.current.focus();
                     }
                   }}
-                  onKeyDown={(e) => handleKeyDown(e, thirdDigitRef, secondDigitRef)}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, thirdDigitRef, secondDigitRef)
+                  }
                   ref={thirdDigitRef}
                 />
                 <input
                   maxLength={1}
-                  type="text"
+                  type='text'
                   value={fourthDigit}
                   onChange={(e) => {
                     setFourthDigit(e.target.value);
@@ -293,12 +336,14 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
                       fifthDigitRef.current.focus();
                     }
                   }}
-                  onKeyDown={(e) => handleKeyDown(e, fourthDigitRef, thirdDigitRef)}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, fourthDigitRef, thirdDigitRef)
+                  }
                   ref={fourthDigitRef}
                 />
                 <input
                   maxLength={1}
-                  type="text"
+                  type='text'
                   value={fifthDigit}
                   onChange={(e) => {
                     setFifthDigit(e.target.value);
@@ -306,15 +351,19 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
                       sixthDigitRef.current.focus();
                     }
                   }}
-                  onKeyDown={(e) => handleKeyDown(e, fifthDigitRef, fourthDigitRef)}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, fifthDigitRef, fourthDigitRef)
+                  }
                   ref={fifthDigitRef}
                 />
                 <input
                   maxLength={1}
-                  type="text"
+                  type='text'
                   value={sixthDigit}
                   onChange={(e) => setSixthDigit(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, sixthDigitRef, fifthDigitRef)}
+                  onKeyDown={(e) =>
+                    handleKeyDown(e, sixthDigitRef, fifthDigitRef)
+                  }
                   ref={sixthDigitRef}
                 />
               </div>
@@ -328,7 +377,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
               )}
 
               <div className={styles.buttonWrap}>
-                <Button className={styles.verifyBtn} type="submit">
+                <Button className={styles.verifyBtn} type='submit'>
                   Verify
                 </Button>
                 <h3
@@ -347,8 +396,8 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
           </div>
 
           <div className={styles.hiddenOnMobile}>
-            <div className="rightPart">
-              <img className={styles.otpRightImg} src={otpPhoto} />
+            <div className='rightPart'>
+              <img className={styles.otpRightImg} src={otpPhoto} alt='' />
             </div>
           </div>
         </div>

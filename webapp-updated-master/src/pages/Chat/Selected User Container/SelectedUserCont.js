@@ -13,7 +13,6 @@ const SelectedUserCont = ({
   const chatData = useSelector((state) =>
     isNetworkMessage ? state.chatLatest : state.vibeChat
   );
-  console.log(chatData.chatdisplay);
   const [width, setWidth] = useState(window.innerWidth);
 
   const updateWidth = () => {

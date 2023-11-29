@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slide from "../../../components/After knowledge/Slide Format/Slide";
 
-import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
-import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-import NavBarFinal from "../../../components/Navbar/NavBarFinal";
 import styles from "./Knowledge.module.css";
 import { useNavigate } from "react-router-dom";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";

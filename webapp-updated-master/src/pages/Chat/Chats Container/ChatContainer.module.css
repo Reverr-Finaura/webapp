@@ -1,6 +1,6 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
-.outerCont{
+
+.outerCont {
     width: 100%;
     height: 80%;
     display: flex;
@@ -9,22 +9,23 @@
     margin-top: .5rem;
     font-family: 'Source Sans Pro', sans-serif;
 }
-.userBorder
-{
+
+.userBorder {
     width: 100%;
     height: 1px;
 }
+
 .outerCont::-webkit-scrollbar {
     display: none;
 }
 
-.chatCont{
+.chatCont {
     display: flex;
     align-items: center;
     width: 93%;
     padding: .5rem 1rem;
     cursor: pointer;
-    background-color:#0c1631;
+    background-color: #0c1631;
     border-bottom: 1px solid white;
     margin-top: 10px;
     margin: 0px 30px;
@@ -33,95 +34,101 @@
 
 
 }
+
 /* .chatCont:hover{
     background: #EEEEEE;
 } */
 
-.chatImg{
+.chatImg {
     height: 50px;
     width: 50px;
     border-radius: 50%;
 }
 
-.userCont{
+.userCont {
     display: flex;
     flex-direction: column;
     width: 60%;
     margin-left: 1rem;
 }
-.chatButton
-{
-background-color: white;
-color: #0a2458;
-font-weight: bold;
-border: none;
-padding:7px 10px;
-border-radius: 20px 0px 0px 20px ;
-width:130px;
+
+.chatButton {
+    background-color: white;
+    color: #0a2458;
+    font-weight: bold;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 20px 0px 0px 20px;
+    width: 130px;
 }
-.chatButton.clicked 
-{
+
+.chatButton.clicked {
     background-color: #0a2458;
     color: white;
 }
-.matchButton.chatButton.clicked{
-    background-color:white ;
+
+.matchButton.chatButton.clicked {
+    background-color: white;
     color: #0a2458;
 }
-.matchButton
-{
+
+.matchButton {
     background-color: #0a2458;
     color: white;
     font-weight: bold;
     border: 0.5px solid white;
-    padding:7px 10px;
-    border-radius: 0px 20px 20px 0px ;
-    width:130px;
+    padding: 7px 10px;
+    border-radius: 0px 20px 20px 0px;
+    width: 130px;
 }
-.messageGroup
-{
+
+.messageGroup {
     /* position: relative;bottom: 290px; */
 }
-.buttonsGroup
-{
+
+.buttonsGroup {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 22px 2px 14px 2px;
 
 }
-.userName{
+
+.userName {
     font-style: normal;
     font-weight: 600;
-    font-size: 1.3rem;
-    line-height: 15px;    
+    font-size: 16px;
+    line-height: 15px;
     color: white;
     text-transform: capitalize;
 }
-.userLastTextCont{
+
+.userLastTextCont {
+
     display: flex;
     align-items: center;
     color: white;
-    
+
 }
-.userLastText{
+
+.userLastText {
     font-style: normal;
-font-weight: 500;
-font-size: .9rem;
-margin-top: .25rem;
+    font-weight: 500;
+    font-size: .9rem;
+    margin-top: .25rem;
 
-color: white;
+    color: #A7A7A7
 }
 
-.chatTime{
+.chatTime {
     font-style: normal;
-font-weight: 600;
-font-size: 1.1rem;
-line-height: 15px;
-color: white;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 15px;
+    color: white;
 }
 
-.noChatsMesssage{
+.noChatsMesssage {
     display: flex;
     justify-content: center;
     padding: 1rem;

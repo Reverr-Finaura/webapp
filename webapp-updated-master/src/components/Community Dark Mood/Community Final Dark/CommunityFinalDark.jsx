@@ -138,29 +138,34 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   //   fetchUserInformation();
   // }, [postsData]);
-  useEffect(() => {
-    const fetchUserInformation = async () => {
-      try {
-        const updatedPostsData = await Promise.all(
-          postsData.map(async (item) => {
-            console.log(item.postedby);
-            const userData = await getUserFromDatabase(
-              item.postedby._path.segments[1]
-            );
-            console.log(userData);
-            return { ...item, postedby: userData };
-          })
-        );
-        // console.log(updatedPostsData);
-        const parsedObject = JSON.parse(JSON.stringify(updatedPostsData));
-        setPostsDataWithUserDoc(parsedObject);
-      } catch (error) {
-        console.error("Error while fetching user information:", error);
-      }
-    };
 
-    fetchUserInformation();
-  }, [postsData]);
+  // useEffect(() => {
+  //   const fetchUserInformation = async () => {
+  //     try {
+  //       const updatedPostsData = await Promise.all(
+  //         postsData.map(async (item) => {
+  //           console.log(item.postedby);
+  //           let userData;
+  //           if (item.postedby._path.segments[1]) {
+  //             userData = await getUserFromDatabase(item.postedby);
+  //             console.log(userData);
+  //             delete userData.password;
+  //           } else if (item.postedby) {
+  //             userData = await getUserDocByRef(item.postedby);
+  //             delete userData.password;
+  //           }
+  //           return { ...item, postedby: userData };
+  //         })
+  //       );
+  //       const parsedObject = JSON.parse(JSON.stringify(updatedPostsData));
+  //       setPostsDataWithUserDoc(parsedObject);
+  //     } catch (error) {
+  //       console.error("Error while fetching user information:", error);
+  //     }
+  //   };
+
+  //   fetchUserInformation();
+  // }, [postsData]);
 
   console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
   console.log("this is the postsData----", postsData);
@@ -873,8 +878,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
               <p className={style.spaceModalHeading}>Select your space (s).</p>
 
               <div className={style.spaceMenu}>
-                {currentUserDoc.userSpace.length >= 1 ? (
-                  currentUserDoc.userSpace.map((space, index) => {
+                {currentUserDoc?.userSpace.length >= 1 ? (
+                  currentUserDoc?.userSpace.map((space, index) => {
                     return (
                       <div
                         key={index}
@@ -1196,7 +1201,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   }
                   alt='userImage'
                 />
-                <div className='textAreaUploadContainer'>
+                <div className={style.textAreaUploadContainer}>
                   <div
                     className={
                       textAreaIsClick
@@ -1515,12 +1520,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             handleEditPostButtonClick={
                               handleEditPostButtonClick
                             }
-                            setPostsAuthorIsClick={setPostsAuthorIsClick}
-                            setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
-                            postsDataWithUserDoc={postsDataWithUserDoc}
+                            // setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            // setPostsAuthorInfo={setPostsAuthorInfo}
+                            // postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                           <FeaturedSuggestions
                             isLoggedIn={isLoggedIn}
@@ -1539,12 +1544,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             handleEditPostButtonClick={
                               handleEditPostButtonClick
                             }
-                            setPostsAuthorIsClick={setPostsAuthorIsClick}
-                            setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
-                            postsDataWithUserDoc={postsDataWithUserDoc}
+                            // setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            // setPostsAuthorInfo={setPostsAuthorInfo}
+                            // postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                           <DiscoverPerfectTools
                             isLoggedIn={isLoggedIn}
@@ -1563,12 +1568,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             handleEditPostButtonClick={
                               handleEditPostButtonClick
                             }
-                            setPostsAuthorIsClick={setPostsAuthorIsClick}
-                            setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
-                            postsDataWithUserDoc={postsDataWithUserDoc}
+                            // setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            // setPostsAuthorInfo={setPostsAuthorInfo}
+                            // postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                           <FeaturedMentors
                             isLoggedIn={isLoggedIn}
@@ -1587,12 +1592,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             handleEditPostButtonClick={
                               handleEditPostButtonClick
                             }
-                            setPostsAuthorIsClick={setPostsAuthorIsClick}
-                            setPostsAuthorInfo={setPostsAuthorInfo}
                             isLoggedIn={isLoggedIn}
                             openModal={openModal}
                             postId={item.id}
-                            postsDataWithUserDoc={postsDataWithUserDoc}
+                            // setPostsAuthorIsClick={setPostsAuthorIsClick}
+                            // setPostsAuthorInfo={setPostsAuthorInfo}
+                            // postsDataWithUserDoc={postsDataWithUserDoc}
                           />
                         </React.Fragment>
                       );
@@ -1631,12 +1636,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         item={item}
                         key={index}
                         handleEditPostButtonClick={handleEditPostButtonClick}
-                        setPostsAuthorIsClick={setPostsAuthorIsClick}
-                        setPostsAuthorInfo={setPostsAuthorInfo}
                         isLoggedIn={isLoggedIn}
                         openModal={openModal}
                         postId={item.id}
-                        postsDataWithUserDoc={postsDataWithUserDoc}
+                        // setPostsAuthorIsClick={setPostsAuthorIsClick}
+                        // setPostsAuthorInfo={setPostsAuthorInfo}
+                        // postsDataWithUserDoc={postsDataWithUserDoc}
                       />
                     );
                   })}

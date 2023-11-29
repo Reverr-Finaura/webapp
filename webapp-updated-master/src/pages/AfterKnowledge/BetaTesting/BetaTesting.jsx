@@ -2,22 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import CourseContent from "../../../components/After knowledge/Course content/CourseContent";
 import CourseIntro from "../../../components/After knowledge/Course Intro/CourseIntro";
-import CourseReview from "../../../components/After knowledge/Course review/CourseReview";
 import Hero from "../../../components/After knowledge/Hero-section/Hero";
-import Header from "../../../components/Header/Header";
-import Footer from "../../Footer/Footer";
 import styles from "./Knowledge.module.css";
-import Sidebar from "../../../components/Sidebar/Sidebar";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
-import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
-import NavBarFinal from "../../../components/Navbar/NavBarFinal";
-import {useNavigate} from 'react-router-dom'
-import image from "../../../images/arrowMark.svg"
+import { useNavigate } from "react-router-dom";
+import image from "../../../images/arrowMark.svg";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
 const BetaTesting = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
 
   const updateWidth = () => {
@@ -35,11 +27,16 @@ const BetaTesting = () => {
   return (
     <>
       <NavBarFinalDarkMode />
-  <div className={styles.buttonWrapper}>
-    <img className={styles.arrowClass} src={image} alt="img" />
-    <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
-  </div> 
- 
+      <div className={styles.buttonWrapper}>
+        <img className={styles.arrowClass} src={image} alt='img' />
+        <button
+          className={styles.backButton}
+          onClick={() => navigate("/knowledge")}
+        >
+          {" "}
+          Back
+        </button>
+      </div>
 
       <div className={styles.knowledge}>
         {/* <KnowledgeNavbar /> */}
@@ -47,11 +44,11 @@ const BetaTesting = () => {
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="betatesting.webp"
+              imgUrl='betatesting.webp'
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
-              url="/betatestingslides"
+              url='/betatestingslides'
               courseDetails={courseDetails}
             />
             <CourseContent
@@ -60,7 +57,7 @@ const BetaTesting = () => {
                 "Why beta test?",
                 "A/B testing?",
               ]}
-              imgUrl="betaimg2.webp"
+              imgUrl='betaimg2.webp'
             />
             {/* <CourseReview /> */}
           </div>

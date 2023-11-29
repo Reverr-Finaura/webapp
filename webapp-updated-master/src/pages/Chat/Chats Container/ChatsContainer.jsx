@@ -196,9 +196,8 @@ const ChatsContainer = ({ sorter, isNetworkMessage, setIsNetworkMessage }) => {
           })
           .map((data, idx) => {
             return (
-              <div className={styles.messageGroup}>
+              <div className={styles.messageGroup} key={idx}>
                 <div
-                  key={idx}
                   onClick={() => {
                     if (isNetworkMessage) {
                       dispatch(updateSelectedUserLatest(data));
@@ -217,7 +216,7 @@ const ChatsContainer = ({ sorter, isNetworkMessage, setIsNetworkMessage }) => {
                   <img
                     className={styles.chatImg}
                     src={data.userImg}
-                    alt="chatImg"
+                    alt='chatImg'
                   />
                   <div className={styles.userCont}>
                     <h3 className={styles.userName}>{data.name}</h3>

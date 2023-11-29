@@ -111,6 +111,7 @@
 
 .UploadPostOuterBoxContainerNotExpanded {
   border: none;
+  position: relative;
   width: 96%;
 }
 
@@ -228,7 +229,7 @@
   display: flex;
   gap: 2.5rem;
   justify-content: space-between;
-  width: 100% !important;
+  width: 96% !important;
   /* margin-right: 88px; */
 }
 
@@ -473,7 +474,7 @@
 
   display: flex;
   position: absolute;
-  right: 0px !important;
+  right: -10px !important;
   top: 15px;
   cursor: pointer;
   height: 40px;

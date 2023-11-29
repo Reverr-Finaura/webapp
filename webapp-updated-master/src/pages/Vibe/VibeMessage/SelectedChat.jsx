@@ -63,7 +63,7 @@ const SelectedChat = ({ setChatSelected, setMobileChatNoHeader }) => {
         </div>
         <div>
           {/* <img style={{width:"30px",height:"30px",transform:"rotate(90deg)"}} src={dots} alt="" /> */}
-          <VibeMessageDropdown />
+          {/* <VibeMessageDropdown /> */}
         </div>
       </div>
       <hr style={{ width: "100%", color: "#A7A7A7" }} />

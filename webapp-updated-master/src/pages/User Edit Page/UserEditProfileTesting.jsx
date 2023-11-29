@@ -138,7 +138,8 @@ const UserEditProfileTesting = () => {
   };
 
   const handlePasswordChange = async (e) => {
-    if (currentPassword === userDoc?.Password) {
+    e.preventDefault();
+    if (currentPassword === userDoc.password) {
       if (newPassword === confirmPassword) {
         setFormData((prev) => {
           return {
@@ -146,14 +147,15 @@ const UserEditProfileTesting = () => {
             password: newPassword,
           };
         });
-        //  await updateDoc(doc(db, "Users", user?.user?.email), {
-        //     Password: newPassword
-        //   });
+        await updateDoc(doc(db, "Users", user?.user?.email), {
+          password: newPassword,
+        });
+        toast.success("Password successfully updated");
       } else {
-        alert("New Password and Confirm Password do not match");
+        toast.error("New Password and Confirm Password do not match");
       }
     } else {
-      alert("Current Password is incorrect");
+      toast.error("Current Password is incorrect");
     }
   };
 
@@ -370,7 +372,7 @@ const UserEditProfileTesting = () => {
               navigate("/userProfile");
             }}
           />
-          <p>Edit Profile Ashutoh</p>
+          <p>Edit Profile</p>
         </div>
         <div className={styles.profileImage}>
           {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}

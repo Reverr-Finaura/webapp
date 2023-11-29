@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 import CourseContent from "../../../components/After knowledge/Course content/CourseContent";
 import CourseIntro from "../../../components/After knowledge/Course Intro/CourseIntro";
-import CourseReview from "../../../components/After knowledge/Course review/CourseReview";
 import Hero from "../../../components/After knowledge/Hero-section/Hero";
-import Header from "../../../components/Header/Header";
-import Footer from "../../Footer/Footer";
 import styles from "./Knowledge.module.css";
-import Sidebar from "../../../components/Sidebar/Sidebar";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
-import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
-import NavBarFinal from "../../../components/Navbar/NavBarFinal";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
-import {useNavigate} from 'react-router-dom'
-import image from "../../../images/arrowMark.svg"
+import { useNavigate } from "react-router-dom";
+import image from "../../../images/arrowMark.svg";
 
 const ProductDevelopment = () => {
   const [width, setWidth] = useState(window.innerWidth);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -35,20 +27,26 @@ const ProductDevelopment = () => {
     <>
       <NavBarFinalDarkMode />
       <div className={styles.buttonWrapper}>
-    <img className={styles.arrowClass} src={image} alt="img" />
-    <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button>
-  </div> 
+        <img className={styles.arrowClass} src={image} alt='img' />
+        <button
+          className={styles.backButton}
+          onClick={() => navigate("/knowledge")}
+        >
+          {" "}
+          Back
+        </button>
+      </div>
       <div className={styles.knowledge}>
         {/* <KnowledgeNavbar /> */}
         <div className={styles.body}>
           {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
           <div className={styles.content}>
             <Hero
-              imgUrl="pd1.webp"
+              imgUrl='pd1.webp'
               // heading="Idea validation and elevator pitch"
             />
             <CourseIntro
-              url="/productdevelopmentslides"
+              url='/productdevelopmentslides'
               courseDetails={courseDetails}
             />
             <CourseContent
@@ -57,7 +55,7 @@ const ProductDevelopment = () => {
                 "What is product life cycle?",
                 "How to commercialize the product?",
               ]}
-              imgUrl="pd2.webp"
+              imgUrl='pd2.webp'
             />
             {/* <CourseReview /> */}
           </div>

@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slide from "../../../components/After knowledge/Slide Format/Slide";
-
-import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
-import NavBarFinal from "../../../components/Navbar/NavBarFinal";
-import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
 import styles from "./Knowledge.module.css";
 import { useNavigate } from "react-router-dom";
-import image from "../../../images/arrowMark.svg"
 
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 
@@ -214,9 +208,9 @@ const IV_Slides = () => {
     <>
       <NavBarFinalDarkMode />
       {/* <div className={styles.buttonWrapper}> */}
-    {/* <img className={styles.arrowClass} src={image} alt="img" /> */}
-    {/* <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button> */}
-  {/* </div>  */}
+      {/* <img className={styles.arrowClass} src={image} alt="img" /> */}
+      {/* <button className={styles.backButton} onClick={()=>navigate('/knowledge')} > Back</button> */}
+      {/* </div>  */}
       <div className={styles.knowledge}>
         <div className={styles.body}>
           {research_plan.map((slide, index) => (
@@ -242,13 +236,12 @@ const IV_Slides = () => {
               />
             </div>
           ))}
-          
         </div>
-       
       </div>
       <div className={styles.page_line}>
-        <div style={{width:`${((currIndex + 1)/totalLen)*100 }%`}}>
-          <span style={{color:"black"}}>{currIndex + 1}</span>/<span style={{color:"black"}}>{totalLen}</span>
+        <div style={{ width: `${((currIndex + 1) / totalLen) * 100}%` }}>
+          <span style={{ color: "black" }}>{currIndex + 1}</span>/
+          <span style={{ color: "black" }}>{totalLen}</span>
         </div>
       </div>
     </>

@@ -56,7 +56,7 @@ const data = [
   },
 ];
 
-const VibeMessageMain = ({mobile}) => {
+const VibeMessageMain = ({ mobile }) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
   const chatData = useSelector((state) => state.vibeChat);
@@ -87,7 +87,7 @@ const VibeMessageMain = ({mobile}) => {
 
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
-        console.log("111", data)
+        console.log("111", data);
         setName(data.name);
         data.image !== undefined && data.image !== ""
           ? setProfileImg(data.image)
@@ -146,31 +146,37 @@ const VibeMessageMain = ({mobile}) => {
 
   return (
     <div className={style.RigtSidebarContainer}>
-      {
-        !mobilechatnoheader && 
-      
-      <div className={style.UserdetailsHeader}>
-        <div>
-          <img
-            className={style.UserdetailsHeaderImg}
-            src={profileImg}
-            alt="img"
-          />
-          <p style={{cursor:"default",}}>{name}</p>
+      {!mobilechatnoheader && (
+        <div className={style.UserdetailsHeader}>
+          <div>
+            <img
+              className={style.UserdetailsHeaderImg}
+              src={profileImg}
+              alt='img'
+            />
+            <p style={{ cursor: "default" }}>{name}</p>
+          </div>
+          <p
+            className={style.UserdetailsHeaderPtag}
+            onClick={() => navigate("/userprofile")}
+          >
+            View Profile &gt;
+          </p>
         </div>
-        <p
-          className={style.UserdetailsHeaderPtag}
-          onClick={() => navigate("/userprofile")}
-        >
-          View Profile &gt;
-        </p>
-      </div>
-}
+      )}
 
       {Chatselected ? (
-        <SelectedChat setMobileChatNoHeader={setMobileChatNoHeader} setChatSelected={setChatSelected} />
+        <SelectedChat
+          setMobileChatNoHeader={setMobileChatNoHeader}
+          setChatSelected={setChatSelected}
+        />
       ) : (
-        <VibeYourChat setMobileChatNoHeader={setMobileChatNoHeader} mobile={mobile} data={data} setChatSelected={setChatSelected} />
+        <VibeYourChat
+          setMobileChatNoHeader={setMobileChatNoHeader}
+          mobile={mobile}
+          data={data}
+          setChatSelected={setChatSelected}
+        />
       )}
     </div>
   );

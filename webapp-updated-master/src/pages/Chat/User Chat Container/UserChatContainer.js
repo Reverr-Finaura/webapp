@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./UserChatContainer.module.css";
 
-const UserChatContainer = ({ isNetworkMessage, setIsNetworkMessage }) => {
+const UserChatContainer = ({ isNetworkMessage }) => {
   const chatData = useSelector((state) =>
     isNetworkMessage ? state.chatLatest : state.vibeChat
   );
@@ -17,9 +17,9 @@ const UserChatContainer = ({ isNetworkMessage, setIsNetworkMessage }) => {
 
   return (
     <section ref={ref} className={styles.outerCont}>
-      {chatData.selectedUserData.map((chat, idx) => {
-        return (
-          <>
+      {chatData.selectedUserData.map(
+        (chat, idx) =>
+          chat.msg && (
             <div
               key={idx}
               style={{
@@ -38,12 +38,12 @@ const UserChatContainer = ({ isNetworkMessage, setIsNetworkMessage }) => {
                     ? currentcUser.image
                     : chatData.selectedUser.userImg
                 }
-                alt="userImg"
+                alt='userImg'
               />
               <div className={styles.messNTimeCont}>
                 {chat.type ? (
                   chat.type === "image/png" ? (
-                    <img className={styles.chatImg} src={chat.msg} alt="ima" />
+                    <img className={styles.chatImg} src={chat.msg} alt='ima' />
                   ) : (
                     <p
                       style={{
@@ -71,7 +71,7 @@ const UserChatContainer = ({ isNetworkMessage, setIsNetworkMessage }) => {
                   </p>
                 )}
                 {chat.imgMsg && (
-                  <img className={styles.chatImg} src={chat.imgMsg} alt="ima" />
+                  <img className={styles.chatImg} src={chat.imgMsg} alt='ima' />
                 )}
                 <div
                   style={{
@@ -96,9 +96,8 @@ const UserChatContainer = ({ isNetworkMessage, setIsNetworkMessage }) => {
                 </div>
               </div>
             </div>
-          </>
-        );
-      })}
+          )
+      )}
     </section>
   );
 };

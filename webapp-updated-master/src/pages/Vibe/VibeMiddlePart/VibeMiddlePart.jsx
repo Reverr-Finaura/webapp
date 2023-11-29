@@ -187,6 +187,11 @@ const VibeMiddlePart = () => {
         filterData.userSpace.includes(user.space)
       );
     }
+    if (filterData.cities) {
+      filteredList = filteredList.filter(
+        (user) => user?.state?.toLowerCase() === filterData.cities.toLowerCase()
+      );
+    }
     setUserData(filteredList);
     setNoMoreVibeData(filteredList.length === 0);
     console.log("Lorem ipsum dolor sit amet, consectetur");
@@ -211,8 +216,15 @@ const VibeMiddlePart = () => {
   ]);
 
   const onRefreshClick = () => {
+    setfilterData({
+      roles: "",
+      spaces: [],
+      cities: "",
+      age: "",
+      mode: "",
+    });
     getUserData();
-    filterSection();
+    clearFilterData();
   };
 
   const handleKeepSwiping = () => {

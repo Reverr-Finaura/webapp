@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../../../components/Header/Header";
-
 import CourseIntro from "./../../../components/After knowledge/Course Intro/CourseIntro";
 import CourseContent from "./../../../components/After knowledge/Course content/CourseContent";
 import CourseReview from "./../../../components/After knowledge/Course review/CourseReview";
@@ -16,13 +15,13 @@ const FInanceForStartup = () => {
 
   return (
     <>
-      <Header theme="black" />
+      <Header theme='black' />
       <Hero
-        imgUrl="ffs.png"
+        imgUrl='ffs.png'
         // heading="Idea validation and elevator pitch"
       />
       <CourseIntro courseDetails={courseDetails} />
-      <CourseContent imgUrl="equity2.svg" />
+      <CourseContent imgUrl='equity2.svg' />
       <CourseReview />
       <Footer />
     </>

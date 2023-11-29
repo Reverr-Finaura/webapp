@@ -7,7 +7,6 @@ import {
   getFirestore,
   onSnapshot,
   serverTimestamp,
-  deleteDoc,
 } from "firebase/firestore";
 import {
   doc,
@@ -25,9 +24,8 @@ import {
   getStorage,
   ref,
   uploadBytesResumable,
-  deleteObject,
 } from "firebase/storage";
-import { current } from "@reduxjs/toolkit";
+// import { current } from "@reduxjs/toolkit";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBe_7JYNBINJITC1HGbaLxgg3f7yZ0aud4",

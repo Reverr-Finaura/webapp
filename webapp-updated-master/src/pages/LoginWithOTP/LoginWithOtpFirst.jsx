@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import { updatePassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { auth, db } from "../../firebase";
+import { toast } from "react-toastify";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { db } from "../../firebase";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
-import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import styles from "./LoginWithOtpFirst.module.css";
-import EnterOtpUpdated from "../EnterOtpUpdated/EnterOtpUpdated";
-import EnterOtpToChangePassword from "../EnterOtpToChangePassword/EnterOtpToChangePassword";
 import LoginWithOtpSecond from "./LoginWithOtpSecond";
+// import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker";
+// import EnterOtpUpdated from "../EnterOtpUpdated/EnterOtpUpdated";
+// import EnterOtpToChangePassword from "../EnterOtpToChangePassword/EnterOtpToChangePassword";
+// import { updatePassword, signInWithEmailAndPassword } from "firebase/auth";
 
 function LoginWithOtpFirst() {
   const selectedCountry = useSelector((state) => state.countryCode);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPass] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const theme = useSelector((state) => state.themeColor);
   const [tempOtp, setTempOtp] = useState(null);
-  const [newOtp, setNewOtp] = useState("");
   const [tempUserData, setTempUserData] = useState({});
   const [loading, setLoading] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [showCodePicker, setShowCodePicker] = useState(false);
   const [metaData, setMetaData] = useState([]);
-  console.log("tempotp", tempOtp);
+  // console.log("tempotp", tempOtp);
+  // const [password, setPass] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  // const [newOtp, setNewOtp] = useState("");
+  // const theme = useSelector((state) => state.themeColor);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,18 +50,36 @@ function LoginWithOtpFirst() {
     return () => {
       clearInterval(interval);
     };
-  }, [seconds]);
+  }, [minutes, seconds]);
 
   //CHECK FOR META DATA
   useEffect(() => {
-    async function fetchUserDocFromFirebase() {
-      const userDataRef = collection(db, "meta");
-      const q = query(userDataRef);
-      const querySnapshot = await getDocs(q);
+    // async function fetchUserDocFromFirebase() {
+    //   const userDataRef = collection(db, "meta");
+    //   const q = query(userDataRef);
+    //   const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        setMetaData(doc.data().emailPhone);
-      });
+    //   querySnapshot.forEach((doc) => {
+    //     setMetaData(doc.data().emailPhone);
+    //   });
+    // }
+    // fetchUserDocFromFirebase();
+    async function fetchUserDocFromFirebase() {
+      // const userDataRef = collection(db, "meta");
+      // const q = query(userDataRef);
+      // const querySnapshot = await getDocs(q);
+
+      // querySnapshot.forEach((doc) => {
+      //   setMetaData(doc.data().emailPhone);
+      // });
+      let nameDoc = "emailPhone";
+      const collectionRef = collection(db, "meta");
+      const docRef = doc(collectionRef, nameDoc);
+      const docSnapshot = await getDoc(docRef);
+
+      if (docSnapshot.exists()) {
+        setMetaData({ ...docSnapshot.data() });
+      }
     }
     fetchUserDocFromFirebase();
   }, []);
@@ -89,7 +107,6 @@ function LoginWithOtpFirst() {
           password: doc.data().password,
           email: doc.data().email,
         });
-        // console.log("id11: ", tempDocData)
       }
     });
     if (JSON.stringify(tempDocData) === "{}") {
@@ -149,10 +166,9 @@ function LoginWithOtpFirst() {
   };
 
   const sendOTPByPhone = async () => {
-    
-    let tempData = metaData.filter((item) => {
+    let tempData = metaData?.emailPhone.filter((item) => {
       return item.phone === email;
-    })[0];
+    });
     if (tempData === undefined) {
       toast.error("Phone number not registered yet");
       return;
@@ -212,7 +228,6 @@ function LoginWithOtpFirst() {
     setSeconds(0);
   };
 
-
   function onlyNumbers(str) {
     return /^[0-9]+$/.test(str);
   }
@@ -245,34 +260,47 @@ function LoginWithOtpFirst() {
           <NavBarFinalDarkMode isLoggedIn={false} />
           <div className={styles.mainContent}>
             <div className={styles.hiddenOnDesktop}>
-              <text style={{ fontSize: 20, color: "#ffffff"}}>
+              <text style={{ fontSize: 20, color: "#ffffff" }}>
                 Enter Your Email
               </text>
               <img
                 className={styles.mainImage}
                 src={require("../../images/forgotpassword.webp")}
-                alt="img"
+                alt='img'
               />
             </div>
 
             <div className={styles.leftComponent}>
-              <text
+              <p
                 className={styles.hiddenOnMobile}
                 style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
               >
                 Enter Email or Phone
-              </text>
-              <text style={{ fontSize: 12, color: "#ffffff", fontFamily: "Reem-Kufi" }}>
-                Enter the email address or phone number associated with your account
-              </text>
-              <text style={{ fontSize: 12, color: "#ffffff",fontFamily: "Reem-Kufi" }}>
+              </p>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: "#ffffff",
+                  fontFamily: "Reem-Kufi",
+                }}
+              >
+                Enter the email address or phone number associated with your
+                account
+              </p>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: "#ffffff",
+                  fontFamily: "Reem-Kufi",
+                }}
+              >
                 and we’ll send you an OTP to login.
-              </text>
+              </p>
               <div className={styles.textInput}>
-                <text style={{ fontSize: 10, color: "#ffffff" }}>Email or Phone</text>
+                <p style={{ fontSize: 10, color: "#ffffff" }}>Email or Phone</p>
                 <input
-                  type="email"
-                  placeholder="type..."
+                  type='email'
+                  placeholder='type...'
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   required
@@ -308,7 +336,7 @@ function LoginWithOtpFirst() {
               <img
                 className={styles.mainImage}
                 src={require("../../images/forgotpassword.webp")}
-                alt="img"
+                alt='img'
               />
             </div>
           </div>
