@@ -139,10 +139,12 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
         (newOTP !== "" && newOTP === enteredOtp)) &&
       (seconds > 0 || minutes > 0)
     ) {
+      console.log("email", tempUserData.email, "Auth", auth);
       const existingUser = await fetchSignInMethodsForEmail(
         auth,
         tempUserData.email
       );
+      console.log(existingUser);
 
       signInWithEmailAndPassword(
         auth,
@@ -180,7 +182,9 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
               toast.error("Incorrect password. Please try again.");
               return;
             case "auth/invalid-login-credentials":
-              toast.error("Invalid Login Credentials");
+              toast.error(
+                "We didn't find any account linked with email and password. If you created with google please countinue with google login"
+              );
               return;
             default:
               errorCode = errorCode.substring(5);

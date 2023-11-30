@@ -262,15 +262,32 @@ function CashfreeDropInCont({
       [e.target.id]: e.target.value,
     });
   };
+  const paymentModeHandler = (e) => {
+    e.preventDefault();
+    setPaymentModeOn(false);
+    navigate(window.location.pathname);
+  };
   return (
     <div className={styles.App}>
       <header className={styles.App_header}>
-        <p className={styles.App_link}>
-          REVERR PAYMENT GATEWAY
-          <p className={styles.warningMessage}>
-            Note: Do Not Refresh This Page!!
+        <div>
+          <p className={styles.App_link}>
+            REVERR PAYMENT GATEWAY
+            <p className={styles.warningMessage}>
+              Note: Do Not Refresh This Page!!
+            </p>
           </p>
-        </p>
+          <div
+            className={styles.cross}
+            // onClick={() => {
+            //   setPaymentModeOn(false);
+            //   // window.reload;
+            // }}
+            onClick={paymentModeHandler}
+          >
+            <img src='/images/basil_cross-solid.svg' alt='\' />
+          </div>
+        </div>
       </header>
       {/* <div className={`${styles.mt_1} ${styles.mb_1}`}>
         <span className={`${styles.order_token} ${styles.mr_8}`}>Order Token :</span>
@@ -370,7 +387,7 @@ function CashfreeDropInCont({
       {/* <button className={`${styles.btn_render} ${styles.mt_2}`} onClick={renderDropin}>
         Pay
       </button> */}
-      <div className={styles.dropin_parent} id="drop_in_container">
+      <div className={styles.dropin_parent} id='drop_in_container'>
         {/* Your component will come here */}
       </div>
     </div>

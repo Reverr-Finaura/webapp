@@ -191,22 +191,12 @@ body {
   width: 1px;
 }
 
-
-
-/* // carousel scss  */
-/* .react-multiple-carousel__arrow--left {
-  left: 15px !important;
+.react-toggle--checked .react-toggle-track {
+  background-color: #2a72de;
 }
 
-.react-multiple-carousel__arrow--right {
-  right: 15px !important;
-} */
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #2a72de;
+  border-radius: 30px;
 
-/* .react-multi-carousel-item {
-  width: 36rem !important;
 }
-
-.react-multi-carousel-track {
-  margin-left: 55px;
-  gap: 30px;
-} */

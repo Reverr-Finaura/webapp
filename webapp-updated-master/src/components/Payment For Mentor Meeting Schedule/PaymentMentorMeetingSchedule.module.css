@@ -1,7 +1,7 @@
-.outerContainer{
+.outerContainer {
     width: 100%;
     min-height: 100vh;
-    background-color: rgb(0, 0, 0 ,.4);
+    background-color: rgb(0, 0, 0, .4);
     position: fixed;
     top: 0;
     left: 0;
@@ -10,46 +10,54 @@
     align-items: center;
     place-content: center;
 }
-.innerContainer{
-width: 95%;
-height: 90vh;
-background-color: var(--bg-card);
-border-radius: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-padding: 1rem;
-color: var(--main-text);
+
+.innerContainer {
+    width: 95%;
+    height: 90vh;
+    background-color: var(--bg-card);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+    color: var(--main-text);
 }
-.PaymentSessionIdContainer{
+
+.PaymentSessionIdContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     place-content: center;
 }
-.container_SubHeading{
+
+.container_SubHeading {
     font-weight: 400;
 }
-.chooseComponentsText{
+
+.chooseComponentsText {
     font-weight: 400;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
 }
-.componentsContainer{
+
+.componentsContainer {
     display: flex;
     flex-wrap: wrap;
 }
-.individualComponent{
+
+.individualComponent {
     display: flex;
     align-items: center;
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
-.inputLabel{
+
+.inputLabel {
     margin-left: .25rem;
 }
-.makePaymentContainer{
+
+.makePaymentContainer {
     width: 80%;
     height: 80%;
     display: flex;
@@ -57,6 +65,7 @@ color: var(--main-text);
     padding: 1rem;
     position: relative;
 }
+
 .cross {
     position: absolute;
     top: 1rem;
@@ -64,17 +73,20 @@ color: var(--main-text);
     font-size: 1.5rem;
     cursor: pointer;
 }
-.cross > img {
+
+.cross>img {
     width: 2rem;
     height: 2rem;
     cursor: pointer;
 }
-.makePaymentContainerHeading{
+
+.makePaymentContainerHeading {
     text-align: center;
     margin-bottom: 1rem;
     font-size: 2rem;
 }
-.makePaymentContainerSubText{
+
+.makePaymentContainerSubText {
     font-size: 1.1rem;
     margin-bottom: 1rem;
     /* text-transform: capitalize; */
@@ -82,10 +94,12 @@ color: var(--main-text);
     margin: auto;
     margin-bottom: 1.5rem;
 }
-.makePaymentContainerAmount{
+
+.makePaymentContainerAmount {
     font-weight: bold;
 }
-.makePaymentContainerPayButton{
+
+.makePaymentContainerPayButton {
     border-radius: 6px;
     /* background-color: rgb(105, 51, 211); */
     background-color: #2A72DE;
@@ -101,9 +115,9 @@ color: var(--main-text);
 }
 
 
-@media(max-width:1200px){
-    .makePaymentContainerSubText{
+@media(max-width:1200px) {
+    .makePaymentContainerSubText {
         width: 90%;
-        
+
     }
 }

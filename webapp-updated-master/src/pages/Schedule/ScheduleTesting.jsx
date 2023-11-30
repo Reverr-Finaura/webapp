@@ -9,7 +9,7 @@ import "animate.css";
 import { db, getUserFromDatabase } from "../../firebase";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PaymentMentorMeetingSchedule from "../../components/Payment For Mentor Meeting Schedule/PaymentMentorMeetingSchedule";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 
 function ScheduleTesting() {
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
   const { id, userEmail } = useParams();
   const [mentorArray, setMentorArray] = useState([]);
   const [tempUserArray, setTempUserArray] = useState([]);
@@ -149,7 +150,8 @@ function ScheduleTesting() {
           <div
             className={styles.backBtn}
             onClick={() => {
-              window.history.back();
+              // window.history.back();
+              navigate("/mentors");
             }}
           >
             {"< Back"}
@@ -158,7 +160,6 @@ function ScheduleTesting() {
             className={`animate__animated animate__fadeInUp ${styles.content}`}
           >
             <InlineWidget
-              // url="https://calendly.com/reverrmeet/30min"
               url={
                 currentMentor?.mentorCalendlyLink
                   ? currentMentor?.mentorCalendlyLink

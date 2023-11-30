@@ -9,14 +9,17 @@ import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import toast, { Toaster } from "react-hot-toast";
+import Toggle from "react-toggle";
+import "react-toggle/style.css";
+import "./toggle.css";
 
-const apointmentdata = [
-  "Software",
-  "Self Advisory",
-  "Product Management",
-  "Career Advice",
-  "IT Consulting",
-];
+// const apointmentdata = [
+//   "Software",
+//   "Self Advisory",
+//   "Product Management",
+//   "Career Advice",
+//   "IT Consulting",
+// ];
 
 const UserProfileTesting = () => {
   const navigate = useNavigate();
@@ -90,24 +93,19 @@ const UserProfileTesting = () => {
   // console.log("userDoc", userDoc);
   const handlevibebtn = async () => {
     const val = false;
-
     dispatch(setUserDoc({ ...userDoc, vibeuser: val }));
-
     const mydata = {
       ...userDoc,
       vibeuser: val,
     };
     try {
-      // Attempt to upload the data
       await uploadOnboardingData(mydata);
-      // If data upload is successful, navigate to the next page
-      navigate("/vibe");
+      // navigate("/vibe");
     } catch (err) {
       console.error(err);
-      // Handle the error (optional) or show an error message to the user
-      // Don't navigate since data upload was not successful
     }
   };
+  console.log(userDoc?.vibeuser === false ? false : true);
 
   const uploadOnboardingData = async (data) => {
     const userEmail = user?.user?.email;
@@ -128,15 +126,14 @@ const UserProfileTesting = () => {
     const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/;
     return urlPattern.test(url);
   }
-  const emailToId = (email) => {
-    var id = "";
-    for (var i = 0; i < email.length; i++) {
-      if (email[i] === "@") break;
-      id += email[i];
-    }
-    return id;
-  };
-
+  // const emailToId = (email) => {
+  //   var id = "";
+  //   for (var i = 0; i < email.length; i++) {
+  //     if (email[i] === "@") break;
+  //     id += email[i];
+  //   }
+  //   return id;
+  // };
   return (
     <>
       <Toaster position='bottom-left' reverseOrder={false} />
@@ -184,7 +181,7 @@ const UserProfileTesting = () => {
                         navigator.clipboard.writeText(userDoc.email);
                         toast.success("Email copied to clipboard");
                       }}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer", width: "20px" }}
                     />
                   </>
                 ) : null}
@@ -200,7 +197,7 @@ const UserProfileTesting = () => {
                         );
                         toast.success("Linkedin profile copied to clipboard");
                       }}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer", width: "20px" }}
                     />
                   </>
                 ) : null}
@@ -243,7 +240,16 @@ const UserProfileTesting = () => {
               >
                 Edit Profile
               </button>
-              <button onClick={handlevibebtn}>Vibe only </button>
+              <div className={styles.vibeToggle}>
+                <Toggle
+                  defaultChecked={userDoc?.vibeuser === false ? false : true}
+                  icons={false}
+                  onChange={handlevibebtn}
+                  className={styles.customClassname}
+                />
+                <span className={styles.vibeName}>Vibe</span>
+              </div>
+              {/* <button onClick={handlevibebtn}>Vibe only </button> */}
             </div>
           </div>
           {userDoc?.userType === "Mentor" ? (
