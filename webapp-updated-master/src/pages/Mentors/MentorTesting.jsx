@@ -182,6 +182,8 @@ const MentorTesting = () => {
     slider.scrollLeft = slider.scrollLeft + 300;
   };
 
+  console.log("Mewntore testsing", featuredMentors);
+
   return (
     <>
       <div className={styles.mentor}>

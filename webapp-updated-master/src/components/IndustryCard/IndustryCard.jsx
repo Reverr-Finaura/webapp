@@ -9,12 +9,10 @@ const IndustryCard = ({ item }) => {
   };
   return (
     <div className={styles.categoryCard} onClick={HandleClick}>
-      <img
-        src={item.image ? item.image : FinanceImg}
-        // src=""
-        alt="Categorycard"
-      />
-      <p>{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
+      <img src={item.image ? item.image : FinanceImg} alt='Categorycard' />
+      <p>
+        {item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
+      </p>
     </div>
   );
 };

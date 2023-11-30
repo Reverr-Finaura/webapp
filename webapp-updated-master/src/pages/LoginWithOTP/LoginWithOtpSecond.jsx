@@ -1,6 +1,8 @@
 import {
+  GoogleAuthProvider,
   fetchSignInMethodsForEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +27,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedCountry = useSelector((state) => state.countryCode);
+  const provider = new GoogleAuthProvider();
 
   const [enteredOtp, setEnteredotp] = useState("");
   const [firstDigit, setFirstDigit] = useState("");
@@ -140,7 +143,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
         auth,
         tempUserData.email
       );
-      console.log(existingUser);
+
       signInWithEmailAndPassword(
         auth,
         tempUserData?.email,
@@ -187,6 +190,32 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
               return;
           }
         });
+
+      // signInWithPopup(auth, provider)
+      //   .then(async () => {
+      //     const docRef = doc(db, "Users", tempUserData?.email);
+      //     try {
+      //       const docSnap = await getDoc(docRef);
+      //       if (docSnap.exists()) {
+      //         dispatch(setUserData(docSnap.data()));
+      //         dispatch(
+      //           login({
+      //             email: auth.currentUser.email,
+      //             uid: auth.currentUser.uid,
+      //             displayName: auth.currentUser.displayName,
+      //             profilePic: auth.currentUser.photoURL,
+      //           })
+      //         );
+      //         console.log(tempUserData?.email);
+      //         navigate("/community");
+      //       }
+      //     } catch (error) {
+      //       console.log("Error fetching user data:", error.message);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error signing in with Google:", error.message);
+      //   });
     } else if (seconds <= 0 && minutes <= 0) {
       toast.error("OTP expired");
     } else {

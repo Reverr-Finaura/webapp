@@ -32,7 +32,7 @@ const MentorSearch = () => {
     fetchMentorExpertise();
   }, []);
 
-  console.log(mentorArray);
+  console.log("maiaagscgvahgsc", mentorArray);
 
   useEffect(() => {
     mentorArray.map((item) => {
@@ -43,7 +43,7 @@ const MentorSearch = () => {
         industry: item.industry?.split(",").map((x) => x.trim()),
         domain: item.domain,
         designation: item.designation,
-        linkedin: item.linkedin,
+        linkedin: item.linlkedin,
         image: item.image,
         plans: item.plans,
       };
@@ -81,7 +81,6 @@ const MentorSearch = () => {
         return [...prev, ...matches];
       });
     });
-    // setArrayToBeMapped(mentorArray);
   }, [mentorArray, category]);
   // console.log(category);
   // console.log(mentorArray);
@@ -111,7 +110,7 @@ const MentorSearch = () => {
                   key={idx}
                   mentor={item}
                   handleCopyURL={() => {
-                    if (item?.linkedin) {
+                    if (item.linkedin) {
                       navigator.clipboard.writeText(item.linkedin);
                       window.open(item.linkedin, "_blank");
                     } else {
