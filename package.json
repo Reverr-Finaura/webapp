@@ -47,7 +47,7 @@
     "react-tooltip": "^5.8.4-beta.2",
     "recharts": "^2.4.3",
     "swiper": "^9.0.5",
-    "twilio": "^4.11.0",
+    "twilio": "^4.19.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
