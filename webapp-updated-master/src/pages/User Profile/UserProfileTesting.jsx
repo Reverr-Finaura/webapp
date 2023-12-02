@@ -242,14 +242,20 @@ const UserProfileTesting = () => {
               </button>
               <div className={styles.vibeToggle}>
                 <Toggle
-                  defaultChecked={userDoc?.vibeuser === false ? false : true}
+                  defaultChecked={
+                    userDoc?.vibeuser
+                      ? userDoc?.vibeuser === false
+                        ? false
+                        : true
+                      : false
+                  }
+                  // defaultChecked={userDoc?.vibeuser === false ? false : true}
                   icons={false}
                   onChange={handlevibebtn}
                   className={styles.customClassname}
                 />
                 <span className={styles.vibeName}>Vibe</span>
               </div>
-              {/* <button onClick={handlevibebtn}>Vibe only </button> */}
             </div>
           </div>
           {userDoc?.userType === "Mentor" ? (

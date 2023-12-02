@@ -188,7 +188,7 @@ body {
 
 
 ::-webkit-scrollbar {
-  width: 1px;
+  width: 0px;
 }
 
 .react-toggle--checked .react-toggle-track {

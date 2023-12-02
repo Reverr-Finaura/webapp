@@ -91,7 +91,6 @@ function LoginWithOtpFirst() {
       sendOTPByPhone();
       return;
     }
-
     setLoading(true);
     let tempDocData = {};
     const userDataRef = collection(db, "Users");
@@ -99,8 +98,7 @@ function LoginWithOtpFirst() {
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-      if (doc.id === email) {
-        // console.log("id11: ", doc.data())
+      if (doc === email) {
         tempDocData = { name: doc.data().name, password: doc.data().password };
         setTempUserData({
           name: doc.data().name,
@@ -144,11 +142,9 @@ function LoginWithOtpFirst() {
       )
       .then(
         function (response) {
-          //   console.log("SUCCESS!", response.status, response.text);
           setLoading(false);
         },
         function (error) {
-          //   console.log("FAILED...", error);
           setLoading(false);
         }
       )
@@ -157,7 +153,6 @@ function LoginWithOtpFirst() {
         setLoading(false);
       })
       .catch((error) => {
-        // console.log(error);
         toast.error(error.message);
         setLoading(false);
       });
@@ -168,12 +163,12 @@ function LoginWithOtpFirst() {
   const sendOTPByPhone = async () => {
     let tempData = metaData?.emailPhone.filter((item) => {
       return item.phone === email;
-    });
+    })[0];
+
     if (tempData === undefined) {
       toast.error("Phone number not registered yet");
       return;
     }
-
     setLoading(true);
     let tempDocData = {};
     const userDataRef = collection(db, "Users");
@@ -191,7 +186,7 @@ function LoginWithOtpFirst() {
       }
     });
     if (JSON.stringify(tempDocData) === "{}") {
-      toast.error("Email does not exist in database");
+      toast.error("Phone number does not exist in database");
       setLoading(false);
       return;
     }
@@ -221,7 +216,6 @@ function LoginWithOtpFirst() {
       }
     } catch (error) {
       setLoading(false);
-      //   console.log("err", error);
       toast.error(error?.response?.data?.message);
     }
     setMinutes(3);

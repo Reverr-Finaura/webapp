@@ -19,15 +19,12 @@ const UserEditProfileTesting = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
-  const userFundingDoc = useSelector((state) => state.userFundingDoc);
-
   const [hasUserProfile, setHasUserProfile] = useState(true);
   const [userDocId, setUserDocId] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [reasonList, setReasonList] = useState([]);
 
   const connectVia = ["Video Call", "Phone Call", "At Coffee"];
-  // console.log(auth);
 
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
@@ -46,8 +43,6 @@ const UserEditProfileTesting = () => {
     }
     fetchUserDocFromFirebase();
   }, [user]);
-
-  // CHECK IF USER HAS FUNDING PROFILE
 
   useEffect(() => {
     if (userDoc?.hasFundingProfile === "No") {
@@ -77,9 +72,6 @@ const UserEditProfileTesting = () => {
       }
     }
   }, [userDoc]);
-
-  //   console.log("hasUserProfile", hasUserProfile);
-  //   console.log("userDoc", userDoc);
 
   //   -----------------------------------------------------------------
 
@@ -540,17 +532,19 @@ const UserEditProfileTesting = () => {
                 return (
                   <button key={index}>
                     {item}
-                    <img
-                      src='/images/basil_cross-solid.svg'
-                      alt='Cross_Icon'
-                      onClick={() => {
-                        if (formData.userSpace.length > 1) {
-                          removeSpace(item);
-                        } else {
-                          toast.error("Atleast one space is required");
-                        }
-                      }}
-                    />
+                    <div className='' style={{ borderRadius: "10px" }}>
+                      <img
+                        src='/images/basil_cross-solid.svg'
+                        alt='Cross_Icon'
+                        onClick={() => {
+                          if (formData.userSpace.length > 1) {
+                            removeSpace(item);
+                          } else {
+                            toast.error("Atleast one space is required");
+                          }
+                        }}
+                      />
+                    </div>
                   </button>
                 );
               })}
@@ -724,21 +718,29 @@ const UserEditProfileTesting = () => {
                         handleWorkChange(e, index);
                       }}
                     />
-                    <img
+                    <div
+                      className=''
                       style={{
-                        cursor: "pointer",
+                        borderRadius: "67%",
+                        background: "white",
                         marginLeft: "10px",
-                        color: "#fff",
-                        backgroundColor: "#fff",
-                        borderRadius: "100%",
+                        height: "30px",
+                        width: "25px",
                       }}
-                      onClick={() => {
-                        handleWorkRemove(index);
-                      }}
-                      src='
-                    /images/basil_cross-solid.svg'
-                      alt='Cross_Icon'
-                    />
+                    >
+                      <img
+                        style={{
+                          cursor: "pointer",
+                          margin: "0",
+                        }}
+                        onClick={() => {
+                          handleWorkRemove(index);
+                        }}
+                        src='
+                      /images/basil_cross-solid.svg'
+                        alt='Cross_Icon'
+                      />
+                    </div>
                   </div>
                 </form>
               ))}
@@ -792,21 +794,29 @@ const UserEditProfileTesting = () => {
                         handleEducationChange(e, index);
                       }}
                     />
-                    <img
+                    <div
+                      className=''
                       style={{
-                        cursor: "pointer",
+                        borderRadius: "67%",
+                        background: "white",
                         marginLeft: "10px",
-                        color: "#fff",
-                        backgroundColor: "#fff",
-                        borderRadius: "100%",
+                        height: "30px",
+                        width: "25px",
                       }}
-                      onClick={() => {
-                        handleEducationRemove(index);
-                      }}
-                      src='
-                    /images/basil_cross-solid.svg'
-                      alt='Cross_Icon'
-                    />
+                    >
+                      <img
+                        style={{
+                          cursor: "pointer",
+                          margin: "0",
+                        }}
+                        onClick={() => {
+                          handleEducationRemove(index);
+                        }}
+                        src='
+                      /images/basil_cross-solid.svg'
+                        alt='Cross_Icon'
+                      />
+                    </div>
                   </div>
                 </form>
               ))}
