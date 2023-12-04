@@ -1,0 +1,34 @@
+.align{
+    margin-left:8%; 
+}
+.people-suggest{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left:-13%;
+}
+
+
+@media screen and (max-width: 560px) {
+  
+    .hpeoplesuggest{
+        width: 90%;
+       margin: 0 !important;
+       margin-left: 80px !important;
+        font-size: 17px;
+    
+    }
+    .align {
+        margin: 0px;
+    }
+    .suggest-section{
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 950px) and (max-width: 1120px) {
+  
+    .align {
+        height: 100%;
+    }
+}

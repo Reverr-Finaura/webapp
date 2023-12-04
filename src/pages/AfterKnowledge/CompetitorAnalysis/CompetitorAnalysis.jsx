@@ -1,0 +1,69 @@
+import React, { useEffect, useState } from "react";
+import CourseContent from "../../../components/After knowledge/Course content/CourseContent";
+import CourseIntro from "../../../components/After knowledge/Course Intro/CourseIntro";
+import Hero from "../../../components/After knowledge/Hero-section/Hero";
+import styles from "./Knowledge.module.css";
+import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
+import { useNavigate } from "react-router-dom";
+import image from "../../../images/arrowMark.svg";
+
+const CompetitorAnalysis = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
+
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+  const courseDetails = {
+    title: "Competitor Analysis",
+    para: "Get a handle on the operating environment and level of market competition in which your company will operate?",
+  };
+  return (
+    <>
+      <NavBarFinalDarkMode />
+      <div className={styles.buttonWrapper}>
+        <img className={styles.arrowClass} src={image} alt='img' />
+        <button
+          className={styles.backButton}
+          onClick={() => navigate("/knowledge")}
+        >
+          {" "}
+          Back
+        </button>
+      </div>
+      <div className={styles.knowledge}>
+        {/* <KnowledgeNavbar /> */}
+        <div className={styles.body}>
+          {/* <Sidebar isVisible={width >= 600 ? true : false} /> */}
+          <div className={styles.content}>
+            <Hero
+              imgUrl='competitor1.webp'
+              // heading="Idea validation and elevator pitch"
+            />
+            <CourseIntro
+              url='/competitoranalysisslides'
+              courseDetails={courseDetails}
+            />
+            <CourseContent
+              points={[
+                "Why competitor analysis is important?",
+                "Who is a true competitor?",
+                "What you should do after discovering a competitor?",
+              ]}
+              imgUrl='competitor2.webp'
+            />
+            {/* <CourseReview /> */}
+          </div>
+        </div>
+      </div>
+      {/* <Footer /> */}
+    </>
+  );
+};
+
+export default CompetitorAnalysis;

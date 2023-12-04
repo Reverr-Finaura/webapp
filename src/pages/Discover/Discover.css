@@ -1,0 +1,193 @@
+.container-1{
+    /* background-color: rgb(0, 0, 68); */
+    background-color: rgb(0, 12, 31);
+
+    
+}
+
+.container-2{
+    /* position: relative; */
+    /* margin-top: 100px;/ */
+    margin-left: 15px;
+    /* padding: 10px; */
+}
+
+.people{
+    position: relative;
+    margin-top: 100px;
+    /* margin-left: 15px; */
+    padding: 10px;
+}
+
+
+.people-card{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+
+.events{
+    display: flex;
+}
+
+
+.explore-btn{
+    width: 150px;
+    border-radius: 24px;
+    background-color: rgb(6, 126, 238);
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.explore-btn:hover{
+    cursor: pointer;
+}
+
+
+.event-btn{
+    width: 100px;
+    border-radius: 24px;
+    border: solid 1px white;
+    background-color: rgb(0, 12, 31);
+    color: white;
+    margin: 0px 10px;
+    padding: 5px;
+}
+
+.event-btn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.event-card{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;   
+}
+
+/* .news-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+} */
+
+
+.news-container{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;   
+}
+
+.article-container{
+    display: flex;
+    flex-direction: column;
+    margin: 2px -50px;
+    height: 619px;
+    gap: 10px;
+}
+
+/* ////// */
+
+.discoversidebarcontainer{
+
+    width:300px;
+    margin-top:130px;
+    margin-left:5px;
+    padding:8px;
+    display:flex;
+    flex-direction:column;
+    /* justify-content: space-between; */
+    height: 100%;
+    gap: 20px;
+    overflow-y: scroll;
+      /* position:fixed */
+}
+.discoversidebarcontainer::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  
+  .discoversidebarcontainer::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  
+  .discoversidebarcontainer::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+.right-container{
+    margin-left: 30px;
+}
+
+.discoverrightside{
+    width: 80%;
+    margin-left: 20%;
+}
+
+@media screen and (max-width: 1300px) {
+    .discoverrightside{
+        margin-left: 30%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .discoverrightside{
+        margin-left: 0;
+        width: 100%;
+    }
+    .discoversidebarcontainer{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .discoverrightside{
+       margin-top: 100px;
+       display: inline-block !important;
+    }
+    .people-card{
+        flex-wrap: nowrap;
+        flex-direction: column;
+        margin: 30px;
+        margin-top: 0px;
+    }
+    .align {
+        
+        width: 100% !;
+    
+       
+        margin: 0px ;
+        height: 850px;
+    }
+       
+    .article-container {
+        
+      
+        width: 100%;
+       
+        margin: 0px ;
+        padding: 0 ;
+        
+        
+    }
+    .article {
+        width: 80%;
+    }
+   
+}
+
+/* @media screen and (max-width: 450px) {
+    .article-container{
+        margin: 0px -40px;
+        width: 400px;
+        align-items: center;
+        
+    }
+    .discoverrightside{
+        overflow-x: hidden;
+    }
+} */

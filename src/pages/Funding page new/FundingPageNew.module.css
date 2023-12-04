@@ -1,0 +1,131 @@
+#getFundingPage {
+    min-height: 100vh;
+    /* width: 1140px; */
+    /* margin-left: 14.5rem; */
+    margin-top: 8rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sectionContainer {
+    /* width: 100vw; */
+    height: 100vh;
+    padding: 50px 100px 0px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+  }
+
+.whatIs {
+    font-size: 3rem;
+    color: white;
+    font-family: "Reem Kufi";
+  }
+
+  .sectionContainer h1 span {
+    color: #2a72de;
+  }
+
+.sectionContainer p {
+  color: white;
+  font-family: "Poppins";
+}
+
+.getStarted {
+  color: white;
+  font-size: 30px;
+  font-family: "Reem Kufi";
+}
+
+.cardsContainer {
+    display: flex;
+    gap: 2em;
+}
+
+.Card {
+    width: 220px;
+    height: 260px;
+    border-radius: 15px;
+    background: rgb(0,179,255);
+    background: linear-gradient(90deg, rgba(0,179,255,0.8715861344537815) 0%, rgba(76,201,255,1) 70%);    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;  
+    padding: 2rem 1rem;  
+    gap: 25px;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0px 0px 12px 0px rgba(76, 201, 255, 0.25);
+}
+
+
+.Card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(17, 44, 78, 0.144);
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.Card:hover::before {
+  background: rgba(255, 255, 255, 0.11); 
+}
+.Card h2 {
+    color: white;
+    font-family: "Reem Kufi";
+} 
+
+.Card p {
+    color: white;
+    font-size: 15px;
+    font-family: "Poppins";
+}
+.fundingImg {
+  width: 90px;
+}
+.startUpImg {
+  width: 80px;
+}
+.findInvestorImg {
+  width: 150px;
+}
+/* Mobile Devices (up to 767px) */
+@media screen and (max-width: 767px) {
+  .sectionContainer {
+    padding: 0 1rem;
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .sectionContainer > p {
+    font-size: 1rem;
+  }
+
+  .whatIs {
+    font-size: 2rem;
+  }
+
+  .getStarted {
+    font-size: 24px;
+  }
+
+  .cardsContainer {
+    flex-direction: column; /* Stack the cards vertically on small screens */
+  }
+
+  .Card {
+    width: 80%;
+    margin: 0rem auto;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 1rem 1.5rem;
+  }
+
+  .Card img {
+    width: 80px; /* Reduce the size of the images on small screens */
+  }
+}
