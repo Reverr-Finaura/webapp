@@ -860,7 +860,7 @@
   .notificationBar {
     top: 0px;
     left: 0%;
-
+    padding: 15px;
     width: 258px;
   }
 

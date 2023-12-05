@@ -134,11 +134,12 @@
 
 import React, { useState, useEffect } from "react";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
-import { collection, doc, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
-import styles from "./Suggestion.css";
 import { useSelector } from "react-redux";
-const DiscoverSuggestions = ({ heading, colorheading }) => {
+import "./Suggestion.css";
+
+const DiscoverSuggestions = ({ heading, colorheading, moreStyle }) => {
   const currentLoggedInUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [randomUsers, setRandomUsers] = useState([]);
@@ -197,13 +198,21 @@ const DiscoverSuggestions = ({ heading, colorheading }) => {
   };
 
   return (
-    <section className='suggest-section'>
+    <section
+      className='suggest-section'
+      style={
+        {
+          // marginTop: moreStyle ? "270px" : "",
+        }
+      }
+    >
       {/* Suggestions */}
       <div className='alignsuggestion'>
         <div className='people-suggest'>
           <h3
             className='hpeoplesuggest'
-            style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}
+            style={{ color: "white", padding: "20px" }}
+            // style={{ color: "white", marginTop: "5px", marginLeft: "200px" }}
           >
             {" "}
             <span style={{ color: "#00B3FF" }}>{colorheading}</span>

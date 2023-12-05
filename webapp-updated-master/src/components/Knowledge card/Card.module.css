@@ -49,7 +49,7 @@
   cursor: pointer;
 }
 
-.card_img > img {
+.card_img>img {
   /* aspect-ratio: 2; */
   border-radius: 30px 30px 0 0;
   object-fit: cover;
@@ -66,7 +66,7 @@
   padding: 1rem;
 }
 
-.likesndwnld > p {
+.likesndwnld>p {
   font-weight: 700;
   font-size: 15px;
   line-height: 28px;
@@ -80,7 +80,7 @@
   margin-top: 0.4rem;
 }
 
-.likesndwnld_left > div {
+.likesndwnld_left>div {
   display: flex;
   cursor: pointer;
   align-items: center;
@@ -90,7 +90,7 @@
   font-size: 13px;
 }
 
-.likesndwnld_right > img {
+.likesndwnld_right>img {
   height: 2.4 rem;
   cursor: pointer;
 }
@@ -99,10 +99,16 @@
   .card_titlenlikes {
     justify-content: space-between;
   }
+
   .blackishCont {
     width: 100%;
   }
+
   .card_container {
     width: 100%;
+    flex-direction: column;
+    height: fit-content;
+    align-items: start;
+
   }
 }

@@ -171,7 +171,11 @@ const Discover = () => {
                 </div>
               </div>
             </div>
-            <DiscoverSuggestions heading={"More Suggestions"} />
+
+            <DiscoverSuggestions
+              heading={"More Suggestions"}
+              moreStyle={true}
+            />
             {/* Conditionally render DiscoverNews */}
             {newsData.length >= 4 && <DiscoverNews />}
             {/* <DiscoverNews /> */}

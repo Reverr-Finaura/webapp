@@ -1,33 +1,31 @@
-.align{
-    margin-left:8%; 
+.align {
+    margin-left: 8%;
 }
-.people-suggest{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left:-13%;
+
+.people-suggest {
+    margin: 0 20px;
 }
 
 
 @media screen and (max-width: 560px) {
-  
-    .hpeoplesuggest{
-        width: 90%;
-       margin: 0 !important;
-       margin-left: 80px !important;
-        font-size: 17px;
-    
+
+    .people-suggest {
+        margin: 0;
     }
+
+
     .align {
         margin: 0px;
     }
-    .suggest-section{
+
+    .suggest-section {
         width: 100%;
+        margin-top: 200px;
     }
 }
 
 @media screen and (min-width: 950px) and (max-width: 1120px) {
-  
+
     .align {
         height: 100%;
     }
