@@ -587,7 +587,7 @@ const User = () => {
                   disabled={isLoading}
                   // className={styles.followButton}
                 >
-                  Follow
+                  Connect
                 </button>
               ) : null}
               {otherUserDoc?.email !== currentLoggedInUser?.user?.email &&

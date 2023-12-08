@@ -204,12 +204,10 @@ export const deleteMatchedInMessagesDoc = async (userId, senderId) => {
 };
 
 export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
-  // const userEmail = currentcUser?.email;
   if (!userEmail) {
     throw new Error("User email not available");
   }
   const ref = doc(db, "Messages", userEmail);
-
   try {
     const f = collection(ref, "Matched");
     const matchedSnapshot = await getDocs(f);
@@ -219,9 +217,7 @@ export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
       bucket: "Matched",
     }));
     setList(matchedData);
-    console.log("matched", matchedData);
   } catch (error) {
-    // Handle error fetching from the 'f' collection (Matched)
     console.error("Error fetching from 'f' collection:", error);
   }
 };

@@ -70,7 +70,6 @@ const Matches = ({
       const promises = matched_users.map(async (user) => {
         const docRef = doc(db, "Users", user);
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
           const userData = docSnap.data();
           return userData;

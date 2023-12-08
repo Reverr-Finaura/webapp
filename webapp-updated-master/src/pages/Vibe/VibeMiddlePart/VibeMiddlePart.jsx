@@ -38,7 +38,7 @@ import MatchedUserScreen from "./matchedUserScreen/MatchedUserScreen";
 import { useSwipeable } from "react-swipeable";
 
 const VibeMiddlePart = () => {
-  const [ispremium, setIsPremium] = useState(true);
+  const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
@@ -85,11 +85,9 @@ const VibeMiddlePart = () => {
     where: "",
   });
 
-  const toggle = () => {
-    setModal(!modal);
-  };
-
-  console.log("preeee", ispremium);
+  // const toggle = () => {
+  //   setModal(!modal);
+  // };
 
   useEffect(() => {
     function checkPremiumStatus() {
@@ -876,6 +874,7 @@ const VibeMiddlePart = () => {
   };
 
   const HandleUndo = async () => {
+    console.log("undo");
     if (ispremium) {
       if (recentPassedUser.where === "liked") {
         console.log("Undoing like move");
@@ -968,8 +967,11 @@ const VibeMiddlePart = () => {
       } else if (recentPassedUser.where === "passed") {
         HandleUndoPassMove();
       }
+    } else {
+      setPremiumModalStatus(true);
     }
   };
+  console.log(recentPassedUser, ispremium);
   return (
     <>
       {premiumModalStatus ? (

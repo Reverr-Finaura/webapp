@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 // import { create, modify, selectNewUser } from "../../features/newUserSlice";
 // import { setUserDoc } from "../../features/userDocSlice";
 
-function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
+function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedCountry = useSelector((state) => state.countryCode);
@@ -117,7 +117,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
   //         });
   //       })
   //       .then(() => {
-  //         toast.success("Sucessfully logged in");
+  //         toast.success("Successfully logged in");
   //         navigate("/community");
   //       })
   //       .catch((error) => {
@@ -343,7 +343,7 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email }) {
               <h1>Enter Verification Code</h1>
             </div>
             <div className={styles.para}>
-              <p>Enter the OTP sent to your given Email Id.</p>
+              <p>Enter the OTP sent to your given {whatisUsed}.</p>
             </div>
             <form className={styles.otpForm} onSubmit={checkOtp}>
               <div className={styles.otpInputs}>

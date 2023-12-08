@@ -2,35 +2,37 @@ import React from "react";
 import "./CourcePageTesting.css";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { useNavigate } from "react-router-dom";
-import image from "../../../images/arrowMark.svg"
+import image from "../../../images/arrowMark.svg";
 
 const CourcePageTesting = () => {
-
   const navigate = useNavigate();
   return (
-    <div className="firstback">
+    <div className='firstback'>
       <NavBarFinalDarkMode />
-      <div className="buttonWrapper">
-    <img className="arrowClass" src={image} alt="img" />
-    <button className="backButton" onClick={()=>navigate('/knowledge')} > Back</button>
-  </div> 
-      
-      <div className="ideavalid">
-        <div className="content">
-          <text className="head">IDEA VALIDATION</text>
-          <div className="rateing">
+      <div className='buttonWrapper'>
+        <img className='arrowClass' src={image} alt='img' />
+        <button className='backButton' onClick={() => navigate("/knowledge")}>
+          {" "}
+          Back
+        </button>
+      </div>
+      <div className='ideavalid'>
+        <div className='content'>
+          <text className='head'>IDEA VALIDATION</text>
+          <div className='rateing'>
             {/* <img src="./images/Star.svg" alt="" height={20} width={120} /> */}
-            <span className="star">
-              <img src="/images/star.webp" alt="star" />
-              <img src="/images/star.webp" alt="star" />
-              <img src="/images/star.webp" alt="star" />
-              <img src="/images/star.webp" alt="star" />
-              <img src="/images/star.webp" alt="star" />
+            <span className='star'>
+              <img src='/images/star.webp' alt='star' />
+              <img src='/images/star.webp' alt='star' />
+              <img src='/images/star.webp' alt='star' />
+              <img src='/images/star.webp' alt='star' />
+              <img src='/images/star.webp' alt='star' />
             </span>
-            <span className="space">4.8</span>
-            <text className="rat"> 1,980 ratings |</text><span className="ratingPer">97%</span>
+            <span className='space'>4.8</span>
+            <text className='rat'> 1,980 ratings |</text>
+            <span className='ratingPer'>97%</span>
           </div>
-          <p className="sub">
+          <p className='sub'>
             Is it worthwhile to pursue your fresh startup idea? Let's
             <br /> put it through our tried-and-true method to obtain
             <br /> opinions from experts, users, and the available research{" "}
@@ -39,22 +41,22 @@ const CourcePageTesting = () => {
           </p>
           <br />
           <button
-            className="submit-button"
+            className='submit-button'
             onClick={() => {
               navigate("/idea-validation-slides");
             }}
           >
             Enroll Now
           </button>
-          <p className="sub">2,768 already enrolled</p>
+          <p className='sub'>2,768 already enrolled</p>
         </div>
-        <div className="imgrev">
-          <p className="sub">Offered by </p>
-          <p className="rever">REVERR</p>
-          <div className="ideagirl">
+        <div className='imgrev'>
+          <p className='sub'>Offered by </p>
+          <p className='rever'>REVERR</p>
+          <div className='ideagirl'>
             <img
-              src="/images/idea-validation1.webp"
-              alt=""
+              src='/images/idea-validation1.webp'
+              alt=''
               height={280}
               width={250}
             />
@@ -62,14 +64,16 @@ const CourcePageTesting = () => {
         </div>
       </div>
 
-      <div className="sec">
-        <div className="aboutsyllabus">
-          <div className="tab">
-            <div className="aboutTitle">About <div className="underline"></div></div>
-            <div className="syllabusTitle">Syllabus</div>
+      <div className='sec'>
+        <div className='aboutsyllabus'>
+          <div className='tab'>
+            <div className='aboutTitle'>
+              About <div className='underline'></div>
+            </div>
+            <div className='syllabusTitle'>Syllabus</div>
           </div>
           <div>
-            <p className="bout">
+            <p className='bout'>
               <text>
                 Is it worthwhile to pursue your fresh startup idea? <br />
                 Let's put it through our tried-and-true method to obtain
@@ -78,28 +82,28 @@ const CourcePageTesting = () => {
               </text>
             </p>
           </div>
-          <div className="learn">
-            <text className="sub">
+          <div className='learn'>
+            <text className='sub'>
               What you will learn?
               <br />
             </text>
             <br />
-            <text className="bullet">{"\u2B24"}</text>What is Fundraising and
+            <text className='bullet'>{"\u2B24"}</text>What is Fundraising and
             why is it important?
             <br />
             <br />
-            <text className="bullet">{"\u2B24"}</text>What are the different
+            <text className='bullet'>{"\u2B24"}</text>What are the different
             means to raise funds?
             <br />
             <br />
-            <text className="bullet">{"\u2B24"}</text>What is the role of a
+            <text className='bullet'>{"\u2B24"}</text>What is the role of a
             pitchdeck in fundraising?
           </div>
         </div>
-        <div className="imggraph">
+        <div className='imggraph'>
           <img
-            src="./images/idea-validation2.webp"
-            alt=""
+            src='./images/idea-validation2.webp'
+            alt=''
             height={300}
             width={250}
           />

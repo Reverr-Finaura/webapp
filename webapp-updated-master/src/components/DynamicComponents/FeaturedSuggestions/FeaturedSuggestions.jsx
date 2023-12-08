@@ -112,7 +112,7 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
             if (!isLoggedIn) {
               return openModal();
             } else {
-              console.log("user logged!");
+              navigate(`/discover`);
             }
           }}
         >

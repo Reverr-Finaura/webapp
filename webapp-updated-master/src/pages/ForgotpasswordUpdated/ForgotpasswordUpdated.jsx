@@ -274,13 +274,13 @@ function ForgotpasswordUpdated() {
           <NavBarFinalDarkMode isLoggedIn={false} />
           <div className={styles.mainContent}>
             <div className={styles.hiddenOnDesktop}>
-              <text style={{ fontSize: 20, color: "#ffffff"}}>
+              <text style={{ fontSize: 20, color: "#ffffff" }}>
                 Forgot Password?
               </text>
               <img
                 className={styles.mainImage}
                 src={require("../../images/forgotpassword.webp")}
-                alt="img"
+                alt='img'
               />
             </div>
 
@@ -291,17 +291,29 @@ function ForgotpasswordUpdated() {
               >
                 Forgot Password?
               </text>
-              <text style={{ fontSize: 12, color: "#ffffff", fontFamily: "Reem-Kufi" }}>
+              <text
+                style={{
+                  fontSize: 15,
+                  color: "#ffffff",
+                  fontFamily: "Reem-Kufi",
+                }}
+              >
                 Enter the email address associated with your account
               </text>
-              <text style={{ fontSize: 12, color: "#ffffff",fontFamily: "Reem-Kufi" }}>
+              <text
+                style={{
+                  fontSize: 15,
+                  color: "#ffffff",
+                  fontFamily: "Reem-Kufi",
+                }}
+              >
                 and we’ll send you a link to change your password.
               </text>
               <div className={styles.textInput}>
-                <text style={{ fontSize: 10, color: "#ffffff" }}>Email</text>
+                <text style={{ fontSize: 12, color: "#ffffff" }}>Email</text>
                 <input
-                  type="email"
-                  placeholder="johnsmith@gmail.com"
+                  type='email'
+                  placeholder='johnsmith@gmail.com'
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   required
@@ -337,7 +349,7 @@ function ForgotpasswordUpdated() {
               <img
                 className={styles.mainImage}
                 src={require("../../images/forgotpassword.webp")}
-                alt="img"
+                alt='img'
               />
             </div>
           </div>

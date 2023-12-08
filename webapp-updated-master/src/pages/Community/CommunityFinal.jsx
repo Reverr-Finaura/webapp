@@ -322,7 +322,7 @@ const CommunityFinal = () => {
     try {
       await updateDoc(userDocumentRef, { posts: id });
 
-      toast("Sucessfully Posted");
+      toast("Successfully Posted");
       setTimeout(() => {
         window.location.reload();
       }, 500);
@@ -344,7 +344,7 @@ const CommunityFinal = () => {
   // EDIT POST CHECK
   const EditPost = async () => {
     toast("Processing Your Request");
-    toast("Processing Your Request");
+    // toast("Processing Your Request");
     if (imageUpload === null && newEditText === "") {
       toast("Nothing To Edit");
       return;
@@ -379,7 +379,7 @@ const CommunityFinal = () => {
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
 
-      toast("Sucessfully Saved");
+      toast("Successfully Saved");
 
       setTimeout(() => {
         window.location.reload();
@@ -457,78 +457,78 @@ const CommunityFinal = () => {
         style={{
           position: postsAuthorIsClick || postIdExist !== "" ? "fixed" : "",
         }}
-        id="communityFinalPageOuterSection"
+        id='communityFinalPageOuterSection'
       >
         <section
           style={{ position: singleNews ? "fixed" : "" }}
-          id="communityFinalPage"
+          id='communityFinalPage'
         >
           <ToastContainer />
           <input
             onChange={onImageChange}
             ref={chooseFileRef}
-            type="file"
+            type='file'
             hidden
-            className="postImageUpload"
+            className='postImageUpload'
           />
 
           {/* NAVBAR POST BUTTON CLICK SECTION */}
           {navbarPostButtonClick ? (
-            <section className="editPostContainerrrr">
+            <section className='editPostContainerrrr'>
               <ToastContainer />
-              <div className="editPostContainer-edit-container">
+              <div className='editPostContainer-edit-container'>
                 <div
                   onClick={() => {
                     setNavbarPostButtonClick(false);
                     setTempImageURL(null);
                     setImageUpload(null);
                   }}
-                  className="closeContainerButton"
+                  className='closeContainerButton'
                 >
                   X
                 </div>
-                <section className="uploadPostContainerrrrSection">
-                  <div className="EdituploadPostContainerrrr">
+                <section className='uploadPostContainerrrrSection'>
+                  <div className='EdituploadPostContainerrrr'>
                     <img
-                      className="community-upload-cont-userImage"
+                      className='community-upload-cont-userImage'
                       src={
                         userDoc?.image
                           ? userDoc.image
                           : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                       }
-                      alt="userImage"
+                      alt='userImage'
                     />
-                    <div className="textAreaUploadContainer">
-                      <div className="navbarUploadPostOuterBoxContainer">
+                    <div className='textAreaUploadContainer'>
+                      <div className='navbarUploadPostOuterBoxContainer'>
                         <textarea
-                          className="navbarUploadPostContainerTextArea"
+                          className='navbarUploadPostContainerTextArea'
                           onChange={(e) => setNewPostText(e.target.value)}
-                          name="postText"
-                          id="postTextContainerExpanded"
-                          rows="3"
+                          name='postText'
+                          id='postTextContainerExpanded'
+                          rows='3'
                           value={newPostText}
-                          placeholder="What Would You Like To Post?"
+                          placeholder='What Would You Like To Post?'
                         ></textarea>
                         {tempImageURL ? (
-                          <div className="edit-communityPostImage-cont">
+                          <div className='edit-communityPostImage-cont'>
                             <img
-                              className="edit-communityPostImage"
+                              className='edit-communityPostImage'
                               src={tempImageURL}
-                              alt="postFile"
+                              alt='postFile'
                             />
-                            <div className="edit_Delete_Btn">
+                            <div className='edit_Delete_Btn'>
                               <RxCrossCircled
                                 onClick={RemoveFile}
-                                className="delete_Btn"
+                                className='delete_Btn'
                               />
                               <FiEdit
                                 onClick={chooseFile}
-                                className="edit_Btn"
+                                className='edit_Btn'
                               />
                             </div>
                           </div>
                         ) : null}
-                        <div className="addImageandUploadPostIcon">
+                        <div className='addImageandUploadPostIcon'>
                           {/* <img
                             onClick={chooseFile}
                             className="addImageInCommunityIcon"
@@ -537,12 +537,12 @@ const CommunityFinal = () => {
                             alt="addImageIcon"
                           /> */}
                           <MdOutlineAddPhotoAlternate
-                            className="addImageInCommunityReactIcon"
+                            className='addImageInCommunityReactIcon'
                             onClick={chooseFile}
                           />
                           <button
                             onClick={uploadImageToFireBase}
-                            className="uploadPostIconButton"
+                            className='uploadPostIconButton'
                           >
                             Post
                           </button>
@@ -559,65 +559,65 @@ const CommunityFinal = () => {
 
           {editPostButtonClick ? (
             <>
-              <section className="editPostContainerrrr">
+              <section className='editPostContainerrrr'>
                 <ToastContainer />
-                <div className="editPostContainer-edit-container">
+                <div className='editPostContainer-edit-container'>
                   <div
                     onClick={() => {
                       setEditPostButtonClick(false);
                       setTempImageURL(null);
                       setImageUpload(null);
                     }}
-                    className="closeContainerButton"
+                    className='closeContainerButton'
                   >
                     X
                   </div>
-                  <section className="uploadPostContainerrrrSection">
-                    <div className="EdituploadPostContainerrrr">
+                  <section className='uploadPostContainerrrrSection'>
+                    <div className='EdituploadPostContainerrrr'>
                       <img
-                        className="community-upload-cont-userImage"
+                        className='community-upload-cont-userImage'
                         src={
                           userDoc?.image
                             ? userDoc.image
                             : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                         }
-                        alt="userImage"
+                        alt='userImage'
                       />
-                      <div className="textAreaUploadContainer">
-                        <div className="navbarUploadPostOuterBoxContainer">
+                      <div className='textAreaUploadContainer'>
+                        <div className='navbarUploadPostOuterBoxContainer'>
                           <textarea
                             onChange={(e) => setNewEditText(e.target.value)}
-                            name="postText"
-                            className="editOldPostTextArea"
-                            id="postTextContainerExpanded"
-                            rows="3"
+                            name='postText'
+                            className='editOldPostTextArea'
+                            id='postTextContainerExpanded'
+                            rows='3'
                             value={newEditText}
-                            placeholder="What Would You Like To Edit?"
+                            placeholder='What Would You Like To Edit?'
                           ></textarea>
                           {tempImageURL ? (
-                            <div className="edit-communityPostImage-cont">
-                              <div className="editImageOverLayContainerImageContainer">
-                                <div className="editImageOverLayContainer"></div>
+                            <div className='edit-communityPostImage-cont'>
+                              <div className='editImageOverLayContainerImageContainer'>
+                                <div className='editImageOverLayContainer'></div>
                                 <img
-                                  className="edit-communityPostImage"
+                                  className='edit-communityPostImage'
                                   src={tempImageURL}
-                                  alt="postFile"
+                                  alt='postFile'
                                 />
                                 <button
                                   onClick={chooseFile}
-                                  className="changePhotoIconButton"
+                                  className='changePhotoIconButton'
                                 >
                                   Change
                                 </button>
                               </div>
                             </div>
                           ) : null}
-                          <div className="addImageandUploadPostIcon">
+                          <div className='addImageandUploadPostIcon'>
                             {/* <img onClick={chooseFile} className='addImageInCommunityIcon' src="./images/add-image-icon.png" alt="addImageIcon" /> */}
 
                             <button
                               onClick={EditPost}
-                              className="uploadPostIconButton"
+                              className='uploadPostIconButton'
                             >
                               Save Changes
                             </button>
@@ -633,10 +633,10 @@ const CommunityFinal = () => {
 
           {/* UPLOAD NEW POST SECTION */}
 
-          <div className="reverrCommunityUploadContainerrr">
-            <div className="reverrCommunityHeadingAndPostUploadIcon">
+          <div className='reverrCommunityUploadContainerrr'>
+            <div className='reverrCommunityHeadingAndPostUploadIcon'>
               <div>
-                <h2 className="reverrCommunityHeading">
+                <h2 className='reverrCommunityHeading'>
                   {" "}
                   Welcome To Reverr{" "}
                   <span style={{ color: "rgba(42, 114, 222, 1)" }}>
@@ -662,13 +662,13 @@ const CommunityFinal = () => {
                     onClick={() =>
                       setNavbarPostButtonClick((current) => !current)
                     }
-                    id="postUploaddSquareCont"
-                    className="postUploaddSquareCont"
+                    id='postUploaddSquareCont'
+                    className='postUploaddSquareCont'
                   >
                     <img
-                      className="postUploaddSquareContAddImg"
-                      src="./images/add.png"
-                      alt="addIcon"
+                      className='postUploaddSquareContAddImg'
+                      src='./images/add.png'
+                      alt='addIcon'
                     />
                   </div>
                 </>
@@ -676,42 +676,42 @@ const CommunityFinal = () => {
               {width < 600 ? (
                 <div
                   onClick={() => setTextAreaIsClick((current) => !current)}
-                  id="postUploaddSquareCont"
-                  className="postUploaddSquareCont"
+                  id='postUploaddSquareCont'
+                  className='postUploaddSquareCont'
                 >
                   <img
-                    className="postUploaddSquareContAddImg"
-                    src="./images/add.png"
-                    alt="addIcon"
+                    className='postUploaddSquareContAddImg'
+                    src='./images/add.png'
+                    alt='addIcon'
                   />
                 </div>
               ) : scroll > 150 ? null : (
                 <div
                   onClick={() => setTextAreaIsClick((current) => !current)}
-                  id="postUploaddSquareCont"
-                  className="postUploaddSquareCont"
+                  id='postUploaddSquareCont'
+                  className='postUploaddSquareCont'
                 >
                   <img
-                    className="postUploaddSquareContAddImg"
-                    src="./images/add.png"
-                    alt="addIcon"
+                    className='postUploaddSquareContAddImg'
+                    src='./images/add.png'
+                    alt='addIcon'
                   />
                 </div>
               )}
             </div>
 
-            <section className="uploadPostContainerrrrSection  uploadPostContainerrrrSectionBoxShadow">
-              <div className="uploadPostContainerrrr">
+            <section className='uploadPostContainerrrrSection  uploadPostContainerrrrSectionBoxShadow'>
+              <div className='uploadPostContainerrrr'>
                 <img
-                  className="community-upload-cont-userImage"
+                  className='community-upload-cont-userImage'
                   src={
                     userDoc?.image
                       ? userDoc.image
                       : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
-                  alt="userImage"
+                  alt='userImage'
                 />
-                <div className="textAreaUploadContainer">
+                <div className='textAreaUploadContainer'>
                   <div
                     className={
                       textAreaIsClick
@@ -723,15 +723,15 @@ const CommunityFinal = () => {
                       style={{ borderRadius: "30px" }}
                       onClick={() => setTextAreaIsClick(true)}
                       onChange={(e) => setNewPostText(e.target.value)}
-                      name="postText"
+                      name='postText'
                       id={
                         textAreaIsClick
                           ? "postTextContainerExpanded"
                           : "postTextContainer"
                       }
-                      rows="3"
+                      rows='3'
                       value={newPostText}
-                      placeholder="What Would You Like To Post?"
+                      placeholder='What Would You Like To Post?'
                     ></textarea>
                     <img
                       style={{
@@ -739,9 +739,9 @@ const CommunityFinal = () => {
                         position: "absolute",
                         right: " 23px",
                         top: "14px",
-                        cursor:"pointer",
+                        cursor: "pointer",
                       }}
-                      src="./images/right-arraow-bg-blue.png"
+                      src='./images/right-arraow-bg-blue.png'
                     />
 
                     {/* <img
@@ -763,23 +763,23 @@ const CommunityFinal = () => {
                       }
                     /> */}
                     {tempImageURL ? (
-                      <div className="communityPostImage-cont">
+                      <div className='communityPostImage-cont'>
                         <img
-                          className="communityPostImage"
+                          className='communityPostImage'
                           src={tempImageURL}
-                          alt="postFile"
+                          alt='postFile'
                         />
-                        <div className="edit_Delete_Btn">
+                        <div className='edit_Delete_Btn'>
                           <RxCrossCircled
                             onClick={RemoveFile}
-                            className="delete_Btn"
+                            className='delete_Btn'
                           />
-                          <FiEdit onClick={chooseFile} className="edit_Btn" />
+                          <FiEdit onClick={chooseFile} className='edit_Btn' />
                         </div>
                       </div>
                     ) : null}
                     {textAreaIsClick ? (
-                      <div className="addImageandUploadPostIcon uploadNewPostaddImageandUploadPostIcon">
+                      <div className='addImageandUploadPostIcon uploadNewPostaddImageandUploadPostIcon'>
                         {/* <img
                           onClick={chooseFile}
                           className="addImageInCommunityIcon"
@@ -792,36 +792,36 @@ const CommunityFinal = () => {
                         /> */}
                         <button
                           onClick={uploadImageToFireBase}
-                          className="uploadPostIconButton"
+                          className='uploadPostIconButton'
                         >
                           Post
                         </button>
                       </div>
                     ) : null}
                   </div>
-                  <div className="post_assets_icon_main">
+                  <div className='post_assets_icon_main'>
                     <div
-                      className="post_assets_icon_main_div"
+                      className='post_assets_icon_main_div'
                       onClick={chooseFile}
                     >
-                      <BsImages className="assest_icon" />
-                      <span className="icon_text">Images</span>
+                      <BsImages className='assest_icon' />
+                      <span className='icon_text'>Images</span>
                     </div>
-                    <div className="post_assets_icon_main_div">
-                      <MdPoll className="assest_icon" />
-                      <span className="icon_text">Polls</span>
+                    <div className='post_assets_icon_main_div'>
+                      <MdPoll className='assest_icon' />
+                      <span className='icon_text'>Polls</span>
                     </div>
-                    <div className="post_assets_icon_main_div">
-                      <MdVideoCameraBack className="assest_icon" />
-                      <span className="icon_text">Video</span>
+                    <div className='post_assets_icon_main_div'>
+                      <MdVideoCameraBack className='assest_icon' />
+                      <span className='icon_text'>Video</span>
                     </div>
-                    <div className="post_assets_icon_main_div">
-                      <RiFileSearchLine className="assest_icon" />
-                      <span className="icon_text">Files</span>
+                    <div className='post_assets_icon_main_div'>
+                      <RiFileSearchLine className='assest_icon' />
+                      <span className='icon_text'>Files</span>
                     </div>
-                    <div className="post_assets_icon_main_div">
-                      <MdLocationOn className="assest_icon" />
-                      <span className="icon_text">Location</span>
+                    <div className='post_assets_icon_main_div'>
+                      <MdLocationOn className='assest_icon' />
+                      <span className='icon_text'>Location</span>
                     </div>
                   </div>
                 </div>
@@ -855,7 +855,7 @@ const CommunityFinal = () => {
 
           {/* POST SECTION */}
 
-          <div className="infiniteScrollOuterDiv">
+          <div className='infiniteScrollOuterDiv'>
             <InfiniteScroll
               dataLength={displayPosts.length}
               next={fetchMorePosts}
@@ -866,8 +866,7 @@ const CommunityFinal = () => {
                 </div>
               }
             >
-            
-              <section className="posts-containerr">
+              <section className='posts-containerr'>
                 {displayPosts.length === 0 &&
                   sortOptionSelected.whose !== "People You Follow" && (
                     <div>
@@ -884,7 +883,7 @@ const CommunityFinal = () => {
                   </>
                 ) : null}
                 {displayPosts.map((item, index) => {
-                  return ( 
+                  return (
                     <PostCard
                       postsData={postsData}
                       setPostsData={setPostsData}
@@ -903,12 +902,12 @@ const CommunityFinal = () => {
 
         {/* COMMUNITY NEWS SECTION */}
         {width > 1180 ? (
-          <section id="communityNewsSection">
+          <section id='communityNewsSection'>
             <div
               style={{ overflowY: "auto" }}
-              className="communityNewsSectionContainer"
+              className='communityNewsSectionContainer'
             >
-              <h3 className="communityNewsSectionHeading">Trending News</h3>
+              <h3 className='communityNewsSectionHeading'>Trending News</h3>
               {!newsData && (
                 <div>
                   <NewSkeleton cards={3} />
@@ -920,18 +919,18 @@ const CommunityFinal = () => {
                     return (
                       <>
                         <div
-                          className="communityNewsSectionNewsCont"
+                          className='communityNewsSectionNewsCont'
                           onClick={() => setSingleNews(news)}
                           key={news.url}
                         >
-                          <div className="communityNewsSectionNewsImageCont">
+                          <div className='communityNewsSectionNewsImageCont'>
                             <img
-                              className="communityNewsSectionNewsImage"
+                              className='communityNewsSectionNewsImage'
                               src={news?.image?.thumbnail?.contentUrl}
-                              alt="newsImg"
+                              alt='newsImg'
                             />
                           </div>
-                          <p className="communityNewsSectionNewsInfo">
+                          <p className='communityNewsSectionNewsInfo'>
                             {news.description.slice(0, 60)}....
                           </p>
                         </div>
@@ -944,18 +943,18 @@ const CommunityFinal = () => {
                   return (
                     <>
                       <div
-                        className="communityNewsSectionNewsCont"
+                        className='communityNewsSectionNewsCont'
                         onClick={() => setSingleNews(news)}
                         key={news.url}
                       >
-                        <div className="communityNewsSectionNewsImageCont">
+                        <div className='communityNewsSectionNewsImageCont'>
                           <img
-                            className="communityNewsSectionNewsImage"
+                            className='communityNewsSectionNewsImage'
                             src={news?.image?.thumbnail?.contentUrl}
-                            alt="newsImg"
+                            alt='newsImg'
                           />
                         </div>
-                        <p className="communityNewsSectionNewsInfo">
+                        <p className='communityNewsSectionNewsInfo'>
                           {news.description.slice(0, 60)}....
                         </p>
                       </div>
@@ -966,7 +965,7 @@ const CommunityFinal = () => {
               {seeAllNewsIsClicked ? null : (
                 <button
                   onClick={() => setSeeAllNewsIsClicked(true)}
-                  className="communityNewsSectionContainerMoreNewsButton"
+                  className='communityNewsSectionContainerMoreNewsButton'
                 >
                   See All
                 </button>

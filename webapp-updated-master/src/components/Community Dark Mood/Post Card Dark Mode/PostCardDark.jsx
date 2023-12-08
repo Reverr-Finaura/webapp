@@ -279,7 +279,7 @@ export default function PostCardDark({
 
     try {
       await updateDoc(userDocumentRef, { comments: data });
-      toast("Sucessfully Commented");
+      toast("Successfully Commented");
       fetchPostData();
 
       setNewComment("");
@@ -326,7 +326,7 @@ export default function PostCardDark({
 
     try {
       await updateDoc(userDocumentRef, { comments: data });
-      toast("Sucessfully Editted");
+      toast("Successfully Edited");
       fetchPostData();
       setEditCommentButtonIsClick(false);
       setNewEdittedComment("");
@@ -392,7 +392,7 @@ export default function PostCardDark({
 
     try {
       await updateDoc(userDocumentRef, { comments: data });
-      toast("Sucessfully Deleted");
+      toast("Successfully Deleted");
       fetchPostData();
     } catch (error) {
       console.log(error.message);
@@ -512,7 +512,7 @@ export default function PostCardDark({
 
   // handleRepostPost
   function handleReportPost() {
-    toast("reported post");
+    toast("Post Reported");
   }
   // fetching the post user type
   useEffect(() => {});

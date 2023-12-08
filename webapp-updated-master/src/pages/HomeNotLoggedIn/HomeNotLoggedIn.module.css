@@ -85,14 +85,14 @@
   justify-content: center;
   align-items: center;
   padding: 40px 100px;
-  width: 20%;
+  /* width: 20%; */
+  width: fit-content;
   border-radius: 15px;
   background: var(--bg-secondary-gray, #1a1e28);
-  box-shadow: 0px 6.817999839782715px 34.09000015258789px 0px
-    rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 6.817999839782715px 34.09000015258789px 0px rgba(0, 0, 0, 0.25);
 }
 
-.logInModal > img {
+.logInModal>img {
   width: 80px;
   height: 80px;
   border-radius: 40px;
@@ -149,7 +149,7 @@
   cursor: pointer;
 }
 
-.signUpButton > img {
+.signUpButton>img {
   width: 20px;
   height: 20px;
   margin-right: 10px;

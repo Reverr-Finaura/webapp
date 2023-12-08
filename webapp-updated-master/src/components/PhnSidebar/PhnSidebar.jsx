@@ -25,7 +25,7 @@ import { logout, selectUser } from "../../features/userSlice";
 import { remove } from "../../features/newUserSlice";
 import { toast } from "react-toastify";
 import { BiArrowBack } from "react-icons/bi";
-import logOutIconn from "../../images/bx_log-out.webp"
+import logOutIconn from "../../images/bx_log-out.webp";
 
 function Sidebar() {
   const user = useSelector(selectUser);
@@ -60,82 +60,130 @@ function Sidebar() {
       >
         <XIcon className={styles.xicon} />
       </div>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/dashboard">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/dashboard'
+      >
         <div className={styles.phnSidebarOption}>
-          <img src={dashL} alt="" />
+          <img src={dashL} alt='' />
           <p>Dashboard</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/knowledge">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/knowledge'
+      >
         {" "}
         <div className={styles.phnSidebarOption}>
-          <img src={knowL} alt="" />
+          <img src={knowL} alt='' />
           <p>Knowledge</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/funding-page">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/funding-page'
+      >
         <div className={styles.phnSidebarOption}>
-          <img className={styles.fundingIcon} src={fundL} alt="" />
+          <img className={styles.fundingIcon} src={fundL} alt='' />
           <p className={styles.fundingIconText}>Funding</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/mentors">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/mentors'
+      >
         <div className={styles.phnSidebarOption}>
-          <img src={mentL} alt="" />
+          <img src={mentL} alt='' />
           <p>Mentorship</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/community">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/community'
+      >
         <div className={styles.phnSidebarOption}>
-          <img src={comL} alt="" />
+          <img src={comL} alt='' />
           <p>Community</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/start-up">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/start-up'
+      >
         <div className={styles.phnSidebarOption}>
-          <img src={startL} alt="" />
+          <img src={startL} alt='' />
           <p>Start-up</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/tools">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/tools'
+      >
         <div className={styles.phnSidebarOption}>
-          <img src={toolsL} alt="" />
+          <img src={toolsL} alt='' />
           <p>Tools</p>
         </div>
       </NavLink>
-      <NavLink onClick={()=>dispatch(phnSidebarInvisible())} className={styles.navlink} to="/messages">
+      <NavLink
+        onClick={() => dispatch(phnSidebarInvisible())}
+        className={styles.navlink}
+        to='/messages'
+      >
         <div className={styles.phnSidebarOption}>
-          <img src={knowL} alt="" />
+          <img src={knowL} alt='' />
           <p>Messages</p>
         </div>
       </NavLink>
-      <div onClick={user ? () => signOut(auth).then(() => {dispatch(logout());dispatch(remove());})
-                    .then(() => {
-                      toast.success("Sucessfully logged out");
-                      navigate("/");
-                    })
-              : () => navigate("/login")
-          } className={styles.sidebar_final_icon_signout_cont}>
-        <img src={logOutIconn} alt="icon" />
+      <div
+        onClick={
+          user
+            ? () =>
+                signOut(auth)
+                  .then(() => {
+                    dispatch(logout());
+                    dispatch(remove());
+                  })
+                  .then(() => {
+                    toast.success("Successfully logged out");
+                    navigate("/");
+                  })
+            : () => navigate("/login")
+        }
+        className={styles.sidebar_final_icon_signout_cont}
+      >
+        <img src={logOutIconn} alt='icon' />
         <p>Log Out</p>
       </div>
       {pptPath ? (
-          <button
-            onClick={() => navigate(-1)}
-            className="sidebar-final-logout-btn"
-          >
-            {" "}
-            <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}} /> Back
-          </button>
-        ) : docPath ? (
-          <button
-            onClick={() => navigate(-1)}
-            className="sidebar-final-logout-btn"
-          >
-            {" "}
-            <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}}/> Back
-          </button>
-        ) : null}
+        <button
+          onClick={() => navigate(-1)}
+          className='sidebar-final-logout-btn'
+        >
+          {" "}
+          <BiArrowBack
+            style={{ marginRight: "1rem", color: "rgba(42, 114, 222, 0.92)" }}
+          />{" "}
+          Back
+        </button>
+      ) : docPath ? (
+        <button
+          onClick={() => navigate(-1)}
+          className='sidebar-final-logout-btn'
+        >
+          {" "}
+          <BiArrowBack
+            style={{ marginRight: "1rem", color: "rgba(42, 114, 222, 0.92)" }}
+          />{" "}
+          Back
+        </button>
+      ) : null}
       {/* <NavLink className={styles.navlink} to="/upgrade">
         <div className={styles.phnSidebarOption}>
           <img src="./images/crown.svg" alt="" />

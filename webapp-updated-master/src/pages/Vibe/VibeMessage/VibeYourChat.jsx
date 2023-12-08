@@ -24,18 +24,18 @@ const VibeYourChat = ({
   const [dataPreprocessing, setDataPreprocessing] = useState(true);
   const [dummyLoading2, setDummyLoadig2] = useState(false);
   const [chatList, setChatList] = useState([]);
-  const chatData = useSelector((state) => state.chatLatest);
+  // const chatData = useSelector((state) => state.chatLatest);
   const [chatUserData, setChatUserData] = useState([]);
-  const [isClicked, setIsClicked] = useState(false);
-  const [isClicked2, setIsClicked2] = useState(false);
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
-  const handleClick2 = () => {
-    setIsClicked2(!isClicked2);
-  };
-  console.log("chatlist", chatUserData);
-  console.log(new Date(1694697491000));
+  // const [isClicked, setIsClicked] = useState(false);
+  // const [isClicked2, setIsClicked2] = useState(false);
+  // const handleClick = () => {
+  //   setIsClicked(!isClicked);
+  // };
+  // const handleClick2 = () => {
+  //   setIsClicked2(!isClicked2);
+  // };
+  // console.log("chatlist", chatUserData);
+  // console.log(new Date(1694697491000));
 
   const getAllUserChat = async () => {
     try {
@@ -48,6 +48,7 @@ const VibeYourChat = ({
       console.error("An error occurred:", error);
     }
   };
+  console.log(chatList);
 
   useEffect(() => {
     getAllUserChat();
@@ -74,8 +75,8 @@ const VibeYourChat = ({
       chatList.map(async (list, idx) => {
         const docRef = doc(db, "Users", list.id);
         const docSnap = await getDoc(docRef);
-        if (docSnap.data())
-          // console.log("docsnap",docSnap.data());
+        if (docSnap.data()) {
+          console.log("docsnap", docSnap.data());
           setChatUserData((prev) => {
             return [
               ...new Set([
@@ -101,7 +102,8 @@ const VibeYourChat = ({
               ]),
             ];
           });
-        setDummyLoadig2(false);
+          setDummyLoadig2(false);
+        }
       });
     } else if (chatUserData.length > 0) {
       let newChatUserData = [];
@@ -156,7 +158,6 @@ const VibeYourChat = ({
     }
     return 0;
   }
-
   // useEffect(() => {}, [sorter]);
 
   return (

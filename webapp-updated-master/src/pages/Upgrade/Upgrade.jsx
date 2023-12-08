@@ -4,62 +4,73 @@ import { MdArrowBackIos } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import MakePayment from "./Make Payment/MakePayment";
 
 const Upgrade = () => {
   const navigate = useNavigate();
-  const userDoc = useSelector((state) => state.userDoc)
-  const [sessionIdTokken, setSessionIdTokken] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [planAmt, setPlanAmt] = useState("")
-  const [planDuration, setPlanDuration] = useState('')
-  const [planName, setPlanName] = useState("")
+  const userDoc = useSelector((state) => state.userDoc);
+  const [sessionIdTokken, setSessionIdTokken] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [planAmt, setPlanAmt] = useState("");
+  const [planDuration, setPlanDuration] = useState("");
+  const [planName, setPlanName] = useState("");
 
- 
   //GENERATE RANDOM UNIQUE ID
   const uuid = () => {
-    const val1 = Date.now().toString(36)
-    const val2 = Math.random().toString(36).substring(2)
+    const val1 = Date.now().toString(36);
+    const val2 = Math.random().toString(36).substring(2);
 
-    return val1 + val2
-  } 
-
+    return val1 + val2;
+  };
 
   const handleUpgrade = (amt, duration, planName) => {
-    toast("Processing Your Request")
-    setLoading(true)
-    setPlanAmt(amt)
-    setPlanDuration(duration)
-    setPlanName(planName)
+    toast("Processing Your Request");
+    setLoading(true);
+    setPlanAmt(amt);
+    setPlanDuration(duration);
+    setPlanName(planName);
     const bodyData = {
-
       id: `order_${uuid()}`,
       amount: `${amt}`,
       // amount:"1",
       currency: "INR",
       customer_id: uuid(),
       customer_phone: userDoc.phone,
-
-    }
+    };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyData),
     };
-    console.log("this is the body ",bodyData);
-    console.log("this is the requestOptions",requestOptions);
-    axios.post("https://server.reverr.io/webcftoken", bodyData)
-      .then((res) => { setSessionIdTokken(res.data.token); setLoading(false) })
-      .catch((err) => { toast.error(err.message); setLoading(false) })
-  }
-  console.log("sessionIdTokken --- ",sessionIdTokken)
+    console.log("this is the body ", bodyData);
+    console.log("this is the requestOptions", requestOptions);
+    axios
+      .post("https://server.reverr.io/webcftoken", bodyData)
+      .then((res) => {
+        setSessionIdTokken(res.data.token);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  };
+  console.log("sessionIdTokken --- ", sessionIdTokken);
 
   return (
-    <><ToastContainer />
-      {sessionIdTokken !== null ? <MakePayment sessionIdTokken={sessionIdTokken} setSessionIdTokken={setSessionIdTokken} planDuration={planDuration} planName={planName} /> : null}
-      {sessionIdTokken === null &&
+    <>
+      <ToastContainer />
+      {sessionIdTokken !== null ? (
+        <MakePayment
+          sessionIdTokken={sessionIdTokken}
+          setSessionIdTokken={setSessionIdTokken}
+          planDuration={planDuration}
+          planName={planName}
+        />
+      ) : null}
+      {sessionIdTokken === null && (
         <div className={styles.upgrade_container_outer}>
           {/* <MdArrowBackIos
             className={styles.back_icon}
@@ -73,17 +84,23 @@ const Upgrade = () => {
             </h1>
             <p>Lorem ipsum is a dummy text used for typography</p>
             <div className={styles.plans_card}>
-              <div className={styles.plan_card_1} onClick={() => { handleUpgrade(199, 1, "Monthly") }} >
+              <div
+                className={styles.plan_card_1}
+                onClick={() => {
+                  handleUpgrade(199, 1, "Monthly");
+                }}
+              >
                 <p className={styles.plan_duration}>Monthly</p>
                 <h3 className={styles.plan_price}>
                   ₹199/<span>Month</span>
                 </h3>
                 <hr className={styles.plan_divider} />
                 <ul className={styles.plan_desc}>
-
                   <li>Get access to all the courses</li>
                   <li>Access all the tools</li>
-                  <li>Access <b>VIBE</b> features like:</li>
+                  <li>
+                    Access <b>VIBE</b> features like:
+                  </li>
                   <div>
                     <li>Unlimited swipes</li>
                     <li>Additional 4 handshakes per month</li>
@@ -92,12 +109,15 @@ const Upgrade = () => {
                     <li>Unlimited filters</li>
                   </div>
                 </ul>
-                <ul>
-
-                </ul>
+                {/* <ul></ul> */}
                 {/* <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(199, 1, "Monthly") }} className={styles.plan_buy_btn}>Buy 1 Month</button> */}
               </div>
-              <div className={styles.plan_card_2}  onClick={() => { handleUpgrade(499, 3, "Quarterly") }} >
+              <div
+                className={styles.plan_card_2}
+                onClick={() => {
+                  handleUpgrade(499, 3, "Quarterly");
+                }}
+              >
                 <p className={styles.plan_duration}>Quarterly</p>
                 <h3 className={styles.planCrossedprice}>
                   ₹600/<span>3Month</span>
@@ -109,7 +129,9 @@ const Upgrade = () => {
                 <ul className={styles.plan_desc}>
                   <li>Get access to all the courses</li>
                   <li>Access all the tools</li>
-                  <li>Access <b>VIBE</b> features like:</li>
+                  <li>
+                    Access <b>VIBE</b> features like:
+                  </li>
                   <div>
                     <li>Unlimited swipes</li>
                     <li>Additional 4 handshakes per month</li>
@@ -120,7 +142,12 @@ const Upgrade = () => {
                 </ul>
                 {/* <button style={{ cursor: loading ? "default" : "" }} disabled={loading} onClick={() => { handleUpgrade(499, 3, "Quarterly") }} className={styles.plan_buy_btn}>Buy 3 Months</button> */}
               </div>
-              <div className={styles.plan_card_3} onClick={() => { handleUpgrade(799, 6, "Semi-Annually") }}>
+              <div
+                className={styles.plan_card_3}
+                onClick={() => {
+                  handleUpgrade(799, 6, "Semi-Annually");
+                }}
+              >
                 <p className={styles.plan_duration}>Semi-Annually</p>
                 <h3 className={styles.planCrossedprice}>
                   ₹1200/<span>6Month</span>
@@ -132,7 +159,9 @@ const Upgrade = () => {
                 <ul className={styles.plan_desc}>
                   <li>Get access to all the courses</li>
                   <li>Access all the tools</li>
-                  <li>Access <b>VIBE</b> features like:</li>
+                  <li>
+                    Access <b>VIBE</b> features like:
+                  </li>
                   <div>
                     <li>Unlimited swipes</li>
                     <li>Additional 4 handshakes per month</li>
@@ -162,7 +191,8 @@ const Upgrade = () => {
               * <span>Terms & Conditions </span> applied
             </p> */}
           </div>
-        </div>}
+        </div>
+      )}
     </>
   );
 };

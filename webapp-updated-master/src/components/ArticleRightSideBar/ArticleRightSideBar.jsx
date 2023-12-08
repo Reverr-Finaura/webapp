@@ -154,7 +154,7 @@ const ArticleRightSideBar = (props) => {
         <p>Loading...</p>
       ) : (
         <>
-          <div className='articlesFilters'>
+          {/* <div className='articlesFilters'>
             {filters.map((item, index) => {
               return (
                 <div
@@ -168,7 +168,7 @@ const ArticleRightSideBar = (props) => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
           <div className='articlerightsidecontainer'>
             <div
               onClick={() => navigate(`/discover/${randomArticles[0]?.id}`)}

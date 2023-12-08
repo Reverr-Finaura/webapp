@@ -1,13 +1,13 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-import NavBarFinal from "../../../components/Navbar/NavBarFinal";
+// import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
+// import NavBarFinal from "../../../components/Navbar/NavBarFinal";
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
 import { db } from "../../../firebase";
 import styles from "./DocumentTemplatesViewer.module.css";
 import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
-import { BsArrowRightSquareFill,BsArrowLeftSquareFill } from "react-icons/bs";
+import { BsArrowRightSquareFill, BsArrowLeftSquareFill } from "react-icons/bs";
 import { DocumentViewer } from "react-documents";
 import loader from "../../../images/Pulse-1s-200px.svg";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
@@ -40,24 +40,28 @@ const DocumentTemplatesViewer = () => {
     }
     FetchDocumentTemplate();
   }, [documentId]);
+  console.log(documentLink);
 
   return (
     <>
-     
       {width >= 600 ? (
         <>
           <div
             style={{ transform: isSideBarCalled ? "translateX(0)" : "" }}
             className={styles.animatedSideBar}
           >
-            {isSideBarCalled? <BsArrowLeftSquareFill
-            onClick={() => setIsSideBarCalled((e) => !e)}
-            className={styles.arroww}
-          /> :<BsArrowRightSquareFill
-          onClick={() => setIsSideBarCalled((e) => !e)}
-          className={styles.arroww}
-        />}
-           
+            {isSideBarCalled ? (
+              <BsArrowLeftSquareFill
+                onClick={() => setIsSideBarCalled((e) => !e)}
+                className={styles.arroww}
+              />
+            ) : (
+              <BsArrowRightSquareFill
+                onClick={() => setIsSideBarCalled((e) => !e)}
+                className={styles.arroww}
+              />
+            )}
+
             <SidebarFinal />
           </div>
           {/* <NavBarFinal /> */}
@@ -76,7 +80,7 @@ const DocumentTemplatesViewer = () => {
             <DocumentViewer
               className={styles.pptViewerOuterCont}
               url={documentLink}
-              viewer="url"
+              viewer='url'
               // style={{ width: "100%", height: "100vh" }}
             ></DocumentViewer>
           </section>
@@ -85,7 +89,7 @@ const DocumentTemplatesViewer = () => {
         <>
           <div className={styles.outerContLoading}>
             <h1>Loading......</h1>
-            <img className={styles.loadIcon} src={loader} alt="loading" />
+            <img className={styles.loadIcon} src={loader} alt='loading' />
           </div>
         </>
       )}

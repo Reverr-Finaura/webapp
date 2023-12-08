@@ -64,7 +64,7 @@ const ArticleNavigation = () => {
               <div className={styles.Card_Heading}>
                 <h1 className={styles.blogHeading}>{info.heading}</h1>
               </div>
-              <div className={styles.Card_Actions}>
+              {/* <div className={styles.Card_Actions}>
                 <h2>
                   <Trash
                     title='Click to delete'
@@ -76,7 +76,7 @@ const ArticleNavigation = () => {
                     }}
                   />
                 </h2>
-              </div>
+              </div> */}
             </div>
             <div className={styles.Card_ImgContainer}>
               <img src={info.image.imageUrl} alt={info.image.imageName} />

@@ -322,7 +322,7 @@ const LoginTesting = () => {
         });
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/community");
       })
       .catch((error) => {
@@ -372,7 +372,7 @@ const LoginTesting = () => {
         );
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -515,7 +515,7 @@ const LoginTesting = () => {
   //   setShowPassword(!showPassword);
   // };
 
-  console.log("Set Show Password", showPassword);
+  // console.log("Set Show Password", showPassword);
   return (
     <>
       <NavBarFinalDarkMode isLoggedIn={false} />

@@ -409,7 +409,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       toast("Nothing To Post");
       return;
     }
-
     toast("Processing Your Request");
 
     let downloadURL = "";
@@ -578,7 +577,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     try {
       await updateDoc(userDocumentRef, { posts: id });
 
-      toast("Sucessfully Posted");
+      toast("Successfully Posted");
       setTimeout(() => {
         window.location.reload();
       }, 500);
@@ -640,7 +639,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
 
-      toast("Sucessfully Saved");
+      toast("Successfully Saved");
 
       setTimeout(() => {
         window.location.reload();
@@ -828,8 +827,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                 alt='postFile'
               />
               <div className={style.editDeleteBtn}>
-                <RxCrossCircled onClick={RemoveFile} className='delete_Btn' />
                 <FiEdit onClick={chooseFile} className={style.editBtn} />
+                <RxCrossCircled
+                  onClick={RemoveFile}
+                  className={style.delete_Btn}
+                />
               </div>
             </div>
             <button
@@ -1267,7 +1269,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         <div className={style.editDeleteBtn}>
                           <RxCrossCircled
                             onClick={RemoveFile}
-                            className='delete_Btn'
+                            className={style.delete_Btn}
                           />
                           <FiEdit
                             onClick={chooseFile}
@@ -1307,7 +1309,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         <div className={style.editDeleteBtn}>
                           <RxCrossCircled
                             onClick={RemoveFile}
-                            className='delete_Btn'
+                            className={style.delete_Btn}
                           />
                           <FiEdit
                             onClick={chooseFile}

@@ -966,8 +966,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       className={`${style.navbarIconsName} ${
                         isProductModalOpen ? style.activeScreen : ""
                       }`}
+                      style={{ display: "flex" }}
                     >
-                      Products &#9662;
+                      Products <span>&#9662;</span>
                     </p>
                   </div>
                 ) : null
@@ -1254,7 +1255,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                                     dispatch(removeUserFundingDoc());
                                   })
                                   .then(() => {
-                                    toast.success("Sucessfully logged out");
+                                    toast.success("Successfully logged out");
                                     navigate("/");
                                   })
                             : () => navigate("/login")

@@ -23,7 +23,8 @@
   align-items: center;
   border-radius: 10px;
   flex-direction: column;
-  height: 50%;
+  /* height: 50%; */
+  padding: 40px;
   width: 85%;
 }
 
@@ -46,7 +47,8 @@
 }
 
 .imageModalSubmitebtn {
-  /* margin-left: auto; */
+  margin-top: 5px;
+  margin-left: auto;
   background: #2a72de;
   border-radius: 10px;
   padding: 2px 16px;
@@ -58,9 +60,9 @@
   border: none;
   /* background-color: #cccccc; */
 
-  position: absolute;
+  /* position: absolute;
   bottom: 18px;
-  right: 50px;
+  right: 50px; */
   cursor: pointer;
 
 
@@ -683,7 +685,7 @@
   border: none;
   border-bottom: 0;
   border-top: 0;
-  margin-top: -10px;
+  /* margin-top: -10px; */
   display: flex;
   justify-content: center;
   /* gap: 1rem; */
@@ -694,11 +696,11 @@
 
 .communityPostImage {
   position: relative !important;
-  width: 70%;
+  /* width: 70%; */
   /* margin: auto; */
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   object-fit: cover;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   width: 100%;
@@ -766,19 +768,19 @@
   margin-bottom: 1rem;
 }
 
-.edit_Delete_Btn {
+.editDeleteBtn {
   display: flex;
-
-  width: 100px;
+  /* width: 100px; */
   justify-content: space-around;
   position: absolute;
+  gap: 10px;
   right: 0px;
   top: -28px;
 }
 
 .delete_Btn,
-.edit_Btn {
-  font-size: 1.5rem;
+.editBtn {
+  font-size: 1.3rem;
   cursor: pointer;
 }
 

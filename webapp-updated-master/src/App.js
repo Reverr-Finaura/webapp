@@ -156,7 +156,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const newUser = useSelector(selectNewUser);
-  // const onBoardingData = useSelector((state) => state.onboarding);
   const userDoc = useSelector((state) => state.userDoc);
 
   useEffect(() => {
@@ -185,15 +184,12 @@ function App() {
 
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
-          // console.log("data11111122222", data);
           dispatch(setUserDoc(data));
         }
       }
       fetchUserDocFromFirebase();
     }
   }, [user]);
-
-  // console.log("user isssssssss", user);
 
   return (
     <>

@@ -70,14 +70,12 @@ const SelectedChat = ({ setChatSelected, setMobileChatNoHeader }) => {
         </div>
       </div>
       <hr style={{ width: "100%", color: "#A7A7A7" }} />
-
       <div
         className={style.scrollnone}
         style={{ width: "100%", height: "80%", overflowY: "scroll" }}
       >
         <SelectedChatBox />
       </div>
-
       <div>
         <VibeInput />
       </div>

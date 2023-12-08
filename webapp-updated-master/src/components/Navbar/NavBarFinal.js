@@ -22,9 +22,9 @@ import userIcon from "../../images/userIcon.png";
 import settingIcon from "../../images/Vector (3).png";
 import ReverrLightIcon from "../../images/Reverr Light.png";
 import ReverrDarkIcon from "../../images/Frame 6266720.png";
-import {AiFillBell, AiFillSetting} from "react-icons/ai"
-import {FaUserAlt} from "react-icons/fa"
-import {MdOutlineKeyboardArrowDown} from "react-icons/md"
+import { AiFillBell, AiFillSetting } from "react-icons/ai";
+import { FaUserAlt } from "react-icons/fa";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 
@@ -41,34 +41,33 @@ const NavBarFinal = () => {
   const [notificationList, setNotificationList] = useState([]);
   const theme = useSelector((state) => state.themeColor);
   const [scroll, setScroll] = useState(0);
-  const[loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
 
- // CHECK FOR USER PHOTO
- useEffect(() => {
-  if (userDoc?.image !== "") {
-    setUserImage(userDoc.image);
-    return;
-  }
-  if (user?.user?.photoURL !== null) {
-    setUserImage(user?.user?.photoURL);
-    return;
-  } else {
+  // CHECK FOR USER PHOTO
+  useEffect(() => {
+    if (userDoc?.image !== "") {
+      setUserImage(userDoc.image);
+      return;
+    }
+    if (user?.user?.photoURL !== null) {
+      setUserImage(user?.user?.photoURL);
+      return;
+    } else {
+      setUserImage(
+        "https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6"
+      );
+      return;
+    }
+  }, [userDoc]);
+
+  useEffect(() => {
     setUserImage(
       "https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6"
     );
-    return;
-  }
-}, [userDoc]);
-
-useEffect(() => {
-  setUserImage(
-    "https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6"
-  );
-}, []);
-
+  }, []);
 
   //CHECK FOR THEME
   useEffect(() => {
@@ -194,7 +193,7 @@ useEffect(() => {
         network: userWhoRequestedNewNetworkArray,
         notification: newNotificationArray,
       });
-      await createNetworkInMessagesDoc(userDoc.email,id);
+      await createNetworkInMessagesDoc(userDoc.email, id);
       toast("Accepted Follow Request");
       dispatch(setUserDoc(updatedUserDoc));
     } catch (error) {
@@ -263,7 +262,6 @@ useEffect(() => {
     }
   };
 
-
   function generateOTP(n) {
     var add = 1,
       max = 12 - add;
@@ -277,37 +275,38 @@ useEffect(() => {
     return ("" + number).substring(add);
   }
 
-const changePassBtnClick=async()=>{
-  setLoading(true)
-  const otp = generateOTP(6);
-  var templateParams = {
-    from_name: "Reverr",
-    to_name: userDoc.name,
-    to_email: userDoc.email,
-    otp,
+  const changePassBtnClick = async () => {
+    setLoading(true);
+    const otp = generateOTP(6);
+    var templateParams = {
+      from_name: "Reverr",
+      to_name: userDoc.name,
+      to_email: userDoc.email,
+      otp,
+    };
+    try {
+      await emailjs.send(
+        "service_lfmmz8k",
+        "template_n3pcht5",
+        templateParams,
+        "dVExxiI8hYMCyc0sY"
+      );
+      await axios.post("https://server.reverr.io/sendSmsCode", {
+        to: userDoc?.phone ? userDoc?.phone : userDoc?.mobile,
+        code: userDoc?.countryCode,
+        message: `Your Change Password OTP is ${otp}`,
+      });
+    } catch (error) {
+      console.log("FAILED...", error);
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
+    }
+
+    navigate("/change-user-password", {
+      state: otp,
+    });
+    setLoading(false);
   };
-  try {
-    await emailjs.send(
-      "service_lfmmz8k",
-      "template_n3pcht5",
-      templateParams,
-      "dVExxiI8hYMCyc0sY"
-    )
-    await axios.post("https://server.reverr.io/sendSmsCode",
-    { to:userDoc?.phone?userDoc?.phone:userDoc?.mobile,code:userDoc?.countryCode,message:`Your Change Password OTP is ${otp}` })
-
-  } catch (error) {
-    console.log("FAILED...", error);
-    setLoading(false)
-    toast.error(error?.response?.data?.message)
-  }
-
-  navigate("/change-user-password", {
-    state: otp
-})
-  setLoading(false)
-}
-
 
   return (
     <>
@@ -315,15 +314,15 @@ const changePassBtnClick=async()=>{
         <ToastContainer />
         <div
           onClick={() => navigate("/")}
-          className="navbar-brand-logo-img-cont"
+          className='navbar-brand-logo-img-cont'
         >
           <img
-            className="navbar-final-brand-logo-img"
+            className='navbar-final-brand-logo-img'
             src={theme === "light-theme" ? ReverrDarkIcon : ReverrLightIcon}
-            alt="brand-logo"
+            alt='brand-logo'
           />
         </div>
-        <div className="navbar-icons-cont">
+        <div className='navbar-icons-cont'>
           {/* <div className='navbar-topp-social-icon'><img onClick={() => {
               dispatch(showChat());
             }}  className='nabar-final-msg-cont' src="./images/Vector (2).png" alt="nav-icons" /></div> */}
@@ -350,11 +349,18 @@ const changePassBtnClick=async()=>{
             />
           </div> */}
 
-            {!userDoc.hasUpgrade&&<button className="navbar_final_upgrade_btn" onClick={()=>navigate("/upgrade")}>Upgrade</button>}
+          {!userDoc.hasUpgrade && (
+            <button
+              className='navbar_final_upgrade_btn'
+              onClick={() => navigate("/upgrade")}
+            >
+              Upgrade
+            </button>
+          )}
 
           <div
             onClick={() => setRequestsbuttonClick((current) => !current)}
-            className="navbar-topp-social-icon navbar_noOuterContCSS"
+            className='navbar-topp-social-icon navbar_noOuterContCSS'
           >
             {/* {userDoc?.receivedRequests?.length===0&&userDoc?.notification?.length===0?<img className='nabar-final-requestIcon-cont' src="./images/icons8-alarm-64.png" alt="nav-icons" />:<img className='nabar-final-requestIcon-cont' src="./images/icons8-alarm-64 (1).png" alt="nav-icons" />} */}
 
@@ -367,10 +373,10 @@ const changePassBtnClick=async()=>{
               }
             />
             {isRequestsButtonClick ? (
-              <div className="notifiction-dropdown-cont">
+              <div className='notifiction-dropdown-cont'>
                 {userDoc?.receivedRequests?.length === 0 &&
                 userDoc?.notification?.length === 0 ? (
-                  <p className="notifiction-dropdown-Request-Cont">
+                  <p className='notifiction-dropdown-Request-Cont'>
                     No New Notification
                   </p>
                 ) : null}
@@ -378,21 +384,21 @@ const changePassBtnClick=async()=>{
                   return (
                     <>
                       <p
-                        className="notifiction-dropdown-Request-Cont"
+                        className='notifiction-dropdown-Request-Cont'
                         key={item}
                       >
                         <span style={{ height: "fit-content" }}>
                           <img
-                            className="notifiction-dropdown-Request-image"
+                            className='notifiction-dropdown-Request-image'
                             src={
                               notificationList?.filter((e) => {
                                 return e.id === item;
                               })[0]?.image
                             }
-                            alt="requestUsrImg"
+                            alt='requestUsrImg'
                           />
                         </span>
-                        <span className="notifiction-dropdown-Request-name">
+                        <span className='notifiction-dropdown-Request-name'>
                           {
                             notificationList?.filter((e) => {
                               return e.id === item;
@@ -402,7 +408,7 @@ const changePassBtnClick=async()=>{
                         has accepted your follow request
                         <span
                           onClick={() => handleDeleteNotification(item)}
-                          className="notifiction-dropdown-Request-reject"
+                          className='notifiction-dropdown-Request-reject'
                         >
                           ❌
                         </span>
@@ -414,21 +420,21 @@ const changePassBtnClick=async()=>{
                   return (
                     <>
                       <p
-                        className="notifiction-dropdown-Request-Cont"
+                        className='notifiction-dropdown-Request-Cont'
                         key={item}
                       >
                         <span style={{ height: "fit-content" }}>
                           <img
-                            className="notifiction-dropdown-Request-image"
+                            className='notifiction-dropdown-Request-image'
                             src={
                               userDocList?.filter((e) => {
                                 return e.id === item;
                               })[0]?.image
                             }
-                            alt="requestUsrImg"
+                            alt='requestUsrImg'
                           />
                         </span>
-                        <span className="notifiction-dropdown-Request-name">
+                        <span className='notifiction-dropdown-Request-name'>
                           {
                             userDocList?.filter((e) => {
                               return e.id === item;
@@ -438,13 +444,13 @@ const changePassBtnClick=async()=>{
                         wants to follow you{" "}
                         <span
                           onClick={() => handleAcceptFollowRequest(item)}
-                          className="notifiction-dropdown-Request-accept"
+                          className='notifiction-dropdown-Request-accept'
                         >
                           ✅
                         </span>
                         <span
                           onClick={() => handleRejectFollowRequest(item)}
-                          className="notifiction-dropdown-Request-reject"
+                          className='notifiction-dropdown-Request-reject'
                         >
                           ❌
                         </span>
@@ -456,34 +462,54 @@ const changePassBtnClick=async()=>{
             ) : null}
           </div>
 
-          <img onClick={() => navigate("/userprofile")} className="navbar_final_user_Image" src={userImage?userImage:"https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"} alt="userimg" />
+          <img
+            onClick={() => navigate("/userprofile")}
+            className='navbar_final_user_Image'
+            src={
+              userImage
+                ? userImage
+                : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+            }
+            alt='userimg'
+          />
           {/* <div className="navbar-topp-social-icon">
           <FaUserAlt className="nabar-final-userProfile-Icon" onClick={() => navigate("/userprofile")}/>
           </div> */}
 
           <div
             onClick={() => setIsSettingbuttonClick((current) => !current)}
-            className="navbar-topp-social-icon setting-social-icon-cont navbar_noOuterContCSS"
+            className='navbar-topp-social-icon setting-social-icon-cont navbar_noOuterContCSS'
           >
-          {/* <AiFillSetting className="nabar-final-setting-Icon"/> */}
-          <MdOutlineKeyboardArrowDown className="nabar-final-setting-Icon"/>
+            {/* <AiFillSetting className="nabar-final-setting-Icon"/> */}
+            <MdOutlineKeyboardArrowDown className='nabar-final-setting-Icon' />
 
             {isSettingButtonClick ? (
-              <div className="setting-dropdown-cont">
-              
+              <div className='setting-dropdown-cont'>
                 <button
                   onClick={() => navigate("/userprofile")}
-                  className="setting-dropdown-button"
+                  className='setting-dropdown-button'
                 >
                   My Profile
                 </button>
-                
-                <button style={{cursor:loading?"default":"",height:"50px"}} disabled={loading}
-                  onClick={(e) =>{e.stopPropagation(); changePassBtnClick()}}
-                  className="setting-dropdown-button"
+
+                <button
+                  style={{ cursor: loading ? "default" : "", height: "50px" }}
+                  disabled={loading}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    changePassBtnClick();
+                  }}
+                  className='setting-dropdown-button'
                 >
-                {loading?<img className="navbar_dropdown_changePassword_btn_img" src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a" alt="loader" />:"Change Password"}
-                  
+                  {loading ? (
+                    <img
+                      className='navbar_dropdown_changePassword_btn_img'
+                      src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                      alt='loader'
+                    />
+                  ) : (
+                    "Change Password"
+                  )}
                 </button>
 
                 {/* <button
@@ -504,21 +530,18 @@ const changePassBtnClick=async()=>{
                               dispatch(removeUserFundingDoc());
                             })
                             .then(() => {
-                              toast.success("Sucessfully logged out");
+                              toast.success("Successfully logged out");
                               navigate("/");
                             })
                       : () => navigate("/login")
                   }
-                  className="setting-dropdown-button"
+                  className='setting-dropdown-button'
                 >
                   Logout
                 </button>
               </div>
             ) : null}
           </div>
-
-
-
         </div>
       </section>
       {chat && <Chat />}

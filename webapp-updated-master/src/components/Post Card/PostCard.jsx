@@ -10,7 +10,7 @@ import { getUserDocByRef } from "../../firebase";
 import LikeIcon from "../Like And Liked Icon/LikeIcon";
 import LikedIcon from "../Like And Liked Icon/LikedIcon";
 import commentIcon from "../../images/postCommentIcon.webp";
-import { FaComments, FaRegCommentDots,FaBullseye } from "react-icons/fa";
+import { FaComments, FaRegCommentDots, FaBullseye } from "react-icons/fa";
 import { RiShareForwardFill, RiShareForwardLine } from "react-icons/ri";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { AiOutlineHeart, AiTwotoneLike } from "react-icons/ai";
@@ -21,7 +21,7 @@ import { BiCommentDots } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 
-const PostCard = ({ 
+const PostCard = ({
   postsData,
   setPostsData,
   item,
@@ -126,7 +126,7 @@ const PostCard = ({
 
     try {
       await updateDoc(userDocumentRef, { comments: data });
-      toast("Sucessfully Commented");
+      toast("Successfully Commented");
       setNewComment("");
     } catch (error) {
       console.log(error.message);
@@ -171,7 +171,7 @@ const PostCard = ({
 
     try {
       await updateDoc(userDocumentRef, { comments: data });
-      toast("Sucessfully Editted");
+      toast("Successfully Edited");
       setEditCommentButtonIsClick(false);
       setNewEdittedComment("");
       setNewComment("");
@@ -235,7 +235,7 @@ const PostCard = ({
 
     try {
       await updateDoc(userDocumentRef, { comments: data });
-      toast("Sucessfully Deleted");
+      toast("Successfully Deleted");
     } catch (error) {
       console.log(error.message);
     }
@@ -288,8 +288,8 @@ const PostCard = ({
 
   return (
     <>
-      <section className="PostCardContainer" id={item.id}>
-        <div style={{ alignItems: "center" }} className="postAuthorDetails">
+      <section className='PostCardContainer' id={item.id}>
+        <div style={{ alignItems: "center" }} className='postAuthorDetails'>
           <img
             onClick={() => {
               setPostsAuthorIsClick(true);
@@ -302,33 +302,33 @@ const PostCard = ({
               marginRight: "1rem",
             }}
             src={postedByUserDoc?.image}
-            alt=""
+            alt=''
           />
-          <div className="postAuthorNameAndDesignationCont">
+          <div className='postAuthorNameAndDesignationCont'>
             <h3
               onClick={() => {
                 setPostsAuthorIsClick(true);
                 setPostsAuthorInfo(postedByUserDoc);
               }}
-              className="postAuthorName"
+              className='postAuthorName'
             >
               {postedByUserDoc?.name}
             </h3>
-            <p className="postAuthorDesignation">
+            <p className='postAuthorDesignation'>
               {postedByUserDoc?.designation ? postedByUserDoc?.designation : ""}
             </p>
           </div>
 
-          <div className="postUploadDateContainer">
+          <div className='postUploadDateContainer'>
             {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)}
 
             {/* MORE OPTION CONT */}
-            <div className="threeDotsMainCont">
-              <div className="threeDotsContainer">
+            <div className='threeDotsMainCont'>
+              <div className='threeDotsContainer'>
                 <div style={{ display: "flex", transform: "rotate(90deg)" }}>
                   <TfiMoreAlt
                     onClick={() => setIsThreeDotsClicked((current) => !current)}
-                    className="threeDotsPostt"
+                    className='threeDotsPostt'
                   />
                 </div>
 
@@ -343,7 +343,7 @@ const PostCard = ({
                     {user?.user?.email === item?.postedby?.id ? (
                       <div
                         onClick={() => handleDeletePostButtonClick(item.id)}
-                        className="threeDotsDeletePostOption"
+                        className='threeDotsDeletePostOption'
                       >
                         Delete Post
                       </div>
@@ -361,23 +361,23 @@ const PostCard = ({
                             handleEditPostButtonClick(item, item.id);
                             setIsThreeDotsClicked(false);
                           }}
-                          className="threeDotsEditPostOption"
+                          className='threeDotsEditPostOption'
                         >
                           Edit Post
                         </div>
                       </a>
                     ) : null}
-                    <div className="threeDotsReportPostOption">Report Post</div>
+                    <div className='threeDotsReportPostOption'>Report Post</div>
                   </div>
                 ) : null}
               </div>
             </div>
           </div>
         </div>
-        <div className="postDivideLine_community"></div>
-        <div className="postTextContainer">
+        <div className='postDivideLine_community'></div>
+        <div className='postTextContainer'>
           {item?.text.length > 100 ? (
-            <h3 className="postText">
+            <h3 className='postText'>
               {showMorePostTextClick ? (
                 item?.text
               ) : (
@@ -385,7 +385,7 @@ const PostCard = ({
                   {item?.text.slice(0, 100)}
                   <span
                     onClick={() => setShowMorePostTextClick(true)}
-                    className="morePostTextButton"
+                    className='morePostTextButton'
                   >
                     ...continue
                   </span>{" "}
@@ -393,115 +393,115 @@ const PostCard = ({
               )}
             </h3>
           ) : (
-            <h3 className="postText">{item?.text}</h3>
+            <h3 className='postText'>{item?.text}</h3>
           )}
         </div>
         {item?.image ? (
-          <div className="postImageContainer">
-            <img className="postImage" src={item?.image} alt="postImage" />
+          <div className='postImageContainer'>
+            <img className='postImage' src={item?.image} alt='postImage' />
           </div>
         ) : null}
-        <div className="postDivideLine_community"></div>
-        <div className="postLikesAndCommentContainer">
+        <div className='postDivideLine_community'></div>
+        <div className='postLikesAndCommentContainer'>
           <div style={{ display: "flex", alignItems: "center", width: "95%" }}>
-            <div className="postLikesContainer">
+            <div className='postLikesContainer'>
               <div
                 onClick={() => {
                   getLikedPostIdFromFirebase(item.id, item);
                 }}
-                className="postLikesContainerLikeIcon"
+                className='postLikesContainerLikeIcon'
               >
                 {item?.likes.includes(user?.user?.email) ? (
-                  <AiFillHeart className="postLikesContainerLikedIconn" />
+                  <AiFillHeart className='postLikesContainerLikedIconn' />
                 ) : (
-                  <AiOutlineHeart className="postLikesContainerLikeIconn" />
+                  <AiOutlineHeart className='postLikesContainerLikeIconn' />
                 )}
               </div>
 
               {/* <i onClick={()=>{getLikedPostIdFromFirebase(item.id,item)}} className={"fa fa-heart "+ (item?.likes.includes(user?.user?.email)?"heartPostLiked":"heartPostNotLiked")}></i> */}
 
               {/* <p className='postLikeCount postLikeCountText'>{item?.likes.length<=1?"Like":"Likes"}</p> */}
-              <h3 className="postLikeCount">{item?.likes.length}</h3>
+              <h3 className='postLikeCount'>{item?.likes.length}</h3>
             </div>
-            <div className="postCommentContainer">
-              <div className="commentContainer">
+            <div className='postCommentContainer'>
+              <div className='commentContainer'>
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
                 <FaRegCommentDots
                   onClick={() => {
                     setCommentIconClick((current) => !current);
                   }}
-                  className="commentPostIconn"
+                  className='commentPostIconn'
                 />
 
                 {/* ;(document.getElementsByClassName(`${item.id}`)[0]).click();(document.getElementsByClassName(`${item.id}`)[0]).focus() */}
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
-              <h3 className="postCommentCount">{item?.comments.length}</h3>
+              <h3 className='postCommentCount'>{item?.comments.length}</h3>
             </div>
 
             <div
               onClick={() => handleSendPostLinkClick(item.id)}
-              className="postSendLinkContainer"
+              className='postSendLinkContainer'
             >
-              <div className="postSendCont">
-                <div className="postSendIcon">
+              <div className='postSendCont'>
+                <div className='postSendIcon'>
                   {/* <img style={{width:"100%",height:"100%"}} src="./images/paper-plane.png" alt="sendIcon" /> */}
                   <RiShareForwardLine style={{ fontSize: "1.8rem" }} />
                 </div>
                 {/* <h3 className='postSendText'>Share</h3> */}
               </div>
             </div>
-            <div className="postCommentContainer">
-              <div className="commentContainer">
+            <div className='postCommentContainer'>
+              <div className='commentContainer'>
                 {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
                 <FaBullseye
                   onClick={() => {
                     setCommentIconClick((current) => !current);
                   }}
-                  className="commentPostIconn"
+                  className='commentPostIconn'
                 />
 
                 {/* ;(document.getElementsByClassName(`${item.id}`)[0]).click();(document.getElementsByClassName(`${item.id}`)[0]).focus() */}
               </div>
               {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
-              <h3 className="postCommentCount">{item?.comments.length}</h3>
+              <h3 className='postCommentCount'>{item?.comments.length}</h3>
             </div>
           </div>
           {/* saveCont */}
-          <BsBookmark className="post_card_save_post_icon" />
+          <BsBookmark className='post_card_save_post_icon' />
         </div>
       </section>
 
       {/* NEW COMMENT SECTION */}
 
-      <section className="newCommentOnPostSection">
+      <section className='newCommentOnPostSection'>
         {editCommentButtonIsClick ? (
-          <section className="uploadPostContainerrrrSection">
-            <div className="newCommentContainerrrr">
+          <section className='uploadPostContainerrrrSection'>
+            <div className='newCommentContainerrrr'>
               <img
-                className="community-newComment-cont-userImage"
+                className='community-newComment-cont-userImage'
                 src={
                   userDoc?.image
                     ? userDoc.image
                     : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                 }
-                alt="userImage"
+                alt='userImage'
               />
-              <div className="textAreaUploadContainer">
+              <div className='textAreaUploadContainer'>
                 <div>
                   <textarea
                     autoFocus
                     onChange={(e) => setNewEdittedComment(e.target.value)}
-                    name="newEditComment"
-                    id="postCommentContainerExpanded"
-                    rows="3"
-                    placeholder="Share Your Thoughts"
+                    name='newEditComment'
+                    id='postCommentContainerExpanded'
+                    rows='3'
+                    placeholder='Share Your Thoughts'
                     value={newEdittedComment}
                   ></textarea>
-                  <div className="addImageandUploadPostIcon newCommentAddImageAndUpload">
+                  <div className='addImageandUploadPostIcon newCommentAddImageAndUpload'>
                     <button
                       onClick={() => handleEditCommentonPost(item, item.id)}
-                      className="uploadPostIconButton"
+                      className='uploadPostIconButton'
                     >
                       Edit
                     </button>
@@ -513,19 +513,19 @@ const PostCard = ({
         ) : (
           <section
             style={{ display: commentIconClick ? "" : "none" }}
-            className="uploadPostContainerrrrSection"
+            className='uploadPostContainerrrrSection'
           >
-            <div className="newCommentContainerrrr">
+            <div className='newCommentContainerrrr'>
               <img
-                className="community-newComment-cont-userImage"
+                className='community-newComment-cont-userImage'
                 src={
                   userDoc?.image
                     ? userDoc.image
                     : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                 }
-                alt="userImage"
+                alt='userImage'
               />
-              <div className="textAreaUploadContainer">
+              <div className='textAreaUploadContainer'>
                 <textarea
                   autoFocus
                   className={item?.id}
@@ -533,14 +533,14 @@ const PostCard = ({
                     setNewCommentTextAreaClick(true);
                   }}
                   onChange={(e) => setNewComment(e.target.value)}
-                  name="newComment"
+                  name='newComment'
                   id={
                     newCommentTextAreaClick
                       ? "postCommentContainerExpanded"
                       : "postCommentContainer"
                   }
-                  rows="3"
-                  placeholder="Share Your Thoughts"
+                  rows='3'
+                  placeholder='Share Your Thoughts'
                   value={newComment}
                 ></textarea>
                 {/* <img onClick={()=>setNewCommentTextAreaClick(current=>!current)} className={newCommentTextAreaClick?"expandTextAreaIconExpanded":'expandTextAreaIcon'} src="./images/addExpandTextArea.png" alt="expandTextarea" /> */}
@@ -555,10 +555,10 @@ const PostCard = ({
                   }
                 />
                 {newCommentTextAreaClick ? (
-                  <div className="addImageandUploadPostIcon newCommentAddImageAndUpload">
+                  <div className='addImageandUploadPostIcon newCommentAddImageAndUpload'>
                     <button
                       onClick={() => handleNewCommentonPost(item, item.id)}
-                      className="uploadPostIconButton"
+                      className='uploadPostIconButton'
                     >
                       Comment
                     </button>
@@ -581,18 +581,18 @@ const PostCard = ({
             {item?.comments.map((list) => {
               return (
                 <>
-                  <div className="commentedByAndComment" key={list.commentid}>
-                    <div className="commented-by-and-edit-cont">
+                  <div className='commentedByAndComment' key={list.commentid}>
+                    <div className='commented-by-and-edit-cont'>
                       <img
-                        className="commentedUserImage"
+                        className='commentedUserImage'
                         src={
                           commentedByUserDoc?.filter((it) => {
                             return it.email === list?.commentedby?.id;
                           })[0]?.image
                         }
-                        alt="CommentedUserPhoto"
+                        alt='CommentedUserPhoto'
                       />
-                      <p className="commented-by">
+                      <p className='commented-by'>
                         {
                           commentedByUserDoc?.filter((it) => {
                             return it.email === list?.commentedby?.id;
@@ -601,7 +601,7 @@ const PostCard = ({
                       </p>
                       {list?.commentedby?.id === user?.user?.email ? (
                         <TfiMoreAlt
-                          className="threeDotsPost commentThreeDotsPost"
+                          className='threeDotsPost commentThreeDotsPost'
                           onClick={() => {
                             setIsCommentThreeDotsClicked((current) => !current);
                             setThreeDotsClickCommentId(list?.commentid);
@@ -614,7 +614,7 @@ const PostCard = ({
                       list?.commentedby?.id === user?.user?.email &&
                       threeDotsClickCommentId === list?.commentid ? (
                         <>
-                          <div className="threeDotsOptions commentThreeDotsOption">
+                          <div className='threeDotsOptions commentThreeDotsOption'>
                             <div
                               onClick={() =>
                                 handleDeleteCommentClick(
@@ -623,7 +623,7 @@ const PostCard = ({
                                   item.id
                                 )
                               }
-                              className="threeDotsDeletePostOption"
+                              className='threeDotsDeletePostOption'
                             >
                               Delete
                             </div>
@@ -639,7 +639,7 @@ const PostCard = ({
                                   handleEditCommentClick(list.commentid, list);
                                   setIsCommentThreeDotsClicked(false);
                                 }}
-                                className="threeDotsEditPostOption"
+                                className='threeDotsEditPostOption'
                               >
                                 Edit
                               </div>
@@ -648,7 +648,7 @@ const PostCard = ({
                         </>
                       ) : null}
                     </div>
-                    <p className="commented-by-comment">{list.comment}</p>
+                    <p className='commented-by-comment'>{list.comment}</p>
                   </div>
                 </>
               );

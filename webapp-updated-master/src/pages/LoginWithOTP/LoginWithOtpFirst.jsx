@@ -30,6 +30,7 @@ function LoginWithOtpFirst() {
   // const [confirmPassword, setConfirmPassword] = useState("");
   // const [newOtp, setNewOtp] = useState("");
   // const theme = useSelector((state) => state.themeColor);
+  const [whatisUsed, setWhatIsUsed] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,17 +89,19 @@ function LoginWithOtpFirst() {
     e.preventDefault();
 
     if (/^\d+$/.test(email)) {
+      setWhatIsUsed("Phone");
       sendOTPByPhone();
       return;
     }
+    setWhatIsUsed("Email Id");
     setLoading(true);
     let tempDocData = {};
     const userDataRef = collection(db, "Users");
     const q = query(userDataRef);
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-      if (doc === email) {
+    querySnapshot.docs.forEach((doc) => {
+      if (doc.data().email === email) {
         tempDocData = { name: doc.data().name, password: doc.data().password };
         setTempUserData({
           name: doc.data().name,
@@ -248,6 +251,7 @@ function LoginWithOtpFirst() {
           propOtp={tempOtp}
           tempUserData={tempUserData}
           email={email}
+          whatisUsed={whatisUsed}
         />
       ) : (
         <>
@@ -267,31 +271,31 @@ function LoginWithOtpFirst() {
             <div className={styles.leftComponent}>
               <p
                 className={styles.hiddenOnMobile}
-                style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
+                style={{ fontSize: 36, color: "#ffffff", marginBlock: 20 }}
               >
                 Enter Email or Phone
               </p>
               <p
                 style={{
-                  fontSize: 12,
+                  fontSize: 15,
                   color: "#ffffff",
                   fontFamily: "Reem-Kufi",
                 }}
               >
                 Enter the email address or phone number associated with your
-                account
+                account and we’ll send you an OTP to login.
               </p>
-              <p
+              {/* <p
                 style={{
-                  fontSize: 12,
+                  fontSize: 15,
                   color: "#ffffff",
                   fontFamily: "Reem-Kufi",
                 }}
               >
                 and we’ll send you an OTP to login.
-              </p>
+              </p> */}
               <div className={styles.textInput}>
-                <p style={{ fontSize: 10, color: "#ffffff" }}>Email or Phone</p>
+                <p style={{ fontSize: 12, color: "#ffffff" }}>Email or Phone</p>
                 <input
                   type='email'
                   placeholder='type...'

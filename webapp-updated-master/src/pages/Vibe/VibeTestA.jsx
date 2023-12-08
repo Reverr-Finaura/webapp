@@ -28,7 +28,6 @@ const VibeTestA = () => {
   console.log(onboardingData);
   const [isPremium, setIsPremium] = useState(false);
   const userDoc = useSelector((state) => state.userDoc);
-  // const ispremium = useSelector((state) => state.user.isPremium);
   const dispatch = useDispatch();
 
   const [updateUserVibeChat, setUpdateUserVibeChat] = useState(false);
