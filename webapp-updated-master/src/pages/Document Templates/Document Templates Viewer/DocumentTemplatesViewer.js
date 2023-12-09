@@ -88,7 +88,7 @@ const DocumentTemplatesViewer = () => {
       ) : (
         <>
           <div className={styles.outerContLoading}>
-            <h1>Loading......</h1>
+            <h1 style={{ color: "white" }}>Loading......</h1>
             <img className={styles.loadIcon} src={loader} alt='loading' />
           </div>
         </>

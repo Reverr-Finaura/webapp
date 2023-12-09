@@ -118,7 +118,7 @@ function Sidebar() {
       >
         <div className={styles.phnSidebarOption}>
           <img src={startL} alt='' />
-          <p>Start-up</p>
+          <p>Startup Score</p>
         </div>
       </NavLink>
       <NavLink

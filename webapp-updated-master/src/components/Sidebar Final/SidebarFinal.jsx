@@ -44,7 +44,7 @@ const SidebarFinal = () => {
   // console.log(theme);
   return (
     <>
-      <section id="sidebar-final">
+      <section id='sidebar-final'>
         {/* <img className='sidebar-final-brand-logo' src="./images/Frame 6266720.png" alt="brand-logo" /> */}
         {/* <NavLink
           className={({ isActive }) =>
@@ -58,33 +58,39 @@ const SidebarFinal = () => {
           </div>
         </NavLink> */}
 
-{pptPath ? (
+        {pptPath ? (
           <button
             onClick={() => navigate(-1)}
-            className="sidebar-final-logout-btn"
+            className='sidebar-final-logout-btn'
           >
             {" "}
-            <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}} /> Back
+            <BiArrowBack
+              style={{ marginRight: "1rem", color: "rgba(42, 114, 222, 0.92)" }}
+            />{" "}
+            Back
           </button>
         ) : docPath ? (
           <button
             onClick={() => navigate(-1)}
-            className="sidebar-final-logout-btn"
+            className='sidebar-final-logout-btn'
           >
             {" "}
-            <BiArrowBack style={{marginRight:"1rem",color:"rgba(42, 114, 222, 0.92)"}}/> Back
+            <BiArrowBack
+              style={{ marginRight: "1rem", color: "rgba(42, 114, 222, 0.92)" }}
+            />{" "}
+            Back
           </button>
         ) : null}
-        
+
         <NavLink
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/knowledge"
+          to='/knowledge'
         >
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={knowL} alt="icon" />
-            <p className="sidebar-final-icon-name">Knowledge</p>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={knowL} alt='icon' />
+            <p className='sidebar-final-icon-name'>Knowledge</p>
           </div>
         </NavLink>
         {/* href="https://reverrapp.com/fundingform" target="_blank" */}
@@ -92,41 +98,41 @@ const SidebarFinal = () => {
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/funding-page"
+          to='/funding-page'
         >
-          <div className="sidebar-final-icon-name-cont">
+          <div className='sidebar-final-icon-name-cont'>
             <img
-              className="sidebar-final-icon sidebar-final-funding-icon"
+              className='sidebar-final-icon sidebar-final-funding-icon'
               src={fundL}
-              alt="icon"
+              alt='icon'
             />
-            <p className="sidebar-final-icon-name">Funding</p>
+            <p className='sidebar-final-icon-name'>Funding</p>
           </div>
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/mentors"
+          to='/mentors'
         >
-          <div className="sidebar-final-icon-name-cont">
+          <div className='sidebar-final-icon-name-cont'>
             <img
-              className="sidebar-final-icon sidebar-final-mentor-icon"
+              className='sidebar-final-icon sidebar-final-mentor-icon'
               src={mentL}
-              alt="icon"
+              alt='icon'
             />
-            <p className="sidebar-final-icon-name">Mentorship</p>
+            <p className='sidebar-final-icon-name'>Mentorship</p>
           </div>
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/community"
+          to='/community'
         >
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={comL} alt="icon" />
-            <p className="sidebar-final-icon-name">Community</p>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={comL} alt='icon' />
+            <p className='sidebar-final-icon-name'>Community</p>
           </div>
         </NavLink>
         {/* <NavLink style={{ textDecoration: "none" }} to="/pptTemplates">
@@ -153,22 +159,22 @@ const SidebarFinal = () => {
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/start-up"
+          to='/start-up'
         >
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={startL} alt="icon" />
-            <p className="sidebar-final-icon-name">Start-up</p>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={startL} alt='icon' />
+            <p className='sidebar-final-icon-name'> Startup Score</p>
           </div>
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/tools"
+          to='/tools'
         >
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={toolsL} alt="icon" />
-            <p className="sidebar-final-icon-name">Tools</p>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={toolsL} alt='icon' />
+            <p className='sidebar-final-icon-name'>Tools</p>
           </div>
         </NavLink>
 
@@ -176,11 +182,11 @@ const SidebarFinal = () => {
           className={({ isActive }) =>
             isActive ? "sidebar_link active" : "sidebar_link"
           }
-          to="/messages"
+          to='/messages'
         >
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={knowL} alt="icon" />
-            <p className="sidebar-final-icon-name">Messages</p>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={knowL} alt='icon' />
+            <p className='sidebar-final-icon-name'>Messages</p>
           </div>
         </NavLink>
         {/* {pptPath ? (

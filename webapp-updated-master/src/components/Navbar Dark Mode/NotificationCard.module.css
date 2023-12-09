@@ -3,7 +3,8 @@
   flex-direction: row;
   /* width: 409px; */
   width: 80%;
-  height: 90px;
+  /* height: 90px; */
+  height: fit-content;
   /* flex-shrink: 0; */
   border-radius: 5px;
   background: var(--card, #0D0F14);

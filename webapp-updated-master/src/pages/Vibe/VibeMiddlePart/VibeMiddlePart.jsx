@@ -507,50 +507,54 @@ const VibeMiddlePart = () => {
 
   const handleSuperlike = async () => {
     // i have still superlike remaining and the update time is not reached yet
-    if (
-      superlikelimit?.superlikecount > 0 &&
-      superlikelimit?.superlikeUpdateTime > new Date().getTime()
-    ) {
-      // User has remaining swipes, decrease swipeRemaining by 1
-      const newSuperlikeRemaining = superlikelimit.superlikecount - 1;
-      setSuperlikeLimit((prevState) => ({
-        ...prevState,
-        superlikecount: newSuperlikeRemaining,
-      }));
-      await updateSuperlikeLimit({
-        superlikecount: newSuperlikeRemaining,
-        superlikeUpdateTime: superlikelimit.superlikeUpdateTime,
-      });
-    } else {
-      // If superlikeUpdateTime is already passed, reset superlikeRemaining to 1 and update superlikeUpdateTime
-      if (superlikelimit.superlikeUpdateTime < new Date().getTime()) {
-        console.log("super like time update");
-        if (userDoc?.premiumData?.subscriptionPlan) {
-          setSuperlikeLimit((prevState) => ({
-            ...prevState,
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
-          }));
-          // setIsLikesEXhaust(false);
-          await updateSuperlikeLimit({
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
-          });
-        } else {
-          setSuperlikeLimit((prevState) => ({
-            ...prevState,
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
-          }));
-          // setIsLikesEXhaust(false);
-          await updateSuperlikeLimit({
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
-          });
-        }
+    if (ispremium) {
+      if (
+        superlikelimit?.superlikecount > 0 &&
+        superlikelimit?.superlikeUpdateTime > new Date().getTime()
+      ) {
+        // User has remaining swipes, decrease swipeRemaining by 1
+        const newSuperlikeRemaining = superlikelimit.superlikecount - 1;
+        setSuperlikeLimit((prevState) => ({
+          ...prevState,
+          superlikecount: newSuperlikeRemaining,
+        }));
+        await updateSuperlikeLimit({
+          superlikecount: newSuperlikeRemaining,
+          superlikeUpdateTime: superlikelimit.superlikeUpdateTime,
+        });
       } else {
-        console.log("wait for superlikeUpdateTime");
+        // If superlikeUpdateTime is already passed, reset superlikeRemaining to 1 and update superlikeUpdateTime
+        if (superlikelimit.superlikeUpdateTime < new Date().getTime()) {
+          console.log("super like time update");
+          if (userDoc?.premiumData?.subscriptionPlan) {
+            setSuperlikeLimit((prevState) => ({
+              ...prevState,
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
+            }));
+            // setIsLikesEXhaust(false);
+            await updateSuperlikeLimit({
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
+            });
+          } else {
+            setSuperlikeLimit((prevState) => ({
+              ...prevState,
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
+            }));
+            // setIsLikesEXhaust(false);
+            await updateSuperlikeLimit({
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
+            });
+          }
+        } else {
+          console.log("wait for superlikeUpdateTime");
+        }
       }
+    } else {
+      setPremiumModalStatus(true);
     }
   };
 
