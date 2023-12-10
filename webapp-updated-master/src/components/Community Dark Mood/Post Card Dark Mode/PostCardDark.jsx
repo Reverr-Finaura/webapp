@@ -8,19 +8,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { getUserDocByRef } from "../../../firebase";
-// import LikeIcon from "../../Like And Liked Icon/LikeIcon";
-// import LikedIcon from "../../Like And Liked Icon/LikeIcon";
-// import commentIcon from "../../images/postCommentIcon.png";
-// import { FaComments, FaRegCommentDots, FaBullseye } from "react-icons/fa";
-import { RiShareForwardFill, RiShareForwardLine } from "react-icons/ri";
+import { RiShareForwardLine } from "react-icons/ri";
 import { TfiMoreAlt } from "react-icons/tfi";
-import { AiOutlineHeart, AiTwotoneLike } from "react-icons/ai";
-// import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import { GrAddCircle } from "react-icons/gr";
-// import { FiSend } from "react-icons/fi";
-// import { BiCommentDots } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
-// import { BsBookmark } from "react-icons/bs";
 import eyeIcon from "../../../images/white-outline-eye.webp";
 import commentIcon from "../../../images/white-outline-comment.webp";
 import rightArrow from "../../../images/right-arraow-bg-blue.webp";
@@ -30,7 +22,6 @@ import founder from "../../../images/badges/Founder- badge.png";
 import investor from "../../../images/badges/Investor - badge.png";
 import mentor from "../../../images/badges/Mentor - badge.png";
 import pro from "../../../images/badges/Pofessional - badge.png";
-// import video from "video.js";
 
 export default function PostCardDark({
   postsData,
@@ -40,9 +31,6 @@ export default function PostCardDark({
   isLoggedIn,
   openModal,
   postId,
-  // setPostsAuthorIsClick,
-  // setPostsAuthorInfo,
-  // postsDataWithUserDoc,
 }) {
   const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
@@ -56,39 +44,34 @@ export default function PostCardDark({
   const [newEdittedComment, setNewEdittedComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null);
   const [threeDotsClickCommentId, setThreeDotsClickCommentId] = useState(null);
-
   const [postedByUserDoc, setPostedByUserDoc] = useState({
     notificationList: [],
   });
-
   const [commentedByUserDoc, setCommentedByUserDoc] = useState([]);
   const [showMorePostTextClick, setShowMorePostTextClick] = useState(false);
   const [newCommentTextAreaClick, setNewCommentTextAreaClick] = useState(false);
-  const [postTime, setPostTime] = useState("");
-  const [postComments, setPostComments] = useState([]);
   const [postDetail, setPostDetail] = useState();
   const navigate = useNavigate();
-  const [userType, setUserType] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
+  // const [postTime, setPostTime] = useState("");
+  // const [userType, setUserType] = useState();
+  // const [postComments, setPostComments] = useState([]);
 
   async function fetchPostData() {
     const postRef = doc(db, "Posts", postId); // Replace 'yourDocumentId' with the actual ID of the document you want to retrieve
     try {
       const docSnapshot = await getDoc(postRef);
       if (docSnapshot.exists()) {
-        // Document exists, you can access its data using docSnapshot.data()
         const data = docSnapshot.data();
-        setPostComments(data.comments);
         setPostDetail(data);
       }
     } catch (error) {
       console.log(error);
     }
   }
-
   useEffect(() => {
     fetchPostData();
-  }, []);
+  }, [postId]);
 
   // const [userDocPostedBy, setUserDocPostedBy] = useState({});
   // useEffect(() => {
@@ -105,18 +88,14 @@ export default function PostCardDark({
   const getLikedPostIdFromFirebase = async (id, items) => {
     const isLiked = postDetail.likes.includes(user?.user?.email);
     let newLikeArray;
-
     if (isLiked) {
-      // console.log("this is already liked")
       newLikeArray = postDetail.likes.filter(
         (item) => item !== user?.user?.email
       );
     } else {
-      // console.log("this is not already like")
       newLikeArray = [...postDetail.likes, user?.user?.email];
     }
     postDetail.likes = newLikeArray;
-
     setPostsData((prevPostsData) => {
       return prevPostsData.map((item) => {
         if (item.id === id) {
@@ -126,14 +105,20 @@ export default function PostCardDark({
         }
       });
     });
-
     await updateLikedPostInFirebase(newLikeArray, id);
+    setPostsData((prevPostsData) => {
+      return prevPostsData.map((item) => {
+        if (item.id === id) {
+          return { ...item, likes: newLikeArray };
+        } else {
+          return item;
+        }
+      });
+    });
   };
   const setNotificationDatainFirebase = async (item) => {
-    // console.log("this is item", item);
     try {
       const userDocumentRef = await doc(db, "Users", postedByUserDoc.email);
-      // console.log("posted by", postedByUserDoc.email[0]);
       if (postedByUserDoc.email === user?.user?.email) {
         return;
       }
@@ -170,24 +155,17 @@ export default function PostCardDark({
       console.log(error.message);
     }
   };
-  // console.log("post details--- ", postDetail);
-  // console.log("postedBy", postedByUserDoc);
 
   const updateLikedPostInFirebase = async (data, id) => {
     const userDocumentRef = doc(db, "Posts", postId);
-
     try {
       await updateDoc(userDocumentRef, { likes: data });
-
       await fetchPostData();
-
       return;
     } catch (error) {
       console.log(error.message);
     }
   };
-
-  //HANDLE NEW COMMENT ON POST
 
   const handleNewCommentonPost = async (item, id) => {
     const userRef = doc(db, "Users", user?.user?.email);
@@ -207,10 +185,7 @@ export default function PostCardDark({
     getUserDocByRef(userRef).then((userData) => {
       setCommentedByUserDoc((prev) => [...prev, userData]);
     });
-
     postDetail.comments = newCommentArray;
-
-    // console.log("this is the list of updated comment ",newCommentArray)
     setPostsData(
       postsData.map((item) => {
         if (item.id === id) {
@@ -219,7 +194,13 @@ export default function PostCardDark({
       })
     );
     updateCommentInFirebase(newCommentArray, id);
-    // fetchPostData()
+    setPostsData(
+      postsData.map((item) => {
+        if (item.id === id) {
+          return { ...item, comments: newCommentArray };
+        } else return item;
+      })
+    );
     setNewComment("");
     setNewCommentTextAreaClick(false);
   };
@@ -389,36 +370,64 @@ export default function PostCardDark({
 
   //GET USER DATA FROM REFERENCE LINK WHO HAS POSTED
 
+  // useEffect(() => {
+  //   if (item.postedby._path.segments) {
+  //     getUserFromDatabase(
+  //       item?.postedby?._path?.segments[item.postedby._path.segments.length - 1]
+  //     ).then((res) => {
+  //       setPostedByUserDoc((prev) => {
+  //         return {
+  //           ...prev,
+  //           ...res,
+  //           notificationList: res?.notificationList
+  //             ? [...prev?.notificationList, ...res?.notificationList]
+  //             : prev?.notificationList,
+  //         };
+  //       });
+  //     });
+  //     return;
+  //   } else {
+  //     getUserDocByRef(item?.postedby).then((res) => {
+  //       setPostedByUserDoc((prev) => {
+  //         return {
+  //           ...prev,
+  //           ...res,
+  //           notificationList: res?.notificationList
+  //             ? [...prev?.notificationList, ...res?.notificationList]
+  //             : prev?.notificationList,
+  //         };
+  //       });
+  //     });
+  //     return;
+  //   }
+  // }, [item]);
   useEffect(() => {
-    if (item.postedby._path.segments) {
-      getUserFromDatabase(
-        item?.postedby?._path?.segments[item.postedby._path.segments.length - 1]
-      ).then((res) => {
-        setPostedByUserDoc((prev) => {
-          return {
-            ...prev,
-            ...res,
-            notificationList: res?.notificationList
-              ? [...prev?.notificationList, ...res?.notificationList]
-              : prev?.notificationList,
-          };
-        });
-      });
-      return;
-    } else {
-      getUserDocByRef(item?.postedby).then((res) => {
-        setPostedByUserDoc((prev) => {
-          // delete res.password;
-          return {
-            ...prev,
-            ...res,
-            notificationList: res?.notificationList
-              ? [...prev?.notificationList, ...res?.notificationList]
-              : prev?.notificationList,
-          };
-        });
-      });
-      return;
+    const fetchData = async () => {
+      try {
+        let userDoc;
+        if (item.postedby._path.segments) {
+          userDoc = await getUserFromDatabase(
+            item?.postedby?._path?.segments[
+              item.postedby._path.segments.length - 1
+            ]
+          );
+        } else {
+          userDoc = await getUserDocByRef(item?.postedby);
+        }
+        setPostedByUserDoc((prev) => ({
+          ...prev,
+          ...userDoc,
+          notificationList: userDoc?.notificationList
+            ? [...prev?.notificationList, ...userDoc?.notificationList]
+            : prev?.notificationList,
+        }));
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (item) {
+      fetchData();
     }
   }, [item]);
 
@@ -509,9 +518,9 @@ export default function PostCardDark({
   useEffect(() => {});
 
   //GET TIME OF POST
-  useEffect(() => {
-    setPostTime(new Date(item?.createdAt.seconds * 1000));
-  }, [item]);
+  // useEffect(() => {
+  //   setPostTime(new Date(item?.createdAt.seconds * 1000));
+  // }, [item]);
 
   return (
     <>
@@ -710,7 +719,6 @@ export default function PostCardDark({
             item?.text.length > 3 ? (
               <h3 className={style.postText}>
                 {showMorePostTextClick ? (
-                  // Display all strings in item.text, each on a new line
                   <>
                     {item?.text.map((textItem, index) => (
                       <div key={index}>{textItem}</div>

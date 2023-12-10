@@ -62,9 +62,10 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import Vibe from "../../components/SidebarComponents/Vibe/Vibe";
 import Patch from "../../components/SidebarComponents/Patch/Patch";
+import { useSelector } from "react-redux";
 
 const Discover = () => {
-  // News
+  const checkUser = useSelector((state) => state.user.user);
   const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
@@ -138,7 +139,7 @@ const Discover = () => {
   return (
     <>
       <div className='container-1'>
-        <NavBarFinalDarkMode />
+        <NavBarFinalDarkMode isLoggedIn={checkUser === null ? false : true} />
 
         <div className='' style={{ display: "flex", height: "100vh" }}>
           <div style={{ position: "fixed" }}>

@@ -26,10 +26,6 @@ function LoginWithOtpFirst() {
   const [showCodePicker, setShowCodePicker] = useState(false);
   const [metaData, setMetaData] = useState([]);
   console.log("tempotp", tempOtp);
-  // const [password, setPass] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [newOtp, setNewOtp] = useState("");
-  // const theme = useSelector((state) => state.themeColor);
   const [whatisUsed, setWhatIsUsed] = useState("");
 
   useEffect(() => {
@@ -53,26 +49,21 @@ function LoginWithOtpFirst() {
     };
   }, [minutes, seconds]);
 
-  //CHECK FOR META DATA
+  function generate(n) {
+    var add = 1,
+      max = 12 - add;
+    if (n > max) {
+      return generate(max) + generate(n - max);
+    }
+    max = Math.pow(10, n + add);
+    var min = max / 10;
+    var number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return ("" + number).substring(add);
+  }
+
   useEffect(() => {
-    // async function fetchUserDocFromFirebase() {
-    //   const userDataRef = collection(db, "meta");
-    //   const q = query(userDataRef);
-    //   const querySnapshot = await getDocs(q);
-
-    //   querySnapshot.forEach((doc) => {
-    //     setMetaData(doc.data().emailPhone);
-    //   });
-    // }
-    // fetchUserDocFromFirebase();
     async function fetchUserDocFromFirebase() {
-      // const userDataRef = collection(db, "meta");
-      // const q = query(userDataRef);
-      // const querySnapshot = await getDocs(q);
-
-      // querySnapshot.forEach((doc) => {
-      //   setMetaData(doc.data().emailPhone);
-      // });
       let nameDoc = "emailPhone";
       const collectionRef = collection(db, "meta");
       const docRef = doc(collectionRef, nameDoc);
@@ -114,18 +105,6 @@ function LoginWithOtpFirst() {
       toast.error("Email does not exist in database");
       setLoading(false);
       return;
-    }
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
     }
     const otp = generate(6);
     setTempOtp(otp);
@@ -193,18 +172,6 @@ function LoginWithOtpFirst() {
       setLoading(false);
       return;
     }
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
-    }
     const otp = generate(6);
     setTempOtp(otp);
     try {
@@ -248,6 +215,7 @@ function LoginWithOtpFirst() {
     <div>
       {tempOtp !== null ? (
         <LoginWithOtpSecond
+          setTempOtp={setTempOtp}
           propOtp={tempOtp}
           tempUserData={tempUserData}
           email={email}

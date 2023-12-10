@@ -29,8 +29,8 @@ const SharedCommunityPost = () => {
   const [tempSiteUrl, setTempSiteUrl] = useState("");
   const postData = [];
 
-  console.log("siteUrl", tempSiteUrl);
-  //GET SITE URL
+  // console.log("siteUrl", tempSiteUrl);
+  // //GET SITE URL
   useEffect(() => {
     function getCurrentURL() {
       return window.location.href;
@@ -62,7 +62,6 @@ const SharedCommunityPost = () => {
     fetchPostsFromDb();
   }, []);
 
-  // HANDLE EDIT POST BUTTON CLICK
   const handleEditSinglePost = (item, itemId) => {
     setNewEditText(item.text);
     setEditPostId(itemId);
@@ -119,12 +118,9 @@ const SharedCommunityPost = () => {
 
   const EditPostInDatabase = async (imageURLL) => {
     const postRef = doc(db, "Posts", editPostId);
-
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
-
       toast("Successfully Saved");
-
       setTimeout(() => {
         window.location.reload();
       }, 500);

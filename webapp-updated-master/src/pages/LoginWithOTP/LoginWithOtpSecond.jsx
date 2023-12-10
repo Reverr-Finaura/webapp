@@ -1,8 +1,6 @@
 import {
-  GoogleAuthProvider,
   fetchSignInMethodsForEmail,
   signInWithEmailAndPassword,
-  signInWithPopup,
 } from "firebase/auth";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,18 +15,17 @@ import { doc, getDoc } from "firebase/firestore";
 import { login, setUserData } from "../../features/userSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import Header from "../../components/Header/Header";
-// import Footer from "../Footer/Footer";
-// import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdated";
-// import { create, modify, selectNewUser } from "../../features/newUserSlice";
-// import { setUserDoc } from "../../features/userDocSlice";
 
-function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
+function LoginWithOtpSecond({
+  propOtp,
+  tempUserData,
+  email,
+  whatisUsed,
+  setTempOtp,
+}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedCountry = useSelector((state) => state.countryCode);
-  const provider = new GoogleAuthProvider();
-
   const [enteredOtp, setEnteredotp] = useState("");
   const [firstDigit, setFirstDigit] = useState("");
   const [secondDigit, setSecondDigit] = useState("");
@@ -85,53 +82,6 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
     sixthDigit,
   ]);
 
-  // const checkOtp = (e) => {
-  //   e.preventDefault();
-
-  //   if (
-  //     ((newOTP === "" && propOtp === enteredOtp) ||
-  //       (newOTP !== "" && propOtp === enteredOtp)) &&
-  //     // (newOTP !== "" && newOTP === enteredOtp)) &&
-  //     (seconds > 0 || minutes > 0)
-  //   ) {
-  //     console.log("enteredOTP");
-  //     // setOtpMatched(true);
-  //     signInWithEmailAndPassword(
-  //       auth,
-  //       tempUserData.email,
-  //       tempUserData.password
-  //     )
-  //       .then(async (userCredential) => {
-  //         const docRef = doc(db, "Users", auth.currentUser.email);
-  //         await getDoc(docRef).then((doc) => {
-  //           console.log(doc);
-  //           dispatch(setUserData(doc.data()));
-  //           dispatch(
-  //             login({
-  //               email: auth.currentUser.email,
-  //               uid: auth.currentUser.uid,
-  //               displayName: auth.currentUser.displayName,
-  //               profilePic: auth.currentUser.photoURL,
-  //             })
-  //           );
-  //         });
-  //       })
-  //       .then(() => {
-  //         toast.success("Successfully logged in");
-  //         navigate("/community");
-  //       })
-  //       .catch((error) => {
-  //         const errorMessage = error.message;
-  //         toast.error("Unable to login ");
-  //       });
-  //   } else if (seconds <= 0 && minutes <= 0) {
-  //     toast.error("OTP expired");
-  //   } else {
-  //     toast.error("Please check the entered OTP");
-  //   }
-  // };
-  console.log(propOtp);
-
   const checkOtp = async (e) => {
     e.preventDefault();
     if (
@@ -139,13 +89,6 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
         (newOTP !== "" && newOTP === enteredOtp)) &&
       (seconds > 0 || minutes > 0)
     ) {
-      console.log("email", tempUserData.email, "Auth", auth);
-      const existingUser = await fetchSignInMethodsForEmail(
-        auth,
-        tempUserData.email
-      );
-      console.log(existingUser);
-
       signInWithEmailAndPassword(
         auth,
         tempUserData?.email,
@@ -194,83 +137,45 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
               return;
           }
         });
-
-      // signInWithPopup(auth, provider)
-      //   .then(async () => {
-      //     const docRef = doc(db, "Users", tempUserData?.email);
-      //     try {
-      //       const docSnap = await getDoc(docRef);
-      //       if (docSnap.exists()) {
-      //         dispatch(setUserData(docSnap.data()));
-      //         dispatch(
-      //           login({
-      //             email: auth.currentUser.email,
-      //             uid: auth.currentUser.uid,
-      //             displayName: auth.currentUser.displayName,
-      //             profilePic: auth.currentUser.photoURL,
-      //           })
-      //         );
-      //         console.log(tempUserData?.email);
-      //         navigate("/community");
-      //       }
-      //     } catch (error) {
-      //       console.log("Error fetching user data:", error.message);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error signing in with Google:", error.message);
-      //   });
     } else if (seconds <= 0 && minutes <= 0) {
       toast.error("OTP expired");
     } else {
       toast.error("Please check the entered OTP");
     }
   };
+  function generate(n) {
+    var add = 1,
+      max = 12 - add;
+    if (n > max) {
+      return generate(max) + generate(n - max);
+    }
+    max = Math.pow(10, n + add);
+    var min = max / 10;
+    var number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return ("" + number).substring(add);
+  }
 
   const resendOtp = () => {
     if (/^\d+$/.test(email)) {
       resendOTPByPhone();
       return;
     }
-
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
-    }
     const otp = generate(6);
     setNewOTP(otp);
-
+    setTempOtp(otp);
     var templateParams = {
       from_name: "Reverr",
       to_name: tempUserData.name,
       to_email: tempUserData.email,
       otp,
     };
-    console.log("otp1", templateParams);
-    console.log("otp1", otp);
-    // dispatch(modify({ rand }));
     emailjs
       .send(
         "service_lfmmz8k",
         "template_n3pcht5",
         templateParams,
         "dVExxiI8hYMCyc0sY"
-      )
-      .then(
-        function (response) {
-          //   console.log("SUCCESS!", response.status, response.text);
-        },
-        function (error) {
-          //   console.log("FAILED...", error);
-        }
       )
       .then(() => {
         toast.success("New OTP has been sent to your e-mail");
@@ -283,21 +188,9 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
   };
 
   const resendOTPByPhone = async () => {
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
-    }
     const otp = generate(6);
+    setTempOtp(otp);
     setNewOTP(otp);
-
     try {
       const data = await axios.post("https://server.reverr.io/sendSmsCode", {
         to: email,
@@ -306,10 +199,8 @@ function LoginWithOtpSecond({ propOtp, tempUserData, email, whatisUsed }) {
       });
       if (data.data.status) {
         toast.success("New OTP has been sent to your phone number");
-        // toast.success(data.data.message);
       }
     } catch (error) {
-      //   console.log("err", error);
       toast.error(error?.response?.data?.message);
     }
     setMinutes(3);

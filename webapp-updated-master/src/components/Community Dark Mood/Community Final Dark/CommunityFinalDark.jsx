@@ -41,12 +41,6 @@ import { setUserDoc } from "../../../features/userDocSlice";
 
 const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const dispatch = useDispatch();
-  // const userSpace = useSelector((state) => state.user.userSpace);
-  // const [isOpenPostUserspace, setIsOpenPostUserspace] = useState(false);
-  // const [postSpaceArr, setPostSpaceArr] = useState([]);
-  // const [postBtnVisible, setPostBtnVisible] = useState(false);
-
-  const [currentUserDoc, setCurrentUserDoc] = useState(null);
   const postData = [];
   const [userSpaceArr, setUserSpaceArr] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -138,27 +132,27 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
   // console.log("this is the postsData----", postsData);
-  const options = {
-    method: "GET",
-    url: "https://api.bing.microsoft.com/v7.0/news/search",
-    params: { q: "startup", safeSearch: "Off", textFormat: "Raw" },
-    headers: {
-      "Content-Type": "application/json",
-      "Ocp-Apim-Subscription-Key": "bd03e8f8f29b46479ee4c2004280308f",
-    },
-  };
-
-  async function getNews() {
-    try {
-      await axios.request(options).then((res) => {
-        setNewsData(res.data.value);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   useEffect(() => {
+    const options = {
+      method: "GET",
+      url: "https://api.bing.microsoft.com/v7.0/news/search",
+      params: { q: "startup", safeSearch: "Off", textFormat: "Raw" },
+      headers: {
+        "Content-Type": "application/json",
+        "Ocp-Apim-Subscription-Key": "bd03e8f8f29b46479ee4c2004280308f",
+      },
+    };
+
+    async function getNews() {
+      try {
+        await axios.request(options).then((res) => {
+          setNewsData(res.data.value);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
     getNews();
   }, []);
 
@@ -194,24 +188,24 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   }, []);
 
   // CHECK FOR USER DOC DATA
-  useEffect(() => {
-    if (!(userDoc !== null)) {
-      // console.log("running");
-      async function fetchUserDocFromFirebase() {
-        const userDataRef = collection(db, "Users");
-        const q = query(userDataRef);
-        const querySnapshot = await getDocs(q);
+  // useEffect(() => {
+  //   if (!(userDoc !== null)) {
+  //     // console.log("running");
+  //     async function fetchUserDocFromFirebase() {
+  //       const userDataRef = collection(db, "Users");
+  //       const q = query(userDataRef);
+  //       const querySnapshot = await getDocs(q);
 
-        querySnapshot.forEach((doc) => {
-          if (doc.id === user?.user?.email) {
-            setCurrentUserDoc(doc.data());
-            dispatch(setUserDoc(doc.data()));
-          }
-        });
-      }
-      fetchUserDocFromFirebase();
-    }
-  }, [user]);
+  //       querySnapshot.forEach((doc) => {
+  //         if (doc.id === user?.user?.email) {
+  //           setCurrentUserDoc(doc.data());
+  //           dispatch(setUserDoc(doc.data()));
+  //         }
+  //       });
+  //     }
+  //     fetchUserDocFromFirebase();
+  //   }
+  // }, [user]);
 
   //CHECK IF USERDOC HAS POSTS
   useEffect(() => {
@@ -349,7 +343,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   const [selectedVideo, setSelectedVideo] = useState(null);
-  // const [videoUrlInFirebase, setVideoUrlInFirebase] = useState();
 
   // on video change
   const onVideoChange = (event) => {
@@ -428,9 +421,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
   }
-
-  // console.log("image uploaded --", imageUpload);
-  // console.log("temp image --", tempImageURL);
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
@@ -836,15 +826,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         <div className={style.spaceSection}>
           <div className={style.spaceModal}>
             <div className={style.spaceModalContent}>
-              {/* <span className="close" onClick={closeModal}>
-                &times;
-              </span> */}
-
               <p className={style.spaceModalHeading}>Select your space (s).</p>
 
               <div className={style.spaceMenu}>
-                {userDoc.userSpace?.length >= 1 ? (
-                  userDoc.userSpace?.map((space, index) => {
+                {userDoc?.userSpace?.length >= 1 ? (
+                  userDoc?.userSpace?.map((space, index) => {
                     return (
                       <div
                         key={index}
@@ -1334,12 +1320,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         }
                       }}
                       onChange={handleOptionChange}
-                      // disabled={!isLoggedIn}
                     >
                       <option className={style.userSpaceOption} value=''>
                         Select Spaces
                       </option>
-                      {currentUserDoc?.userSpace?.map((item, index) => {
+                      {userDoc?.userSpace?.map((item, index) => {
                         return (
                           <option
                             className={style.userSpaceOption}

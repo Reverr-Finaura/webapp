@@ -109,7 +109,7 @@ const Matches = ({
 
       <div className={style.MatchesContainer}>
         <div className={style.MatchesInnerContainer}>
-          {/* {!isPremium && (
+          {!isPremium && (
             <div className={style.NotPremium}>
               <p>
                 Upgrade to <span style={{ color: "#00B3FF" }}> Premium </span>{" "}
@@ -119,7 +119,7 @@ const Matches = ({
                 Get Premium
               </button>
             </div>
-          )} */}
+          )}
 
           {!mobile ? (
             <div className={style.matchesHeader}>

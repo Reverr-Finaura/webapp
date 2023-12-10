@@ -228,8 +228,6 @@ function App() {
         <Route path='/mentorprofile/:id' element={<MentorProfileid />}></Route>
         <Route path='/mentordashboard' element={<MentorDashBoard />}></Route>
         <Route path='/community' element={<Test />}>
-          {/* <Route path="/community" element={<CommunityFinalDark />}> */}
-          {/* <Route path="/community" element={<CommunityFinal />}> */}
           <Route path=':postId' element={<SharedCommunityPost />}></Route>
         </Route>
         <Route
