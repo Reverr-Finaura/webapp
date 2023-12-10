@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
-import { setUserDoc } from "../../features/userDocSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import styles from "./ChangePasswordUpdated.module.css";
@@ -16,15 +14,10 @@ function ChangePasswordUpdated({ email }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [oldPass, setOldPass] = useState("");
   const [changePassForm, setChangePassForm] = useState({
-    // oldPass: "",
     newPass: "",
     confirmNewPass: "",
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const user = useSelector((state) => state.user);
-  // const userDoc = useSelector((state) => state.userDoc);
-  const theme = useSelector((state) => state.themeColor);
   const [loading, setLoading] = useState(false);
 
   const handleTogglePassword = () => {
@@ -34,13 +27,6 @@ function ChangePasswordUpdated({ email }) {
   const handleToggleConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
-
-  // useEffect(() => {
-  //   if (!otp) {
-  //     navigate("/");
-  //   }
-  // }, [otp]);
-
   // CHECK FOR USER DOC DATA
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
@@ -50,7 +36,6 @@ function ChangePasswordUpdated({ email }) {
 
       querySnapshot.forEach((doc) => {
         if (doc.id === email) {
-          // dispatch(setUserDoc(doc.data()));
           setOldPass(doc.data().password);
         }
       });
@@ -73,12 +58,6 @@ function ChangePasswordUpdated({ email }) {
       setLoading(false);
       return;
     }
-    // if (changePassForm.oldPass !== otp) {
-    //   toast.error("Wrong OTP Entered");
-    //   setLoading(false);
-    //   return;
-    // }
-
     if (changePassForm.newPass !== changePassForm.confirmNewPass) {
       toast.error("Password Doesn't Match");
       setLoading(false);

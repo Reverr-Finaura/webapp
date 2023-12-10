@@ -260,7 +260,8 @@ letter-spacing: 2px;
 }
 
 .Card_ContentContainer p {
-  width: 95%;
+  /* width: 95%; */
+  text-align: justify;
 }
 
 .Card_CreditContainer {

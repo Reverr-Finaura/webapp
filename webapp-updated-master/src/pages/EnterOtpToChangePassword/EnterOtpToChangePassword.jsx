@@ -1,23 +1,13 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
-import { create, modify, selectNewUser } from "../../features/newUserSlice";
-import { auth } from "../../firebase";
 import styles from "./EnterOtpToChangePassword.module.css";
 import emailjs from "@emailjs/browser";
-import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import Footer from "../Footer/Footer";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import otpPhoto from "../../images/otp-picture.webp";
 import ChangePasswordUpdated from "../ChangePasswordUpdated/ChangePasswordUpdated";
 
-function EnterOtpToChangePassword({ propOtp, tempUserData }) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+function EnterOtpToChangePassword({ propOtp, tempUserData, setTempOtp }) {
   const [enteredOtp, setEnteredotp] = useState("");
   const [firstDigit, setFirstDigit] = useState("");
   const [secondDigit, setSecondDigit] = useState("");
@@ -31,7 +21,6 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
   const fourthDigitRef = useRef(null);
   const fifthDigitRef = useRef(null);
   const sixthDigitRef = useRef(null);
-  const newUser = useSelector(selectNewUser);
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
   const [otpMatched, setOtpMatched] = useState(false);
@@ -78,10 +67,6 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
 
   const checkOtp = (e) => {
     e.preventDefault();
-
-    // console.log("otp1", propOtp, enteredOtp);
-    // console.log("otp1", newOTP, enteredOtp);
-
     if (
       ((newOTP === "" && propOtp === enteredOtp) ||
         (newOTP !== "" && newOTP === enteredOtp)) &&
@@ -95,31 +80,28 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
     }
   };
 
-  const resendOtp = () => {
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
+  function generate(n) {
+    var add = 1,
+      max = 12 - add;
+    if (n > max) {
+      return generate(max) + generate(n - max);
     }
-    const otp = generate(6);
-    setNewOTP(otp);
+    max = Math.pow(10, n + add);
+    var min = max / 10;
+    var number = Math.floor(Math.random() * (max - min + 1)) + min;
 
+    return ("" + number).substring(add);
+  }
+  const resendOtp = () => {
+    const otp = generate(6);
+    setTempOtp(otp);
+    setNewOTP(otp);
     var templateParams = {
       from_name: "Reverr",
       to_name: tempUserData.name,
       to_email: tempUserData.email,
       otp,
     };
-    // console.log("otp1", templateParams);
-    // console.log("otp1", otp);
-    // dispatch(modify({ rand }));
     emailjs
       .send(
         "service_lfmmz8k",
@@ -127,23 +109,19 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
         templateParams,
         "dVExxiI8hYMCyc0sY"
       )
-      .then(
-        function (response) {
-          //   console.log("SUCCESS!", response.status, response.text);
-        },
-        function (error) {
-          //   console.log("FAILED...", error);
-        }
-      )
       .then(() => {
         toast.success("New OTP has been sent to your e-mail");
       })
       .catch((error) => {
-        // console.log(error);
         toast.error(error.message);
       });
     setMinutes(3);
     setSeconds(0);
+  };
+  const handleKeyDown = (e, currentRef, previousRef) => {
+    if (e.key === "Backspace" && currentRef.current.value === "") {
+      previousRef.current.focus();
+    }
   };
 
   return (
@@ -159,7 +137,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                 <div className={styles.getStarted}>
                   <h1>Enter Verification Code</h1>
                 </div>
-                <img className={styles.otpRightImg} src={otpPhoto} />
+                <img className={styles.otpRightImg} src={otpPhoto} alt='' />
               </div>
             </div>
 
@@ -196,6 +174,9 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                         thirdDigitRef.current.focus();
                       }
                     }}
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, secondDigitRef, firstDigitRef)
+                    }
                     ref={secondDigitRef}
                   />
                   <input
@@ -208,6 +189,9 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                         fourthDigitRef.current.focus();
                       }
                     }}
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, thirdDigitRef, secondDigitRef)
+                    }
                     ref={thirdDigitRef}
                   />
                   <input
@@ -220,6 +204,9 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                         fifthDigitRef.current.focus();
                       }
                     }}
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, fourthDigitRef, thirdDigitRef)
+                    }
                     ref={fourthDigitRef}
                   />
                   <input
@@ -232,6 +219,9 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                         sixthDigitRef.current.focus();
                       }
                     }}
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, fifthDigitRef, fourthDigitRef)
+                    }
                     ref={fifthDigitRef}
                   />
                   <input
@@ -239,6 +229,9 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                     type='text'
                     value={sixthDigit}
                     onChange={(e) => setSixthDigit(e.target.value)}
+                    onKeyDown={(e) =>
+                      handleKeyDown(e, sixthDigitRef, fifthDigitRef)
+                    }
                     ref={sixthDigitRef}
                   />
                 </div>
