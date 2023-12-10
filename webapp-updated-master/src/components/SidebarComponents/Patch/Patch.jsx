@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Patch.module.css";
 
 function Patch({ isLoggedIn, openModal }) {
@@ -6,7 +6,6 @@ function Patch({ isLoggedIn, openModal }) {
     if (!isLoggedIn) {
       return openModal();
     } else {
-      //normal code
       console.log("user logged!");
     }
   };
@@ -16,15 +15,7 @@ function Patch({ isLoggedIn, openModal }) {
       onClick={handleComingsoonClick}
       style={{ cursor: "pointer" }}
     >
-      {/* <img src={vibeImg} alt="img" />
-      <button onClick={() => console.log("vibe clicked")}>
-        Explore VIBE &nbsp;&gt;
-      </button> */}
-      <img
-        // style={{ marginTop: 40 }}
-        src={require("../../../images/image 827.webp")}
-        alt='img'
-      />
+      <img src={require("../../../images/image 827.webp")} alt='img' />
       <p
         style={{
           fontFamily: "Reem Kufi",

@@ -1,22 +1,12 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "./HomeNotLoggedIn.module.css";
-import ConnectSuggestion from "../../components/SidebarComponents/ConnectSuggestion/ConnectSuggestion";
-import ProfileSummary from "../../components/SidebarComponents/ProfileSummary/ProfileSummary";
 import Vibe from "../../components/SidebarComponents/Vibe/Vibe";
 import ExploreTools from "../../components/SidebarComponents/ExploreTools/ExploreTools";
 import Journey from "../../components/SidebarComponents/Journey/Journey";
 import GetPremium from "../../components/SidebarComponents/GetPremium/GetPremium";
-import Appoinments from "../../components/SidebarComponents/Appoinments/Appoinments";
 import TrendingNews from "../../components/SidebarComponents/TrendingNews/TrendingNews";
-import Events from "../../components/SidebarComponents/Events/Events";
-import Mentors from "../../components/SidebarComponents/Mentors/Mentors";
 import InvestorFinder from "../../components/SidebarComponents/InvestorFinder/InvestorFinder";
-import DiscoverEvents from "../../components/DynamicComponents/DiscoverEvents/DiscoverEvents";
-import DiscoverPerfectTools from "../../components/DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
-import FeaturedSuggestions from "../../components/DynamicComponents/FeaturedSuggestions/FeaturedSuggestions";
-import FeaturedMentors from "../../components/DynamicComponents/FeaturedMentors/FeaturedMentors";
 import CommunityFinalDark from "../../components/Community Dark Mood/Community Final Dark/CommunityFinalDark";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import Patch from "../../components/SidebarComponents/Patch/Patch";
@@ -39,7 +29,7 @@ function HomeNotLoggedIn() {
             >
               X
             </span>
-            <img src={require("../../images/userIcon.png")} alt="img" />
+            <img src={require("../../images/userIcon.png")} alt='img' />
             <text style={{ color: "#ffffff", fontSize: 20, marginTop: 10 }}>
               Sign in to Continue
             </text>
@@ -59,24 +49,8 @@ function HomeNotLoggedIn() {
               className={styles.signUpButton}
               onClick={() => navigate("/signup")}
             >
-              {/* <img src={require("../../images/google.png")} alt={"img"} /> */}
               <span>Sign up</span>
             </button>
-            {/* <div style={{ marginTop: 10 }}>
-              <span style={{ color: "#999b9e", fontSize: 10 }}>
-                New to Reverr?&nbsp;
-              </span>
-              <span
-                style={{
-                  color: "#00b3ff",
-                  fontSize: 10,
-                  cursor: "pointer",
-                  textDecoration: "underline",
-                }}
-              >
-                Sign up
-              </span>
-            </div> */}
           </div>
         </div>
       ) : null}
@@ -101,7 +75,7 @@ function HomeNotLoggedIn() {
         </div>
 
         <div className={styles.middleSection}>
-          <CommunityFinalDark isLoggedIn={false} openModal={openModal}/>
+          <CommunityFinalDark isLoggedIn={false} openModal={openModal} />
           {/* <DiscoverEvents />
         <div style={{ marginTop: 50 }}></div>
         <DiscoverPerfectTools />

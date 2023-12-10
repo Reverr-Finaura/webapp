@@ -11,11 +11,11 @@ function Vibe({ isLoggedIn, openModal }) {
       <button
         style={{ fontFamily: "Reem Kufi" }}
         onClick={() => {
-          navigate("/vibe");
           if (!isLoggedIn) {
             return openModal();
           } else {
-            console.log("user logged!");
+            navigate("/vibe");
+            // console.log("user logged!");
           }
         }}
       >
