@@ -179,10 +179,10 @@ const NavBarFinal = () => {
       receivedRequests: newReceivedRequestsArray,
       network: newNetworkArray,
     };
-    console.log(
-      "userWhoRequestedNewNetworkArray",
-      userWhoRequestedNewNetworkArray
-    );
+    // console.log(
+    //   "userWhoRequestedNewNetworkArray",
+    //   userWhoRequestedNewNetworkArray
+    // );
     try {
       await updateDoc(userDocumentRef, {
         receivedRequests: newReceivedRequestsArray,

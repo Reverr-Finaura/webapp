@@ -41,9 +41,6 @@ const SharedPostCard = ({
   const [newEdittedComment, setNewEdittedComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null);
   const [tempSiteUrl, setTempSiteUrl] = useState("");
-
-  console.log("item", item);
-
   //GET SITE URL
   useEffect(() => {
     function getCurrentURL() {

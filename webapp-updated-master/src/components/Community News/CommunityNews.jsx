@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./News.module.css";
 
 const CommunityNews = ({ singleNews, setSingleNews }) => {
-  console.log("singleNews", singleNews);
-
   return (
     <section className={styles.outerCont}>
       <div className={styles.innerCont}>
@@ -11,8 +9,8 @@ const CommunityNews = ({ singleNews, setSingleNews }) => {
           <img
             style={{ cursor: "pointer" }}
             onClick={() => setSingleNews(null)}
-            src="./images/icons8-cancel-48.png"
-            alt="close"
+            src='./images/icons8-cancel-48.png'
+            alt='close'
           />
         </div>
         <section className={styles.newsCont}>
@@ -24,7 +22,7 @@ const CommunityNews = ({ singleNews, setSingleNews }) => {
               <img
                 className={styles.newsImage}
                 src={singleNews.image.thumbnail.contentUrl}
-                alt="newsImage"
+                alt='newsImage'
               />
             </div>
             <h1 className={styles.newsHeadingInfo}>{singleNews?.name}</h1>

@@ -2,18 +2,17 @@ import React from "react";
 import {
   DropDown,
   Input,
-  Radio,
   TextArea,
 } from "../../../components/AlgoInput/InputTesting";
 import styles from "./stageTesting.module.css";
 import { toast } from "react-toastify";
-import { nonscoredData, scoredData } from "./scores";
+import { scoredData } from "./scores";
 
 const FinanceTesting = ({ setStage, data, setData, score, setScore }) => {
   const handleNext = () => {
     if (Object.keys(data["Finance"]).length < 10) {
       toast.error("Kindly Fill All Mandatory Fields");
-      console.log("kindly fill all mandatory fields");
+      // console.log("kindly fill all mandatory fields");
     } else {
       setData((prev) => ({
         ...prev,

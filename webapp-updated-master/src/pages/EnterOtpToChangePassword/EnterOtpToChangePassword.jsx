@@ -79,8 +79,8 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
   const checkOtp = (e) => {
     e.preventDefault();
 
-    console.log("otp1", propOtp, enteredOtp);
-    console.log("otp1", newOTP, enteredOtp);
+    // console.log("otp1", propOtp, enteredOtp);
+    // console.log("otp1", newOTP, enteredOtp);
 
     if (
       ((newOTP === "" && propOtp === enteredOtp) ||
@@ -117,8 +117,8 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
       to_email: tempUserData.email,
       otp,
     };
-    console.log("otp1", templateParams);
-    console.log("otp1", otp);
+    // console.log("otp1", templateParams);
+    // console.log("otp1", otp);
     // dispatch(modify({ rand }));
     emailjs
       .send(
@@ -155,7 +155,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
           <NavBarFinalDarkMode isLoggedIn={false} />
           <div className={styles.otp}>
             <div className={styles.hiddenOnDesktop}>
-              <div className="rightPart">
+              <div className='rightPart'>
                 <div className={styles.getStarted}>
                   <h1>Enter Verification Code</h1>
                 </div>
@@ -176,7 +176,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                 <div className={styles.otpInputs}>
                   <input
                     maxLength={1}
-                    type="text"
+                    type='text'
                     value={firstDigit}
                     onChange={(e) => {
                       setFirstDigit(e.target.value);
@@ -188,7 +188,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                   />
                   <input
                     maxLength={1}
-                    type="text"
+                    type='text'
                     value={secondDigit}
                     onChange={(e) => {
                       setSecondDigit(e.target.value);
@@ -200,7 +200,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                   />
                   <input
                     maxLength={1}
-                    type="text"
+                    type='text'
                     value={thirdDigit}
                     onChange={(e) => {
                       setThirdDigit(e.target.value);
@@ -212,7 +212,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                   />
                   <input
                     maxLength={1}
-                    type="text"
+                    type='text'
                     value={fourthDigit}
                     onChange={(e) => {
                       setFourthDigit(e.target.value);
@@ -224,7 +224,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                   />
                   <input
                     maxLength={1}
-                    type="text"
+                    type='text'
                     value={fifthDigit}
                     onChange={(e) => {
                       setFifthDigit(e.target.value);
@@ -236,7 +236,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                   />
                   <input
                     maxLength={1}
-                    type="text"
+                    type='text'
                     value={sixthDigit}
                     onChange={(e) => setSixthDigit(e.target.value)}
                     ref={sixthDigitRef}
@@ -252,7 +252,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
                 )}
 
                 <div className={styles.buttonWrap}>
-                  <Button className={styles.verifyBtn} type="submit">
+                  <Button className={styles.verifyBtn} type='submit'>
                     Verify
                   </Button>
                   <h3
@@ -271,7 +271,7 @@ function EnterOtpToChangePassword({ propOtp, tempUserData }) {
             </div>
 
             <div className={styles.hiddenOnMobile}>
-              <div className="rightPart">
+              <div className='rightPart'>
                 <img className={styles.otpRightImg} src={otpPhoto} />
               </div>
             </div>

@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileCard = (props) => {
   const navigate = useNavigate();
-  // console.log(props);
   return (
     <>
       <div className='profile-box'>
         <img
           src={props.imgUrl}
           className='suggest-img'
-          alt='Image'
+          alt='suggest-img'
           style={{ height: "65px", width: "65px" }}
         />
         <h3

@@ -71,12 +71,12 @@ function TrendingNews({ isLoggedIn, openModal }) {
                 <div key={index} className={styles.newsCard}>
                   <img src={item?.image?.thumbnail?.contentUrl} alt={"img"} />
                   <div>
-                    <text style={{ color: "#A7A7A7", fontSize: 8 }}>
+                    <p style={{ color: "#A7A7A7", fontSize: 8 }}>
                       {item?.datePublished?.slice(11, 16) +
                         "  on " +
                         item?.datePublished?.slice(0, 10)}
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         color: "#ffffff",
                         fontSize: 12,
@@ -88,12 +88,10 @@ function TrendingNews({ isLoggedIn, openModal }) {
                       }}
                     >
                       {item?.name}
-                    </text>
-                    <text
-                      style={{ color: "#ffffff", fontSize: 8, marginTop: 5 }}
-                    >
+                    </p>
+                    <p style={{ color: "#ffffff", fontSize: 8, marginTop: 5 }}>
                       {item?.provider[0]?.name}
-                    </text>
+                    </p>
                   </div>
                 </div>
               ))
@@ -101,12 +99,12 @@ function TrendingNews({ isLoggedIn, openModal }) {
                 <div key={index} className={styles.newsCard}>
                   <img src={item?.image?.thumbnail?.contentUrl} alt={"img"} />
                   <div>
-                    <text style={{ color: "#A7A7A7", fontSize: 8 }}>
+                    <p style={{ color: "#A7A7A7", fontSize: 8 }}>
                       {item?.datePublished?.slice(11, 16) +
                         "  on " +
                         item?.datePublished?.slice(0, 10)}
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         color: "#ffffff",
                         fontSize: 12,
@@ -118,12 +116,10 @@ function TrendingNews({ isLoggedIn, openModal }) {
                       }}
                     >
                       {item?.name}
-                    </text>
-                    <text
-                      style={{ color: "#ffffff", fontSize: 8, marginTop: 5 }}
-                    >
+                    </p>
+                    <p style={{ color: "#ffffff", fontSize: 8, marginTop: 5 }}>
                       {item?.provider[0]?.name}
-                    </text>
+                    </p>
                   </div>
                 </div>
               ))}

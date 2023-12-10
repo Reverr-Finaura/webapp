@@ -37,14 +37,14 @@ const Review = () => {
           templateParams,
           process.env.REACT_APP_EMAILJS_PUBLIC_KEY
         )
-        .then(
-          function (response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function (error) {
-            console.log("FAILED...", error);
-          }
-        )
+        .then
+        // function (response) {
+        //   console.log("SUCCESS!", response.status, response.text);
+        // },
+        // function (error) {
+        //   console.log("FAILED...", error);
+        // }
+        ()
         .then(() => {
           toast.success("You have successfully create your account!");
         })
@@ -67,14 +67,14 @@ const Review = () => {
             <p>Till then, Let's add more details to your profile</p>
           </div>
           <div className={styles.review_img}>
-            <img src="/images/review-img.svg" alt="" />
+            <img src='/images/review-img.svg' alt='' />
           </div>
         </div>
         <div className={styles.review_btns}>
-          <Link to="/startup-verification">
+          <Link to='/startup-verification'>
             <button className={styles.next_btn}>Next</button>
           </Link>
-          <Link to="/">
+          <Link to='/'>
             <button className={styles.skip_btn}>Skip</button>
           </Link>
         </div>

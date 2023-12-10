@@ -27,17 +27,15 @@ const CommunityUserProfilePopup = ({
   const [choiceButtonClick, setChoiceButtonClick] = useState("Info");
   const [selectedUserPostsArray, setSelectedUserPostsArray] = useState(null);
 
-  //   console.log("postsAuthorInfo", postsAuthorInfo);
-
-  const fetchSelectedUserPosts = (postArray) => {
-    let SelectedUserPostData = [];
-    postsData.map((item) => {
-      if (postArray.includes(item.id)) {
-        SelectedUserPostData.push(item);
-      }
-    });
-    setSelectedUserPostsArray(SelectedUserPostData);
-  };
+  // const fetchSelectedUserPosts = (postArray) => {
+  //   let SelectedUserPostData = [];
+  //   postsData.map((item) => {
+  //     if (postArray.includes(item.id)) {
+  //       SelectedUserPostData.push(item);
+  //     }
+  //   });
+  //   setSelectedUserPostsArray(SelectedUserPostData);
+  // };
 
   //UPDATE LOGGEDIN USER FOLLOW REQUEST ARRAY
   // update the send request array of the logged in user

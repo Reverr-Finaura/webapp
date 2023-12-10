@@ -46,7 +46,7 @@ const CommunityNavbar = ({ setNavbarPostButtonClick }) => {
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
-  console.log("scroll", scroll);
+  // console.log("scroll", scroll);
   //CHECK FOR THEME
   useEffect(() => {
     document.body.className = theme;
@@ -163,10 +163,10 @@ const CommunityNavbar = ({ setNavbarPostButtonClick }) => {
       receivedRequests: newReceivedRequestsArray,
       network: newNetworkArray,
     };
-    console.log(
-      "userWhoRequestedNewNetworkArray",
-      userWhoRequestedNewNetworkArray
-    );
+    // console.log(
+    //   "userWhoRequestedNewNetworkArray",
+    //   userWhoRequestedNewNetworkArray
+    // );
     try {
       await updateDoc(userDocumentRef, {
         receivedRequests: newReceivedRequestsArray,

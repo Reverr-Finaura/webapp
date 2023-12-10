@@ -34,11 +34,6 @@ function Mentors({ isLoggedIn, openModal }) {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
           });
-
-          // var {email} =doc._document.data.value.mapValue.fields;
-          // console.log(email.stringValue);
-          // doc.data().id=email;
-          // console.log(doc.data());
         }
       });
     }
@@ -77,9 +72,9 @@ function Mentors({ isLoggedIn, openModal }) {
           <div key={index}>
             <div className={styles.mentorRow}>
               <div>
-                <img src={mentor?.image} alt="Profile" />
+                <img src={mentor?.image} alt='Profile' />
                 <div>
-                  <text
+                  <p
                     style={{
                       fontSize: 14,
                       color: "#ffffff",
@@ -91,8 +86,8 @@ function Mentors({ isLoggedIn, openModal }) {
                     }}
                   >
                     {mentor?.name}
-                  </text>
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontSize: 10,
                       color: "#A7A7A7",
@@ -104,7 +99,7 @@ function Mentors({ isLoggedIn, openModal }) {
                     }}
                   >
                     {mentor?.designation}
-                  </text>
+                  </p>
                 </div>
               </div>
               <button

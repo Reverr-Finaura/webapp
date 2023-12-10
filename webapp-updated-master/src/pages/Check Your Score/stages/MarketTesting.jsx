@@ -13,7 +13,7 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
   const handleNext = () => {
     if (Object.keys(data["Market"]).length < 11) {
       toast.error("Kindly Fill All Mandatory Fields");
-      console.log("Kindly Fill All Mandatory Fields");
+      // console.log("Kindly Fill All Mandatory Fields");
     } else {
       setData((prev) => ({
         ...prev,
@@ -29,7 +29,7 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(data);
+    // console.log(data);
     setData((prev) => {
       return { ...prev, ["Market"]: { ...prev["Market"], [name]: value } };
     });
@@ -73,7 +73,7 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
   const handleDropdown = (e) => {
     const { name, value } = e.target;
     const score_of_var = getScore(name, value);
-    console.log("max Score", findMaxScore(name));
+    // console.log("max Score", findMaxScore(name));
     // console.log(score_of_var, name, value);
     // setScore((prev) => ({
     //   ...prev,
@@ -103,7 +103,7 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
       };
     });
   };
-  console.log("data", data);
+  // console.log("data", data);
 
   const handleRevenue = (e) => {
     const { name, value } = e.target;
@@ -144,7 +144,7 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
           />
           <DropDown
             defaultValue={"select"}
-            name="competitors"
+            name='competitors'
             value={data?.Market?.competitors}
             onChange={handleChange}
             title={"Do you have any competitors?"}
@@ -214,11 +214,11 @@ const MarketTesting = ({ setStage, data, setData, score, setScore }) => {
         <div className={styles.input_flex}>
           <DropDown
             defaultValue={"select"}
-            name="target_gender"
+            name='target_gender'
             value={data?.Market?.target_gender}
             onChange={handleChange}
             title={"Target Gender"}
-            options={["select", "Male", "Female","Both"]}
+            options={["select", "Male", "Female", "Both"]}
             nonscored={true}
           />
           <DropDown

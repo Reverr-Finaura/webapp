@@ -36,9 +36,6 @@ import CommunityNews from "../../components/Community News/CommunityNews";
 import NewSkeleton from "../../components/Post Skeleton/News Skeleton/NewSkeleton";
 import { RxCrossCircled } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
-
-import SortingNavbarTest from "./Sorting Navbar Test/SortingNavbarTest";
-
 import NoFollowingCard from "../../components/No Following Card/NoFollowingCard";
 import {
   MdOutlineAddPhotoAlternate,
@@ -46,11 +43,8 @@ import {
   MdLocationOn,
   MdPoll,
 } from "react-icons/md";
-
-import { IoLocationSharp } from "react-icons/io5";
 import { BsImages } from "react-icons/bs";
 import { RiFileSearchLine } from "react-icons/ri";
-import SortingNavbarTwoOption from "./Sorting Navbar Two Options/SortingNavbarTwoOptions";
 const CommunityFinal = () => {
   const dispatch = useDispatch();
   const postData = [];
@@ -76,15 +70,12 @@ const CommunityFinal = () => {
     whose: "Everything",
   });
   const [sortOptionClick, setSortOptionClick] = useState(false);
-  const [furtherSortOptionClick, setfurtherSortOptionClick] = useState(false);
-
   const [postIdExist, setPostIdExist] = useState("");
   const [newScoll, setNewScroll] = useState(0);
   const [newsData, setNewsData] = useState();
   const [singleNews, setSingleNews] = useState(null);
   const [blogArray, setBlogArray] = useState([]);
   const [seeAllNewsIsClicked, setSeeAllNewsIsClicked] = useState(false);
-  console.log("blogArray", blogArray);
 
   //FETCH LATEST NEWS
   const options = {

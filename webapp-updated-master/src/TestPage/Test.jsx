@@ -10,12 +10,6 @@ import Appoinments from "../components/SidebarComponents/Appoinments/Appoinments
 import TrendingNews from "../components/SidebarComponents/TrendingNews/TrendingNews";
 import Mentors from "../components/SidebarComponents/Mentors/Mentors";
 import InvestorFinder from "../components/SidebarComponents/InvestorFinder/InvestorFinder";
-// import DiscoverEvents from "../components/DynamicComponents/DiscoverEvents/DiscoverEvents";
-// import Events from "../components/SidebarComponents/Events/Events";
-// import ConnectSuggestion from "../components/SidebarComponents/ConnectSuggestion/ConnectSuggestion";
-// import DiscoverPerfectTools from "../components/DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
-// import FeaturedSuggestions from "../components/DynamicComponents/FeaturedSuggestions/FeaturedSuggestions";
-// import FeaturedMentors from "../components/DynamicComponents/FeaturedMentors/FeaturedMentors";
 import CommunityFinalDark from "../components/Community Dark Mood/Community Final Dark/CommunityFinalDark";
 import NavBarFinalDarkMode from "../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import Patch from "../components/SidebarComponents/Patch/Patch";

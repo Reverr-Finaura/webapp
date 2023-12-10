@@ -66,7 +66,6 @@ function EnterOtp() {
 
   const checkOtp = (e) => {
     e.preventDefault();
-    console.log(enteredOtp);
     if (newUser.otp === enteredOtp) {
       createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
         .then(() => {

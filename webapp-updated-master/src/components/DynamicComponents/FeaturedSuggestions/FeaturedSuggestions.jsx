@@ -95,9 +95,9 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
     return arr;
   }
 
-  const getRandomUsers = (length, setUser, userArray) => {
+  const getRandomUsers = (length, setRandomUsers, userArray) => {
     const modifiedArray = shuffleArray(userArray);
-    setUser(modifiedArray.slice(0, length));
+    setRandomUsers(modifiedArray.slice(0, length));
   };
 
   return (
@@ -133,7 +133,7 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
                   alt='Profile'
                 />
                 <div>
-                  <text
+                  <p
                     style={{
                       fontSize: 14,
                       color: "#ffffff",
@@ -145,8 +145,8 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
                     }}
                   >
                     {user?.name}
-                  </text>
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontSize: 10,
                       color: "#A7A7A7",
@@ -158,7 +158,7 @@ function FeaturedSuggestions({ isLoggedIn, openModal }) {
                     }}
                   >
                     {user?.designation}
-                  </text>
+                  </p>
                 </div>
               </div>
               <span

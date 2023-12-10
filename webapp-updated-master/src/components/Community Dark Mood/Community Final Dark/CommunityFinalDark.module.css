@@ -737,10 +737,9 @@
   display: flex;
 }
 
-.editPostContainer-edit-container {
+.editPostContainereditcontainer {
   width: 50%;
   height: max-content;
-  background-color: var(--bg-sub-card);
   border-radius: 11px;
   margin: auto;
   padding: 1rem;
@@ -750,7 +749,7 @@
 
 }
 
-.edit-communityPostImage-cont {
+.editcommunityPostImagecont {
   width: 96.6%;
   border: none;
   border-bottom: 0;
@@ -761,7 +760,7 @@
   gap: 1rem;
 }
 
-.edit-communityPostImage {
+.editcommunityPostImage {
   width: 209px;
   height: 150px;
   /* margin: auto; */
@@ -1649,7 +1648,7 @@ body::-webkit-scrollbar {
     margin-left: 2rem;
   }
 
-  .editPostContainer-edit-container {
+  .editPostContainereditcontainer {
     margin-left: 3rem;
     width: 68%;
   }
@@ -1727,7 +1726,7 @@ body::-webkit-scrollbar {
     left: 0;
   }
 
-  .editPostContainer-edit-container {
+  .editPostContainereditcontainer {
     width: 85%;
   }
 
@@ -1740,7 +1739,7 @@ body::-webkit-scrollbar {
     margin-top: 2.5rem;
   }
 
-  .editPostContainer-edit-container {
+  .editPostContainereditcontainer {
     margin: auto;
     width: 88%;
   }

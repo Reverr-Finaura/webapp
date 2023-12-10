@@ -14,7 +14,7 @@ const PnTTesting = ({ setStage, setData, data, score, setScore }) => {
   const handleNext = () => {
     if (Object.keys(data["productTech"]).length < 18) {
       toast.error("Kindly Fill All Mandatory Fields");
-      console.log("Kindly Fill All Mandatory Fields");
+      // console.log("Kindly Fill All Mandatory Fields");
     } else {
       setScore((prev) => ({
         ...prev,
@@ -201,7 +201,7 @@ const PnTTesting = ({ setStage, setData, data, score, setScore }) => {
             title={"Primary Offering"}
             nonscored={true}
             options={nonscoredData.primary_offer}
-            style={{marginTop: "20px"}}
+            style={{ marginTop: "20px" }}
           />
         </div>
         <div className={styles.input_flex}>
@@ -222,7 +222,7 @@ const PnTTesting = ({ setStage, setData, data, score, setScore }) => {
             onChange={(e) => handleChange(e)}
             nonscored={true}
             options={nonscoredData.industry}
-            style={{marginTop: "20px"}}
+            style={{ marginTop: "20px" }}
           />
         </div>
         <div className={styles.input_flex}>
@@ -243,7 +243,7 @@ const PnTTesting = ({ setStage, setData, data, score, setScore }) => {
             title={"Customer Segment"}
             nonscored={true}
             options={nonscoredData.customer_segment}
-            style={{marginTop: "20px"}}
+            style={{ marginTop: "20px" }}
           />
         </div>
         <TextArea
@@ -264,7 +264,7 @@ const PnTTesting = ({ setStage, setData, data, score, setScore }) => {
             title={"Does your business have a MOAT?"}
             nonscored={true}
             options={nonscoredData.ismoat}
-            style={{marginTop: "20px"}}
+            style={{ marginTop: "20px" }}
           />
           {/* <Radio
           name={"ismoat"}

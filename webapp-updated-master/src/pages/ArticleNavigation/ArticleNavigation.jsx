@@ -33,17 +33,6 @@ const ArticleNavigation = () => {
         setinfo({ ...docSnap.data() });
         setLoading(false);
       }
-      //console.log(docSnap.data(), "docSnap");
-      // const userDataRef = collection(db, "Blogs2");
-      // const q = query(userDataRef);
-      // const querySnapshot = await getDocs(q);
-
-      // const temp = querySnapshot.docs.filter((doc) => {
-      //   if (doc.id === id) {
-      //     setinfo(doc.data());
-      //     setLoading(false);
-      //   }
-      // });
     }
     fetchUserDocFromFirebase();
   }, [id]);

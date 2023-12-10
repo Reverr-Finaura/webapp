@@ -69,8 +69,8 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
-          <text style={{ color: "#00B3FF" }}>Suggested </text>
-          <text style={{ color: "#FFFFFF" }}>For You</text>
+          <p style={{ color: "#00B3FF" }}>Suggested </p>
+          <p style={{ color: "#FFFFFF" }}>For You</p>
         </div>
         {/* <span onClick={() => console.log("see all clicked")}>See All</span> */}
       </div>
@@ -88,10 +88,10 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
                       : require("../../../images/userIcon.webp")
                   }
                   className={styles.profileImage}
-                  alt="Profile"
+                  alt='Profile'
                 />
                 <div>
-                  <text
+                  <p
                     style={{
                       fontSize: 14,
                       color: "#FFF",
@@ -103,8 +103,8 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
                     }}
                   >
                     {user?.name}
-                  </text>
-                  <text
+                  </p>
+                  <p
                     style={{
                       fontSize: 10,
                       color: "gray",
@@ -116,7 +116,7 @@ function ConnectSuggestion({ isLoggedIn, openModal }) {
                     }}
                   >
                     {user?.designation}
-                  </text>
+                  </p>
                 </div>
               </div>
               <button

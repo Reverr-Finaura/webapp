@@ -108,7 +108,7 @@ function EnterOtpUpdated() {
     if (verify.length !== 6) {
       toast.error("Please Enter all 6 value");
     }
-    console.log(verify);
+    // console.log(verify);
     if (newUser.otp === verify) {
       try {
         await createUserWithEmailAndPassword(

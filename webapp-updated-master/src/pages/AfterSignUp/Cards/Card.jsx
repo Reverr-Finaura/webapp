@@ -63,22 +63,22 @@ const Card = () => {
   };
   return (
     <>
-      <Header theme="black" />
+      <Header theme='black' />
       <div className={styles.industry__container}>
         <h1 className={styles.big__heading}>What are you looking for?</h1>
         <div className={styles.cards__flex}>
           {array.map(({ heading, paragraph, img }, index) => (
             <div key={index} className={styles.card__container}>
               <div className={styles.card__image_container}>
-                <img src={img} alt="" className={styles.card__image} />
+                <img src={img} alt='' className={styles.card__image} />
               </div>
               <div className={styles.card__heading}>{heading}</div>
-    
+
               {!lookingFor.find((x) => x === heading) ? (
                 <button
                   onClick={() => {
                     setLookingFor((prevState) => [...prevState, heading]);
-                    console.log(lookingFor);
+                    // console.log(lookingFor);
                   }}
                   className={styles.card__btn}
                 >
@@ -90,7 +90,7 @@ const Card = () => {
                     setLookingFor(
                       lookingFor.filter((item) => item !== heading)
                     );
-                    console.log(lookingFor);
+                    // console.log(lookingFor);
                   }}
                   className={styles.card__btn}
                 >

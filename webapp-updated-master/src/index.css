@@ -191,6 +191,11 @@ body {
   width: 0px;
 }
 
+*::-webkit-scrollbar {
+  width: 0px;
+}
+
+
 .react-toggle--checked .react-toggle-track {
   background-color: #2a72de;
 }

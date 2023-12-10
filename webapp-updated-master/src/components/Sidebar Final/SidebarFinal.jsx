@@ -40,8 +40,6 @@ const SidebarFinal = () => {
 
   const pptPath = routes.pathname.includes("/pptTemplates/");
   const docPath = routes.pathname.includes("/documentTemplates/");
-  //console.log(routes.pathname.includes('/pptTemplates/'),"routes");
-  // console.log(theme);
   return (
     <>
       <section id='sidebar-final'>

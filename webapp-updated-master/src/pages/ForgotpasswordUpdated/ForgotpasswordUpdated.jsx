@@ -19,7 +19,6 @@ function ForgotpasswordUpdated() {
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const theme = useSelector((state) => state.themeColor);
   const [tempOtp, setTempOtp] = useState(null);
   const [newOtp, setNewOtp] = useState("");
   const [tempUserData, setTempUserData] = useState({});
@@ -28,7 +27,7 @@ function ForgotpasswordUpdated() {
   const [seconds, setSeconds] = useState(0);
   const [showCodePicker, setShowCodePicker] = useState(false);
   const [metaData, setMetaData] = useState([]);
-  console.log("tempotp", tempOtp);
+  // console.log("tempotp", tempOtp);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -285,13 +284,13 @@ function ForgotpasswordUpdated() {
             </div>
 
             <div className={styles.leftComponent}>
-              <text
+              <p
                 className={styles.hiddenOnMobile}
                 style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
               >
                 Forgot Password?
-              </text>
-              <text
+              </p>
+              <p
                 style={{
                   fontSize: 15,
                   color: "#ffffff",
@@ -299,8 +298,8 @@ function ForgotpasswordUpdated() {
                 }}
               >
                 Enter the email address associated with your account
-              </text>
-              <text
+              </p>
+              <p
                 style={{
                   fontSize: 15,
                   color: "#ffffff",
@@ -308,9 +307,9 @@ function ForgotpasswordUpdated() {
                 }}
               >
                 and we’ll send you a link to change your password.
-              </text>
+              </p>
               <div className={styles.textInput}>
-                <text style={{ fontSize: 12, color: "#ffffff" }}>Email</text>
+                <p style={{ fontSize: 12, color: "#ffffff" }}>Email</p>
                 <input
                   type='email'
                   placeholder='johnsmith@gmail.com'

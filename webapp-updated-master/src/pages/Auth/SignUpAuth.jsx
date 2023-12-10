@@ -16,7 +16,7 @@ import {
   setPassword,
   setcountryCode,
 } from "../../features/onboardingSlice";
-import { collection, getDocs, query,getDoc,doc } from "firebase/firestore";
+import { collection, getDocs, query, getDoc, doc } from "firebase/firestore";
 import axios from "axios";
 import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker";
 import useQuery from "../../Utils/useQuery";
@@ -84,7 +84,7 @@ function Auth() {
       }
     } catch (error) {
       toast.dismiss();
-      console.log("err", error);
+      // console.log("err", error);
       toast.error(error.response.data.message);
       setIsSignUpUsingLinkedIn(false);
     }
@@ -138,41 +138,33 @@ function Auth() {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((userCredential) => {
-    
-                
-            dispatch(
-              create({
-                email: auth.currentUser.email,
-                uid: auth.currentUser.uid,
-                displayName: auth.currentUser.displayName,
-                profilePic: auth.currentUser.photoURL,
-                userType: userType,
-                loginType: "google",
-              })
-              );
-      
-
+        dispatch(
+          create({
+            email: auth.currentUser.email,
+            uid: auth.currentUser.uid,
+            displayName: auth.currentUser.displayName,
+            profilePic: auth.currentUser.photoURL,
+            userType: userType,
+            loginType: "google",
+          })
+        );
       })
       .then(async () => {
-        const docRef = doc(db,"Users",auth.currentUser.email)
-        
-        try{ 
-          const docSnap = await getDoc(docRef) ;        
+        const docRef = doc(db, "Users", auth.currentUser.email);
 
-           if (docSnap.exists()) {
-            console.log("docSnap  exist")
+        try {
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            // console.log("docSnap  exist");
             navigate("/dashboard");
-           
           } else {
-            console.log("User document does not exist.");
+            // console.log("User document does not exist.");
             navigate("/onboardingGeneralInfoScreen");
           }
-
-        }catch(error){
-          console.log(error.message)
+        } catch (error) {
+          console.log(error.message);
         }
-
-       
       })
       .catch((error) => {
         alert(error);
@@ -242,15 +234,15 @@ function Auth() {
           code: selectedCountry.dialCode.slice(1),
           message: `Your Reverr Signup OTP is ${otp}`,
         });
-        console.log("SUCCESS!", response.status, response.text);
-        console.log("otpMobile SUCCESS!", data);
+        // console.log("SUCCESS!", response.status, response.text);
+        // console.log("otpMobile SUCCESS!", data);
         navigate("/enterotp");
         setLoading(false);
         toast.success(
           "An OTP has been sent to your e-mail and registered mobile number"
         );
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast.error(error.text);
         setLoading(false);
         toast.error(error?.response?.data?.message);
@@ -337,220 +329,219 @@ function Auth() {
     }
   }
 
-  console.log("userSpaceArr ", userSpaceArr);
-  console.log("userSpace: ", userSpace);
+  // console.log("userSpaceArr ", userSpaceArr);
+  // console.log("userSpace: ", userSpace);
 
- 
   return (
     <>
-      <div className="space--section">
+      <div className='space--section'>
         {/* <button onClick={openModal}>Open Modal</button> */}
         {isOpen && (
-          <div className="modal">
-            <div className="modal-content">
+          <div className='modal'>
+            <div className='modal-content'>
               {/* <span className="close" onClick={closeModal}>
                 &times;
               </span> */}
               <h2>User Space!</h2>
               <p>What industry tribe do you call home?</p>
               {/* <p>Imagine the industry as a vibrant tapestry of possibilities—where does your thread weave its unique pattern?</p> */}
-              <div className="menu">
+              <div className='menu'>
                 <label>
                   <input
-                    type="checkbox"
-                    value="FinTech"
+                    type='checkbox'
+                    value='FinTech'
                     onChange={handleCheckboxChange}
                   />
                   FinTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="EdTech"
+                    type='checkbox'
+                    value='EdTech'
                     onChange={handleCheckboxChange}
                   />
                   EdTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="AgriTech"
+                    type='checkbox'
+                    value='AgriTech'
                     onChange={handleCheckboxChange}
                   />
                   AgriTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="FoodTech"
+                    type='checkbox'
+                    value='FoodTech'
                     onChange={handleCheckboxChange}
                   />
                   FoodTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Ecommerce"
+                    type='checkbox'
+                    value='Ecommerce'
                     onChange={handleCheckboxChange}
                   />
                   Ecommerce
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Logistics & Delivery"
+                    type='checkbox'
+                    value='Logistics & Delivery'
                     onChange={handleCheckboxChange}
                   />
                   Logistics & Delivery
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Cleantech & Renewable Energy"
+                    type='checkbox'
+                    value='Cleantech & Renewable Energy'
                     onChange={handleCheckboxChange}
                   />
                   Cleantech & Renewable Energy
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Ai & ML"
+                    type='checkbox'
+                    value='Ai & ML'
                     onChange={handleCheckboxChange}
                   />
                   Ai & ML
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Web 3.0"
+                    type='checkbox'
+                    value='Web 3.0'
                     onChange={handleCheckboxChange}
                   />
                   Web 3.0
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="FashionTech"
+                    type='checkbox'
+                    value='FashionTech'
                     onChange={handleCheckboxChange}
                   />
                   FashionTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="SpaceTech"
+                    type='checkbox'
+                    value='SpaceTech'
                     onChange={handleCheckboxChange}
                   />
                   SpaceTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="HealthTech"
+                    type='checkbox'
+                    value='HealthTech'
                     onChange={handleCheckboxChange}
                   />
                   HealthTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Cybersecurity"
+                    type='checkbox'
+                    value='Cybersecurity'
                     onChange={handleCheckboxChange}
                   />
                   Cybersecurity
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="AR & VR"
+                    type='checkbox'
+                    value='AR & VR'
                     onChange={handleCheckboxChange}
                   />
                   AR & VR
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Internet of Things(IOT)"
+                    type='checkbox'
+                    value='Internet of Things(IOT)'
                     onChange={handleCheckboxChange}
                   />
                   Internet of Things(IOT)
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Biotech"
+                    type='checkbox'
+                    value='Biotech'
                     onChange={handleCheckboxChange}
                   />
                   Biotech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="TravelTech"
+                    type='checkbox'
+                    value='TravelTech'
                     onChange={handleCheckboxChange}
                   />
                   TravelTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Real Estate-Tech"
+                    type='checkbox'
+                    value='Real Estate-Tech'
                     onChange={handleCheckboxChange}
                   />
                   Real Estate-Tech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="BeautyTech"
+                    type='checkbox'
+                    value='BeautyTech'
                     onChange={handleCheckboxChange}
                   />
                   BeautyTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="LegalTech"
+                    type='checkbox'
+                    value='LegalTech'
                     onChange={handleCheckboxChange}
                   />
                   LegalTech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="HR-Tech"
+                    type='checkbox'
+                    value='HR-Tech'
                     onChange={handleCheckboxChange}
                   />
                   HR-Tech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Personal fitness Tech"
+                    type='checkbox'
+                    value='Personal fitness Tech'
                     onChange={handleCheckboxChange}
                   />
                   Personal fitness Tech
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Waste Management Technologies"
+                    type='checkbox'
+                    value='Waste Management Technologies'
                     onChange={handleCheckboxChange}
                   />
                   Waste Management Technologies
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="Online Marketplaces"
+                    type='checkbox'
+                    value='Online Marketplaces'
                     onChange={handleCheckboxChange}
                   />
                   Online Marketplaces
                 </label>
                 <label>
                   <input
-                    type="checkbox"
-                    value="CloudTech"
+                    type='checkbox'
+                    value='CloudTech'
                     onChange={handleCheckboxChange}
                   />
                   CloudTech
@@ -593,8 +584,8 @@ function Auth() {
                         setLinkedinProfileUrl(e.target.value);
                       }}
                       value={linkedinProfileUrl}
-                      type="text"
-                      placeholder="Enter Linkedin Profile Url"
+                      type='text'
+                      placeholder='Enter Linkedin Profile Url'
                     />
                     <button
                       onClick={checkLinkedinProfieUrlAndProcced}
@@ -627,7 +618,7 @@ function Auth() {
                   ? "/images/Reverr Black 1.png"
                   : "/images/reaver-logo.svg"
               }
-              alt=""
+              alt=''
             />
             <p className={styles.brandName}>REVERR</p>
           </div>
@@ -651,8 +642,8 @@ function Auth() {
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
-                  src="/images/icons8-google-48 1.png"
-                  alt="gICon"
+                  src='/images/icons8-google-48 1.png'
+                  alt='gICon'
                 />
               </span>
               Sign up with google{" "}
@@ -663,7 +654,7 @@ function Auth() {
               className={styles.googleBtn}
             >
               <span className={styles.gIconCont}>
-                <img className={styles.gICon} src={linkedinLogin} alt="gICon" />
+                <img className={styles.gICon} src={linkedinLogin} alt='gICon' />
               </span>
               Sign up with Linkedin{" "}
             </button>
@@ -677,16 +668,16 @@ function Auth() {
               className={styles.input}
               onChange={(e) => setFirstName(e.target.value)}
               value={firstName}
-              type="text"
-              placeholder="First Name"
+              type='text'
+              placeholder='First Name'
               required
             />
             <input
               className={styles.input}
               onChange={(e) => setLastName(e.target.value)}
               value={lastName}
-              type="text"
-              placeholder="Last Name"
+              type='text'
+              placeholder='Last Name'
               required
             />
             <div className={styles.inputPhoneContainer}>
@@ -694,8 +685,8 @@ function Auth() {
                 className={styles.inputPhoneNumber}
                 onChange={(e) => setMobile(e.target.value)}
                 value={mobile}
-                type="text"
-                placeholder="phone number"
+                type='text'
+                placeholder='phone number'
                 required
               />
               <CountryCodePicker />
@@ -704,24 +695,24 @@ function Auth() {
               className={styles.input}
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              type="email"
-              placeholder="Your E-Mail"
+              type='email'
+              placeholder='Your E-Mail'
               required
             />
             <input
               className={styles.input}
               onChange={(e) => setPass(e.target.value)}
               value={password}
-              type="password"
-              placeholder="Enter a password"
+              type='password'
+              placeholder='Enter a password'
               required
             />
             <input
               className={styles.input}
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
-              type="password"
-              placeholder="Confirm Password"
+              type='password'
+              placeholder='Confirm Password'
               required
             />
 
@@ -729,13 +720,13 @@ function Auth() {
               disabled={loading}
               style={{ cursor: loading ? "default" : "" }}
               className={styles.Button}
-              type="submit"
+              type='submit'
             >
               {loading ? (
                 <img
                   className={styles.loaderr}
-                  src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                  alt="loader"
+                  src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                  alt='loader'
                 />
               ) : (
                 "Sign Up"
@@ -744,7 +735,7 @@ function Auth() {
           </form>
           <p className={styles.links}>
             Already have an account?{" "}
-            <Link className={styles.linkk} to="/login">
+            <Link className={styles.linkk} to='/login'>
               Sign in
             </Link>
           </p>

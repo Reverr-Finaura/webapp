@@ -10,7 +10,6 @@ import ReactTimeAgo from "react-time-ago";
 export default function NotificationCard({ item }) {
   const navigate = useNavigate();
   const [user, setUser] = useState();
-  console.log(item);
 
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
@@ -29,13 +28,6 @@ export default function NotificationCard({ item }) {
     }
     fetchUserDocFromFirebase();
   }, []);
-  // console.log("noti",item);
-
-  // Some arbitrary value
-  // var date = new Date(item.time.seconds * 1000); // multiply by 1000 because Date() requires miliseconds
-  // var timeStr = date.toTimeString().split(' ')[0];
-  // console.log("time",timeStr);
-  // console.log("date",date);
 
   return (
     <div className={style.notificationCard}>

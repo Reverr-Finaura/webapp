@@ -1,14 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./CommunityFinalDark.module.css";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-import CommunityNavbar from "../../../components/Community Navbar/CommunityNavbar";
-import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
-import NavBarFinalDarkMode from "../../Navbar Dark Mode/NavBarFinalDarkMode";
-import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
 import defaultImg from "../../../images/default-profile-pic.webp";
-
 import styles from "../Post Card Dark Mode/PostCardDark.module.css";
-
 import {
   collection,
   doc,
@@ -18,7 +11,6 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { getUserDocByRef, getUserFromDatabase } from "../../../firebase";
 import { db, storage } from "../../../firebase";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
@@ -29,58 +21,35 @@ import {
 } from "firebase/storage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PostCard from "../../../components/Post Card/PostCard";
 import PostCardDark from "../../../components/Community Dark Mood/Post Card Dark Mode/PostCardDark";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDoc } from "../../../features/userDocSlice";
 import PostSkeleton from "../../../components/Post Skeleton/PostSkeleton";
 import CommunityUserProfilePopup from "../../../components/Community User Profile Popup/CommunityUserProfilePopup";
 import { Outlet } from "react-router-dom";
-import CommunitySidebar from "../../../components/Community Sidebar/CommunitySidebar";
-// import expandTextAreaIcon from "../../images/addExpandTextArea.png";
 import axios from "axios";
-import CommunityNews from "../../../components/Community News/CommunityNews";
-import NewSkeleton from "../../../components/Post Skeleton/News Skeleton/NewSkeleton";
 import { RxCrossCircled } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
-import video from "video.js";
-
-// import SortingNavbarTest from ".././Sorting Navbar Test/SortingNavbarTest";
-
 import NoFollowingCard from "../../../components/No Following Card/NoFollowingCard";
-import {
-  MdOutlineAddPhotoAlternate,
-  MdVideoCameraBack,
-  MdLocationOn,
-  MdPoll,
-} from "react-icons/md";
-import { IoLocationSharp } from "react-icons/io5";
-import { BsImages } from "react-icons/bs";
-import { RiFileSearchLine } from "react-icons/ri";
-// import SortingNavbarTwoOption from "./Sorting Navbar Two Options/SortingNavbarTwoOptions";
+import { MdOutlineAddPhotoAlternate, MdVideoCameraBack } from "react-icons/md";
 import { setUserSpace } from "../../../features/userSlice";
-import Appoinments from "../../SidebarComponents/Appoinments/Appoinments";
-import TrendingNews from "../../SidebarComponents/TrendingNews/TrendingNews";
-import Events from "../../SidebarComponents/Events/Events";
-import Mentors from "../../SidebarComponents/Mentors/Mentors";
+import { BsImages } from "react-icons/bs";
 import darkSparkle from "../../../images/black-sparkle.webp";
-import { auth } from "../../../firebase";
-import DiscoverEvents from "../../DynamicComponents/DiscoverEvents/DiscoverEvents";
 import DiscoverPerfectTools from "../../DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
 import FeaturedSuggestions from "../../DynamicComponents/FeaturedSuggestions/FeaturedSuggestions";
 import FeaturedMentors from "../../DynamicComponents/FeaturedMentors/FeaturedMentors";
+import { setUserDoc } from "../../../features/userDocSlice";
 
 const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
-  const userSpace = useSelector((state) => state.user.userSpace);
-  const [userSpaceArr, setUserSpaceArr] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenPostUserspace, setIsOpenPostUserspace] = useState(false);
-  const [postSpaceArr, setPostSpaceArr] = useState([]);
-  const [postBtnVisible, setPostBtnVisible] = useState(false);
+  const dispatch = useDispatch();
+  // const userSpace = useSelector((state) => state.user.userSpace);
+  // const [isOpenPostUserspace, setIsOpenPostUserspace] = useState(false);
+  // const [postSpaceArr, setPostSpaceArr] = useState([]);
+  // const [postBtnVisible, setPostBtnVisible] = useState(false);
 
   const [currentUserDoc, setCurrentUserDoc] = useState(null);
-  const dispatch = useDispatch();
   const postData = [];
+  const [userSpaceArr, setUserSpaceArr] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [postsData, setPostsData] = useState([]);
   const [imageUpload, setImageUpload] = useState(null);
@@ -105,14 +74,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     whose: "Everything",
   });
   const [sortOptionClick, setSortOptionClick] = useState(false);
-  const [furtherSortOptionClick, setfurtherSortOptionClick] = useState(false);
+  // const [furtherSortOptionClick, setfurtherSortOptionClick] = useState(false);
 
   const [postIdExist, setPostIdExist] = useState("");
   const [newScoll, setNewScroll] = useState(0);
   const [newsData, setNewsData] = useState();
   const [singleNews, setSingleNews] = useState(null);
   const [blogArray, setBlogArray] = useState([]);
-  const [seeAllNewsIsClicked, setSeeAllNewsIsClicked] = useState(false);
+  // const [seeAllNewsIsClicked, setSeeAllNewsIsClicked] = useState(false);
   const [mySpaceStatus, setMySpaceStatus] = useState(true);
   const [whatHotStatus, setWhatHotStatus] = useState(false);
   const [spaceFilteredPost, setSpaceFilteredPost] = useState([]);
@@ -120,9 +89,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postSpaceData, setPostSpaceData] = useState([]);
   const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
   const [postUploadStatus, setPostUploadStatus] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
   const [isPostLoading, setIsPostLoading] = useState(true);
-  const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([]);
+  // const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([]);
   const [imageModalStatus, setImageModalStatus] = useState(false);
 
   // useEffect(() => {
@@ -167,10 +136,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   //   fetchUserInformation();
   // }, [postsData]);
 
-  console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
-  console.log("this is the postsData----", postsData);
-
-  //FETCH LATEST NEWS
+  // console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
+  // console.log("this is the postsData----", postsData);
   const options = {
     method: "GET",
     url: "https://api.bing.microsoft.com/v7.0/news/search",
@@ -198,9 +165,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   window.onscroll = () => {
     setScroll(window.scrollY);
   };
-
-  // console.log("postsData", postsData);
-
   const updateWidth = () => {
     setWidth(window.innerWidth);
   };
@@ -231,19 +195,22 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // CHECK FOR USER DOC DATA
   useEffect(() => {
-    async function fetchUserDocFromFirebase() {
-      const userDataRef = collection(db, "Users");
-      const q = query(userDataRef);
-      const querySnapshot = await getDocs(q);
+    if (!(userDoc !== null)) {
+      // console.log("running");
+      async function fetchUserDocFromFirebase() {
+        const userDataRef = collection(db, "Users");
+        const q = query(userDataRef);
+        const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        if (doc.id === user?.user?.email) {
-          setCurrentUserDoc(doc.data());
-          dispatch(setUserDoc(doc.data()));
-        }
-      });
+        querySnapshot.forEach((doc) => {
+          if (doc.id === user?.user?.email) {
+            setCurrentUserDoc(doc.data());
+            dispatch(setUserDoc(doc.data()));
+          }
+        });
+      }
+      fetchUserDocFromFirebase();
     }
-    fetchUserDocFromFirebase();
   }, [user]);
 
   //CHECK IF USERDOC HAS POSTS
@@ -274,7 +241,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         })
       );
 
-      console.log("this is the filtered post community dark", postData);
+      // console.log("this is the filtered post community dark", postData);
 
       let postDataAllLikesLength = 0;
       postsData.map((post) => {
@@ -362,7 +329,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
   const chooseVideoFile = () => {
     if (chooseVidoFileRef.current) {
-      console.log(chooseVidoFileRef.current);
+      // console.log(chooseVidoFileRef.current);
       chooseVidoFileRef.current.click();
     }
   };
@@ -382,14 +349,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [videoUrlInFirebase, setVideoUrlInFirebase] = useState();
+  // const [videoUrlInFirebase, setVideoUrlInFirebase] = useState();
 
   // on video change
   const onVideoChange = (event) => {
     // Get the selected video file from the input element
     const file = event.target.files[0];
     setSelectedVideo(file);
-    console.log("this is the selected video ", file);
+    // console.log("this is the selected video ", file);
     if (file) {
       setTempVideoURL(URL.createObjectURL(file));
     }
@@ -454,16 +421,16 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   function onImageChange(e) {
     setImageUpload(e.target.files[0]);
     const fileURL = e.target.files[0];
-    console.log("this is image upload", fileURL);
-    console.log("this is image upload", URL.createObjectURL(fileURL));
+    // console.log("this is image upload", fileURL);
+    // console.log("this is image upload", URL.createObjectURL(fileURL));
     setImageModalStatus(true);
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
   }
 
-  console.log("image uploaded --", imageUpload);
-  console.log("temp image --", tempImageURL);
+  // console.log("image uploaded --", imageUpload);
+  // console.log("temp image --", tempImageURL);
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
@@ -535,7 +502,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       const timeId = new Date().getTime().toString();
       let newPostId = [...newPostdataId];
       const newPostArray = newPostText.split("\n");
-      console.log("newPostArray", newPostArray);
+      // console.log("newPostArray", newPostArray);
 
       if (tempImageURL) {
         await setDoc(doc(db, "Posts", timeId), {
@@ -588,11 +555,9 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // HANDLE EDIT POST BUTTON CLICK
   const handleEditPostButtonClick = (item, itemId) => {
+    // console.log(item, itemId);
     setEditPostButtonClick(true);
-    let result = item.text.join("\n");
-    // console.log("item.text ---- ",item.text)
-    // console.log("item.text ---- result ",result)
-
+    // let result = item.text.join("\n");
     setNewEditText(item.text);
 
     setEditPostId(itemId);
@@ -635,7 +600,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   const EditPostInDatabase = async (imageURLL) => {
     const postRef = doc(db, "Posts", editPostId);
-    console.log("newEditText just after into database", newEditText);
+    // console.log("newEditText just after into database", newEditText);
     try {
       await updateDoc(postRef, { image: imageURLL, text: newEditText });
 
@@ -645,7 +610,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         window.location.reload();
       }, 500);
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
@@ -669,18 +634,10 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [activeIndex, setActiveIndex] = useState([]);
 
   async function fechingActiveIndexFirebase() {
-    console.log("data of user and email ", user?.user?.email);
     const docRef = doc(db, "Users", user?.user?.email);
-
     try {
       const docSnap = await getDoc(docRef);
-      // console.log("firebase fechted queries ",docSnap.data().activeIndex)
       if (docSnap.data().activeIndex) {
-        console.log(
-          "actice index data is present ... ",
-
-          docSnap.data().activeIndex
-        );
         setUserSpaceArr(docSnap.data().userSpace);
         setActiveIndex(docSnap.data().activeIndex);
       }
@@ -728,7 +685,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   }, [postsData, userSpaceArr]);
 
   function narrowUserSpaceFiltering() {
-    console.log("narrow filtering useeffect called");
+    // console.log("narrow filtering useeffect called");
 
     if (activeIndex.length >= 1 && userSpaceArr.length >= 0) {
       let narrowfiltering = activeIndex.map((index) => userSpaceArr[index]);
@@ -736,7 +693,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       const NarrowFilteredPost = postsData.filter((post) =>
         post.postSpace.some((space) => narrowfiltering.includes(space))
       );
-      console.log("this is the narrowFiltered one ", NarrowFilteredPost);
+      // console.log("this is the narrowFiltered one ", NarrowFilteredPost);
       setSpaceFilteredPost(NarrowFilteredPost);
     }
     if (!activeIndex.length >= 1) {
@@ -759,7 +716,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   // updating the activeIndex in the firebase
   async function updateActiveUserSpaceDatabase() {
-    console.log(user?.user?.email);
     const userdocRef = doc(db, "Users", user?.user?.email);
 
     try {
@@ -776,13 +732,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     dispatch(setUserSpace(userSpaceArr));
     setSelectedCommunitySpace(userSpaceArr);
     setIsOpen(false);
-    // else {
-    //   window.alert("Please choose atleast one!");
-    // }
   }
-
-  // console.log("userSpaceArr ", userSpaceArr);
-  // console.log("userSpace: ", userSpace);
 
   function openTheSpaceModal() {
     fechingActiveIndexFirebase();
@@ -803,7 +753,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
 
   useEffect(() => {
-    console.log("postSpaceData", postSpaceData[0]);
+    // console.log("postSpaceData", postSpaceData[0]);
     if (
       (newPostText || tempImageURL) &&
       postSpaceData.length == 1 &&
@@ -814,6 +764,20 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       setPostUploadStatus(false);
     }
   }, [newPostText, tempImageURL, postSpaceData]);
+
+  const sortedPosts = spaceFilteredPost.sort((a, b) => {
+    const dateA =
+      new Date(a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1e6) ||
+      new Date(
+        a.createdAt.seconds * 1000 + a.createdAt.nanoseconds / 1e6
+      ).getTime();
+    const dateB =
+      new Date(b.createdAt._seconds * 1000 + b.createdAt._nanoseconds / 1e6) ||
+      new Date(
+        b.createdAt.seconds * 1000 + b.createdAt.nanoseconds / 1e6
+      ).getTime();
+    return dateB - dateA;
+  });
 
   return (
     <>
@@ -864,7 +828,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         className={style.spaceSectionButton}
       >
         <span className={style.spaceSectionButtonImg}>
-          {" "}
           <img src={darkSparkle} alt='' />
         </span>
         Change your Space
@@ -880,8 +843,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
               <p className={style.spaceModalHeading}>Select your space (s).</p>
 
               <div className={style.spaceMenu}>
-                {currentUserDoc?.userSpace.length >= 1 ? (
-                  currentUserDoc?.userSpace.map((space, index) => {
+                {userDoc.userSpace?.length >= 1 ? (
+                  userDoc.userSpace?.map((space, index) => {
                     return (
                       <div
                         key={index}
@@ -915,8 +878,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     No spaces found please add from edit profile
                   </p>
                 )}
-
-                {/* <p>Selected Options: {userSpaceArr.join(", ")}</p> */}
               </div>
               <div className={style.spaceDoneCloseBtn}>
                 <button
@@ -983,51 +944,49 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
           {/* NAVBAR POST BUTTON CLICK SECTION */}
           {navbarPostButtonClick ? (
-            <section className='editPostContainerrrr'>
+            <section className={style.editPostContainerrrr}>
               <ToastContainer />
-              <div className='editPostContainer-edit-container'>
+              <div className={style.editPostContainereditcontainer}>
                 <div
                   onClick={() => {
                     setNavbarPostButtonClick(false);
                     setTempImageURL(null);
                     setImageUpload(null);
                   }}
-                  className='closeContainerButton'
+                  className={style.closeContainerButton}
                 >
                   X
                 </div>
                 <section className={style.uploadPostContainerrrrSection}>
-                  <div className='EdituploadPostContainerrrr'>
+                  <div className={style.EdituploadPostContainerrrr}>
                     <img
-                      className='community-upload-cont-userImage'
-                      src={
-                        userDoc?.image ? userDoc.image : defaultImg
-                        // "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
-                      }
+                      // className='community-upload-cont-userImage'
+                      className={style.communityUploadContUserImage}
+                      src={userDoc?.image ? userDoc.image : defaultImg}
                       alt='userImage'
                     />
-                    <div className='textAreaUploadContainer'>
+                    <div className={style.textAreaUploadContainer}>
                       <div className={style.navbarUploadPostOuterBoxContainer}>
                         <textarea
-                          className='navbarUploadPostContainerTextArea'
                           onChange={(e) => setNewPostText(e.target.value)}
                           name='postText'
-                          id='postTextContainerExpanded'
+                          className={style.navbarUploadPostContainerTextArea}
+                          id={style.postTextContainerExpanded}
                           rows='3'
                           value={newPostText}
                           placeholder='What Would You Like To Post?'
                         ></textarea>
                         {tempImageURL ? (
-                          <div className='edit-communityPostImage-cont'>
+                          <div className={style.editcommunityPostImagecont}>
                             <img
-                              className='edit-communityPostImage'
+                              className={style.editcommunityPostImage}
                               src={tempImageURL}
                               alt='postFile'
                             />
                             <div className={style.editDeleteBtn}>
                               <RxCrossCircled
                                 onClick={RemoveFile}
-                                className='delete_Btn'
+                                className={style.delete_Btn}
                               />
                               <FiEdit
                                 onClick={chooseFile}
@@ -1036,25 +995,16 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             </div>
                           </div>
                         ) : null}
-
                         {/* { && } */}
-
-                        <div className='addImageandUploadPostIcon'>
-                          {/* <img
-                            onClick={chooseFile}
-                            className="addImageInCommunityIcon"
-                            src="./images/add-image-icon.png"
-                            
-                            alt="addImageIcon"
-                          /> */}
+                        <div className={style.addImageandUploadPostIcon}>
                           <MdOutlineAddPhotoAlternate
-                            className='addImageInCommunityReactIcon'
+                            className={style.addImageInCommunityReactIcon}
                             onClick={chooseFile}
                           />
 
                           <button
                             onClick={uploadImageToFireBase}
-                            className='uploadPostIconButton'
+                            className={style.uploadPostIconButton}
                           >
                             Post
                           </button>
@@ -1070,30 +1020,28 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
           {editPostButtonClick ? (
             <>
-              <section className='editPostContainerrrr'>
+              <section className={style.editPostContainerrrr}>
                 <ToastContainer />
-                <div className='editPostContainer-edit-container'>
+                <div className={style.editPostContainereditcontainer}>
                   <div
                     onClick={() => {
                       setEditPostButtonClick(false);
                       setTempImageURL(null);
                       setImageUpload(null);
                     }}
-                    className='closeContainerButton'
+                    className={style.closeContainerButton}
                   >
                     X
                   </div>
                   <section className={style.uploadPostContainerrrrSection}>
-                    <div className='EdituploadPostContainerrrr'>
+                    <div className={style.EdituploadPostContainerrrr}>
                       <img
-                        className='community-upload-cont-userImage'
-                        src={
-                          userDoc?.image ? userDoc.image : defaultImg
-                          //  "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
-                        }
+                        // className='community-upload-cont-userImage'
+                        className={style.communityUploadContUserImage}
+                        src={userDoc?.image ? userDoc.image : defaultImg}
                         alt='userImage'
                       />
-                      <div className='textAreaUploadContainer'>
+                      <div className={style.textAreaUploadContainer}>
                         <div
                           className={style.navbarUploadPostOuterBoxContainer}
                         >
@@ -1103,31 +1051,37 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                                 const newValue = e.target.value;
                                 const newLinesArray = newValue.split("\n");
                                 setNewEditText(newLinesArray);
-                                console.log(
-                                  "newEditText on textArea",
-                                  newEditText
-                                );
+                                // console.log(
+                                //   "newEditText on textArea",
+                                //   newEditText
+                                // );
                               }
                             }}
                             name='postText'
-                            className='editOldPostTextArea'
-                            id='postTextContainerExpanded'
+                            className={style.editOldPostTextArea}
+                            id={style.postTextContainerExpanded}
                             rows='3'
                             value={newEditText.join("\n")}
                             placeholder='What Would You Like To Edit?'
                           ></textarea>
                           {tempImageURL ? (
-                            <div className='edit-communityPostImage-cont'>
-                              <div className='editImageOverLayContainerImageContainer'>
-                                <div className='editImageOverLayContainer'></div>
+                            <div className={style.editcommunityPostImagecont}>
+                              <div
+                                className={
+                                  style.editImageOverLayContainerImageContainer
+                                }
+                              >
+                                <div
+                                  className={style.editImageOverLayContainer}
+                                ></div>
                                 <img
-                                  className='edit-communityPostImage'
+                                  className={style.editcommunityPostImage}
                                   src={tempImageURL}
                                   alt='postFile'
                                 />
                                 <button
                                   onClick={chooseFile}
-                                  className='changePhotoIconButton'
+                                  className={style.changePhotoIconButton}
                                 >
                                   Change
                                 </button>
@@ -1135,12 +1089,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                             </div>
                           ) : null}
 
-                          <div className='addImageandUploadPostIcon'>
+                          <div className={style.addImageandUploadPostIcon}>
                             {/* <img onClick={chooseFile} className='addImageInCommunityIcon' src="./images/add-image-icon.png" alt="addImageIcon" /> */}
 
                             <button
                               onClick={EditPost}
-                              className='uploadPostIconButton'
+                              className={style.uploadPostIconButton}
                             >
                               Save Changes
                             </button>
@@ -1510,7 +1464,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       />
                     </>
                   ) : null}
-                  {spaceFilteredPost.map((item, index) => {
+                  {sortedPosts.map((item, index) => {
                     if (index === 3) {
                       return (
                         <React.Fragment key={index}>
@@ -1605,7 +1559,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       );
                     }
                   })}
-                  {!isPostLoading && spaceFilteredPost.length === 0 ? (
+                  {!isPostLoading && sortedPosts.length === 0 ? (
                     <div className={styles.noPostAvailable}>
                       CHOOSEN POST SPACE, IS NOT AVAIBLE RIGHT NOW!
                     </div>

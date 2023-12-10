@@ -2,12 +2,12 @@ import React, { useState, useRef } from "react";
 import style from "./NavbarFinalDarkMode.module.css";
 import products from "../../assets/Products/products";
 import { useDispatch, useSelector } from "react-redux";
-import { selectChat, showChat } from "../../features/chatSlice";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { selectChat } from "../../features/chatSlice";
+import { useNavigate, useLocation } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import { signOut } from "firebase/auth";
 import { auth, createNetworkInMessagesDoc, db } from "../../firebase";
-import { logout, selectUser, setPremium } from "../../features/userSlice";
+import { logout, setPremium } from "../../features/userSlice";
 import { remove } from "../../features/newUserSlice";
 import { removeUserDoc, setUserDoc } from "../../features/userDocSlice";
 import { removeUserFundingDoc } from "../../features/userFundingDocSlice";
@@ -17,43 +17,30 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   collection,
   doc,
-  getDoc,
   getDocs,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { useEffect } from "react";
-import { VscBellDot } from "react-icons/vsc";
-import { FaLightbulb, FaFacebookMessenger } from "react-icons/fa";
 import { setTheme } from "../../features/themeSlice";
-import { DarkModeToggle } from "@anatoliygatt/dark-mode-toggle";
-// import mentordashboardicon from "../../images/dashboardicon.svg"
 import mentordashboardicon from "../../images/radix-icons_dashboard.svg";
-import userIcon from "../../images/userIcon.webp";
-import settingIcon from "../../images/Vector (3).webp";
-import ReverrLightIcon from "../../images/Reverr Light.webp";
 import ReverrDarkIcon from "../../images/new-dark-mode-logo.png";
 import {
-  AiFillBell,
-  AiFillSetting,
-  AiFillMessage,
   AiOutlineMessage,
   AiOutlineGlobal,
   AiOutlineSearch,
 } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaUserAlt } from "react-icons/fa";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineNotifications,
 } from "react-icons/md";
-// import { IoMdLogOut } from "react-icons/io";
 import { GiArchiveRegister } from "react-icons/gi";
-import { BiHomeAlt, BiLock, BiLogIn } from "react-icons/bi";
+import { BiHomeAlt, BiLogIn } from "react-icons/bi";
 import { HiOutlineTemplate } from "react-icons/hi";
-import emailjs from "@emailjs/browser";
-import axios from "axios";
+// import emailjs from "@emailjs/browser";
+// import axios from "axios";
 import NotificationCard from "./NotificationCard";
 import defaultImg from "../../images/default-profile-pic.webp";
 import noNotificationsImg from "../../images/noNotificationsImg.svg";
@@ -73,15 +60,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
   const [notificationList, setNotificationList] = useState([]);
   const theme = useSelector((state) => state.themeColor);
   const [scroll, setScroll] = useState(0);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [searchResult, setsearchResult] = useState(null);
   const [userData, setUserData] = useState([]);
   const [openHam, setOpenham] = useState(false);
   const [premiumModalStatus, setPremiumModalStatus] = useState(false);
 
   const location = useLocation();
-  const userType = useSelector((state) => state.onboarding.userType);
-  console.log("this is ispremium---", isPremium);
+  // const userType = useSelector((state) => state.onboarding.userType);
+  // console.log("this is ispremium---", isPremium);
 
   const [userTypeLower, setUserTypeLower] = useState("individual");
   // const state = useSelector((state) => state);
@@ -122,11 +109,10 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     if (window.innerWidth >= 1250) {
       setOpenham(false);
     }
-
     return () => {
       window.removeEventListener("resize", setWindowDimensions);
     };
-  }, [window.innerWidth]);
+  }, [window.innerWidth, windowWidth]);
 
   const toggleProductModal = () => {
     setIsProductModalOpen((prevIsOpen) => !prevIsOpen);
@@ -145,7 +131,6 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
 
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
-
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -219,7 +204,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
       switch (premiumData.subscriptionPlan) {
         case "onemonth":
           if (currentDate <= premiumStartDate + oneMonthInseconds) {
-            console.log("premium members");
+            // console.log("premium members");
             setIsPremium(true);
             dispatch(setPremium(true));
           }
@@ -232,7 +217,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
           break;
         case "sixmonths":
           if (currentDate <= premiumStartDate + sixMonthsInseconds) {
-            console.log("premium members");
+            // console.log("premium members");
             setIsPremium(true);
             dispatch(setPremium(true));
           }
@@ -380,10 +365,10 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
       receivedRequests: newReceivedRequestsArray,
       network: newNetworkArray,
     };
-    console.log(
-      "userWhoRequestedNewNetworkArray",
-      userWhoRequestedNewNetworkArray
-    );
+    // console.log(
+    //   "userWhoRequestedNewNetworkArray",
+    //   userWhoRequestedNewNetworkArray
+    // );
     try {
       await updateDoc(userDocumentRef, {
         receivedRequests: newReceivedRequestsArray,
@@ -463,51 +448,51 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
     }
   };
 
-  function generateOTP(n) {
-    var add = 1,
-      max = 12 - add;
-    if (n > max) {
-      return generateOTP(max) + generateOTP(n - max);
-    }
-    max = Math.pow(10, n + add);
-    var min = max / 10;
-    var number = Math.floor(Math.random() * (max - min + 1)) + min;
+  // function generateOTP(n) {
+  //   var add = 1,
+  //     max = 12 - add;
+  //   if (n > max) {
+  //     return generateOTP(max) + generateOTP(n - max);
+  //   }
+  //   max = Math.pow(10, n + add);
+  //   var min = max / 10;
+  //   var number = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    return ("" + number).substring(add);
-  }
+  //   return ("" + number).substring(add);
+  // }
 
-  const changePassBtnClick = async () => {
-    setLoading(true);
-    const otp = generateOTP(6);
-    var templateParams = {
-      from_name: "Reverr",
-      to_name: userDoc.name,
-      to_email: userDoc.email,
-      otp,
-    };
-    try {
-      await emailjs.send(
-        "service_lfmmz8k",
-        "template_n3pcht5",
-        templateParams,
-        "dVExxiI8hYMCyc0sY"
-      );
-      await axios.post("https://server.reverr.io/sendSmsCode", {
-        to: userDoc?.phone ? userDoc?.phone : userDoc?.mobile,
-        code: userDoc?.countryCode,
-        message: `Your Change Password OTP is ${otp}`,
-      });
-    } catch (error) {
-      console.log("FAILED...", error);
-      setLoading(false);
-      toast.error(error?.response?.data?.message);
-    }
+  // const changePassBtnClick = async () => {
+  //   setLoading(true);
+  //   const otp = generateOTP(6);
+  //   var templateParams = {
+  //     from_name: "Reverr",
+  //     to_name: userDoc.name,
+  //     to_email: userDoc.email,
+  //     otp,
+  //   };
+  //   try {
+  //     await emailjs.send(
+  //       "service_lfmmz8k",
+  //       "template_n3pcht5",
+  //       templateParams,
+  //       "dVExxiI8hYMCyc0sY"
+  //     );
+  //     await axios.post("https://server.reverr.io/sendSmsCode", {
+  //       to: userDoc?.phone ? userDoc?.phone : userDoc?.mobile,
+  //       code: userDoc?.countryCode,
+  //       message: `Your Change Password OTP is ${otp}`,
+  //     });
+  //   } catch (error) {
+  //     console.log("FAILED...", error);
+  //     setLoading(false);
+  //     toast.error(error?.response?.data?.message);
+  //   }
 
-    navigate("/change-user-password", {
-      state: otp,
-    });
-    setLoading(false);
-  };
+  //   navigate("/change-user-password", {
+  //     state: otp,
+  //   });
+  //   setLoading(false);
+  // };
 
   // console.log("userDoc", userDoc.posts);
   // console.log("notificationLisst", notificationList);
@@ -531,21 +516,21 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
       {isProductModalOpen ? (
         <div className={style.productModalCont}>
           <div className={style.productModal} ref={modalRef}>
-            <text style={{ color: "#A7A7A7", fontSize: 12 }}>KEY PRODUCTS</text>
+            <p style={{ color: "#A7A7A7", fontSize: 12 }}>KEY PRODUCTS</p>
             <div className={style.productContainer}>
               {filteredArray.includes("TOOLS") ? (
                 <div onClick={() => navigate("/tools")}>
                   <img src={require("../../images/rulepen.webp")} alt='img' />
                   <div className={style.keyproddiv}>
-                    <text
+                    <p
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
                     >
                       Tools
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         fontSize: 10,
                         color: "#A7A7A7",
@@ -554,7 +539,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     >
                       Elevate your startup performance with our next-level
                       online tools!
-                    </text>
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -565,15 +550,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     alt='img'
                   />
                   <div className={style.keyproddiv}>
-                    <text
+                    <p
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
                     >
                       Mentors
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         fontSize: 10,
                         color: "#A7A7A7",
@@ -582,7 +567,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     >
                       Qualified mentors across multiple categories for all your
                       needs.
-                    </text>
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -590,15 +575,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <div onClick={() => navigate("/knowledge")}>
                   <img src={require("../../images/book1.webp")} alt='img' />
                   <div className={style.keyproddiv}>
-                    <text
+                    <p
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
                     >
                       Knowledge
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         fontSize: 10,
                         color: "#A7A7A7",
@@ -606,7 +591,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       className={style.discriponmobilehide}
                     >
                       Check out our tailor-made roadmap of courses.
-                    </text>
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -617,15 +602,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     alt='img'
                   />
                   <div className={style.keyproddiv}>
-                    <text
+                    <p
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
                     >
                       Funding
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         fontSize: 10,
                         color: "#A7A7A7",
@@ -633,7 +618,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       className={style.discriponmobilehide}
                     >
                       Find investors perfectly suited for you.
-                    </text>
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -642,15 +627,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 <div onClick={() => navigate("/vibe")}>
                   <img src={require("../../images/Vibeicon.webp")} alt='img' />
                   <div className={style.keyproddiv}>
-                    <text
+                    <p
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
                     >
                       Vibe
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         fontSize: 10,
                         color: "#A7A7A7",
@@ -658,7 +643,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       className={style.discriponmobilehide}
                     >
                       Networking with a swipe.
-                    </text>
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -670,15 +655,15 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                     alt='img'
                   />
                   <div className={style.keyproddiv}>
-                    <text
+                    <p
                       style={{
                         fontSize: 14,
                         color: "#ffffff",
                       }}
                     >
                       Startup Score
-                    </text>
-                    <text
+                    </p>
+                    <p
                       style={{
                         fontSize: 10,
                         color: "#A7A7A7",
@@ -686,7 +671,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                       className={style.discriponmobilehide}
                     >
                       Check your startup score.
-                    </text>
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -725,11 +710,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
             />
             {searchResult && (
               <div className={style.navbarSearchResult}>
-                <text
-                  style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}
-                >
+                <p style={{ color: "#00B3FF", fontSize: 15, marginBottom: 5 }}>
                   Search Results
-                </text>
+                </p>
                 {searchResult.map((item, index) => (
                   <div
                     onClick={() => (
@@ -748,7 +731,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                         alt='img'
                       />
                       <div>
-                        <text
+                        <p
                           style={{
                             fontSize: 14,
                             color: "#000000",
@@ -760,8 +743,8 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                           }}
                         >
                           {item?.name}
-                        </text>
-                        <text
+                        </p>
+                        <p
                           style={{
                             fontSize: 10,
                             color: "#1A1E28",
@@ -773,7 +756,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                           }}
                         >
                           {item?.designation}
-                        </text>
+                        </p>
                       </div>
                     </div>
                     <div className={style.divider}></div>
@@ -827,6 +810,7 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   <img
                     style={{ color: "white" }}
                     src={mentordashboardicon}
+                    alt={""}
                     className={style.navbarDashboardIcon}
                   />
                   <p
@@ -861,7 +845,6 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                 // </NavLink> */}
                 //     </div>
               )}
-              {/* //////// */}
 
               {isLoggedIn ? (
                 <div
@@ -899,9 +882,9 @@ const NavBarFinalDarkMode = ({ isLoggedIn, openModal }) => {
                   className={style.navbarIconsImgName}
                   onClick={() => {
                     if (!isLoggedIn) {
-                      return openModal();
+                      navigate("/discover");
+                      // return openModal();
                     } else {
-                      navigate("/discover/nu");
                     }
                   }}
                 >

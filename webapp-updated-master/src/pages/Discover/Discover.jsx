@@ -135,8 +135,6 @@ const Discover = () => {
     }
   }, [users]);
 
-  console.log(":", randomEvents);
-
   return (
     <>
       <div className='container-1'>

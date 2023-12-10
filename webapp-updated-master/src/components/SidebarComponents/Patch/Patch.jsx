@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import styles from "./Patch.module.css";
 
-
 function Patch({ isLoggedIn, openModal }) {
-
-
   const handleComingsoonClick = () => {
     if (!isLoggedIn) {
       return openModal();
     } else {
       //normal code
       console.log("user logged!");
-    };
-  }
+    }
+  };
   return (
-    <div className={styles.container}   onClick={handleComingsoonClick} style={{cursor:"pointer"}}>
+    <div
+      className={styles.container}
+      onClick={handleComingsoonClick}
+      style={{ cursor: "pointer" }}
+    >
       {/* <img src={vibeImg} alt="img" />
       <button onClick={() => console.log("vibe clicked")}>
         Explore VIBE &nbsp;&gt;
@@ -22,9 +23,9 @@ function Patch({ isLoggedIn, openModal }) {
       <img
         // style={{ marginTop: 40 }}
         src={require("../../../images/image 827.webp")}
-        alt="img"
+        alt='img'
       />
-      <text
+      <p
         style={{
           fontFamily: "Reem Kufi",
           marginTop: 10,
@@ -34,8 +35,8 @@ function Patch({ isLoggedIn, openModal }) {
         }}
       >
         PATCH
-      </text>
-      <text
+      </p>
+      <p
         style={{
           fontFamily: "Reem Kufi",
           fontSize: 12,
@@ -44,13 +45,8 @@ function Patch({ isLoggedIn, openModal }) {
         }}
       >
         One-on-One Networking
-      </text>
-      <button
-        style={{fontFamily: "Reem Kufi",}}
-      
-      >
-        Coming Soon!
-      </button>
+      </p>
+      <button style={{ fontFamily: "Reem Kufi" }}>Coming Soon!</button>
     </div>
   );
 }

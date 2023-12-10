@@ -5,16 +5,16 @@ import styles from "./VibePatch.module.css";
 function VibePatch() {
   return (
     <div className={styles.container}>
-      <img src={vibeImg} alt="img" />
+      <img src={vibeImg} alt='img' />
       <button onClick={() => console.log("vibe clicked")}>
         Explore VIBE &nbsp;&gt;
       </button>
       <img
         style={{ marginTop: 40 }}
         src={require("../../../images/image 827.png")}
-        alt="img"
+        alt='img'
       />
-      <text
+      <p
         style={{
           marginTop: 10,
           fontSize: 25,
@@ -23,8 +23,8 @@ function VibePatch() {
         }}
       >
         PATCH
-      </text>
-      <text
+      </p>
+      <p
         style={{
           fontSize: 12,
           fontWeight: 700,
@@ -32,7 +32,7 @@ function VibePatch() {
         }}
       >
         One-on-One Networking
-      </text>
+      </p>
       <button onClick={() => console.log("patch clicked")}>
         Explore PATCH &nbsp;&gt;
       </button>

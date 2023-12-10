@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 import styles from "./Article.module.css";
@@ -75,7 +74,7 @@ function Article({ isLoggedIn, openModal }) {
         </span> */}
 
       {loading ? (
-        <p>Loading...</p>
+        <p style={{ color: "white" }}>Loading...</p>
       ) : (
         randomArticles &&
         randomArticles.slice(0, 3).map((article, index) => (

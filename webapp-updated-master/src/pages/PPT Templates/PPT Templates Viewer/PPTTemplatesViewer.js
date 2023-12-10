@@ -1,13 +1,13 @@
 import { collection, getDocs, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams, useRoutes } from "react-router-dom";
-import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
-import NavBarFinal from "../../../components/Navbar/NavBarFinal";
+import { useParams } from "react-router-dom";
+// import KnowledgeNavbar from "../../../components/KnowledgeNavbar/KnowledgeNavbar";
+// import NavBarFinal from "../../../components/Navbar/NavBarFinal";
 import SidebarFinal from "../../../components/Sidebar Final/SidebarFinal";
 import { db } from "../../../firebase";
 import styles from "./PPTTemplatesViewer.module.css";
 import PhnSidebar from "../../../components/PhnSidebar/PhnSidebar";
-import { BsArrowRightSquareFill ,BsArrowLeftSquareFill} from "react-icons/bs";
+import { BsArrowRightSquareFill, BsArrowLeftSquareFill } from "react-icons/bs";
 import { DocumentViewer } from "react-documents";
 import load from "../../../images/Pulse-1s-200px.svg";
 import NavBarFinalDarkMode from "../../../components/Navbar Dark Mode/NavBarFinalDarkMode";
@@ -18,7 +18,6 @@ const PPTTemplatesViewer = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [isSideBarCalled, setIsSideBarCalled] = useState(true);
 
-
   //UPDATE WIDTH
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -28,7 +27,6 @@ const PPTTemplatesViewer = () => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  
   //FETCH PARTICULAR PPT LINK FROM FIREBASE
   useEffect(() => {
     async function fetchPptLinkFromFirebase() {
@@ -54,16 +52,23 @@ const PPTTemplatesViewer = () => {
             style={{ transform: isSideBarCalled ? "translateX(0)" : "" }}
             className={styles.animatedSideBar}
           >
-            
-            {isSideBarCalled? <BsArrowLeftSquareFill
-            onClick={() => setIsSideBarCalled((e) => !e)}
-            style={{color:"#276acf"}}
-            className={styles.arroww}
-          /> :<BsArrowRightSquareFill
-          onClick={() => setIsSideBarCalled((e) => !e)}
-          style={{color:"#276acf",backgroundColor:"white",borderRadius:"4px"}}
-          className={styles.arroww}
-        />}
+            {isSideBarCalled ? (
+              <BsArrowLeftSquareFill
+                onClick={() => setIsSideBarCalled((e) => !e)}
+                style={{ color: "#276acf" }}
+                className={styles.arroww}
+              />
+            ) : (
+              <BsArrowRightSquareFill
+                onClick={() => setIsSideBarCalled((e) => !e)}
+                style={{
+                  color: "#276acf",
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                }}
+                className={styles.arroww}
+              />
+            )}
             <SidebarFinal />
           </div>
           {/* <NavBarFinal /> */}
@@ -73,10 +78,9 @@ const PPTTemplatesViewer = () => {
         <>
           <PhnSidebar />
           {/* <KnowledgeNavbar /> */}
-          <div style={{marginBottom:"150px"}}>
-          <NavBarFinalDarkMode />
+          <div style={{ marginBottom: "150px" }}>
+            <NavBarFinalDarkMode />
           </div>
-          
         </>
       )}
       {pptLink !== "" ? (
@@ -85,16 +89,15 @@ const PPTTemplatesViewer = () => {
             <DocumentViewer
               className={styles.pptViewerOuterCont}
               url={pptLink}
-              viewer="url"
-              // style={{ width: "100%", height: "100vh" }}
+              viewer='url'
             ></DocumentViewer>
           </section>
         </>
       ) : (
         <>
           <div className={styles.outerContLoading}>
-            <h1>Loading......</h1>
-            <img className={styles.loadIcon} src={load} alt="loading" />
+            <h1 style={{ color: "white" }}>Loading......</h1>
+            <img className={styles.loadIcon} src={load} alt='loading' />
           </div>
         </>
       )}

@@ -162,7 +162,7 @@ const GetFundedPage = () => {
         "dVExxiI8hYMCyc0sY"
       );
 
-      console.log("SUCCESS!", result.status, result.text);
+      // console.log("SUCCESS!", result.status, result.text);
       toast("Successfully Applied");
       setTimeout(() => {
         updateUserFirebaseDatabase();

@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
-  userSpace:[],
+  userSpace: [],
   userData: {},
-  isPremium:false
+  isPremium: false,
 };
 
 export const userSlice = createSlice({
@@ -18,19 +18,20 @@ export const userSlice = createSlice({
       state.user = null;
     },
     setUserData: (state, action) => {
-      console.log(action.payload)
+      // console.log(action.payload)
       state.userData = action.payload;
     },
-    setUserSpace: (state,action)=>{
-         state.userSpace= action.payload;
+    setUserSpace: (state, action) => {
+      state.userSpace = action.payload;
     },
-    setPremium: (state,action)=>{
-        state.isPremium =action.payload
-    }
+    setPremium: (state, action) => {
+      state.isPremium = action.payload;
+    },
   },
 });
 
-export const { login, logout, setUserData,setUserSpace,setPremium } = userSlice.actions;
+export const { login, logout, setUserData, setUserSpace, setPremium } =
+  userSlice.actions;
 export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer;

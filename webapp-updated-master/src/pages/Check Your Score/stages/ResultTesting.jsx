@@ -43,7 +43,7 @@ const ResultTesting = ({ score, data }) => {
         await updateDoc(doc(db, "Users", user?.user?.email), {
           startupScore: data,
         });
-        console.log("done");
+        // console.log("done");
       } catch (err) {
         console.log(err);
       }
@@ -84,10 +84,10 @@ const ResultTesting = ({ score, data }) => {
           <Tooltip style={{ border: "none" }} />
           <Pie
             data={series}
-            nameKey="name"
-            dataKey="value"
-            innerRadius="70%"
-            outerRadius="90%"
+            nameKey='name'
+            dataKey='value'
+            innerRadius='70%'
+            outerRadius='90%'
             startAngle={90}
             endAngle={-270}
           >
@@ -99,39 +99,39 @@ const ResultTesting = ({ score, data }) => {
             ))}
             <Label
               width={30}
-              position="center"
+              position='center'
               // content={
               //   <CustomLabel total={res[0] + res[1] + res[2] + res[3]} />
               // }
-              color="white"
+              color='white'
             ></Label>
           </Pie>
         </PieChart>
         {/* </ResponsiveContainer> */}
         <div className={styles.result_labels}>
           <div className={styles.result_label}>
-            <img src={"/images/pnt_label.png"} />
+            <img src={"/images/pnt_label.png"} alt='' />
             <div className={styles.innerResult}>
               <span>Product-</span>
               <span>{res[0]}%</span>
             </div>
           </div>
           <div className={styles.result_label}>
-            <img src="/images/team_label.png" />
+            <img src='/images/team_label.png' alt='' />
             <div className={styles.innerResult}>
               <span>Team-</span>
               <span>{res[1]}%</span>
             </div>
           </div>
           <div className={styles.result_label}>
-            <img src={"/images/market_label.png"} />
+            <img src={"/images/market_label.png"} alt='' />
             <div className={styles.innerResult}>
               <span>Market-</span>
               <span>{res[2]}%</span>
             </div>
           </div>
           <div className={styles.result_label}>
-            <img src={"/images/finance_label.png"} />
+            <img src={"/images/finance_label.png"} alt='' />
             <div className={styles.innerResult}>
               <span>Finance-</span>
               <span>{res[3]}%</span>
@@ -146,16 +146,16 @@ const ResultTesting = ({ score, data }) => {
 function CustomLabel({ total }) {
   return (
     <>
-      <text
+      <p
         x={"133"}
         y={"90"}
-        fontSize="22"
-        color="white"
+        fontSize='22'
+        color='white'
         style={{ color: "white" }}
       >
         {total}
-      </text>
-      <text x={"110"} y={"120"} fontSize="15" color="white">
+      </p>
+      <text x={"110"} y={"120"} fontSize='15' color='white'>
         out of 100
       </text>
     </>

@@ -80,17 +80,6 @@ export default function PostCardDark({
         const data = docSnapshot.data();
         setPostComments(data.comments);
         setPostDetail(data);
-
-        // // data.map((event) => {
-        // getUserDocByRef(data.postedby).then((res) => {
-        //   //  console.log("___looking of user data_____",res.userType)
-        //   setUserType(res.userType);
-        // });
-        // });
-        // console.log("the post data is here -- above", data.postedby);
-      } else {
-        // Document doesn't exist
-        console.log("not existing data");
       }
     } catch (error) {
       console.log(error);
@@ -249,7 +238,6 @@ export default function PostCardDark({
         postId: postId,
         id: item.id,
       };
-      // console.log("notificationData", notificationData);
       const userDocSnapshot = await getDoc(userDocumentRef);
 
       if (userDocSnapshot.exists()) {
@@ -416,9 +404,11 @@ export default function PostCardDark({
           };
         });
       });
+      return;
     } else {
       getUserDocByRef(item?.postedby).then((res) => {
         setPostedByUserDoc((prev) => {
+          // delete res.password;
           return {
             ...prev,
             ...res,
@@ -428,6 +418,7 @@ export default function PostCardDark({
           };
         });
       });
+      return;
     }
   }, [item]);
 
@@ -534,8 +525,6 @@ export default function PostCardDark({
               if (!isLoggedIn) {
                 return openModal();
               } else {
-                // setPostsAuthorIsClick(true);
-                // setPostsAuthorInfo(postedByUserDoc);
                 if (postedByUserDoc?.email === user?.user?.email) {
                   navigate("/userprofile");
                 } else if (!postedByUserDoc?.email) {
@@ -555,32 +544,6 @@ export default function PostCardDark({
             src={postedByUserDoc?.image ? postedByUserDoc?.image : defaultImg}
             alt=''
           />
-          {/* <img
-            onClick={() => {
-              if (!isLoggedIn) {
-                return openModal();
-              } else {
-                // setPostsAuthorIsClick(true);
-                // setPostsAuthorInfo(postedByUserDoc);
-                if (userDocPostedBy?.email === user?.user?.email) {
-                  navigate("/userprofile");
-                } else if (!userDocPostedBy?.email) {
-                  return console.log("empty");
-                } else {
-                  navigate(`/userprofile/${userDocPostedBy?.email}`);
-                }
-              }
-            }}
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-              marginRight: "1rem",
-              objectFit: "cover",
-            }}
-            src={userDocPostedBy?.image ? userDocPostedBy?.image : defaultImg}
-            alt=''
-          /> */}
           <div className={style.postAuthorNameAndDesignationCont}>
             <div
               style={{
@@ -590,21 +553,6 @@ export default function PostCardDark({
               }}
             >
               <h3
-                // onClick={() => {
-                //   if (!isLoggedIn) {
-                //     return openModal();
-                //   } else {
-                //     // setPostsAuthorIsClick(true);
-                //     // setPostsAuthorInfo(postedByUserDoc);
-                //     if (userDocPostedBy?.email === user?.user?.email) {
-                //       navigate("/userprofile");
-                //     } else if (!userDocPostedBy?.email) {
-                //       return console.log("empty");
-                //     } else {
-                //       navigate(`/userprofile/${userDocPostedBy?.email}`);
-                //     }
-                //   }
-                // }}
                 onClick={() => {
                   if (!isLoggedIn) {
                     return openModal();
@@ -674,14 +622,22 @@ export default function PostCardDark({
           </div>
 
           <div className={style.postUploadDateContainer}>
-            {item?.createdAt?._seconds && (
+            {item?.createdAt?._seconds ? (
               <ReactTimeAgo
                 className={style.timeSpan}
-                date={item?.createdAt?._seconds * 1000}
+                date={
+                  item.createdAt._seconds * 1000 +
+                  item.createdAt._nanoseconds / 1e6
+                }
+                locale='en-US'
+              />
+            ) : (
+              <ReactTimeAgo
+                className={style.timeSpan}
+                date={item?.createdAt.toDate()}
                 locale='en-US'
               />
             )}
-            {/* {new Date(item?.createdAt?.seconds * 1000).toDateString().slice(4)} */}
 
             {/* MORE OPTION CONT */}
             <div className={style.threeDotsMainCont}>
@@ -702,18 +658,16 @@ export default function PostCardDark({
                 {isThreeDotsClicked ? (
                   <div
                     className={
-                      user?.user?.email === item?.postedby?.id
-                        ? "threeDotsOptions"
-                        : "standardThreeDotsOption"
+                      user?.user?.email === postedByUserDoc.email
+                        ? style.threeDotsOptions
+                        : style.standardThreeDotsOption
                     }
                   >
-                    {user?.user?.email === item?.postedby?.id ? (
+                    {user?.user?.email === postedByUserDoc.email ? (
                       <div
                         style={{
                           textDecoration: "none",
-                          color: "black",
                           margin: "auto",
-                          color: "#fff",
                         }}
                       >
                         <div
@@ -721,32 +675,14 @@ export default function PostCardDark({
                             handleEditPostButtonClick(item, item.id);
                             setIsThreeDotsClicked(false);
                           }}
-                          className={style.threeDotsEditPostOptio}
+                          className={style.threeDotsEditPostOption}
                         >
                           Edit Post
                         </div>
                       </div>
-                    ) : // <a
-                    //   style={{
-                    //     textDecoration: "none",
-                    //     color: "black",
-                    //     margin: "auto",
-                    //     color: "#fff",
-                    //   }}
-                    // >
-                    //   <div
-                    //     onClick={() => {
-                    //       handleEditPostButtonClick(item, item.id);
-                    //       setIsThreeDotsClicked(false);
-                    //     }}
-                    //     className={style.threeDotsEditPostOptio}
-                    //   >
-                    //     Edit Post
-                    //   </div>
-                    // </a>
-                    null}
+                    ) : null}
 
-                    {user?.user?.email === item?.postedby?.id ? (
+                    {user?.user?.email === postedByUserDoc.email ? (
                       <div
                         onClick={() => handleDeletePostButtonClick(item.id)}
                         className={style.threeDotsDeletePostOption}
@@ -754,8 +690,7 @@ export default function PostCardDark({
                         Delete Post
                       </div>
                     ) : null}
-
-                    {user?.user?.email !== item?.postedby?.id ? (
+                    {user?.user?.email !== postedByUserDoc.email ? (
                       <div
                         onClick={() => handleReportPost()}
                         className={style.threeDotsReportPostOption}
@@ -894,16 +829,12 @@ export default function PostCardDark({
               }}
             >
               <div className={style.commentContainer}>
-                {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
                 <img
                   src={commentIcon}
                   alt='img'
                   className={style.commentPostIconn}
                 />
-
-                {/* ;(document.getElementsByClassName(`${item.id}`)[0]).click();(document.getElementsByClassName(`${item.id}`)[0]).focus() */}
               </div>
-              {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
                 {postDetail?.comments.length}{" "}
                 <span className={style.postIconsText}>Comment</span>
@@ -920,9 +851,8 @@ export default function PostCardDark({
               }}
               className={style.postSendLinkContainer}
             >
-              <div className='postSendCont'>
+              <div className={style.postSendCont}>
                 <div className={style.postSendIcon}>
-                  {/* <img style={{width:"100%",height:"100%"}} src="./images/paper-plane.png" alt="sendIcon" /> */}
                   <RiShareForwardLine style={{ fontSize: "1.8rem" }} />
                 </div>
                 <h3
@@ -937,37 +867,13 @@ export default function PostCardDark({
 
             <div className={style.postCommentContainer}>
               <div className={style.commentContainer}>
-                {/* <img src={commentIcon} alt='commentIcon' onClick={()=>{setCommentIconClick(current=>!current)}} className='commentPostIcon'/> */}
                 <img src={eyeIcon} alt='' />
-
-                {/* 
-                <FaBullseye
-                  onClick={() => {
-                    setCommentIconClick((current) => !current);
-                  }}
-                  className="commentPostIconn"
-                /> */}
-
-                {/* ;(document.getElementsByClassName(`${item.id}`)[0]).click();(document.getElementsByClassName(`${item.id}`)[0]).focus() */}
               </div>
-              {/* <p className='postLikeCountText'>{item?.comments.length<=1?"Comment":"Comments"}</p> */}
               <h3 className={style.postCommentCount}>
                 {item?.comments.length + item.likes.length + 2}{" "}
               </h3>
             </div>
           </div>
-          {/* saveCont */}
-          {/* <BsBookmark
-            onClick={() => {
-              if (!isLoggedIn) {
-                return openModal();
-              } else {
-                console.log("user logged!");
-              }
-            }}
-            stlye={{ color: "white" }}
-            className="post_card_save_post_icon"
-          /> */}
         </div>
       </section>
 

@@ -11,7 +11,7 @@ import axios from "axios";
 import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker";
 
 function Auth() {
-  const selectedCountry=useSelector((state)=>state.countryCode)
+  const selectedCountry = useSelector((state) => state.countryCode);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
@@ -23,7 +23,7 @@ function Auth() {
   const [loading, setLoading] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-const[showCodePicker,setShowCodePicker]=useState(false)
+  const [showCodePicker, setShowCodePicker] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,11 +121,11 @@ const[showCodePicker,setShowCodePicker]=useState(false)
       )
       .then(
         function (response) {
-          console.log("SUCCESS!", response.status, response.text);
+          // console.log("SUCCESS!", response.status, response.text);
           setLoading(false);
         },
         function (error) {
-          console.log("FAILED...", error);
+          // console.log("FAILED...", error);
           setLoading(false);
         }
       )
@@ -189,7 +189,7 @@ const[showCodePicker,setShowCodePicker]=useState(false)
     try {
       const data = await axios.post("https://server.reverr.io/sendSmsCode", {
         to: email,
-        code:selectedCountry.dialCode.slice(1),
+        code: selectedCountry.dialCode.slice(1),
         message: `Your Change Password OTP is ${otp}`,
       });
       if (data.data.status) {
@@ -199,7 +199,7 @@ const[showCodePicker,setShowCodePicker]=useState(false)
     } catch (error) {
       setLoading(false);
       console.log("err", error);
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
     }
     setMinutes(3);
     setSeconds(0);
@@ -242,11 +242,20 @@ const[showCodePicker,setShowCodePicker]=useState(false)
     return /^[0-9]+$/.test(str);
   }
 
-  useEffect(()=>{
-if(email.length===0){setShowCodePicker(false);return}
-if(onlyNumbers(email)){setShowCodePicker(true);return}
-if(!onlyNumbers(email)){setShowCodePicker(false);return}
-  },[email])
+  useEffect(() => {
+    if (email.length === 0) {
+      setShowCodePicker(false);
+      return;
+    }
+    if (onlyNumbers(email)) {
+      setShowCodePicker(true);
+      return;
+    }
+    if (!onlyNumbers(email)) {
+      setShowCodePicker(false);
+      return;
+    }
+  }, [email]);
 
   return (
     <>
@@ -254,14 +263,15 @@ if(!onlyNumbers(email)){setShowCodePicker(false);return}
         <div className={styles.leftCont}>
           <div className={styles.brandLogoCont}>
             <img
-            style={{cursor:"pointer"}} onClick={()=>navigate("/")}
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/")}
               className={styles.brandLogo}
               src={
                 theme === "light-theme"
                   ? "/images/Reverr Black 1.png"
                   : "/images/reaver-logo.svg"
               }
-              alt=""
+              alt=''
             />
             <p className={styles.brandName}>REVERR</p>
           </div>
@@ -282,22 +292,22 @@ if(!onlyNumbers(email)){setShowCodePicker(false);return}
           <h1 className={styles.rightContHeading}>FORGOT PASSWORD</h1>
           {!tempOtp && (
             <form onSubmit={sendOtp} className={styles.form}>
-            <div className={styles.inputPhoneContainer}>
-              <input
-              style={{paddingLeft:showCodePicker?"":"1rem"}}
-                className={styles.inputPhoneNumber}
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                type="text"
-                placeholder="Enter Your Email / Mobile Number"
-                required
-              />
-              {showCodePicker&&<CountryCodePicker/>}
+              <div className={styles.inputPhoneContainer}>
+                <input
+                  style={{ paddingLeft: showCodePicker ? "" : "1rem" }}
+                  className={styles.inputPhoneNumber}
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  type='text'
+                  placeholder='Enter Your Email / Mobile Number'
+                  required
+                />
+                {showCodePicker && <CountryCodePicker />}
               </div>
               <button
                 disabled={loading}
                 className={styles.Button}
-                type="submit"
+                type='submit'
               >
                 Send OTP
               </button>
@@ -309,24 +319,24 @@ if(!onlyNumbers(email)){setShowCodePicker(false);return}
                 className={styles.input}
                 onChange={(e) => setNewOtp(e.target.value)}
                 value={newOtp}
-                type="text"
-                placeholder="Enter OTP"
+                type='text'
+                placeholder='Enter OTP'
                 required
               />
               <input
                 className={styles.input}
                 onChange={(e) => setPass(e.target.value)}
                 value={password}
-                type="password"
-                placeholder="Enter New Password"
+                type='password'
+                placeholder='Enter New Password'
                 required
               />
               <input
                 className={styles.input}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
-                type="password"
-                placeholder="Confirm New Password"
+                type='password'
+                placeholder='Confirm New Password'
                 required
               />
               {seconds > 0 || minutes > 0 ? (
@@ -345,7 +355,7 @@ if(!onlyNumbers(email)){setShowCodePicker(false);return}
                 }}
                 disabled={loading || seconds > 0 || minutes > 0}
                 className={styles.Button}
-                type="button"
+                type='button'
                 onClick={sendOtp}
               >
                 Resend OTP
@@ -355,7 +365,7 @@ if(!onlyNumbers(email)){setShowCodePicker(false);return}
                 style={{ cursor: loading ? "default" : "" }}
                 disabled={loading}
                 className={styles.Button}
-                type="submit"
+                type='submit'
               >
                 UPDATE
               </button>
@@ -363,7 +373,7 @@ if(!onlyNumbers(email)){setShowCodePicker(false);return}
           )}
           <p className={styles.links}>
             Forgot Email?{" "}
-            <Link className={styles.linkk} to="/forgotemail">
+            <Link className={styles.linkk} to='/forgotemail'>
               Click Here
             </Link>
           </p>

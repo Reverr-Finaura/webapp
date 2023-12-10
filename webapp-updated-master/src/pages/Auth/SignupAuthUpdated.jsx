@@ -99,7 +99,7 @@ function SignupAuthUpdated() {
       }
     } catch (error) {
       toast.dismiss();
-      console.log("err", error);
+      // console.log("err", error);
       toast.error(error.response.data.message);
       setIsSignUpUsingLinkedIn(false);
     }
@@ -212,7 +212,7 @@ function SignupAuthUpdated() {
   // };
 
   const signUpWithGoogle = () => {
-    console.log("signInWithGoogle");
+    // console.log("signInWithGoogle");
     signInWithPopup(auth, provider)
       .then(async () => {
         const docRef = doc(db, "Users", auth.currentUser.email);
@@ -220,7 +220,7 @@ function SignupAuthUpdated() {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            console.log("docSnap exists");
+            // console.log("docSnap exists");
             dispatch(setUserData(docSnap.data()));
             dispatch(
               login({
@@ -230,10 +230,10 @@ function SignupAuthUpdated() {
                 profilePic: auth.currentUser.photoURL,
               })
             );
-            console.log(auth.currentUser.email);
+            // console.log(auth.currentUser.email);
             navigate("/community");
           } else {
-            console.log("User document does not exist.");
+            // console.log("User document does not exist.");
             dispatch(setUserData(docSnap.data()));
             dispatch(
               create({
@@ -349,14 +349,14 @@ function SignupAuthUpdated() {
             message: `Your Reverr Signup OTP is ${otp}`,
           }
         );
-        console.log(mobileResponse);
+        // console.log(mobileResponse);
         mobileSuccess = mobileResponse.status === 200;
       } catch (error) {
         console.log(error.message);
         toast.error(error.text);
         setLoading(false);
       }
-      console.log(emailSuccess, mobileSuccess);
+      // console.log(emailSuccess, mobileSuccess);
 
       if (emailSuccess && mobileSuccess) {
         toast.success("An OTP have been sent to your email and mobile number");

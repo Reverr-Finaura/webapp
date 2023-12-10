@@ -116,24 +116,24 @@ function ChangePasswordUpdated({ email }) {
           <img
             className={styles.mainImage}
             src={require("../../images/changepassword.webp")}
-            alt="img"
+            alt='img'
           />
         </div>
 
         <div className={styles.leftComponent}>
-          <text
+          <p
             className={styles.hiddenOnMobile}
             style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
           >
             Change Password
-          </text>
+          </p>
           <div className={styles.passInput}>
             <text style={{ fontSize: 10, color: "#ffffff" }}>Password</text>
             <div className={styles.passwordContainer}>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="⋆⋆⋆⋆⋆⋆"
-                name="newPass"
+                placeholder='⋆⋆⋆⋆⋆⋆'
+                name='newPass'
                 value={changePassForm.newPass}
                 onChange={handleChangePassFormInputChange}
               />
@@ -153,8 +153,8 @@ function ChangePasswordUpdated({ email }) {
             <div className={styles.passwordContainer}>
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                placeholder="⋆⋆⋆⋆⋆⋆"
-                name="confirmNewPass"
+                placeholder='⋆⋆⋆⋆⋆⋆'
+                name='confirmNewPass'
                 value={changePassForm.confirmNewPass}
                 onChange={handleChangePassFormInputChange}
               />
@@ -178,7 +178,7 @@ function ChangePasswordUpdated({ email }) {
           <img
             className={styles.mainImage}
             src={require("../../images/changepassword.webp")}
-            alt="img"
+            alt='img'
           />
         </div>
       </div>
