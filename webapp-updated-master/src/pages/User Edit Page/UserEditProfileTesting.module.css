@@ -33,13 +33,12 @@
 }
 
 .profileImage {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
   height: 150px;
   width: 150px;
-  /* width: 5rem; */
-  /* height: 5rem; */
 }
 
 .profileImage>img {
@@ -51,7 +50,6 @@
 
 .removeDP {
   position: absolute;
-  /* bottom: 0; */
   color: white;
   width: 2rem;
   height: 2rem;
@@ -66,9 +64,8 @@
 
 .fileLabel {
   position: absolute;
-  top: 250px;
-  /* bottom: 0; */
-  /* right: 0; */
+  top: 80px;
+  left: 70px;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;

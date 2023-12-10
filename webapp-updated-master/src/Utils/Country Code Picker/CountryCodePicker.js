@@ -70,7 +70,7 @@ const CountryCodePicker = () => {
         <img
           style={{ width: "30px" }}
           src={selectedCountry.flag}
-          alt="map"
+          alt='map'
         ></img>
         <p>{selectedCountry?.dialCode}</p>
         <RiArrowDownSLine
@@ -85,8 +85,8 @@ const CountryCodePicker = () => {
         >
           <input
             style={{ color: "black" }}
-            name="country"
-            autoComplete="off"
+            name='country'
+            autoComplete='off'
             autoFocus
             className={
               styles.signup_form_onboarding_countryCode_selector_country_search_input
@@ -96,8 +96,8 @@ const CountryCodePicker = () => {
               e.preventDefault();
               e.stopPropagation();
             }}
-            type="text"
-            placeholder="Search country"
+            type='text'
+            placeholder='Search country'
             value={searchCountryText}
           />
           {countryListToShow.map((cc) => {
@@ -117,9 +117,11 @@ const CountryCodePicker = () => {
                     styles.signup_form_onboarding_countryCode_selector_inputCont_selector_option
                   }
                 >
-                  <img style={{ width: "30px" }} src={cc.flag} alt="map"></img>
+                  <img style={{ width: "30px" }} src={cc.flag} alt='map'></img>
                   <p style={{ marginLeft: ".5rem" }}>{cc.name}</p>
-                  <p style={{ marginLeft: ".5rem",color:"#000" }}>{`(${cc.dialCode})`}</p>
+                  <p
+                    style={{ marginLeft: ".5rem", color: "#000" }}
+                  >{`(${cc.dialCode})`}</p>
                 </div>
               </>
             );

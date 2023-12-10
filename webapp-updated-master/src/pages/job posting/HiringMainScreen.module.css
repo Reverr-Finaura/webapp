@@ -1,4 +1,4 @@
-.block{
+.block {
     width: 80%;
     height: 75%;
     background: var(--bg-primary-blue, #0C1631);
@@ -9,10 +9,12 @@
     border-radius: 10px;
 
 }
-.upperBlock{
-    height:100vh !important;
+
+.upperBlock {
+    height: 100vh !important;
 }
-.btn{
+
+.btn {
     display: flex;
     width: 204px;
     height: 50px;
@@ -31,9 +33,10 @@
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.52px;
-    cursor:pointer
+    cursor: pointer
 }
-.para{
+
+.para {
     color: #FFF;
     font-family: Poppins;
     font-size: 18px;
@@ -44,16 +47,17 @@
 
 }
 
-.leftPart{
+.leftPart {
     width: 39%;
     padding-left: 2em;
 
 }
 
-.rightPart{
+.rightPart {
     width: 50%;
 }
-.heading{
+
+.heading {
     font-family: Reem Kufi;
     font-size: 35px;
     font-style: normal;

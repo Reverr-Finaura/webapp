@@ -16,7 +16,7 @@ const Home = () => {
         <Hero />
       </section>
       <Divider />
-      <section className="styles tagline">
+      <section className='styles tagline'>
         <Tagline />
       </section>
       <Divider />
@@ -30,21 +30,21 @@ const Home = () => {
           <div className={styles.rs_stats}>
             <div className={styles.rs_card}>
               <div>
-                <img src="/images/blue-bg.svg" alt="" />
+                <img src='/images/blue-bg.svg' alt='' />
                 <span className={styles.rs_stat_no}>900+</span>
               </div>
               <p>I'm a stat about start-ups</p>
             </div>
             <div className={styles.rs_card}>
               <div>
-                <img src="/images/blue-bg.svg" alt="" />
+                <img src='/images/blue-bg.svg' alt='' />
                 <span className={styles.rs_stat_no}>5Cr+</span>
               </div>
               <p>I'm a stat about start-ups</p>
             </div>
             <div className={styles.rs_card}>
               <div>
-                <img src="/images/blue-bg.svg" alt="" />
+                <img src='/images/blue-bg.svg' alt='' />
                 <span className={styles.rs_stat_no}>115L+</span>
               </div>
               <p>I'm a stat about start-ups</p>
@@ -53,14 +53,14 @@ const Home = () => {
           <div className={styles.rs_stats}>
             <div className={styles.rs_card}>
               <div>
-                <img src="/images/blue-bg.svg" alt="" />
+                <img src='/images/blue-bg.svg' alt='' />
                 <span className={styles.rs_stat_no}>200+</span>
               </div>
               <p>I'm a stat about start-ups</p>
             </div>
             <div className={styles.rs_card}>
               <div>
-                <img src="/images/blue-bg.svg" alt="" />
+                <img src='/images/blue-bg.svg' alt='' />
                 <span className={styles.rs_stat_no}>100+</span>
               </div>
               <p>I'm a stat about start-ups</p>
@@ -85,23 +85,23 @@ const Home = () => {
           </p>
           <div className={styles.rf_founder_card}>
             <div className={styles.rf_card}>
-              <img src="/images/Rectangle 2662.svg" alt="" />
+              <img src='/images/Rectangle 2662.svg' alt='' />
               <p>I'm a Start-up</p>
             </div>
             <div className={styles.rf_card}>
-              <img src="/images/Rectangle 2661.svg" alt="" />
+              <img src='/images/Rectangle 2661.svg' alt='' />
               <p>I'm a Start-up</p>
             </div>
             <div className={styles.rf_card}>
-              <img src="/images/Rectangle 2660.svg" alt="" />
+              <img src='/images/Rectangle 2660.svg' alt='' />
               <p>I'm a Start-up</p>
             </div>
             <div className={styles.rf_card}>
-              <img src="/images/Rectangle 2661.svg" alt="" />
+              <img src='/images/Rectangle 2661.svg' alt='' />
               <p>I'm a Start-up</p>
             </div>
             <div className={styles.rf_card}>
-              <img src="/images/Rectangle 2662.svg" alt="" />
+              <img src='/images/Rectangle 2662.svg' alt='' />
               <p>I'm a Start-up</p>
             </div>
           </div>
@@ -123,13 +123,13 @@ const Home = () => {
             content
           </p>
           <div className={styles.rd_btn}>
-            <Link to="/login">
+            <Link to='/login'>
               <RoundButton>Login Now</RoundButton>
             </Link>
           </div>
         </div>
         <div className={styles.rd_img}>
-          <img src="/images/Business-deal.svg" alt="" />
+          <img src='/images/Business-deal.svg' alt='' />
         </div>
       </section>
       <Divider />
@@ -137,7 +137,7 @@ const Home = () => {
         <p className={styles.rt_heading}>Testimonials</p>
         <div className={styles.rt_cards}>
           <div className={styles.rt_card}>
-            <img src="/images/person1.svg" alt="" />
+            <img src='/images/person1.svg' alt='' />
             <p className={styles.card_name}>Heather Jones</p>
             <p className={styles.card_para}>
               “ I'm a paragraph. Click here to add your own text and edit me.
@@ -146,7 +146,7 @@ const Home = () => {
             </p>
           </div>
           <div className={styles.rt_card}>
-            <img src="/images/person2.svg" alt="" />
+            <img src='/images/person2.svg' alt='' />
             <p className={styles.card_name}>Alam Khangis</p>
             <p className={styles.card_para}>
               “ I'm a paragraph. Click here to add your own text and edit me.
@@ -155,7 +155,7 @@ const Home = () => {
             </p>
           </div>
           <div className={styles.rt_card}>
-            <img src="/images/person3.svg" alt="" />
+            <img src='/images/person3.svg' alt='' />
             <p className={styles.card_name}>Davis Laid</p>
             <p className={styles.card_para}>
               “ I'm a paragraph. Click here to add your own text and edit me.
@@ -165,7 +165,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="styles">
+      <section className='styles'>
         <Footer />
       </section>
     </div>

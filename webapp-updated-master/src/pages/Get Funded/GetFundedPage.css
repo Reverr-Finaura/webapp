@@ -1,38 +1,31 @@
 #getFundingPage {
   min-height: 100vh;
-  /* width: 1140px; */
-  /* margin-left: 14.5rem; */
   margin-top: 8rem;
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
 }
+
 .getFundingPageOuter {
-  /* background: linear-gradient(
-    119.93deg,
-    rgba(255, 255, 255, 0.35) 4.68%,
-    rgba(255, 255, 255, 0.3) 91.73%
-  ); */
   background: var(--bg-clr);
   box-shadow: 0px 2.4417px 14.6502px -0.610425px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(6.10425px);
   border-radius: 10px;
   margin: 0% 5%;
-  /* margin-left: calc(30% - 10%); */
   width: 90%;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 5;
-  /* position: fixed; */
   overflow-y: scroll;
   background: transparent;
-  border: 8px solid
-    linear-gradient(#91c1ff 1.13%, #79c0db 28.23%, #a2e1c4 60%, #c7ffaf 100%);
+  border: 8px solid linear-gradient(#91c1ff 1.13%, #79c0db 28.23%, #a2e1c4 60%, #c7ffaf 100%);
 }
+
 .getFundingPageOuter::-webkit-scrollbar {
   display: none;
 }
+
 .getFundingPageOuterIcon1 {
   position: absolute;
   z-index: -1;
@@ -40,6 +33,7 @@
   bottom: -28rem;
   left: 20rem;
 }
+
 .getFundingPageOuterIcon2 {
   position: absolute;
   z-index: -1;
@@ -48,7 +42,7 @@
   right: 60px;
 }
 
-.getFundingPageOuter > hr {
+.getFundingPageOuter>hr {
   border: 1px solid #c4c5ce;
   width: 78%;
   margin: 1rem auto;
@@ -67,7 +61,7 @@
   color: white;
 }
 
-.getFundedMainTitle > span {
+.getFundedMainTitle>span {
   font-size: 40px;
   color: #2a72de;
 }
@@ -99,6 +93,7 @@
 .getFundingPageOuter span {
   color: #2a72de;
 }
+
 .getFundingPageForm {
   display: flex;
   flex-direction: column;
@@ -117,6 +112,7 @@
   margin: 1rem auto;
   padding: 3rem 1rem;
 }
+
 .getFundingPageForm input {
   width: 100%;
   margin: auto;
@@ -142,9 +138,11 @@
   font-size: 18px;
   color: var(--main-text);
 }
+
 .getFundingPageFormInput::placeholder {
   color: var(--main-text);
 }
+
 .getFundingPageFormInput:focus {
   outline: none;
 }
@@ -163,11 +161,13 @@
   margin-left: 1rem;
   margin-bottom: 0.6rem;
 }
-.uploadPitchLabel::after{
+
+.uploadPitchLabel::after {
   content: "*";
   color: red;
   margin-left: 4px;
 }
+
 .upload-label-main {
   height: 80%;
   width: 60%;
@@ -182,14 +182,14 @@
   background-color: #fff;
 }
 
-.upload-label-main > p {
+.upload-label-main>p {
   font-weight: 400;
   font-size: 14.7586px;
   line-height: 16px;
   color: #6f6c90;
 }
 
-.upload-label-main > span {
+.upload-label-main>span {
   font-weight: 700;
   font-size: 12px;
   line-height: 9px;
@@ -226,6 +226,7 @@
   bottom: 0px;
   left: 0px;
 }
+
 .uploadPitchDeckContainer {
   display: flex;
   margin: 1rem;
@@ -265,7 +266,7 @@
   border: none;
 }
 
-.btn_flex_div > button {
+.btn_flex_div>button {
   padding: 0.5rem 2rem;
   cursor: pointer;
   box-shadow: 0px 3.14294px 14px 2px rgba(0, 0, 0, 0.1);
@@ -275,6 +276,7 @@
   margin: 25px 15px;
   outline: none;
 }
+
 .getFundingPage_CheckYourScoreCont_btn {
   border-radius: 12px;
   background: transparent;
@@ -315,37 +317,46 @@
     margin-left: 5rem;
   }
 }
+
 @media (max-width: 875px) {
+
   .getFundingPageOuterIcon1,
   .getFundingPageOuterIcon2 {
     display: none;
   }
 }
+
 @media (max-width: 680px) {
   #getFundingPage {
     margin-left: 11rem;
   }
 }
+
 @media (max-width: 600px) {
   #getFundingPage {
     margin: auto;
     margin-top: 7rem;
   }
+
   .getFundingPageSubTitle {
     font-size: 16px;
     line-height: 30px;
     margin: 2rem auto;
   }
+
   .getFundingPageForm {
     width: 80%;
   }
+
   .pitchDeckUploadButton {
     right: 12%;
   }
+
   .getFundingPageOuter {
     width: 90%;
     margin: auto 2rem;
   }
+
   .inputWraper {
     flex-direction: column;
   }
@@ -355,7 +366,8 @@
   .btn_flex_div {
     flex-direction: column;
   }
-  .btn_flex_div > button {
+
+  .btn_flex_div>button {
     margin: 1rem 3rem;
   }
 }
@@ -364,10 +376,12 @@
   .input_flex {
     margin-left: 5rem;
   }
+
   .getFundingPageOuterIcon2 {
     right: 110px;
     transform: scale(1.1);
   }
+
   .getFundingPageOuterIcon1 {
     bottom: -8rem;
     transform: scale(1.5);
@@ -379,10 +393,12 @@
   .input_flex {
     margin-left: 6rem;
   }
+
   .getFundingPageOuterIcon2 {
     right: 210px;
     transform: scale(1.1);
   }
+
   .getFundingPageOuterIcon1 {
     bottom: -10rem;
     transform: scale(1.5);

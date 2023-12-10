@@ -184,33 +184,39 @@
     background: none;
     border: none;
 }
-.required{
+
+.required {
     color: #ff0000;
 }
-.inputcheck{
+
+.inputcheck {
     width: 9%;
     margin-right: 15px;
 }
-.checklist label{
-   
+
+.checklist label {
+
     display: flex;
     justify-content: left;
     align-items: center;
 
 }
-.checklist{
+
+.checklist {
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
-.labeldiv{
+
+.labeldiv {
     display: flex;
     justify-content: left;
     width: 77%;
 
 }
-.labeldiv label{
+
+.labeldiv label {
     color: var(--gray, #A7A7A7);
     font-family: Poppins;
     font-size: 17px;
@@ -219,8 +225,9 @@
     line-height: normal;
     letter-spacing: 0.72px;
 }
-.addquestion p{
-    
+
+.addquestion p {
+
     display: flex;
     padding: 8.727px 24px;
     align-items: flex-start;
