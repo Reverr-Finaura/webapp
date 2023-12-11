@@ -178,17 +178,16 @@ function App() {
             <Route path=':postId' element={<SharedCommunityPost />}></Route>
           </>
         )}
-        {/* <Route path="/login-test" element={<LoginTesting />}/> */}
-        <Route path='/signup' element={<SignupAuthUpdated />}></Route>
-        <Route path='/otp-login' element={<LoginWithOtpFirst />} />
-        <Route path='/forgot-password' element={<ForgotpasswordUpdated />} />
-        <Route path='/forgotemail' element={<ForgotEmail />} />
-        <Route path='/password-reset' element={<PasswordReset />} />
         {newUser ? (
           <>
             <Route path='enterotp' element={<EnterOtpUpdated />}></Route>
           </>
         ) : null}
+        <Route path='/signup' element={<SignupAuthUpdated />}></Route>
+        <Route path='/otp-login' element={<LoginWithOtpFirst />} />
+        <Route path='/forgot-password' element={<ForgotpasswordUpdated />} />
+        <Route path='/forgotemail' element={<ForgotEmail />} />
+        <Route path='/password-reset' element={<PasswordReset />} />
         <Route path='/onboarding-first' element={<First />}></Route>
         <Route path='/onboarding-second' element={<Second />}></Route>
         <Route path='/onboarding-third' element={<Third />}></Route>

@@ -139,13 +139,6 @@ const LoginTesting = () => {
   let nameDoc = "emailPhone";
   useEffect(() => {
     async function fetchUserDocFromFirebase() {
-      // const userDataRef = collection(db, "meta");
-      // const q = query(userDataRef);
-      // const querySnapshot = await getDocs(q);
-
-      // querySnapshot.forEach((doc) => {
-      //   setMetaData(doc.data().emailPhone);
-      // });
       const collectionRef = collection(db, "meta");
       const docRef = doc(collectionRef, nameDoc);
       const docSnapshot = await getDoc(docRef);
@@ -181,72 +174,7 @@ const LoginTesting = () => {
     };
   }, [seconds]);
 
-  // const signInWithGoogle = () => {
-  //   console.log("signInWithGoogle");
-  //   signInWithPopup(auth, provider)
-  //     // .then(async (userCredential) => {
-  //     //   dispatch(
-  //     //     login({
-  //     //       email: auth.currentUser.email,
-  //     //       uid: auth.currentUser.uid,
-  //     //       displayName: auth.currentUser.displayName,
-  //     //       profilePic: auth.currentUser.photoURL,
-  //     //     })
-  //     //   );
-  //     // })
-  //     .then(async () => {
-  //       const docRef = doc(db, "Users", auth.currentUser.email);
-  //       try {
-  //         const docSnap = await getDoc(docRef);
-
-  //         if (docSnap.exists()) {
-  //           console.log("docSnap  exist");
-  //           dispatch(setUserData(docSnap.data()));
-  //           dispatch(
-  //             login({
-  //               email: auth.currentUser.email,
-  //               uid: auth.currentUser.uid,
-  //               displayName: auth.currentUser.displayName,
-  //               profilePic: auth.currentUser.photoURL,
-  //             })
-  //           );
-  //           console.log(auth.currentUser.email);
-  //           navigate("/community");
-  //         } else {
-  //           console.log("User document does not exist.");
-  //           dispatch(setUserData(docSnap.data()));
-  //           dispatch(
-  //             create({
-  //               email: auth.currentUser.email,
-  //               uid: auth.currentUser.uid,
-  //               displayName: auth.currentUser.displayName,
-  //               profilePic: auth.currentUser.photoURL,
-  //               userType: userType,
-  //               loginType: "google",
-  //             })
-  //           );
-  //           dispatch(setEmail(auth.currentUser.email));
-  //           dispatch(setName(auth.currentUser.displayName));
-
-  //           const onboardingDataSoFar = {
-  //             ...onboardingData,
-  //             name: auth.currentUser.displayName,
-  //             email: auth.currentUser.email,
-  //           };
-  //           // Perform a single update with all the fields to be updated
-  //           await setDoc(docRef, onboardingDataSoFar, { merge: true });
-  //           navigate("/onboarding-first");
-  //         }
-  //       } catch (error) {
-  //         console.log(error.message);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error);
-  //     });
-  // };
   const signInWithGoogle = () => {
-    // console.log("signInWithGoogle");
     signInWithPopup(auth, provider)
       .then(async () => {
         const docRef = doc(db, "Users", auth.currentUser.email);
@@ -307,7 +235,6 @@ const LoginTesting = () => {
     }
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
-        // console.log(auth.currentUser.email, email);
         const docRef = doc(db, "Users", auth.currentUser.email);
         await getDoc(docRef).then((doc) => {
           dispatch(setUserData(doc.data()));
@@ -377,7 +304,6 @@ const LoginTesting = () => {
       })
       .catch((error) => {
         var errorCode = error.code;
-        // toast.error(errorMessage);
         switch (error.code) {
           case "auth/user-not-found":
             toast.error("User not found. Please check your email or sign up.");

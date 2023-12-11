@@ -5,8 +5,6 @@ import NavBarFinal from "../../components/Navbar/NavBarFinal";
 import SidebarFinal from "../../components/Sidebar Final/SidebarFinal";
 import PhnSidebar from "../../components/PhnSidebar/PhnSidebar";
 import UserAddProfile from "../User Add Profile/UserAddProfile";
-
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { collection, getDocs, query } from "firebase/firestore";
@@ -14,7 +12,7 @@ import { db } from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import { useNavigate } from "react-router-dom";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
-import { auth } from "../../firebase";
+
 const UserProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

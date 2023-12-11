@@ -21,6 +21,7 @@ import { setUserDoc } from "../../features/userDocSlice";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { toast } from "react-toastify";
+import styles2 from "./Discsover.module.css";
 
 const User = () => {
   const navigate = useNavigate();
@@ -155,54 +156,57 @@ const User = () => {
   //HANDLE FOLLOW REQUEST CLICK
   // update the received request array of the user whose profile is clicked
   const handleFollowUserClick = async () => {
-    setIsLoading(true);
-    toast("Processing Your Request");
+    if (checkUser) {
+      try {
+        setIsLoading(true);
+        toast("Processing Your Request");
+        const userDocumentRef = doc(db, "Users", otherUserDoc.email);
+        const userDocSnapshot = await getDoc(userDocumentRef);
+        let userRequestArray = [];
 
-    try {
-      const userDocumentRef = doc(db, "Users", otherUserDoc.email);
-      const userDocSnapshot = await getDoc(userDocumentRef);
-      let userRequestArray = [];
+        if (userDocSnapshot.exists()) {
+          const otherUserData = userDocSnapshot.data();
+          if (otherUserData.receivedRequests) {
+            // If receivedRequests field exists, use it
+            userRequestArray = otherUserData.receivedRequests;
+          } else {
+            // If receivedRequests field does not exist, create it
+            await updateDoc(userDocumentRef, { receivedRequests: [] });
+          }
 
-      if (userDocSnapshot.exists()) {
-        const otherUserData = userDocSnapshot.data();
-        if (otherUserData.receivedRequests) {
-          // If receivedRequests field exists, use it
-          userRequestArray = otherUserData.receivedRequests;
-        } else {
-          // If receivedRequests field does not exist, create it
-          await updateDoc(userDocumentRef, { receivedRequests: [] });
+          // Add the currentLoggedInUser's email to the userRequestArray
+          if (!userRequestArray.includes(currentLoggedInUser?.user?.email)) {
+            userRequestArray.push(currentLoggedInUser?.user?.email);
+          }
+
+          // Update the receivedRequests field with the updated userRequestArray
+          await updateDoc(userDocumentRef, {
+            receivedRequests: userRequestArray,
+          });
+          updateUserSendRequestArray();
+          toast.success("Follow Request Sent");
         }
 
-        // Add the currentLoggedInUser's email to the userRequestArray
-        if (!userRequestArray.includes(currentLoggedInUser?.user?.email)) {
-          userRequestArray.push(currentLoggedInUser?.user?.email);
+        //---------------------- Send Follow Notification----------------------------------
+        const notificationData = {
+          time: new Date(),
+          message: `${currentLoggedInUser?.user?.email} Requested To Follow You`,
+          user: currentLoggedInUser?.user?.email,
+          type: "Follow-Notification",
+        };
+
+        if (userDocSnapshot.exists()) {
+          const existingNotifications =
+            userDocSnapshot.data().notificationList || [];
+          await updateDoc(userDocumentRef, {
+            notificationList: [...existingNotifications, notificationData],
+          });
         }
-
-        // Update the receivedRequests field with the updated userRequestArray
-        await updateDoc(userDocumentRef, {
-          receivedRequests: userRequestArray,
-        });
-        updateUserSendRequestArray();
-        toast.success("Follow Request Sent");
+      } catch (error) {
+        toast(error.message);
       }
-
-      //---------------------- Send Follow Notification----------------------------------
-      const notificationData = {
-        time: new Date(),
-        message: `${currentLoggedInUser?.user?.email} Requested To Follow You`,
-        user: currentLoggedInUser?.user?.email,
-        type: "Follow-Notification",
-      };
-
-      if (userDocSnapshot.exists()) {
-        const existingNotifications =
-          userDocSnapshot.data().notificationList || [];
-        await updateDoc(userDocumentRef, {
-          notificationList: [...existingNotifications, notificationData],
-        });
-      }
-    } catch (error) {
-      toast(error.message);
+    } else {
+      openModal();
     }
   };
 
@@ -468,10 +472,49 @@ const User = () => {
     }
     return id;
   };
+  const checkUser = useSelector((state) => state.user.user);
+  const [isLogInModalOpen, setIsLogInModalOpen] = useState(false);
+  const openModal = React.useCallback(() => {
+    setIsLogInModalOpen(true);
+  }, []);
 
   return (
     <>
       {/* <Toaster position="bottom-left" /> */}
+      {isLogInModalOpen ? (
+        <div className={styles2.logInModalCont}>
+          <div className={styles2.logInModal}>
+            <span
+              className={styles2.closeIcon}
+              onClick={() => setIsLogInModalOpen(false)}
+            >
+              X
+            </span>
+            <img src={require("../../images/userIcon.png")} alt='img' />
+            <text style={{ color: "#ffffff", fontSize: 20, marginTop: 10 }}>
+              Sign in to Continue
+            </text>
+
+            <button
+              className={styles2.signInButton}
+              onClick={() => navigate("/login")}
+            >
+              Sign in
+            </button>
+            <div className={styles2.dividerRow}>
+              <div className={styles2.dividerLine}></div>
+              <span style={{ marginInline: 5, color: "#999b9e" }}>or</span>
+              <div className={styles2.dividerLine}></div>
+            </div>
+            <button
+              className={styles2.signUpButton}
+              onClick={() => navigate("/signup")}
+            >
+              <span>Sign up</span>
+            </button>
+          </div>
+        </div>
+      ) : null}
       <NavBarFinalDarkMode />
       <div className={styles.profileWrapper}>
         <div className={styles.profileContainer}>
@@ -498,14 +541,6 @@ const User = () => {
             </div>
             <div className={styles.profileInfo}>
               <div className={styles.profileUserIcon}>
-                {/* <img
-                  src="/images/fluent_call-24-regular.svg"
-                  alt="Call"
-                  onClick={() => {
-                    navigator.clipboard.writeText(otherUserDoc.phone);
-                    toast.success("Phone Number Copied");
-                  }}
-                /> */}
                 {otherUserDoc?.email ? (
                   <>
                     <img
@@ -660,12 +695,16 @@ const User = () => {
                 <button
                   className='shedule-container-btn'
                   onClick={() => {
-                    navigate(
-                      `/schedule/${emailToId(otherUserDoc.email)}/${emailToId(
-                        currentLoggedInUser.user.email
-                      )}`
-                    );
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    if (checkUser) {
+                      navigate(
+                        `/schedule/${emailToId(otherUserDoc.email)}/${emailToId(
+                          currentLoggedInUser.user.email
+                        )}`
+                      );
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      openModal();
+                    }
                   }}
                 >
                   Scheduled Meeting {otherUserDoc.userType}
