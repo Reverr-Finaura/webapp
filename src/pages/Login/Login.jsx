@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.css";
 import { auth, db } from "../../firebase";
 import {
@@ -20,7 +20,7 @@ function Auth() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const theme=useSelector((state)=>state.themeColor)
+  const theme = useSelector((state) => state.themeColor);
   const provider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {
@@ -58,7 +58,7 @@ function Auth() {
         );
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -66,7 +66,6 @@ function Auth() {
         alert(errorMessage);
       });
   };
-
 
   return (
     <>
@@ -78,41 +77,43 @@ function Auth() {
               className={styles.googleLoginBtn}
               onClick={signInWithGoogle}
             >
-              <img src="/images/image 134.svg" alt="" />
+              <img src='/images/image 134.svg' alt='' />
               Login with Google
             </Button>
           </div>
           <div>
-            <p className={styles.login_dontHaveAccountText}>Or Login with your E-mail</p>
+            <p className={styles.login_dontHaveAccountText}>
+              Or Login with your E-mail
+            </p>
           </div>
           <form onSubmit={loginEmail}>
             <div>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                type="email"
-                placeholder="Your E-Mail"
+                type='email'
+                placeholder='Your E-Mail'
               />
             </div>
             <div>
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                type="password"
-                placeholder="Enter a password"
+                type='password'
+                placeholder='Enter a password'
               />
             </div>
-            <Button type="submit">Login</Button>
+            <Button type='submit'>Login</Button>
           </form>
           <p className={styles.login_dontHaveAccountText}>
             Don't have an account?{" "}
-            <Link to="/signup" className={styles.link}>
+            <Link to='/signup' className={styles.link}>
               Sign Up
             </Link>
           </p>
           <p className={styles.login_dontHaveAccountText}>
             Forgot Password?{" "}
-            <Link to="/forgotpassword" className={styles.link}>
+            <Link to='/forgotpassword' className={styles.link}>
               Click Here
             </Link>
           </p>

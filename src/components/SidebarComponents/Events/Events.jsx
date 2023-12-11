@@ -32,7 +32,7 @@ function Events({ isLoggedIn, openModal }) {
 
       {items.map((item, index) => (
         <div className={styles.eventRow} key={index}>
-          <img src={require("../../../images/image 5.png")} alt="img" />
+          <img src={require("../../../images/image 5.png")} alt='img' />
           <div>
             <text style={{ color: "#A7A7A7", fontSize: 8 }}>{item.date}</text>
             <text style={{ color: "#ffffff", fontSize: 12, marginTop: 5 }}>
@@ -44,7 +44,7 @@ function Events({ isLoggedIn, openModal }) {
             <text style={{ color: "#A7A7A7", fontSize: 8, marginTop: 5 }}>
               <img
                 src={peopleGroup}
-                alt="img"
+                alt='img'
                 style={{ width: 8, height: 8, display: "inline" }}
               />
               &nbsp; {item.attending} people attending
@@ -56,7 +56,7 @@ function Events({ isLoggedIn, openModal }) {
                 return openModal();
               } else {
                 //normal code
-                console.log("user logged!");
+                // console.log("user logged!");
               }
             }}
           >

@@ -19,9 +19,11 @@
   display: flex;
   flex-direction: column;
   margin-left: 60px;
+  min-width: 350px;
+  max-width: 400px;
 }
 
-.leftComponent > button {
+.leftComponent>button {
   padding: 10px 50px;
   border-radius: 25px;
   margin-top: 50px;
@@ -37,9 +39,10 @@
   margin-top: 40px;
 }
 
-.textInput > input {
+.textInput>input {
   margin-top: 8px;
-  width: 350px;
+  /* width: 350px; */
+  width: 100%;
   height: 40px;
   font-size: 15px;
   border-radius: 25px;
@@ -55,6 +58,7 @@
   display: block;
   font-family: 'Reem Kufi';
 }
+
 .hiddenOnDesktop {
   display: none;
 }
@@ -66,25 +70,31 @@
     padding-top: 8rem;
     box-sizing: border-box;
   }
+
   .mainImage {
     height: 30vh;
   }
+
   .leftComponent {
     margin-left: 0;
   }
+
   .textInput {
     margin-top: 1.5rem;
   }
-  .leftComponent > button {
+
+  .leftComponent>button {
     margin-top: 1.5rem;
   }
 
   .hiddenOnMobile {
     display: none;
   }
+
   .hiddenOnDesktop {
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: center;  }
+    align-items: center;
+  }
 }

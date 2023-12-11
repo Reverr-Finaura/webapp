@@ -19,19 +19,13 @@ const Chat = () => {
   const [mentorZero, setMentorZero] = useState("");
   const [clientMsgs, setClientMsgs] = useState([]);
   const [mentorsLoading, setMentorsLoading] = useState(false);
-
   const [selectedMentor, setselectedMentor] = useState([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
   const msgEndRef = useRef();
-
   const [newMsg, setNewMsg] = useState([]);
   const clientEmail = userData.email;
-
-  // console.log("Mentors - ", mentors);
-  // console.log("Client Messages- ", clientMsgs);
-  //console.log(userData, "user");
 
   const fetchMentors = async () => {
     setMentorsLoading(true);
@@ -49,7 +43,6 @@ const Chat = () => {
     let results = await getClientMsgs(clientEmail);
 
     if (results.messages?.length !== clientMsgs.messages?.length) {
-      console.log(results !== clientMsgs);
       setClientMsgs(results);
     } else if (clientMsgs.length === 0) {
       setClientMsgs(results);
@@ -65,8 +58,6 @@ const Chat = () => {
     // FOR SENDING FILE
 
     if (file) {
-      console.log("FILE_SELECTED");
-      console.log("FILE :", file);
       setIsLoading(true);
 
       let fileUrl = await uploadMedia(file, "Messages");
@@ -100,8 +91,6 @@ const Chat = () => {
       }
       setselectedMentor(curClientData);
       setIsLoading(false);
-
-      console.log(curClientData);
       var isExist;
       for (let i = 0; i < clientMsgs.length; i++) {
         if (clientMsgs[i].email == selectedMentor.email) {
@@ -258,7 +247,6 @@ const Chat = () => {
       });
     }
   }, [mentorZero]);
-  console.log(mentors, "mentors");
 
   return (
     <>
@@ -267,7 +255,7 @@ const Chat = () => {
           <div className={styles["top-bar-users"]}>
             <img
               src={userData && userData.image}
-              alt="profile"
+              alt='profile'
               className={styles["mentor-profile"]}
             />
           </div>
@@ -333,23 +321,23 @@ const Chat = () => {
               {selectedMentor.length === 0 ? null : (
                 <img
                   src={selectedMentor.image}
-                  alt="profile"
+                  alt='profile'
                   className={styles.profile}
                 />
               )}
               {selectedMentor ? <h3>{selectedMentor.name}</h3> : null}
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src="images/add.webp" alt="add" className={styles.add} />
+              <img src='images/add.webp' alt='add' className={styles.add} />
               <img
-                src="images/options.png"
-                alt="add"
+                src='images/options.png'
+                alt='add'
                 className={styles.options}
               />
             </div>
           </div>
 
-          <div className={styles["chat-area"]} id="chat-area">
+          <div className={styles["chat-area"]} id='chat-area'>
             {selectedMentor?.messages ? (
               selectedMentor.messages.map((curMsg) => {
                 if (curMsg.type == "text") {
@@ -374,8 +362,8 @@ const Chat = () => {
                     <>
                       <a
                         href={curMsg.msg}
-                        target="_blank"
-                        rel="noreferrer"
+                        target='_blank'
+                        rel='noreferrer'
                         className={
                           curMsg.sendBy == clientEmail
                             ? styles["client-img"]
@@ -384,7 +372,7 @@ const Chat = () => {
                       >
                         <img
                           src={curMsg.msg}
-                          alt="img"
+                          alt='img'
                           style={{
                             width: "150px",
                             border: "2px solid #b9ceef",
@@ -398,8 +386,8 @@ const Chat = () => {
                   return (
                     <a
                       href={curMsg.msg}
-                      target="_blank"
-                      rel="noreferrer"
+                      target='_blank'
+                      rel='noreferrer'
                       className={
                         curMsg.sendBy == clientEmail
                           ? styles["client-img"]
@@ -407,8 +395,8 @@ const Chat = () => {
                       }
                     >
                       <img
-                        src="/images/doc.png"
-                        alt="doc"
+                        src='/images/doc.png'
+                        alt='doc'
                         style={{
                           width: "150px",
                           border: "2px solid transparent",
@@ -436,10 +424,10 @@ const Chat = () => {
           </div>
 
           <div className={styles["bottom-bar"]}>
-            <label htmlFor="file">
+            <label htmlFor='file'>
               <img
-                src="images/attachment.png"
-                alt="attachment"
+                src='images/attachment.png'
+                alt='attachment'
                 className={styles.attachment}
                 style={
                   selectedMentor.length === 0 ? { cursor: "no-drop" } : null
@@ -451,14 +439,14 @@ const Chat = () => {
                 setFile(e.target.files[0]);
                 toast.success('File selected, press "Enter ↩" to send');
               }}
-              type="file"
-              id="file"
+              type='file'
+              id='file'
               style={{ display: "none" }}
               disabled={selectedMentor.length === 0 ? true : false}
             />
             <img
-              src="images/emoji.png"
-              alt="emoji"
+              src='images/emoji.png'
+              alt='emoji'
               className={styles.emoji}
               onClick={() => {
                 if (selectedMentor.length === 0) {
@@ -470,7 +458,7 @@ const Chat = () => {
             />
             <input
               value={newMsg}
-              type="text"
+              type='text'
               onKeyPress={(e) => {
                 if (e.key == "Enter") {
                   if (file === null) {
@@ -483,7 +471,7 @@ const Chat = () => {
                 }
               }}
               onChange={(e) => setNewMsg(e.target.value)}
-              placeholder="Message"
+              placeholder='Message'
               className={styles["message-input"]}
               disabled={selectedMentor.length === 0 ? true : false}
               style={selectedMentor.length === 0 ? { cursor: "no-drop" } : null}

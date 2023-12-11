@@ -27,17 +27,15 @@ const CommunityUserProfilePopup = ({
   const [choiceButtonClick, setChoiceButtonClick] = useState("Info");
   const [selectedUserPostsArray, setSelectedUserPostsArray] = useState(null);
 
-//   console.log("postsAuthorInfo", postsAuthorInfo);
-
-  const fetchSelectedUserPosts = (postArray) => {
-    let SelectedUserPostData = [];
-    postsData.map((item) => {
-      if (postArray.includes(item.id)) {
-        SelectedUserPostData.push(item);
-      }
-    });
-    setSelectedUserPostsArray(SelectedUserPostData);
-  };
+  // const fetchSelectedUserPosts = (postArray) => {
+  //   let SelectedUserPostData = [];
+  //   postsData.map((item) => {
+  //     if (postArray.includes(item.id)) {
+  //       SelectedUserPostData.push(item);
+  //     }
+  //   });
+  //   setSelectedUserPostsArray(SelectedUserPostData);
+  // };
 
   //UPDATE LOGGEDIN USER FOLLOW REQUEST ARRAY
   // update the send request array of the logged in user
@@ -65,7 +63,9 @@ const CommunityUserProfilePopup = ({
   // update the received request array of the user whose profile is clicked
   const handleFollowUserClick = async () => {
     // const userRequestArray = postsAuthorInfo.receivedRequests
-    const userRequestArray = postsAuthorInfo.receivedRequests.includes(user?.user?.email)
+    const userRequestArray = postsAuthorInfo.receivedRequests.includes(
+      user?.user?.email
+    )
       ? postsAuthorInfo.receivedRequests
       : postsAuthorInfo.recivedRequests.concat([user?.user?.email]);
 
@@ -74,7 +74,7 @@ const CommunityUserProfilePopup = ({
     try {
       await updateDoc(userDocumentRef, { receivedRequests: userRequestArray });
 
-      toast("Follow Request Send ");
+      toast("Follow Request Send");
       setPostsAuthorInfo((prev) => {
         return { ...prev, receivedRequests: userRequestArray };
       });
@@ -129,7 +129,7 @@ const CommunityUserProfilePopup = ({
       await updateDoc(userWhoseUnfollowDocumentRef, {
         network: userWhoseUnfollowNetworkArray,
       });
-      toast("Sucessfully Unfollowed ");
+      toast("Successfully Unfollowed ");
       setPostsAuthorInfo((prev) => {
         return { ...prev, network: userWhoseUnfollowNetworkArray };
       });
@@ -167,15 +167,15 @@ const CommunityUserProfilePopup = ({
                   setSelectedUserPostsArray(null);
                 }}
                 className={styles.closePopupIcon}
-                src="./images/icons8-cancel-48.png"
-                alt="closePopupIcon"
+                src='./images/icons8-cancel-48.png'
+                alt='closePopupIcon'
               />
             </div>
             <div className={styles.userInformationConatiner}>
               <img
                 className={styles.userImage}
                 src={postsAuthorInfo?.image}
-                alt="userPhoto"
+                alt='userPhoto'
               />
               <div className={styles.userNameDesignationContainer}>
                 <h1 className={styles.userName}>{postsAuthorInfo?.name}</h1>
@@ -291,40 +291,40 @@ const CommunityUserProfilePopup = ({
                     </p>
                   ) : null}
                   {/* {postsAuthorInfo?.instagramLink===undefined&&postsAuthorInfo?.facebookLink===undefined&&postsAuthorInfo?.twitterLink===undefined&&postsAuthorInfo?.linkedinLink===undefined?<p className={styles.noSocialLinkAvailableMessage}>No Social Link Available</p>:null} */}
-                  <div className="user-how-can-we-meet-social-icon-cont">
+                  <div className='user-how-can-we-meet-social-icon-cont'>
                     {postsAuthorInfo?.instagramLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={postsAuthorInfo?.instagramLink}>
-                          <img src="./images/instaIcon.svg" alt="social-icon" />
+                          <img src='./images/instaIcon.svg' alt='social-icon' />
                         </a>
                       </div>
                     )}
                     {postsAuthorInfo?.facebookLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={postsAuthorInfo?.facebookLink}>
                           <img
-                            src="./images/faceBookIcon.svg"
-                            alt="social-icon"
+                            src='./images/faceBookIcon.svg'
+                            alt='social-icon'
                           />
                         </a>
                       </div>
                     )}
                     {postsAuthorInfo?.twitterLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={postsAuthorInfo?.twitterLink}>
                           <img
-                            src="./images/twitterIcon.svg"
-                            alt="social-icon"
+                            src='./images/twitterIcon.svg'
+                            alt='social-icon'
                           />
                         </a>
                       </div>
                     )}
                     {postsAuthorInfo?.linkedinLink === "" ? null : (
-                      <div className="user-how-can-we-meet-social-icon">
+                      <div className='user-how-can-we-meet-social-icon'>
                         <a href={postsAuthorInfo?.linkedinLink}>
                           <img
-                            src="./images/linkedinIcon.svg"
-                            alt="social-icon"
+                            src='./images/linkedinIcon.svg'
+                            alt='social-icon'
                           />
                         </a>
                       </div>
@@ -357,23 +357,23 @@ const CommunityUserProfilePopup = ({
                   ) : null}
                   <div
                     style={{ marginTop: "-1rem" }}
-                    className="user-experience-info-experince"
+                    className='user-experience-info-experince'
                   >
                     {postsAuthorInfo?.experience?.map((item) => {
                       return (
                         <>
-                          <div className="user-experience-info-company-role">
-                            <h3 className="user-experience-info-company-role-company-name">
+                          <div className='user-experience-info-company-role'>
+                            <h3 className='user-experience-info-company-role-company-name'>
                               {item.previousOrCurrentOrganisation}
                             </h3>
                             <ul>
-                              <li className="user-experience-info-company-role-job-profile">
+                              <li className='user-experience-info-company-role-job-profile'>
                                 {item.designation}
                               </li>
-                              <li className="user-experience-info-company-role-job-profile">
+                              <li className='user-experience-info-company-role-job-profile'>
                                 {item.yourRole}
                               </li>
-                              <li className="user-experience-info-company-role-job-profile">
+                              <li className='user-experience-info-company-role-job-profile'>
                                 {item.durationOfYears}
                               </li>
                             </ul>
@@ -392,19 +392,19 @@ const CommunityUserProfilePopup = ({
                   ) : null}
                   <div
                     style={{ marginTop: "-1rem" }}
-                    className="user-education-info-degree-cont"
+                    className='user-education-info-degree-cont'
                   >
                     {postsAuthorInfo?.education?.map((item) => {
                       return (
                         <>
-                          <div className="user-education-info-specific-degree">
-                            <p className="user-education-info-institute-name">
+                          <div className='user-education-info-specific-degree'>
+                            <p className='user-education-info-institute-name'>
                               {item.schoolOrCollege}
                             </p>
-                            <p className="user-education-info-institute-degree">
+                            <p className='user-education-info-institute-degree'>
                               {item.degree}
                             </p>
-                            <p className="user-education-info-institute-time-period">
+                            <p className='user-education-info-institute-time-period'>
                               {item.startingDate}-{item.lastDate}
                             </p>
                           </div>

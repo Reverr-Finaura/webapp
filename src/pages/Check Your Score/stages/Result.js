@@ -35,7 +35,7 @@ const Result = ({ score, data }) => {
         await updateDoc(doc(db, "Users", user?.user?.email), {
           startupScore: data,
         });
-        console.log("done");
+        // console.log("done");
       } catch (err) {
         console.log(err);
       }
@@ -51,10 +51,10 @@ const Result = ({ score, data }) => {
           <Tooltip style={{ border: "none" }} />
           <Pie
             data={series}
-            nameKey="name"
-            dataKey="value"
-            innerRadius="60%"
-            outerRadius="80%"
+            nameKey='name'
+            dataKey='value'
+            innerRadius='60%'
+            outerRadius='80%'
             startAngle={90}
             endAngle={-270}
           >
@@ -66,7 +66,7 @@ const Result = ({ score, data }) => {
             ))}
             <Label
               width={30}
-              position="center"
+              position='center'
               content={<CustomLabel total={res[0] + res[1] + res[2]} />}
             ></Label>
           </Pie>
@@ -79,7 +79,7 @@ const Result = ({ score, data }) => {
             <span>{res[0]}%</span>
           </div>
           <div className={styles.result_label}>
-            <img src="/images/blue_label.png" />
+            <img src='/images/blue_label.png' />
             <span>Team -</span>
             <span>{res[1]}%</span>
           </div>
@@ -106,10 +106,10 @@ const Result = ({ score, data }) => {
 function CustomLabel({ total }) {
   return (
     <>
-      <text x={"133"} y={"90"} fontSize="22">
+      <text x={"133"} y={"90"} fontSize='22'>
         {total}
       </text>
-      <text x={"110"} y={"120"} fontSize="15">
+      <text x={"110"} y={"120"} fontSize='15'>
         out of 100
       </text>
     </>

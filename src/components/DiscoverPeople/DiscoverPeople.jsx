@@ -34,43 +34,78 @@ const DiscoverPeople = () => {
   const [randomUsers, setRandomUsers] = useState([]);
 
   //FETCH USER DATA FROM FIREBASE
+  // useEffect(() => {
+  //   async function fetchUsers() {
+  //     const usersRef = collection(db, "Users");
+  //     const q = query(usersRef);
+  //     const querySnapshot = await getDocs(q);
+  //     var isFinished = false;
+  //     var localUsers = [];
+  //     console.log("querySnapshot", querySnapshot);
+  //     querySnapshot.docs.map((doc, idx) => {
+  //       if (
+  //         doc.data().hasOwnProperty("name") &&
+  //         doc.data().name !== "" &&
+  //         doc.data().hasOwnProperty("image") &&
+  //         doc.data().image !== "" &&
+  //         doc.data().hasOwnProperty("email") &&
+  //         doc.data().email !== currentLoggedInUser?.user?.email &&
+  //         (doc.data().hasOwnProperty("network") // Check if "network" array is present in doc.data()
+  //           ? !doc.data().network.includes(currentLoggedInUser?.user?.email) // if present then only check current user's email is not included in it
+  //           : true)
+  //       ) {
+  //         setUsers((prev) => {
+  //           return [...prev, doc.data()];
+  //         });
+  //         localUsers.push(doc.data());
+  //         if (idx === querySnapshot.docs.length - 1) {
+  //           isFinished = true;
+  //           if (localUsers.length > 0)
+  //             getRandomUsers(8, setRandomUsers, localUsers);
+  //         }
+  //       }
+  //     });
+  //     if (isFinished) {
+  //       localUsers = null;
+  //     }
+  //   }
+  //   fetchUsers();
+  // }, []);
+
+  const [newUsers, setNewUsers] = useState([]);
   useEffect(() => {
-    async function fetchUsers() {
-      const usersRef = collection(db, "Users");
-      const q = query(usersRef);
-      const querySnapshot = await getDocs(q);
-      var isFinished = false;
-      var localUsers = [];
-      console.log("querySnapshot", querySnapshot);
-      querySnapshot.docs.map((doc, idx) => {
-        if (
-          doc.data().hasOwnProperty("name") &&
-          doc.data().name !== "" &&
-          doc.data().hasOwnProperty("image") &&
-          doc.data().image !== "" &&
-          doc.data().hasOwnProperty("email") &&
-          doc.data().email !== currentLoggedInUser?.user?.email &&
-          (doc.data().hasOwnProperty("network") // Check if "network" array is present in doc.data()
-            ? !doc.data().network.includes(currentLoggedInUser?.user?.email) // if present then only check current user's email is not included in it
-            : true)
-        ) {
-          setUsers((prev) => {
-            return [...prev, doc.data()];
-          });
-          localUsers.push(doc.data());
-          if (idx === querySnapshot.docs.length - 1) {
-            isFinished = true;
-            if (localUsers.length > 0)
-              getRandomUsers(8, setRandomUsers, localUsers);
+    const NUM_RANDOM_USERS = 8;
+    const getUsers = async () => {
+      try {
+        const userRef = collection(db, "Users");
+        const userData = await getDocs(query(userRef));
+        const tempNewUsers = [];
+        userData.forEach((doc) => {
+          const data = doc.data();
+          const userShouldBeAdded =
+            data.name !== "" &&
+            data.image !== "" &&
+            data.email !== currentLoggedInUser?.user?.email &&
+            (data.network
+              ? !data.network.includes(currentLoggedInUser?.user?.email)
+              : true);
+
+          if (userShouldBeAdded) {
+            tempNewUsers.push(data);
           }
+        });
+        setNewUsers((prev) => [...prev, ...tempNewUsers]);
+        if (tempNewUsers.length > 0) {
+          await Promise.all([
+            getRandomUsers(NUM_RANDOM_USERS, setRandomUsers, tempNewUsers),
+          ]);
         }
-      });
-      if (isFinished) {
-        localUsers = null; // This removes the reference to the localUsers array
+      } catch (error) {
+        throw new Error();
       }
-    }
-    fetchUsers();
-  }, [currentLoggedInUser]);
+    };
+    getUsers();
+  }, []);
 
   function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {

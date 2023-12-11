@@ -14,7 +14,6 @@ import themeSliceReducer from "../features/themeSlice";
 import onboardingSliceReducer from "../features/onboardingSlice";
 import countryCodeReducer from "../features/countryCodeSlice";
 
-
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -26,10 +25,10 @@ export const store = configureStore({
     chatLatest: chatSliceReducer,
     vibeChat: vibeChatSliceReducer,
     deploy: reDeploySliceReducer,
-    userDoc:userDocReducer,
-    userFundingDoc:userFundingDocReducer,
-    themeColor:themeSliceReducer,
-    onboarding:onboardingSliceReducer,
-    countryCode:countryCodeReducer,
+    userDoc: userDocReducer,
+    userFundingDoc: userFundingDocReducer,
+    themeColor: themeSliceReducer,
+    onboarding: onboardingSliceReducer,
+    countryCode: countryCodeReducer,
   },
 });

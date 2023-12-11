@@ -35,13 +35,6 @@ const Dashboard = () => {
 
   const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
-  console.log("user", userDoc);
-  // const userFundingDoc=useSelector((state)=>state.userFundingDoc)
-
-  // console.log("userFundingDoc",userFundingDoc)
-  console.log("userDocRedux", userDoc);
-  console.log("user", user);
-
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
   const [mentorArray, setMentorArray] = useState([]);
@@ -410,52 +403,52 @@ const Dashboard = () => {
 
       {hasNoUserDoc ? (
         <>
-          <section id="userDocFormModal">
+          <section id='userDocFormModal'>
             <ToastContainer />
-            <div className="userDocFormModal">
+            <div className='userDocFormModal'>
               <input
                 onChange={handleUserDocInputFormInputChange}
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                className="user-doc-input user-doc-input-name"
+                type='text'
+                name='name'
+                placeholder='Your Name'
+                className='user-doc-input user-doc-input-name'
                 value={userDocInputFormInput.name}
               />
               <input
                 onChange={handleUserDocInputFormInputChange}
-                type="text"
-                name="email"
-                placeholder="Your Email"
-                className="user-doc-input user-doc-input-email"
+                type='text'
+                name='email'
+                placeholder='Your Email'
+                className='user-doc-input user-doc-input-email'
                 value={userDocInputFormInput.email}
               />
               <input
                 onChange={handleUserDocInputFormInputChange}
-                type="password"
-                name="password"
-                placeholder="Your Password"
-                className="user-doc-input user-doc-input-pass"
+                type='password'
+                name='password'
+                placeholder='Your Password'
+                className='user-doc-input user-doc-input-pass'
                 value={userDocInputFormInput.password}
               />
               <input
                 onChange={handleUserDocInputFormInputChange}
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                className="user-doc-input user-doc-input-pass"
+                type='password'
+                name='confirmPassword'
+                placeholder='Confirm Password'
+                className='user-doc-input user-doc-input-pass'
                 value={userDocInputFormInput.confirmPassword}
               />
               <input
                 onChange={handleUserDocInputFormInputChange}
-                type="number"
-                name="phone"
-                placeholder="Your Phone Number"
-                className="user-doc-input user-doc-input-phone"
+                type='number'
+                name='phone'
+                placeholder='Your Phone Number'
+                className='user-doc-input user-doc-input-phone'
                 value={userDocInputFormInput.phone}
               />
               <button
                 onClick={handleUserDocInputForm}
-                className="user-doc-input-submit-btn"
+                className='user-doc-input-submit-btn'
               >
                 Submit
               </button>
@@ -476,149 +469,145 @@ const Dashboard = () => {
         </>
       )}
 
-      <section className="dashboard">
+      <section className='dashboard'>
         {/* USER INFO CONTAINER */}
-        <div className="user-container">
+        <div className='user-container'>
           <div>
-            <h1 className="greeting">
+            <h1 className='greeting'>
               Welcome{" "}
               <span>
-                <h4 className="userName">{userName}</h4>
+                <h4 className='userName'>{userName}</h4>
               </span>{" "}
               !
             </h1>
             <img
-              className="handwave-img"
-              src="./images/welcomeImg.png"
-              alt="handwave"
+              className='handwave-img'
+              src='./images/welcomeImg.png'
+              alt='handwave'
             />
           </div>
-          <div className="usser-name-photo">
-            <img className="user-img" src={userImage} alt="user-photo" />
-            <div className="user-name-pos-cont">
+          <div className='usser-name-photo'>
+            <img className='user-img' src={userImage} alt='user-photo' />
+            <div className='user-name-pos-cont'>
               {/* <h4 className="userName">{userName}</h4> */}
               {/* <p className="userPosition">Start-up Owner</p> */}
             </div>
-            <div className="dshboard-user-profile-status-cont">
+            <div className='dshboard-user-profile-status-cont'>
               <UserProfileCompletedStatusBar />
             </div>
           </div>
         </div>
 
         {/* QUOTATION DATA CONTAINER */}
-        <section id="quotation-cont_outerCont">
-        <img
-              className="quotation-cont_faltuIcon1"
-              src="/images/faltuIcon1.png"
-              alt=""
-            />
-            <img
-              className="quotation-cont_faltuIcon2"
-              src="/images/faltuIcon2.png"
-              alt=""
-            />
-        <section id="quotation-cont">
-          <div className="quotation-cont">
-            
-            <h4 className="quote-container-quote">
-              Your reputation is more important than your paycheck, and your
-              integrity is worth more than your career.
-            </h4>
-            <p className="quote-container-author">“ Joshua Johnson “</p>
-            
-          </div>
+        <section id='quotation-cont_outerCont'>
+          <img
+            className='quotation-cont_faltuIcon1'
+            src='/images/faltuIcon1.png'
+            alt=''
+          />
+          <img
+            className='quotation-cont_faltuIcon2'
+            src='/images/faltuIcon2.png'
+            alt=''
+          />
+          <section id='quotation-cont'>
+            <div className='quotation-cont'>
+              <h4 className='quote-container-quote'>
+                Your reputation is more important than your paycheck, and your
+                integrity is worth more than your career.
+              </h4>
+              <p className='quote-container-author'>“ Joshua Johnson “</p>
+            </div>
+          </section>
         </section>
-</section>
         {/* DASHBOARD DATA STARTS */}
 
-        <section id="dashboard-data-cont">
-          <div className="dashboard-data-left-cont">
+        <section id='dashboard-data-cont'>
+          <div className='dashboard-data-left-cont'>
             {/* COURSES CONTAINER */}
 
-            <section className="courses-container">
-              <h4 className="course-container-heading">Courses</h4>
+            <section className='courses-container'>
+              <h4 className='course-container-heading'>Courses</h4>
               {CourseData.map((item, index) => {
                 return <CoursesCard key={index} item={item} />;
               })}
 
-              <div className="load-more-course-btn-cont">
-                <Link to="/knowledge">
-                  <button className="load-more-course-link">Load More </button>
+              <div className='load-more-course-btn-cont'>
+                <Link to='/knowledge'>
+                  <button className='load-more-course-link'>Load More </button>
                 </Link>
               </div>
             </section>
 
             {/* APPLY FOR FUNDING CONTAINER */}
-            <section className="apply-for-funding-cont">
+            <section className='apply-for-funding-cont'>
               <img
-                className="apply-for-funding-img"
-                src="./images/image 302.png"
-                alt="funding-img"
+                className='apply-for-funding-img'
+                src='./images/image 302.png'
+                alt='funding-img'
               />
-              <h4 className="apply-for-funding-title">
+              <h4 className='apply-for-funding-title'>
                 We have got just the patform for you to apply for funding
               </h4>
               <button
                 onClick={() =>
                   window.open("https://reverrapp.com/fundingform", "_blank")
                 }
-                className="apply-for-funding--btn"
+                className='apply-for-funding--btn'
               >
                 Apply for funding
               </button>
             </section>
 
             {/* BLOG CONTAINER */}
-            <section id="dashborad_blog-containerr_outerCont">
-            <img
-                className="blog-containerr_faltuIcon3"
-                src="/images/faltuIcon3.png"
-                alt=""
+            <section id='dashborad_blog-containerr_outerCont'>
+              <img
+                className='blog-containerr_faltuIcon3'
+                src='/images/faltuIcon3.png'
+                alt=''
               />
               <img
-                className="blog-containerr_faltuIcon4"
-                src="/images/faltuIcon4.png"
-                alt=""
+                className='blog-containerr_faltuIcon4'
+                src='/images/faltuIcon4.png'
+                alt=''
               />
-            <section className="blog-containerr">
-             
-              <div className="blog-containerr_Top">
-                <h4
-                  style={{ marginBottom: "1rem" }}
-                  className="course-container-heading"
-                >
-                  Blogs
-                </h4>
-                <button
-                  onClick={() =>
-                    window.open("https://reverr.io/blog", "_blank")
-                  }
-                  className="blog-containerr_Top_loadMoreBtn"
-                >
-                  Load More
-                </button>
-              </div>
-              {blogArray.slice(0, 3).map((item, index) => {
-                return <BlogCard item={item} key={index} />;
-              })}
-            
-            </section>
+              <section className='blog-containerr'>
+                <div className='blog-containerr_Top'>
+                  <h4
+                    style={{ marginBottom: "1rem" }}
+                    className='course-container-heading'
+                  >
+                    Blogs
+                  </h4>
+                  <button
+                    onClick={() =>
+                      window.open("https://reverr.io/blog", "_blank")
+                    }
+                    className='blog-containerr_Top_loadMoreBtn'
+                  >
+                    Load More
+                  </button>
+                </div>
+                {blogArray.slice(0, 3).map((item, index) => {
+                  return <BlogCard item={item} key={index} />;
+                })}
+              </section>
             </section>
           </div>
 
           {/* RIGHT CONTAINER START */}
-          <div className="dashboard-data-right-cont">
+          <div className='dashboard-data-right-cont'>
             {/* MEETING CONTAINER */}
 
-            <section className="meeting-container">
-              <h1 className="meeting-container-titlee">Meetings</h1>
-              <h1 className="meeting-container-current-date">
+            <section className='meeting-container'>
+              <h1 className='meeting-container-titlee'>Meetings</h1>
+              <h1 className='meeting-container-current-date'>
                 {new Date().toDateString().slice(4)}
               </h1>
 
               {hasMeeting ? null : (
                 <>
-                  <h2 className="no-meeting-schedule-msg">
+                  <h2 className='no-meeting-schedule-msg'>
                     No Meeting Scheduled For Today
                   </h2>
                 </>
@@ -630,22 +619,22 @@ const Dashboard = () => {
             </section>
 
             {/* JOIN OUR COMUNITY CONTAINER */}
-            <section className="join-our-comunity-cont">
+            <section className='join-our-comunity-cont'>
               <img
-                className="join-our-comunity-img"
-                src="./images/Group 6267144.png"
-                alt="funding-img"
+                className='join-our-comunity-img'
+                src='./images/Group 6267144.png'
+                alt='funding-img'
               />
-              <h4 className="join-our-comunity-title">
+              <h4 className='join-our-comunity-title'>
                 I am a heading about the community that unites the Startup and
                 helps them grow
               </h4>
               <a
-                href="https://play.google.com/store/apps/details?id=com.reverr"
-                target="_blank"
-                rel="noreferrer"
+                href='https://play.google.com/store/apps/details?id=com.reverr'
+                target='_blank'
+                rel='noreferrer'
               >
-                <button className="join-our-comunity-btn">
+                <button className='join-our-comunity-btn'>
                   Join Our Community
                 </button>
               </a>
@@ -653,8 +642,8 @@ const Dashboard = () => {
 
             {/* MENTOR CONTAINER */}
 
-            <section className="mentors-containerr">
-              <h2 className="mentors-container-titlee">Mentors</h2>
+            <section className='mentors-containerr'>
+              <h2 className='mentors-container-titlee'>Mentors</h2>
               {mentorArray
                 .filter((item) => {
                   return (
@@ -666,10 +655,10 @@ const Dashboard = () => {
                 .map((item) => {
                   return <MentorCard key={item.email} item={item} />;
                 })}
-              <div className="load-more-mentor-btn-cont">
+              <div className='load-more-mentor-btn-cont'>
                 <button
                   onClick={() => navigate("/mentors")}
-                  className="load-more-mentor-btn"
+                  className='load-more-mentor-btn'
                 >
                   Load More
                 </button>

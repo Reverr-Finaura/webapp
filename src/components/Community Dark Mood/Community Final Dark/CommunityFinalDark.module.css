@@ -23,7 +23,8 @@
   align-items: center;
   border-radius: 10px;
   flex-direction: column;
-  height: 50%;
+  /* height: 50%; */
+  padding: 40px;
   width: 85%;
 }
 
@@ -46,7 +47,8 @@
 }
 
 .imageModalSubmitebtn {
-  /* margin-left: auto; */
+  margin-top: 5px;
+  margin-left: auto;
   background: #2a72de;
   border-radius: 10px;
   padding: 2px 16px;
@@ -58,9 +60,9 @@
   border: none;
   /* background-color: #cccccc; */
 
-  position: absolute;
+  /* position: absolute;
   bottom: 18px;
-  right: 50px;
+  right: 50px; */
   cursor: pointer;
 
 
@@ -683,7 +685,7 @@
   border: none;
   border-bottom: 0;
   border-top: 0;
-  margin-top: -10px;
+  /* margin-top: -10px; */
   display: flex;
   justify-content: center;
   /* gap: 1rem; */
@@ -694,11 +696,11 @@
 
 .communityPostImage {
   position: relative !important;
-  width: 70%;
+  /* width: 70%; */
   /* margin: auto; */
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   object-fit: cover;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   width: 100%;
@@ -712,7 +714,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  color: var(--main-text);
+  color: white;
 }
 
 .EdituploadPostContainerrrr {
@@ -735,10 +737,9 @@
   display: flex;
 }
 
-.editPostContainer-edit-container {
+.editPostContainereditcontainer {
   width: 50%;
   height: max-content;
-  background-color: var(--bg-sub-card);
   border-radius: 11px;
   margin: auto;
   padding: 1rem;
@@ -748,7 +749,7 @@
 
 }
 
-.edit-communityPostImage-cont {
+.editcommunityPostImagecont {
   width: 96.6%;
   border: none;
   border-bottom: 0;
@@ -759,26 +760,26 @@
   gap: 1rem;
 }
 
-.edit-communityPostImage {
+.editcommunityPostImage {
   width: 209px;
   height: 150px;
   /* margin: auto; */
   margin-bottom: 1rem;
 }
 
-.edit_Delete_Btn {
+.editDeleteBtn {
   display: flex;
-
-  width: 100px;
+  /* width: 100px; */
   justify-content: space-around;
   position: absolute;
+  gap: 10px;
   right: 0px;
   top: -28px;
 }
 
 .delete_Btn,
-.edit_Btn {
-  font-size: 1.5rem;
+.editBtn {
+  font-size: 1.3rem;
   cursor: pointer;
 }
 
@@ -1647,7 +1648,7 @@ body::-webkit-scrollbar {
     margin-left: 2rem;
   }
 
-  .editPostContainer-edit-container {
+  .editPostContainereditcontainer {
     margin-left: 3rem;
     width: 68%;
   }
@@ -1725,7 +1726,7 @@ body::-webkit-scrollbar {
     left: 0;
   }
 
-  .editPostContainer-edit-container {
+  .editPostContainereditcontainer {
     width: 85%;
   }
 
@@ -1738,7 +1739,7 @@ body::-webkit-scrollbar {
     margin-top: 2.5rem;
   }
 
-  .editPostContainer-edit-container {
+  .editPostContainereditcontainer {
     margin: auto;
     width: 88%;
   }

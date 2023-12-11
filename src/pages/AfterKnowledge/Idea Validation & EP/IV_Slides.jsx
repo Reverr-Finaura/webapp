@@ -240,7 +240,8 @@ const IV_Slides = () => {
       </div>
       <div className={styles.page_line}>
         <div style={{ width: `${((currIndex + 1) / totalLen) * 100}%` }}>
-          <span style={{ color: "black" }}>{currIndex + 1}</span>/
+          <span style={{ color: "black" }}>{currIndex + 1}</span>
+          <span style={{ color: "black" }}>/</span>
           <span style={{ color: "black" }}>{totalLen}</span>
         </div>
       </div>

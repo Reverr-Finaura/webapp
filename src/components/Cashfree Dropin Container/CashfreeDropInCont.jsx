@@ -23,7 +23,7 @@ function CashfreeDropInCont({
   const [orderDetails, setOrderDetails] = useState(null);
   // const user=useSelector((state)=>state.user)
 
-  console.log(mentorDetails, "mentorDetails");
+  // console.log(mentorDetails, "mentorDetails");
   const [checkedState, setCheckedState] = useState(
     new Array(dropinComponents.length).fill(true)
   );
@@ -36,7 +36,7 @@ function CashfreeDropInCont({
     "netbanking",
   ]);
   const cbs = (data) => {
-    console.log(data, "sucess");
+    // console.log(data, "sucess");
     setOrderDetails(data);
     // if (data.order && data.order.status === 'PAID') {
     //   alert('order is paid. Call api to verify');
@@ -44,7 +44,7 @@ function CashfreeDropInCont({
   };
   const cbf = (data) => {
     // alert(data.order.errorText || 'ERROR');
-    console.log(data, "errro data");
+    // console.log(data, "errro data");
     setOrderDetails(data);
   };
 

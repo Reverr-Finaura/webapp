@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Chapter.module.css";
 import { useNavigate } from "react-router-dom";
 
-function Chapter({ heading, image, description, url ,faltuImage}) {
+function Chapter({ heading, image, description, url, faltuImage }) {
   // const [image, setImage] = useState("");
   const navigate = useNavigate();
-
 
   return (
     <div
@@ -14,9 +13,31 @@ function Chapter({ heading, image, description, url ,faltuImage}) {
         navigate(url);
       }}
     >
-{faltuImage?<img className={heading==="Idea Validation"?styles.idealValidationIcon:heading==="Fundraising and its Means"?styles.fundRaisingIcon:heading==="Beta Testing"?styles.betaTestingIcon:heading==="Business Modal"?styles.businessModalIcon:heading==="Business Planning"?styles.businessPlaningIcon:heading==="Product Development"?styles.productDevIcon:heading==="THINKING OF A STARTUP IDEA & IDEA SHORTLISTING"?styles.thinkingStartupIcon:null} src={faltuImage} alt="icon" />:null}
+      {faltuImage ? (
+        <img
+          className={
+            heading === "Idea Validation"
+              ? styles.idealValidationIcon
+              : heading === "Fundraising and its Means"
+              ? styles.fundRaisingIcon
+              : heading === "Beta Testing"
+              ? styles.betaTestingIcon
+              : heading === "Business Model"
+              ? styles.businessModalIcon
+              : heading === "Business Planning"
+              ? styles.businessPlaningIcon
+              : heading === "Product Development"
+              ? styles.productDevIcon
+              : heading === "THINKING OF A STARTUP IDEA & IDEA SHORTLISTING"
+              ? styles.thinkingStartupIcon
+              : null
+          }
+          src={faltuImage}
+          alt='icon'
+        />
+      ) : null}
       <div className={styles.details}>
-        <img src={image} alt="" />
+        <img src={image} alt='' />
         <div className={styles.info}>
           <p className={styles.name}>{heading}</p>
           <p className={styles.description}>{description}</p>
@@ -27,7 +48,7 @@ function Chapter({ heading, image, description, url ,faltuImage}) {
           <img src="./images/bookIcon.svg" alt="" />
         </div> */}
         <div>
-          <img src="./images/play.svg" alt="" />
+          <img src='./images/play.svg' alt='' />
         </div>
         {/* <div>
           <img src="./images/bookmark.svg" alt="" />

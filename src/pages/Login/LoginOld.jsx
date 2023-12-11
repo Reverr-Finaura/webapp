@@ -201,7 +201,7 @@ function Auth() {
         );
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -233,7 +233,7 @@ function Auth() {
         );
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -352,10 +352,9 @@ function Auth() {
     window.open("https://server.reverr.io/api/linkedin/authorize", "_self");
   };
 
-
   return (
     <>
-         {signInWithOTPModal && (
+      {signInWithOTPModal && (
         <>
           <section className={styles.outerCont}>
             <div className={styles.innerCont}>
@@ -370,8 +369,8 @@ function Auth() {
                     <input
                       className={styles.inputCont}
                       onChange={(e) => setMobileNumber(e.target.value)}
-                      type="text"
-                      placeholder="Mobile Number"
+                      type='text'
+                      placeholder='Mobile Number'
                       value={mobileNumber}
                     />
                     <CountryCodePicker />
@@ -385,8 +384,8 @@ function Auth() {
                     {loading ? (
                       <img
                         className={styles.loaderr}
-                        src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                        alt="loader"
+                        src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                        alt='loader'
                       />
                     ) : (
                       "Send OTP"
@@ -412,8 +411,8 @@ function Auth() {
                   <input
                     className={styles.writeOtpInputCont}
                     onChange={(e) => setOtpValue(e.target.value)}
-                    type="text"
-                    placeholder="OTP"
+                    type='text'
+                    placeholder='OTP'
                     value={otpValue}
                   />
                   {seconds > 0 || minutes > 0 ? (
@@ -439,8 +438,8 @@ function Auth() {
                       {loading ? (
                         <img
                           className={styles.loaderr}
-                          src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                          alt="loader"
+                          src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                          alt='loader'
                         />
                       ) : (
                         "Login"
@@ -455,8 +454,8 @@ function Auth() {
                       {loading ? (
                         <img
                           className={styles.loaderr}
-                          src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                          alt="loader"
+                          src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                          alt='loader'
                         />
                       ) : (
                         "Resend OTP"
@@ -481,7 +480,7 @@ function Auth() {
                   ? "/images/Reverr Black 1.png"
                   : "/images/reaver-logo.svg"
               }
-              alt=""
+              alt=''
             />
             <p className={styles.brandName}>REVERR</p>
           </div>
@@ -506,8 +505,8 @@ function Auth() {
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
-                  src="/images/icons8-google-48 1.png"
-                  alt="gICon"
+                  src='/images/icons8-google-48 1.png'
+                  alt='gICon'
                 />
               </span>
               Log in with google{" "}
@@ -519,8 +518,8 @@ function Auth() {
               <span className={styles.gIconCont}>
                 <img
                   className={styles.gICon}
-                  src="/images/business-and-finance.png"
-                  alt="gICon"
+                  src='/images/business-and-finance.png'
+                  alt='gICon'
                 />
               </span>
               Log in with OTP{" "}
@@ -530,7 +529,7 @@ function Auth() {
             onClick={handleLinkedinLogin}
             className={styles.linkedinLoginCont}
           >
-            <img src={linkedinLogin} alt="linkedinLogin" />
+            <img src={linkedinLogin} alt='linkedinLogin' />
           </div>
           <p className={styles.orText}>-OR-</p>
           <form onSubmit={loginEmail} className={styles.form}>
@@ -540,8 +539,8 @@ function Auth() {
                 className={styles.inputPhoneNumber}
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                type="text"
-                placeholder="Enter Your Email / Mobile Number"
+                type='text'
+                placeholder='Enter Your Email / Mobile Number'
                 required
               />
               {showCodePicker && <CountryCodePicker />}
@@ -550,21 +549,21 @@ function Auth() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               className={styles.input}
-              type="password"
-              name="email"
-              placeholder="Password"
+              type='password'
+              name='email'
+              placeholder='Password'
               required
             />
             <button
               disabled={isLogginInUsingLinkedIn}
               className={styles.Button}
-              type="submit"
+              type='submit'
             >
               {isLogginInUsingLinkedIn ? (
                 <img
                   className={styles.loaderr}
-                  src="https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a"
-                  alt="loader"
+                  src='https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Utils%2FWHITE%20Spinner-1s-343px.svg?alt=media&token=54b9d527-0969-41ff-a598-0fc389b2575a'
+                  alt='loader'
                 />
               ) : (
                 "Login Now"
@@ -573,13 +572,13 @@ function Auth() {
           </form>
           <p className={styles.randomtext}>
             Need an account?{" "}
-            <Link className={styles.linkk} to="/signup">
+            <Link className={styles.linkk} to='/signup'>
               Sign Up
             </Link>
           </p>
           <p className={styles.randomtext}>
             Forgot Password?{" "}
-            <Link to="/forgotpassword" className={styles.linkk}>
+            <Link to='/forgotpassword' className={styles.linkk}>
               Click Here
             </Link>
           </p>

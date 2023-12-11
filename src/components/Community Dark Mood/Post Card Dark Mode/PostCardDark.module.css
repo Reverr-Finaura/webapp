@@ -700,7 +700,7 @@ img {
 
   .rightArrowImg {
     top: 13px;
-    right: 13px;
+    right: 5px;
     width: 20.1%;
   }
 
@@ -711,6 +711,14 @@ img {
   #postCommentContainerExpanded {
     height: 47px !important;
     width: 90%;
+  }
+
+  .expandTextAreaIcon {
+    left: 25px;
+  }
+
+  .communityNewCommentContUserImage {
+    margin-right: 0;
   }
 }
 

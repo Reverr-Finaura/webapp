@@ -6,7 +6,13 @@ import styles from "./UserEditProfileTesting.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { db, getUserDocByRef, auth, storage } from "../../firebase";
+import {
+  db,
+  getUserDocByRef,
+  auth,
+  storage,
+  getUserFromDatabase,
+} from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
@@ -26,23 +32,37 @@ const UserEditProfileTesting = () => {
 
   const connectVia = ["Video Call", "Phone Call", "At Coffee"];
 
-  useEffect(() => {
-    async function fetchUserDocFromFirebase() {
-      const userDataRef = collection(db, "Users");
-      const q = query(userDataRef);
-      const querySnapshot = await getDocs(q);
+  // useEffect(() => {
+  //   async function fetchUserDocFromFirebase() {
+  //     const userDataRef = collection(db, "Users");
+  //     const q = query(userDataRef);
+  //     const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach((doc) => {
-        setUserDocId((prev) => {
-          return [...prev, doc.id];
-        });
-        if (doc.id === user?.user?.email) {
-          dispatch(setUserDoc(doc.data()));
-        }
-      });
-    }
-    fetchUserDocFromFirebase();
-  }, [user]);
+  //     querySnapshot.forEach((doc) => {
+  //       setUserDocId((prev) => {
+  //         return [...prev, doc.id];
+  //       });
+  //       if (doc.id === user?.user?.email) {
+  //         dispatch(setUserDoc(doc.data()));
+  //       }
+  //     });
+  //   }
+  //   fetchUserDocFromFirebase();
+  // }, [user]);
+
+  const [editUserDoc, setEditUserDoc] = useState({});
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const userData = await getUserFromDatabase(user?.user?.email);
+        dispatch(setUserDoc(userData));
+      } catch (error) {
+        throw new Error();
+      }
+    };
+    getUser();
+  }, []);
 
   useEffect(() => {
     if (userDoc?.hasFundingProfile === "No") {
@@ -266,7 +286,6 @@ const UserEditProfileTesting = () => {
     setFormData((prev) => {
       const updatedEducation = [...prev.education];
       updatedEducation.splice(index, 1);
-
       return {
         ...prev,
         education: updatedEducation,
@@ -324,6 +343,7 @@ const UserEditProfileTesting = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // console.log(progress);
       },
       (error) => {
         console.log(error);
@@ -367,7 +387,6 @@ const UserEditProfileTesting = () => {
           <p>Edit Profile</p>
         </div>
         <div className={styles.profileImage}>
-          {/* <img src="/images/UserProfileTest.png" alt="Linkedin" /> */}
           <img
             src={
               formData?.image && formData?.image !== ""

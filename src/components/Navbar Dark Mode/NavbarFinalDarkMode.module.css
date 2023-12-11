@@ -611,6 +611,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-left: 15px;
 }
 
 .closeBtn {
@@ -860,7 +861,7 @@
   .notificationBar {
     top: 0px;
     left: 0%;
-
+    padding: 15px;
     width: 258px;
   }
 

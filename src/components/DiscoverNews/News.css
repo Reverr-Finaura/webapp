@@ -1,20 +1,17 @@
-.news-section{
-   
-}
-.news{
+.news {
     padding-left: 7%;
 }
 
-.row{
+.row {
     display: grid;
     grid-template-columns: 50% 50%;
 
-   
+
 }
 
 @media screen and (max-width: 950px) {
-    .row{
-       
+    .row {
+
         grid-template-columns: 100%;
     }
 }

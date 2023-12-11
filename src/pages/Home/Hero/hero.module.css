@@ -4,6 +4,7 @@
   width: 80%;
   margin: auto;
 }
+
 .hc_textContainer {
   color: white;
   width: 34.75rem;
@@ -66,12 +67,15 @@
     width: 90%;
     height: 90%;
   }
+
   .hc_heroText {
     font-size: 30px;
   }
+
   .hc_heroSubtext {
     font-size: 20px;
   }
+
   .hc_imStartUp {
     font-size: 100%;
   }
@@ -79,6 +83,7 @@
   .styles.heroImage {
     width: 90%;
   }
+
   .hac_scrollDownText {
     display: none;
   }
@@ -91,26 +96,31 @@
     margin: auto;
     text-align: center;
   }
+
   .hc_textContainer {
     text-align: center;
     display: flex;
     flex-direction: column;
     width: 100%;
   }
+
   .hc_imageContainer {
     text-align: center;
     display: flex;
     flex-direction: column;
   }
+
   .hc_signUpButton {
     margin: auto;
     margin-top: 30px;
   }
+
   .hc_heroSubtext {
     text-align: center;
     width: 100%;
   }
-  .heroImage > img {
+
+  .heroImage>img {
     height: 7rem;
   }
 }

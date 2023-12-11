@@ -27,19 +27,19 @@ import { setName } from "../../features/onboardingSlice";
 import { create } from "../../features/newUserSlice";
 
 const LoginTesting = () => {
+  const provider = new GoogleAuthProvider();
   const [metaData, setMetaData] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const selectedCountry = useSelector((state) => state.countryCode);
-  const [signInWithOTPModal, setSignInWithOTPModal] = useState(false);
-  const theme = useSelector((state) => state.themeColor);
-  const [tempOtp, setTempOtp] = useState(null);
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [otpValue, setOtpValue] = useState("");
+  // const selectedCountry = useSelector((state) => state.countryCode);
+  // const [signInWithOTPModal, setSignInWithOTPModal] = useState(false);
+  // const theme = useSelector((state) => state.themeColor);
+  // const [tempOtp, setTempOtp] = useState(null);
+  // const [mobileNumber, setMobileNumber] = useState("");
+  // const [otpValue, setOtpValue] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const provider = new GoogleAuthProvider();
   const [showCodePicker, setShowCodePicker] = useState(false);
   const queryy = useQuery();
   const user_code = queryy.get("code");
@@ -246,7 +246,7 @@ const LoginTesting = () => {
   //     });
   // };
   const signInWithGoogle = () => {
-    console.log("signInWithGoogle");
+    // console.log("signInWithGoogle");
     signInWithPopup(auth, provider)
       .then(async () => {
         const docRef = doc(db, "Users", auth.currentUser.email);
@@ -254,7 +254,7 @@ const LoginTesting = () => {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            console.log("docSnap exists");
+            // console.log("docSnap exists");
             dispatch(setUserData(docSnap.data()));
             dispatch(
               login({
@@ -264,10 +264,10 @@ const LoginTesting = () => {
                 profilePic: auth.currentUser.photoURL,
               })
             );
-            console.log(auth.currentUser.email);
+            // console.log(auth.currentUser.email);
             navigate("/community");
           } else {
-            console.log("User document does not exist.");
+            // console.log("User document does not exist.");
             dispatch(setUserData(docSnap.data()));
             dispatch(
               create({
@@ -322,7 +322,7 @@ const LoginTesting = () => {
         });
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/community");
       })
       .catch((error) => {
@@ -372,7 +372,7 @@ const LoginTesting = () => {
         );
       })
       .then(() => {
-        toast.success("Sucessfully logged in");
+        toast.success("Successfully logged in");
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -515,7 +515,7 @@ const LoginTesting = () => {
   //   setShowPassword(!showPassword);
   // };
 
-  console.log("Set Show Password", showPassword);
+  // console.log("Set Show Password", showPassword);
   return (
     <>
       <NavBarFinalDarkMode isLoggedIn={false} />

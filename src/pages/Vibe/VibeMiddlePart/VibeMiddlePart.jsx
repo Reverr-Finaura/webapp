@@ -38,7 +38,7 @@ import MatchedUserScreen from "./matchedUserScreen/MatchedUserScreen";
 import { useSwipeable } from "react-swipeable";
 
 const VibeMiddlePart = () => {
-  const [ispremium, setIsPremium] = useState(true);
+  const [ispremium, setIsPremium] = useState(false);
   const [redo, SetRedo] = useState(false);
   const [frtext, setFRText] = useState("");
   const [filter, setFilter] = useState(false);
@@ -85,11 +85,9 @@ const VibeMiddlePart = () => {
     where: "",
   });
 
-  const toggle = () => {
-    setModal(!modal);
-  };
-
-  console.log("preeee", ispremium);
+  // const toggle = () => {
+  //   setModal(!modal);
+  // };
 
   useEffect(() => {
     function checkPremiumStatus() {
@@ -130,7 +128,7 @@ const VibeMiddlePart = () => {
 
   const getUserData = async () => {
     try {
-      console.log("userDoc data fetch");
+      // console.log("userDoc data fetch");
       setIsLoadingData(true);
       const userRef = collection(db, "Users");
       const userquery = query(userRef);
@@ -141,11 +139,11 @@ const VibeMiddlePart = () => {
       const userDocData = userDocsnapshot.data();
 
       const likedByCurrentUser = userDocData?.likes || [];
-      console.log("likedByCurrentUser", likedByCurrentUser);
+      // console.log("likedByCurrentUser", likedByCurrentUser);
       const fleshedByCurrentUser = userDocData?.passed_email || [];
-      console.log("fleshedByCurrentUser", fleshedByCurrentUser);
+      // console.log("fleshedByCurrentUser", fleshedByCurrentUser);
       const matchedUsers = userDocData?.matched_user || [];
-      console.log("matchedUsers", matchedUsers);
+      // console.log("matchedUsers", matchedUsers);
 
       const filteredDocs = usersnapshot.docs.filter(
         (doc) =>
@@ -194,7 +192,7 @@ const VibeMiddlePart = () => {
     }
     setUserData(filteredList);
     setNoMoreVibeData(filteredList.length === 0);
-    console.log("Lorem ipsum dolor sit amet, consectetur");
+    // console.log("Lorem ipsum dolor sit amet, consectetur");
   };
 
   const clearFilterData = () => {
@@ -237,18 +235,18 @@ const VibeMiddlePart = () => {
     let isdisplayed = false;
     const unsubscribe = onSnapshot(userRef, async (snapshot) => {
       const matchedUsers = snapshot.data().matched_user;
-      console.log("MATCHEDUSERS", matchedUsers);
+      // console.log("MATCHEDUSERS", matchedUsers);
       if (!isdisplayed && matchedUsers.includes(email)) {
         setIsMatchedUser(true);
         const userDocRef = doc(db, "Users", email);
         const matchedUserDoc = await getDoc(userDocRef);
-        console.log("MATCHEDUSERDOC", matchedUserDoc.data());
+        // console.log("MATCHEDUSERDOC", matchedUserDoc.data());
         const matchedUserData = {
           currentUserData: snapshot.data(),
           matchedUserData: matchedUserDoc.data(),
         };
         setMatchedUser(matchedUserData);
-        console.log("MATCHEDUSERDATA", matchedUserData);
+        // console.log("MATCHEDUSERDATA", matchedUserData);
         isdisplayed = true;
         unsubscribe();
       }
@@ -257,11 +255,11 @@ const VibeMiddlePart = () => {
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      console.log("Swiped left!");
+      // console.log("Swiped left!");
       handleNopeCkick();
     },
     onSwipedRight: () => {
-      console.log("Swiped right!");
+      // console.log("Swiped right!");
       handleLikeCkick();
     },
     trackMouse: true,
@@ -345,7 +343,7 @@ const VibeMiddlePart = () => {
       setFilter(!filter);
     }
   };
-  console.log(filter);
+  // console.log(filter);
 
   //---------------------Swipe Limit Code Start---------------------//
   useEffect(() => {
@@ -386,7 +384,7 @@ const VibeMiddlePart = () => {
             setSwipeLimit({ swipeRemaining: 10, swipeUpdateTime: updateTime });
           }
         } else {
-          console.log("No such document!");
+          // console.log("No such document!");
         }
 
         setLoadingSwipeData(false);
@@ -418,7 +416,7 @@ const VibeMiddlePart = () => {
     } else {
       // If the user is premium swipeUpdateTime is already passed, reset swipeRemaining to 10 and update swipeUpdateTime
       if (ispremium || swipeLimit.swipeUpdateTime < new Date().getTime()) {
-        console.log("it't time to reset");
+        // console.log("it't time to reset");
         setSwipeLimit((prevState) => ({
           ...prevState,
           swipeRemaining: 10,
@@ -509,50 +507,54 @@ const VibeMiddlePart = () => {
 
   const handleSuperlike = async () => {
     // i have still superlike remaining and the update time is not reached yet
-    if (
-      superlikelimit?.superlikecount > 0 &&
-      superlikelimit?.superlikeUpdateTime > new Date().getTime()
-    ) {
-      // User has remaining swipes, decrease swipeRemaining by 1
-      const newSuperlikeRemaining = superlikelimit.superlikecount - 1;
-      setSuperlikeLimit((prevState) => ({
-        ...prevState,
-        superlikecount: newSuperlikeRemaining,
-      }));
-      await updateSuperlikeLimit({
-        superlikecount: newSuperlikeRemaining,
-        superlikeUpdateTime: superlikelimit.superlikeUpdateTime,
-      });
-    } else {
-      // If superlikeUpdateTime is already passed, reset superlikeRemaining to 1 and update superlikeUpdateTime
-      if (superlikelimit.superlikeUpdateTime < new Date().getTime()) {
-        console.log("super like time update");
-        if (userDoc?.premiumData?.subscriptionPlan) {
-          setSuperlikeLimit((prevState) => ({
-            ...prevState,
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
-          }));
-          // setIsLikesEXhaust(false);
-          await updateSuperlikeLimit({
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
-          });
-        } else {
-          setSuperlikeLimit((prevState) => ({
-            ...prevState,
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
-          }));
-          // setIsLikesEXhaust(false);
-          await updateSuperlikeLimit({
-            superlikecount: 1,
-            superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
-          });
-        }
+    if (ispremium) {
+      if (
+        superlikelimit?.superlikecount > 0 &&
+        superlikelimit?.superlikeUpdateTime > new Date().getTime()
+      ) {
+        // User has remaining swipes, decrease swipeRemaining by 1
+        const newSuperlikeRemaining = superlikelimit.superlikecount - 1;
+        setSuperlikeLimit((prevState) => ({
+          ...prevState,
+          superlikecount: newSuperlikeRemaining,
+        }));
+        await updateSuperlikeLimit({
+          superlikecount: newSuperlikeRemaining,
+          superlikeUpdateTime: superlikelimit.superlikeUpdateTime,
+        });
       } else {
-        console.log("wait for superlikeUpdateTime");
+        // If superlikeUpdateTime is already passed, reset superlikeRemaining to 1 and update superlikeUpdateTime
+        if (superlikelimit.superlikeUpdateTime < new Date().getTime()) {
+          console.log("super like time update");
+          if (userDoc?.premiumData?.subscriptionPlan) {
+            setSuperlikeLimit((prevState) => ({
+              ...prevState,
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
+            }));
+            // setIsLikesEXhaust(false);
+            await updateSuperlikeLimit({
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 24 * 60 * 60 * 1000,
+            });
+          } else {
+            setSuperlikeLimit((prevState) => ({
+              ...prevState,
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
+            }));
+            // setIsLikesEXhaust(false);
+            await updateSuperlikeLimit({
+              superlikecount: 1,
+              superlikeUpdateTime: new Date().getTime() + 168 * 60 * 60 * 1000,
+            });
+          }
+        } else {
+          console.log("wait for superlikeUpdateTime");
+        }
       }
+    } else {
+      setPremiumModalStatus(true);
     }
   };
 
@@ -876,6 +878,7 @@ const VibeMiddlePart = () => {
   };
 
   const HandleUndo = async () => {
+    console.log("undo");
     if (ispremium) {
       if (recentPassedUser.where === "liked") {
         console.log("Undoing like move");
@@ -968,8 +971,11 @@ const VibeMiddlePart = () => {
       } else if (recentPassedUser.where === "passed") {
         HandleUndoPassMove();
       }
+    } else {
+      setPremiumModalStatus(true);
     }
   };
+  console.log(recentPassedUser, ispremium);
   return (
     <>
       {premiumModalStatus ? (

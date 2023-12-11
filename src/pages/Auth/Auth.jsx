@@ -19,7 +19,7 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const theme=useSelector((state)=>state.themeColor)
+  const theme = useSelector((state) => state.themeColor);
   const dispatch = useDispatch();
 
   const provider = new GoogleAuthProvider();
@@ -49,7 +49,6 @@ function Auth() {
   const signUpEmail = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      
       function generate(n) {
         var add = 1,
           max = 12 - add;
@@ -72,14 +71,14 @@ function Auth() {
           password,
         })
       );
-  
+
       var templateParams = {
         from_name: "Reverr",
         to_name: firstName + " " + lastName,
         to_email: email,
         otp,
       };
-      
+
       emailjs
         .send(
           "service_lfmmz8k",
@@ -89,10 +88,10 @@ function Auth() {
         )
         .then(
           function (response) {
-            console.log("SUCCESS!", response.status, response.text);
+            // console.log("SUCCESS!", response.status, response.text);
           },
           function (error) {
-            console.log("FAILED...", error);
+            // console.log("FAILED...", error);
           }
         )
         .then(() => {
@@ -102,7 +101,7 @@ function Auth() {
           toast.success("An OTP has been sent to your e-mail");
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
           toast.error(error.message);
         });
     } else {
@@ -126,60 +125,62 @@ function Auth() {
               className={styles.googleSignUpBtn}
               onClick={signInWithGoogle}
             >
-              <img src="/images/image 134.svg" alt="" />
+              <img src='/images/image 134.svg' alt='' />
               Sign up with Google
             </Button>
           </div>
           <div>
             <p>Or Sign Up with your E-mail</p>
           </div>
-          <form >
+          <form>
             <div className={styles.name}>
               <input
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
-                type="text"
-                placeholder="First Name"
+                type='text'
+                placeholder='First Name'
               />
               <input
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
-                type="text"
-                placeholder="Last Name"
+                type='text'
+                placeholder='Last Name'
               />
             </div>
             <div>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                type="email"
-                placeholder="Your E-Mail"
+                type='email'
+                placeholder='Your E-Mail'
               />
             </div>
             <div>
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                type="password"
-                placeholder="Enter a password"
+                type='password'
+                placeholder='Enter a password'
               />
             </div>
             <div>
               <input
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
-                type="password"
-                placeholder="Confirm Password"
+                type='password'
+                placeholder='Confirm Password'
               />
             </div>
             <div className={styles.email_signup}>
-              <Button onClick={signUpEmail} type="submit">Sign Up</Button>
+              <Button onClick={signUpEmail} type='submit'>
+                Sign Up
+              </Button>
             </div>
           </form>
           <div className={styles.signupBottom}>
             <div className={styles.links}>
               <p>Already have an account? </p>
-              <Link className={styles.login_link} to="/login">
+              <Link className={styles.login_link} to='/login'>
                 Login Here
               </Link>
             </div>

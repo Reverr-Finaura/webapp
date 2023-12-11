@@ -24,7 +24,7 @@ const DocumentSlide = ({ tag }) => {
   useEffect(() => {
     getAllDocuments(tag);
   }, [tag]);
-  console.log(AllTagDocuments);
+  // console.log(AllTagDocuments);
 
   const DocumentData = [
     {
@@ -81,7 +81,7 @@ const DocumentSlide = ({ tag }) => {
   return (
     <section className={styles.documentTemplates_main}>
       <h2 className={styles.Document_Template_title}>{tag}</h2>
-      
+
       <Swiper
         spaceBetween={350}
         slidesPerView={4}

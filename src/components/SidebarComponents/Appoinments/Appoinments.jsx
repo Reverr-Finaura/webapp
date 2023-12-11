@@ -47,12 +47,12 @@ function Appoinments() {
               <div className={styles.imageContainer}>
                 <img
                   src={require("../../../images/userIcon.png")}
-                  alt="Image1"
+                  alt='Image1'
                   className={styles.image1}
                 />
                 <img
                   src={require("../../../images/userIcon.png")}
-                  alt="Image2"
+                  alt='Image2'
                   className={styles.image2}
                 />
               </div>
@@ -65,7 +65,7 @@ function Appoinments() {
                   {" "}
                   <img
                     src={clock}
-                    alt="img"
+                    alt='img'
                     style={{ width: 8, height: 8, display: "inline" }}
                   />
                   &nbsp; 10:00 AM
@@ -79,7 +79,7 @@ function Appoinments() {
         } else if (row.type === "event") {
           return (
             <div className={styles.eventRow}>
-              <img src={require("../../../images/image 3.png")} alt="img" />
+              <img src={require("../../../images/image 3.png")} alt='img' />
               <div>
                 <text style={{ color: "#A7A7A7", fontSize: 8 }}>Tomorrow</text>
                 <text style={{ color: "#ffffff", fontSize: 12, marginTop: 5 }}>
@@ -92,7 +92,7 @@ function Appoinments() {
                   {" "}
                   <img
                     src={clock}
-                    alt="img"
+                    alt='img'
                     style={{ width: 8, height: 8, display: "inline" }}
                   />
                   &nbsp; 10:00 AM
@@ -101,7 +101,7 @@ function Appoinments() {
                   {" "}
                   <img
                     src={peopleGroup}
-                    alt="img"
+                    alt='img'
                     style={{ width: 8, height: 8, display: "inline" }}
                   />
                   &nbsp; 123 people attending

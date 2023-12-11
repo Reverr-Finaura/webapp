@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { nonscoredData, scoredData } from "./scores";
 
 const Market = ({ setStage, data, setData, score, setScore }) => {
-  console.log(data);
+  // console.log(data);
   const handleNext = () => {
     if (Object.keys(data["Market"]).length < 41) {
       toast.error("Kindly Fill All Mandatory Fields");
@@ -24,7 +24,7 @@ const Market = ({ setStage, data, setData, score, setScore }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(data);
+    // console.log(data);
     setData((prev) => {
       return { ...prev, ["Market"]: { ...prev["Market"], [name]: value } };
     });
@@ -158,7 +158,7 @@ const Market = ({ setStage, data, setData, score, setScore }) => {
 
         <DropDown
           defaultValue={"select"}
-          name="competitors"
+          name='competitors'
           value={data?.Market?.competitors}
           onChange={handleChange}
           title={"Do you have any competitors?"}
@@ -359,7 +359,7 @@ const Market = ({ setStage, data, setData, score, setScore }) => {
             <h3>LEVERAGE</h3>
             <DropDown
               defaultValue={"select"}
-              name="eqt_ratio"
+              name='eqt_ratio'
               value={data?.Market?.eqt_ratio}
               onChange={handleDropdown}
               tooltip={true}
@@ -368,7 +368,7 @@ const Market = ({ setStage, data, setData, score, setScore }) => {
               options={scoredData.eqt_ratio}
             />
             <Input
-              name="service_ratio"
+              name='service_ratio'
               value={data?.Market?.service_ratio}
               onChange={handleChange}
               title={"Debt Service Coverage Ratio"}

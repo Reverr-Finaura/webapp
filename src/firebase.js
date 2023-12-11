@@ -83,7 +83,7 @@ export const getMentorMsgs = async (email) => {
       clients.push({ ...doc.data(), email: doc.id });
     });
 
-    console.log(clients);
+    // console.log(clients);
     return clients;
   } catch (err) {
     console.log("Err: ", err);
@@ -204,12 +204,10 @@ export const deleteMatchedInMessagesDoc = async (userId, senderId) => {
 };
 
 export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
-  // const userEmail = currentcUser?.email;
   if (!userEmail) {
     throw new Error("User email not available");
   }
   const ref = doc(db, "Messages", userEmail);
-
   try {
     const f = collection(ref, "Matched");
     const matchedSnapshot = await getDocs(f);
@@ -219,9 +217,7 @@ export const getAllMatchedUserHavingChatWith = async (userEmail, setList) => {
       bucket: "Matched",
     }));
     setList(matchedData);
-    console.log("matched", matchedData);
   } catch (error) {
-    // Handle error fetching from the 'f' collection (Matched)
     console.error("Error fetching from 'f' collection:", error);
   }
 };
@@ -418,10 +414,10 @@ export const updatereadmessage = async (currentcUser, sendTo) => {
   const senderRef = doc(db, "Messages", currentcUser.email);
   const furtherSenderRef = doc(senderRef, "Matched", sendTo);
   const chatdoc = await getDoc(furtherSenderRef);
-  console.log("fufnsda", chatdoc.data());
+  // console.log("fufnsda", chatdoc.data());
   try {
     let updatedmessges = chatdoc.data().messages.map((m) => {
-      console.log("mmmmm", m);
+      // console.log("mmmmm", m);
       if (m.read === false) {
         m.read = true;
       }
@@ -437,7 +433,7 @@ export const updatereadmessage = async (currentcUser, sendTo) => {
 
 export const ReciveMessage = async (currentcUser, sendTo, setmsg, bucket) => {
   try {
-    console.log(currentcUser.email, sendTo, bucket);
+    // console.log(currentcUser.email, sendTo, bucket);
     const docRef = doc(db, "Messages", currentcUser.email);
     const furtherdocRef = collection(docRef, bucket);
 

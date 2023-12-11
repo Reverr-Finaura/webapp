@@ -34,11 +34,6 @@ function FeaturedMentors({ isLoggedIn, openModal }) {
           setMentorArray((prev) => {
             return [...prev, doc.data()];
           });
-
-          // var {email} =doc._document.data.value.mapValue.fields;
-          // console.log(email.stringValue);
-          // doc.data().id=email;
-          // console.log(doc.data());
         }
       });
     }
@@ -100,7 +95,7 @@ function FeaturedMentors({ isLoggedIn, openModal }) {
           .map((mentor, index) => (
             <div className={styles.mentorCard} key={index}>
               <div className={styles.mentor}>
-                <img src={mentor?.image} alt="Profile" />
+                <img src={mentor?.image} alt='Profile' />
                 <div>
                   <text style={{ fontSize: 14, color: "#ffffff" }}>
                     {mentor?.name}
@@ -148,7 +143,7 @@ function FeaturedMentors({ isLoggedIn, openModal }) {
               }
             }}
           >
-            <img src={card.image} alt="img" />
+            <img src={card.image} alt='img' />
             <div>
               <p
                 style={{ fontSize: 12, color: "#ffffff", textAlign: "center" }}

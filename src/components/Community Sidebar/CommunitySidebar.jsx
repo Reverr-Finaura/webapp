@@ -27,49 +27,49 @@ const CommunitySidebar = () => {
 
   return (
     <>
-      <section id="sidebar-final">
+      <section id='sidebar-final'>
         {/* <img className='sidebar-final-brand-logo' src="./images/Frame 6266720.png" alt="brand-logo" /> */}
-        <NavLink style={{ textDecoration: "none" }} to="/dashboard">
-          <div className="sidebar-final-icon-name-cont">
+        <NavLink style={{ textDecoration: "none" }} to='/dashboard'>
+          <div className='sidebar-final-icon-name-cont'>
             <img
-              className="sidebar-final-icon"
+              className='sidebar-final-icon'
               src={dashboardIcon}
-              alt="icon"
+              alt='icon'
             />
-            <p className="sidebar-final-icon-name">Dashboard</p>
+            <p className='sidebar-final-icon-name'>Dashboard</p>
           </div>
         </NavLink>
-        <NavLink style={{ textDecoration: "none" }} to="/knowledge">
-          <div className="sidebar-final-icon-name-cont">
+        <NavLink style={{ textDecoration: "none" }} to='/knowledge'>
+          <div className='sidebar-final-icon-name-cont'>
             <img
-              className="sidebar-final-icon"
+              className='sidebar-final-icon'
               src={knowledgeIcon}
-              alt="icon"
+              alt='icon'
             />
-            <p className="sidebar-final-icon-name">Knowledge</p>
+            <p className='sidebar-final-icon-name'>Knowledge</p>
           </div>
         </NavLink>
         {/* href="https://reverrapp.com/fundingform" target="_blank" */}
-        <NavLink style={{ textDecoration: "none" }} to="/funding-page">
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={moneyIcon} alt="icon" />
-            <p className="sidebar-final-icon-name">Funding</p>
+        <NavLink style={{ textDecoration: "none" }} to='/funding-page'>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={moneyIcon} alt='icon' />
+            <p className='sidebar-final-icon-name'>Funding</p>
           </div>
         </NavLink>
-        <NavLink style={{ textDecoration: "none" }} to="/mentors">
-          <div className="sidebar-final-icon-name-cont">
-            <img className="sidebar-final-icon" src={mentorIcon} alt="icon" />
-            <p className="sidebar-final-icon-name">Mentorship</p>
+        <NavLink style={{ textDecoration: "none" }} to='/mentors'>
+          <div className='sidebar-final-icon-name-cont'>
+            <img className='sidebar-final-icon' src={mentorIcon} alt='icon' />
+            <p className='sidebar-final-icon-name'>Mentorship</p>
           </div>
         </NavLink>
-        <NavLink style={{ textDecoration: "none" }} to="/community">
-          <div className="sidebar-final-icon-name-cont">
+        <NavLink style={{ textDecoration: "none" }} to='/community'>
+          <div className='sidebar-final-icon-name-cont'>
             <img
-              className="sidebar-final-icon"
+              className='sidebar-final-icon'
               src={communityIcon}
-              alt="icon"
+              alt='icon'
             />
-            <p className="sidebar-final-icon-name">Community</p>
+            <p className='sidebar-final-icon-name'>Community</p>
           </div>
         </NavLink>
 
@@ -97,7 +97,7 @@ const CommunitySidebar = () => {
 
         {/* <div onClick={user ? () => signOut(auth).then(() => {dispatch(logout());dispatch(remove());})
                     .then(() => {
-                      toast.success("Sucessfully logged out");
+                      toast.success("Successfully logged out");
                       navigate("/");
                     })
               : () => navigate("/login")
@@ -117,14 +117,14 @@ const CommunitySidebar = () => {
                       dispatch(removeUserFundingDoc());
                     })
                     .then(() => {
-                      toast.success("Sucessfully logged out");
+                      toast.success("Successfully logged out");
                       navigate("/");
                     })
               : () => navigate("/login")
           }
-          className="sidebar-final-logout-btn"
+          className='sidebar-final-logout-btn'
         >
-          <img className="sidebar-final-icon-logout" src={logOut} alt="icon" />
+          <img className='sidebar-final-icon-logout' src={logOut} alt='icon' />
           Log Out
         </button>
       </section>

@@ -26,10 +26,7 @@ function LoginWithOtpFirst() {
   const [showCodePicker, setShowCodePicker] = useState(false);
   const [metaData, setMetaData] = useState([]);
   console.log("tempotp", tempOtp);
-  // const [password, setPass] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [newOtp, setNewOtp] = useState("");
-  // const theme = useSelector((state) => state.themeColor);
+  const [whatisUsed, setWhatIsUsed] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,26 +49,21 @@ function LoginWithOtpFirst() {
     };
   }, [minutes, seconds]);
 
-  //CHECK FOR META DATA
+  function generate(n) {
+    var add = 1,
+      max = 12 - add;
+    if (n > max) {
+      return generate(max) + generate(n - max);
+    }
+    max = Math.pow(10, n + add);
+    var min = max / 10;
+    var number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return ("" + number).substring(add);
+  }
+
   useEffect(() => {
-    // async function fetchUserDocFromFirebase() {
-    //   const userDataRef = collection(db, "meta");
-    //   const q = query(userDataRef);
-    //   const querySnapshot = await getDocs(q);
-
-    //   querySnapshot.forEach((doc) => {
-    //     setMetaData(doc.data().emailPhone);
-    //   });
-    // }
-    // fetchUserDocFromFirebase();
     async function fetchUserDocFromFirebase() {
-      // const userDataRef = collection(db, "meta");
-      // const q = query(userDataRef);
-      // const querySnapshot = await getDocs(q);
-
-      // querySnapshot.forEach((doc) => {
-      //   setMetaData(doc.data().emailPhone);
-      // });
       let nameDoc = "emailPhone";
       const collectionRef = collection(db, "meta");
       const docRef = doc(collectionRef, nameDoc);
@@ -88,17 +80,19 @@ function LoginWithOtpFirst() {
     e.preventDefault();
 
     if (/^\d+$/.test(email)) {
+      setWhatIsUsed("Phone");
       sendOTPByPhone();
       return;
     }
+    setWhatIsUsed("Email Id");
     setLoading(true);
     let tempDocData = {};
     const userDataRef = collection(db, "Users");
     const q = query(userDataRef);
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-      if (doc === email) {
+    querySnapshot.docs.forEach((doc) => {
+      if (doc.data().email === email) {
         tempDocData = { name: doc.data().name, password: doc.data().password };
         setTempUserData({
           name: doc.data().name,
@@ -111,18 +105,6 @@ function LoginWithOtpFirst() {
       toast.error("Email does not exist in database");
       setLoading(false);
       return;
-    }
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
     }
     const otp = generate(6);
     setTempOtp(otp);
@@ -190,18 +172,6 @@ function LoginWithOtpFirst() {
       setLoading(false);
       return;
     }
-    function generate(n) {
-      var add = 1,
-        max = 12 - add;
-      if (n > max) {
-        return generate(max) + generate(n - max);
-      }
-      max = Math.pow(10, n + add);
-      var min = max / 10;
-      var number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      return ("" + number).substring(add);
-    }
     const otp = generate(6);
     setTempOtp(otp);
     try {
@@ -245,9 +215,11 @@ function LoginWithOtpFirst() {
     <div>
       {tempOtp !== null ? (
         <LoginWithOtpSecond
+          setTempOtp={setTempOtp}
           propOtp={tempOtp}
           tempUserData={tempUserData}
           email={email}
+          whatisUsed={whatisUsed}
         />
       ) : (
         <>
@@ -267,31 +239,31 @@ function LoginWithOtpFirst() {
             <div className={styles.leftComponent}>
               <p
                 className={styles.hiddenOnMobile}
-                style={{ fontSize: 35, color: "#ffffff", marginBlock: 20 }}
+                style={{ fontSize: 36, color: "#ffffff", marginBlock: 20 }}
               >
                 Enter Email or Phone
               </p>
               <p
                 style={{
-                  fontSize: 12,
+                  fontSize: 15,
                   color: "#ffffff",
                   fontFamily: "Reem-Kufi",
                 }}
               >
                 Enter the email address or phone number associated with your
-                account
+                account and we’ll send you an OTP to login.
               </p>
-              <p
+              {/* <p
                 style={{
-                  fontSize: 12,
+                  fontSize: 15,
                   color: "#ffffff",
                   fontFamily: "Reem-Kufi",
                 }}
               >
                 and we’ll send you an OTP to login.
-              </p>
+              </p> */}
               <div className={styles.textInput}>
-                <p style={{ fontSize: 10, color: "#ffffff" }}>Email or Phone</p>
+                <p style={{ fontSize: 12, color: "#ffffff" }}>Email or Phone</p>
                 <input
                   type='email'
                   placeholder='type...'

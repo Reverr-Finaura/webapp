@@ -29,7 +29,7 @@ import CountryCodePicker from "../../Utils/Country Code Picker/CountryCodePicker
 import useQuery from "../../Utils/useQuery";
 import linkedinLogin from "../../images/linkedinImage.webp";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { setUserSpace } from "../../features/userSlice";
+import { login, setUserData, setUserSpace } from "../../features/userSlice";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import rightPic from "../../images/signup-img.webp";
 import { setName, setEmail } from "../../features/onboardingSlice";
@@ -99,7 +99,7 @@ function SignupAuthUpdated() {
       }
     } catch (error) {
       toast.dismiss();
-      console.log("err", error);
+      // console.log("err", error);
       toast.error(error.response.data.message);
       setIsSignUpUsingLinkedIn(false);
     }
@@ -158,59 +158,111 @@ function SignupAuthUpdated() {
     navigate("/onboardingGeneralInfoScreen");
   };
 
-  const signUpWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((userCredential) => {
-        dispatch(
-          create({
-            email: auth.currentUser.email,
-            uid: auth.currentUser.uid,
-            displayName: auth.currentUser.displayName,
-            profilePic: auth.currentUser.photoURL,
-            userType: userType,
-            loginType: "google",
-          })
-        );
-        dispatch(setEmail(auth.currentUser.email));
-        dispatch(setName(auth.currentUser.displayName));
-      })
-      .then(async () => {
-        const onboardingDataSoFar = {
-          ...onboardingData,
-          name: auth.currentUser.displayName,
-          email: auth.currentUser.email,
-        };
+  // const signUpWithGoogle = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then((userCredential) => {
+  //       dispatch(
+  //         create({
+  //           email: auth.currentUser.email,
+  //           uid: auth.currentUser.uid,
+  //           displayName: auth.currentUser.displayName,
+  //           profilePic: auth.currentUser.photoURL,
+  //           userType: userType,
+  //           loginType: "google",
+  //         })
+  //       );
+  //       dispatch(setEmail(auth.currentUser.email));
+  //       dispatch(setName(auth.currentUser.displayName));
+  //     })
+  //     .then(async () => {
+  //       const onboardingDataSoFar = {
+  //         ...onboardingData,
+  //         name: auth.currentUser.displayName,
+  //         email: auth.currentUser.email,
+  //       };
 
+  //       const docRef = doc(db, "Users", auth.currentUser.email);
+  //       // try {
+  //       //   // Perform a single update with all the fields to be updated
+  //       //   await setDoc(docRef, onboardingDataSoFar, { merge: true });
+  //       //   console.log("Document successfully written!");
+  //       //   navigate("/onboarding-first");
+  //       // } catch (err) {
+  //       //   console.error(err);
+  //       //   throw err; // Rethrow the error to be caught in the calling function
+  //       // }
+
+  //       try {
+  //         const docSnap = await getDoc(docRef);
+  //         if (docSnap.exists()) {
+  //           console.log("docSnap  exist");
+  //           navigate("/community");
+  //         } else {
+  //           await setDoc(docRef, onboardingDataSoFar, { merge: true });
+  //           console.log("User document does not exist.");
+  //           navigate("/onboarding-first");
+  //         }
+  //       } catch (error) {
+  //         console.log(error.message);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // };
+
+  const signUpWithGoogle = () => {
+    // console.log("signInWithGoogle");
+    signInWithPopup(auth, provider)
+      .then(async () => {
         const docRef = doc(db, "Users", auth.currentUser.email);
         try {
-          // Perform a single update with all the fields to be updated
-          await setDoc(docRef, onboardingDataSoFar, { merge: true });
-          console.log("Document successfully written!");
-          navigate("/onboarding-first");
-        } catch (err) {
-          console.error(err);
-          throw err; // Rethrow the error to be caught in the calling function
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            // console.log("docSnap exists");
+            dispatch(setUserData(docSnap.data()));
+            dispatch(
+              login({
+                email: auth.currentUser.email,
+                uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                profilePic: auth.currentUser.photoURL,
+              })
+            );
+            // console.log(auth.currentUser.email);
+            navigate("/community");
+          } else {
+            // console.log("User document does not exist.");
+            dispatch(setUserData(docSnap.data()));
+            dispatch(
+              create({
+                email: auth.currentUser.email,
+                uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                profilePic: auth.currentUser.photoURL,
+                userType: userType,
+                loginType: "google",
+              })
+            );
+            dispatch(setEmail(auth.currentUser.email));
+            dispatch(setName(auth.currentUser.displayName));
+            const onboardingDataSoFar = {
+              ...onboardingData,
+              name: auth.currentUser.displayName,
+              email: auth.currentUser.email,
+            };
+            await setDoc(docRef, onboardingDataSoFar, { merge: true });
+            navigate("/onboarding-first");
+          }
+        } catch (error) {
+          console.log("Error fetching user data:", error.message);
         }
-
-        // try {
-        //   const docSnap = await getDoc(docRef);
-
-        //   if (docSnap.exists()) {
-        //     console.log("docSnap  exist");
-        //     navigate("/dashboard");
-        //   } else {
-        //     console.log("User document does not exist.");
-        //     navigate("/onboardingGeneralInfoScreen");
-        //   }
-        // } catch (error) {
-        //   console.log(error.message);
-        // }
       })
       .catch((error) => {
-        alert(error);
+        console.error("Error signing in with Google:", error.message);
       });
   };
-
   const signUpEmail = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -297,14 +349,14 @@ function SignupAuthUpdated() {
             message: `Your Reverr Signup OTP is ${otp}`,
           }
         );
-        console.log(mobileResponse);
+        // console.log(mobileResponse);
         mobileSuccess = mobileResponse.status === 200;
       } catch (error) {
         console.log(error.message);
         toast.error(error.text);
         setLoading(false);
       }
-      console.log(emailSuccess, mobileSuccess);
+      // console.log(emailSuccess, mobileSuccess);
 
       if (emailSuccess && mobileSuccess) {
         toast.success("An OTP have been sent to your email and mobile number");

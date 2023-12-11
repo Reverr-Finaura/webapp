@@ -38,7 +38,7 @@ function Sidebar() {
       onMouseOver={() => setIsHoveringSidebar(true)}
       onMouseOut={() => setIsHoveringSidebar(false)}
     >
-      <NavLink className={styles.navlink} to="/dashboard">
+      <NavLink className={styles.navlink} to='/dashboard'>
         <div className={styles.sidebarOption}>
           <img
             src={
@@ -46,7 +46,7 @@ function Sidebar() {
                 ? "./images/dashboard-selected.svg"
                 : "./images/dashboard.svg"
             }
-            alt=""
+            alt=''
           />
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>
             Dashboard
@@ -66,7 +66,7 @@ function Sidebar() {
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>Tools</p>
         </div>
       </NavLink> */}
-      <NavLink className={styles.navlink} to="/knowledge">
+      <NavLink className={styles.navlink} to='/knowledge'>
         <div className={styles.sidebarOption}>
           <img
             src={
@@ -74,7 +74,7 @@ function Sidebar() {
                 ? "./images/knowledge-selected.svg"
                 : "./images/brain.svg"
             }
-            alt=""
+            alt=''
           />
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>
             Knowledge
@@ -83,8 +83,8 @@ function Sidebar() {
       </NavLink>
       <a
         className={styles.navlink}
-        href="https://reverrapp.com/fundingform"
-        target="_blank"
+        href='https://reverrapp.com/fundingform'
+        target='_blank'
       >
         <div className={styles.sidebarOption}>
           <img
@@ -93,7 +93,7 @@ function Sidebar() {
                 ? "./images/funding-selected.svg"
                 : "./images/wallet.svg"
             }
-            alt=""
+            alt=''
           />
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>
             Funding
@@ -113,7 +113,7 @@ function Sidebar() {
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>Patch</p>
         </div>
       </NavLink> */}
-      <NavLink className={styles.navlink} to="/mentors">
+      <NavLink className={styles.navlink} to='/mentors'>
         <div className={styles.sidebarOption}>
           <img
             src={
@@ -124,14 +124,14 @@ function Sidebar() {
                 ? "./images/book-selected.svg"
                 : "./images/bookopen.svg"
             }
-            alt=""
+            alt=''
           />
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>
             Get Mentored
           </p>
         </div>
       </NavLink>
-      <NavLink className={styles.navlink} to="/community">
+      <NavLink className={styles.navlink} to='/community'>
         <div className={styles.sidebarOption}>
           <img
             src={
@@ -139,7 +139,7 @@ function Sidebar() {
                 ? "./images/community-selected.svg"
                 : "./images/handshake.svg"
             }
-            alt=""
+            alt=''
           />
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>
             Community
@@ -158,13 +158,13 @@ function Sidebar() {
                       dispatch(remove());
                     })
                     .then(() => {
-                      toast.success("Sucessfully logged out");
+                      toast.success("Successfully logged out");
                       navigate("/");
                     })
               : () => navigate("/login")
           }
         >
-          <img src="./images/logout.png" alt="" style={{ cursor: "pointer" }} />
+          <img src='./images/logout.png' alt='' style={{ cursor: "pointer" }} />
           <p style={{ display: isHoveringSidebar ? "block" : "none" }}>
             Log out
           </p>

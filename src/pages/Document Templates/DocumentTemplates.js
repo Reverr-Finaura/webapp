@@ -38,7 +38,6 @@ const DocumentTemplates = () => {
   useEffect(() => {
     getDocumentTemplate();
   }, []);
-  // console.log(documentTemplate);
 
   const DummyDocument = [
     "Fundraising",

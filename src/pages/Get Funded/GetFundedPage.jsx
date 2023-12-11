@@ -162,8 +162,8 @@ const GetFundedPage = () => {
         "dVExxiI8hYMCyc0sY"
       );
 
-      console.log("SUCCESS!", result.status, result.text);
-      toast("Sucessfully Applied");
+      // console.log("SUCCESS!", result.status, result.text);
+      toast("Successfully Applied");
       setTimeout(() => {
         updateUserFirebaseDatabase();
       }, 1000);
@@ -218,7 +218,7 @@ const GetFundedPage = () => {
   return (
     <>
       <NavBarFinalDarkMode />
-      <section id="getFundingPage">
+      <section id='getFundingPage'>
         {/* <img
           className="getFundingPageOuterIcon1"
           src="/images/fundingIcon2.png"
@@ -232,87 +232,87 @@ const GetFundedPage = () => {
         {/* <h1 className="getFundedMainTitle" style={{color:"white"}}>
           Apply For Funding Now{" "}
         </h1> */}
-        <div className="getFundingPageOuter">
-          <div className="header">
-            <div onClick={() => navigate(-1)} className="back">
-            <img src="/images/profileArrowLeft.svg" alt="back" />
-            <p>Back</p>
+        <div className='getFundingPageOuter'>
+          <div className='header'>
+            <div onClick={() => navigate(-1)} className='back'>
+              <img src='/images/profileArrowLeft.svg' alt='back' />
+              <p>Back</p>
             </div>
-          <h1 className="getFundingPageTitle">
-            Empower Your <span>Aspirations</span>
-          </h1>
-          <h1 className="getFundingPageSubTitle">
-            Apply for <span>funding</span> and make your vision a reality!{" "}
-          </h1>
+            <h1 className='getFundingPageTitle'>
+              Empower Your <span>Aspirations</span>
+            </h1>
+            <h1 className='getFundingPageSubTitle'>
+              Apply for <span>funding</span> and make your vision a reality!{" "}
+            </h1>
           </div>
           <div>
-            <div className="getFundingPageForm">
+            <div className='getFundingPageForm'>
               <Input
                 onChange={handleGetFundedInputChange}
-                type="text"
-                name="Name"
+                type='text'
+                name='Name'
                 label={"Your Name"}
-                placeholder="Enter here"
+                placeholder='Enter here'
                 value={getFundedInput.Name}
               />
 
-              <div className="inputWraper">
+              <div className='inputWraper'>
                 <Input
                   onChange={handleGetFundedInputChange}
-                  type="text"
-                  name="Email"
-                  label="Email Address"
-                  placeholder="xyz@gmail.com"
+                  type='text'
+                  name='Email'
+                  label='Email Address'
+                  placeholder='xyz@gmail.com'
                   value={getFundedInput.Email}
                 />
 
                 <Input
                   onChange={handleGetFundedInputChange}
-                  type="text"
-                  name="Phone"
-                  label="Contact No"
-                  placeholder="+91 -"
+                  type='text'
+                  name='Phone'
+                  label='Contact No'
+                  placeholder='+91 -'
                   value={getFundedInput.Phone}
                 />
               </div>
               {/* <div className="input_flex"> */}
-              <div className="inputWraper">
+              <div className='inputWraper'>
                 <Input
                   onChange={handleGetFundedInputChange}
-                  type="text"
-                  name="StartUpName"
-                  label="Start-Up Name"
-                  placeholder="Enter here"
+                  type='text'
+                  name='StartUpName'
+                  label='Start-Up Name'
+                  placeholder='Enter here'
                   value={getFundedInput.StartUpName}
                 />
 
                 <Input
                   onChange={handleGetFundedInputChange}
-                  type="text"
-                  name="WebsiteLink"
-                  label="Website Link"
-                  placeholder="https://samplelink.com"
+                  type='text'
+                  name='WebsiteLink'
+                  label='Website Link'
+                  placeholder='https://samplelink.com'
                   value={getFundedInput.WebsiteLink}
                 />
               </div>
               {/* </div> */}
 
-              <label className="uploadPitchLabel">Pitch Deck</label>
-              <div className="uploadPitchDeckContainer">
+              <label className='uploadPitchLabel'>Pitch Deck</label>
+              <div className='uploadPitchDeckContainer'>
                 <div
-                  className="form-file-upload"
+                  className='form-file-upload'
                   onDragEnter={handleDrag}
                   onSubmit={(e) => e.preventDefault()}
                 >
                   <input
                     onChange={(e) => setPitchDeckFile(e.target.files[0])}
                     ref={chooseFileRef}
-                    type="file"
+                    type='file'
                     hidden
-                    id="pitchdeckInputUpload"
+                    id='pitchdeckInputUpload'
                   />
                   <label
-                    htmlFor="pitchdeckInputUpload"
+                    htmlFor='pitchdeckInputUpload'
                     className={`upload-label-main ${
                       dragActive ? "drag-active" : ""
                     }`}
@@ -325,7 +325,7 @@ const GetFundedPage = () => {
                   </label>
                   {dragActive && (
                     <div
-                      id="drag-file-element"
+                      id='drag-file-element'
                       onDragEnter={handleDrag}
                       onDragLeave={handleDrag}
                       onDragOver={handleDrag}
@@ -334,20 +334,20 @@ const GetFundedPage = () => {
                   )}
                 </div>
               </div>
-              <div className="btn_flex_div">
-              <button
-                onClick={applyForGetFunded}
-                className="getFundedPageApplyButton"
-              >
-                submit
-              </button>
-              {/* <button
+              <div className='btn_flex_div'>
+                <button
+                  onClick={applyForGetFunded}
+                  className='getFundedPageApplyButton'
+                >
+                  submit
+                </button>
+                {/* <button
                 onClick={() => navigate("/start-up")}
                 className="getFundingPage_CheckYourScoreCont_btn"
               >
                 Check Your Score
               </button> */}
-            </div>
+              </div>
             </div>
           </div>
         </div>
