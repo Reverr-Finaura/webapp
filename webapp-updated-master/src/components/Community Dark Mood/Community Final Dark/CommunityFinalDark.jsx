@@ -355,8 +355,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     // Get the selected video file from the input element
     const file = event.target.files[0];
     setSelectedVideo(file);
-    console.log(file);
-    // console.log("this is the selected video ", file);
     setImageModalStatus(true);
     if (file) {
       setTempVideoURL(URL.createObjectURL(file));
@@ -367,7 +365,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   function onImageChange(e) {
     setImageUpload(e.target.files[0]);
     const fileURL = e.target.files[0];
-    console.log(fileURL);
     setImageModalStatus(true);
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
@@ -381,11 +378,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     if (checkFileType.startsWith("image/")) {
       setImageUpload(e.target.files[0]);
       setTempImageURL(URL.createObjectURL(fileURL));
-      setTempVideoURL(null);
+      setSelectedVideo(null);
     } else if (checkFileType.startsWith("video/")) {
       setSelectedVideo(fileURL);
       setTempVideoURL(URL.createObjectURL(fileURL));
-      setTempImageURL(null);
+      setImageUpload(null);
     }
   };
   // UPLOAD IMAGE TO FIREBASE
