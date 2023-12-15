@@ -6,19 +6,14 @@ import styles from "./UserEditProfileTesting.module.css";
 import NavBarFinalDarkMode from "../../components/Navbar Dark Mode/NavBarFinalDarkMode";
 import { setUserFundingDoc } from "../../features/userFundingDocSlice";
 import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import {
-  db,
-  getUserDocByRef,
-  auth,
-  storage,
-  getUserFromDatabase,
-} from "../../firebase";
+import { db, storage, getUserFromDatabase } from "../../firebase";
 import { setUserDoc } from "../../features/userDocSlice";
 import DefaultDP from "../../images/Defaultdp.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const UserEditProfileTesting = () => {
   const navigate = useNavigate();
@@ -29,29 +24,7 @@ const UserEditProfileTesting = () => {
   const [userDocId, setUserDocId] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [reasonList, setReasonList] = useState([]);
-
   const connectVia = ["Video Call", "Phone Call", "At Coffee"];
-
-  // useEffect(() => {
-  //   async function fetchUserDocFromFirebase() {
-  //     const userDataRef = collection(db, "Users");
-  //     const q = query(userDataRef);
-  //     const querySnapshot = await getDocs(q);
-
-  //     querySnapshot.forEach((doc) => {
-  //       setUserDocId((prev) => {
-  //         return [...prev, doc.id];
-  //       });
-  //       if (doc.id === user?.user?.email) {
-  //         dispatch(setUserDoc(doc.data()));
-  //       }
-  //     });
-  //   }
-  //   fetchUserDocFromFirebase();
-  // }, [user]);
-
-  const [editUserDoc, setEditUserDoc] = useState({});
-
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -369,8 +342,7 @@ const UserEditProfileTesting = () => {
       };
     });
   };
-
-  // ---------------------------------------------
+  const [showPassword, setShowPassword] = useState([false, false, false]);
 
   return (
     <div className={styles.editWrapper}>
@@ -501,35 +473,59 @@ const UserEditProfileTesting = () => {
                 <div className='form-row'>
                   <label htmlFor='currentPassword'>Current Password</label>
                   <input
-                    type='password'
+                    type={showPassword[0] ? "text" : "password"}
                     id='currentPassword'
                     value={currentPassword}
                     placeholder='Enter your current password'
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
                   />
+                  <span
+                    className='toggleButton'
+                    onClick={() =>
+                      setShowPassword((prev) => [!prev[0], ...prev.slice(1)])
+                    }
+                  >
+                    {showPassword[0] ? <FaEyeSlash /> : <FaEye />}
+                  </span>
                 </div>
                 <div className='form-row'>
                   <label htmlFor='newPassword'>New Password</label>
                   <input
-                    type='password'
+                    type={showPassword[1] ? "text" : "password"}
                     id='newPassword'
                     value={newPassword}
                     placeholder='Enter your new password'
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
                   />
+                  <span
+                    className='toggleButton'
+                    onClick={() =>
+                      setShowPassword((prev) => [prev[0], !prev[1], prev[2]])
+                    }
+                  >
+                    {showPassword[1] ? <FaEyeSlash /> : <FaEye />}
+                  </span>
                 </div>
                 <div className='form-row'>
                   <label htmlFor='confirmPassword'>Confirm Password</label>
                   <input
-                    type='password'
+                    type={showPassword[2] ? "text" : "password"}
                     id='confirmPassword'
                     placeholder='Confirm your new password'
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
+                  <span
+                    className='toggleButton'
+                    onClick={() =>
+                      setShowPassword((prev) => [...prev.slice(0, 2), !prev[2]])
+                    }
+                  >
+                    {showPassword[2] ? <FaEyeSlash /> : <FaEye />}
+                  </span>
                 </div>
               </form>
               <div className={styles.passwordButton}>

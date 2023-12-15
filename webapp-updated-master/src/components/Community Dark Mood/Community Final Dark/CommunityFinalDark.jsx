@@ -37,7 +37,6 @@ import darkSparkle from "../../../images/black-sparkle.webp";
 import DiscoverPerfectTools from "../../DynamicComponents/DiscoverPerfectTools/DiscoverPerfectTools";
 import FeaturedSuggestions from "../../DynamicComponents/FeaturedSuggestions/FeaturedSuggestions";
 import FeaturedMentors from "../../DynamicComponents/FeaturedMentors/FeaturedMentors";
-import { setUserDoc } from "../../../features/userDocSlice";
 
 const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const dispatch = useDispatch();
@@ -46,11 +45,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [postsData, setPostsData] = useState([]);
-  const [imageUpload, setImageUpload] = useState(null);
-  const [tempImageURL, setTempImageURL] = useState(null);
-  const [tempVideoURL, setTempVideoURL] = useState(null);
-  const chooseFileRef = useRef(null);
-  const chooseVidoFileRef = useRef(null);
   const [newPostText, setNewPostText] = useState("");
   const user = useSelector((state) => state.user);
   const userDoc = useSelector((state) => state.userDoc);
@@ -68,14 +62,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     whose: "Everything",
   });
   const [sortOptionClick, setSortOptionClick] = useState(false);
-  // const [furtherSortOptionClick, setfurtherSortOptionClick] = useState(false);
-
   const [postIdExist, setPostIdExist] = useState("");
   const [newScoll, setNewScroll] = useState(0);
   const [newsData, setNewsData] = useState();
   const [singleNews, setSingleNews] = useState(null);
   const [blogArray, setBlogArray] = useState([]);
-  // const [seeAllNewsIsClicked, setSeeAllNewsIsClicked] = useState(false);
   const [mySpaceStatus, setMySpaceStatus] = useState(true);
   const [whatHotStatus, setWhatHotStatus] = useState(false);
   const [spaceFilteredPost, setSpaceFilteredPost] = useState([]);
@@ -83,55 +74,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   const [postSpaceData, setPostSpaceData] = useState([]);
   const [selectedCommunitySpace, setSelectedCommunitySpace] = useState([]);
   const [postUploadStatus, setPostUploadStatus] = useState(false);
-  // const [isPlaying, setIsPlaying] = useState(false);
   const [isPostLoading, setIsPostLoading] = useState(true);
-  // const [postsDataWithUserDoc, setPostsDataWithUserDoc] = useState([]);
   const [imageModalStatus, setImageModalStatus] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchUserInformation = async () => {
-  //     const updatedPostsData = await Promise.all(
-  //       postsData.map(async (item) => {
-  //         const userData = await getUserDocByRef(item.postedby);
-  //         return { ...item, postedby: userData }; // Create a new object with updated user data
-  //       })
-  //     );
-  //       setPostsDataWithUserDoc(parsedObject);
-  //   };
-
-  //   fetchUserInformation();
-  // }, [postsData]);
-
-  // useEffect(() => {
-  //   const fetchUserInformation = async () => {
-  //     try {
-  //       const updatedPostsData = await Promise.all(
-  //         postsData.map(async (item) => {
-  //           console.log(item.postedby);
-  //           let userData;
-  //           if (item.postedby._path.segments[1]) {
-  //             userData = await getUserFromDatabase(item.postedby);
-  //             console.log(userData);
-  //             delete userData.password;
-  //           } else if (item.postedby) {
-  //             userData = await getUserDocByRef(item.postedby);
-  //             delete userData.password;
-  //           }
-  //           return { ...item, postedby: userData };
-  //         })
-  //       );
-  //       const parsedObject = JSON.parse(JSON.stringify(updatedPostsData));
-  //       setPostsDataWithUserDoc(parsedObject);
-  //     } catch (error) {
-  //       console.error("Error while fetching user information:", error);
-  //     }
-  //   };
-
-  //   fetchUserInformation();
-  // }, [postsData]);
-
-  // console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
-  // console.log("this is the postsData----", postsData);
 
   useEffect(() => {
     const options = {
@@ -315,6 +259,15 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       setPageNumber(pageNumber + 1);
     }, 1000);
   };
+  const chooseFileRef = useRef(null);
+  const chooseVidoFileRef = useRef(null);
+
+  const editFileRef = useRef(null);
+  const chooseEditFileRef = () => {
+    if (editFileRef.current) {
+      chooseFileRef.current.click();
+    }
+  };
 
   const chooseFile = () => {
     if (chooseFileRef.current) {
@@ -323,7 +276,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   };
   const chooseVideoFile = () => {
     if (chooseVidoFileRef.current) {
-      // console.log(chooseVidoFileRef.current);
       chooseVidoFileRef.current.click();
     }
   };
@@ -339,19 +291,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     }
     if (chooseVidoFileRef.current) {
       chooseVidoFileRef.current.value = ""; // Reset input value
-    }
-  };
-
-  const [selectedVideo, setSelectedVideo] = useState(null);
-
-  // on video change
-  const onVideoChange = (event) => {
-    // Get the selected video file from the input element
-    const file = event.target.files[0];
-    setSelectedVideo(file);
-    // console.log("this is the selected video ", file);
-    if (file) {
-      setTempVideoURL(URL.createObjectURL(file));
     }
   };
 
@@ -380,16 +319,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         storage,
         `Community/Posts/${selectedVideo.name + new Date().getTime()}`
       );
-
       try {
         const uploadTask = uploadBytesResumable(videoRef, selectedVideo);
-
         await new Promise((resolve, reject) => {
           uploadTask.on(
             "state_changed",
-            (snapshot) => {
-              // Handle progress or any other updates if needed
-            },
+            (snapshot) => {},
             reject,
             () => {
               getDownloadURL(uploadTask.snapshot.ref)
@@ -410,17 +345,49 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     createNewPost(downloadURL);
   };
 
+  const [imageUpload, setImageUpload] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [tempImageURL, setTempImageURL] = useState(null);
+  const [tempVideoURL, setTempVideoURL] = useState(null);
+
+  // on video change
+  const onVideoChange = (event) => {
+    // Get the selected video file from the input element
+    const file = event.target.files[0];
+    setSelectedVideo(file);
+    console.log(file);
+    // console.log("this is the selected video ", file);
+    setImageModalStatus(true);
+    if (file) {
+      setTempVideoURL(URL.createObjectURL(file));
+    }
+  };
+
   //ON IMAGE CHANGE
   function onImageChange(e) {
     setImageUpload(e.target.files[0]);
     const fileURL = e.target.files[0];
-    // console.log("this is image upload", fileURL);
-    // console.log("this is image upload", URL.createObjectURL(fileURL));
+    console.log(fileURL);
     setImageModalStatus(true);
     if (fileURL) {
       setTempImageURL(URL.createObjectURL(fileURL));
     }
   }
+
+  const onEditChange = (e) => {
+    setImageModalStatus(true);
+    const fileURL = e.target.files[0];
+    const checkFileType = fileURL.type;
+    if (checkFileType.startsWith("image/")) {
+      setImageUpload(e.target.files[0]);
+      setTempImageURL(URL.createObjectURL(fileURL));
+      setTempVideoURL(null);
+    } else if (checkFileType.startsWith("video/")) {
+      setSelectedVideo(fileURL);
+      setTempVideoURL(URL.createObjectURL(fileURL));
+      setTempImageURL(null);
+    }
+  };
   // UPLOAD IMAGE TO FIREBASE
 
   const uploadImageToFireBase = async () => {
@@ -448,8 +415,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       const uploadTask = uploadBytesResumable(imageReff, imageUpload);
       try {
         await uploadBytes(imageReff, imageUpload);
-
-        // GET URL OF IMAGE UPLOADED IN FIREBASE
         await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           createNewPost(downloadURL);
         });
@@ -492,8 +457,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       const timeId = new Date().getTime().toString();
       let newPostId = [...newPostdataId];
       const newPostArray = newPostText.split("\n");
-      // console.log("newPostArray", newPostArray);
-
       if (tempImageURL) {
         await setDoc(doc(db, "Posts", timeId), {
           comments: [],
@@ -505,7 +468,8 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
           text: newPostArray,
           postSpace: postSpaceData,
         });
-      } else {
+      }
+      if (tempVideoURL) {
         await setDoc(doc(db, "Posts", timeId), {
           comments: [],
           createdAt: new Date(),
@@ -519,7 +483,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       }
 
       newPostId.push(timeId);
-
       updateUserDatabase(newPostId);
     } catch (error) {
       console.log(error.message);
@@ -554,20 +517,48 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     if (item.image !== "") {
       setTempImageURL(item.image);
     }
+    if (item.video !== "") {
+      setTempVideoURL(item.video);
+    }
   };
 
+  //EDIT POST IN DATABASE
+  const EditPostInDatabaseVideo = async (imageURLL) => {
+    const postRef = doc(db, "Posts", editPostId);
+    try {
+      await updateDoc(postRef, { video: imageURLL, text: newEditText });
+      toast("Successfully Saved");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const EditPostInDatabase = async (imageURLL) => {
+    const postRef = doc(db, "Posts", editPostId);
+    try {
+      await updateDoc(postRef, { image: imageURLL, text: newEditText });
+      toast("Successfully Saved");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   // EDIT POST CHECK
   const EditPost = async () => {
     toast("Processing Your Request");
-    // toast("Processing Your Request");
-    if (imageUpload === null && newEditText === "") {
+    if (imageUpload === null && newEditText === "" && selectedVideo === null) {
       toast("Nothing To Edit");
       return;
     }
     if (imageUpload === null) {
       EditPostInDatabase(tempImageURL);
       return;
-    } else if (imageUpload !== null) {
+    } else if (imageUpload !== null && selectedVideo === null) {
       const imageReff = ref(
         storage,
         `Community/Posts/${imageUpload.name + new Date().getTime()}`
@@ -575,32 +566,37 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
       const uploadTask = uploadBytesResumable(imageReff, imageUpload);
       try {
         await uploadBytes(imageReff, imageUpload);
-
-        // GET URL OF IMAGE UPLOADED IN FIREBASE
         await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           EditPostInDatabase(downloadURL);
         });
       } catch (error) {
         toast.error(error.message);
       }
-    }
-  };
-
-  //EDIT POST IN DATABASE
-
-  const EditPostInDatabase = async (imageURLL) => {
-    const postRef = doc(db, "Posts", editPostId);
-    // console.log("newEditText just after into database", newEditText);
-    try {
-      await updateDoc(postRef, { image: imageURLL, text: newEditText });
-
-      toast("Successfully Saved");
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } catch (error) {
-      console.error(error.message);
+    } else if (selectedVideo !== null && imageUpload === null) {
+      const videoRef = ref(
+        storage,
+        `Community/Posts/${selectedVideo.name + new Date().getTime()}`
+      );
+      try {
+        const uploadTask = uploadBytesResumable(videoRef, selectedVideo);
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {},
+            reject,
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref)
+                .then((url) => {
+                  EditPostInDatabaseVideo(url);
+                  resolve();
+                })
+                .catch(reject);
+            }
+          );
+        });
+      } catch (error) {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -707,7 +703,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
   // updating the activeIndex in the firebase
   async function updateActiveUserSpaceDatabase() {
     const userdocRef = doc(db, "Users", user?.user?.email);
-
     try {
       await updateDoc(userdocRef, { activeIndex: activeIndex });
       fechingActiveIndexFirebase();
@@ -723,7 +718,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     setSelectedCommunitySpace(userSpaceArr);
     setIsOpen(false);
   }
-
   function openTheSpaceModal() {
     fechingActiveIndexFirebase();
     if (isOpen) {
@@ -771,23 +765,55 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
 
   return (
     <>
-      {imageModalStatus && tempImageURL && (
+      {imageModalStatus && (
         <div className={style.overlay}>
           <div className={style.imageModal}>
-            <div className={style.communityPostImageCont}>
-              <img
-                className={style.communityPostImage}
-                src={tempImageURL}
-                alt='postFile'
-              />
-              <div className={style.editDeleteBtn}>
-                <FiEdit onClick={chooseFile} className={style.editBtn} />
-                <RxCrossCircled
-                  onClick={RemoveFile}
-                  className={style.delete_Btn}
+            {tempImageURL && (
+              <div className={style.communityPostImageCont}>
+                <img
+                  className={style.communityPostImage}
+                  src={tempImageURL}
+                  alt='postFile'
                 />
+                <div className={style.editDeleteBtn}>
+                  <FiEdit onClick={chooseFile} className={style.editBtn} />
+                  <RxCrossCircled
+                    onClick={RemoveFile}
+                    className={style.delete_Btn}
+                  />
+                </div>
               </div>
-            </div>
+            )}
+            {tempVideoURL && (
+              <div className={style.communityPostImageCont}>
+                <video
+                  src={tempVideoURL}
+                  style={{
+                    width: "100% !important",
+                    height: "100% !important",
+                    minWidth: "400px",
+                  }}
+                  id='my-video'
+                  alt='postVideo'
+                  muted='muted'
+                  autoplay='autoPlay'
+                  className={`video-js ${style.communityPostImage}`}
+                  controls
+                  preload='auto'
+                  width='640'
+                  height='264'
+                  poster='MY_VIDEO_POSTER.jpg'
+                  data-setup='{}'
+                ></video>
+                <div className={style.editDeleteBtn}>
+                  <FiEdit onClick={chooseVideoFile} className={style.editBtn} />
+                  <RxCrossCircled
+                    onClick={RemoveFile}
+                    className={style.delete_Btn}
+                  />
+                </div>
+              </div>
+            )}
             <button
               className={style.imageModalSubmitebtn}
               onClick={() => setImageModalStatus(false)}
@@ -822,6 +848,7 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
         </span>
         Change your Space
       </button>
+      {/* change space  */}
       {isOpen && (
         <div className={style.spaceSection}>
           <div className={style.spaceModal}>
@@ -927,6 +954,14 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
             hidden
             className={style.postImageUpload}
           />
+          <input
+            onChange={onEditChange}
+            ref={editFileRef}
+            type='file'
+            accept='image/*,video/*'
+            hidden
+            className={style.postImageUpload}
+          />
 
           {/* NAVBAR POST BUTTON CLICK SECTION */}
           {navbarPostButtonClick ? (
@@ -1022,7 +1057,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   <section className={style.uploadPostContainerrrrSection}>
                     <div className={style.EdituploadPostContainerrrr}>
                       <img
-                        // className='community-upload-cont-userImage'
                         className={style.communityUploadContUserImage}
                         src={userDoc?.image ? userDoc.image : defaultImg}
                         alt='userImage'
@@ -1037,10 +1071,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                                 const newValue = e.target.value;
                                 const newLinesArray = newValue.split("\n");
                                 setNewEditText(newLinesArray);
-                                // console.log(
-                                //   "newEditText on textArea",
-                                //   newEditText
-                                // );
                               }
                             }}
                             name='postText'
@@ -1066,7 +1096,41 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                                   alt='postFile'
                                 />
                                 <button
-                                  onClick={chooseFile}
+                                  onClick={chooseEditFileRef}
+                                  className={style.changePhotoIconButton}
+                                >
+                                  Change
+                                </button>
+                              </div>
+                            </div>
+                          ) : null}
+
+                          {tempVideoURL ? (
+                            <div className={style.editcommunityPostImagecont}>
+                              <div
+                                className={
+                                  style.editImageOverLayContainerImageContainer
+                                }
+                              >
+                                <div
+                                  className={style.editImageOverLayContainer}
+                                ></div>
+                                <video
+                                  className={`video-js ${style.editcommunityPostImage}`}
+                                  src={tempVideoURL}
+                                  id='my-video'
+                                  alt='postVideo'
+                                  muted='muted'
+                                  autoplay='autoPlay'
+                                  controls
+                                  preload='auto'
+                                  width='640'
+                                  height='264'
+                                  poster='MY_VIDEO_POSTER.jpg'
+                                  data-setup='{}'
+                                ></video>
+                                <button
+                                  onClick={chooseEditFileRef}
                                   className={style.changePhotoIconButton}
                                 >
                                   Change
@@ -1076,8 +1140,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                           ) : null}
 
                           <div className={style.addImageandUploadPostIcon}>
-                            {/* <img onClick={chooseFile} className='addImageInCommunityIcon' src="./images/add-image-icon.png" alt="addImageIcon" /> */}
-
                             <button
                               onClick={EditPost}
                               className={style.uploadPostIconButton}
@@ -1117,18 +1179,12 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     Welcome To Reverr
                   </h2>
                 )}
-
-                {/* <p className="reverrCommunitySubbHeading">
-                  The community where future entrepreneurs come to learn,
-                  execute and grow.
-                </p> */}
               </div>
             </div>
 
             <section
-              // className={style.uploadPostContainerrrrSection}
-              // ClassName={style.uploadPostContainerrrrSectionBoxShadow}
-              className={`${style.uploadPostContainerrrrSection} ${style.uploadPostContainerrrrSectionBoxShadow}`}
+              className={`${style.uploadPostContainerrrrSection}
+               ${style.uploadPostContainerrrrSectionBoxShadow}`}
             >
               <div className={style.uploadPostContainerrrr}>
                 <img
@@ -1139,7 +1195,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       : userDoc?.image
                       ? userDoc.image
                       : defaultImg
-                    // : "https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
                   }
                   alt='userImage'
                 />
@@ -1183,7 +1238,6 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         close
                       </div>
                     ) : null}
-
                     {!textAreaIsClick ? (
                       <img
                         className={style.ArrowImgAfterTextArea}
@@ -1222,30 +1276,18 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                     {tempVideoURL ? (
                       <div className={style.communityPostImageCont}>
                         <video
-                          // className={style.communityPostImage}
                           src={tempVideoURL}
-                          style={{
-                            width: "-webkit-fill-available",
-                            height: "-webkit-fill-available",
-                          }}
+                          className={`video-js ${style.communityPostImage}`}
                           id='my-video'
                           alt='postVideo'
                           muted='muted'
-                          autoplay='autoplay'
-                          className='video-js'
+                          autoplay='autoPlay'
                           controls
                           preload='auto'
                           width='640'
                           height='264'
                           poster='MY_VIDEO_POSTER.jpg'
-                          data-setup='{}'
                         ></video>
-                        {/* <button
-                          onClick={handlePlayVideo}
-                          className={style.playButton}
-                        >
-                          {isPlaying ? "Pause" : "Play"}
-                        </button> */}
                         <div className={style.editDeleteBtn}>
                           <RxCrossCircled
                             onClick={RemoveFile}
@@ -1290,24 +1332,11 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                         } else {
                           chooseVideoFile();
                           setTextAreaIsClick(true);
-
-                          // document.getElementById("videoInput").click();
-
-                          // chooseFile();
                         }
                       }}
                     >
                       <MdVideoCameraBack className={style.assest_icon} />
                       <span className={style.icon_text}>Video</span>
-
-                      {/* Hidden file input element to handle video selection */}
-                      {/* <input
-                        id="videoInput"
-                        type="file"
-                        accept="video/*"
-                        style={{ display: "none" }}
-                        onChange={handleVideoChange}
-                      /> */}
                     </div>
 
                     <select
@@ -1620,3 +1649,48 @@ CommunityFinalDark.defaultProps = {
 };
 
 export default CommunityFinalDark;
+
+// useEffect(() => {
+//   const fetchUserInformation = async () => {
+//     const updatedPostsData = await Promise.all(
+//       postsData.map(async (item) => {
+//         const userData = await getUserDocByRef(item.postedby);
+//         return { ...item, postedby: userData }; // Create a new object with updated user data
+//       })
+//     );
+//       setPostsDataWithUserDoc(parsedObject);
+//   };
+
+//   fetchUserInformation();
+// }, [postsData]);
+
+// useEffect(() => {
+//   const fetchUserInformation = async () => {
+//     try {
+//       const updatedPostsData = await Promise.all(
+//         postsData.map(async (item) => {
+//           console.log(item.postedby);
+//           let userData;
+//           if (item.postedby._path.segments[1]) {
+//             userData = await getUserFromDatabase(item.postedby);
+//             console.log(userData);
+//             delete userData.password;
+//           } else if (item.postedby) {
+//             userData = await getUserDocByRef(item.postedby);
+//             delete userData.password;
+//           }
+//           return { ...item, postedby: userData };
+//         })
+//       );
+//       const parsedObject = JSON.parse(JSON.stringify(updatedPostsData));
+//       setPostsDataWithUserDoc(parsedObject);
+//     } catch (error) {
+//       console.error("Error while fetching user information:", error);
+//     }
+//   };
+
+//   fetchUserInformation();
+// }, [postsData]);
+
+// console.log("postsDateWithUserDoc ----", postsDataWithUserDoc);
+// console.log("this is the postsData----", postsData);

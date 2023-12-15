@@ -369,38 +369,6 @@ export default function PostCardDark({
   };
 
   //GET USER DATA FROM REFERENCE LINK WHO HAS POSTED
-
-  // useEffect(() => {
-  //   if (item.postedby._path.segments) {
-  //     getUserFromDatabase(
-  //       item?.postedby?._path?.segments[item.postedby._path.segments.length - 1]
-  //     ).then((res) => {
-  //       setPostedByUserDoc((prev) => {
-  //         return {
-  //           ...prev,
-  //           ...res,
-  //           notificationList: res?.notificationList
-  //             ? [...prev?.notificationList, ...res?.notificationList]
-  //             : prev?.notificationList,
-  //         };
-  //       });
-  //     });
-  //     return;
-  //   } else {
-  //     getUserDocByRef(item?.postedby).then((res) => {
-  //       setPostedByUserDoc((prev) => {
-  //         return {
-  //           ...prev,
-  //           ...res,
-  //           notificationList: res?.notificationList
-  //             ? [...prev?.notificationList, ...res?.notificationList]
-  //             : prev?.notificationList,
-  //         };
-  //       });
-  //     });
-  //     return;
-  //   }
-  // }, [item]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -414,13 +382,19 @@ export default function PostCardDark({
         } else {
           userDoc = await getUserDocByRef(item?.postedby);
         }
-        setPostedByUserDoc((prev) => ({
-          ...prev,
+        // setPostedByUserDoc((prev) => ({
+        //   ...prev,
+        //   ...userDoc,
+        //   notificationList: userDoc?.notificationList
+        //     ? [...prev?.notificationList, ...userDoc?.notificationList]
+        //     : prev?.notificationList,
+        // }));
+        setPostedByUserDoc({
           ...userDoc,
           notificationList: userDoc?.notificationList
-            ? [...prev?.notificationList, ...userDoc?.notificationList]
-            : prev?.notificationList,
-        }));
+            ? [...userDoc?.notificationList, ...userDoc?.notificationList]
+            : userDoc?.notificationList,
+        });
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -484,17 +458,17 @@ export default function PostCardDark({
   // }, [item]);
 
   // for video play and pause
-  const handlePlayVideo = () => {
-    const videoElement = document.getElementById("videoPlayer");
-    if (videoElement) {
-      if (isPlaying) {
-        videoElement.pause();
-      } else {
-        videoElement.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+  // const handlePlayVideo = () => {
+  //   const videoElement = document.getElementById("videoPlayer");
+  //   if (videoElement) {
+  //     if (isPlaying) {
+  //       videoElement.pause();
+  //     } else {
+  //       videoElement.play();
+  //     }
+  //     setIsPlaying(!isPlaying);
+  //   }
+  // };
   // HANDLE POST SEND CLICK
 
   const handleSendPostLinkClick = (id) => {
@@ -514,13 +488,6 @@ export default function PostCardDark({
   function handleReportPost() {
     toast("Post Reported");
   }
-  // fetching the post user type
-  useEffect(() => {});
-
-  //GET TIME OF POST
-  // useEffect(() => {
-  //   setPostTime(new Date(item?.createdAt.seconds * 1000));
-  // }, [item]);
 
   return (
     <>
@@ -566,8 +533,6 @@ export default function PostCardDark({
                   if (!isLoggedIn) {
                     return openModal();
                   } else {
-                    // setPostsAuthorIsClick(true);
-                    // setPostsAuthorInfo(postedByUserDoc);
                     if (postedByUserDoc?.email === user?.user?.email) {
                       navigate("/userprofile");
                     } else if (!postedByUserDoc?.email) {

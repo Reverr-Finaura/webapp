@@ -226,21 +226,12 @@ function ForgotpasswordUpdated() {
               </p>
               <p
                 style={{
-                  fontSize: 15,
+                  fontSize: 14,
                   color: "#ffffff",
-                  fontFamily: "Reem-Kufi",
                 }}
               >
-                Enter the email address associated with your account
-              </p>
-              <p
-                style={{
-                  fontSize: 15,
-                  color: "#ffffff",
-                  fontFamily: "Reem-Kufi",
-                }}
-              >
-                and we’ll send you a link to change your password.
+                Enter the email address associated with your account and we’ll
+                send you a link to change your password.
               </p>
               <div className={styles.textInput}>
                 <p style={{ fontSize: 12, color: "#ffffff" }}>Email</p>

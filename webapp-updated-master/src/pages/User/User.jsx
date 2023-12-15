@@ -38,7 +38,7 @@ const User = () => {
 
   // console.log("currentLoggedInUser", currentLoggedInUser);
   // console.log("currentLoggedInUserDoc", currentLoggedInUserDoc);
-  console.log("otherUserDoc", otherUserDoc);
+  // console.log("otherUserDoc", otherUserDoc);
 
   // CHECK FOR USER DOC DATA
   useEffect(() => {

@@ -9,10 +9,14 @@
   display: flex;
   margin-bottom: 15px;
   align-items: center;
+  position: relative;
 }
+
 .about {
-  height: 100px; /* Adjust the height as per your requirement */
-  resize: vertical; /* Optional: Allow vertical resizing */
+  height: 100px;
+  /* Adjust the height as per your requirement */
+  resize: vertical;
+  /* Optional: Allow vertical resizing */
 }
 
 label {
@@ -25,20 +29,6 @@ label {
   font-style: normal;
   margin: 1rem 1.5rem;
 }
-
-/* input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"] {
-  background-color: var(--bg-secondary-gray, #1a1e28);
-  color: var(--text-primary-color, #ffffff);
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  flex: 4;
-  box-sizing: border-box;
-} */
 
 .form-row input[type="text"],
 .form-row input[type="email"],
@@ -54,6 +44,7 @@ input[type="date"] {
   flex: 4;
   box-sizing: border-box;
 }
+
 .about {
   background-color: var(--bg-secondary-gray, #1a1e28);
   color: var(--text-primary-color, #ffffff);
@@ -80,6 +71,7 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: var(--button-primary-hover-bg, #0069d9);
 }
+
 .form-row button {
   border-radius: 3.63638rem;
   border: 0.582px solid var(--white, #109cdc);
@@ -96,8 +88,19 @@ button[type="submit"]:hover {
   cursor: pointer;
   margin-left: 2rem;
 }
+
 .form-row img {
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 1rem;
+}
+
+.toggleButton>svg {
+  width: 20px;
+  height: 20px;
+}
+
+.toggleButton {
+  position: absolute;
+  right: 10px;
 }

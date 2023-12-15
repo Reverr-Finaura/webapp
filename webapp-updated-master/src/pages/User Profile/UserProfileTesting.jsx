@@ -126,17 +126,10 @@ const UserProfileTesting = () => {
     const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?$/;
     return urlPattern.test(url);
   }
-  // const emailToId = (email) => {
-  //   var id = "";
-  //   for (var i = 0; i < email.length; i++) {
-  //     if (email[i] === "@") break;
-  //     id += email[i];
-  //   }
-  //   return id;
-  // };
+
   return (
     <>
-      <Toaster position='bottom-left' reverseOrder={false} />
+      {/* <Toaster position='bottom-left' reverseOrder={false} /> */}
       <NavBarFinalDarkMode />
       <div className={styles.profileWrapper}>
         <div className={styles.profileContainer}>

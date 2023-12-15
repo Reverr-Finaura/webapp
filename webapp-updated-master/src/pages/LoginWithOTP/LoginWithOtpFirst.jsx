@@ -245,23 +245,13 @@ function LoginWithOtpFirst() {
               </p>
               <p
                 style={{
-                  fontSize: 15,
+                  fontSize: 14,
                   color: "#ffffff",
-                  fontFamily: "Reem-Kufi",
                 }}
               >
                 Enter the email address or phone number associated with your
                 account and we’ll send you an OTP to login.
               </p>
-              {/* <p
-                style={{
-                  fontSize: 15,
-                  color: "#ffffff",
-                  fontFamily: "Reem-Kufi",
-                }}
-              >
-                and we’ll send you an OTP to login.
-              </p> */}
               <div className={styles.textInput}>
                 <p style={{ fontSize: 12, color: "#ffffff" }}>Email or Phone</p>
                 <input
