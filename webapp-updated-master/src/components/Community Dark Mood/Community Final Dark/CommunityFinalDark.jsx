@@ -1135,6 +1135,25 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                               </div>
                             </div>
                           ) : null}
+                          {!tempImageURL && !tempVideoURL && (
+                            <div className={style.editcommunityPostImagecont}>
+                              <div
+                                className={
+                                  style.editImageOverLayContainerImageContainer
+                                }
+                              >
+                                <div
+                                  className={style.editImageOverLayContainer}
+                                ></div>
+                                <button
+                                  onClick={chooseEditFileRef}
+                                  className={style.changePhotoIconButton}
+                                >
+                                  Change
+                                </button>
+                              </div>
+                            </div>
+                          )}
 
                           <div className={style.addImageandUploadPostIcon}>
                             <button
