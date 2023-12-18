@@ -291,6 +291,13 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
     if (chooseVidoFileRef.current) {
       chooseVidoFileRef.current.value = "";
     }
+  };
+
+  const editremovefile = () => {
+    setImageUpload(null);
+    setTempImageURL(null);
+    setSelectedVideo(null);
+    setTempVideoURL(null);
     if (chooseeditFileRef.current) {
       chooseVidoFileRef.current.value = "";
     }
@@ -800,11 +807,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                   ) : (
                     <FiEdit onClick={chooseFile} className={style.editBtn} />
                   )}
-
-                  <RxCrossCircled
-                    onClick={RemoveFile}
-                    className={style.delete_Btn}
-                  />
+                  {editPostButtonClick ? (
+                    <RxCrossCircled
+                      onClick={editremovefile}
+                      className={style.delete_Btn}
+                    />
+                  ) : (
+                    <RxCrossCircled
+                      onClick={RemoveFile}
+                      className={style.delete_Btn}
+                    />
+                  )}
                 </div>
               </div>
             )}
@@ -841,10 +854,17 @@ const CommunityFinalDark = ({ isLoggedIn, openModal }) => {
                       className={style.editBtn}
                     />
                   )}
-                  <RxCrossCircled
-                    onClick={RemoveFile}
-                    className={style.delete_Btn}
-                  />
+                  {editPostButtonClick ? (
+                    <RxCrossCircled
+                      onClick={editremovefile}
+                      className={style.delete_Btn}
+                    />
+                  ) : (
+                    <RxCrossCircled
+                      onClick={RemoveFile}
+                      className={style.delete_Btn}
+                    />
+                  )}
                 </div>
               </div>
             )}

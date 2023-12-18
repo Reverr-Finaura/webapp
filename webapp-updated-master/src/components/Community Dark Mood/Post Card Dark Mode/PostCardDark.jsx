@@ -697,7 +697,6 @@ export default function PostCardDark({
                     </span>{" "}
                   </>
                 ) : (
-                  // Display the first three strings in item.text with "continue" link
                   <>
                     {item?.text.slice(0, 3).map((textItem, index) => (
                       <div key={index}>{textItem}</div>
@@ -736,7 +735,6 @@ export default function PostCardDark({
         {item?.video ? (
           <div className='postImageContainer' style={{ width: "100%" }}>
             <video
-              //  id="videoPlayer"
               id='my-video'
               style={{ aspectRatio: "7/3", width: "100%", height: "49em" }}
               src={item?.video}
@@ -751,9 +749,6 @@ export default function PostCardDark({
               poster='MY_VIDEO_POSTER.jpg'
               data-setup='{}'
             ></video>
-            {/* <button onClick={handlePlayVideo} className="playButton">
-              {isPlaying ? "Pause" : "Play"}
-            </button> */}
           </div>
         ) : null}
 
