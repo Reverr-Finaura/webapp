@@ -72,17 +72,11 @@ const Upgrade = () => {
       ) : null}
       {sessionIdTokken === null && (
         <div className={styles.upgrade_container_outer}>
-          {/* <MdArrowBackIos
-            className={styles.back_icon}
-            size={25}
-            onClick={() => navigate(-1)}
-          /> */}
           <div className={styles.upgrade_container_main}>
-            {/* <h3>Premium</h3> */}
             <h1>
               Choose your <span>Plan</span>
             </h1>
-            <p>Lorem ipsum is a dummy text used for typography</p>
+            <p>Upgrade to any plan for enchanced Reverr experience</p>
             <div className={styles.plans_card}>
               <div
                 className={styles.plan_card_1}

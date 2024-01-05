@@ -26,7 +26,6 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-// import { current } from "@reduxjs/toolkit";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBe_7JYNBINJITC1HGbaLxgg3f7yZ0aud4",
