@@ -82,7 +82,7 @@ const Upgrade = () => {
             <h1>
               Choose your <span>Plan</span>
             </h1>
-            <p>Lorem ipsum is a dummy text used for typography</p>
+            <p>Upgrade to any plan for enchanced Reverr experience</p>
             <div className={styles.plans_card}>
               <div
                 className={styles.plan_card_1}
