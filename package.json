@@ -20,7 +20,7 @@
     "cashfree-dropjs": "^1.1.4",
     "cors": "^2.8.5",
     "emoji-picker-react": "^4.4.4",
-    "express": "^4.18.1",
+    "express": "^4.19.2",
     "firebase": "^9.9.1",
     "nodemon": "^2.0.19",
     "progressbar.js": "^1.1.0",
